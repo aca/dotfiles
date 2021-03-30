@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -exuo pipefail
+
+# check arch
+uname -a | grep x86_64
+
+cd /tmp
+
+url=$(curl -sL https://api.github.com/repos/marcosnils/bin/releases/latest | jq -r '.assets[].browser_download_url' | grep -i $(uname) | grep 64)
+curl -Lo ./bin "$url"
+chmod +x bin
+
+./bin install github.com/marcosnils/bin || true
+bin install github.com/kubernetes-sigs/kind || true
+bin install github.com/kubernetes-sigs/cluster-api || true

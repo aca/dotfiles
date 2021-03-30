@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+
+
+cd /home/rok/src/github.com/hankei6km/fcitx-at-esc
+cmake -DCMAKE_INSTALL_PREFIX=/usr .
+sudo make install

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# exit.code 4
+
+exit "${1:-1}"

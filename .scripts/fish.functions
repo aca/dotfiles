@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ~/src/github.com/aca/dotfiles/fish/.config/fish/functions
+v

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -xeuo pipefail
+
+cd ~/src/zettels
+
+rm -rfv ./neuron/output
+mkdir -p ./neuron/output
+cd ./neuron/output && npm init -y
+
+cd ~/src/zettels
+neuron gen 

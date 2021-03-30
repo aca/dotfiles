@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    physlock
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    pmset displaysleepnow
+fi

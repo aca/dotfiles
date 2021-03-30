@@ -1,0 +1,1 @@
+../../../../../github.com/zenyd/mpv-scripts/delete_file.lua

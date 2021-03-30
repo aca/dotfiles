@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+# nix-env -if https://github.com/srid/neuron/archive/master.tar.gz

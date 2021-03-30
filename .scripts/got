@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+egrep -r 'func Test[^(]+\(.*testing[^)]+\)' . | egrep -o 'func Test[^(]+' | awk '{print $2}' | xargs -I{} echo '^{}$' | fzf -m  | tr '\n' '|' | sed 's/|$//' | xargs -I{} go test -race -v -run="{}" ./...

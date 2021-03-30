@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+upstream=$(echo $(bash -c "cd $1 && git ls-remote origin master --heads | head -n 1") | awk '{print $1}')
+head=$(bash -c "cd $1 && git rev-parse HEAD")
+[[ "$upstream" =  "$head" ]]
+

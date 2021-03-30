@@ -1,0 +1,3 @@
+#!/bin/sh
+
+curl -s 'https://marketapi.gdac.com/v1/public/marketsummaries' | jq '.result |.[]| select(.marketName=="KRW-USDT")' | jtbl

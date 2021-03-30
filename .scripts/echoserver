@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+PORT=${PORT:-8080}
+docker run -e PORT=$PORT -p $PORT:$PORT cilium/echoserver

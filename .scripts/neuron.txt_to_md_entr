@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+trap 'echo exit && exit 1' HUP INT QUIT TERM  
+
+while true; do
+  sleep 10
+  fd --extension txt | entr -d neuron.txt_to_md
+  echo reload
+done
+

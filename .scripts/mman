@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cd ~/src/commands
+
+v $(fzf --preview 'cat {}' '--preview-window=right:75%')
+
+

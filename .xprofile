@@ -1,0 +1,5 @@
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+export WINIT_UNIX_BACKEND=x11
+export ACA_XPROFILE=4

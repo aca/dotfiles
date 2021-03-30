@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
+
+# reset key
+/home/rok/.scripts/key.xmodmap_reset
+bash /home/rok/src/configs/home/.config/bspwm/bspwmrc
+docked
+

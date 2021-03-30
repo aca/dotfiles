@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -exuo pipefail 
+sudo -v
+command -v stow
+cd ~/src/configs
+
+source home/.scripts/setup.dotfiles
+
+mkdir -p $HOME/.config/systemd/user || true
+mkdir $HOME/.ssh || true
+
+rm -vrf ~/.gitconfig* || true
+rm -vrf ~/.netrc || true
+rm -vrf $HOME/.ssh/config || true
+rm -vrf ~/.slack-term || true
+
+[[ -f "setup.$(hostname)" ]] && source setup.$(hostname)
+[[ -d "root.$(hostname)" ]] && sudo stow -v --target / "root.$(hostname)"

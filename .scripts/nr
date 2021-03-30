@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# cd $(git rev-parse --show-toplevel 2>/dev/null || echo ".")
+#
+# export port=${1:-$PORT}
+# nc -z localhost $port 1>/dev/null 2>/dev/null && echo "port unavailable" && exit 1
+cd ~/src/zettels
+# killall neuron
+# killall snowpack
+
+pueue group --add nr
+pueue parallel -g nr 2
+# pueue status -g nr -j | jq '.tasks | keys | .[]'
+# pueue status -g nr | grep zettels | field 1 | xargs pueue kill
+# snowpack dev --open false
+pueue add -g nr -- neuron gen -w
+pueue add -g nr -- 'cd .neuron/output && snowpack dev --port 9999'

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# seq.alpha a z
+
+bash -c "echo {$1..$2}" | tr ' ' '\n'

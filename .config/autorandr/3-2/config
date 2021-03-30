@@ -1,0 +1,23 @@
+output HDMI1
+off
+output HDMI2
+off
+output VIRTUAL1
+off
+output DP2
+crtc 2
+mode 2560x1440
+pos 0x0
+rate 59.95
+rotate left
+output DP1
+crtc 0
+mode 2560x1440
+pos 1440x688
+primary
+rate 59.95
+output eDP1
+crtc 1
+mode 2560x1440
+pos 4000x688
+rate 60.01

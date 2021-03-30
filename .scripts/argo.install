@@ -1,0 +1,5 @@
+#!/bin/sh
+
+curl -sLO https://github.com/argoproj/argo/releases/download/v2.12.8/argo-linux-amd64.gz
+mv /tmp/argo ~/bin
+chmod +x ~/bin/argo

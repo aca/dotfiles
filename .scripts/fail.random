@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+random="$(($RANDOM % 3))"
+exit $random

@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+
+# [ DEBUG ] 2020-12-26T19:44:45+0900 ] /usr/local/share/nvim/runtime/lua/vim/lsp/rpc.lua:388 ]    "rpc.send.payload"       {  jsonrpc = "2.0",  method = "exit"}
+
+grammar log {
+    rule  TOP  { '[' <level> ']' <time> ']' <file> ']' <msg> }
+    token level  { \S+ }
+    token time  { \S+ }
+    token file  { \S+ }
+    token msg  { .* }
+}
+
+for lines() {
+  if $_ ne "" {
+    my $m = log.parse($_);
+    say "\n- $m<time>";
+    say "$m<msg>";
+  }
+}

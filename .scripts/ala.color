@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+set -exo pipefail
+
+cd ~/src/github.com/aaron-williamson/base16-alacritty/colors
+
+command -v realpath
+command -v shuf
+command -v fzf
+command -v sponge
+
+config=$(realpath $HOME/.config/alacritty/alacritty.yml)
+
+if [ -z "$1" ]; then 
+  color=$(ls | shuf | head -n 1)
+else
+  color=$(ls | fzf --query "$1")
+fi
+
+echo $color
+
+color_text=$(cat $color)
+{ sed "/ColorStart/,/ColorEnd/d" $config; echo '# ColorStart'; echo "$color_text"; echo '# ColorEnd'; } | sponge $config

@@ -1,0 +1,27 @@
+function fish_prompt
+  set -g __last_status $status
+ 
+  if [ "$__last_status" -ne 0 ]
+    set_color red
+    echo -n "[ERR:$__last_status]"
+  end
+  # set_color --dim --italics
+  set_color black
+  echo -n '#'
+  set_color normal
+
+  if [ -n "$SSH_CLIENT" ]
+    set -l user (whoami)
+    set -l host (hostname)
+    echo -n "$user@$host "
+  end
+
+  set_color D7A667
+  # echo -n '» '
+  echo -n '$ '
+  set_color normal
+end
+
+function fish_right_prompt
+  # agnoster::git
+end

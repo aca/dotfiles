@@ -1,0 +1,1 @@
+../../../github.com/seebye/ueberzug/examples/fzfimg.sh

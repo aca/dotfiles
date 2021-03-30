@@ -1,0 +1,8 @@
+--ignore-errors
+--geo-bypass
+--write-sub
+--output "%(extractor_key)s_%(uploader)s/%(upload_date)s_%(title)s_%(id)s.%(ext)s"
+--download-archive ".youtube-dl"
+--rm-cache-dir
+--cookies /home/rok/Downloads/35db6c4a-f4eb-4c82-8551-ec74f8d44564.txt
+--yes-playlist

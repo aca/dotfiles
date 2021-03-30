@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if xset -q | grep 'Caps Lock: ' | sed 's/01.*//' | grep on; then
+  xdotool key Caps_Lock
+fi
+
+
+setxkbmap -option
+xmodmap ~/.Xmodmap
+xset r rate 180 25

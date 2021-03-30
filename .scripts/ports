@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  sudo netstat -tulanp
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  sudo lsof -iTCP -sTCP:LISTEN -n -P
+fi
+

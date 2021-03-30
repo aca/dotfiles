@@ -1,0 +1,2283 @@
+" https://github.com/JetBrains/ideavim
+" https://github.com/JetBrains/ideavim/blob/master/src/com/maddyhome/idea/vim/package-info.java
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+
+set clipboard^=unnamed,unnamedplus
+
+let mapleader = " "
+
+set visualbell
+set noerrorbells
+set multiple-cursors
+set surround
+set number
+set incsearch hlsearch
+set ignorecase smartcase
+set scrolloff=5
+set relativenumber
+set showmode
+
+set timeoutlen=1000
+
+inoremap jk <Esc>
+vnoremap jk <Esc>
+
+
+" navigate back/forwar
+nnoremap ;t :action JumpToLastWindow<cr>
+" nnoremap <leader>z :action HideAllWindows<cr>
+    
+nnoremap <Space>sv :source ~/.ideavimrc<CR>
+nnoremap <leader>G :action ToggleDistractionFreeMode<cr>
+nnoremap <leader><leader>g :action HideAllWindows<cr>
+nnoremap <leader>cv :action ChangeView<cr>
+
+nnoremap <leader>ff :action FindInPath<cr>
+nnoremap <leader>fu :action FindUsages<cr>
+nnoremap <leader>ga :action GotoAction<cr>
+nnoremap <leader>gb :action Annotate<cr>
+" nnoremap gd :action GotoDeclaration<cr>
+nnoremap <leader>gi :action GotoImplementation<cr>
+" nnoremap <leader>gq :action ReformatCode<cr>
+nnoremap <leader>gr :action GotoRelated<cr>
+nnoremap <leader>gs :action GotoSuperMethod<cr>
+" nnoremap <leader>gt :action GotoTest<cr>
+nnoremap <leader>gt :action GotoTypeDeclaration<cr>
+nnoremap <leader>ic :action InspectCode<cr>
+nnoremap <leader>mv :action ActivateMavenProjectsToolWindow<cr>
+nnoremap <leader>oi :action OptimizeImports<cr>
+nnoremap <leader>q  :action CloseActiveTab<cr>
+nnoremap <leader>rc :action ChooseRunConfiguration<cr>
+nnoremap <leader>re :action RenameElement<cr>
+nnoremap <leader>rf :action RenameFile<cr>
+nnoremap <leader>rr :action Run<cr>
+" nnoremap <leader>tl Vy<cr>:action ActivateTerminalToolWindow<cr>
+nnoremap <leader>zi :action EditorIncreaseFontSize<cr>
+nnoremap <leader>zo :action EditorDecreaseFontSize<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+nnoremap <leader>de :action ShowErrorDescription<cr>
+nnoremap gc :action CommentByLineComment<cr>
+vnoremap <leader>tl y<cr>:action ActivateTerminalToolWindow<cr>
+vnoremap gc :action CommentByLineComment<cr>
+
+
+" fixed, synced
+" default
+nnoremap J gJ
+nnoremap Q @q
+nnoremap Y y$
+nnoremap C c$
+
+" toggle
+nnoremap [e :action GotoPreviousError<cr> :action ShowErrorDescription<cr>
+nnoremap ]e :action GotoNextError<cr> :action ShowErrorDescription<cr>
+nnoremap ;s :source ~/.ideavimrc<cr>
+nnoremap ;z :action HideAllWindows<cr>
+" nnoremap ;f :action ActivateProjectToolWindow<cr>
+nnoremap ;f :action SelectInProjectView<cr>
+nnoremap ;wd :action ActivateDebugToolWindow<cr>
+nnoremap ;wr :action ActivateRunToolWindow<cr>
+nnoremap ;wt :action ActivateTerminalToolWindow<cr>
+
+
+" language
+nnoremap gi :action GotoImplementation<cr>
+nnoremap gt :action GotoTypeDeclaration<cr>
+nnoremap gr :action ShowUsages<cr> | "go to reference
+nnoremap gd :action QuickImplementations<cr>
+nnoremap <leader>gd :action GotoDeclaration<cr>
+nnoremap <leader>T :action GotoTest<cr>
+
+
+" edit
+nnoremap <leader>re :action RenameElement<cr>
+nnoremap <leader>rf :action RenameFile<cr>
+
+" debug
+nnoremap <leader>dd :action Debug<cr>
+nnoremap <leader>dc :action ChooseDebugConfiguration<cr>
+nnoremap <leader>rr :action Run<cr>
+nnoremap <leader>rc :action ChooseRunConfiguration<cr>
+
+nnoremap <leader>gr :action GotoRelated<cr>
+nnoremap <leader>gb :action Annotate<cr>
+
+" use intellij back/forward instead
+nnoremap <C-o> :action Back<cr>
+nnoremap <C-i> :action Forward<cr>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <c-k> <C-w>k
+nnoremap <C-j> <C-w>j
+nnoremap <c-c> :action ResizeToolWindowLeft<cr>
+
+nnoremap ]t :action PreviousTab<cr>
+nnoremap [t :action NextTab<cr>
+
+
+" nnoremap <leader>q  :action CloseActiveTab<cr>
+" nnoremap <leader>ga :action GotoAction<cr>
+" nnoremap <leader>gs :action GotoSuperMethod<cr>
+
+" breakpoint
+nnoremap <leader>bb :action ToggleLineBreakpoint<cr>
+nnoremap <leader>be :action ToggleBreakpointEnabled<cr>
+nnoremap <leader>br :action ViewBreakpoints<cr>
+
+nnoremap <leader>w :action AceWordAction<cr>
+
+nnoremap <c-,> :action ShowSettings<cr>
+set ideajoin
+
+" # IdeaVim 0.55.2
+" ```
+" --- actions ---
+" $copy                                              <c-c> <c-ins>
+" $cut                                               <c-x> <s-del>
+" $delete                                            <del>
+" $lru
+" $paste                                             <c-v> <s-ins>
+" $redo                                              <c-s-z> <a-s-bs>
+" $searchweb
+" $selectall                                         <c-a>
+" $undo                                              <c-z> <a-bs>
+" <anonymous-group-0>
+" <anonymous-group-10>
+" <anonymous-group-11>
+" <anonymous-group-12>
+" <anonymous-group-13>
+" <anonymous-group-14>
+" <anonymous-group-15>
+" <anonymous-group-16>
+" <anonymous-group-17>
+" <anonymous-group-1>
+" <anonymous-group-2>
+" <anonymous-group-3>
+" <anonymous-group-4>
+" <anonymous-group-5>
+" <anonymous-group-6>
+" <anonymous-group-7>
+" <anonymous-group-8>
+" <anonymous-group-9>
+" about
+" aceaction                                          <c-;>
+" acedeclarationaction
+" acelineaction                                      <c-s-;>
+" acetargetaction                                    <a-c-;>
+" acewordaction
+" acewordbackwardsaction
+" acewordforwardaction
+" activatedatabasechangestoolwindow
+" activatedatabasetoolwindow
+" activateeventlogtoolwindow
+" activatefavoritestoolwindow                        <a-2>
+" activateinternalmethodtracingtoolwindow
+" activatenavbar
+" activateprojecttoolwindow                          <a-1>
+" activatepythonconsoletoolwindow
+" activatesciviewtoolwindow
+" activateservicestoolwindow                         <a-8>
+" activatestructuretoolwindow                        <a-7>
+" activateterminaltoolwindow                         <a-f12> <a-t>
+" activatetodotoolwindow                             <a-6>
+" activateversioncontroltoolwindow                   <a-9>
+" activetoolwindowgroup
+" addalltofavorites
+" addnewfavoriteslist
+" addnewpropertyfile
+" addsourcescontenttosourcemap
+" addtofavorites
+" addtofavoritespopup                                <a-s-f>
+" analyzeplatformmenu
+" angularcliadd
+" angularcligenerate
+" angularjs.show.ui.router.states.diagram.action
+" annotate
+" arrangement.alias.rule.add                         <a-ins>
+" arrangement.alias.rule.context.menu
+" arrangement.alias.rule.edit                        <f2>
+" arrangement.alias.rule.match.condition.move.down   <a-down>
+" arrangement.alias.rule.match.condition.move.up     <a-up>
+" arrangement.alias.rule.remove                      <del>
+" arrangement.alias.rule.toolbar
+" arrangement.custom.token.rule.edit
+" arrangement.rule.add                               <a-ins>
+" arrangement.rule.edit                              <f2>
+" arrangement.rule.group.condition.move.down         <a-down>
+" arrangement.rule.group.condition.move.up           <a-up>
+" arrangement.rule.group.control.toolbar
+" arrangement.rule.match.condition.move.down         <a-down>
+" arrangement.rule.match.condition.move.up           <a-up>
+" arrangement.rule.match.control.context.menu
+" arrangement.rule.match.control.toolbar
+" arrangement.rule.remove                            <del>
+" arrangement.rule.section.add
+" associatewithfiletype
+" attachproject
+" autoindentlines                                    <a-c-i>
+" autoshowprocesswindow
+" back                                               <a-s-left> button=4 clickcount=1 modifiers=0
+" backgroundtasks
+" bash.addreplaction
+" bash.newbashscript
+" bash.repl.group
+" bash.reporttype
+" basiceditorpopupmenu
+" bookmarks
+" braceorquoteout                                    <tab>
+" browseshelf
+" buildmenu
+" callhierarchy                                      <a-c-h>
+" callhierarchy.baseonthismethod                     <a-c-h>
+" callhierarchypopupmenu
+" capturecpuusagedata
+" capturememorysnapshot
+" changecodestylescheme
+" changecolorscheme
+" changefileencodingaction
+" changeinspectionprofile
+" changekeymap
+" changelaf
+" changelineseparators
+" changescheme
+" changesignature                                    <c-f6>
+" changesplitorientation
+" changesview.addunversioned                         <a-c-a>
+" changesview.applypatch
+" changesview.applypatchfromclipboard
+" changesview.browse
+" changesview.committoolbar
+" changesview.createpatch
+" changesview.createpatchfromchanges
+" changesview.createpatchtoclipboard
+" changesview.diff                                   <c-d>
+" changesview.edit
+" changesview.groupby
+" changesview.groupby.directory                      <a-c-p>
+" changesview.groupby.repository
+" changesview.move                                   <a-s-m>
+" changesview.newchangelist
+" changesview.refresh
+" changesview.removechangelist
+" changesview.removedeleted
+" changesview.rename                                 <f2> <s-f6>
+" changesview.revert                                 <a-c-z>
+" changesview.setdefault                             <c- >
+" changesview.shelve
+" changesview.shelvesilently                         <c-s-h>
+" changesview.showcommitoptions
+" changesview.togglecommitui                         <c-k>
+" changesview.unshelvesilently                       <a-c-u>
+" changesview.viewoptions
+" changesview.viewoptions.showrelatedfiles
+" changesviewpopupmenu
+" changesviewtoolbar
+" changetemplatedatalanguage
+" changeview
+" checkforupdate
+" checkinfiles
+" checkinproject                                     <c-k>
+" checkstatusforfiles
+" choosedebugconfiguration                           <a-s-f9>
+" choosenextsubsequentpropertyvalueeditoraction      <a-down>
+" chooseprevsubsequentpropertyvalueeditoraction      <a-up>
+" chooserunconfiguration                             <a-s-f10>
+" classnamecompletion                                <a-c- >
+" cleanpyc
+" closeactivetab                                     <c-s-f4>
+" closealleditors
+" closealleditorsbutactive
+" closeallnotifications
+" closealltotheleft
+" closealltotheright
+" closeallunmodifiededitors
+" closeallunpinnededitors
+" closecontent                                       <c-f4>
+" closeeditor
+" closeeditorsgroup
+" closefirstnotification
+" closeproject
+" cloudconfigaction
+" cloudconfigactiongroup
+" cloudconfigdisableaction
+" cloudconfigpluginsaction
+" cloudconfigselfsettingsaction
+" cloudconfigsilentlyaction
+" cloudconfigupdateapi
+" codecleanup
+" codecompletion                                     <c- >
+" codecompletiongroup
+" codeeditorbasegroup
+" codeeditorviewgroup
+" codeformatgroup
+" codeinsighteditoractions
+" codeinspection.oneditor                            <a-s-i>
+" codemenu
+" collapseall                                        <c-m> <c-->
+" collapseallregions                                 <c-s-m> <c-s-->
+" collapseblock                                      <c-s-.>
+" collapsedoccomments
+" collapseexpandablecomponent                        <s-cr> <c-m> <c-->
+" collapseregion                                     <c-m> <c-->
+" collapseregionrecursively                          <a-c-m> <a-c-->
+" collapseselection                                  <c-.>
+" collapsetreenode                                   <m>
+" collecttroubleshootinginformation
+" collectzippedlogs
+" com.intellij.ws.actions.convertcurltohttprequestaction
+" com.jetbrains.plugins.remotesdk.console.runsshconsoleaction
+" com.jetbrains.plugins.vagrant.actions.vagrantdestroyaction
+" com.jetbrains.plugins.vagrant.actions.vagranthaltaction
+" com.jetbrains.plugins.vagrant.actions.vagrantinitinprojectaction
+" com.jetbrains.plugins.vagrant.actions.vagrantprovisionaction
+" com.jetbrains.plugins.vagrant.actions.vagrantreloadaction
+" com.jetbrains.plugins.vagrant.actions.vagrantresumeaction
+" com.jetbrains.plugins.vagrant.actions.vagrantshareaction
+" com.jetbrains.plugins.vagrant.actions.vagrantsuspendaction
+" com.jetbrains.plugins.vagrant.actions.vagrantupaction
+" com.jetbrains.python.console.runpythonconsoleaction
+" com.jetbrains.rest.sphinx.runsphinxquickstartaction
+" combinepropertiesfilesaction
+" commentbyblockcomment                              <c-s-/> <c-s-o>
+" commentbylinecomment                               <c-/> <c-o>
+" commentgroup
+" committedchanges.clear
+" committedchanges.details
+" committedchanges.filter
+" committedchanges.refresh
+" committedchanges.revert
+" committedchangestoolbar
+" compare.lastversion
+" compare.sameversion
+" compare.selected
+" compare.specified
+" compareactions
+" compareclipboardwithselection
+" comparedirs                                        <c-d>
+" comparefilewitheditor
+" comparetwofiles                                    <c-d>
+" compilecoffeescript
+" compuleqrc
+" concurrencydebug
+" concurrencyexecutor
+" configureeditortabs
+" configureics
+" configuresoftwraps
+" console.dialect.specificgroup
+" console.editortableresult.group
+" console.execute                                    <cr>
+" console.execute.multiline                          <c-cr>
+" console.history.browse                             <a-c-e>
+" console.history.next
+" console.history.previous
+" console.historyactions
+" console.jdbc.browsehistory                         <a-c-e>
+" console.jdbc.chooseschema
+" console.jdbc.choosesession
+" console.jdbc.common
+" console.jdbc.debug
+" console.jdbc.execute                               <c-cr>
+" console.jdbc.execute.2
+" console.jdbc.execute.3
+" console.jdbc.explainanalyse
+" console.jdbc.explainanalyse.raw
+" console.jdbc.explainplan
+" console.jdbc.explainplan.raw
+" console.jdbc.left
+" console.jdbc.right
+" console.jdbc.runcontextgroup
+" console.jdbc.terminate                             <c-f2>
+" console.jdbc.toggleparameters
+" console.jdbcactions
+" console.open                                       <c-s-f10>
+" console.oracle.dbmsoutput                          <c-f8>
+" console.splitline                                  <c-cr>
+" console.tableresult.addcolumn                      <a-s-ins>
+" console.tableresult.addrow                         <a-ins>
+" console.tableresult.cancel                         <c-f2>
+" console.tableresult.celleditor.popup
+" console.tableresult.changecelleditorfileencoding
+" console.tableresult.changecelleditorlanguage
+" console.tableresult.changecolumnlanguage
+" console.tableresult.changeisolation
+" console.tableresult.changepagesize
+" console.tableresult.chooseextractor
+" console.tableresult.clonecolumn                    <a-c-s-d>
+" console.tableresult.clonerow                       <c-d>
+" console.tableresult.columnactions
+" console.tableresult.columnheaderpopup
+" console.tableresult.columnslist                    <c-f12>
+" console.tableresult.columnsortasc
+" console.tableresult.columnsortdesc
+" console.tableresult.columnsortingactions
+" console.tableresult.columnsortreset                <a-c-s-bs>
+" console.tableresult.columnvisibility               < >
+" console.tableresult.comparecells                   <c-s-d>
+" console.tableresult.comparewith
+" console.tableresult.copy.chooseextractorgroup
+" console.tableresult.copy.csv.settings
+" console.tableresult.copy.dumptoclipboard
+" console.tableresult.copy.dumptofile
+" console.tableresult.countrows
+" console.tableresult.csv.popupgroup
+" console.tableresult.csv.previewpopupgroup
+" console.tableresult.data
+" console.tableresult.deletecolumns                  <a-s-del>
+" console.tableresult.deleterows                     <c-y>
+" console.tableresult.documenttableheader.addcolumn
+" console.tableresult.documenttableheader.clonecolumn
+" console.tableresult.documenttableheader.deletecolumn
+" console.tableresult.dumpgroup
+" console.tableresult.editfiltercriteria             <a-c-s-f>
+" console.tableresult.editvalue                      <f2> <cr> <a-cr>
+" console.tableresult.editvaluemaximized             <s-cr> <a-s-cr>
+" console.tableresult.filter.custom
+" console.tableresult.findingrid                     <c-f> <a-s-3>
+" console.tableresult.firstpage
+" console.tableresult.gotogroup
+" console.tableresult.group
+" console.tableresult.group.secondary
+" console.tableresult.header.changecolumnlanguage
+" console.tableresult.hidecolumn
+" console.tableresult.importtable
+" console.tableresult.lastpage
+" console.tableresult.loadfile
+" console.tableresult.maximizeeditingcell            <a-c-s-m>
+" console.tableresult.mutationsgroup
+" console.tableresult.navigateaction                 <f4>
+" console.tableresult.navigateexportedaction         <a-s-7>
+" console.tableresult.navigateforeignaction          <c-b> button=1 clickcount=1 modifiers=128
+" console.tableresult.navigationandediting.group
+" console.tableresult.nextpage                       <a-c-down>
+" console.tableresult.options
+" console.tableresult.pasteformat
+" console.tableresult.popupgroup
+" console.tableresult.previouspage                   <a-c-up>
+" console.tableresult.reload                         <c-f5>
+" console.tableresult.renametab
+" console.tableresult.resetview
+" console.tableresult.revertselected                 <a-c-z>
+" console.tableresult.savelobas
+" console.tableresult.selectrow                      <s- >
+" console.tableresult.setdefault                     <a-c-d>
+" console.tableresult.setnull                        <a-c-n>
+" console.tableresult.showquery
+" console.tableresult.sorttoggle
+" console.tableresult.submit                         <c-cr>
+" console.tableresult.submitandcommit                <a-c-s-cr>
+" console.tableresult.togglefilters
+" console.tableresult.transpose
+" console.tableresult.viewas
+" console.tableresult.viewastable
+" console.tableresult.viewastransposedtable
+" console.tableresult.viewastreetable
+" console.tabpopupgroup
+" console.transaction
+" console.transaction.commit                         <a-c-s-cr>
+" console.transaction.revertandrollback
+" console.transaction.rollback
+" console.transaction.txsettings
+" consoleeditorpopupmenu
+" consoleview.clearall
+" consoleview.popupmenu
+" consoleview.showasjsonaction
+" context.clear                                      <a-s-x>
+" context.load                                       <a-s-l>
+" context.save                                       <a-s-s>
+" contexthelp                                        <f1>
+" convertindentsgroup
+" convertindentstospaces
+" convertindentstotabs
+" convertschemaaction
+" converttomaclineseparators
+" converttounixlineseparators
+" converttowindowslineseparators
+" copyabsolutepath                                   <c-s-c>
+" copyasplaintext
+" copyasrichtext
+" copycontentrootpath
+" copyelement                                        <f5>
+" copyexternalreferencegroup
+" copyfilereference
+" copypathfromrepositoryrootprovider
+" copypaths                                          <c-s-c>
+" copypathwithlinenumber
+" copyreference                                      <a-c-s-c>
+" copyreferencepopup
+" copyreferencepopupgroup
+" copysettingspath
+" copysourcerootpath
+" copytbxreference
+" copyurl
+" coverage
+" coveragemenu
+" coverageplatformmenu
+" createdesktopentry
+" createeditorconfigfile
+" createlauncherscript
+" createresourcebundle
+" createrunconfiguration
+" createsetuppy
+" createwebproject
+" csvtableeditorcolumncontextmenu
+" csvtableeditorrowcontextmenu
+" cutcopypastegroup
+" database.settings
+" databaseview.addactiongroup
+" databaseview.addactiongrouppopup
+" databaseview.adddatasourcefrompath
+" databaseview.adddatasourcefromthat
+" databaseview.adddatasourcefromurl
+" databaseview.adddatasourcehere
+" databaseview.adddatasourcesgroup
+" databaseview.adddriver
+" databaseview.adddriveranddatasource
+" databaseview.addschemasaction
+" databaseview.assigncolor
+" databaseview.batchmodifyindices
+" databaseview.closeconnectionaction                 <c-f2>
+" databaseview.copyaction                            <c-d>
+" databaseview.copydatasourcesettings
+" databaseview.copyddlaction                         <a-c-s-g> <c-s-c>
+" databaseview.copyddlfromdbaction
+" databaseview.copytable                             <f5>
+" databaseview.createdatasourcefromsettings
+" databaseview.ddl.addcolumn
+" databaseview.ddl.adddatabase
+" databaseview.ddl.addforeignkey
+" databaseview.ddl.addindex
+" databaseview.ddl.addprimarykey
+" databaseview.ddl.addschema
+" databaseview.ddl.addtable
+" databaseview.ddl.batchaddindices
+" databaseview.ddl.commentonobject
+" databaseview.ddl.dropforeignkey
+" databaseview.ddl.dropprimarykey
+" databaseview.debugroutine
+" databaseview.dropaction                            <del>
+" databaseview.dump.filegroup
+" databaseview.dump.native
+" databaseview.executeroutine
+" databaseview.filteraction
+" databaseview.forcerefresh                          <c-s-f5>
+" databaseview.forgetschemaaction
+" databaseview.fulltextsearch                        <a-c-s-f>
+" databaseview.gotoscriptsdirectory
+" databaseview.hideschemasaction
+" databaseview.import
+" databaseview.importdatasources
+" databaseview.importfromsql
+" databaseview.movetogroup                           <f6>
+" databaseview.openddlinconsole                      <a-c-s-b>
+" databaseview.propertiesaction                      <s-cr>
+" databaseview.refresh                               <c-f5>
+" databaseview.restore.native
+" databaseview.runextensionscriptgroup
+" databaseview.scripted.extensions
+" databaseview.showcontentdiff
+" databaseview.showdiff                              <c-d>
+" databaseview.sqlgenerator                          <a-c-g>
+" databaseview.tools                                 <a-cr>
+" databaseview.tools.recompileaction
+" databaseview.tools.refreshmatviewaction
+" databaseview.tools.truncatetableaction
+" databaseviewpopupmenu
+" databaseviewtoolbar
+" datalore
+" debug                                              <s-f9> <a-d>
+" debugclass
+" debugger.addtowatch
+" debugger.copystack
+" debugger.evaluateinconsole
+" debugger.focusonbreakpoint
+" debugger.markobject                                <f11>
+" debugger.removeallbreakpoints
+" debugger.removeallbreakpointsinfile
+" debugger.restorebreakpoint
+" debugger.showlibraryframes
+" debugger.showreferring
+" debugger.tree.evaluateinconsole
+" debugmainmenu
+" decreasecolumnwidth                                <c-s-left>
+" decrementwindowheight                              <c-s-up>
+" decrementwindowwidth                               <c-s-left>
+" delegatemethods
+" deploymentvcsactions
+" diagnosticgroup
+" diagram.deselectall                                <a-c-a>
+" diagram.selectall                                  <c-a>
+" diff.appendleftside
+" diff.appendrightside
+" diff.applyleftside                                 <a-s-right>
+" diff.applynonconflicts
+" diff.applynonconflicts.left
+" diff.applynonconflicts.right
+" diff.applyrightside                                <a-s-left>
+" diff.comparepartial.base.left
+" diff.comparepartial.base.right
+" diff.comparepartial.left.right
+" diff.comparewithbase.left
+" diff.comparewithbase.result
+" diff.comparewithbase.right
+" diff.editorgutterpopupmenu
+" diff.editorgutterpopupmenu.editorsettings
+" diff.editorpopupmenu
+" diff.focusoppositepane                             <c-tab>
+" diff.focusoppositepaneandscroll                    <c-s-tab>
+" diff.ignoreleftside
+" diff.ignorerightside
+" diff.keymapgroup
+" diff.magicresolveconflicts
+" diff.nextchange                                    <a-right>
+" diff.nextconflict
+" diff.prevchange                                    <a-left>
+" diff.previousconflict
+" diff.resolveconflict
+" diff.showdiff                                      <c-d>
+" diff.showinexternaltool
+" diff.showsettingspopup                             <c-s-d>
+" diff.viewerpopupmenu
+" diff.viewertoolbar
+" dirdiffmenu
+" dirdiffmenu.cancelcomparingnewfileswitheachother
+" dirdiffmenu.comparenewfileswitheachotheraction
+" dirdiffmenu.enableequal
+" dirdiffmenu.enableleft
+" dirdiffmenu.enablenotequal
+" dirdiffmenu.enableright
+" dirdiffmenu.mirrortoleft
+" dirdiffmenu.mirrortoright
+" dirdiffmenu.setcopytoleft
+" dirdiffmenu.setcopytoright
+" dirdiffmenu.setdefault
+" dirdiffmenu.setdelete
+" dirdiffmenu.setnooperation
+" dirdiffmenu.synchronizediff                        <cr>
+" dirdiffmenu.synchronizediff.all                    <c-cr>
+" dirdiffmenu.warnondeletion
+" dirdiffoperationsmenu
+" disableinspection
+" dissociateresourcebundleaction
+" django.runmanagetaskaction                         <a-c-r>
+" docker.adddockerconnection
+" docker.filter
+" docker.filterstoppedcontainers
+" docker.filteruntaggedimages
+" docker.remoteservers.attach2container
+" docker.remoteservers.copycontainerid
+" docker.remoteservers.copycontainerimageid
+" docker.remoteservers.copyimageid
+" docker.remoteservers.createcontainer
+" docker.remoteservers.deletecontainer
+" docker.remoteservers.deleteimage
+" docker.remoteservers.downcomposeapp
+" docker.remoteservers.execincontainer
+" docker.remoteservers.inspectcontainerorimage
+" docker.remoteservers.pullimage
+" docker.remoteservers.pushimage
+" docker.remoteservers.scalecomposeservice
+" docker.remoteservers.selectcontainerimage
+" docker.remoteservers.showcontainerlog
+" docker.remoteservers.showcontainerprocesses
+" docker.remoteservers.startcomposeservice
+" docker.remoteservers.startcontainer
+" docker.remoteservers.stopcomposeapp
+" docker.remoteservers.stopcomposeservice
+" docker.remoteservers.stopcontainer
+" docker.remoteserversviewpopup
+" docker.remoteserversviewtoolbar
+" docker.remoteserversviewtoolbar.top
+" dockpinnedmode
+" dockunpinnedmode
+" document2xsd
+" domcollectioncontrol
+" domcollectioncontrol.add                           <ins>
+" domcollectioncontrol.edit                          <f4>
+" domcollectioncontrol.remove                        <del>
+" domelementstreeview.addelement                     <ins>
+" domelementstreeview.addelementgroup
+" domelementstreeview.deleteelement                  <del>
+" domelementstreeview.gotodomelementdeclarationaction <f4>
+" domelementstreeview.treepopup
+" dumplookupelementweights                           <a-c-s-w>
+" duplicatesform.sendtoleft                          <c-1>
+" duplicatesform.sendtoright                         <c-2>
+" duplocate
+" dvcs.filehistory.contextmenu
+" dvcs.log.contextmenu
+" dvcs.log.toolbar
+" editbookmark
+" editbookmarksgroup
+" editbreakpoint                                     <c-s-f8>
+" editcommitmessage
+" editcreatedeletegroup
+" editcustomproperties
+" editcustomvmoptions
+" editfavorites
+" editinspectionsettings
+" editmacros
+" editmenu
+" editor.jslibrariesmenu
+" editor.jslibrariesmenu.librarylist
+" editoractions
+" editoraddorremovecaret                             button=1 clickcount=1 modifiers=512
+" editoraddrectangularselectiononmousedrag           button=1 clickcount=1 modifiers=704
+" editorbackspace                                    <bs> <s-bs>
+" editorbackwardparagraph
+" editorbackwardparagraphwithselection
+" editorbiditextdirection
+" editorbreadcrumbshideboth
+" editorbreadcrumbssettings
+" editorbreadcrumbsshowabove
+" editorbreadcrumbsshowbelow
+" editorchooselookupitem                             <cr>
+" editorchooselookupitemcompletestatement            <c-s-cr>
+" editorchooselookupitemdot                          <c-.>
+" editorchooselookupitemreplace                      <tab>
+" editorclonecaretabove
+" editorclonecaretbelow
+" editorcodeblockend                                 <c-]>
+" editorcodeblockendwithselection                    <c-s-]>
+" editorcodeblockstart                               <c-[>
+" editorcodeblockstartwithselection                  <c-s-[>
+" editorcompletestatement                            <c-s-cr>
+" editorcontextbarmenu
+" editorcontextinfo                                  <a-q>
+" editorcopy                                         <c-c> <c-ins>
+" editorcreaterectangularselection                   button=2 clickcount=1 modifiers=576
+" editorcreaterectangularselectiononmousedrag        button=1 clickcount=1 modifiers=576 button=2 clickcount=1 modifiers=0
+" editorcut                                          <c-x> <s-del>
+" editorcutlinebackward
+" editorcutlineend
+" editordecreasefontsize                             <a-->
+" editordelete                                       <del>
+" editordeleteline                                   <c-y>
+" editordeletetolineend
+" editordeletetolinestart
+" editordeletetowordend                              <c-del>
+" editordeletetowordendindifferenthumpsmode
+" editordeletetowordstart                            <c-bs>
+" editordeletetowordstartindifferenthumpsmode
+" editordown                                         <down>
+" editordownwithselection                            <s-down>
+" editorduplicate                                    <c-d>
+" editorduplicatelines
+" editorenter                                        <cr>
+" editorescape                                       <esc>
+" editorfocusgutter                                  <a-s-6>
+" editorforwardparagraph
+" editorforwardparagraphwithselection
+" editorgutterpopupmenu
+" editorguttertoggleglobalindentlines
+" editorguttertogglegloballinenumbers
+" editorguttervcspopupmenu
+" editorhungrybackspace
+" editorincreasefontsize                             <a-=>
+" editorindentlineorselection
+" editorindentselection                              <tab>
+" editorjoinlines                                    <c-s-j>
+" editorkillregion
+" editorkillringsave
+" editorkilltowordend
+" editorkilltowordstart
+" editorlangpopupmenu
+" editorleft                                         <left>
+" editorleftwithselection                            <s-left>
+" editorlineend                                      <end>
+" editorlineendwithselection                         <s-end>
+" editorlinestart                                    <home>
+" editorlinestartwithselection                       <s-home>
+" editorlookupdown                                   <c-down>
+" editorlookupup                                     <c-up>
+" editormatchbrace                                   <c-s-m>
+" editormovedownandscroll
+" editormovedownandscrollwithselection
+" editormovetopagebottom                             <c-pagedown>
+" editormovetopagebottomwithselection                <c-s-pagedown>
+" editormovetopagetop                                <c-pageup>
+" editormovetopagetopwithselection                   <c-s-pageup>
+" editormoveupandscroll
+" editormoveupandscrollwithselection
+" editornextword                                     <c-right>
+" editornextwordindifferenthumpsmode
+" editornextwordindifferenthumpsmodewithselection
+" editornextwordwithselection                        <c-s-right>
+" editorpagedown                                     <pagedown>
+" editorpagedownwithselection                        <s-pagedown>
+" editorpageup                                       <pageup>
+" editorpageupwithselection                          <s-pageup>
+" editorpaste                                        <c-v> <s-ins>
+" editorpastefromx11                                 button=2 clickcount=1 modifiers=0
+" editorpastesimple                                  <a-c-s-v>
+" editorpopupmenu
+" editorpopupmenu.goto
+" editorpopupmenu.run
+" editorpopupmenu1
+" editorpopupmenu1.findrefactor
+" editorpopupmenu2
+" editorpopupmenu3
+" editorpopupmenudebug
+" editorpreviousword                                 <c-left>
+" editorpreviouswordindifferenthumpsmode
+" editorpreviouswordindifferenthumpsmodewithselection
+" editorpreviouswordwithselection                    <c-s-left>
+" editorresetfontsize
+" editorreverselines
+" editorright                                        <right>
+" editorrightwithselection                           <s-right>
+" editorscrollbottom
+" editorscrolldown                                   <c-down>
+" editorscrolldownandmove
+" editorscrollleft
+" editorscrollright
+" editorscrolltocenter                               <c-m>
+" editorscrolltop
+" editorscrollup                                     <c-up>
+" editorscrollupandmove
+" editorselectline
+" editorselectword                                   <c-w>
+" editorsetcontentbasedbiditextdirection
+" editorsetltrbiditextdirection
+" editorsetrtlbiditextdirection
+" editorshowguttericontooltip                        <a-s-6>
+" editorsortlines
+" editorsplitline                                    <c-cr>
+" editorstartnewline                                 <s-cr>
+" editorstartnewlinebefore                           <a-c-cr>
+" editorswapselectionboundaries
+" editortab                                          <tab>
+" editortabpopupmenu
+" editortabpopupmenuex
+" editortabsgroup
+" editortextend                                      <c-end>
+" editortextendwithselection                         <c-s-end>
+" editortextstart                                    <c-home>
+" editortextstartwithselection                       <c-s-home>
+" editortoggleactions
+" editortogglecase                                   <c-s-u>
+" editortogglecolumnmode                             <a-s-ins>
+" editortoggleinsertstate                            <ins>
+" editortoggleshowbreadcrumbs
+" editortoggleshowguttericons
+" editortoggleshowindentlines
+" editortoggleshowlinenumbers
+" editortoggleshowwhitespaces
+" editortogglestickyselection
+" editortoggleusesoftwraps
+" editortoggleusesoftwrapsinpreview
+" editorunindentselection                            <s-tab>
+" editorunselectword                                 <c-s-w>
+" editorup                                           <up>
+" editorupwithselection                              <s-up>
+" editrunconfigurations
+" editselectgroup
+" editselectwordgroup
+" editsmartgroup
+" editsource                                         <f4>
+" editsourceinnewwindow                              <s-f4>
+" emacsstyleindent
+" emmet
+" emmetnexteditpoint                                 <a-s-]>
+" emmetpreview
+" emmetpreviouseditpoint                             <a-s-[>
+" emmetupdatetag
+" emojiandsymbols
+" enablepackagejsonmismatcheddependenciesnotification
+" es6.generate.index
+" escapeentities
+" eslintimportcodestyle
+" evaluateexpression                                 <a-s-8>
+" executeinpyconsoleaction                           <a-s-e>
+" exit
+" expandall                                          <c-k> <c-=>
+" expandallregions                                   <c-s-k> <c-s-=>
+" expandalltolevel
+" expandalltolevel1                                  <c-s-j> <c-s-j>
+" expandalltolevel2                                  <c-s-j> <c-s-j>
+" expandalltolevel3                                  <c-s-j> <c-s-j>
+" expandalltolevel4                                  <c-s-j> <c-s-j>
+" expandalltolevel5                                  <c-s-j> <c-s-j>
+" expanddoccomments
+" expandexpandablecomponent                          <s-cr> <c-k> <c-=>
+" expandlivetemplatebytab                            <tab>
+" expandlivetemplatecustom
+" expandregion                                       <c-k> <c-=>
+" expandregionrecursively                            <a-c-k> <a-c-=>
+" expandtolevel
+" expandtolevel1                                     <c-j> <c-j>
+" expandtolevel2                                     <c-j> <c-j>
+" expandtolevel3                                     <c-j> <c-j>
+" expandtolevel4                                     <c-j> <c-j>
+" expandtolevel5                                     <c-j> <c-j>
+" expandtreenode                                     <k>
+" exportimportgroup
+" exportsettings
+" exporttestresults
+" exporttohtml
+" exporttotextfile                                   <a-o>
+" expressiontypeinfo                                 <c-s-p>
+" externaljavadoc                                    <s-f1>
+" externalsystem.actions
+" externalsystem.aftercompile
+" externalsystem.afterrebuild
+" externalsystem.aftersync
+" externalsystem.assignrunconfigurationshortcut
+" externalsystem.assignshortcut
+" externalsystem.beforecompile
+" externalsystem.beforerebuild
+" externalsystem.beforerun
+" externalsystem.beforesync
+" externalsystem.collapseall                         <c-m> <c-->
+" externalsystem.createrunconfiguration
+" externalsystem.detachproject                       <del>
+" externalsystem.editrunconfiguration
+" externalsystem.expandall                           <c-k> <c-=>
+" externalsystem.groupmodules
+" externalsystem.grouptasks
+" externalsystem.ignoreproject
+" externalsystem.openconfig                          <f4>
+" externalsystem.opentasksactivationmanager
+" externalsystem.refreshallprojects
+" externalsystem.refreshproject
+" externalsystem.removerunconfiguration
+" externalsystem.runtask
+" externalsystem.selectprojectdatatoimport
+" externalsystem.showignored
+" externalsystem.showinheritedtasks
+" externalsystem.showsettings
+" externalsystem.toggleautoimport
+" externalsystemview.actionstoolbar
+" externalsystemview.actionstoolbar.centerpanel
+" externalsystemview.actionstoolbar.leftpanel
+" externalsystemview.actionstoolbar.rightpanel
+" externalsystemview.baseprojectmenu
+" externalsystemview.modulemenu
+" externalsystemview.projectmenu
+" externalsystemview.runconfigurationmenu
+" externalsystemview.taskactivationgroup
+" externalsystemview.taskmenu
+" externaltoolsgroup
+" extractclass
+" extractinclude
+" extractinterface
+" extractmethod                                      <a-c-m>
+" extractmethodtoolwindow.treepopup
+" extractmodule
+" extractsuperclass
+" favoritesviewpopupmenu
+" filechooser
+" filechooser.delete                                 <del>
+" filechooser.gotodesktop                            <c-d>
+" filechooser.gotohome                               <c-1>
+" filechooser.gotoproject                            <c-2>
+" filechooser.newfile
+" filechooser.newfolder                              <a-ins> <c-n>
+" filechooser.refresh                                <a-c-y>
+" filechooser.showhiddens
+" filechooser.togglepathshowing                      <c-p>
+" filechoosertoolbar
+" fileeditor.opendataeditor
+" filehistory.annotaterevision
+" filehistory.keymapgroup
+" filemainsettingsgroup
+" filemenu
+" fileopengroup
+" fileothersettingsgroup
+" filesettingsgroup
+" filestructurepopup                                 <c-f12>
+" filetemplateseparatorgroup
+" filewatcher.runforfiles
+" fillparagraph
+" find                                               <c-f> <a-s-3>
+" findinpath                                         <c-s-f>
+" findmenugroup
+" findmodal
+" findnext                                           <f3> <c-l>
+" findprevious                                       <s-f3> <c-s-l>
+" findusages                                         <a-s-7>
+" findusagesinfile                                   <c-f7>
+" findwordatcaret                                    <c-f3>
+" fixdoccomment
+" floatmode
+" flowjs.restart.all.servers
+" focuseditor                                        <esc>
+" foldinggroup
+" forcerefresh                                       <c-s-f5>
+" forceruntocursor                                   <a-c-9>
+" forcestepinto                                      <a-s-f7>
+" forcestepover                                      <a-s-f8>
+" forward                                            <a-s-right> button=5 clickcount=1 modifiers=0
+" fullyexpandtreenode                                <j>
+" generate                                           <a-ins>
+" generate.constructor.javascript
+" generate.getaccessor.javascript
+" generate.getsetaccessor.javascript
+" generate.missing.members.es6                       <c-i>
+" generate.missing.members.typescript                <c-i>
+" generate.setaccessor.javascript
+" generatecopyright
+" generatecoveragereport
+" generatedbobjectgroup
+" generatedtd
+" generatefromtestcreatorsgroup
+" generategroup
+" generatepattern
+" generatexmltag
+" git.add                                            <a-c-a>
+" git.branches                                       <c-s-à>
+" git.branchoperationgroup
+" git.browserepoatrevision
+" git.checkoutgroup
+" git.cherrypick.abort
+" git.clone
+" git.commit.and.push.executor                       <a-c-k>
+" git.comparewithbranch
+" git.configure.remotes
+" git.contextmenu
+" git.createnewbranch
+" git.createnewtag
+" git.fetch
+" git.filehistory.contextmenu
+" git.fixup.to.commit
+" git.ignore.file
+" git.init
+" git.interactive.rebase
+" git.log
+" git.log.contextmenu
+" git.log.contextmenu.checkoutbrowse
+" git.log.deepcompare
+" git.log.toolbar
+" git.logcontextmenu
+" git.menu
+" git.merge
+" git.merge.abort
+" git.ongoing.rebase.actions
+" git.openexcludefile
+" git.pull
+" git.rebase
+" git.rebase.abort
+" git.rebase.continue
+" git.rebase.skip
+" git.repositorycontextmenu
+" git.reset
+" git.reset.in.log
+" git.resolveconflicts
+" git.revert.abort
+" git.revert.in.log
+" git.reword.commit                                  <f2> <s-f6>
+" git.selectingitlog
+" git.squash.into.commit
+" git.stash
+" git.tag
+" git.uncommit
+" git.unstash
+" gitfileactions
+" github.create.gist
+" github.create.pull.request
+" github.open.in.browser
+" github.pullrequest.branch.create
+" github.pullrequest.list.refresh
+" github.pullrequest.toolwindow.list.popup
+" github.pullrequest.zip.commits.toggle
+" github.rebase
+" github.share
+" github.view.pull.request
+" gitrepositoryactions
+" gotoaction                                         <c-s-a>
+" gotobookmark0                                      <c-0>
+" gotobookmark1                                      <c-1>
+" gotobookmark2                                      <c-2>
+" gotobookmark3                                      <c-3>
+" gotobookmark4                                      <c-4>
+" gotobookmark5                                      <c-5>
+" gotobookmark6                                      <c-6>
+" gotobookmark7                                      <c-7>
+" gotobookmark8                                      <c-8>
+" gotobookmark9                                      <c-9>
+" gotochangedfile                                    <c-n>
+" gotochangemarkergroup
+" gotoclass                                          <c-n>
+" gotocodegroup
+" gotocustomregion                                   <a-c-.>
+" gotodeclaration                                    <c-b> button=1 clickcount=1 modifiers=128
+" gotodeclarationonly
+" gotoeditpointgroup
+" gotoerrorgroup
+" gotofile                                           <c-s-n>
+" gotoimplementation                                 <a-c-b> button=1 clickcount=1 modifiers=640
+" gotolasttab
+" gotoline                                           <c-g>
+" gotolinktarget
+" gotomenu
+" gotomenuex
+" gotonextbookmark
+" gotonextelementundercaretusage
+" gotonexterror                                      <f2>
+" gotonextincompletepropertyaction                   <f2>
+" gotoprevelementundercaretusage
+" gotopreviousbookmark
+" gotopreviouserror                                  <s-f2>
+" gotorelated                                        <a-c-home>
+" gotorow                                            <c-g>
+" gotosupermethod                                    <c-u>
+" gotosymbol                                         <a-c-s-n>
+" gototab1
+" gototab2
+" gototab3
+" gototab4
+" gototab5
+" gototab6
+" gototab7
+" gototab8
+" gototab9
+" gototargetex
+" gototest                                           <c-s-t>
+" gototypedeclaration                                <c-s-b> button=1 clickcount=1 modifiers=192
+" graph.actualsize                                   <c-o> <c-/>
+" graph.applycurrentlayout                           <f5>
+" graph.commonlayoutgroup
+" graph.current.node.dependencies.filter
+" graph.defaultgraphpopup
+" graph.defaultgraphtoolbar
+" graph.delete                                       <del>
+" graph.exporttofile
+" graph.fitcontent
+" graph.layout.balloonlayouter
+" graph.layout.circularlayouter
+" graph.layout.directedorthogonallayouter
+" graph.layout.fit.content
+" graph.layout.hierarchicgrouplayouter
+" graph.layout.organiclayouter
+" graph.layout.orthogonallayouter
+" graph.layout.treelayouter
+" graph.show.edge.labels
+" graph.showhidegrid
+" graph.snaptogrid
+" graph.zoomin                                       <k> <=>
+" graph.zoomout                                      <m> <->
+" guttermenubookmarks
+" help.jetbrainstv
+" help.keymapreference
+" helpmenu
+" helptopics
+" hg.commit.and.push.executor                        <a-c-k>
+" hg.ignore.file
+" hg.init
+" hg.log.contextmenu
+" hg.mq
+" hg.mq.unapplied
+" hg4idea.add                                        <a-c-a>
+" hg4idea.branches
+" hg4idea.comparewithbranch
+" hg4idea.createnewbranch
+" hg4idea.createnewtag
+" hg4idea.file.menu
+" hg4idea.graft.continue
+" hg4idea.merge.files
+" hg4idea.mergewithrevision
+" hg4idea.mq.showunappliedpatches
+" hg4idea.pull
+" hg4idea.qdelete                                    <del>
+" hg4idea.qfinish
+" hg4idea.qfold                                      <a-s-d>
+" hg4idea.qgoto
+" hg4idea.qgotofrompatches                           <a-s-g>
+" hg4idea.qimport
+" hg4idea.qpushaction                                <a-s-p>
+" hg4idea.qrefresh                                   <c-f5>
+" hg4idea.qrename
+" hg4idea.rebase.abort
+" hg4idea.rebase.continue
+" hg4idea.resolve.mark
+" hg4idea.run.conflict.resolver
+" hg4idea.tag
+" hg4idea.updateto
+" hg4idea.updatetorevision
+" hideactivewindow                                   <s-esc>
+" hideallwindows                                     <c-s-f12>
+" hidecoverage
+" hidesidewindows
+" hierarchygroup
+" highlightusagesinfile                              <c-s-f7>
+" hippiebackwardcompletion                           <a-s-/>
+" hippiecompletion                                   <a-/>
+" htmladdtablecolumnafter
+" htmladdtablecolumnbefore
+" htmltablecellnavigatedown
+" htmltablecellnavigateleft
+" htmltablecellnavigateright
+" htmltablecellnavigateup
+" http.request.newfile
+" httpclient.addrequest
+" httpclient.opencollection
+" httpclient.runall
+" httpclientgroup
+" idescriptingconsole
+" ignorechoicesgroup
+" images.convertsvgtopng
+" images.editexternally                              <a-c-4>
+" images.editor.actualsize                           <c-o> <c-/>
+" images.editor.fitzoomtowindow
+" images.editor.togglegrid                           <c-þ>
+" images.editor.zoomin                               <c-k> <c-=>
+" images.editor.zoomout                              <c-m> <c-->
+" images.editorpopupmenu
+" images.editortoolbar
+" images.setbackgroundimage
+" images.showthumbnails
+" images.thumbnails.enteraction                      <cr>
+" images.thumbnails.hide                             <c-f4>
+" images.thumbnails.togglefilename
+" images.thumbnails.togglefilesize
+" images.thumbnails.togglerecursive                  <a-j>
+" images.thumbnails.toggletagspanelname
+" images.thumbnails.upfolder                         <bs>
+" images.thumbnailspopupmenu
+" images.thumbnailstoolbar
+" images.toggletransparencychessboard
+" implementmethods                                   <c-i>
+" importsettings
+" importtests
+" importtestsfromfile
+" incomingchanges.refresh
+" incomingchangestoolbar
+" increasecolumnwidth                                <c-s-right>
+" incrementalsearch
+" incrementwindowheight                              <c-s-down>
+" incrementwindowwidth                               <c-s-right>
+" inline                                             <a-c-n>
+" insertlivetemplate                                 <c-j>
+" inspectcode
+" inspectcodeactioninpopupmenus
+" inspectcodegroup
+" inspectcodeincodemenugroup
+" inspectiontoolwindow.treepopup
+" installnodelocaldependencies
+" integratechangesetaction
+" integratefiles
+" introduceactionsgroup
+" introduceconstant                                  <a-c-c>
+" introducefield                                     <a-c-f>
+" introduceparameter                                 <a-c-p>
+" introduceparameterobject
+" introducevariable
+" invalidatecaches
+" invertboolean
+" jasminegenerateaftereachmethodaction
+" jasminegeneratebeforeeachmethodaction
+" jasminegeneratenewspecaction
+" jasminegeneratenewsuiteaction
+" javascript.debugger.dropframe
+" javascript.debugger.reloadinbrowser
+" javascript.debugger.toggleexceptionbreakpoint
+" javascript.linters.eslint.fix
+" javascript.linters.jscs.fix
+" javascript.linters.standardjs.fix
+" javascriptdebugger.hideactionsgroup
+" javascriptdebugger.openurl
+" javascriptintroducedestructuringvariables
+" jdbc.openconsole.any                               <c-s-f10>
+" jdbc.openconsole.new
+" jdbc.openconsole.new.generate
+" jdbc.openeditor                                    <f4>
+" jdbc.openeditor.data
+" jdbc.openeditor.ddl                                <c-b> button=1 clickcount=1 modifiers=128
+" jdbc.openeditor.grid.ddl                           <a-c-home>
+" jdbc.runsqlscript                                  <c-s-f10>
+" js.typescript.compile
+" js.typescript.compile.config
+" js.typescript.include.generated.declarations
+" jsoncopypointer
+" jstestframeworkcodegeneratorgroup
+" jumptocolorsandfonts
+" jumptolastchange                                   <c-s-bs>
+" jumptolastwindow                                   <f12>
+" jumptonextchange
+" jupyterclearoutputsaction
+" jupyterconfigureshortcutsaction
+" jupytercreatefileaction
+" jupyterdebugaction                                 <a-s-cr>
+" jupyterfileactions
+" jupyterinsertcell
+" jupyterinsertcellaboveaction                       <a-s-a>
+" jupyterinsertcellbelowaction                       <a-s-b>
+" jupyterinsertcodecelltotheendaction
+" jupyterinsertmarkdowncelltotheendaction
+" jupyterinsertrawcelltotheendaction
+" jupyterjsoutputconsole$openjupyterjsconsoleaction
+" jupyterrestartkernelaction
+" jupyterrunallaboveaction
+" jupyterrunallaction                                <a-c-s-cr>
+" jupyterrunallbelowaction
+" jupyterruncellaction                               <c-cr>
+" jupyterruncellselectbelowaction                    <s-cr>
+" jupyterselectcellaboveaction                       <c-up>
+" jupyterselectcellbelowaction                       <c-down>
+" jupyterserveractions
+" jupyterstartserveraction
+" jupyterstopserveraction
+" langcodeinsightactions
+" languagespecificfoldinggroup
+" list-scrolldown                                    <pagedown>
+" list-scrolldownextendselection                     <s-pagedown>
+" list-scrollup                                      <pageup>
+" list-scrollupextendselection                       <s-pageup>
+" list-selectfirstrow                                <c-home>
+" list-selectfirstrowextendselection                 <c-s-home>
+" list-selectlastrow                                 <c-end>
+" list-selectlastrowextendselection                  <c-s-end>
+" list-selectnextcolumn                              <right>
+" list-selectnextcolumnextendselection               <s-right>
+" list-selectnextrow                                 <down>
+" list-selectnextrowextendselection                  <s-down>
+" list-selectpreviouscolumn                          <left>
+" list-selectpreviouscolumnextendselection           <s-left>
+" list-selectpreviousrow                             <up>
+" list-selectpreviousrowextendselection              <s-up>
+" listactions
+" localhistory
+" localhistory.putlabel
+" localhistory.showhistory
+" localhistory.showselectionhistory
+" log.filehistory.keymapgroup
+" log.keymapgroup
+" logdebugconfigure
+" lookupactions
+" macro.zen                                          <a-z>
+" macros
+" macrosgroup
+" mainmenu
+" maintenanceaction                                  <a-c-s-/>
+" maintenancegroup
+" maintoolbar
+" maintoolbarsettings
+" managerecentprojects
+" markascontentroot
+" markasoriginaltypeaction
+" markasplaintextaction
+" markdown.toolbar.left
+" markdown.toolbar.right
+" markexcluderoot
+" markfileas
+" marknotificationsasread
+" markrootgroup
+" marksourceroot
+" marktemplatedirectory
+" maximizeactivedialog
+" maximizetoolwindow                                 <c-s-þ>
+" memberpushdown
+" memberspullup
+" memoryview.settingspopupactiongroup
+" memoryview.showonlywithdiff
+" memoryview.switchupdatemode
+" mergesettings
+" methoddown                                         <a-down>
+" methodhierarchy                                    <c-s-h>
+" methodhierarchy.baseonthismethod                   <c-s-h>
+" methodhierarchypopupmenu
+" methodup                                           <a-up>
+" minimizecurrentwindow
+" modifyobject                                       <c-f6>
+" move                                               <f6>
+" moveeditortooppositetabgroup
+" moveelementleft                                    <a-c-s-left>
+" moveelementright                                   <a-c-s-right>
+" movelinedown
+" movelineup
+" movestatementdown                                  <c-s-down>
+" movestatementup                                    <c-s-up>
+" movetabdown
+" movetabright
+" mq.patches.contextmenu
+" mq.patches.toolbar
+" navbar-cancel                                      <esc>
+" navbar-navigate                                    <f4>
+" navbar-return                                      <cr>
+" navbar-selectdown                                  <down>
+" navbar-selectend                                   <end>
+" navbar-selecthome                                  <home>
+" navbar-selectleft                                  <left>
+" navbar-selectright                                 <right>
+" navbar-selectup                                    <up>
+" navbaractions
+" navbarpopupmenu
+" navbartoolbar
+" navbartoolbarothers
+" navbarvcsgroup
+" net.seesharpsoft.intellij.plugins.csv.actions.csvchangeescapecharacteractiongroup
+" net.seesharpsoft.intellij.plugins.csv.actions.csvchangeseparatoractiongroup
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$addcolumnafter
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$addcolumnbefore
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$addrowafter
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$addrowbefore
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$adjustcolumnwidths
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$deleteselectedcolumns
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$deleteselectedrows
+" net.seesharpsoft.intellij.plugins.csv.actions.csvtableeditoractions$resetcolumnwidths
+" newcoffeescriptfile
+" newdir
+" newdirectoryproject
+" neweditorconfigfile
+" newelement                                         <a-ins>
+" newelementsameplace                                <a-c-ins>
+" newfile
+" newfromtemplate
+" newgroup
+" newhtmlfile
+" newjavascriptfile
+" newpackagejsonfile
+" newprojectormodulegroup
+" newpropertyaction
+" newpythonfile
+" newpythonpackage
+" newscratchbuffer
+" newscratchfile                                     <a-c-s-ins>
+" newstylesheetfile
+" newtypescriptconfigfile
+" newtypescriptfile
+" newxml
+" newxmldescriptor
+" nextdiff                                           <f7>
+" nexteditortab                                      <a-s-right>
+" nextoccurence                                      <a-s-down>
+" nextparameter                                      <tab>
+" nextprojectwindow                                  <a-c-]>
+" nextsplitter
+" nexttab                                            <a-right>
+" nexttemplateparameter                              <tab>
+" nexttemplatevariable                               <tab> <cr>
+" nextwindow
+" notifications
+" onlinedocaction
+" openassertequalsdiff                               <c-d>
+" openblankeditorinblankdiffwindow
+" openeditorinoppositetabgroup
+" openelementinnewwindow                             <s-cr>
+" openfile
+" openfileeditorinblankdiffwindow
+" openinbrowser
+" openinbrowsereditorcontextbargroupaction
+" openinbrowsergroup
+" openprojectwindows
+" optimizeimports                                    <a-c-o>
+" org.intellij.plugins.markdown.ui.actions.editorlayout.cyclicsplitlayoutchangeaction <c-p>
+" org.intellij.plugins.markdown.ui.actions.editorlayout.editorandpreviewlayoutchangeaction
+" org.intellij.plugins.markdown.ui.actions.editorlayout.editoronlylayoutchangeaction
+" org.intellij.plugins.markdown.ui.actions.editorlayout.previewonlylayoutchangeaction
+" org.intellij.plugins.markdown.ui.actions.scrolling.autoscrollaction
+" org.intellij.plugins.markdown.ui.actions.styling.headerdownaction
+" org.intellij.plugins.markdown.ui.actions.styling.headerupaction
+" org.intellij.plugins.markdown.ui.actions.styling.markdownintroducelinkreferenceaction
+" org.intellij.plugins.markdown.ui.actions.styling.toggleboldaction
+" org.intellij.plugins.markdown.ui.actions.styling.togglecodespanaction
+" org.intellij.plugins.markdown.ui.actions.styling.toggleitalicaction
+" org.intellij.plugins.markdown.ui.actions.styling.togglestrikethroughaction
+" other.keymapgroup
+" othermenu
+" overridemethods                                    <c-o>
+" pairfileactions
+" parameterinfo                                      <c-p>
+" parameternamehints
+" pastemultiple                                      <c-s-v> <c-s-ins>
+" pause
+" pauseoutput
+" perforce.force.refresh
+" perforce.shelve
+" perforce.synctorevision
+" perforcedirect.edit                                <a-c-e>
+" perforcedirect.menu
+" perforceenableintegration
+" performance.activitymonitor
+" performance.dumpthreads
+" performanceplugin.attachinternaltracing
+" performanceplugin.configuretracingaction
+" performanceplugin.executescriptaction
+" performanceplugin.profileindexingaction
+" performanceplugin.profileslowstartupaction
+" performanceplugin.showmemorydialogaction
+" performanceplugin.startasyncprofileraction
+" pinactiveeditortab
+" pinactivetab
+" pintoolwindowtab
+" planviewgroup
+" platformopenprojectgroup
+" playbacklastmacro
+" playsavedmacrosaction
+" pluginstartupcostaction
+" popup@bookmarkcontextmenu
+" popuphector                                        <a-c-s-h>
+" popupmenu-cancel                                   <esc>
+" popupmenu-return                                   <cr>
+" popupmenu-selectchild                              <right>
+" popupmenu-selectnext                               <down>
+" popupmenu-selectparent                             <left>
+" popupmenu-selectprevious                           <up>
+" popupmenuactions
+" powersavegroup
+" previousdiff                                       <s-f7>
+" previouseditortab                                  <a-s-left>
+" previousoccurence                                  <a-s-up>
+" previousprojectwindow                              <a-c-[>
+" previoustab                                        <a-left>
+" previoustemplatevariable                           <s-tab>
+" previouswindow
+" prevparameter                                      <s-tab>
+" prevsplitter
+" prevtemplateparameter                              <s-tab>
+" print
+" printexportgroup
+" productivityguide
+" profiler
+" projectviewchangeview                              <a-s-1> <a-f1>
+" projectvieweditsource                              <f4>
+" projectviewpopupmenu
+" projectviewpopupmenumodifygroup
+" projectviewpopupmenurefactoringgroup
+" projectviewpopupmenurungroup
+" projectviewpopupmenusettingsgroup
+" psiviewer
+" psiviewerforcontext
+" publishgroup
+" publishgroup.base
+" publishgroup.comparelocalvsremote
+" publishgroup.comparelocalvsremotewith
+" publishgroup.download
+" publishgroup.downloadfrom
+" publishgroup.synclocalvsremote
+" publishgroup.synclocalvsremotewith
+" publishgroup.upload
+" publishgroup.uploadto                              <a-c-s-x>
+" publishgrouppopupmenu
+" publishingcontextmenuaction
+" publishingcopylinkaction
+" publishingmanageaccessrightsaction
+" publishingopenlinkaction
+" publishingsignoutaction
+" publishingupdateaction
+" publishjupyternotebookaction
+" puppet.install.dependencies
+" pyconsolerenameaction
+" pyconvertmoduletopackage
+" pyconvertpackagetomoduleaction
+" pydebugger.viewarray
+" pydebugger.viewasgroup
+" pyexecutecellaction                                <c-cr>
+" pymarkresourceroot
+" pypackagingmenu
+" pyprofile.navigatetosource
+" pyprofile.showoncallgraph
+" pyprofiler.openpstat
+" pyprofiler.popup.actions
+" pyrunfileinconsole
+" pysciview
+" pyswitchsdkaction
+" pythonappengine.appcfgaction
+" pythonappengine.getlogsaction
+" pythonappengine.uploadappaction
+" quickactionpopup                                   <a-c-cr>
+" quickactions
+" quickchangescheme                                  <c-à>
+" quickdoccopy                                       <c-c> <c-ins>
+" quickevaluateexpression                            <a-c-8> button=1 clickcount=1 modifiers=704
+" quickfixes
+" quickimplementations                               <c-s-i>
+" quickjavadoc                                       <c-q> button=2 clickcount=1 modifiers=512
+" quicklist.deployment
+" qunitgeneratenewtestaction
+" qunitgeneratesetupaction
+" qunitgenerateteardownaction
+" reactclasstofunctionalcomponentaction
+" reactextractcomponentaction
+" reactfunctionaltoclasscomponentaction
+" rearrangecode
+" recentchangedfiles
+" recentchanges                                      <a-s-c>
+" recentfiles                                        <c-e>
+" recentlocations                                    <c-s-e>
+" recentprojectlistgroup
+" refactoringmenu
+" refactorings.quicklistpopupaction                  <a-c-s-t>
+" reformatcode                                       <a-c-l>
+" refresh                                            <c-f5>
+" register
+" registrationactions
+" remoteexternaltoolsgroup
+" remotehost.newgroup
+" remotehost.newremoteitem                           <a-ins>
+" remotehostview.copypaths                           <c-s-c>
+" remotehostview.createfile
+" remotehostview.createfolder
+" remotehostview.editremotefile
+" remotehostview.editsource                          <f4>
+" remotehostview.rename                              <s-f6>
+" remotehostview.setpermissions
+" remotehostview.toggleexclusion
+" remotehostviewpopupmenu
+" remoteservers.addcloudconnectiongroup
+" remoteservers.chooseserverdeployment
+" remoteservers.chooseserverdeploymentwithdebug
+" remoteservers.connectserver
+" remoteservers.disconnectserver
+" remoteservers.editdeploymentconfig
+" remoteservers.editserverconfig                     <s-f4>
+" remoteserversviewpopup
+" remoteserversviewtoolbar
+" remoteserversviewtoolbar.top
+" removebom
+" removebom.group
+" renameelement                                      <s-f6>
+" renamefile
+" renameproject
+" reopenclosedtab
+" replace                                            <c-r>
+" replaceinpath                                      <c-s-r>
+" reportproblem
+" repositorychangesbrowsertoolbar
+" rerun                                              <c-f5>
+" rerunfailedtests
+" reruntests                                         <a-s-r>
+" resetcolumnswidth                                  <c-s-up>
+" resettomysettings
+" resettotheirssettings
+" resizetoolwindowdown                               <c-s-down>
+" resizetoolwindowgroup
+" resizetoolwindowleft                               <c-s-left>
+" resizetoolwindowright                              <c-s-right>
+" resizetoolwindowup                                 <c-s-up>
+" resolve
+" resolveall
+" resourcebundleeditorshowintentions                 <a-cr>
+" restclient.runrequest
+" restclient.showhistory
+" restoredefaultextensionscripts
+" restoredefaultlayout                               <s-f12>
+" resume                                             <f9>
+" revealgroup
+" revealin
+" revertunchanged
+" revisiongraph
+" run                                                <s-f10> <a-r>
+" runclass                                           <c-s-f10>
+" runconfiguration
+" runconfigurationtemplatesfornewprojects
+" runcontextgroup
+" runcontextgroupinner
+" runcontextpopupgroup
+" runcoverage
+" rundashboard.addtype
+" rundashboard.clearcontent
+" rundashboard.copyconfiguration                     <c-d>
+" rundashboard.debug
+" rundashboard.editconfiguration                     <s-f4>
+" rundashboard.filter
+" rundashboard.groupby
+" rundashboard.groupbystatus
+" rundashboard.groupbytype
+" rundashboard.groupconfigurations
+" rundashboard.hideconfiguration
+" rundashboard.removetype
+" rundashboard.restoreconfiguration
+" rundashboard.restorehiddenconfigurations
+" rundashboard.run                                   <c-s-f10>
+" rundashboard.stop                                  <c-f2>
+" rundashboard.ungroupconfigurations                 <del>
+" rundashboardcontenttoolbar
+" rundashboardpopup
+" runinspection                                      <a-c-s-i>
+" runinspectionon
+" runjsbttask                                        <a-f11>
+" runmenu
+" runner.closeallunpinnedviews
+" runner.closeallviews
+" runner.closeotherviews
+" runner.closeview
+" runner.focus
+" runner.focusonstartup
+" runner.layout
+" runner.restorelayout
+" runner.view.close.group
+" runner.view.popup
+" runner.view.toolbar
+" runneractions
+" runneractionstouchbar
+" runnerlayoutactions
+" runprofiler
+" runsetuppytask
+" runshellfileaction                                 <c-s-f10>
+" runtocursor                                        <a-s-9>
+" safedelete                                         <a-del>
+" saveall                                            <c-s>
+" saveas
+" saveastemplate
+" savedocument
+" savefileastemplate
+" scopeview.editscopes
+" scopeviewpopupmenu
+" scratch.changelanguage
+" scrollpane-scrolldown
+" scrollpane-scrollend
+" scrollpane-scrollhome
+" scrollpane-scrollleft
+" scrollpane-scrollright
+" scrollpane-scrollup
+" scrollpane-unitscrolldown
+" scrollpane-unitscrollleft
+" scrollpane-unitscrollright
+" scrollpane-unitscrollup
+" scrollpaneactions
+" scrolltreetocenter                                 <c-m>
+" searcheverywhere
+" searcheverywhere.completecommand                   <tab>
+" searcheverywhere.navigatetonextgroup               <pagedown> <c-down>
+" searcheverywhere.navigatetoprevgroup               <pageup> <c-up>
+" searcheverywhere.nexttab                           <tab>
+" searcheverywhere.prevtab                           <s-tab>
+" searcheverywhere.selectitem                        <cr>
+" searcheverywhereactions
+" selectalloccurrences                               <a-c-s-j>
+" selectin                                           <a-s-1> <a-f1>
+" selectinprojectview
+" selectinremotehost
+" selectnextoccurrence                               <a-j>
+" sendeof                                            <c-d>
+" sendfeedback
+" sendtofavoritesgroup
+" servers.deploy
+" servers.deploywithdebug
+" servers.undeploy
+" serviceview.activatedatabaseserviceviewcontributor
+" serviceview.activatedefaultremoteserversserviceviewcontributor
+" serviceview.activatedockerserviceviewcontributor
+" serviceview.activaterundashboardserviceviewcontributor
+" serviceview.activatesshserviceviewcontributor
+" serviceview.addservice                             <a-ins>
+" serviceview.filter
+" serviceview.groupby
+" serviceview.groupbycontributor                     <a-c-t>
+" serviceview.groupbyservicegroups                   <a-c-p>
+" serviceview.jumptoservices                         <a-home>
+" serviceview.openeachinnewtab
+" serviceview.openinnewtab
+" serviceview.openinnewtabgroup
+" serviceview.showservices                           <c-s-t>
+" serviceview.splitbytype
+" serviceviewitempopup
+" serviceviewitempopupgroup
+" serviceviewitemtoolbar
+" serviceviewitemtoolbargroup
+" serviceviewtreetoolbar
+" session.client.detach
+" session.close
+" session.closeall
+" session.rename                                     <s-f6>
+" setjobsforchangelist
+" setnextstatement
+" setshortcutaction                                  <a-cr>
+" severityeditordialog
+" shelfchanges.settings
+" shelve.keymapgroup
+" shelvechanges.unshelvewithdialog                   <c-s-u>
+" shelvedchanges.cleanmarkedtodelete
+" shelvedchanges.importpatches
+" shelvedchanges.rename                              <f2> <s-f6>
+" shelvedchanges.restore
+" shelvedchanges.showhidedeleted
+" shelvedchanges.showrecentlydeleted
+" shelvedchangespopupmenu
+" shelvedchangestoolbar
+" shgenerateforloop
+" shgenerategroup
+" shgenerateuntilloop
+" shgeneratewhileloop
+" show.current.revision
+" showannotateoperationspopupgroup
+" showappliedstylesaction
+" showblankdiffwindow
+" showbookmarks                                      <s-f11>
+" showcolorpicker
+" showcontent                                        <a-down>
+" showerrordescription                               <c-f1>
+" showexecutionpoint                                 <a-s-0>
+" showexperiments
+" showfilepath                                       <a-c-s-2>
+" showfilterpopup                                    <a-c-f>
+" showgrunttasks
+" showgulptasks
+" showguttericonssettings
+" showintentionactions                               <a-cr>
+" showintentionsgroup
+" showliverunconfigurations
+" showlog
+" shownavbar                                         <a-home>
+" shownpmscripts
+" showparameterhintssettings
+" showpopupmenu                                      <ȍ>
+" showprocesswindow
+" showrecentfindusagesgroup
+" showreformatfiledialog                             <a-c-s-l>
+" showregistry
+" showsearchhistory                                  <a-down>
+" showsettings                                       <a-c-s>
+" showsettingsandfindusages                          <a-c-s-7>
+" showsettingswithaddedpattern
+" showsqllog
+" showtips
+" showumldiagram                                     <a-c-s-u>
+" showumldiagrampopup                                <a-c-u>
+" showusages                                         <a-c-7>
+" silentcodecleanup
+" slicebackward
+" sliceforward
+" smartselect                                        <c-w>
+" smartstepinto                                      <s-f7>
+" smarttypecompletion                                <c-s- >
+" smartunselect                                      <c-s-w>
+" splithorizontally
+" splitvertically
+" sql.changedialect
+" sql.changedialect.toolbar
+" sql.editparameter                                  <f4>
+" sql.extractfunctionaction                          <a-c-m>
+" sql.extractnamedqueryaction
+" sql.introducealiasaction
+" sql.selectcurrentstatement
+" sql.selectindatabaseview
+" sqlgenerategroup
+" standardmacroactions
+" start.use.vcs
+" startstopmacrorecording
+" stepinto                                           <f7>
+" stepintomycode                                     <a-s-f7>
+" stepout                                            <s-f8>
+" stepover                                           <f8>
+" stop                                               <c-f2>
+" stopbackgroundprocesses                            <c-s-f2>
+" storedefaultlayout
+" structuralsearchactions
+" structuralsearchplugin.structuralreplaceaction
+" structuralsearchplugin.structuralsearchaction
+" structureviewpopupmenu
+" subversion.browsesvnrepository
+" subversion.cleanupproject
+" subversion.clenaup
+" subversion.comparewithbranch
+" subversion.copy
+" subversion.create.external
+" subversion.importtosvnrepository
+" subversion.lock
+" subversion.markresolved
+" subversion.marktreeresolved
+" subversion.relocate
+" subversion.resolve
+" subversion.setproperty
+" subversion.share
+" subversion.sharewholeproject
+" subversion.showproperties
+" subversion.togglepropertiesdiff
+" subversion.unlock
+" subversionfilepopupgroup
+" subversiongroup
+" subversionupdateactiongroup
+" suppressfixes
+" surroundwith                                       <a-c-t>
+" surroundwithemmet
+" surroundwithlivetemplate                           <a-c-j>
+" svn.show.working.copies
+" swapsidesindiffwindow
+" switchcoverage                                     <a-c-6>
+" switcher                                           <c-tab> <c-s-tab>
+" switcheriterateitems                               <c-e>
+" switcherrecenteditedchangedtogglecheckbox          <c-e>
+" synchronize                                        <a-c-y>
+" synchronizecurrentfile
+" syncsettings
+" table-scrolldownchangeselection                    <pagedown>
+" table-scrolldownextendselection                    <s-pagedown>
+" table-scrollupchangeselection                      <pageup>
+" table-scrollupextendselection                      <s-pageup>
+" table-selectfirstrow                               <c-home>
+" table-selectfirstrowextendselection                <c-s-home>
+" table-selectlastrow                                <c-end>
+" table-selectlastrowextendselection                 <c-s-end>
+" table-selectnextcolumn                             <right>
+" table-selectnextcolumnextendselection              <s-right>
+" table-selectnextrow                                <down>
+" table-selectnextrowextendselection                 <s-down>
+" table-selectpreviouscolumn                         <left>
+" table-selectpreviouscolumnextendselection          <s-left>
+" table-selectpreviousrow                            <up>
+" table-selectpreviousrowextendselection             <s-up>
+" tableactions
+" tableresult.growselection                          <c-w>
+" tableresult.selectalloccurrences                   <a-c-s-j>
+" tableresult.selectnextoccurrence                   <a-j>
+" tableresult.unselectpreviousoccurrence             <a-s-j>
+" tablist
+" tabsactions
+" task.actions
+" tasks.analyze.stacktrace
+" tasks.and.contexts
+" tasks.close                                        <a-s-w>
+" tasks.configure.servers
+" tasks.create.changelist
+" tasks.edit
+" tasks.goto                                         <a-s-n>
+" tasks.group
+" tasks.open.in.browser                              <a-s-b>
+" tasks.show.task.description
+" tasks.switch                                       <a-s-t>
+" tasks.toolbar.group
+" technicalsupport
+" templateparametersnavigation
+" templateprojectproperties
+" terminal.movetoeditor
+" terminal.movetoolwindowtableft                     <a-c-s-left>
+" terminal.movetoolwindowtabright                    <a-c-s-right>
+" terminal.openinterminal
+" terminal.renamesession
+" terminal.switchfocustoeditor                       <esc>
+" testtreepopupmenu
+" textcomponent.clearaction
+" timelapseview
+" todomaingroup
+" todoviewgroupbyflattenpackage                      <a-c-c>
+" todoviewgroupbygroup
+" todoviewgroupbyshowmodules                         <a-c-m>
+" todoviewgroupbyshowpackages                        <a-c-p>
+" togglebookmark                                     <f11>
+" togglebookmark0                                    <c-s-0>
+" togglebookmark1                                    <c-s-1>
+" togglebookmark2                                    <c-s-2>
+" togglebookmark3                                    <c-s-3>
+" togglebookmark4                                    <c-s-4>
+" togglebookmark5                                    <c-s-5>
+" togglebookmark6                                    <c-s-6>
+" togglebookmark7                                    <c-s-7>
+" togglebookmark8                                    <c-s-8>
+" togglebookmark9                                    <c-s-9>
+" togglebookmarkwithmnemonic                         <c-f11>
+" togglebreakpointenabled
+" togglecompletionhintsaction
+" togglecontentuitypemode
+" toggledistractionfreemode
+" toggledockmode
+" togglefindinselection                              <a-c-e>
+" togglefloatingmode
+" togglefullscreen
+" togglefullscreengroup
+" togglegloballinuxmenu
+" toggleinlayhintsgloballyaction
+" toggleinlinehintsaction
+" togglelinebreakpoint                               <c-f8>
+" togglepinnedmode
+" togglepopuphints
+" togglepowersave
+" togglepresentationmode
+" togglereadonlyattribute
+" togglesidemode
+" toggletemporarylinebreakpoint                      <a-c-s-f8>
+" togglewindowedmode
+" tool_external tools_npm
+" toolbarfindgroup
+" toolbarrungroup
+" toolsbasicgroup
+" toolsmenu
+" toolsxmlgroup
+" toolwindowcontextmenu
+" toolwindowsgroup
+" touchbar
+" touchbardebug
+" touchbardebug.forcestepbuttons
+" touchbardebug.stepbuttons
+" touchbardebug_alt
+" touchbardefault
+" touchbardefault_alt
+" touchbardefault_cmd
+" touchbardefault_cmd.alt
+" touchbardefault_ctrl
+" touchbardefault_shift
+" touchbardefaultoptionalgroup
+" tree-scrolldownchangeselection                     <pagedown>
+" tree-scrolldownextendselection                     <s-pagedown>
+" tree-scrollupchangeselection                       <pageup>
+" tree-scrollupextendselection                       <s-pageup>
+" tree-selectchild                                   <right>
+" tree-selectchildextendselection                    <s-right>
+" tree-selectfirst                                   <c-home>
+" tree-selectfirstextendselection                    <c-s-home>
+" tree-selectlast                                    <c-end>
+" tree-selectlastextendselection                     <c-s-end>
+" tree-selectnext                                    <down>
+" tree-selectnextextendselection                     <s-down>
+" tree-selectparent                                  <left>
+" tree-selectparentextendselection                   <s-left>
+" tree-selectprevious                                <up>
+" tree-selectpreviousextendselection                 <s-up>
+" treeactions
+" treenodeexclusion
+" tslintfilefixaction
+" tslintimportcodestyleaction
+" tw.movetogroup
+" tw.viewmodegroup
+" twviewmodes
+" twviewmodeslegacy
+" typehierarchy                                      <c-h>
+" typehierarchy.class
+" typehierarchy.subtypes
+" typehierarchy.supertypes
+" typehierarchybase.baseonthistype                   <c-h>
+" typehierarchypopupmenu
+" typescript.enable.service
+" typescript.include.sources
+" typescript.restart.service
+" typescriptextracttypealias
+" uidebugger
+" uitoggleactions
+" uml.collapsenodes                                  <c>
+" uml.defaultgraphpopup
+" uml.editorgroup
+" uml.expandnodes                                    <e>
+" uml.find                                           <c-f> <a-s-3>
+" uml.group
+" uml.group.simple
+" uml.newelement                                     <a-ins>
+" uml.newgroup
+" uml.nodecelleditorpopup
+" uml.nodeintentions                                 <a-cr>
+" uml.psielement.actions
+" uml.refactoring
+" uml.savediagram
+" uml.showchanges                                    <a-c-s-d>
+" uml.showdiff                                       <c-s-d>
+" uml.showstructure                                  <c-f12>
+" uml.sourceactionsgroup
+" undockmode
+" unmarkresourceroot
+" unmarkroot
+" unscramble
+" unselectpreviousoccurrence                         <a-s-j>
+" unsplit
+" unsplitall
+" unversioned.files.dialog
+" unversioned.files.dialog.popup
+" unwrap                                             <c-s-del>
+" updateactiongroup
+" updatecopyright
+" updatefiles
+" updaterunningapplication                           <c-f10>
+" usageview.exclude                                  <del>
+" usageview.include                                  <ins>
+" usageview.popup
+" usageview.remove                                   <c-x> <s-del>
+" usageview.rerun                                    <c-f5>
+" usageview.showrecentfindusages                     <a-down>
+" vagrantgroup
+" validatexml
+" vcs.applyselectedchanges
+" vcs.browse
+" vcs.checkinprojectmenu
+" vcs.checkinprojecttoolbar
+" vcs.cherrypick
+" vcs.commitexecutor.actions
+" vcs.copyrevisionnumberaction
+" vcs.diff.excludechangedlinesfromcommit
+" vcs.diff.includeonlychangedlinesintocommit
+" vcs.editsource                                     <f4>
+" vcs.filehistory.contextmenu
+" vcs.filehistory.presentationsettings
+" vcs.filehistory.toolbar
+" vcs.force.push
+" vcs.getversion
+" vcs.history
+" vcs.import
+" vcs.integrateproject
+" vcs.keymapgroup
+" vcs.log.alignlabels
+" vcs.log.annotaterevisionaction
+" vcs.log.changesbrowser.popup
+" vcs.log.changesbrowser.toolbar
+" vcs.log.collapseall
+" vcs.log.compactreferencesview
+" vcs.log.comparerevisions
+" vcs.log.contextmenu
+" vcs.log.enablefilterbyregexaction
+" vcs.log.expandall
+" vcs.log.focustextfilter                            <c-l>
+" vcs.log.getversion
+" vcs.log.gotochild                                  <left>
+" vcs.log.gotoparent                                 <right>
+" vcs.log.gotoref                                    <c-f> <a-s-3>
+" vcs.log.highlightersactiongroup
+" vcs.log.intellisortchooser
+" vcs.log.layoutconfiguration
+" vcs.log.matchcaseaction
+" vcs.log.openanothertab
+" vcs.log.openrepositoryversion
+" vcs.log.prefercommitdate
+" vcs.log.presentationsettings
+" vcs.log.refresh                                    <c-f5>
+" vcs.log.resumeindexing
+" vcs.log.showallaffected                            <a-s-a>
+" vcs.log.showchangesfromparents
+" vcs.log.showdetailsaction
+" vcs.log.showdiffpreview
+" vcs.log.showlongedges
+" vcs.log.showonlyaffectedchanges
+" vcs.log.showotherbranches
+" vcs.log.showrootscolumnaction
+" vcs.log.showtagnames
+" vcs.log.showtooltip                                <c-q> button=2 clickcount=1 modifiers=512
+" vcs.log.textfiltersettings
+" vcs.log.togglecolumns
+" vcs.log.toolbar
+" vcs.log.toolbar.internal
+" vcs.log.toolbar.rightcorner
+" vcs.messageactiongroup
+" vcs.movechangedlinestochangelist                   <a-s-m>
+" vcs.openrepositoryversion
+" vcs.operations.popup
+" vcs.operations.popup.annotate
+" vcs.operations.popup.nonvcsaware
+" vcs.operations.popup.vcs.providers
+" vcs.operations.popup.vcsaware
+" vcs.operations.popup.vcsnameseparator
+" vcs.push                                           <c-s-k>
+" vcs.push.actions
+" vcs.quicklistpopupaction                           <a-à>
+" vcs.reformatcommitmessage                          <a-c-l>
+" vcs.refreshfilehistory                             <c-f5>
+" vcs.refreshstatuses
+" vcs.repositorychangesbrowsermenu
+" vcs.repositorychangesbrowsertoolbar
+" vcs.revertselectedchanges
+" vcs.rollbackchangedlines                           <a-c-z>
+" vcs.show.local.changes
+" vcs.show.log
+" vcs.show.shelf
+" vcs.show.toolwindow.tab
+" vcs.showdiffwithlocal
+" vcs.showdiffwithlocal.before
+" vcs.showhistoryforblock
+" vcs.showhistoryforrevision
+" vcs.showmessagehistory                             <c-m> <c-e>
+" vcs.showtabbedfilehistory
+" vcs.specific
+" vcs.toggleamendcommitmode                          <a-m>
+" vcs.updateproject                                  <c-t>
+" vcs.vcsclone
+" vcsfilegrouppopup
+" vcsgeneral.keymapgroup
+" vcsglobalgroup
+" vcsgroup
+" vcsgroups
+" vcshistory.showallaffected                         <a-s-a>
+" vcshistoryactionsgroup
+" vcshistoryactionsgroup.toolbar
+" vcshistoryinternalgroup.popup
+" vcshistoryinternalgroup.toolbar
+" vcsnavbartoobaractions
+" vcsshowcurrentchangemarker
+" vcsshownextchangemarker                            <a-c-s-down>
+" vcsshowprevchangemarker                            <a-c-s-up>
+" vcstoobaractions
+" vcstoolbarlabelaction
+" versioncontrolsgroup
+" viewappearancegroup
+" viewbreakpoints                                    <c-s-f8>
+" viewimportpopups
+" viewinplacecomments                                <a-s-\>
+" viewmainmenu
+" viewmenu
+" viewnavigationbar
+" viewofflineinspection
+" viewrecentactions
+" viewsource                                         <c-cr>
+" viewstatusbar
+" viewtoolbar
+" viewtoolbuttons
+" vimactions
+" vimplugintoggle                                    <a-v>
+" vimshortcutkeyaction
+" visualizesourcemap
+" wd.uploadcurrentremotefileaction                   <a-s-q>
+" webdeployment.browseservers
+" webdeployment.configuration
+" webdeployment.options
+" webdeployment.toggleautoupload
+" webopeninaction                                    <a-f2>
+" webservicesplugin.createrestclient
+" weighingnewgroup
+" welcomescreen.changeprojecticon
+" welcomescreen.configure
+" welcomescreen.configure.collectzippedlogs
+" welcomescreen.configure.desktopentry
+" welcomescreen.configure.export
+" welcomescreen.configure.import
+" welcomescreen.configure.properties
+" welcomescreen.configure.vmoptions
+" welcomescreen.copyprojectpath                      <c-s-c>
+" welcomescreen.createdirectoryproject
+" welcomescreen.createwebproject
+" welcomescreen.documentation
+" welcomescreen.editgroup
+" welcomescreen.movetogroup
+" welcomescreen.newgroup
+" welcomescreen.opendirectoryproject
+" welcomescreen.openselected
+" welcomescreen.platform.newproject
+" welcomescreen.plugins
+" welcomescreen.quickstart
+" welcomescreen.quickstart.platform
+" welcomescreen.register
+" welcomescreen.removeselected
+" welcomescreen.settings
+" welcomescreen.update
+" welcomescreenrecentprojectactiongroup
+" welcomscreen.managelicense
+" windowmenu
+" windowmode
+" working.context
+" xdebugger.actions
+" xdebugger.attachgroup
+" xdebugger.attachtoprocess                          <a-c-5>
+" xdebugger.comparevaluewithclipboard
+" xdebugger.copyname
+" xdebugger.copyvalue                                <c-c> <c-ins>
+" xdebugger.copywatch                                <c-d>
+" xdebugger.editwatch                                <f2>
+" xdebugger.evaluate.code.fragment.editor.popup
+" xdebugger.evaluation.dialog.tree.popup
+" xdebugger.frames.toptoolbar
+" xdebugger.frames.tree.popup
+" xdebugger.inline
+" xdebugger.inspect
+" xdebugger.inspect.tree.popup
+" xdebugger.jumptosource                             <f4>
+" xdebugger.jumptotypesource                         <s-f4>
+" xdebugger.movewatchdown
+" xdebugger.movewatchup
+" xdebugger.mutebreakpoints
+" xdebugger.newwatch                                 <ins>
+" xdebugger.pintotop
+" xdebugger.removeallwatches
+" xdebugger.removewatch                              <del>
+" xdebugger.settings
+" xdebugger.setvalue                                 <f2>
+" xdebugger.switchwatchesinvariables
+" xdebugger.togglesortvalues
+" xdebugger.toolwindow.lefttoolbar
+" xdebugger.toolwindow.toptoolbar
+" xdebugger.unmuteonstop
+" xdebugger.valuegroup
+" xdebugger.valuegroup.copyjson
+" xdebugger.variables.tree.popup
+" xdebugger.variables.tree.toolbar
+" xdebugger.watches.tree.popup
+" xdebugger.watches.tree.toolbar
+" xmlgeneratetoolsgroup
+" xsd2document
+" zoomcurrentwindow
+" ```

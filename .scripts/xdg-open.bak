@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# FILE="$1"
+EXT="${1##*.}"
+
+detach(){
+  nohup "$@" 1>/dev/null 2>/dev/null &
+}
+
+case "$EXT" in
+  # https:*) detach firefox "$@";;
+  # http:*) detach firefox "$@";;
+  pdf) detach zathura "$@";;
+  jpg) detach mpv "$@";;
+  opus) mpv "$@";;
+  flac) mpv "$@";;
+  epub) detach zathura "$@";;
+  torrent) qbittorrent-nox "$@" --skip-dialog=true;;
+
+  # open with vim
+  lua|sh|go|mod|py|vim) v "$@";;
+  # file without extension, default to vim
+  # "$1") v "$@";;
+
+  *) detach /usr/bin/xdg-open "$@";;
+esac

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+npm install -g vscode-css-languageserver-bin
+npm install -g vscode-html-languageserver-bin
+npm install -g vscode-json-languageserver
+npm install -g yaml-language-server
+npm install -g typescript-language-server
+npm install -g vscode-css-languageserver-bin
+npm install -g dockerfile-language-server-nodejs
+npm install -g bash-language-server
+npm install -g vim-language-server
+npm install -g snowpack
+asdf reshim
+
+

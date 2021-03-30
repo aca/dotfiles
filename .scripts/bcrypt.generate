@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python -c "import bcrypt; print(bcrypt.hashpw(b\"$1\", bcrypt.gensalt(rounds=15)).decode(\"ascii\"))"

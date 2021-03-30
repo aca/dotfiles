@@ -1,0 +1,148 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+if ! command -v brew; then /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; fi
+
+brew install --cask karabiner-elements
+brew install --cask sublime-merge
+brew install --cask vagrant
+brew install --cask virtualbox
+brew install --cask alacritty
+brew install --cask copyq
+brew install --cask docker
+brew install --cask firefox
+brew install --cask google-chrome
+brew install --cask insomnia
+brew install --cask jetbrains-toolbox
+brew install --cask karabiner-elements
+brew install --cask minikube
+brew install --cask mpv
+brew install --cask mysql-shell
+brew install --cask sublime-merge
+brew install --cask vagrant
+brew install --cask virtualbox
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+brew tap koekeishiya/formulae
+  brew install yabai
+  brew install skhd
+  # sudo yabai --install-sa
+
+brew install swagger-codegen
+brew install aria2
+brew install atool
+brew install bash
+brew install bash-completion@2
+brew install bat
+brew install bluetoothconnector
+brew install cmatrix
+brew install coreutils
+brew install diff-so-fancy
+brew install direnv
+brew install exa
+brew install fd
+brew install ffmpeg
+brew install findutils
+brew install fish
+brew install fzf
+brew install gawk
+brew install gdb
+brew install gettext
+brew install ghq
+brew install git
+brew install gnupg
+brew install gnu-sed
+brew install graphviz
+brew install gron
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+brew install hexyl
+brew install highlight
+brew install htop
+brew install httpie
+brew install hub
+brew install hyperfine
+brew install inetutils
+brew install iperf3
+brew install iproute2mac
+brew install jq
+brew install kubectx
+brew install kubernetes-cli
+brew install kubernetes-helm
+brew install kustomize
+brew install minikube
+brew install moreutils
+brew install mps-youtube
+brew install mpv
+brew install msgpack
+brew install mycli
+brew install mysql
+brew install ncdu
+brew install ncurses
+# brew install neovim
+brew install nnn
+brew install noti
+brew install pdsh
+brew install pipenv
+brew install pngpaste
+brew install protobuf
+brew install pstree
+brew install pup
+brew install pyenv
+brew install python
+brew install ranger
+brew install readline
+brew install pyenv
+
+brew install redis
+brew install ripgrep
+brew install skhd
+brew install sqlite
+brew install stern
+brew install stow
+brew install syncthing
+brew install telnet
+brew install the_silver_searcher
+brew install tig
+# brew install tmux
+brew install tmux-xpanes
+brew install tree
+brew install vault
+brew install vegeta
+brew install vim
+brew install w3m
+brew install watch
+brew install wget
+brew install yarn
+brew install zsh
+brew install iperf3
+brew install jq
+brew install kubectx
+brew install minikube
+brew install ncdu
+brew install noti
+brew install pdsh
+brew install pipenv
+brew install pngpaste
+brew install protobuf
+brew install stow
+brew install tree
+brew install vegeta
+brew install yarn

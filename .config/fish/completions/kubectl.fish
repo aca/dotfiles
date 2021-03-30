@@ -1,0 +1,1 @@
+../../../../../github.com/evanlucas/fish-kubectl-completions/completions/kubectl.fish

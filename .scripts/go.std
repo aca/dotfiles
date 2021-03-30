@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+STDLIB=$(go env GOROOT)/src
+cd $STDLIB
+
+LIBS=($(fd . -t d --exclude internal --exclude testdata --exclude vendor | fzf -m))
+
+for dir in ${LIBS[@]}; do
+  go doc $dir 2>/dev/null   
+done
+
+

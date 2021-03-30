@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if tmux list-sessions >/dev/null 2>&1; then
+  tmux new -s main || tmux attach -t main
+else
+  tmux new -s main
+  nohup tmux new -s bg -d >/dev/null 2>&1
+  tmux attach -t main
+fi

@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# github.release kubernetes-sigs/kind
+# curl -sL https://api.github.com/repos/kubernetes-sigs/kind/releases/latest | jq -r '.assets[].browser_download_url' | grep amd64
+# https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-darwin-amd64
+# https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
+
+curl -sL "https://api.github.com/repos/$1/releases/latest" | jq -r '.assets[].browser_download_url'

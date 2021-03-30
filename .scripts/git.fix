@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euxo pipefail  
+
+git fetch origin master
+git stash
+git switch --force-create $1 origin/master

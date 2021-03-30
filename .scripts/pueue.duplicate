@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# pueue status -j | jq '.tasks | .[] | select(.status=="Running") | {path, command}'
+
+pueue status -j | jq '.tasks | .[] | "\(.path),\(.command)"'
