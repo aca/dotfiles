@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+tmux split-window "tail -f /usr/local/var/log/yabai/yabai.err.log"
+tmux split-window "tail -f /usr/local/var/log/yabai/yabai.out.log"

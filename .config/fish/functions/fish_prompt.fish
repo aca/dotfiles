@@ -1,7 +1,8 @@
 function fish_prompt
 
   # current time
-  set_color --dim --italics
+  # set_color --dim --italics
+  set_color --dim
   echo -n ' '(date +%H:%M:%S)
  
   # user/hostname
@@ -19,5 +20,5 @@ function fish_prompt
   # echo -n 'ϟ '
   echo -n ' | '
   set_color normal
-  # set_color --italics
+  set_color --italics
 end

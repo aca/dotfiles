@@ -1,2 +1,0 @@
-#!/bin/bash
-egrep --text '^http' "$(ls -td ~/Downloads/* | grep HTTPHeaderLive | head -n 1)" | tr -d "\015" | uniq

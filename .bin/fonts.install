@@ -1,0 +1,9 @@
+#!/usr/bin/env fish
+
+[ (uname) = "Linux" ] && set font_dir "$HOME/.local/share/fonts"
+[ (uname) = "Darwin" ] && set font_dir "$HOME/Library/Fonts" 
+[ -d "$font_dir" ] || mkdir -p "$font_dir" || true
+
+rm -vrf $font_dir/fonts
+cp -rvp fonts $font_dir
+fc-cache -vf $font_dir/fonts

@@ -1,0 +1,6 @@
+#!/usr/bin/env fish
+
+for i in (seq 10)
+  fd --type empty -x command rm -v
+end
+ 

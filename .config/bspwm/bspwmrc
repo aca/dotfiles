@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ~/.config/polybar/launch.sh
-#
+
 if [ "$(bspc query -M --names | wc -l)" = 3 ]; then
   bspc monitor $(xrandr -q | grep '^eDP.*\bconnected' | awk '{print $1}') -d 1 2 3
   bspc monitor $(xrandr -q | grep '^DP.*\bconnected' | awk '{print $1}' | awk 'NR==1') -d 4 5 6
@@ -10,8 +10,8 @@ else
   bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
 fi
 
-bspc config border_width         1
-bspc config window_gap          0
+bspc config border_width         0
+bspc config window_gap          1
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus true
 bspc config pointer_follows_monitor true
@@ -41,16 +41,7 @@ bspc config pointer_action3 move
 bspc rule -a KakaoTalkEdgeWnd border=off follow=off state=floating follow=off manage=off
 bspc rule -a KakaoTalkShadowWnd border=off follow=off state=floating follow=off manage=off
 
-
 bspc rule -a kakaotalk.exe border=off  follow=off
 bspc rule -a KakaoTalk.exe border=off follow=off
 bspc rule -a explorer.exe border=off focus=off hidden=on
 bspc rule -a motion_recorder border=off hidden=on focus=off
-
-# pgrep grobi || nohup grobi watch -i 30 >/dev/null 2>&1&
-
-# if ps -ef | grep grobi; then
-#   :
-# else
-#   nohup ~/src/bin/tmp.sh >/dev/null 2>&1&
-# end

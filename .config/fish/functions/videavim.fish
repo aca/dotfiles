@@ -1,3 +1,3 @@
 function videavim
-  v ~/.ideavimrc
+  $EDITOR ~/.ideavimrc
 end

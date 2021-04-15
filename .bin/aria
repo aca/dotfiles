@@ -1,0 +1,17 @@
+#!/usr/bin/env fish
+
+function aria
+  if isatty stdin
+    for l in (pbpaste) 
+      set url (echo $l | string escape)
+      command pueue add -- aria2c $url
+    end
+  else
+    for l in (cat -) 
+      set url (echo $l | string escape)
+      command pueue add -- aria2c $url
+    end
+  end
+end
+
+aria

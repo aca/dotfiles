@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if command -v nvr &>/dev/null && [ "$NVIM_LISTEN_ADDRESS" != "" ]; then
-  nvr "$@"
-else
-  nvim "$@"
-fi

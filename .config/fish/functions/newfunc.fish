@@ -5,7 +5,7 @@ function newfunc
     return 1
   end
 
-  cd ~/src/configs/home/.config/fish/functions
+  cd ~/src/configs/dotfiles/.config/fish/functions
 
   echo $argv[1]".fish"
 
@@ -16,7 +16,7 @@ function newfunc
 end" > $argv[1]".fish"
   end
   
- v $argv[1]".fish"
+  $EDITOR $argv[1]".fish"
 
   setup.install 
 end

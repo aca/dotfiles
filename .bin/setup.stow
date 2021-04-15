@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+# vim:foldmethod=marker
+set -exuo pipefail
+type stow
+sudo -v
+
+cd ~/src/configs
+
+# utils {{{
+rmf() { rm -vrf "$@" || true; }
+
+emptyDir() {
+  rmf "$1"
+  mkdir -p "$1"
+}
+
+isLinux() { if [[ "$OSTYPE" == "linux-gnu"* ]]; then return 0; else return 1; fi; }
+
+isDarwin() { if [[ "$OSTYPE" == "darwin"* ]]; then return 0; else return 1; fi; }
+# }}}
+
+# cleanup {{{
+emptyDir $HOME/.config/fish
+emptyDir $HOME/.bin
+emptyDir $HOME/.config/fish/functions
+emptyDir $HOME/.config/alacritty
+emptyDir $HOME/.config/youtube-dl
+emptyDir $HOME/.config/bat
+emptyDir $HOME/.config/bc
+emptyDir $HOME/.config/colorls
+emptyDir $HOME/.config/aria2
+emptyDir $HOME/.config/fontconfig
+emptyDir $HOME/.config/mpv
+emptyDir $HOME/.config/TabNine
+emptyDir $HOME/.config/vifm
+emptyDir $HOME/.config/fcitx
+emptyDir $HOME/.config/pulse
+emptyDir $HOME/.config/nvim
+emptyDir $HOME/.ssh
+
+rmf $HOME/.scripts
+rmf $HOME/.config/gtk-3.0
+rmf $HOME/.scim
+rmf $HOME/.config/sxhkd
+rmf $HOME/.config/fd
+rmf $HOME/.config/zathura
+rmf $HOME/.config/autorandr
+rmf $HOME/.config/karabiner
+rmf $HOME/.config/dunst
+rmf $HOME/.config/bspwm
+rmf $HOME/.config/mimeapps.list
+rmf $HOME/.config/hub
+rmf $HOME/.config/kitty
+rmf ~/.inputrc
+rmf ~/.bashrc
+rmf ~/.tool-versions
+rmf ~/.asoundrc
+rmf ~/.bcrc
+rmf ~/.xprofile
+rmf ~/.moprc
+rmf ~/.zshrc
+rmf ~/.Xresources
+rmf ~/.tool-versions
+rmf ~/.xinitrc
+rmf ~/.Xmodmap
+rmf ~/.bash_profile
+rmf ~/.bash_defaults
+rmf ~/.tmux.conf
+rmf ~/.w3m
+rmf ~/.xsession
+rmf ~/.yabairc
+rmf ~/.zshrc
+rmf ~/.pacman
+rmf ~/.pam_environment
+rmf ~/.gitignore
+rmf ~/.gitignore_global
+rmf ~/.ripgreprc
+rmf ~/.ideavimrc
+rmf ~/.tridactylrc
+rmf ~/.ansible.cfg
+rmf ~/.config/.ideavimrc
+rmf ~/.config/autostart
+rmf ~/.config/surfingkeys
+rmf ~/.config/grobi.conf
+rmf ~/.config/rofi
+rmf ~/.config/wezterm
+rmf ~/.skhdrc
+rmf ~/.gitconfig*
+rmf ~/.netrc
+rmf ~/.gnupg
+rmf ~/.ticker.yaml
+rmf ~/.slack-term
+rmf ~/.config/systemd/user/*.service
+
+mkdir -p $HOME/.config/systemd/user
+mkdir -p $HOME/bin
+# }}}
+
+# stow dotfiles
+stow -v --target $HOME "dotfiles"
+
+# stow host specific dotfiles
+[[ -d "dotfiles.$(hostname)" ]] && sudo stow -v --target / "dotfiles.$(hostname)"

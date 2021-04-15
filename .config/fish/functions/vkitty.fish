@@ -1,3 +1,3 @@
 function vkitty -d ''
-  v ~/.config/kitty/kitty.conf
+  $EDITOR ~/.config/kitty/kitty.conf
 end

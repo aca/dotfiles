@@ -1,3 +1,3 @@
 function vy -d ''
-    v -c "set ft=yaml" -
+    $EDITOR -c "set ft=yaml" -
 end

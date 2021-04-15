@@ -68,7 +68,8 @@ fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
 
 " Image
 filetype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
-       \ open -a Preview.app,
+       \ mpv %f
+       " \ open -a Preview.app,
 fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
          \ identify %f
 

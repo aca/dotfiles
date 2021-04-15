@@ -1,19 +1,19 @@
 output HDMI-0
 off
-output DP-1
-crtc 1
-mode 1920x1080
-pos 0x0
-rate 60.00
-rotate left
 output DP-0
 crtc 0
 mode 3840x2160
-pos 1080x73
+pos 1080x0
 primary
 rate 60.00
+output DP-1
+crtc 1
+mode 1920x1080
+pos 0x120
+rate 60.00
+rotate left
 output eDP-1-1
 crtc 4
 mode 1920x1080
-pos 4920x420
+pos 4920x496
 rate 59.96

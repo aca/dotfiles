@@ -8,8 +8,8 @@
 # --no-heading
 # --with-filename
 # --line-number
-# --follow
-# --hidden
+--follow
+--hidden
 
 --glob=!.stfolder/**
 --glob=!.DocumentRevisions-V100/**

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+echo $1
+zip -0 -r "$1.zip" "$1"
+rm -rf "$1"

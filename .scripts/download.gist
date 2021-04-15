@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# download gist, set gist-url from clipboard
-
-filename=$(basename $(pbpaste | urlparse | jq -r .path))
-pbpaste > "$filename" ; echo >> "$filename"
-curl --silent "$(pbpaste)" 1>> "$filename"
-v -c 'Commentary' "$filename"

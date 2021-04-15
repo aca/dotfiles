@@ -1,3 +1,3 @@
 function vtmux -d ''
-  v ~/.tmux.conf
+  $EDITOR ~/.tmux.conf
 end

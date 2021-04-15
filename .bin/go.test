@@ -1,0 +1,20 @@
+#!/usr/bin/env fish
+
+
+set ff (go test -list . | head -n -1 | fzf -m)
+if $status -ne 0; exit 1; end
+
+for i in (seq (count $ff))
+
+  if string match -r 'Benchmark.*' $ff[$i]
+    go test -v -bench $ff[$i]
+  else
+    go test -race -v -run $ff[$i]
+  end
+
+  if test ! $i -ne (math (count $ff)-1)
+    echo ""
+    echo "----------------------------------------------"
+    echo ""
+  end
+end

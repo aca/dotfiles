@@ -1,13 +1,13 @@
 #!/bin/sh
 
-xrandr --dpi 96
+xrandr --dpi 192
 
 # key
 setxkbmap -option # reset all
 # setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 setxkbmap -option 'ctrl:rctrl_ralt'
-xset r rate 150 20
+xset r rate 220 20
 
 # daemon
 copyq &
@@ -39,6 +39,10 @@ xset -dpms # turn off dpms
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
 
-
+picom -b
 systemctl --user import-environment DISPLAY PATH
+autorandr default
+
+# feh --bg-fill ~/Downloads/images/39428b58da0c76276ec27f1038331f19.jpg --bg-fill ~/Downloads/images/092ef4380dfd31515c342ad36395400a.png --bg-fill ~/Downloads/images/M3hqBT9x_o.jpg
+
 exec bspwm

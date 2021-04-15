@@ -25,7 +25,5 @@ set output-meta
 # Do not convert 8-bit characters into ASCII key sequences.
 set convert-meta off
  
-
 set vi-ins-mode-string \033[1;31m<(ins)>\033[0m \1\e[5 q\2
 set vi-cmd-mode-string \033[1;30m<(cmd)>\033[0m \1\e[1 q\2
-

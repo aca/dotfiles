@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cd ~/src/log
-log.daily

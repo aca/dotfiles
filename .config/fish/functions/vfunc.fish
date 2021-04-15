@@ -1,4 +1,4 @@
 function vfunc
-  cd ~/src/configs/home/.config/fish/functions
+  cd ~/src/configs/dotfiles/.config/fish/functions
   ffv
 end

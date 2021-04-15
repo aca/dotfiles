@@ -3,7 +3,7 @@ function add_to_pueue
   commandline -r ""
   echo 
   echo $command
-  pueue add -- $command
+  pueue add -- "$command"
   commandline -f force-repaint
 end
 
@@ -25,7 +25,6 @@ function command_to_watch
   set -l command (commandline -b)
   commandline -r ""
   echo 
-  # watch -b -n 3 -d=permanent -x fish -c "$command""|strip-ansi"
   watch -b -n 2 -d=permanent -x fish -c "$command"
   commandline -f force-repaint
 end
@@ -51,9 +50,24 @@ function fish_user_key_bindings
         bind -M $mode \ca complete
         bind -M $mode \cq exit
         bind -M $mode \ce clear_screen
-        bind -M $mode \cn "commandline -i (fzf-complete-from-tmux.sh) 2>/dev/null"
+        # bind -M $mode \cn "commandline -i (fzf-complete-from-tmux.sh) 2>/dev/null"
+        
+        bind -M $mode \cn fzf-cd-widget
         bind -M $mode --erase --preset \cd # disable closing terminal
+
+
+        # bind -M insert \cm fzf-cd-widget
     end
     # bind -M insert jk "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+    #
+    bind --preset -M insert \cv fish_clipboard_paste_trim
+    bind --preset \cv fish_clipboard_paste_trim
+    bind --preset -M visual \cv fish_clipboard_paste_trim
+end
+
+function fish_clipboard_paste_trim
+  # pbpaste | sed 's/\t/    /g' | pbcopy
+  pbpaste | sed 's/\t/    /g' | pbcopy
+  fish_clipboard_paste
 end
 

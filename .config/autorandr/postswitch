@@ -3,7 +3,7 @@
 notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
 
 # reset key
-/home/rok/.scripts/key.xmodmap_reset
-bash /home/rok/src/configs/home/.config/bspwm/bspwmrc
-docked
+bash ~/.config/bspwm/bspwmrc
+bash ~/bin/key.xmodmap_reset
 
+feh --bg-fill ~/Downloads/images/39428b58da0c76276ec27f1038331f19.jpg --bg-fill ~/Downloads/images/092ef4380dfd31515c342ad36395400a.png --bg-fill ~/Downloads/images/M3hqBT9x_o.jpg
