@@ -1,9 +1,6 @@
 " vim:ft=vim et sw=2 foldmethod=marker
 
 " lua vim.lsp.set_log_level("debug")
-"
-" nnoremap -> →
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PERF {{{
@@ -211,7 +208,7 @@ local paq = require'paq-nvim'.paq
 
 -- paq 'gelguy/wilder.nvim' -- TODO
 paq {'aca/nvim-colors'}
-paq {'tyru/columnskip.vim'}
+-- paq {'tyru/columnskip.vim'}
 paq {'inkarkat/vim-ReplaceWithRegister', opt=true}
 paq {'norcalli/nvim-colorizer.lua', opt=true}
 paq {'ap/vim-buftabline', opt=true}
@@ -222,7 +219,7 @@ paq {'aca/vidir.nvim'}
 paq {'phaazon/hop.nvim', opt=true} -- easymotion
 paq {'hrsh7th/vim-vsnip'}
 paq {'hrsh7th/nvim-compe'}
-paq {'ray-x/lsp_signature.nvim'} -- TODO
+-- paq {'ray-x/lsp_signature.nvim'} -- TODO
 paq {'neovim/nvim-lspconfig'}
 paq {'glepnir/lspsaga.nvim', opt=true}
 paq {'dstein64/nvim-scrollview', opt=true}
@@ -251,6 +248,7 @@ paq {'tommcdo/vim-lion', opt=true}
 paq {'machakann/vim-sandwich', opt=true}
 -- paq {'b3nj5m1n/kommentary', opt=true}
 -- paq {'terrortylor/nvim-comment', opt=true}
+-- paq {'tpope/vim-commentary', opt=true}
 paq {'tomtom/tcomment_vim', opt=true}
 
 paq {'machakann/vim-swap', opt=true}
@@ -259,6 +257,7 @@ paq {'aca/fzf-proj.vim', opt=true}
 paq {'windwp/nvim-autopairs'}
 -- paq {"cohama/lexima.vim"}
 paq {'dhruvasagar/vim-table-mode', opt=true}
+paq {'tpope/vim-sleuth', opt=true} -- detect indent
 paq {'sbdchd/neoformat', opt=true}
 paq {'metakirby5/codi.vim', opt=true}
 paq {'pedrohdz/vim-yaml-folds', opt=true}
@@ -312,21 +311,16 @@ paq {'plasticboy/vim-markdown', opt=true}
 paq {'xolox/vim-colorscheme-switcher', opt=true}
 paq {'xolox/vim-misc', opt=true}
 
+-- TODO! https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+-- paq {'JoosepAlviste/nvim-ts-context-commentstring'}
 -- paq {'nvim-treesitter/nvim-treesitter', hook=":TSUpdate"}
--- require'nvim-treesitter.configs'.setup {
---   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
---   highlight = {
---     enable = true,              -- false will disable the whole extension
---     -- disable = { "c", "rust" },  -- list of language that will be disabled
---   },
--- }
+
+paq {'ThePrimeagen/git-worktree.nvim', opt=true}
 
 EOF
 endfunction
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
 " PLUGINS CONFIG {{{
 au BufReadPost *.rkt,*.rktl set filetype=scheme
 
@@ -378,9 +372,9 @@ xmap gx :packadd xdg_open.vim \| execute "normal gx"<cr>
 let g:quickrun_no_default_key_mappings=1
 let g:quickrun_config = {
       \'*': {
-      \'outputter/buffer/split': ':10split'}}
-nnoremap <silent><Leader>qr :packadd vim-quickrun \| :execute "normal \<plug>(quickrun)"<cr>
-vnoremap <silent><Leader>qr <esc>:packadd vim-quickrun \| :execute "normal gv \<plug>(quickrun)"<cr>
+      \'outputter/buffer/split': ':15split'}}
+nnoremap <silent><Leader>r :packadd vim-quickrun \| :execute "normal \<plug>(quickrun)"<cr><c-w>p
+vnoremap <silent><Leader>r <esc>:packadd vim-quickrun \| :execute "normal gv \<plug>(quickrun)"<cr><c-w>p
 
 command! CODI packadd codi.vim | :Codi
 command! Grammar packadd vim-grammarous | :GrammarousCheck
@@ -426,6 +420,8 @@ function s:setup_gina()
 endfunction
 autocmd CursorHold * call <sid>setup_gina()
 " }}}
+
+autocmd CursorHold * packadd vim-sleuth
 
 " let g:cursorword_highlight=
 " autocmd CursorHold * packadd nvim-cursorline
@@ -577,9 +573,26 @@ nnoremap <silent>g< :packadd vim-swap \|: execute "normal \<Plug>(swap-prev)"<cr
 nnoremap <silent>g> :packadd vim-swap \|: execute "normal \<Plug>(swap-next)"<cr>
 " }}}
 
-" tomtom/tcomment_vim {{{
+" comments {{{
+
+" function s:setup_commentary() 
+"   packadd vim-commentary
+"   lua <<EOF
+" local map = vim.api.nvim_buf_set_keymap
+" map(0, 'n', 'gc', [[v:lua.context_commentstring.update_commentstring_and_run('Commentary')]], {expr = true})
+" map(0, 'x', 'gc', [[v:lua.context_commentstring.update_commentstring_and_run('Commentary')]], {expr = true})
+" map(0, 'o', 'gc', [[v:lua.context_commentstring.update_commentstring_and_run('Commentary')]], {expr = true})
+" map(0, 'n', 'gcc', [[v:lua.context_commentstring.update_commentstring_and_run('CommentaryLine')]], {expr = true})
+" map(0, 'n', 'cgc', [[v:lua.context_commentstring.update_commentstring_and_run('ChangeCommentary')]], {expr = true})
+" EOF
+" endfunction
+"
+" nmap <silent>gcc :call <sid>setup_commentary() \| :exe "normal gcc"<cr>
+" vmap <silent>gc <esc>:call <sid>setup_commentary() \| :exe "normal gv gc"<cr>
+
 nmap <silent>gcc :packadd tcomment_vim \| :exe "normal gcc"<cr>
 vmap <silent>gc <esc>:packadd tcomment_vim \| :exe "normal gv gc"<cr>
+
 " }}}
 
 " vim-smoothie {{{
@@ -693,7 +706,7 @@ local nvim_lsp = require'lspconfig'
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-nvim_lsp.tsserver.setup{} -- Need typescript installed to use for javascript project
+-- nvim_lsp.tsserver.setup{} -- Need typescript installed to use for javascript project
 nvim_lsp.gopls.setup{}
 -- nvim_lsp.racket_langserver.setup{ capabilities = capabilities; }
 -- nvim_lsp.bashls.setup{ capabilities = capabilities; }
@@ -703,10 +716,23 @@ nvim_lsp.gopls.setup{}
 -- nvim_lsp.html.setup{ capabilities = capabilities; }
 -- nvim_lsp.jsonls.setup { capabilities = capabilities; }
 -- nvim_lsp.yamlls.setup { capabilities = capabilities; }
--- nvim_lsp.clangd.setup{ capabilities = capabilities; }
+nvim_lsp.clangd.setup{ capabilities = capabilities; }
 -- nvim_lsp.rust_analyzer.setup { capabilities = capabilities; }
--- nvim_lsp.pyright.setup{}
 
+-- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
+nvim_lsp.denols.setup{
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" , "json"},
+  root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", ".git", vim.fn.getcwd()),
+  settings = {
+    init_options = {
+      enable = true,
+      lint = true,
+      unstable = false
+    }
+  }
+}
+
+-- nvim_lsp.pyright.setup{}
 require 'pylance'
 nvim_lsp.pylance.setup{
   settings = {
@@ -794,6 +820,7 @@ require'compe'.setup {
   -- -- source_timeout = ... number ...;
   -- -- incomplete_delay = ... number ...;
   allow_prefix_unmatch = true;
+  documentation = true;
   --
   source = {
     path = true;
@@ -822,14 +849,16 @@ end
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
 _G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
+  if vim.fn.call("vsnip#jumpable", {1}) == 1 then
+    return t "<Plug>(vsnip-jump-next)"
+  elseif vim.fn.pumvisible() == 1 then
     return t "<C-n>"
---  elseif vim.fn.call("vsnip#available", {1}) == 1 then
---    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
   else
-    return vim.fn['compe#complete']()
+    return t "<Tab>"
+--  elseif check_back_space() then
+--    return t "<Tab>"
+--  else
+--    return vim.fn['compe#complete']()
   end
 end
 _G.s_tab_complete = function()
@@ -847,8 +876,17 @@ vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-
-require'lsp_signature'.on_attach()
+-- TODO: treesitter
+-- require'nvim-treesitter.configs'.setup {
+--   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+--   highlight = {
+--     enable = true,              -- false will disable the whole extension
+--     -- disable = { "c", "rust" },  -- list of language that will be disabled
+--   },
+--   -- context_commentstring = {
+--   --   enable = true
+--   -- },
+-- }
 
 EOF
 
@@ -860,6 +898,7 @@ function s:formatting()
     execute ":Neoformat"
   endtry
 endfunction
+
 
 set completeopt=menu,menuone,noselect
 
@@ -889,8 +928,8 @@ nnoremap <silent> ;n            <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-nnoremap <silent> ;pp           <cmd>call <sid>formatting()<cr>
-inoremap <silent><c-j>          <c-o><cmd>call vsnip#expand()<cr>
+nnoremap <silent> ;f           <cmd>call <sid>formatting()<cr>
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 inoremap <silent><expr><CR>     compe#confirm('<CR>')
 
 hi! link LspDiagnosticsDefaultInformation Comment
@@ -959,28 +998,7 @@ au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == 
 " - ~/src/ (directory)
 " - ~/src (it sometimes does not open directory properly)
 " ~/.config/nvim/init.vim:9^2 (cursor at ^)
-" Wierd but works
-function s:GF()
-  normal! mz
-  if !empty(glob(expand('<cfile>')))
-    try
-      exec "normal! gF"
-    endtry
-  else 
-    try 
-      exec "normal! bgF"
-    catch
-      try
-        exec "normal! bgF"
-      catch
-        echo "Failed to open \"" . expand('<cfile>') . '"'
-        " restore position
-        normal! `z
-      endtry
-    endtry
-  endif
-endfunction
-nnoremap <silent>gf <cmd>call <SID>GF()<cr>
+nnoremap <silent>gf WBgF
 
 " visual block increment
 vnoremap <C-a> g<C-a>
@@ -1159,21 +1177,21 @@ function s:setup_fzf()
   packadd fzf
   packadd fzf.vim
 endfunction
-nnoremap <silent><c-f>                :call <sid>setup_fzf()   \|   :Rg<cr>
-inoremap <silent><c-f>                <c-o>:call <sid>setup_fzf()   \|   :Rg<cr>
-nnoremap <silent><leader>fa           :call <sid>setup_fzf()   \|   :Rgg<cr>
-nnoremap <silent><Leader>fw           :call <sid>setup_fzf()   \|   :Rg <C-R><C-W><CR>
-nnoremap <silent><Leader>fW           g :call <sid>setup_fzf() \|   :Rg <C-R><C-A><CR>
-vnoremap <silent><Leader>fw           y :call <sid>setup_fzf() \|   :Rg <C-R>"<CR>
-nnoremap <silent><Leader>fm           :call <sid>setup_fzf()   \|   :FZFMarks<cr>
-nnoremap <silent><leader>fl           :call <sid>setup_fzf()   \|   :BLines<cr>
-nnoremap <silent><leader>ff           :call <sid>setup_fzf()   \|   :Files<cr>
-nnoremap <silent><leader>fh           :call <sid>setup_fzf()   \|   :History<CR>
-nnoremap <silent><leader>'            :call <sid>setup_fzf()   \|   :FZFMarks<cr>
-nnoremap <silent><leader>b            :call <sid>setup_fzf()   \|   :Buffers<cr>
-nnoremap <silent><leader>fC           :call <sid>setup_fzf()   \|   :Colors<cr>
-nnoremap <silent><leader>fc           :call <sid>setup_fzf()   \|   :Commits<cr>
-nnoremap <silent><leader>fp           :call <sid>setup_fzf()   \|   :packadd fzf-proj.vim  \|  :Projects<cr>
+nnoremap <silent><c-f>                :call <sid>setup_fzf()   \|         :Rgg<cr>
+inoremap <silent><c-f>                <c-o>:call <sid>setup_fzf()   \|    :Rgg<cr>
+nnoremap <silent><leader>fa           :call <sid>setup_fzf()   \|         :Rgg<cr>
+nnoremap <silent><Leader>fw           :call <sid>setup_fzf()   \|         :Rg <C-R><C-W><CR>
+nnoremap <silent><Leader>fW           g :call <sid>setup_fzf() \|         :Rg <C-R><C-A><CR>
+vnoremap <silent><Leader>fw           y :call <sid>setup_fzf() \|         :Rg <C-R>"<CR>
+nnoremap <silent><Leader>fm           :call <sid>setup_fzf()   \|         :FZFMarks<cr>
+nnoremap <silent><leader>fl           :call <sid>setup_fzf()   \|         :BLines<cr>
+nnoremap <silent><leader>ff           :call <sid>setup_fzf()   \|         :Files<cr>
+nnoremap <silent><leader>fh           :call <sid>setup_fzf()   \|         :History<CR>
+nnoremap <silent><leader>'            :call <sid>setup_fzf()   \|         :FZFMarks<cr>
+nnoremap <silent><leader>b            :call <sid>setup_fzf()   \|         :Buffers<cr>
+nnoremap <silent><leader>fC           :call <sid>setup_fzf()   \|         :Colors<cr>
+nnoremap <silent><leader>fc           :call <sid>setup_fzf()   \|         :Commits<cr>
+nnoremap <silent><leader>fp           :call <sid>setup_fzf()   \|         :packadd fzf-proj.vim  \|  :Projects<cr>
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HIGHLIGHT {{{

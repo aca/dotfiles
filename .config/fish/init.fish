@@ -74,7 +74,7 @@ if not set -q init_fish
     set -gx LANGUAGE en_US.UTF-8
     set -gx LC_ALL en_US.UTF-8
 
-    set -q SSH_CLIENT && set -gx TERM xterm
+    # set -q SSH_CLIENT && set -gx TERM xterm
     set -gx XDG_CONFIG_HOME "$HOME/.config"
 
     #  colorful man
@@ -218,3 +218,6 @@ end
 #         functions --erase __direnv_cd_hook;
 #     end;
 #  end
+
+
+if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end

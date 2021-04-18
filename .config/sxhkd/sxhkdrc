@@ -16,7 +16,6 @@ super + m
 super + x
   alacritty;
 
-
 # TODO find appropriate usage
 # jttps://github.com/baskerville/bspwm/issues/900
 super + b
@@ -107,9 +106,8 @@ super + Return
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd; /home/rok/.bin/key.xmodmap_reset;
 
-#
 # bspwm hotkeys
 #
 
