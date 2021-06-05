@@ -11,7 +11,7 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 
 " iamcco/markdown-preview.nvim {{{
 let g:mkdp_refresh_slow = 1
-let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
+" let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
 " let g:mkdp_markdown_css = expand('~/src/github.com/otsaloma/markdown-css/tufte.css.orig')
 " let g:mkdp_markdown_css = expand('~/src/github.com/otsaloma/markdown-css/tufte.css')
 let g:mkdp_auto_close = 0
@@ -46,6 +46,7 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 set foldexpr=NestedMarkdownFolds()
 
+syntax match todoCheckbox "\[\ \]" conceal cchar=
+syntax match todoCheckbox "\[x\]" conceal cchar=
 
 packadd vim-table-mode
-

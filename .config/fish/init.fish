@@ -13,6 +13,9 @@ if not status --is-interactive; exit; end
 if not set -q init_fish
     set -gx init_fish
 
+    # 
+    if [ "$USER" = "ubuntu" ]; set -gx TERM linux; end
+
     # nord
     set -gx fish_color_normal normal
     set -gx fish_color_command 81a1c1

@@ -1,8 +1,8 @@
-" vim: foldmethod=marker
+" vim:ft=vim et sw=2 foldmethod=marker
 
 " lua vim.lsp.set_log_level("debug")
-set scrolloff=5
-
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PERF {{{
 " vim-startuptime -vimpath nvim | head -n 20
 " Extra options: []
@@ -28,25 +28,16 @@ set scrolloff=5
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
-" set grepformat=%f:%l:%c:%m,%f:%l:%m
-    
-"  ShaDa/viminfo:
-"   ' - Maximum number of previously edited files marks
-"   < - Maximum number of lines saved for each register
-"   @ - Maximum number of items in the input-line history to be
-"   s - Maximum size of an item contents in KiB
-"   h - Disable the effect of 'hlsearch' when loading the shada
-set shada='300,<10,@50,s100,h
-
+set shada='100,f1,<100
 let g:_uname = 'macOS' | if has('unix') | let g:_uname = 'Linux' | endif
 
 " if filereadable("/usr/bin/sh") | set shell=/usr/bin/sh | elseif filereadable("/bin/sh") | set shell=/bin/sh | endif
 " set shell=/bin/sh
 
-let &statusline = "%= %f %-5(%l:%c%)%* %P"
+let &statusline = "%= [%n] %f %<%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}%{&readonly ? '[RO] ' : ''} %-9(%l:%c%)%*%P"
 
-
-set laststatus=2
+set virtualedit=all
+set laststatus=0
 
 " fold
 " set foldlevel=0 " close all folds
@@ -76,8 +67,6 @@ set splitright
 
 " zepl.vim
 set hidden
-" autocmd TermOpen * startnormal
-" autocmd TermOpen * call feedkeys('G')
 
 " ctags
 set tags=./tags;/
@@ -94,9 +83,8 @@ set termguicolors " norcalli/nvim-colorizer.lua need this
 
 " number, toggle with ;n, performance issue
 " set ruler
-set number
+set nonumber
 set norelativenumber
-
 
 " tab
 setlocal tabstop=2
@@ -160,7 +148,6 @@ set synmaxcol=0
 set timeoutlen=400
 set ttyfast
 set virtualedit=block
-" set virtualedit=all
 " set visualbell
 set whichwrap=b,s
 " set wildmenu
@@ -197,12 +184,12 @@ let g:loaded_getscript = 1
 let g:loaded_getscriptPlugin    = 1
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" " Neovide {{{
-" set guifont=Lotion\ Nerd\ Font\ NF:h28
-" let g:neovide_cursor_vfx_mode = "torpedo"
-" let g:neovide_cursor_vfx_mode = "pixiedust"
-" " }}}
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Neovide {{{
+set guifont=Lotion\ Nerd\ Font\ NF:h28
+let g:neovide_cursor_vfx_mode = "torpedo"
+let g:neovide_cursor_vfx_mode = "pixiedust"
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PAQ {{{
 command PaqInstall call <sid>loadPaq() | :PaqInstall
 command PaqClean   call <sid>loadPaq() | :PaqClean
@@ -221,13 +208,8 @@ local paq = require'paq-nvim'.paq
 
 -- paq 'gelguy/wilder.nvim' -- TODO
 paq {'aca/nvim-colors'}
-paq {'neovimhaskell/haskell-vim'}
 
 paq 'gennaro-tedesco/nvim-peekup'
-paq {'lambdalisue/pastefix.vim', opt=true}
-
-
-paq 'ojroques/vim-oscyank'
 
 -- paq {'tyru/columnskip.vim'}
 paq {'inkarkat/vim-ReplaceWithRegister', opt=true}
@@ -241,7 +223,7 @@ paq {'phaazon/hop.nvim', opt=true} -- easymotion
 paq {'hrsh7th/vim-vsnip'}
 paq {'hrsh7th/nvim-compe'}
 paq {'andersevenrud/compe-tmux'}
-paq {'ray-x/lsp_signature.nvim'}
+-- paq {'ray-x/lsp_signature.nvim'} -- TODO
 paq {'neovim/nvim-lspconfig'}
 paq {'glepnir/lspsaga.nvim', opt=true}
 paq {'dstein64/nvim-scrollview', opt=true}
@@ -258,10 +240,9 @@ paq {'rafcamlet/nvim-luapad', opt=true}
 paq {'christoomey/vim-tmux-navigator', opt=true}
 paq {'justinmk/vim-dirvish'}
 paq {'junegunn/fzf', opt=true}
-paq {'junegunn/fzf.vim', opt=true}
+paq {'aca/fzf.vim', opt=true}
 paq {'stefandtw/quickfix-reflector.vim', opt=true}
 paq {'lambdalisue/suda.vim', opt=true}
-paq {'RREthy/vim-illuminate', opt=true}
 
 paq {'arp242/switchy.vim', opt=true}
 
@@ -276,7 +257,6 @@ paq {'machakann/vim-sandwich', opt=true}
 paq {'tomtom/tcomment_vim', opt=true}
 
 -- TODO: replace with https://github.com/AndrewRadev/sideways.vim
-paq {'matze/vim-move', opt=true}
 paq {'machakann/vim-swap', opt=true}
 paq {'aca/fzf-proj.vim', opt=true}
 -- paq {'tmsvg/pear-tree', opt=true}
@@ -314,8 +294,6 @@ paq {'rhysd/git-messenger.vim', opt=true}
 -- paq { 'lewis6991/gitsigns.nvim', opt=true}
 
 paq {'axvr/zepl.vim', opt=true}
-
-paq 'jbyuki/venn.nvim'
 -- paq {'yamatsum/nvim-cursorline', opt=true}
 
 -- Language specific
@@ -325,7 +303,7 @@ paq {'aca/nvim-go', opt=true}
 paq {'mattn/vim-goaddtags', opt=true}
 paq {'aca/pylance.nvim'}
 -- paq {'vmchale/just-vim'}
-paq {'Raku/vim-raku'}
+-- paq {'Raku/vim-raku'}
 -- paq {'ziglang/zig.vim'}
 -- paq {'rust-lang/rust.vim'}
 paq {'aca/vim-fish'}
@@ -345,64 +323,22 @@ paq {'xolox/vim-misc', opt=true}
 -- paq {'JoosepAlviste/nvim-ts-context-commentstring'}
 -- paq {'nvim-treesitter/nvim-treesitter', hook=":TSUpdate"}
 
--- paq {'haringsrob/nvim_context_vt'}
-
 paq {'ThePrimeagen/git-worktree.nvim', opt=true}
-
--- paq 'yuki-yano/zero.nvim'
 
 EOF
 endfunction
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS CONFIG {{{
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | silent OSCYankReg " | endif
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
-
-" zepl.vim
-packadd zepl.vim
-runtime zepl/contrib/python.vim  " Enable the Python contrib module.
-runtime zepl/contrib/nvim_autoscroll_hack.vim
-" autocmd TermEnter zepl:* tnoremap <C-\><C-n> <C-\><C-n>G
-" autocmd TermEnter zepl:* tnoremap <C-\><C-N> <C-\><C-n>G
-let g:repl_config = {
-            \   'python': {
-            \     'cmd': 'ipython',
-            \     'formatter': function('zepl#contrib#python#formatter')
-            \   }
-            \ }
-
-" Lazy load with timer
-function! SetupDeferLoad(timer)
-  doautocmd User DeferLoad
-endfunction
-autocmd VimEnter * call timer_start(1000, "SetupDeferLoad")
-
 au BufReadPost *.rkt,*.rktl setfiletype scheme
 autocmd BufRead,BufNewFile *.fish setfiletype fish
 
-" matze/vim-move {{{
-function s:setup_move() 
-  if exists('g:loaded_move')
-    return
-  endif
-
-  let g:move_map_keys = 0
-  packadd vim-move
-
-  vmap <M-s> <Plug>MoveBlockDown
-  vmap <M-w> <Plug>MoveBlockUp
-  vmap <M-a> <Plug>MoveBlockLeft
-  vmap <M-d> <Plug>MoveBlockRight
-
-  nmap <M-s> <Plug>MoveLineDown
-  nmap <M-w> <Plug>MoveLineUp
-  nmap <M-a> <Plug>MoveCharLeft
-  nmap <M-d> <Plug>MoveCharRight
-
-endfunction
-autocmd User DeferLoad call s:setup_move()
-" }}}
+" nmap sj <Plug>(columnskip:nonblank:next)
+" omap sj <Plug>(columnskip:nonblank:next)
+" xmap sj <Plug>(columnskip:nonblank:next)
+" nmap sk <Plug>(columnskip:nonblank:prev)
+" omap sk <Plug>(columnskip:nonblank:prev)
+" xmap sk <Plug>(columnskip:nonblank:prev)
 
 " [count]["x]gr{motion}   Replace {motion} text with the contents of register x.
 "                         Especially when using the unnamed register, this is
@@ -421,34 +357,26 @@ xmap <silent>gr  <c-u>:packadd vim-ReplaceWithRegister<cr>gr
 
 
 " ap/vim-buftabline {{{
-function s:setup_buftabline()
-  if exists('g:loaded_buftabline')
-    return
-  endif
-  let g:loaded_buftabline = 1
-  packadd vim-buftabline
-  call buftabline#update(0)
-  let g:buftabline_show = 2
-  let g:buftabline_numbers = 2
-  nmap <leader>1 <Plug>BufTabLine.Go(1)
-  nmap <leader>2 <Plug>BufTabLine.Go(2)
-  nmap <leader>3 <Plug>BufTabLine.Go(3)
-  nmap <leader>4 <Plug>BufTabLine.Go(4)
-  nmap <leader>5 <Plug>BufTabLine.Go(5)
-  nmap <leader>6 <Plug>BufTabLine.Go(6)
-  nmap <leader>7 <Plug>BufTabLine.Go(7)
-  nmap <leader>8 <Plug>BufTabLine.Go(8)
-  nmap <leader>9 <Plug>BufTabLine.Go(9)
-  nmap <leader>0 <Plug>BufTabLine.Go(10)
-endfunction
+let g:buftabline_show = 2
+let g:buftabline_numbers = 2
+nmap <leader>1 <Plug>BufTabLine.Go(1)
+nmap <leader>2 <Plug>BufTabLine.Go(2)
+nmap <leader>3 <Plug>BufTabLine.Go(3)
+nmap <leader>4 <Plug>BufTabLine.Go(4)
+nmap <leader>5 <Plug>BufTabLine.Go(5)
+nmap <leader>6 <Plug>BufTabLine.Go(6)
+nmap <leader>7 <Plug>BufTabLine.Go(7)
+nmap <leader>8 <Plug>BufTabLine.Go(8)
+nmap <leader>9 <Plug>BufTabLine.Go(9)
+nmap <leader>0 <Plug>BufTabLine.Go(10)
 
-autocmd BufAdd * call <sid>setup_buftabline()
+autocmd BufAdd * packadd vim-buftabline | :call buftabline#update(0)
 " }}}
 
 command! Colorizer packadd nvim-colorizer.lua | :ColorizerToggle
 
-nmap <silent>gx :packadd xdg_open.vim<cr>gx
-xmap <silent>gx :packadd xdg_open.vim \| execute "normal gx"<cr>
+nmap gx :packadd xdg_open.vim<cr>gx
+xmap gx :packadd xdg_open.vim \| execute "normal gx"<cr>
 
 let g:quickrun_no_default_key_mappings=1
 let g:quickrun_config = {
@@ -466,7 +394,7 @@ function s:setup_gina()
     return
   endif
   packadd gina.vim
-  cnoreabbrev Git Gina
+  cnoreabbrev git Gina
   command! Gbrowse execute "normal! vv" | :'<,'>Gina browse --exact :
   command! Glog :Gina log -- %:p
   command! Agit :packadd agit.vim | :Agit
@@ -486,11 +414,11 @@ function s:setup_gina()
           \ {'noremap': 1, 'silent': 1},
           \)
 
-  call gina#custom#mapping#nmap(
-  	      \ 'log', 'd',
-          \ ':execute printf(":new term://git diff %s \| resize +10", gina#action#candidates()[0].rev)<cr>',
-  	      \ {'noremap': 1, 'silent': 1},
-  	      \)
+  " call gina#custom#mapping#nmap(
+  " 	      \ 'log', 'd',
+  " 	      \ '0<c-u>:execute "Gina!! diff ".expand("<cword>")[3:]<cr>',
+  " 	      \ {'noremap': 1, 'silent': 0},
+  " 	      \)
 
   call gina#custom#mapping#nmap(
           \ 'log', 'q',
@@ -498,11 +426,12 @@ function s:setup_gina()
           \ {'noremap': 1, 'silent': 1},
           \)
 endfunction
-autocmd User DeferLoad call <sid>setup_gina()
+autocmd CursorHold * call <sid>setup_gina()
 " }}}
 
-autocmd User DeferLoad packadd vim-sleuth
-autocmd User DeferLoad packadd pastefix.vim
+autocmd CursorHold * packadd vim-sleuth
+
+" autocmd CursorHold * packadd nvim-cursorline
 
 " junegunn/goyo.vim {{{
 let g:goyo_width='100'
@@ -518,20 +447,8 @@ let g:limelight_priority = -1
 " function! s:goyo_leave()
 " endfunction
 "
-function! s:goyo_enter()
-  set showtabline=0
-  set noshowmode
-  set noshowcmd
-endfunction
-
-function! s:goyo_leave()
-  set showtabline=2
-  set showmode
-  set showcmd
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" autocmd! User GoyoEnter nested call <SID>goyo_enter()
+" autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " }}}
 
 " mhinz/vim-signify {{{
@@ -543,7 +460,7 @@ highlight! SignifySignDelete ctermfg=red    guifg=#696969 cterm=NONE guibg=NONE
 highlight! SignifySignChange ctermfg=yellow guifg=#696969 cterm=NONE guibg=NONE
 nmap <silent> ]h <plug>(signify-next-hunk)
 nmap <silent> [h <plug>(signify-prev-hunk)
-autocmd User DeferLoad packadd vim-signify | :SignifyEnable
+autocmd CursorHold * packadd vim-signify | :SignifyEnable
 " }}}
 
 " vim-lion {{{
@@ -614,7 +531,7 @@ let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_html = ['prettier']
 let g:neoformat_enabled_lua = ['luafmt']
-" let g:neoformat_enabled_go = ['gofumports']
+let g:neoformat_enabled_go = ['goimports']
 " let g:neoformat_async = 1
 " }}}
 
@@ -710,8 +627,13 @@ let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
 let g:loaded_compe_ultisnips = 1
 let g:loaded_compe_path = 1
 
-" let g:loaded_compe_tabnine = 1
-" let g:loaded_compe_buffer = 1
+if $USER != "rok"
+  " let g:loaded_compe_tabnine = 1
+else
+  " disable tabnine
+  " let g:loaded_compe_tabnine = 1
+  " let g:loaded_compe_buffer = 1
+endif
 
 let g:loaded_compe_luasnip = 1
 let g:loaded_compe_snippets_nvim = 1
@@ -727,27 +649,15 @@ let g:loaded_compe_calc = 1
 
 " }}}
 
-" RRethy/vim-illuminate {{{
-autocmd User DeferLoad packadd vim-illuminate
-" }}}
-
 " dstein64/nvim-scrollview {{{
 " autocmd CursorHold * packadd nvim-scrollview | :ScrollViewEnable
-" let g:scrollview_winblend=20
-" let g:scrollview_base='right'
+let g:scrollview_winblend=20
+let g:scrollview_base='right'
 " }}}
 
 " arecarn/vim-fold-cycle {{{
-autocmd User DeferLoad packadd vim-fold-cycle
-" nmap <silent><cr> :packadd vim-fold-cycle \|:execute "normal \<Plug>(fold-cycle-toggle-all)"<cr>
-" let g:fold_cycle_default_mapping = 0 "disable default mappings
-" nmap <Tab><Tab> <Plug>(fold-cycle-open)
-" nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)
-"
-" " Won't close when max fold is opened
-" let g:fold_cycle_toggle_max_open  = 0
-" " Won't open when max fold is closed
-" let g:fold_cycle_toggle_max_close = 0
+let g:fold_cycle_default_mapping = 0 "disable default mappings
+nmap <silent><cr> :packadd vim-fold-cycle \|:execute "normal \<Plug>(fold-cycle-toggle-all)"<cr>
 " }}}
 
 " christoomey/vim-tmux-navigator {{{
@@ -755,11 +665,13 @@ nnoremap <silent> <c-h> :packadd vim-tmux-navigator \| :TmuxNavigateLeft<cr>
 nnoremap <silent> <c-j> :packadd vim-tmux-navigator \| :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :packadd vim-tmux-navigator \| :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :packadd vim-tmux-navigator \| :TmuxNavigateRight<cr>
+nnoremap <silent> <c-\> :packadd vim-tmux-navigator \| :TmuxNavigatePrevious<cr>
 
-tnoremap <c-h> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateLeft<cr>
-tnoremap <c-j> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateDown<cr>
-tnoremap <c-k> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateUp<cr>
-tnoremap <c-l> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateRight<cr>
+tnoremap <c-h> <C-\><C-N>:packadd vim-tmux-navigator \|:TmuxNavigateLeft<cr>
+tnoremap <c-j> <C-\><C-N>:packadd vim-tmux-navigator \|:TmuxNavigateDown<cr>
+tnoremap <c-k> <C-\><C-N>:packadd vim-tmux-navigator \|:TmuxNavigateUp<cr>
+tnoremap <c-l> <C-\><C-N>:packadd vim-tmux-navigator \|:TmuxNavigateRight<cr>
+tnoremap <c-\> <C-\><C-N>:packadd vim-tmux-navigator \|:TmuxNavigatePrevious<cr>
 " }}}
 
 " RyanMillerC/better-vim-tmux-resizer {{{
@@ -807,16 +719,17 @@ require('nvim-autopairs').setup({
 
 require('nvim-peekup.config').on_keystroke["delay"] = ''
 
+
 -- require '_lsp'
-local lspconfig = require'lspconfig'
-local configs = require'lspconfig/configs'    
-require'lsp_signature'.on_attach()
+local nvim_lsp = require'lspconfig'
+-- require'lsp_signature'.on_attach()
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-lspconfig.tsserver.setup{ capabilities = capabilities; } -- Need typescript installed to use for javascript project
-lspconfig.gopls.setup{ capabilities = capabilities; }
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+nvim_lsp.tsserver.setup{} -- Need typescript installed to use for javascript project
+nvim_lsp.gopls.setup{}
 -- nvim_lsp.racket_langserver.setup{ capabilities = capabilities; }
 -- nvim_lsp.bashls.setup{ capabilities = capabilities; }
 -- nvim_lsp.vimls.setup { capabilities = capabilities; }
@@ -826,7 +739,7 @@ lspconfig.gopls.setup{ capabilities = capabilities; }
 -- nvim_lsp.jsonls.setup { capabilities = capabilities; }
 -- nvim_lsp.yamlls.setup { capabilities = capabilities; }
 -- nvim_lsp.rust_analyzer.setup { capabilities = capabilities; }
-lspconfig.clangd.setup{ capabilities = capabilities; }
+-- nvim_lsp.clangd.setup{}
 
 -- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
 -- nvim_lsp.denols.setup{
@@ -841,9 +754,9 @@ lspconfig.clangd.setup{ capabilities = capabilities; }
 --   }
 -- }
 
+-- nvim_lsp.pyright.setup{}
 require 'pylance'
-lspconfig.pylance.setup{
-  capabilities = capabilities; 
+nvim_lsp.pylance.setup{
   settings = {
     python = {
       analysis = {
@@ -854,9 +767,8 @@ lspconfig.pylance.setup{
 }
 
 local sumneko_root_path = vim.fn.expand('$HOME/src/github.com/sumneko/lua-language-server')
-lspconfig.sumneko_lua.setup{
+nvim_lsp.sumneko_lua.setup{
   cmd = { sumneko_root_path .. "/bin/".. vim.g._uname .. "/lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
-  capabilities = capabilities; 
   settings = {
       Lua = {
           runtime = {
@@ -907,20 +819,18 @@ lspconfig.sumneko_lua.setup{
 -- }
 -- nvim_lsp.neuron_ls.setup{}
 
-if not lspconfig.emmet_ls then    
-  configs.emmet_ls = {    
-    default_config = {    
-      cmd = {'emmet-ls', '--stdio'};
-      filetypes = {'html', 'css'};
-      root_dir = function(fname)    
-        return vim.loop.cwd()
-      end;    
-      settings = {};    
-    };    
-  }    
-end    
-lspconfig.emmet_ls.setup{ capabilities = capabilities; }
-
+-- emmet language server
+-- nvim_lsp.configs.emmet_ls = {
+--   default_config = {
+--     cmd = {'emmet-ls', '--stdio'};
+--     filetypes = {'html', 'css'};
+--     root_dir = function()
+--       return vim.loop.cwd()
+--     end;
+--     settings = {};
+--   };
+-- }
+-- nvim_lsp.emmet_ls.setup{}
 
 require'compe'.setup {
   enabled = true;
@@ -982,7 +892,11 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 --   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 --   highlight = {
 --     enable = true,              -- false will disable the whole extension
+--     -- disable = { "c", "rust" },  -- list of language that will be disabled
 --   },
+--   -- context_commentstring = {
+--   --   enable = true
+--   -- },
 -- }
 
 EOF
@@ -1014,7 +928,8 @@ set completeopt=menu,menuone,noselect
 "
 nnoremap <silent> gD            <cmd>lua vim.lsp.buf.declaration()<CR>
 " nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gd            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> gd            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <silent> gd            <cmd>call <sid>lsp_definition()<CR>
 " nnoremap <silent> gd            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR><c-w><c-p>
 nnoremap <silent> gt            <cmd>lua vim.lsp.buf.type_definition()<CR>
@@ -1032,7 +947,6 @@ nnoremap <silent> ]d            <cmd>lua vim.lsp.diagnostic.goto_next({wrap = fa
 nnoremap <silent> [d            <cmd>lua vim.lsp.diagnostic.goto_prev({wrap = false})<CR>
 " nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
 nnoremap <silent> ;r            <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> ;n            <cmd>lua vim.lsp.buf.rename()<CR>
 
@@ -1040,7 +954,7 @@ nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>
 
-nnoremap <silent> ;f            <cmd>call <sid>formatter("")<cr>
+nnoremap <silent> ;f            <cmd>call <sid>formatter()<cr>
 nnoremap <silent> ;ff           <cmd>call <sid>formatter("Neoformat")<cr>
 imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 inoremap <silent><expr><CR>     compe#confirm('<CR>')
@@ -1127,8 +1041,8 @@ cnoreabbrev wQ wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
-cnoreabbrev Qa qa
 cnoreabbrev Qall qall
+cnoreabbrev Qa qa
 cnoreabbrev QA qa
 cnoreabbrev Vs vs
 cnoreabbrev VS vs
@@ -1188,7 +1102,6 @@ vmap > >gv
 
 " close window, or buffer, or exit
 function s:close()
-  echom "closing"
   if winnr('$') != 1 
     close
   elseif len(getbufinfo({'buflisted':1})) > 1
@@ -1198,9 +1111,9 @@ function s:close()
     exit
   endif
 endfunction
-inoremap <C-Q>     <esc>:call <sid>close()<cr>
-nnoremap <C-Q>     :call <sid>close()<cr>
-vnoremap <C-Q>     <esc>:call <sid>close()<cr>
+inoremap <silent><C-Q>     <esc>:call <sid>close()<cr>
+nnoremap <silent><C-Q>     :call <sid>close()<cr>
+vnoremap <silent><C-Q>     <esc>:call <sid>close()<cr>
 
 " Save
 inoremap <C-s>     <esc>:update<cr>
@@ -1242,11 +1155,6 @@ function s:vifm()
   end
 endfunction
 
-
-  " https://vi.stackexchange.com/questions/17901/how-to-make-neovim-to-not-show-the-process-exited-num-when-quitting-a-term
-  autocmd TermClose * :bd!
-
- autocmd TermOpen * startinsert
 au FileType floaterm tnoremap <buffer> <Esc> <c-c>
 command! DiffVifm packadd vifm.vim | :DiffVifm
 nnoremap <silent><c-e> <cmd>call <sid>vifm()<CR>
@@ -1268,13 +1176,13 @@ function s:setup_fzf()
     \ }
 
   " Rg without filename
+  " command! -bang -nargs=* Rgg call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4.. ', 'window': { 'width': 0.4, 'height': 0.4 }}), 0)
   command! -bang -nargs=* Rgg call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4.. '}), 0)
-  command! -bang -nargs=* RggWithFile call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
 
   " https://github.com/junegunn/fzf/issues/1143
   autocmd! FileType fzf
   autocmd  FileType fzf set laststatus=0 noshowmode noruler
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+    \| autocmd BufLeave <buffer> set laststatus=0 showmode ruler
   au FileType fzf tnoremap <buffer> <Esc> <c-c>
   let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   let $FZF_DEFAULT_OPTS = '--inline-info --color "gutter:-1"  '
@@ -1295,8 +1203,7 @@ function s:setup_fzf()
 endfunction
 nnoremap <silent><c-f>                :call <sid>setup_fzf()   \|         :Rgg<cr>
 inoremap <silent><c-f>                <c-o>:call <sid>setup_fzf()   \|    :Rgg<cr>
-nnoremap <silent><m-f>                :call <sid>setup_fzf()   \|         :RggWithFile<cr>
-nnoremap <silent><m-f>                <c-o>:call <sid>setup_fzf()   \|    :RggWithFile<cr>
+nnoremap <silent><leader>fa           :call <sid>setup_fzf()   \|         :Rgg<cr>
 nnoremap <silent><Leader>fw           :call <sid>setup_fzf()   \|         :Rg <C-R><C-W><CR>
 nnoremap <silent><Leader>fW           g :call <sid>setup_fzf() \|         :Rg <C-R><C-A><CR>
 vnoremap <silent><Leader>fw           y :call <sid>setup_fzf() \|         :Rg <C-R>"<CR>
@@ -1358,39 +1265,4 @@ nnoremap <silent><leader>x :call <sid>startify()\|Startify<cr>
 command! NeuronUpdate silent! exe '1,5s/^date: 2.*/date: '. strftime("%Y-%m-%dT%H:%M")
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" call grepprg in a system shell instead of internal shell
-" https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-function! Grep(...)
-    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-endfunction
 
-
-" grep TODO {{{
-set grepprg=rg\ --vimgrep\ --no-heading
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-
-augroup quickfix
-	autocmd!
-	autocmd QuickFixCmdPost cgetexpr cwindow
-  autocmd QuickFixCmdPost cgetexpr set ft=qf
-augroup END
-
-" command GREP :execute 'grep '.expand('<cword>') expand('%') | :copen | cc
-" }}}
-"
-
-set conceallevel=1
-
-
-if g:_uname == "linux"
-  autocmd InsertLeave * silent call system("fcitx5-remote -c")
-
-
-  autocmd VimEnter * silent call system("fcitx5-remote -c")
-
-
-end
-
-" https://github.com/yuki-yano/zero.nvim/blob/main/lua/zero.lua
-lua vim.api.nvim_set_keymap('n', '0', "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'", {silent = true, noremap = true, expr = true})

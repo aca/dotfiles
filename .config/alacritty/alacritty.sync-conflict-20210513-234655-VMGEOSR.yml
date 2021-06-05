@@ -17,17 +17,17 @@ scrolling:
 
 font:
   normal:
-    style: Regular
+    family: Lekton Nerd Font Mono
+
+    # style: Regular
     # style: Ti
     # family: DankMono Nerd Font
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
     # family: Iosevka Fixed
     # family: SauceCodePro Nerd Font Mono
     # family: BlexMono Nerd Font
     # family: MesloLGLDZ Nerd Font Mono
     # family: Monoid Nerd Font
-    # family: Lekton Nerd Font Mono
-    # family: Spleen
     # family: CrimsonText Nerd Font
     # family: FantasqueSansMono Nerd Font
     # family: FantasqueSansMono Nerd Font
@@ -89,8 +89,8 @@ font:
 
   size: 16
   offset:
-    x:  0
-    y:  3
+    x:  1
+    y:  9
   glyph_offset:
     x: 0 
     y: 0
@@ -323,40 +323,46 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Atelier Savanna - alacritty color config
-# Bram de Haan (http://atelierbramdehaan.nl)
+# Base16 Monokai 256 - alacritty color config
+# Wimer Hazenberg (http://www.monokai.nl)
 colors:
   # Default colors
   primary:
-    background: '0x171c19'
-    foreground: '0x87928a'
+    background: '0x272822'
+    foreground: '0xf8f8f2'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x171c19'
-    cursor: '0x87928a'
+    text: '0x272822'
+    cursor: '0xf8f8f2'
 
   # Normal colors
   normal:
-    black:   '0x171c19'
-    red:     '0xb16139'
-    green:   '0x489963'
-    yellow:  '0xa07e3b'
-    blue:    '0x478c90'
-    magenta: '0x55859b'
-    cyan:    '0x1c9aa0'
-    white:   '0x87928a'
+    black:   '0x272822'
+    red:     '0xf92672'
+    green:   '0xa6e22e'
+    yellow:  '0xf4bf75'
+    blue:    '0x66d9ef'
+    magenta: '0xae81ff'
+    cyan:    '0xa1efe4'
+    white:   '0xf8f8f2'
 
   # Bright colors
   bright:
-    black:   '0x5f6d64'
-    red:     '0x9f713c'
-    green:   '0x232a25'
-    yellow:  '0x526057'
-    blue:    '0x78877d'
-    magenta: '0xdfe7e2'
-    cyan:    '0x867469'
-    white:   '0xecf4ee'
+    black:   '0x75715e'
+    red:     '0xf92672'
+    green:   '0xa6e22e'
+    yellow:  '0xf4bf75'
+    blue:    '0x66d9ef'
+    magenta: '0xae81ff'
+    cyan:    '0xa1efe4'
+    white:   '0xf9f8f5'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xfd971f' }
+    - { index: 17, color: '0xcc6633' }
+    - { index: 18, color: '0x383830' }
+    - { index: 19, color: '0x49483e' }
+    - { index: 20, color: '0xa59f85' }
+    - { index: 21, color: '0xf5f4f1' }
 # ColorEnd

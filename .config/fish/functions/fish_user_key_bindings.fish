@@ -38,6 +38,10 @@ end
 function fish_user_key_bindings
     fish_vi_key_bindings
     fzf_key_bindings
+
+    bind \cr fzf-history
+    bind -M insert \cr fzf-history
+
     for mode in insert default visual
     # for mode in insert visual
         bind -M $mode \cX fish_clipboard_copy
