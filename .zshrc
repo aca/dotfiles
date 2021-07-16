@@ -11,7 +11,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
   # tmux
   # kubectl
-  fzf
+  # fzf
   # zsh-vi-mode
 )
 
@@ -76,6 +76,8 @@ alias tk='tmux kill-server'
 alias td='tmux detach'
 # }}}
 
-# if [ -f ~/.asdf/asdf.sh ]; then source ~/.asdf/asdf.sh; fi
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then source ~/.nix-profile/etc/profile.d/nix.sh; fi
-if [ -f ~/.fzf.zsh ]; then source ~/.fzf.zsh; fi
+[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
+[ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
+[ -f ~/.fzf/shell/key-bindings.zsh ] && source ~/.fzf/shell/key-bindings.zsh
+
+true

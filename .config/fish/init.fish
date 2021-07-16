@@ -137,7 +137,7 @@ _prepend_path $HOME/.asdf/bin
 
 # Section: alias
 # "alias" makes shell init too slow, keep minimal move it to function
-abbr --global v 'nvim'
+# abbr --global v 'nvim'
 abbr --global g 'rg -i'
 abbr --global pu 'pueue'
 abbr --global cmd 'command'

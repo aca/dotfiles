@@ -1,0 +1,9 @@
+[submodule ".submodules/fzf"]
+	path = .submodules/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule ".submodules/ohmyzsh"]
+	path = .submodules/ohmyzsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule ".submodules/tpm"]
+	path = .submodules/tpm
+	url = https://github.com/tmux-plugins/tpm.git
