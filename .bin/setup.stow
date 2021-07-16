@@ -90,16 +90,15 @@ rmf ~/.netrc
 rmf ~/.gnupg
 rmf ~/.ticker.yaml
 rmf ~/.slack-term
+rmf ~/.tmux
 rmf ~/.config/systemd/user/*.service
-
 mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
+
+emptyDir ~/.local/share/nvim/site/pack/paqs
+
 # }}}
 
-# tmux {{{
-mkdir -p ~/.tmux/plugins
-rmf ~/.tmux/plugins/tpm
-# }}}
 
 # stow dotfiles
 stow -v --target $HOME "dotfiles"
