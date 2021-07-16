@@ -7,3 +7,6 @@
 [submodule ".submodules/tpm"]
 	path = .submodules/tpm
 	url = https://github.com/tmux-plugins/tpm.git
+[submodule ".submodules/test"]
+	path = .submodules/test
+	url = https://github.com/aca/test
