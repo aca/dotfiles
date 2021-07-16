@@ -13,9 +13,6 @@ function s:loadPaq()
 lua << EOF
 local paq = require'paq-nvim'.paq
 
--- paq {'axvr/photon.vim'}
--- paq {'chriskempson/base16-vim'}
-
 paq {'kristijanhusak/orgmode.nvim'}
 
 -- paq 'gelguy/wilder.nvim' -- TODO
@@ -29,7 +26,7 @@ paq {'lambdalisue/pastefix.vim', opt=true}
 
 paq {'ojroques/vim-oscyank', opt=true}
 
-paq {'glacambre/firenvim', opt=true, run=vim.fn['firenvim#install(0)'] }
+-- paq {'glacambre/firenvim', opt=true, run=vim.fn['firenvim#install(0)'] }
 paq {'tzachar/compe-tabnine', run='./install.sh'}
 paq {'heapslip/vimage.nvim'}
 paq {'nacro90/numb.nvim', opt=true}
@@ -173,6 +170,7 @@ paq {'xolox/vim-misc', opt=true}
 -- TODO! https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 -- paq {'JoosepAlviste/nvim-ts-context-commentstring'}
 paq {'nvim-treesitter/nvim-treesitter', run=vim.api.nvim_command('TSUpdate')}
+-- paq {'nvim-treesitter/nvim-treesitter'}
 paq {'p00f/nvim-ts-rainbow'}
 -- paq {'nvim-treesitter/nvim-treesitter'}
 
