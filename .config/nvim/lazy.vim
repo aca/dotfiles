@@ -69,7 +69,7 @@ paq {'hrsh7th/vim-vsnip'}
 paq {'hrsh7th/nvim-compe'}
 -- paq {'andersevenrud/compe-tmux'}
 paq {'ray-x/lsp_signature.nvim'}
-paq {'aca/pylance.nvim'}
+paq {'pylance', url="git@git.sr.ht:~acadx0/pylance"}
 paq {'neovim/nvim-lspconfig'}
 paq {'stevearc/aerial.nvim'}
 -- paq {'glepnir/lspsaga.nvim', opt=true}
