@@ -286,3 +286,6 @@
 [submodule "fzf"]
 	path = .fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule ".oh-my-zsh"]
+	path = .oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git

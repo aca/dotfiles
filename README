@@ -9,6 +9,7 @@ Setup
 Fix submodules 
 
     git submodule update --force --recursive --init --remote
+    git submodule update --init --recursive
 
 Neovim
     sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
