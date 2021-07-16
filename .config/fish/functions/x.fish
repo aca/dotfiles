@@ -1,11 +1,7 @@
 function x -d 'zettels'
-
-  # if [ (count $argv) -eq 0 ]
-  #   $EDITOR ~/src/zettels
-  # else
-  #   bash -c "cd ~/src/zettels && $EDITOR \$(fd -t f -e md | fzf --query "$argv" -1)"
-  # end
-
-  bash -c "cd ~/src/zettels && $EDITOR \$(fd -t f -e md | fzf --query \"$argv\" -1)"
-
+  if test (count $argv) -eq 0
+    bash -c "cd ~/src/zettels && $EDITOR \$(fd -t f -e md | fzf --ansi --preview='bat --style plain --color=always  {}')"
+  else
+    bash -c "cd ~/src/zettels && $EDITOR $argv.md"
+  end
 end

@@ -1,7 +1,7 @@
 function say
   switch (uname)
   case Linux
-    command espeak $argv 2>/dev/null 1>/dev/null
+    command espeak $argv
   case Darwin
     command say $argv
   end

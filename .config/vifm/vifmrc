@@ -3,6 +3,14 @@
 " https://github.com/vifm/vifm/blob/master/data/vifmrc
 " https://github.com/vifm/vifm/blob/master/data/vifmrc-osx
 
+source ~/src/configs/dotfiles/.config/vifm/favicons.vifm
+
+if $SSH_TTY == "off"
+  set milleroptions="lsize:1,csize:2,rsize:3"
+else
+  set milleroptions="lsize:1,csize:2,rsize:3,rpreview:all"
+endif
+
 if executable('/usr/local/bin/fish')
   let $SHELL="/usr/local/bin/fish"
 elseif executable('/usr/bin/fish')
@@ -42,7 +50,6 @@ only
 " view!
 
 set millerview
-set milleroptions="lsize:1,csize:2,rsize:3,rpreview:all"
 " set milleroptions="lsize:1,csize:2,rsize:0"
 set dotfiles "hidden
 
@@ -55,6 +62,8 @@ nnoremap <space> tj
 nnoremap <C-s> :sync %d<cr>
 nnoremap q ZZ
 nnoremap <c-c> ZZ
+
+nnoremap DD delete!
 
 nnoremap t :tree!<cr>
 
@@ -118,30 +127,8 @@ nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
 
-" highlight Win cterm=none ctermfg=255 ctermbg=234
-" highlight Directory cterm=bold ctermfg=109 ctermbg=default
-" highlight Link cterm=bold ctermfg=216 ctermbg=234
-" highlight BrokenLink cterm=bold ctermfg=red ctermbg=239
-" highlight Socket cterm=bold ctermfg=magenta ctermbg=default
-" highlight Device cterm=bold ctermfg=red ctermbg=default
-" highlight Fifo cterm=bold ctermfg=cyan ctermbg=default
-" highlight Executable cterm=none ctermfg=150 ctermbg=default
-highlight Selected cterm=bold ctermfg=125 ctermbg=231
-" highlight CurrLine cterm=reverse
-highlight TopLine cterm=none ctermfg=255 ctermbg=none
-highlight TopLineSel cterm=bold ctermfg=110 ctermbg=default
-" highlight StatusLine cterm=none ctermfg=240 ctermbg=235
-" highlight WildMenu cterm=underline,reverse ctermfg=255 ctermbg=black
-" highlight CmdLine cterm=none ctermfg=255 ctermbg=234
-" highlight ErrorMsg cterm=none ctermfg=203 ctermbg=234
-highlight Border cterm=none ctermfg=black ctermbg=none
-" highlight JobLine cterm=bold,reverse ctermfg=black ctermbg=255
-" highlight SuggestBox cterm=bold ctermfg=default ctermbg=default
-" highlight CmpMismatch cterm=bold ctermfg=255 ctermbg=red
-" highlight AuxWin cterm=bold,underline,reverse,standout ctermfg=default ctermbg=default
-"
-"
-"
+
+
 " Start shell in current directory
 nnoremap s :shell<cr>
 
@@ -193,8 +180,34 @@ nnoremap <f8> :delete<cr>
 
 " Midnight commander alike mappings
 " Open current directory in the other pane
-nnoremap <a-i> :sync<cr>
+nnoremap <c-s> :sync %c<cr>
 " Open directory under cursor in the other pane
 nnoremap <a-o> :sync %c<cr>
 " Swap panes
 " nnoremap <c-u> <c-w>x
+
+
+
+colorscheme gruvbox
+
+" " highlight Win cterm=none ctermfg=255 ctermbg=234
+" " highlight Directory cterm=bold ctermfg=109 ctermbg=default
+" " highlight Link cterm=bold ctermfg=216 ctermbg=234
+" " highlight BrokenLink cterm=bold ctermfg=red ctermbg=239
+" " highlight Socket cterm=bold ctermfg=magenta ctermbg=default
+" " highlight Device cterm=bold ctermfg=red ctermbg=default
+" " highlight Fifo cterm=bold ctermfg=cyan ctermbg=default
+" " highlight Executable cterm=none ctermfg=150 ctermbg=default
+" highlight Selected cterm=bold ctermfg=125 ctermbg=231
+" " highlight CurrLine cterm=reverse
+" highlight TopLine cterm=none ctermfg=255 ctermbg=none
+" highlight TopLineSel cterm=bold ctermfg=110 ctermbg=default
+" " highlight StatusLine cterm=none ctermfg=240 ctermbg=235
+" " highlight WildMenu cterm=underline,reverse ctermfg=255 ctermbg=black
+" " highlight CmdLine cterm=none ctermfg=255 ctermbg=234
+" " highlight ErrorMsg cterm=none ctermfg=203 ctermbg=234
+" highlight Border cterm=none ctermfg=black ctermbg=none
+" " highlight JobLine cterm=bold,reverse ctermfg=black ctermbg=255
+" " highlight SuggestBox cterm=bold ctermfg=default ctermbg=default
+" " highlight CmpMismatch cterm=bold ctermfg=255 ctermbg=red
+" " highlight AuxWin cterm=bold,underline,reverse,standout ctermfg=default ctermbg=default

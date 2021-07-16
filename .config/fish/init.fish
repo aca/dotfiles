@@ -2,14 +2,11 @@
 
 set -e SHELL # some programs should use bash by default
 
+
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
 # Section: vars
-
-# starting login shell(tmux) needs to clean PATH
-# if not set -q _path || status --is-login
-
 if not set -q init_fish
     set -gx init_fish
 
@@ -107,33 +104,42 @@ if not set -q init_fish
     set -gx FZF_CTRL_T_COMMAND 'fd --hidden'
     set -gx FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10'
 
-    set -px PATH $HOME/.asdf/shims
-    set -px PATH $HOME/.asdf/bin
     set -px PATH $HOME/bin
     set -px PATH $HOME/.bin
     set -px PATH $HOME/.bin/$_uname
 
-    if [ -d /home/rok/src/github.com/kubernetes-sigs/image-builder/images/capi/.local/bin ]; set -px PATH /home/rok/src/github.com/kubernetes-sigs/image-builder/images/capi/.local/bin; end
-
-    if [ -d $HOME/.linkerd2/bin ]                         ; set -px PATH $HOME/.linkerd2/bin                          ; end
-    if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -px PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
-    if [ -d $HOME/sdk/gotip/bin ]                         ; set -px PATH $HOME/sdk/gotip/bin                          ; end
-    if [ -d $HOME/xxx/bin ]                               ; set -px PATH $HOME/xxx/bin                                ; end
-    if [ -d $HOME/.krew/bin ]                             ; set -px PATH $HOME/.krew/bin                              ; end
-    if [ -d /usr/local/opt/coreutils/libexec/gnubin ]     ; set -px PATH /usr/local/opt/coreutils/libexec/gnubin      ; end
-    if [ -d $HOME/.local/bin ]                            ; set -px PATH $HOME/.local/bin                             ; end
-    if [ -d $HOME/.cargo/bin ]                            ; set -px PATH $HOME/.cargo/bin                             ; end
-    if [ -d $HOME/.nix-profile/bin ]                      ; set -px PATH $HOME/.nix-profile/bin                       ; end
-    if [ -d /opt/local/bin ]                              ; set -px PATH /opt/local/bin                               ; end
-    if [ -d /opt/local/sbin ]                             ; set -px PATH /opt/local/sbin                              ; end
-    if [ -d /usr/local/opt/llvm/bin ]                     ; set -px PATH /usr/local/opt/llvm/bin                      ; end
-    if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -px PATH $HOME/src/go.googlesource.com/go/bin         ; end
+    if [ -d $HOME/.raku/bin ]                             ; set -x --append PATH $HOME/.raku/bin                              ; end
+    if [ -d $HOME/.linkerd2/bin ]                         ; set -x --append PATH $HOME/.linkerd2/bin                          ; end
+    if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -x --append PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
+    if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --append PATH $HOME/sdk/gotip/bin                          ; end
+    if [ -d $HOME/xxx/bin ]                               ; set -x --append PATH $HOME/xxx/bin                                ; end
+    if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
+    if [ -d /usr/local/opt/coreutils/libexec/gnubin ]     ; set -x --append PATH /usr/local/opt/coreutils/libexec/gnubin      ; end
+    if [ -d $HOME/.local/bin ]                            ; set -x --append PATH $HOME/.local/bin                             ; end
+    if [ -d $HOME/.cargo/bin ]                            ; set -x --append PATH $HOME/.cargo/bin                             ; end
+    if [ -d $HOME/.nix-profile/bin ]                      ; set -x --append PATH $HOME/.nix-profile/bin                       ; end
+    if [ -d /opt/local/bin ]                              ; set -x --append PATH /opt/local/bin                               ; end
+    if [ -d /opt/local/sbin ]                             ; set -x --append PATH /opt/local/sbin                              ; end
+    if [ -d /usr/local/opt/llvm/bin ]                     ; set -x --append PATH /usr/local/opt/llvm/bin                      ; end
+    if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --append PATH $HOME/src/go.googlesource.com/go/bin         ; end
 end
+
+function _prepend_path
+   set -l index (contains -i -- $argv[1] $PATH)
+   if set -q index[1]
+     set -e PATH[$index]
+   end
+   set -px PATH $argv[1]
+end
+
+_prepend_path $HOME/.asdf/shims 
+_prepend_path $HOME/.asdf/bin
 
 # Section: alias
 # "alias" makes shell init too slow, keep minimal move it to function
 abbr --global v 'nvim'
-abbr --global g 'git'
+abbr --global g 'rg -i'
+abbr --global pu 'pueue'
 abbr --global cmd 'command'
 abbr --global k 'kubectl'
 abbr --global os 'openstack'
@@ -143,15 +149,7 @@ abbr --global co 'pbpaste'
 # abbr --global tm 'tmux'
 # abbr --global td 'tmux detach'
 
-switch $_uname
-    case linux
-        abbr --global svc 'sudo systemctl'
-        abbr --global svcu 'systemctl --user'
-    case darwin
-        # abbr --global xcode "open -a xcode"
-        abbr --global svc 'brew services'
-end
-
+# update: zoxide init fish > ~/src/configs/dotfiles/.config/fish/zoxide.fish
 if [ -f $HOME/.config/fish/zoxide.fish ] && type -q zoxide
   source $HOME/.config/fish/zoxide.fish
 end
@@ -182,17 +180,20 @@ end
 #     end
 # end
 
-# function preexec_test --on-event fish_preexec
-# end
-#
-# function postexec_test --on-event fish_postexec
-# end
-
-# function _update_src --on-event fish_postexec
-#   if [ $USER = "rok" ] && string match --regex '^ghq get .*' -- $argv
-#     bash -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
-#   end
-# end
+function _postexec --on-event fish_postexec
+  # # update src index after ghq get
+  # if [ -f ~/src/.src ]
+  #   if string match --regex '^ghq get' -- $argv
+  #     return 0
+  #   end
+  # end
+  switch $argv
+    case 'ghq get *'
+      sh -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
+    case 'pip install *'
+      asdf reshim &
+  end
+end
 
 # # direnv hook fish
 # if type -q direnv
@@ -223,4 +224,19 @@ end
 #  end
 
 
-if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end
+# Section: OS specific
+switch $_uname
+    case linux
+        abbr --global svc 'sudo systemctl'
+        abbr --global svcu 'systemctl --user'
+        set -gx BROWSER google-chrome-stable
+    case darwin
+        if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end
+        abbr --global svc 'brew services'
+        abbr --global svcu 'brew services'
+end
+
+# Section: misc
+
+# fish
+# [ -f /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish ] || source ~/.config/fish/functions/key-bindings.fish

@@ -1,8 +1,12 @@
-function add_to_pueue
+function _pueue_add
   set -l command (commandline -b)
   commandline -r ""
   echo 
-  echo $command
+
+  if echo $command | string match -q "https://*"
+    set command (string join ' ' "aria2c" "'$command'")
+  end
+
   pueue add -- "$command"
   commandline -f force-repaint
 end
@@ -21,11 +25,15 @@ function execute_bash
 end
 
 
-function command_to_watch
+function _watch_command
   set -l command (commandline -b)
+  printf $command
+  if [ "$command" = "" ]
+          return
+  end
+  # watch --beep --interval 3 --differences=permanent --exec fish -c "$command"
   commandline -r ""
   echo 
-  watch -b -n 2 -d=permanent -x fish -c "$command"
   commandline -f force-repaint
 end
 
@@ -45,8 +53,8 @@ function fish_user_key_bindings
     for mode in insert default visual
     # for mode in insert visual
         bind -M $mode \cX fish_clipboard_copy
-        bind -M $mode \cp add_to_pueue
-        bind -M $mode \cw command_to_watch
+        bind -M $mode \cp _pueue_add
+        bind -M $mode \cw _watch_command
         # bind -M $mode \cb 'pbpaste | zsh'
         bind -M $mode \cb execute_bash
         bind -M $mode \cf forward-char
@@ -63,15 +71,17 @@ function fish_user_key_bindings
         # bind -M insert \cm fzf-cd-widget
     end
     # bind -M insert jk "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
-    #
+    
     bind --preset -M insert \cv fish_clipboard_paste_trim
-    bind --preset \cv fish_clipboard_paste_trim
     bind --preset -M visual \cv fish_clipboard_paste_trim
+    # bind --preset -M insert \cv fish_clipboard_paste
+    # bind --preset -M visual \cv fish_clipboard_paste
+
+    bind --preset \cv fish_clipboard_paste_trim
 end
 
 function fish_clipboard_paste_trim
-  # pbpaste | sed 's/\t/    /g' | pbcopy
-  pbpaste | sed 's/\t/    /g' | pbcopy
+  pbpaste | sed 's/\t/    /g' | perl -pe 'chomp if eof' | pbcopy
   fish_clipboard_paste
 end
 

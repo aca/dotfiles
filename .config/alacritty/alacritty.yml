@@ -2,8 +2,8 @@ env:
   TERM: xterm-256color
 window:
   padding:
-    x: 10
-    y: 10
+    x: 0
+    y: 0
 
   dynamic_padding: true
   decorations: none
@@ -19,10 +19,14 @@ font:
   normal:
     style: Regular
     # style: Ti
+    # family: Menlo
     # family: DankMono Nerd Font
+    # family: FuraCode Nerd Font Mono
     family: Iosevka Nerd Font Mono
+    # family: Inconsolata Nerd Font
     # family: Iosevka Fixed
     # family: SauceCodePro Nerd Font Mono
+    # family: EasyReading
     # family: BlexMono Nerd Font
     # family: MesloLGLDZ Nerd Font Mono
     # family: Monoid Nerd Font
@@ -32,30 +36,32 @@ font:
     # family: FantasqueSansMono Nerd Font
     # family: FantasqueSansMono Nerd Font
     # family: FuraCode Nerd Font Mono
+    # family: FiraCode Nerd Font Mono
+    # family: Cascadia Mono
     # family: InconsolataGo Nerd Font
-    # family: Inconsolata Nerd Font
     # family: VictorMono Nerd Font
     # family: Iosevka Nerd Font Mono
     # family: Lotion Nerd Font Mono
+    # family: JuniusX
     # family: NanumBarunpen
     # family: D2Coding ligature
     # family: Lotion Nerd Font
-    # family: 
     # family: Operator Mono Light
     # family: Operator Mono Nerd Medium
     # family: OperatorMono Nerd Font
     # family: Sudo Nerd Font
     # family: agave Nerd Font
-    # # family: mononoki Nerd Font
+    # family: mononoki Nerd Font
     # family: JetBrainsMono Nerd Font
     # family: SauceCodePro Nerd Font Mono
     # family: PragmataPro Nerd Font
-    # family: Menlo
     # family: Dina
     # family: Hack Nerd Font
     # family: TerminessTTF Nerd Font
     # family: NotoMono Nerd Font
     # family: FuraCode Nerd Font Mono
+    # family: Oxygen Mono
+    # family: Cutive mono
     # family: Dina
     # style: Italic
     # style: Book Italic
@@ -68,7 +74,6 @@ font:
     # family: Iosevka Nerd Font Mono
     # family: Operator Mono Book
     # family: Lotion
-    # family: FuraCode Nerd Font Mono
     # family: Dina
     # style: Bold
 
@@ -90,7 +95,7 @@ font:
   size: 16
   offset:
     x:  0
-    y:  3
+    y:  5
   glyph_offset:
     x: 0 
     y: 0
@@ -110,8 +115,8 @@ selection:
 
 cursor:
   style: 
-    shape: Block
-    blinking: Always
+    shape: Beam
+    # blinking: Always
   unfocused_hollow: true
   
 
@@ -120,7 +125,7 @@ live_config_reload: true
 shell:
   program: /usr/local/bin/fish
   args:
-    - --login
+    - --login 
     # - -c
     # - "tmux attach -t main || tmux new -s main && tmux attach -t main"
     #   - --interactive
@@ -323,40 +328,40 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Atelier Savanna - alacritty color config
-# Bram de Haan (http://atelierbramdehaan.nl)
+# Base16 tender - alacritty color config
+# Jacobo Tabernero (https://github/com/jacoborus/tender.vim)
 colors:
   # Default colors
   primary:
-    background: '0x171c19'
-    foreground: '0x87928a'
+    background: '0x282828'
+    foreground: '0xeeeeee'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x171c19'
-    cursor: '0x87928a'
+    text: '0x282828'
+    cursor: '0xeeeeee'
 
   # Normal colors
   normal:
-    black:   '0x171c19'
-    red:     '0xb16139'
-    green:   '0x489963'
-    yellow:  '0xa07e3b'
-    blue:    '0x478c90'
-    magenta: '0x55859b'
-    cyan:    '0x1c9aa0'
-    white:   '0x87928a'
+    black:   '0x282828'
+    red:     '0xf43753'
+    green:   '0xc9d05c'
+    yellow:  '0xffc24b'
+    blue:    '0xb3deef'
+    magenta: '0xd3b987'
+    cyan:    '0x73cef4'
+    white:   '0xeeeeee'
 
   # Bright colors
   bright:
-    black:   '0x5f6d64'
-    red:     '0x9f713c'
-    green:   '0x232a25'
-    yellow:  '0x526057'
-    blue:    '0x78877d'
-    magenta: '0xdfe7e2'
-    cyan:    '0x867469'
-    white:   '0xecf4ee'
+    black:   '0x1d1d1d'
+    red:     '0xdc9656'
+    green:   '0x383838'
+    yellow:  '0x484848'
+    blue:    '0xb8b8b8'
+    magenta: '0xe8e8e8'
+    cyan:    '0xa16946'
+    white:   '0xffffff'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

@@ -1,34 +1,14 @@
 " vim: foldmethod=marker
 
-" lua vim.lsp.set_log_level("debug")
-set scrolloff=5
+" lua require 'utils'
 
-" PERF {{{
-" vim-startuptime -vimpath nvim | head -n 20
-" Extra options: []
-" Measured: 10 times
-"
-" Total Average: 25.003300 msec
-" Total Max:     25.448000 msec
-" Total Min:     24.536000 msec
-"
-"   AVERAGE       MAX       MIN
-" ------------------------------
-" 12.028100 12.362000 11.701000: /home/rok/.config/nvim/init.vim
-"  5.218000  5.446000  5.104000: /usr/share/nvim/runtime/filetype.vim
-"  1.360600  1.387000  1.341000: reading ShaDa
-"  1.019000  1.066000  1.000000: loading plugins
-"  0.705500  0.844000  0.675000: loading packages
-"  0.524500  0.561000  0.503000: loading after plugins
-"  0.521900  0.535000  0.506000: /usr/share/nvim/runtime/syntax/syntax.vim
-"  0.472300  0.499000  0.447000: /home/rok/.local/share/nvim/site/pack/paqs/start/nvim-compe/after/plugin/compe_buffer.vim
-"  0.418800  0.431000  0.407000: /usr/share/nvim/runtime/syntax/synload.vim
-"  0.402300  0.411000  0.393000: /home/rok/.local/share/nvim/site/pack/paqs/start/nvim-compe/after/plugin/compe_nvim_lsp.vim
-"  0.380600  0.544000  0.237000: /home/rok/.local/share/nvim/site/pack/paqs/start/nvim-colors/colors/tomorrow-night.vim
-" }}}
+" lua vim.lsp.set_log_level("debug")
+
+let syntax_manual=1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
-" set grepformat=%f:%l:%c:%m,%f:%l:%m
+let g:_uname = 'macOS' | if has('unix') | let g:_uname = 'Linux' | endif
     
 "  ShaDa/viminfo:
 "   ' - Maximum number of previously edited files marks
@@ -37,16 +17,17 @@ set scrolloff=5
 "   s - Maximum size of an item contents in KiB
 "   h - Disable the effect of 'hlsearch' when loading the shada
 set shada='300,<10,@50,s100,h
+set scrolloff=5
 
-let g:_uname = 'macOS' | if has('unix') | let g:_uname = 'Linux' | endif
 
 " if filereadable("/usr/bin/sh") | set shell=/usr/bin/sh | elseif filereadable("/bin/sh") | set shell=/bin/sh | endif
-" set shell=/bin/sh
 
-let &statusline = "%= %f %-5(%l:%c%)%* %P"
-
+let &statusline ="%f%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''} %= | %l:%c |%P"
 
 set laststatus=2
+
+set listchars=tab:\ ──,space:·,nbsp:␣,trail:•,eol:↵,precedes:«,extends:»
+set showbreak=⤷\ 
 
 " fold
 " set foldlevel=0 " close all folds
@@ -63,7 +44,8 @@ set foldopen+=search
 set nolist " don't render special chars(performance)
 
 set wildignore+=/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*
-" set regexpengine=1
+set regexpengine=1
+set conceallevel=1
 
 set inccommand=split
 set wildoptions=pum
@@ -73,16 +55,13 @@ tnoremap <Esc> <C-\><C-n>
 set splitbelow
 set splitright
 
+set hidden " zepl.vim
 
-" zepl.vim
-set hidden
 " autocmd TermOpen * startnormal
-" autocmd TermOpen * call feedkeys('G')
 
 " ctags
 set tags=./tags;/
 
-let &showbreak = '↳ '
 set breakindent
 set breakindentopt=sbr
 
@@ -94,9 +73,8 @@ set termguicolors " norcalli/nvim-colorizer.lua need this
 
 " number, toggle with ;n, performance issue
 " set ruler
-set number
+set nonumber
 set norelativenumber
-
 
 " tab
 setlocal tabstop=2
@@ -121,15 +99,14 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 set fileformats=unix,dos,mac
-set formatoptions+=j
-set formatoptions+=orc
+set formatoptions+=jcql
 set hidden
 set hlsearch
 set ignorecase
 set incsearch
 set isfname-==
 set lazyredraw
-set redrawtime=10000
+set redrawtime=20000
 syntax sync minlines=100
 syntax sync maxlines=200
 let g:vimsyn_minlines=100
@@ -171,8 +148,6 @@ set cursorline " lag in redraw scrreen
 
 " get rid of fold char
 set fillchars=fold:\ 
-" set fillchars=fold:, "
-" set fillchars=vert:-
 
 " disable default vim stuffs for faster startuptime
 let g:loaded_matchparen        = 1
@@ -193,232 +168,28 @@ let g:loaded_netrwFileHandlers = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_tutor_mode_plugin = 1
 let g:loaded_remote_plugins    = 1
-let g:loaded_getscript = 1
-let g:loaded_getscriptPlugin    = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " " Neovide {{{
-" set guifont=Lotion\ Nerd\ Font\ NF:h28
+set guifont=Lotion\ Nerd\ Font\ NF:h28
 " let g:neovide_cursor_vfx_mode = "torpedo"
 " let g:neovide_cursor_vfx_mode = "pixiedust"
+"
+" set guifont=Fira_Code:h30
 " " }}}
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PAQ {{{
-command PaqInstall call <sid>loadPaq() | :PaqInstall
-command PaqClean   call <sid>loadPaq() | :PaqClean
-command PaqUpdate  call <sid>loadPaq() | :PaqUpdate
-
-function s:loadPaq()
-  if empty(glob('~/.local/share/nvim/site/pack/paqs/opt/paq-nvim'))
-    silent !git clone https://github.com/savq/paq-nvim.git ~/.local/share/nvim/site/pack/paqs/opt/paq-nvim
-  endif
-  packadd paq-nvim
-lua << EOF
-local paq = require'paq-nvim'.paq
-
--- paq {'axvr/photon.vim'}
--- paq {'chriskempson/base16-vim'}
-
--- paq 'gelguy/wilder.nvim' -- TODO
-paq {'aca/nvim-colors'}
-paq {'neovimhaskell/haskell-vim'}
-
-paq 'gennaro-tedesco/nvim-peekup'
-paq {'lambdalisue/pastefix.vim', opt=true}
-
-
-paq 'ojroques/vim-oscyank'
-
--- paq {'tyru/columnskip.vim'}
-paq {'inkarkat/vim-ReplaceWithRegister', opt=true}
-paq {'norcalli/nvim-colorizer.lua', opt=true}
-paq {'ap/vim-buftabline', opt=true}
-paq {'norcalli/nvim-terminal.lua', opt=true}
-paq {'savq/paq-nvim', opt=true}
-paq {'aca/funcs.nvim'}
-paq {'aca/vidir.nvim'}
-paq {'phaazon/hop.nvim', opt=true} -- easymotion
-paq {'hrsh7th/vim-vsnip'}
-paq {'hrsh7th/nvim-compe'}
-paq {'andersevenrud/compe-tmux'}
-paq {'ray-x/lsp_signature.nvim'}
-paq {'neovim/nvim-lspconfig'}
-paq {'glepnir/lspsaga.nvim', opt=true}
-paq {'dstein64/nvim-scrollview', opt=true}
-paq {'rhysd/clever-f.vim', opt=true}
-paq {'vifm/vifm.vim', opt=true} -- replaced with floaterm
-paq {'voldikss/vim-floaterm', opt=true}
-paq {'wsdjeg/vim-fetch'}
-paq {'mhinz/vim-startify', opt=true}
-paq {'gyim/vim-boxdraw', opt=true}
-paq {'arp242/xdg_open.vim', opt=true}
-paq {'arecarn/vim-fold-cycle', opt=true}
-paq {'RyanMillerC/better-vim-tmux-resizer', opt=true}
-paq {'rafcamlet/nvim-luapad', opt=true}
-paq {'christoomey/vim-tmux-navigator', opt=true}
-paq {'justinmk/vim-dirvish'}
-paq {'junegunn/fzf', opt=true}
-paq {'junegunn/fzf.vim', opt=true}
-paq {'stefandtw/quickfix-reflector.vim', opt=true}
-paq {'lambdalisue/suda.vim', opt=true}
-paq {'RREthy/vim-illuminate', opt=true}
-
-paq {'arp242/switchy.vim', opt=true}
-
-paq {'psliwka/vim-smoothie', opt=true}
--- paq {'tzachar/compe-tabnine', hook='./install.sh'}
-
-paq {'tommcdo/vim-lion', opt=true}
-paq {'machakann/vim-sandwich', opt=true}
--- paq {'b3nj5m1n/kommentary', opt=true}
--- paq {'terrortylor/nvim-comment', opt=true}
--- paq {'tpope/vim-commentary', opt=true}
-paq {'tomtom/tcomment_vim', opt=true}
-
--- TODO: replace with https://github.com/AndrewRadev/sideways.vim
-paq {'matze/vim-move', opt=true}
-paq {'machakann/vim-swap', opt=true}
-paq {'aca/fzf-proj.vim', opt=true}
--- paq {'tmsvg/pear-tree', opt=true}
-paq {'windwp/nvim-autopairs'}
-
-
--- paq {"cohama/lexima.vim"}
-paq {'dhruvasagar/vim-table-mode', opt=true}
-paq {'tpope/vim-sleuth', opt=true} -- detect indent
-paq {'sbdchd/neoformat', opt=true}
-paq {'metakirby5/codi.vim', opt=true}
-paq {'pedrohdz/vim-yaml-folds', opt=true}
-paq {'ferrine/md-img-paste.vim', opt=true}
-paq {'buoto/gotests-vim', opt=true}
-paq {'110y/vim-go-expr-completion', opt=true}
-paq {'iamcco/markdown-preview.nvim', opt=true, hook='yarn install --cwd app/' }
--- paq {'tpope/vim-markdown', opt=true}
-paq {'tweekmonster/startuptime.vim', opt=true}
-paq {'junegunn/goyo.vim', opt=true}
--- paq {'kdav5758/TrueZen.nvim'}
-paq {'monaqa/dial.nvim', opt=true}
--- paq {'tpope/vim-speeddating', opt=true}
-paq {'thinca/vim-quickrun', opt=true}
-
--- git
-paq {'lambdalisue/gina.vim', opt=true}
--- paq {'tpope/vim-fugitive'}
--- paq {'junegunn/gv.vim'}
-paq {'cohama/agit.vim', opt=true}
-paq {'mhinz/vim-signify', opt=true}
-paq {'rhysd/git-messenger.vim', opt=true}
-
--- paq {'Rasukarusan/nvim-block-paste', opt=true}
--- paq { 'nvim-lua/plenary.nvim', opt=true}
--- paq { 'lewis6991/gitsigns.nvim', opt=true}
-
-paq {'axvr/zepl.vim', opt=true}
-
-paq 'jbyuki/venn.nvim'
--- paq {'yamatsum/nvim-cursorline', opt=true}
-
--- Language specific
--- https://github.com/sheerun/vim-polyglot
-paq {'lervag/vimtex', opt=true}
-paq {'aca/nvim-go', opt=true}
-paq {'mattn/vim-goaddtags', opt=true}
-paq {'aca/pylance.nvim'}
--- paq {'vmchale/just-vim'}
-paq {'Raku/vim-raku'}
--- paq {'ziglang/zig.vim'}
--- paq {'rust-lang/rust.vim'}
-paq {'aca/vim-fish'}
--- paq {'wlangstroth/vim-racket'}
--- paq {'plasticboy/vim-markdown', opt=true}
--- paq {'rhysd/vim-gfm-syntax', opt=true} -- markdown
--- paq {'rhysd/vim-gfm-syntax'} -- markdown
--- paq {'gabrielelana/vim-markdown', opt=true}
--- paq {'masukomi/vim-markdown-folding'}
-paq {'rafkaplon/vim-markdown-folding'}
-paq {'plasticboy/vim-markdown', opt=true}
-
-paq {'xolox/vim-colorscheme-switcher', opt=true}
-paq {'xolox/vim-misc', opt=true}
-
--- TODO! https://github.com/JoosepAlviste/nvim-ts-context-commentstring
--- paq {'JoosepAlviste/nvim-ts-context-commentstring'}
--- paq {'nvim-treesitter/nvim-treesitter', hook=":TSUpdate"}
-
--- paq {'haringsrob/nvim_context_vt'}
-
-paq {'ThePrimeagen/git-worktree.nvim', opt=true}
-
--- paq 'yuki-yano/zero.nvim'
-
-EOF
-endfunction
-" }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS CONFIG {{{
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | silent OSCYankReg " | endif
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | packadd vim-oscyank | silent OSCYankReg " | endif
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | packadd vim-oscyank | silent OSCYankReg + | endif
 
-" zepl.vim
-packadd zepl.vim
-runtime zepl/contrib/python.vim  " Enable the Python contrib module.
-runtime zepl/contrib/nvim_autoscroll_hack.vim
-" autocmd TermEnter zepl:* tnoremap <C-\><C-n> <C-\><C-n>G
-" autocmd TermEnter zepl:* tnoremap <C-\><C-N> <C-\><C-n>G
-let g:repl_config = {
-            \   'python': {
-            \     'cmd': 'ipython',
-            \     'formatter': function('zepl#contrib#python#formatter')
-            \   }
-            \ }
-
-" Lazy load with timer
-function! SetupDeferLoad(timer)
-  doautocmd User DeferLoad
+" Lazy load
+function! LazyLoad(timer)
+  source ~/.config/nvim/lazy.vim
 endfunction
-autocmd VimEnter * call timer_start(1000, "SetupDeferLoad")
 
-au BufReadPost *.rkt,*.rktl setfiletype scheme
-autocmd BufRead,BufNewFile *.fish setfiletype fish
-
-" matze/vim-move {{{
-function s:setup_move() 
-  if exists('g:loaded_move')
-    return
-  endif
-
-  let g:move_map_keys = 0
-  packadd vim-move
-
-  vmap <M-s> <Plug>MoveBlockDown
-  vmap <M-w> <Plug>MoveBlockUp
-  vmap <M-a> <Plug>MoveBlockLeft
-  vmap <M-d> <Plug>MoveBlockRight
-
-  nmap <M-s> <Plug>MoveLineDown
-  nmap <M-w> <Plug>MoveLineUp
-  nmap <M-a> <Plug>MoveCharLeft
-  nmap <M-d> <Plug>MoveCharRight
-
-endfunction
-autocmd User DeferLoad call s:setup_move()
-" }}}
-
-" [count]["x]gr{motion}   Replace {motion} text with the contents of register x.
-"                         Especially when using the unnamed register, this is
-"                         quicker than "_d{motion}P or "_c{motion}<C-R>"
-" [count]["x]grr          Replace [count] lines with the contents of register x.
-"                         To replace from the cursor position to the end of the
-"                         line use ["x]gr$
-" {Visual}["x]gr          Replace the selection with the contents of register x.
-nmap <silent>gr  :packadd vim-ReplaceWithRegister<cr>gr
-nmap <silent>grr :packadd vim-ReplaceWithRegister<cr>grr
-xmap <silent>gr  <c-u>:packadd vim-ReplaceWithRegister<cr>gr
-
-" nmap <Leader>r  <Plug>ReplaceWithRegisterOperator
-" nmap <Leader>rr <Plug>ReplaceWithRegisterLine
-" xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
-
+autocmd VimEnter * call timer_start(50, "LazyLoad")
 
 " ap/vim-buftabline {{{
 function s:setup_buftabline()
@@ -429,7 +200,7 @@ function s:setup_buftabline()
   packadd vim-buftabline
   call buftabline#update(0)
   let g:buftabline_show = 2
-  let g:buftabline_numbers = 2
+ let g:buftabline_numbers = 2
   nmap <leader>1 <Plug>BufTabLine.Go(1)
   nmap <leader>2 <Plug>BufTabLine.Go(2)
   nmap <leader>3 <Plug>BufTabLine.Go(3)
@@ -445,256 +216,13 @@ endfunction
 autocmd BufAdd * call <sid>setup_buftabline()
 " }}}
 
-command! Colorizer packadd nvim-colorizer.lua | :ColorizerToggle
-
-nmap <silent>gx :packadd xdg_open.vim<cr>gx
-xmap <silent>gx :packadd xdg_open.vim \| execute "normal gx"<cr>
-
-let g:quickrun_no_default_key_mappings=1
-let g:quickrun_config = {
-      \'*': {
-      \'outputter/buffer/split': ':10split'}}
-nnoremap <silent><Leader>r :packadd vim-quickrun \| :execute "normal \<plug>(quickrun)"<cr><c-w>p
-vnoremap <silent><Leader>r <esc>:packadd vim-quickrun \| :execute "normal gv \<plug>(quickrun)"<cr><c-w>p
-
-command! CODI packadd codi.vim | :Codi
-command! Grammar packadd vim-grammarous | :GrammarousCheck
-
-" lambdalisue/gina.vim {{{
-function s:setup_gina()
-  if exists('g:loaded_gina')
-    return
-  endif
-  packadd gina.vim
-  cnoreabbrev Git Gina
-  command! Gbrowse execute "normal! vv" | :'<,'>Gina browse --exact :
-  command! Glog :Gina log -- %:p
-  command! Agit :packadd agit.vim | :Agit
-
-  " let g:gina#process#command='git'
-
-  " gina show always in vsplit
-  call gina#custom#command#option(
-          \ '/\%(show\)',
-          \ '--opener', 'vsplit'
-          \)
-
-  " gina show close with q
-  call gina#custom#mapping#nmap(
-          \ 'show', 'q',
-          \ ':q<CR>',
-          \ {'noremap': 1, 'silent': 1},
-          \)
-
-  call gina#custom#mapping#nmap(
-  	      \ 'log', 'd',
-          \ ':execute printf(":new term://git diff %s \| resize +10", gina#action#candidates()[0].rev)<cr>',
-  	      \ {'noremap': 1, 'silent': 1},
-  	      \)
-
-  call gina#custom#mapping#nmap(
-          \ 'log', 'q',
-          \ ':bd<CR>',
-          \ {'noremap': 1, 'silent': 1},
-          \)
-endfunction
-autocmd User DeferLoad call <sid>setup_gina()
-" }}}
-
-autocmd User DeferLoad packadd vim-sleuth
-autocmd User DeferLoad packadd pastefix.vim
-
-" junegunn/goyo.vim {{{
-let g:goyo_width='100'
-let g:goyo_height='100%'
-let g:goyo_linenr=0
-let g:limelight_paragraph_span = 1
-let g:limelight_priority = -1
-
-" function! s:goyo_enter()
-"   " execute "normal! :ScrollViewEnable"
-" endfunction
-"
-" function! s:goyo_leave()
-" endfunction
-"
-function! s:goyo_enter()
-  set showtabline=0
-  set noshowmode
-  set noshowcmd
-endfunction
-
-function! s:goyo_leave()
-  set showtabline=2
-  set showmode
-  set showcmd
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" }}}
-
-" mhinz/vim-signify {{{
-let g:signify_sign_show_text = 1
-let g:signify_sign_show_count = 0
-" let g:signify_disable_by_default = 1
-highlight! SignifySignAdd    ctermfg=green  guifg=#696969 cterm=NONE guibg=NONE
-highlight! SignifySignDelete ctermfg=red    guifg=#696969 cterm=NONE guibg=NONE
-highlight! SignifySignChange ctermfg=yellow guifg=#696969 cterm=NONE guibg=NONE
-nmap <silent> ]h <plug>(signify-next-hunk)
-nmap <silent> [h <plug>(signify-prev-hunk)
-autocmd User DeferLoad packadd vim-signify | :SignifyEnable
-" }}}
-
-" vim-lion {{{
-" tommcdo/vim-lion
-" jonasw234/vim-lion " https://github.com/tommcdo/vim-lion/pull/28/files
-nmap <silent>gl :packadd vim-lion<cr>gl
-nmap <silent>gL :packadd vim-lion<cr>gL
-vmap <silent>gl <esc>:packadd vim-lion<cr>gvgl
-vmap <silent>gL <esc>:packadd vim-lion<cr>gvgL
-let g:lion_squeeze_spaces = 1
-" }}}
-
-" vim-sandwich {{{
-function s:setup_sandwich() 
-  if !exists('g:loaded_sandwich')
-    packadd vim-sandwich
-    let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-    let g:sandwich#recipes += [
-          \   {
-          \     'buns'    : ['print(', ')'],
-          \     'filetype': ['python'],
-          \     'nesting' : 0,
-          \     'input'   : ['p', 'P'],
-          \   },
-          \   {
-          \     'buns'    : ['fmt.Printf(', ')'],
-          \     'filetype': ['go'],
-          \     'nesting' : 0,
-          \     'input'   : ['p', 'P'],
-          \   },
-          \   {
-          \     'buns'    : ['log.Print(', ')'],
-          \     'filetype': ['go'],
-          \     'nesting' : 0,
-          \     'input'   : ['l', 'L'],
-          \   },
-          \   {
-          \     'buns'    : ['[](', ')'],
-          \     'filetype': ['markdown'],
-          \     'nesting' : 0,
-          \     'input'   : ['l','L'],
-          \   },
-          \   {
-          \     'buns'    : ['console.log(', ')'],
-          \     'filetype': ['javascript','typescript'],
-          \     'nesting' : 0,
-          \     'input'   : ['p', 'P'],
-          \   },
-          \   {
-          \     'buns'    : ['print(', ')'],
-          \     'filetype': ['lua'],
-          \     'nesting' : 0,
-          \     'input'   : ['p', 'P'],
-          \   },
-          \ ]
-  endif
-endfunction
-
-nmap <silent>ds  :call <sid>setup_sandwich()<cr>sd
-nmap <silent>dss :call <sid>setup_sandwich()<cr>sdb
-nmap <silent>cs  :call <sid>setup_sandwich()<cr>sr
-nmap <silent>css :call <sid>setup_sandwich()<cr>srb
-xmap <silent>S   <esc>:call <sid>setup_sandwich()<cr>gvsa
-" }}}
-
 " sbdchd/neoformat {{{
 let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_html = ['prettier']
 let g:neoformat_enabled_lua = ['luafmt']
-" let g:neoformat_enabled_go = ['gofumports']
+let g:neoformat_enabled_go = ['gofumports']
 " let g:neoformat_async = 1
-" }}}
-
-" monaqagdial.nvim {{{
-function! s:setup_dial()
-  if !exists('g:loaded_dial')
-    packadd dial.nvim
-    lua << EOF
-local dial = require("dial")
-dial.config.searchlist.normal = {
-    "number#decimal",
-    "number#hex",
-    "number#binary",
-    "number#decimal#fixed#zero",
-    "number#decimal#fixed#space",
-    "date#[%Y/%m/%d]",
-    "markup#markdown#header",
-    "char#alph#small#str",
-}
-EOF
-  endif
-endfunction
-nmap <silent><C-a>  :call <sid>setup_dial() \| :execute "normal \<Plug>(dial-increment)"<cr>
-nmap <silent><C-x>  :call <sid>setup_dial() \| :execute "normal \<Plug>(dial-decrement)"<cr>
-vmap <silent><C-a>  :call <sid>setup_dial() \| :execute "normal gv \<Plug>(dial-increment)"<cr>
-vmap <silent><C-x>  :call <sid>setup_dial() \| :execute "normal gv \<Plug>(dial-decrement)"<cr>
-vmap <silent>g<C-a> :call <sid>setup_dial() \| :execute "normal gv \<Plug>(dial-increment-additional)"<cr>
-vmap <silent>g<C-x> :call <sid>setup_dial() \| :execute "normal gv \<Plug>(dial-decrement-additional)"<cr>
-" }}}
-
-
-
-" rafcamlet/nvim-luapad {{{
-command Luapad packadd nvim-luapad | :Luapad
-" }}}
-
-" machakann/vim-swap {{{
-let g:swap_no_default_key_mappings = 1
-nnoremap <silent>g< :packadd vim-swap \|: execute "normal \<Plug>(swap-prev)"<cr>
-nnoremap <silent>g> :packadd vim-swap \|: execute "normal \<Plug>(swap-next)"<cr>
-" }}}
-
-" comments {{{
-
-" function s:setup_commentary() 
-"   packadd vim-commentary
-"   lua <<EOF
-" local map = vim.api.nvim_buf_set_keymap
-" map(0, 'n', 'gc', [[v:lua.context_commentstring.update_commentstring_and_run('Commentary')]], {expr = true})
-" map(0, 'x', 'gc', [[v:lua.context_commentstring.update_commentstring_and_run('Commentary')]], {expr = true})
-" map(0, 'o', 'gc', [[v:lua.context_commentstring.update_commentstring_and_run('Commentary')]], {expr = true})
-" map(0, 'n', 'gcc', [[v:lua.context_commentstring.update_commentstring_and_run('CommentaryLine')]], {expr = true})
-" map(0, 'n', 'cgc', [[v:lua.context_commentstring.update_commentstring_and_run('ChangeCommentary')]], {expr = true})
-" EOF
-" endfunction
-"
-" nmap <silent>gcc :call <sid>setup_commentary() \| :exe "normal gcc"<cr>
-" vmap <silent>gc <esc>:call <sid>setup_commentary() \| :exe "normal gv gc"<cr>
-
-nmap <silent>gcc :packadd tcomment_vim \| :exe "normal gcc"<cr>
-vmap <silent>gc <esc>:packadd tcomment_vim \| :exe "normal gv gc"<cr>
-
-" }}}
-
-" vim-smoothie {{{
-nmap <silent><c-d> :packadd vim-smoothie \| :execute "normal \<Plug>(SmoothieDownwards)"<cr>
-nmap <silent><c-u> :packadd vim-smoothie \| :execute "normal \<Plug>(SmoothieUpwards)"<cr>
-" }}}
-
-" clever-f {{{
-nmap <silent>f :packadd clever-f.vim \| :call feedkeys("f")<cr>
-" }}}
-
-" phaazon/hop.nvim {{{
-nmap <silent><Leader>w :packadd hop.nvim \| :HopWord<cr>
-" }}}
-
-" aca/funcs.nvim {{{
-xmap s :SortVis<CR>
-nnoremap yp :YankPath<cr>
 " }}}
 
 " hrsh7th/vim-vsnip {{{
@@ -710,9 +238,11 @@ let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
 let g:loaded_compe_ultisnips = 1
 let g:loaded_compe_path = 1
 
-" let g:loaded_compe_tabnine = 1
-" let g:loaded_compe_buffer = 1
+if getcwd() != "/home/rok/src/zettels"
+  let g:loaded_compe_tabnine = 1
+endif
 
+" let g:loaded_compe_buffer = 1
 let g:loaded_compe_luasnip = 1
 let g:loaded_compe_snippets_nvim = 1
 let g:loaded_compe_omni = 1
@@ -727,97 +257,31 @@ let g:loaded_compe_calc = 1
 
 " }}}
 
-" RRethy/vim-illuminate {{{
-autocmd User DeferLoad packadd vim-illuminate
-" }}}
-
-" dstein64/nvim-scrollview {{{
-" autocmd CursorHold * packadd nvim-scrollview | :ScrollViewEnable
-" let g:scrollview_winblend=20
-" let g:scrollview_base='right'
-" }}}
-
-" arecarn/vim-fold-cycle {{{
-autocmd User DeferLoad packadd vim-fold-cycle
-" nmap <silent><cr> :packadd vim-fold-cycle \|:execute "normal \<Plug>(fold-cycle-toggle-all)"<cr>
-" let g:fold_cycle_default_mapping = 0 "disable default mappings
-" nmap <Tab><Tab> <Plug>(fold-cycle-open)
-" nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)
-"
-" " Won't close when max fold is opened
-" let g:fold_cycle_toggle_max_open  = 0
-" " Won't open when max fold is closed
-" let g:fold_cycle_toggle_max_close = 0
-" }}}
-
-" christoomey/vim-tmux-navigator {{{
-nnoremap <silent> <c-h> :packadd vim-tmux-navigator \| :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :packadd vim-tmux-navigator \| :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :packadd vim-tmux-navigator \| :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :packadd vim-tmux-navigator \| :TmuxNavigateRight<cr>
-
-tnoremap <c-h> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateLeft<cr>
-tnoremap <c-j> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateDown<cr>
-tnoremap <c-k> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateUp<cr>
-tnoremap <c-l> <C-\><C-N><cmd>packadd vim-tmux-navigator<cr><cmd>TmuxNavigateRight<cr>
-" }}}
-
-" RyanMillerC/better-vim-tmux-resizer {{{
-let g:tmux_resizer_no_mappings = 1
-nnoremap <silent> <m-h> :packadd better-vim-tmux-resizer \| :TmuxResizeLeft<cr>
-nnoremap <silent> <m-j> :packadd better-vim-tmux-resizer \| :TmuxResizeDown<cr>
-nnoremap <silent> <m-k> :packadd better-vim-tmux-resizer \| :TmuxResizeUp<cr>
-nnoremap <silent> <m-l> :packadd better-vim-tmux-resizer \| :TmuxResizeRight<cr>
-" }}}
-
-" lambdalisue/suda.vim
-command! SudoWrite packadd suda.vim | :SudaWrite
-command! SudoRead packadd suda.vim | :SudaRead
-
-command! GitMessenger packadd git-messenger.vim | :GitMessenger
-nnoremap gm :GitMessenger<cr>
-
-" bronson/vim-visual-star-search {{{
-function! VisualStarSearchSet(cmdtype,...)
-  let temp = @"
-  normal! gvy
-  if !a:0 || a:1 != 'raw'
-    let @" = escape(@", a:cmdtype.'\*')
-  endif
-  let @/ = substitute(@", '\n', '\\n', 'g')
-  let @/ = substitute(@/, '\[', '\\[', 'g')
-  let @/ = substitute(@/, '\~', '\\~', 'g')
-  let @/ = substitute(@/, '\.', '\\.', 'g')
-  let @" = temp
-endfunction
-xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
-" }}}
-
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NVIM-LSP / compe / + misc lua {{{
+" lsp / compe {{{
+
+" https://github.com/stevearc/aerial.nvim
+" https://github.com/simrat39/symbols-outline.nvim
+" Symbol plugin
+let g:aerial = {
+   \ 'max_width' : 200,
+   \ 'min_width' : 30,
+   \ }
 
 lua << EOF
--- windwp/nvim-autopairs
-require('nvim-autopairs').setup({
-  disable_filetype = {},
-  ignored_next_char = "[%w%.]"
-})
-
-require('nvim-peekup.config').on_keystroke["delay"] = ''
-
--- require '_lsp'
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'    
-require'lsp_signature'.on_attach()
+-- require'lsp_signature'.on_attach()
+-- require'aerial'.on_attach()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lspconfig.tsserver.setup{ capabilities = capabilities; } -- Need typescript installed to use for javascript project
 lspconfig.gopls.setup{ capabilities = capabilities; }
--- nvim_lsp.racket_langserver.setup{ capabilities = capabilities; }
+lspconfig.hls.setup{ capabilities = capabilities; }
+-- lspconfig.racket_langserver.setup{ capabilities = capabilities; }
 -- nvim_lsp.bashls.setup{ capabilities = capabilities; }
 -- nvim_lsp.vimls.setup { capabilities = capabilities; }
 -- nvim_lsp.cssls.setup{ capabilities = capabilities; }
@@ -854,31 +318,16 @@ lspconfig.pylance.setup{
 }
 
 local sumneko_root_path = vim.fn.expand('$HOME/src/github.com/sumneko/lua-language-server')
-lspconfig.sumneko_lua.setup{
-  cmd = { sumneko_root_path .. "/bin/".. vim.g._uname .. "/lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
-  capabilities = capabilities; 
-  settings = {
-      Lua = {
-          runtime = {
-              -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
-              path = vim.split(package.path, ';'),
-          },
-          diagnostics = {
-              globals = {'vim'},
-          },
-          workspace = {
-              library = {
-                  [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                  [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-              },
-          },
-          telemetry = {
-            enable = false,
-          },
-      },
+local luadev = require("lua-dev").setup({
+  -- add any options here, or leave empty to use the default settings
+  lspconfig = {
+    cmd = { sumneko_root_path .. "/bin/".. vim.g._uname .. "/lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
+    capabilities = capabilities;
   },
-}
+})
+
+
+lspconfig.sumneko_lua.setup(luadev)
 
 -- nvim_lsp.configs.korean_ls = {
 --   default_config = {
@@ -907,20 +356,20 @@ lspconfig.sumneko_lua.setup{
 -- }
 -- nvim_lsp.neuron_ls.setup{}
 
-if not lspconfig.emmet_ls then    
-  configs.emmet_ls = {    
-    default_config = {    
-      cmd = {'emmet-ls', '--stdio'};
-      filetypes = {'html', 'css'};
-      root_dir = function(fname)    
-        return vim.loop.cwd()
-      end;    
-      settings = {};    
-    };    
-  }    
-end    
-lspconfig.emmet_ls.setup{ capabilities = capabilities; }
+-- if not lspconfig.emmet_ls then    
+--   configs.emmet_ls = {    
+--     default_config = {    
+--       cmd = {'emmet-ls', '--stdio'};
+--       filetypes = {'html', 'css'};
+--       root_dir = function(fname)    
+--         return vim.loop.cwd()
+--       end;    
+--       settings = {};    
+--     };    
+--   }    
+-- end    
 
+-- lspconfig.emmet_ls.setup{ capabilities = capabilities; }
 
 require'compe'.setup {
   enabled = true;
@@ -938,9 +387,9 @@ require'compe'.setup {
     buffer = true;
     vsnip = true;
     tabnine = true;
-    tmux = true;
+    -- tmux = true;
     nvim_lsp = true;
-    omni = true;
+    -- omni = true;
     -- calc = true;
     -- nvim_lua = { ... overwrite source configuration ... };
   };
@@ -977,21 +426,15 @@ vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
--- TODO: treesitter
--- require'nvim-treesitter.configs'.setup {
---   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
---   highlight = {
---     enable = true,              -- false will disable the whole extension
---   },
--- }
-
 EOF
+
 
 function s:formatter(command)
   packadd neoformat
 
   if a:command == "Neoformat"
     execute ":Neoformat"
+    return
   endif
 
   try 
@@ -1003,15 +446,6 @@ endfunction
 
 set completeopt=menu,menuone,noselect
 
-" function s:lsp_definition()
-" lua << EOF
-"   print(vim.api.nvim_win_get_cursor(0)[0])
-"   vim.cmd("vsplit")
-"   vim.lsp.buf.definition() 
-"   print(vim.api.nvim_win_get_cursor(0)[0])
-" EOF
-" endfunction
-"
 nnoremap <silent> gD            <cmd>lua vim.lsp.buf.declaration()<CR>
 " nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gd            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
@@ -1027,10 +461,14 @@ nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 " lua require'lspsaga.diagnostic'.show_line_diagnostics()
 " nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 " inoremap <silent> <c-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-"
+
 nnoremap <silent> ]d            <cmd>lua vim.lsp.diagnostic.goto_next({wrap = false})<CR>
 nnoremap <silent> [d            <cmd>lua vim.lsp.diagnostic.goto_prev({wrap = false})<CR>
-" nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+" nnoremap <silent> ;s            <cmd>SymbolsOutline<cr>
+nnoremap <silent> ;s            <cmd>AerialToggle<cr>
+nnoremap <silent> ]s            <cmd>AerialNext<cr>
+nnoremap <silent> [s            <cmd>AerialPrev<cr>
+
 nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
 nnoremap <silent> ;r            <cmd>lua vim.lsp.buf.references()<CR>
@@ -1044,28 +482,20 @@ nnoremap <silent> ;f            <cmd>call <sid>formatter("")<cr>
 nnoremap <silent> ;ff           <cmd>call <sid>formatter("Neoformat")<cr>
 imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 inoremap <silent><expr><CR>     compe#confirm('<CR>')
-
-hi! link LspDiagnosticsDefaultInformation Comment
-hi! link LspDiagnosticsDefaultHint Comment
-hi! link LspDiagnosticsDefaultError Comment
-hi! link LspDiagnosticsDefaultWarning Comment
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GO {{{
-" open test (toggle test)
-nnoremap <silent> <leader>tt :call switchy#switch('edit', 'edit')<CR>
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTOCMD {{{
+au BufReadPost *.rkt,*.rktl setfiletype scheme
+autocmd BufRead,BufNewFile *.fish setfiletype fish
 
-" Autoclose terminal without prompt
-autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
+" https://github.com/vim-pandoc/vim-pandoc-syntax
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 
-" autocmd BufWinEnter,WinEnter term://* nnoremap
-
-" Highlight TODO
-autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+augroup quickfix
+	autocmd!
+	autocmd QuickFixCmdPost cgetexpr cwindow
+  autocmd QuickFixCmdPost cgetexpr set ft=qf
+augroup END
 
 " Plug 'pbrisbin/vim-mkdir'
 function s:Mkdir()
@@ -1079,9 +509,6 @@ function s:Mkdir()
 endfunction
 autocmd BufWritePre * call s:Mkdir()
 
-" justfile
-" au! BufNewFile,BufRead justfile setf make
-
 " https://github.com/vim/vim/blob/master/runtime/defaults.vim
 au BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -1090,12 +517,6 @@ au BufReadPost *
 
 " comment for no file
 au BufWinEnter,BufAdd * if (&ft =="") | setlocal commentstring=#\ %s | endif
-
-" https://stackoverflow.com/questions/630884/opening-vim-help-in-a-vertical-split-window
-" au FileType help wincmd L
-
-" if there's no other window but quickfix close it
-au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MAPS {{{
@@ -1114,7 +535,9 @@ vnoremap g<C-a> <C-a>
 vnoremap g<C-x> <C-x>
 nnoremap <c-g> 2<c-g>
 
-imap <C-d> ##<ESC>:r! date "+\%H:\%M \%a \%m/\%d/\%Y"<CR>kJ$a<cr>
+" imap <C-d> ##<ESC>:r! date "+\%H:\%M \%a \%m/\%d/\%Y"<CR>kJ$a<cr>
+imap <C-d> <ESC>:r! date "date +\%Y-\%m-\%d"<CR>kJ$a<cr>
+
 
 " mistakes
 cnoreabbrev W! w!
@@ -1157,8 +580,7 @@ nnoremap ]j g,
 nnoremap [c :packadd vim-misc \| packadd vim-colorscheme-switcher \| :NextColorScheme<cr>
 nnoremap ]c :packadd vim-misc \| packadd vim-colorscheme-switcher \| :PrevColorScheme<cr>
 
-
-"" Split
+" Split
 nnoremap <leader>o :only<cr>
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -1188,7 +610,6 @@ vmap > >gv
 
 " close window, or buffer, or exit
 function s:close()
-  echom "closing"
   if winnr('$') != 1 
     close
   elseif len(getbufinfo({'buflisted':1})) > 1
@@ -1208,48 +629,15 @@ nnoremap <C-s>     :update<cr>
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TOGGLE {{{
-
-" let g:_colorscheme_mono='bruin'
-" function! ColorToggle()
-"   if g:colors_name != g:_colorscheme_mono
-"     execute "colorscheme " . g:_colorscheme_mono
-"   else
-"     execute "colorscheme " . g:_colorscheme
-"   endif
-" endfunction
-" nnoremap ;c :call ColorToggle()<cr>
-
 nnoremap <expr>   <bslash>f &foldlevel ? 'zM' :'zR'
 nnoremap <silent> <bslash>w :set wrap!<CR>
 nnoremap <silent> <bslash>n :set number! \| set relativenumber!<CR>
-nnoremap <silent> <bslash>z :packadd goyo.vim \| :silent! Goyo<CR>
 nnoremap <silent> <bslash>s
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>
              \ else <BAR>
              \    syntax enable <BAR>
              \ endif<CR>
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EXPLORER {{{
-function s:vifm()
-  let g:floaterm_opener="edit"
-  packadd vim-floaterm
-  if expand('%:p') != "" 
-    FloatermNew --height=0.9 --width=0.9 --title=vifm vifm --select '%:p'
-  else
-    FloatermNew --height=0.9 --width=0.9 --title=vifm vifm -c ':vs |:tree! | :view! | set nodotfiles'
-  end
-endfunction
-
-
-  " https://vi.stackexchange.com/questions/17901/how-to-make-neovim-to-not-show-the-process-exited-num-when-quitting-a-term
-  autocmd TermClose * :bd!
-
- autocmd TermOpen * startinsert
-au FileType floaterm tnoremap <buffer> <Esc> <c-c>
-command! DiffVifm packadd vifm.vim | :DiffVifm
-nnoremap <silent><c-e> <cmd>call <sid>vifm()<CR>
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF {{{
@@ -1294,7 +682,8 @@ function s:setup_fzf()
   packadd fzf.vim
 endfunction
 nnoremap <silent><c-f>                :call <sid>setup_fzf()   \|         :Rgg<cr>
-inoremap <silent><c-f>                <c-o>:call <sid>setup_fzf()   \|    :Rgg<cr>
+" inoremap <silent><c-f>                <c-o>:call <sid>setup_fzf()   \|    :Rgg<cr>
+inoremap <silent><c-f>                <esc>la
 nnoremap <silent><m-f>                :call <sid>setup_fzf()   \|         :RggWithFile<cr>
 nnoremap <silent><m-f>                <c-o>:call <sid>setup_fzf()   \|    :RggWithFile<cr>
 nnoremap <silent><Leader>fw           :call <sid>setup_fzf()   \|         :Rg <C-R><C-W><CR>
@@ -1311,86 +700,83 @@ nnoremap <silent><leader>fc           :call <sid>setup_fzf()   \|         :Commi
 nnoremap <silent><leader>fp           :call <sid>setup_fzf()   \|         :packadd fzf-proj.vim  \|  :Projects<cr>
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" HIGHLIGHT {{{
+" COLORS {{{
 " colorscheme monokai_pro
 " colorscheme codedark
 " colorscheme vscode-dark
-colorscheme tomorrow-night
+" colorscheme tomorrow-night
+colorscheme substrata
 " colorscheme base16-tomorrow-night-eighties
 " colorscheme base16-tomorrow-night
 " colorscheme tomorrow-night
+
+hi! link LspDiagnosticsDefaultInformation Comment
+hi! link LspDiagnosticsDefaultHint Comment
+hi! link LspDiagnosticsDefaultError Comment
+hi! link LspDiagnosticsDefaultWarning Comment
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " HOST SPECIFIC {{{
 " silent! source $HOME/.config/nvim/$HOSTNAME.vim
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STARTIFY {{{
-function s:startify()
-  function! s:gitModified()
-      let files = systemlist('git ls-files -m 2>/dev/null')
-      return map(files, "{'line': v:val, 'path': v:val}")
-  endfunction
-
-  " same as above, but show untracked files, honouring .gitignore
-  function! s:gitUntracked()
-      let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
-      return map(files, "{'line': v:val, 'path': v:val}")
-  endfunction
-
-  let g:startify_change_to_vcs_root = 1
-  let g:startify_lists = [
-          \ { 'type': 'files',     'header': ['   MRU']            },
-          \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-          \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-          \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-          \ { 'type': 'commands',  'header': ['   Commands']       },
-          \ ]
-  let g:startify_custom_header = ''
-  packadd vim-startify
-endfunction
-nnoremap <silent><leader>x :call <sid>startify()\|Startify<cr>
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" UTILS {{{
-command! NeuronUpdate silent! exe '1,5s/^date: 2.*/date: '. strftime("%Y-%m-%dT%H:%M")
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" call grepprg in a system shell instead of internal shell
-" https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-function! Grep(...)
-    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-endfunction
-
-
-" grep TODO {{{
-set grepprg=rg\ --vimgrep\ --no-heading
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-
-augroup quickfix
-	autocmd!
-	autocmd QuickFixCmdPost cgetexpr cwindow
-  autocmd QuickFixCmdPost cgetexpr set ft=qf
-augroup END
-
-" command GREP :execute 'grep '.expand('<cword>') expand('%') | :copen | cc
-" }}}
-"
-
-set conceallevel=1
-
 
 if g:_uname == "linux"
   autocmd InsertLeave * silent call system("fcitx5-remote -c")
-
-
   autocmd VimEnter * silent call system("fcitx5-remote -c")
-
-
 end
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TEMPLATE {{{
+augroup _template
+autocmd BufNewFile ~/src/zettels/[^/]\\\{1,100\}.md 0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh
+autocmd BufNewFile ~/src/zettels/dev/**.md 0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh
+autocmd BufNewFile ~/src/zettels/log/*.md 0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh "$(date +\%Y-\%m-\%d)"
+augroup end
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command GetVisualSelect <c-u>lua print("getvisual")
+xnoremap <leader><leader>a :<C-U> call GetVisualSelection(visualmode())<Cr>
+xnoremap <leader>a :<c-u>lua require('utils').get_visual_selection()<cr>
+vnoremap <leader>a :<c-u>lua require('utils').get_visual_selection()<cr>
 
-" https://github.com/yuki-yano/zero.nvim/blob/main/lua/zero.lua
-lua vim.api.nvim_set_keymap('n', '0', "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'", {silent = true, noremap = true, expr = true})
+" https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
+" https://github.com/neovim/neovim/pull/13896/files " TODO: check updates
+function! GetVisualSelection(mode)
+    " call with visualmode() as the argument
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end]     = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if a:mode ==# 'v'
+        " Must trim the end before the start, the beginning will shift left.
+        let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+        let lines[0] = lines[0][column_start - 1:]
+    elseif  a:mode ==# 'V'
+        " Line mode no need to trim start or end
+    elseif  a:mode == "\<c-v>"
+        " Block mode, trim every line
+        let new_lines = []
+        let i = 0
+        for line in lines
+            let lines[i] = line[column_start - 1: column_end - (&selection == 'inclusive' ? 1 : 2)]
+            let i = i + 1
+        endfor
+    else
+        return ''
+    endif
+    for line in lines
+        echom line
+    endfor
+    return join(lines, "\n")
+endfunction
+
+
+autocmd TermEnter zepl:* tnoremap <C-\><C-n> <C-\><C-n>G
+
+" autocmd TermEnter zepl:* tnoremap <C-\><C-N> <C-\><C-n>G
+autocmd TermLeave,InsertLeave,BufLeave zepl:* normal! G
+" autocmd TermLeave,InsertLeave zepl:* normal! G
+
+" http://neovim.io/news/2021/07
+au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
+
+
+

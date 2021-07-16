@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
 # vim:foldmethod=marker
 set -exuo pipefail
-type stow
-sudo -v
-
-cd ~/src/configs
 
 # utils {{{
 rmf() { rm -vrf "$@" || true; }
 
-emptyDir() {
-  rmf "$1"
-  mkdir -p "$1"
-}
+emptyDir() { rmf "$1"; mkdir -p "$1"; }
+
+commandExists() { command -v "$@" > /dev/null 2>&1; }
 
 isLinux() { if [[ "$OSTYPE" == "linux-gnu"* ]]; then return 0; else return 1; fi; }
 
 isDarwin() { if [[ "$OSTYPE" == "darwin"* ]]; then return 0; else return 1; fi; }
 # }}}
 
+
+if ! commandExists stow; then exit 1; fi
+if isDarwin; then sudo -v; fi
+
+cd ~/src/configs
+
 # cleanup {{{
 emptyDir $HOME/.config/fish
-emptyDir $HOME/.bin
-emptyDir $HOME/.config/fish/functions
 emptyDir $HOME/.config/alacritty
 emptyDir $HOME/.config/youtube-dl
 emptyDir $HOME/.config/bat
@@ -36,14 +35,15 @@ emptyDir $HOME/.config/vifm
 emptyDir $HOME/.config/fcitx
 emptyDir $HOME/.config/pulse
 emptyDir $HOME/.config/nvim
-emptyDir $HOME/.ssh
 
 rmf $HOME/.scripts
 rmf $HOME/.config/gtk-3.0
 rmf $HOME/.scim
+rmf $HOME/.bin
 rmf $HOME/.config/sxhkd
 rmf $HOME/.config/fd
 rmf $HOME/.config/zathura
+rmf $HOME/.config/fcitx5
 rmf $HOME/.config/autorandr
 rmf $HOME/.config/karabiner
 rmf $HOME/.config/dunst
@@ -100,4 +100,7 @@ mkdir -p $HOME/bin
 stow -v --target $HOME "dotfiles"
 
 # stow host specific dotfiles
-[[ -d "dotfiles.$(hostname)" ]] && sudo stow -v --target / "dotfiles.$(hostname)"
+if [[ -d "dotfiles.$(hostname)" ]]; then 
+  rmf $HOME/.ssh
+  sudo stow -v --target / "dotfiles.$(hostname)"
+fi

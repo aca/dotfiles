@@ -137,4 +137,4 @@ fileviewer {*.docx},
          \ docx2txt.pl %f -
 
 " fileviewer *[^/] env -uCOLORTERM bat --color always --style=header --line-range 0:80 --pager never %c -p
-fileviewer *[^/] gbat %c
+" fileviewer *[^/] gbat %c

@@ -10,8 +10,7 @@ load-module module-alsa-source device=hw:0,6 channels=4
 # blacklist snd_hda_intel
 # blacklist snd_soc_skl
 # EOT
-#
-#
+
 load-module module-bluetooth-policy
 load-module module-bluetooth-discover
 

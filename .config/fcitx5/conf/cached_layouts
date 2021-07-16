@@ -1,0 +1,3480 @@
+[keyboard-apl]
+Description="키보드 - APL"
+Language=en
+Label=apl
+
+[keyboard-apl-dyalog]
+Description="키보드 - APL - APL 기호 (Dyalog APL)"
+Language=en
+Label=dlg
+
+[keyboard-apl-sax]
+Description="키보드 - APL - APL 기호 (SAX, Sharp APL for Unix)"
+Language=en
+Label=sax
+
+[keyboard-apl-unified]
+Description="키보드 - APL - APL 기호 (통합)"
+Language=en
+Label=ufd
+
+[keyboard-apl-apl2]
+Description="키보드 - APL - APL 기호 (IBM APL2)"
+Language=en
+Label=apl2
+
+[keyboard-apl-aplplusII]
+Description="키보드 - APL - APL 키보드 (Manugistics APL*PLUS II)"
+Language=en
+Label=aplII
+
+[keyboard-apl-aplx]
+Description="키보드 - APL - APL 키보드 (APLX 통합)"
+Language=en
+Label=aplx
+
+[keyboard-jv]
+Description="키보드 - 인도네시아어 (자와어)"
+Language=jv
+Label=jv
+
+[keyboard-tz]
+Description="키보드 - 스와힐리어 (탄자니아)"
+Language=sw
+Label=sw
+
+[keyboard-brai]
+Description="키보드 - 점자"
+Language=
+Label=brl
+
+[keyboard-brai-left_hand]
+Description="키보드 - 점자 - 점자 (왼손잡이)"
+Language=
+Label=brai
+
+[keyboard-brai-left_hand_invert]
+Description="키보드 - 점자 - 점자 (왼손잡이, 엄지 뒤바뀜)"
+Language=
+Label=brai
+
+[keyboard-brai-right_hand]
+Description="키보드 - 점자 - 점자 (오른손잡이)"
+Language=
+Label=brai
+
+[keyboard-brai-right_hand_invert]
+Description="키보드 - 점자 - 점자 (오른손잡이, 엄지 뒤바뀜)"
+Language=
+Label=brai
+
+[keyboard-et]
+Description="키보드 - 암하라어"
+Language=am
+Label=am
+
+[keyboard-tm]
+Description="키보드 - 투르크멘어"
+Language=tk
+Label=tk
+
+[keyboard-tm-alt]
+Description="키보드 - 투르크멘어 - 투르크멘어 (Alt-Q)"
+Language=tk
+Label=tm
+
+[keyboard-np]
+Description="키보드 - 네팔어"
+Language=ne
+Label=ne
+
+[keyboard-epo]
+Description="키보드 - 에스페란토"
+Language=eo
+Label=eo
+
+[keyboard-epo-legacy]
+Description="키보드 - 에스페란토 - 에스페란토 (구형)"
+Language=eo
+Label=epo
+
+[keyboard-eu]
+Description="키보드 - EurKEY (미국식)"
+Language=ca
+Label=eu
+
+[keyboard-za]
+Description="키보드 - 영어 (남아공)"
+Language=en
+Label=en
+
+[keyboard-bw]
+Description="키보드 - 츠와나어"
+Language=tn
+Label=tn
+
+[keyboard-kr]
+Description="키보드 - 한국어"
+Language=ko
+Label=ko
+
+[keyboard-kr-kr104]
+Description="키보드 - 한국어 - 한국어 (101/104키 호환)"
+Language=ko
+Label=kr
+
+[keyboard-kr-sun_type6]
+Description="키보드 - 한국어 - 한국어 (썬 타입 6/7)"
+Language=ko
+Label=kr
+
+[keyboard-gb]
+Description="키보드 - 영어 (영국식)"
+Language=en
+Label=en
+
+[keyboard-gb-extd]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 확장, 윈도우키)"
+Language=en
+Label=gb
+
+[keyboard-gb-intl]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 국제, 데드키 포함)"
+Language=en
+Label=gb
+
+[keyboard-gb-dvorak]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 드보락)"
+Language=en
+Label=gb
+
+[keyboard-gb-dvorakukp]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 드보락, 영국 문장 부호 포함)"
+Language=en
+Label=gb
+
+[keyboard-gb-mac]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 매킨토시)"
+Language=en
+Label=gb
+
+[keyboard-gb-mac_intl]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 매킨토시, 국제)"
+Language=en
+Label=gb
+
+[keyboard-gb-colemak]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 콜맥)"
+Language=en
+Label=gb
+
+[keyboard-gb-colemak_dh]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 콜맥-DH)"
+Language=en
+Label=gb
+
+[keyboard-gb-pl]
+Description="키보드 - 영어 (영국식) - 폴란드어 (영국식 키보드)"
+Language=pl
+Label=pl
+
+[keyboard-gb-sun_type6]
+Description="키보드 - 영어 (영국식) - 영어 (영국식, 썬 타입 6/7)"
+Language=en
+Label=gb
+
+[keyboard-ua]
+Description="키보드 - 우크라이나어"
+Language=uk
+Label=uk
+
+[keyboard-ua-phonetic]
+Description="키보드 - 우크라이나어 - 우크라이나어 (음성 표기)"
+Language=uk
+Label=ua
+
+[keyboard-ua-typewriter]
+Description="키보드 - 우크라이나어 - 우크라이나어 (타자기)"
+Language=uk
+Label=ua
+
+[keyboard-ua-winkeys]
+Description="키보드 - 우크라이나어 - 우크라이나어 (윈도우키)"
+Language=uk
+Label=ua
+
+[keyboard-ua-legacy]
+Description="키보드 - 우크라이나어 - 우크라이나어 (구형)"
+Language=uk
+Label=ua
+
+[keyboard-ua-rstu]
+Description="키보드 - 우크라이나어 - 우크라이나어 (표준 RSTU)"
+Language=uk
+Label=ua
+
+[keyboard-ua-rstu_ru]
+Description="키보드 - 우크라이나어 - 러시아어 (우크라이나, 표준 RSTU)"
+Language=uk
+Label=ua
+
+[keyboard-ua-homophonic]
+Description="키보드 - 우크라이나어 - 우크라이나어 (homophonic)"
+Language=uk
+Label=ua
+
+[keyboard-ua-sun_type6]
+Description="키보드 - 우크라이나어 - 우크라이나어 (썬 타입 6/7)"
+Language=uk
+Label=ua
+
+[keyboard-th]
+Description="키보드 - 타이어"
+Language=th
+Label=th
+
+[keyboard-th-tis]
+Description="키보드 - 타이어 - 타이어 (TIS-820.2538)"
+Language=th
+Label=th
+
+[keyboard-th-pat]
+Description="키보드 - 타이어 - 타이어 (Pattachote)"
+Language=th
+Label=th
+
+[keyboard-mv]
+Description="키보드 - 디베히어"
+Language=dv
+Label=dv
+
+[keyboard-nec_vndr/jp]
+Description="키보드 - 일본어 (PC-98)"
+Language=ja
+Label=ja
+
+[keyboard-tj]
+Description="키보드 - 타지키스탄"
+Language=tg
+Label=tg
+
+[keyboard-tj-legacy]
+Description="키보드 - 타지키스탄 - 타지키스탄 (구형)"
+Language=tg
+Label=tj
+
+[keyboard-sk]
+Description="키보드 - 슬로바키아어"
+Language=sk
+Label=sk
+
+[keyboard-sk-bksl]
+Description="키보드 - 슬로바키아어 - 슬로바키아어 (확장 백슬래시)"
+Language=sk
+Label=sk
+
+[keyboard-sk-qwerty]
+Description="키보드 - 슬로바키아어 - 슬로바키아어 (QWERTY)"
+Language=sk
+Label=sk
+
+[keyboard-sk-qwerty_bksl]
+Description="키보드 - 슬로바키아어 - 슬로바키아어 (QWERTY, 확장 백슬래시)"
+Language=sk
+Label=sk
+
+[keyboard-sk-acc]
+Description="키보드 - 슬로바키아어 - 체코어 (ACC 배치, 액센트 문자만)"
+Language=sk
+Label=sk
+
+[keyboard-sk-sun_type6]
+Description="키보드 - 슬로바키아어 - 슬로바키아어 (썬 타입 6/7)"
+Language=sk
+Label=sk
+
+[keyboard-ru]
+Description="키보드 - 러시아어"
+Language=ru
+Label=ru
+
+[keyboard-ru-phonetic]
+Description="키보드 - 러시아어 - 러시아어 (음성 표기)"
+Language=ru
+Label=ru
+
+[keyboard-ru-phonetic_winkeys]
+Description="키보드 - 러시아어 - 러시아어 (음성 표기, 윈도우키)"
+Language=ru
+Label=ru
+
+[keyboard-ru-phonetic_YAZHERTY]
+Description="키보드 - 러시아어 - 러시아어 (음성 표기, YAZHERTY)"
+Language=ru
+Label=ru
+
+[keyboard-ru-typewriter]
+Description="키보드 - 러시아어 - 러시아어 (타자기)"
+Language=ru
+Label=ru
+
+[keyboard-ru-legacy]
+Description="키보드 - 러시아어 - 러시아어 (구형)"
+Language=ru
+Label=ru
+
+[keyboard-ru-typewriter-legacy]
+Description="키보드 - 러시아어 - 러시아어 (타자기, 구형)"
+Language=ru
+Label=ru
+
+[keyboard-ru-tt]
+Description="키보드 - 러시아어 - 타타르어"
+Language=tt
+Label=ru
+
+[keyboard-ru-os_legacy]
+Description="키보드 - 러시아어 - 오세트어 (구형)"
+Language=os
+Label=ru
+
+[keyboard-ru-os_winkeys]
+Description="키보드 - 러시아어 - 오세트어 (윈도우키)"
+Language=os
+Label=ru
+
+[keyboard-ru-cv]
+Description="키보드 - 러시아어 - 추바시어"
+Language=cv
+Label=ru
+
+[keyboard-ru-cv_latin]
+Description="키보드 - 러시아어 - 추바시어 (라틴 문자)"
+Language=cv
+Label=ru
+
+[keyboard-ru-udm]
+Description="키보드 - 러시아어 - 우드무르트어"
+Language=udm
+Label=ru
+
+[keyboard-ru-kom]
+Description="키보드 - 러시아어 - 코미어"
+Language=kv
+Label=ru
+
+[keyboard-ru-sah]
+Description="키보드 - 러시아어 - 야큐트어"
+Language=sah
+Label=ru
+
+[keyboard-ru-xal]
+Description="키보드 - 러시아어 - 칼미크어"
+Language=xal
+Label=ru
+
+[keyboard-ru-dos]
+Description="키보드 - 러시아어 - 러시아어 (DOS)"
+Language=ru
+Label=ru
+
+[keyboard-ru-mac]
+Description="키보드 - 러시아어 - 러시아어 (매킨토시)"
+Language=ru
+Label=ru
+
+[keyboard-ru-srp]
+Description="키보드 - 러시아어 - 세르비아어 (러시아)"
+Language=ru
+Label=ru
+
+[keyboard-ru-bak]
+Description="키보드 - 러시아어 - 바시키르어"
+Language=ba
+Label=ru
+
+[keyboard-ru-chm]
+Description="키보드 - 러시아어 - 마리어"
+Language=chm
+Label=ru
+
+[keyboard-ru-phonetic_azerty]
+Description="키보드 - 러시아어 - 러시아어 (음성 표기, AZERTY)"
+Language=ru
+Label=ru
+
+[keyboard-ru-phonetic_dvorak]
+Description="키보드 - 러시아어 - 러시아어 (음성 표기, 드보락)"
+Language=ru
+Label=ru
+
+[keyboard-ru-phonetic_fr]
+Description="키보드 - 러시아어 - 러시아어 (음성 표기, 프랑스식)"
+Language=ru
+Label=ru
+
+[keyboard-ru-chu]
+Description="키보드 - 러시아어 - 교회 슬라브어"
+Language=cu
+Label=ru
+
+[keyboard-ru-ruu]
+Description="키보드 - 러시아어 - 러시아어 (우크라니아 벨라루스 키보드 배치 포함)"
+Language=ru
+Label=ru
+
+[keyboard-ru-rulemak]
+Description="키보드 - 러시아어 - 러시아어 (럴맥, 음성 표기 콜맥)"
+Language=ru
+Label=ru
+
+[keyboard-ru-phonetic_mac]
+Description="키보드 - 러시아어 - 러시아어 (매킨토시 음성 표기)"
+Language=ru
+Label=ru
+
+[keyboard-ru-sun_type6]
+Description="키보드 - 러시아어 - 러시아어 (썬 타입 6/7)"
+Language=ru
+Label=ru
+
+[keyboard-ru-unipunct]
+Description="키보드 - 러시아어 - 러시아어 (미국식 문장 부호 포함)"
+Language=ru
+Label=ru
+
+[keyboard-ru-prxn]
+Description="키보드 - 러시아어 - 러시아어 (다언어, 복고풍)"
+Language=ru
+Label=ru
+
+[keyboard-trans]
+Description="키보드 - 국제 음성 표기 알파벳"
+Language=
+Label=trans
+
+[keyboard-ir]
+Description="키보드 - 페르시아어"
+Language=fa
+Label=fa
+
+[keyboard-ir-pes_keypad]
+Description="키보드 - 페르시아어 - 페르시아어 (페르시아어 키패드 포함)"
+Language=fa
+Label=ir
+
+[keyboard-ir-ku]
+Description="키보드 - 페르시아어 - 쿠르드어 (이란, 라틴 Q)"
+Language=ku
+Label=ku
+
+[keyboard-ir-ku_f]
+Description="키보드 - 페르시아어 - , F)"
+Language=ku
+Label=ku
+
+[keyboard-ir-ku_alt]
+Description="키보드 - 페르시아어 - 쿠르드어 (이란, 라틴 Alt-Q)"
+Language=ku
+Label=ku
+
+[keyboard-ir-ku_ara]
+Description="키보드 - 페르시아어 - 쿠르드어 (이란, 아랍어 라틴)"
+Language=ku
+Label=ku
+
+[keyboard-ir-ave]
+Description="키보드 - 페르시아어 - 아베스탄"
+Language=ae
+Label=ir
+
+[keyboard-ng]
+Description="키보드 - 영어 (나이지리아)"
+Language=en
+Label=en
+
+[keyboard-ng-igbo]
+Description="키보드 - 영어 (나이지리아) - 이그보어"
+Language=ig
+Label=ig
+
+[keyboard-ng-yoruba]
+Description="키보드 - 영어 (나이지리아) - 요루바어"
+Language=yo
+Label=yo
+
+[keyboard-ng-hausa]
+Description="키보드 - 영어 (나이지리아) - 하우사어 (나이지리아)"
+Language=ha
+Label=ha
+
+[keyboard-is]
+Description="키보드 - 아이슬란드어"
+Language=is
+Label=is
+
+[keyboard-is-mac_legacy]
+Description="키보드 - 아이슬란드어 - 아이슬란드어 (매킨토시, 구형)"
+Language=is
+Label=is
+
+[keyboard-is-mac]
+Description="키보드 - 아이슬란드어 - 아이슬란드어 (매킨토시)"
+Language=is
+Label=is
+
+[keyboard-is-dvorak]
+Description="키보드 - 아이슬란드어 - 아이슬란드어 (드보락)"
+Language=is
+Label=is
+
+[keyboard-es]
+Description="키보드 - 스페인어"
+Language=es
+Label=es
+
+[keyboard-es-nodeadkeys]
+Description="키보드 - 스페인어 - 스페인어 (데드키 없음)"
+Language=es
+Label=es
+
+[keyboard-es-winkeys]
+Description="키보드 - 스페인어 - 스페인어 (윈도우키)"
+Language=es
+Label=es
+
+[keyboard-es-deadtilde]
+Description="키보드 - 스페인어 - 스페인어 (물결 데드키)"
+Language=es
+Label=es
+
+[keyboard-es-dvorak]
+Description="키보드 - 스페인어 - 스페인어 (드보락)"
+Language=es
+Label=es
+
+[keyboard-es-ast]
+Description="키보드 - 스페인어 - 아스투리아스어 (스페인, 아래점 H 및 L 포함)"
+Language=ast
+Label=ast
+
+[keyboard-es-cat]
+Description="키보드 - 스페인어 - 카탈로니아어 (스페인, 가운데점 L 포함)"
+Language=ca
+Label=ca
+
+[keyboard-es-mac]
+Description="키보드 - 스페인어 - 스페인어 (매킨토시)"
+Language=es
+Label=es
+
+[keyboard-es-sun_type6]
+Description="키보드 - 스페인어 - 스페인어 (썬 타입 6/7)"
+Language=es
+Label=es
+
+[keyboard-ee]
+Description="키보드 - 에스토니아어"
+Language=et
+Label=et
+
+[keyboard-ee-nodeadkeys]
+Description="키보드 - 에스토니아어 - 에스토니아어 (데드키 없음)"
+Language=et
+Label=ee
+
+[keyboard-ee-dvorak]
+Description="키보드 - 에스토니아어 - 에스토니아어 (드보락)"
+Language=et
+Label=ee
+
+[keyboard-ee-us]
+Description="키보드 - 에스토니아어 - 에스토니아어 (미국식)"
+Language=et
+Label=ee
+
+[keyboard-ee-sun_type6]
+Description="키보드 - 에스토니아어 - 에스토니아어 (썬 타입 6/7)"
+Language=et
+Label=ee
+
+[keyboard-nl]
+Description="키보드 - 네덜란드어"
+Language=nl
+Label=nl
+
+[keyboard-nl-us]
+Description="키보드 - 네덜란드어 - 네덜란드어 (미국식)"
+Language=nl
+Label=nl
+
+[keyboard-nl-mac]
+Description="키보드 - 네덜란드어 - 네덜란드어 (매킨토시)"
+Language=nl
+Label=nl
+
+[keyboard-nl-std]
+Description="키보드 - 네덜란드어 - 네덜란드어 (표준)"
+Language=nl
+Label=nl
+
+[keyboard-nl-sun_type6]
+Description="키보드 - 네덜란드어 - 네덜란드어 (썬 타입 6/7)"
+Language=nl
+Label=nl
+
+[keyboard-cz]
+Description="키보드 - 체코어"
+Language=cs
+Label=cs
+
+[keyboard-cz-bksl]
+Description="키보드 - 체코어 - key)"
+Language=cs
+Label=cz
+
+[keyboard-cz-qwerty]
+Description="키보드 - 체코어 - 체코어 (QWERTY)"
+Language=cs
+Label=cz
+
+[keyboard-cz-qwerty_bksl]
+Description="키보드 - 체코어 - 체코어 (QWERTY, 백슬래시 확장)"
+Language=cs
+Label=cz
+
+[keyboard-cz-qwerty-mac]
+Description="키보드 - 체코어 - 체코어 (QWERTY, 매킨토시)"
+Language=cs
+Label=cz
+
+[keyboard-cz-ucw]
+Description="키보드 - 체코어 - 체코어 (UCW, 액센트 문자만)"
+Language=cs
+Label=cz
+
+[keyboard-cz-dvorak-ucw]
+Description="키보드 - 체코어 - 체코어 (미국식, 드보락, UCW 지원)"
+Language=cs
+Label=cz
+
+[keyboard-cz-rus]
+Description="키보드 - 체코어 - 러시아어 (체코, 음성 표기)"
+Language=ru
+Label=ru
+
+[keyboard-cz-sun_type6]
+Description="키보드 - 체코어 - 체코어 (썬 타입 6/7)"
+Language=cs
+Label=cz
+
+[keyboard-cz-prog]
+Description="키보드 - 체코어 - 체코어 (프로그래밍)"
+Language=cs
+Label=cz
+
+[keyboard-cz-typo]
+Description="키보드 - 체코어 - 체코어 (타이포그라피)"
+Language=cs
+Label=cz
+
+[keyboard-cz-coder]
+Description="키보드 - 체코어 - 체코어 (코더)"
+Language=cs
+Label=cz
+
+[keyboard-cz-prog_typo]
+Description="키보드 - 체코어 - 체코어 (프로그래밍, 타이포그라피)"
+Language=cs
+Label=cz
+
+[keyboard-se]
+Description="키보드 - 스웨덴어"
+Language=sv
+Label=sv
+
+[keyboard-se-nodeadkeys]
+Description="키보드 - 스웨덴어 - 스웨덴어 (데드키 없음)"
+Language=sv
+Label=se
+
+[keyboard-se-dvorak]
+Description="키보드 - 스웨덴어 - 스웨덴어 (드보락)"
+Language=sv
+Label=se
+
+[keyboard-se-rus]
+Description="키보드 - 스웨덴어 - 러시아어 (스웨덴, 음성 표기)"
+Language=ru
+Label=ru
+
+[keyboard-se-rus_nodeadkeys]
+Description="키보드 - 스웨덴어 - 러시아어 (스웨덴, 음성 표기, 데드키 없음)"
+Language=ru
+Label=ru
+
+[keyboard-se-smi]
+Description="키보드 - 스웨덴어 - 북사오미 (스웨덴)"
+Language=se
+Label=se
+
+[keyboard-se-mac]
+Description="키보드 - 스웨덴어 - 스웨덴어 (매킨토시)"
+Language=sv
+Label=se
+
+[keyboard-se-svdvorak]
+Description="키보드 - 스웨덴어 - 스웨덴어 (SV 드보락)"
+Language=sv
+Label=se
+
+[keyboard-se-us_dvorak]
+Description="키보드 - 스웨덴어 - 스웨덴어 (드보락, 국제)"
+Language=sv
+Label=se
+
+[keyboard-se-us]
+Description="키보드 - 스웨덴어 - 스웨덴어 (미국식)"
+Language=sv
+Label=se
+
+[keyboard-se-swl]
+Description="키보드 - 스웨덴어 - 스웨덴 기호 언어"
+Language=swl
+Label=se
+
+[keyboard-se-dvorak_a5]
+Description="키보드 - 스웨덴어 - 스웨덴어 (드보락 A5)"
+Language=sv
+Label=se
+
+[keyboard-se-sun_type6]
+Description="키보드 - 스웨덴어 - 스웨덴어 (썬 타입 6/7)"
+Language=sv
+Label=se
+
+[keyboard-se-ovd]
+Description="키보드 - 스웨덴어 - 엘프달리언 (스웨덴, ogonek 조합 포함)"
+Language=
+Label=se
+
+[keyboard-bg]
+Description="키보드 - 불가리아어"
+Language=bg
+Label=bg
+
+[keyboard-bg-phonetic]
+Description="키보드 - 불가리아어 - 불가리아어 (구식 음성 표기)"
+Language=bg
+Label=bg
+
+[keyboard-bg-bas_phonetic]
+Description="키보드 - 불가리아어 - 불가리아어 (새 음성 표기)"
+Language=bg
+Label=bg
+
+[keyboard-bg-bekl]
+Description="키보드 - 불가리아어 - 불가리아어 (발전된 버전)"
+Language=bg
+Label=bg
+
+[keyboard-md]
+Description="키보드 - 몰디브어"
+Language=ro
+Label=md
+
+[keyboard-md-gag]
+Description="키보드 - 몰디브어 - 몰티브어 (가가우지아)"
+Language=gag
+Label=gag
+
+[keyboard-ke]
+Description="키보드 - 스와힐리어 (케냐)"
+Language=sw
+Label=sw
+
+[keyboard-ke-kik]
+Description="키보드 - 스와힐리어 (케냐) - 키쿠유어"
+Language=ki
+Label=ki
+
+[keyboard-us]
+Description="키보드 - 영어 (미국식)"
+Language=en
+Label=en
+
+[keyboard-us-chr]
+Description="키보드 - 영어 (미국식) - 체로키어"
+Language=chr
+Label=chr
+
+[keyboard-us-haw]
+Description="키보드 - 영어 (미국식) - 하와이"
+Language=haw
+Label=haw
+
+[keyboard-us-euro]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 5 키에 유로)"
+Language=en
+Label=us
+
+[keyboard-us-intl]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 국제, 데드키 포함)"
+Language=en
+Label=us
+
+[keyboard-us-alt-intl]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 다른 버전 국제)"
+Language=en
+Label=us
+
+[keyboard-us-colemak]
+Description="키보드 - 영어 (미국식) - 영어 (콜맥)"
+Language=en
+Label=us
+
+[keyboard-us-colemak_dh]
+Description="키보드 - 영어 (미국식) - 영어 (콜맥-DH)"
+Language=en
+Label=us
+
+[keyboard-us-colemak_dh_iso]
+Description="키보드 - 영어 (미국식) - 영어 (콜맥-DH ISO)"
+Language=en
+Label=us
+
+[keyboard-us-dvorak]
+Description="키보드 - 영어 (미국식) - 영어 (드보락)"
+Language=en
+Label=us
+
+[keyboard-us-dvorak-intl]
+Description="키보드 - 영어 (미국식) - 영어 (드보락, 국제, 데드키 포함)"
+Language=en
+Label=us
+
+[keyboard-us-dvorak-alt-intl]
+Description="키보드 - 영어 (미국식) - 영어 (드보락, 다른 버전 국제)"
+Language=en
+Label=us
+
+[keyboard-us-dvorak-l]
+Description="키보드 - 영어 (미국식) - 영어 (드보락, 왼손잡이)"
+Language=en
+Label=us
+
+[keyboard-us-dvorak-r]
+Description="키보드 - 영어 (미국식) - 영어 (드보락, 오른손잡이)"
+Language=en
+Label=us
+
+[keyboard-us-dvorak-classic]
+Description="키보드 - 영어 (미국식) - 영어 (드보락 클래식)"
+Language=en
+Label=us
+
+[keyboard-us-dvp]
+Description="키보드 - 영어 (미국식) - 영어 (드보락 프로그래머)"
+Language=en
+Label=us
+
+[keyboard-us-symbolic]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 기호)"
+Language=en
+Label=us
+
+[keyboard-us-rus]
+Description="키보드 - 영어 (미국식) - 러시아어 (미국식, 음성 표기)"
+Language=ru
+Label=ru
+
+[keyboard-us-mac]
+Description="키보드 - 영어 (미국식) - 영어 (매킨토시)"
+Language=en
+Label=us
+
+[keyboard-us-altgr-intl]
+Description="키보드 - 영어 (미국식) - 영어 (국제, AltGr 데드키)"
+Language=en
+Label=us
+
+[keyboard-us-olpc2]
+Description="키보드 - 영어 (미국식) - 영어 (나누기/곱하기 키로 키 배치 토글)"
+Language=en
+Label=us
+
+[keyboard-us-hbs]
+Description="키보드 - 영어 (미국식) - 세르보크로아트어 (미국식)"
+Language=en
+Label=us
+
+[keyboard-us-norman]
+Description="키보드 - 영어 (미국식) - 영어 (노르만)"
+Language=en
+Label=us
+
+[keyboard-us-workman]
+Description="키보드 - 영어 (미국식) - 영어 (워크맨)"
+Language=en
+Label=us
+
+[keyboard-us-workman-intl]
+Description="키보드 - 영어 (미국식) - 영어 (워크맨, 국제, 데드키 포함)"
+Language=en
+Label=us
+
+[keyboard-us-intl-unicode]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 국제, AltGr 유니코드 조합)"
+Language=en
+Label=us
+
+[keyboard-us-alt-intl-unicode]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 국제, AltGr 유니코드 조합, 다른 버전)"
+Language=en
+Label=us
+
+[keyboard-us-ats]
+Description="키보드 - 영어 (미국식) - 아트시나"
+Language=en
+Label=us
+
+[keyboard-us-crd]
+Description="키보드 - 영어 (미국식) - 쾨르디알렌 살리시어"
+Language=crd
+Label=us
+
+[keyboard-us-cz_sk_de]
+Description="키보드 - 영어 (미국식) - 체코어, 슬로바키아어 및 독일어 (미국식)"
+Language=en
+Label=us
+
+[keyboard-us-cz_sk_pl_de_es_fi_sv]
+Description="키보드 - 영어 (미국식) - 체코어, 슬로바키아어, 폴란드어, 스페인어, 핀란드어, 스웨덴어, 독일어 (미국식)"
+Language=en
+Label=us
+
+[keyboard-us-drix]
+Description="키보드 - 영어 (미국식) - 영어 (Drix)"
+Language=en
+Label=us
+
+[keyboard-us-de_se_fi]
+Description="키보드 - 영어 (미국식) - 독일어, 스웨덴어, 핀란드어 (미국식)"
+Language=en
+Label=us
+
+[keyboard-us-ibm238l]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, IBM 아랍 238_L)"
+Language=en
+Label=us
+
+[keyboard-us-sun_type6]
+Description="키보드 - 영어 (미국식) - 영어 (미국식, 썬 타입 6/7)"
+Language=en
+Label=us
+
+[keyboard-us-carpalx]
+Description="키보드 - 영어 (미국식) - 영어 (Carpalx)"
+Language=en
+Label=us
+
+[keyboard-us-carpalx-intl]
+Description="키보드 - 영어 (미국식) - 영어 (Carpalx, 국제 버전, 데드키 포함)"
+Language=en
+Label=us
+
+[keyboard-us-carpalx-altgr-intl]
+Description="키보드 - 영어 (미국식) - 영어 (Carpalx, 국제 버전, AltGr 데드키)"
+Language=en
+Label=us
+
+[keyboard-us-carpalx-full]
+Description="키보드 - 영어 (미국식) - 영어 (Carpalx, 완전 최적화 버전)"
+Language=en
+Label=us
+
+[keyboard-us-carpalx-full-intl]
+Description="키보드 - 영어 (미국식) - 영어 (Carpalx, 완전 최적화 버전, 국제 버전, 데드키 포함)"
+Language=en
+Label=us
+
+[keyboard-us-carpalx-full-altgr-intl]
+Description="키보드 - 영어 (미국식) - 영어 (Carpalx, 완전 최적화 버전, 국제 버전, AltGr 데드키)"
+Language=en
+Label=us
+
+[keyboard-us-3l]
+Description="키보드 - 영어 (미국식) - 엉어 (3l)"
+Language=en
+Label=us
+
+[keyboard-us-3l-cros]
+Description="키보드 - 영어 (미국식) - mebook)"
+Language=en
+Label=us
+
+[keyboard-us-3l-emacs]
+Description="키보드 - 영어 (미국식) - 영어 (3l, 이맥스)"
+Language=en
+Label=us
+
+[keyboard-us-scn]
+Description="키보드 - 영어 (미국식) - 시칠리아어 (미국식 키보드)"
+Language=en
+Label=us
+
+[keyboard-ge]
+Description="키보드 - 조지아어"
+Language=ka
+Label=ka
+
+[keyboard-ge-ergonomic]
+Description="키보드 - 조지아어 - 조지아어 (어고노믹)"
+Language=ka
+Label=ge
+
+[keyboard-ge-mess]
+Description="키보드 - 조지아어 - 조지아어 (MESS)"
+Language=ka
+Label=ge
+
+[keyboard-ge-ru]
+Description="키보드 - 조지아어 - 러시아어 (그루지아)"
+Language=ru
+Label=ru
+
+[keyboard-ge-os]
+Description="키보드 - 조지아어 - 오세트어 (그루지아)"
+Language=os
+Label=ge
+
+[keyboard-hr]
+Description="키보드 - 크로아티아어"
+Language=hr
+Label=hr
+
+[keyboard-hr-alternatequotes]
+Description="키보드 - 크로아티아어 - 크로아티아어 (각괄호 포함)"
+Language=hr
+Label=hr
+
+[keyboard-hr-unicode]
+Description="키보드 - 크로아티아어 - 크로아티아어 (크로아티아 이중 문자 포함)"
+Language=hr
+Label=hr
+
+[keyboard-hr-unicodeus]
+Description="키보드 - 크로아티아어 - 크로아티아어 (미국식, 크로아티아 이중 문자 포함)"
+Language=hr
+Label=hr
+
+[keyboard-hr-us]
+Description="키보드 - 크로아티아어 - 크로아티아어 (미국식)"
+Language=hr
+Label=hr
+
+[keyboard-sy]
+Description="키보드 - 아랍어 (시리아)"
+Language=syr
+Label=ar
+
+[keyboard-sy-syc]
+Description="키보드 - 아랍어 (시리아) - 시리아어"
+Language=syr
+Label=syc
+
+[keyboard-sy-syc_phonetic]
+Description="키보드 - 아랍어 (시리아) - 시리아어 (음성 표기)"
+Language=syr
+Label=syc
+
+[keyboard-sy-ku]
+Description="키보드 - 아랍어 (시리아) - 쿠르드어 (시리아, 라틴 Q)"
+Language=ku
+Label=ku
+
+[keyboard-sy-ku_f]
+Description="키보드 - 아랍어 (시리아) - 쿠르드어 (시리아, F)"
+Language=ku
+Label=ku
+
+[keyboard-sy-ku_alt]
+Description="키보드 - 아랍어 (시리아) - 쿠르드어 (시리아, 라틴 Alt-Q)"
+Language=ku
+Label=ku
+
+[keyboard-ma]
+Description="키보드 - 아랍어 (모로코)"
+Language=
+Label=ar
+
+[keyboard-ma-french]
+Description="키보드 - 아랍어 (모로코) - 프랑스어 (모로코)"
+Language=fr
+Label=fr
+
+[keyboard-ma-tifinagh]
+Description="키보드 - 아랍어 (모로코) - 베르베르어 (모로코, 티피나그)"
+Language=
+Label=ber
+
+[keyboard-ma-tifinagh-alt]
+Description="키보드 - 아랍어 (모로코) - 베르베르어 (모로코, 티피나그 다른 버전)"
+Language=
+Label=ber
+
+[keyboard-ma-tifinagh-alt-phonetic]
+Description="키보드 - 아랍어 (모로코) - 베르베르어 (모로코, 티피나그 음성 표기, 다른 버전)"
+Language=
+Label=ber
+
+[keyboard-ma-tifinagh-extended]
+Description="키보드 - 아랍어 (모로코) - 베르베르어 (모로코, 티피나그 확장)"
+Language=
+Label=ber
+
+[keyboard-ma-tifinagh-phonetic]
+Description="키보드 - 아랍어 (모로코) - 베르베르어 (모로코, 티피나그 음성 표기)"
+Language=
+Label=ber
+
+[keyboard-ma-tifinagh-extended-phonetic]
+Description="키보드 - 아랍어 (모로코) - 베르베르어 (모로코, 티피나그 확장 음성 표기)"
+Language=
+Label=ber
+
+[keyboard-af]
+Description="키보드 - 아프가니스탄"
+Language=
+Label=fa
+
+[keyboard-af-ps]
+Description="키보드 - 아프가니스탄 - 파슈토어"
+Language=ps
+Label=ps
+
+[keyboard-af-uz]
+Description="키보드 - 아프가니스탄 - 우즈베크어 (아프가니스탄)"
+Language=uz
+Label=uz
+
+[keyboard-af-olpc-ps]
+Description="키보드 - 아프가니스탄 - 파슈토어 (아프가니스탄, OLPC)"
+Language=ps
+Label=ps
+
+[keyboard-af-fa-olpc]
+Description="키보드 - 아프가니스탄 - 페르시아어 (아프가니스탄, Dari OLPC)"
+Language=
+Label=fa
+
+[keyboard-af-uz-olpc]
+Description="키보드 - 아프가니스탄 - 우즈베크어 (아프가니스탄, OLPC)"
+Language=uz
+Label=uz
+
+[keyboard-dz]
+Description="키보드 - 베르베르어 (알제리, 라틴 문자)"
+Language=
+Label=kab
+
+[keyboard-dz-azerty-deadkeys]
+Description="키보드 - 베르베르어 (알제리, 라틴 문자) - 카빌리어 (AZERTY, 데드키 포함)"
+Language=kab
+Label=kab
+
+[keyboard-dz-qwerty-gb-deadkeys]
+Description="키보드 - 베르베르어 (알제리, 라틴 문자) - 카빌리어 (QWERTY, 영국식, 데드키 포함)"
+Language=kab
+Label=kab
+
+[keyboard-dz-qwerty-us-deadkeys]
+Description="키보드 - 베르베르어 (알제리, 라틴 문자) - 카빌리어 (QWERTY, 미국식, 데드키 포함)"
+Language=kab
+Label=kab
+
+[keyboard-dz-ber]
+Description="키보드 - 베르베르어 (알제리, 라틴 문자) - 베르베르어 (알제리, 티피나그)"
+Language=kab
+Label=kab
+
+[keyboard-dz-ar]
+Description="키보드 - 베르베르어 (알제리, 라틴 문자) - 아랍어 (알제리)"
+Language=ar
+Label=ar
+
+[keyboard-mn]
+Description="키보드 - 몽골어"
+Language=mn
+Label=mn
+
+[keyboard-pk]
+Description="키보드 - 우르두어 (파키스탄)"
+Language=ur
+Label=ur
+
+[keyboard-pk-urd-crulp]
+Description="키보드 - 우르두어 (파키스탄) - 우르두어 (파키스탄, CRULP)"
+Language=ur
+Label=pk
+
+[keyboard-pk-urd-nla]
+Description="키보드 - 우르두어 (파키스탄) - 우르두어 (파키스탄, NLA)"
+Language=ur
+Label=pk
+
+[keyboard-pk-ara]
+Description="키보드 - 우르두어 (파키스탄) - 아랍어 (파키스탄)"
+Language=ar
+Label=ar
+
+[keyboard-pk-snd]
+Description="키보드 - 우르두어 (파키스탄) - 신디어"
+Language=sd
+Label=sd
+
+[keyboard-pk-urd-navees]
+Description="키보드 - 우르두어 (파키스탄) - Urdu (Navees, Pakistan)"
+Language=ur
+Label=pk
+
+[keyboard-au]
+Description="키보드 - 영어 (오스트리아)"
+Language=en
+Label=en
+
+[keyboard-ml]
+Description="키보드 - 밤바라어"
+Language=bm
+Label=bm
+
+[keyboard-ml-fr-oss]
+Description="키보드 - 밤바라어 - 프랑스어 (말리, 다른 버전)"
+Language=fr
+Label=fr
+
+[keyboard-ml-us-mac]
+Description="키보드 - 밤바라어 - 영어 (말리, 미국, 매킨토시)"
+Language=en
+Label=en
+
+[keyboard-ml-us-intl]
+Description="키보드 - 밤바라어 - 영어 (말리, 미국, 국제)"
+Language=en
+Label=en
+
+[keyboard-vn]
+Description="키보드 - 베트남어"
+Language=vi
+Label=vi
+
+[keyboard-vn-us]
+Description="키보드 - 베트남어 - 베트남어 (미국식)"
+Language=vi
+Label=vn
+
+[keyboard-vn-fr]
+Description="키보드 - 베트남어 - 베트남어 (프랑스식)"
+Language=vi
+Label=vn
+
+[keyboard-vn-aderty]
+Description="키보드 - 베트남어 - 베트남어 (AÐERTY)"
+Language=vi
+Label=vn
+
+[keyboard-vn-qderty]
+Description="키보드 - 베트남어 - 베트남어 (QĐERTY)"
+Language=vi
+Label=vn
+
+[keyboard-ara]
+Description="키보드 - 아랍어"
+Language=ar
+Label=ar
+
+[keyboard-ara-azerty]
+Description="키보드 - 아랍어 - 아랍어 (AZERTY)"
+Language=ar
+Label=ara
+
+[keyboard-ara-azerty_digits]
+Description="키보드 - 아랍어 - 아랍어 (AZERTY, 동부 아랍 숫자)"
+Language=ar
+Label=ara
+
+[keyboard-ara-digits]
+Description="키보드 - 아랍어 - ls)"
+Language=ar
+Label=ara
+
+[keyboard-ara-qwerty]
+Description="키보드 - 아랍어 - 아랍어 (QWERTY)"
+Language=ar
+Label=ara
+
+[keyboard-ara-qwerty_digits]
+Description="키보드 - 아랍어 - 아랍어 (QWERTY, 동부 아랍 숫자)"
+Language=ar
+Label=ara
+
+[keyboard-ara-buckwalter]
+Description="키보드 - 아랍어 - 아랍어 (버크월터)"
+Language=ar
+Label=ara
+
+[keyboard-ara-olpc]
+Description="키보드 - 아랍어 - 아랍어 (OLPC)"
+Language=ar
+Label=ara
+
+[keyboard-ara-mac]
+Description="키보드 - 아랍어 - 아랍어 (매킨토시)"
+Language=ar
+Label=ara
+
+[keyboard-ara-sun_type6]
+Description="키보드 - 아랍어 - 아랍어 (썬 타입 6/7)"
+Language=ar
+Label=ara
+
+[keyboard-ara-basic_ext]
+Description="키보드 - 아랍어 - 아랍어 (아랍 숫자, 4번째 단계에서 확장)"
+Language=ar
+Label=ara
+
+[keyboard-ara-basic_ext_digits]
+Description="키보드 - 아랍어 - 아랍어 (동부 아랍 숫자, 4번째 단계에서 확장)"
+Language=ar
+Label=ara
+
+[keyboard-ara-uga]
+Description="키보드 - 아랍어 - 아랍어 대신 우가리트어"
+Language=ar
+Label=ara
+
+[keyboard-ie]
+Description="키보드 - 아일랜드"
+Language=en
+Label=ie
+
+[keyboard-ie-CloGaelach]
+Description="키보드 - 아일랜드 - 클로개라치어"
+Language=ga
+Label=ie
+
+[keyboard-ie-UnicodeExpert]
+Description="키보드 - 아일랜드 - 아일랜드 (UnicodeExpert)"
+Language=en
+Label=ie
+
+[keyboard-ie-ogam]
+Description="키보드 - 아일랜드 - 오검 문자"
+Language=sga
+Label=ie
+
+[keyboard-ie-ogam_is434]
+Description="키보드 - 아일랜드 - 오검 문자 (IS434)"
+Language=sga
+Label=ie
+
+[keyboard-cm]
+Description="키보드 - 영어 (카메룬)"
+Language=en
+Label=cm
+
+[keyboard-cm-french]
+Description="키보드 - 영어 (카메룬) - 프랑스어 (카메룬)"
+Language=fr
+Label=cm
+
+[keyboard-cm-qwerty]
+Description="키보드 - 영어 (카메룬) - 카메룬 여러 언어 (QWERTY, 국제)"
+Language=en
+Label=cm
+
+[keyboard-cm-azerty]
+Description="키보드 - 영어 (카메룬) - 카메룬 (AZERTY, 국제)"
+Language=fr
+Label=cm
+
+[keyboard-cm-dvorak]
+Description="키보드 - 영어 (카메룬) - 영어 (드보락, 국제)"
+Language=en
+Label=cm
+
+[keyboard-cm-mmuock]
+Description="키보드 - 영어 (카메룬) - 무오크"
+Language=en
+Label=cm
+
+[keyboard-kg]
+Description="키보드 - 키르기스어"
+Language=ky
+Label=ki
+
+[keyboard-kg-phonetic]
+Description="키보드 - 키르기스어 - 키르기스어 (음성 표기)"
+Language=ky
+Label=kg
+
+[keyboard-ph]
+Description="키보드 - 필리핀어"
+Language=fil
+Label=ph
+
+[keyboard-ph-qwerty-bay]
+Description="키보드 - 필리핀어 - 필리핀어 (QWERTY 베이베이인)"
+Language=fil
+Label=ph
+
+[keyboard-ph-capewell-dvorak]
+Description="키보드 - 필리핀어 - 필리핀어 (케이프웰 드보락, 라틴 문자)"
+Language=fil
+Label=ph
+
+[keyboard-ph-capewell-dvorak-bay]
+Description="키보드 - 필리핀어 - 필리핀어 (케이프웰 드보락, 베이베이인)"
+Language=fil
+Label=ph
+
+[keyboard-ph-capewell-qwerf2k6]
+Description="키보드 - 필리핀어 - 필리핀어 (케이프웰 QWERF 2006, 라틴 문자)"
+Language=fil
+Label=ph
+
+[keyboard-ph-capewell-qwerf2k6-bay]
+Description="키보드 - 필리핀어 - 필리핀어 (케이프웰 QWERF 2006, 베이베이인)"
+Language=fil
+Label=ph
+
+[keyboard-ph-ak]
+Description="키보드 - 필리핀어 - 필리핀어 (콜맥, 라틴 문자)"
+Language=fil
+Label=ph
+
+[keyboard-ph-colemak-bay]
+Description="키보드 - 필리핀어 - 필리핀어 (콜맥, 베이베이인)"
+Language=fil
+Label=ph
+
+[keyboard-ph-dvorak]
+Description="키보드 - 필리핀어 - 필리핀어 (드보락, 라틴 문자)"
+Language=fil
+Label=ph
+
+[keyboard-ph-dvorak-bay]
+Description="키보드 - 필리핀어 - 필리핀어 (드보락, 베이베이인)"
+Language=fil
+Label=ph
+
+[keyboard-bd]
+Description="키보드 - 벵골어"
+Language=bn
+Label=bn
+
+[keyboard-bd-probhat]
+Description="키보드 - 벵골어 - 벵골어 (프롭해트)"
+Language=bn
+Label=bd
+
+[keyboard-lk]
+Description="키보드 - 싱할라어 (음성 표기)"
+Language=si
+Label=si
+
+[keyboard-lk-tam_unicode]
+Description="키보드 - 싱할라어 (음성 표기) - 타밀어 (스리랑카, TamilNet '99)"
+Language=ta
+Label=ta
+
+[keyboard-lk-tam_TAB]
+Description="키보드 - 싱할라어 (음성 표기) - 타밀어 (스리랑카, TamilNet '99, TAB 인코딩)"
+Language=ta
+Label=lk
+
+[keyboard-lk-us]
+Description="키보드 - 싱할라어 (음성 표기) - 싱할라어 (미국식)"
+Language=si
+Label=us
+
+[keyboard-al]
+Description="키보드 - 알바니아"
+Language=sq
+Label=sq
+
+[keyboard-al-plisi]
+Description="키보드 - 알바니아 - 알바니아 (Plisi)"
+Language=sq
+Label=al
+
+[keyboard-al-veqilharxhi]
+Description="키보드 - 알바니아 - 알바니아 (베칠하지)"
+Language=sq
+Label=al
+
+[keyboard-tw]
+Description="키보드 - 타이완"
+Language=
+Label=zh
+
+[keyboard-tw-indigenous]
+Description="키보드 - 타이완 - 타이완 (원주민)"
+Language=tay
+Label=tw
+
+[keyboard-tw-saisiyat]
+Description="키보드 - 타이완 - 사이시얏트 (타이완)"
+Language=xsy
+Label=xsy
+
+[keyboard-rs]
+Description="키보드 - 세르비아어"
+Language=sr
+Label=sr
+
+[keyboard-rs-yz]
+Description="키보드 - 세르비아어 - 세르비아어 (키릴 문자, ZE와 ZHE 뒤바꾸기)"
+Language=sr
+Label=rs
+
+[keyboard-rs-latin]
+Description="키보드 - 세르비아어 - 세르비아어 (라틴 문자)"
+Language=sr
+Label=rs
+
+[keyboard-rs-latinunicode]
+Description="키보드 - 세르비아어 - 세르비아어 (라틴 문자, 유니코드)"
+Language=sr
+Label=rs
+
+[keyboard-rs-latinyz]
+Description="키보드 - 세르비아어 - 세르비아어 (라틴 문자, QWERTY)"
+Language=sr
+Label=rs
+
+[keyboard-rs-latinunicodeyz]
+Description="키보드 - 세르비아어 - 세르비아어 (라틴 문자, 유니코드, QWERTY)"
+Language=sr
+Label=rs
+
+[keyboard-rs-alternatequotes]
+Description="키보드 - 세르비아어 - 세르비아어 (키릴 문자, 각괄호 포함)"
+Language=sr
+Label=rs
+
+[keyboard-rs-latinalternatequotes]
+Description="키보드 - 세르비아어 - 세르비아어 (라틴 문자, 각괄호 포함)"
+Language=sr
+Label=rs
+
+[keyboard-rs-rue]
+Description="키보드 - 세르비아어 - 판노니아 루테니아"
+Language=rue
+Label=rs
+
+[keyboard-rs-combiningkeys]
+Description="키보드 - 세르비아어 - 세르비아어 (데드키 대신 조합으로 액센트 입력)"
+Language=sr
+Label=rs
+
+[keyboard-dk]
+Description="키보드 - 덴마크어"
+Language=da
+Label=da
+
+[keyboard-dk-nodeadkeys]
+Description="키보드 - 덴마크어 - 덴마크어 (데드키 없음)"
+Language=da
+Label=dk
+
+[keyboard-dk-winkeys]
+Description="키보드 - 덴마크어 - 덴마크어 (윈도우키)"
+Language=da
+Label=dk
+
+[keyboard-dk-mac]
+Description="키보드 - 덴마크어 - 덴마크어 (매킨토시)"
+Language=da
+Label=dk
+
+[keyboard-dk-mac_nodeadkeys]
+Description="키보드 - 덴마크어 - 덴마크어 (매킨토시, 데드키 없음)"
+Language=da
+Label=dk
+
+[keyboard-dk-dvorak]
+Description="키보드 - 덴마크어 - 덴마크어 (드보락)"
+Language=da
+Label=dk
+
+[keyboard-dk-sun_type6]
+Description="키보드 - 덴마크어 - 덴마크어 (썬 타입 6/7)"
+Language=da
+Label=dk
+
+[keyboard-bt]
+Description="키보드 - 종카어"
+Language=dz
+Label=dz
+
+[keyboard-la]
+Description="키보드 - 라오어"
+Language=lo
+Label=lo
+
+[keyboard-la-stea]
+Description="키보드 - 라오어 - 라오어 (STEA)"
+Language=lo
+Label=la
+
+[keyboard-mm]
+Description="키보드 - 버마어"
+Language=my
+Label=my
+
+[keyboard-mm-zawgyi]
+Description="키보드 - 버마어 - 버마어 서지"
+Language=my
+Label=zg
+
+[keyboard-si]
+Description="키보드 - 슬로베니아어"
+Language=sl
+Label=sl
+
+[keyboard-si-alternatequotes]
+Description="키보드 - 슬로베니아어 - 슬로베니아어 (각괄호 포함)"
+Language=sl
+Label=si
+
+[keyboard-si-us]
+Description="키보드 - 슬로베니아어 - 슬로베니아어 (미국식)"
+Language=sl
+Label=si
+
+[keyboard-am]
+Description="키보드 - 아르메니아"
+Language=hy
+Label=hy
+
+[keyboard-am-phonetic]
+Description="키보드 - 아르메니아 - 아르메니아 (음성 표기)"
+Language=hy
+Label=am
+
+[keyboard-am-phonetic-alt]
+Description="키보드 - 아르메니아 - 아르메니아 (음성 표기 다른 버전)"
+Language=hy
+Label=am
+
+[keyboard-am-eastern]
+Description="키보드 - 아르메니아 - 아르메니아 (동부)"
+Language=hy
+Label=am
+
+[keyboard-am-western]
+Description="키보드 - 아르메니아 - 아르메니아 (서부)"
+Language=hy
+Label=am
+
+[keyboard-am-eastern-alt]
+Description="키보드 - 아르메니아 - 아르메니아 (동부 다른 버전)"
+Language=hy
+Label=am
+
+[keyboard-am-olpc-phonetic]
+Description="키보드 - 아르메니아 - 아르메니아 (OLPC, 음성 표기)"
+Language=hy
+Label=am
+
+[keyboard-by]
+Description="키보드 - 벨라루스어"
+Language=be
+Label=by
+
+[keyboard-by-legacy]
+Description="키보드 - 벨라루스어 - 벨라루시아어 (구형)"
+Language=be
+Label=by
+
+[keyboard-by-latin]
+Description="키보드 - 벨라루스어 - 벨라루스어 (라틴 문자)"
+Language=be
+Label=by
+
+[keyboard-by-ru]
+Description="키보드 - 벨라루스어 - 러시아어 (벨라루스)"
+Language=be
+Label=by
+
+[keyboard-by-intl]
+Description="키보드 - 벨라루스어 - 벨라루스어 (국제)"
+Language=be
+Label=by
+
+[keyboard-br]
+Description="키보드 - 포르투갈어 (브라질)"
+Language=pt
+Label=pt
+
+[keyboard-br-nodeadkeys]
+Description="키보드 - 포르투갈어 (브라질) - 포르투갈어 (브라질, 데드키 없음)"
+Language=pt
+Label=br
+
+[keyboard-br-dvorak]
+Description="키보드 - 포르투갈어 (브라질) - 포르투갈어 (브라질, 드보락)"
+Language=pt
+Label=br
+
+[keyboard-br-nativo]
+Description="키보드 - 포르투갈어 (브라질) - 포르투갈어 (브라질, 나티보)"
+Language=pt
+Label=br
+
+[keyboard-br-nativo-us]
+Description="키보드 - 포르투갈어 (브라질) - 포르투갈어 (브라질, 미국 키보드 나티보)"
+Language=pt
+Label=br
+
+[keyboard-br-nativo-epo]
+Description="키보드 - 포르투갈어 (브라질) - 에스페란토 (브라질, 나티보)"
+Language=eo
+Label=br
+
+[keyboard-br-thinkpad]
+Description="키보드 - 포르투갈어 (브라질) - 포르투갈어 (브라질, IBM/Lenovo ThinkPad)"
+Language=pt
+Label=br
+
+[keyboard-br-sun_type6]
+Description="키보드 - 포르투갈어 (브라질) - 포르투갈어 (브라질, 썬 타입 6/7)"
+Language=pt
+Label=br
+
+[keyboard-in]
+Description="키보드 - 인도"
+Language=
+Label=in
+
+[keyboard-in-ben]
+Description="키보드 - 인도 - 벵골어 (인도)"
+Language=bn
+Label=bn
+
+[keyboard-in-ben_probhat]
+Description="키보드 - 인도 - 벵골어 (인도, 프롭해트)"
+Language=bn
+Label=bn
+
+[keyboard-in-ben_baishakhi]
+Description="키보드 - 인도 - 벵골어 (인도, 바이샤키)"
+Language=bn
+Label=in
+
+[keyboard-in-ben_bornona]
+Description="키보드 - 인도 - 벵골어 (인도, 보르노나)"
+Language=bn
+Label=in
+
+[keyboard-in-ben_gitanjali]
+Description="키보드 - 인도 - 벵골어 (인도, 기탄잘리)"
+Language=bn
+Label=in
+
+[keyboard-in-ben_inscript]
+Description="키보드 - 인도 - 벵골어 (인도, 바이샤키 각인)"
+Language=bn
+Label=in
+
+[keyboard-in-eeyek]
+Description="키보드 - 인도 - 마니푸르어 (Eeyek)"
+Language=mni
+Label=in
+
+[keyboard-in-guj]
+Description="키보드 - 인도 - 구자라트어"
+Language=gu
+Label=gu
+
+[keyboard-in-guru]
+Description="키보드 - 인도 - 펀자브어 (구르무키 문자)"
+Language=pa
+Label=pa
+
+[keyboard-in-jhelum]
+Description="키보드 - 인도 - 펀자브어 (구르무키 문자, 젤룸)"
+Language=pa
+Label=pa
+
+[keyboard-in-kan]
+Description="키보드 - 인도 - 칸나다어"
+Language=kn
+Label=kn
+
+[keyboard-in-kan-kagapa]
+Description="키보드 - 인도 - 칸나다어 (KaGaPa, 음성 표기)"
+Language=kn
+Label=kn
+
+[keyboard-in-mal]
+Description="키보드 - 인도 - 말라얄람어"
+Language=ml
+Label=ml
+
+[keyboard-in-mal_lalitha]
+Description="키보드 - 인도 - 말라얄람어 (라리타)"
+Language=ml
+Label=ml
+
+[keyboard-in-mal_enhanced]
+Description="키보드 - 인도 - 말라얄람어 (발전된 각인, 루피 기호 포함)"
+Language=ml
+Label=ml
+
+[keyboard-in-ori]
+Description="키보드 - 인도 - 오리야어"
+Language=or
+Label=or
+
+[keyboard-in-ori-bolnagri]
+Description="키보드 - 인도 - 오리야어 (볼나그리)"
+Language=or
+Label=or
+
+[keyboard-in-ori-wx]
+Description="키보드 - 인도 - 오리야어 (Wx)"
+Language=or
+Label=or
+
+[keyboard-in-olck]
+Description="키보드 - 인도 - 올치키 문자"
+Language=sat
+Label=sat
+
+[keyboard-in-tam_tamilnet]
+Description="키보드 - 인도 - 타밀어 (TamilNet '99)"
+Language=ta
+Label=ta
+
+[keyboard-in-tam_tamilnet_with_tam_nums]
+Description="키보드 - 인도 - 타밀어 (TamilNet '99, 타밀어 숫자 포함)"
+Language=ta
+Label=ta
+
+[keyboard-in-tam_tamilnet_TAB]
+Description="키보드 - 인도 - 타밀어 (TamilNet '99, TAB 인코딩)"
+Language=ta
+Label=ta
+
+[keyboard-in-tam_tamilnet_TSCII]
+Description="키보드 - 인도 - 타밀어 (TamilNet '99, TSCII 인코딩)"
+Language=ta
+Label=ta
+
+[keyboard-in-tam]
+Description="키보드 - 인도 - 타밀어 (각인)"
+Language=ta
+Label=ta
+
+[keyboard-in-tel]
+Description="키보드 - 인도 - 텔루구어"
+Language=te
+Label=te
+
+[keyboard-in-tel-kagapa]
+Description="키보드 - 인도 - 텔루구어 (KaGaPa, 음성 표기)"
+Language=te
+Label=te
+
+[keyboard-in-tel-sarala]
+Description="키보드 - 인도 - 텔루구어 (사랄라)"
+Language=te
+Label=te
+
+[keyboard-in-urd-phonetic]
+Description="키보드 - 인도 - 우르두어 (음성 표기)"
+Language=ur
+Label=ur
+
+[keyboard-in-urd-phonetic3]
+Description="키보드 - 인도 - 우르두어 (음성 표기 다른 버전)"
+Language=ur
+Label=ur
+
+[keyboard-in-urd-winkeys]
+Description="키보드 - 인도 - 우르두어 (윈도우키)"
+Language=ur
+Label=ur
+
+[keyboard-in-bolnagri]
+Description="키보드 - 인도 - 힌두어 (Bolnagri)"
+Language=hi
+Label=hi
+
+[keyboard-in-hin-wx]
+Description="키보드 - 인도 - (Wx)"
+Language=hi
+Label=hi
+
+[keyboard-in-hin-kagapa]
+Description="키보드 - 인도 - 힌두어 (KaGaPa, 음성 표기)"
+Language=hi
+Label=hi
+
+[keyboard-in-san-kagapa]
+Description="키보드 - 인도 - 산스크리트 (KaGaPa, 음성 표기)"
+Language=sa
+Label=sa
+
+[keyboard-in-mar-kagapa]
+Description="키보드 - 인도 - 마라티어 (KaGaPa, 음성 표기)"
+Language=mr
+Label=mr
+
+[keyboard-in-eng]
+Description="키보드 - 인도 - 영어 (인도, 루피 포함)"
+Language=en
+Label=en
+
+[keyboard-in-iipa]
+Description="키보드 - 인도 - 인도 IPA"
+Language=en
+Label=in
+
+[keyboard-in-marathi]
+Description="키보드 - 인도 - 마라티어 (발전된 각인)"
+Language=mr
+Label=in
+
+[keyboard-in-modi-kagapa]
+Description="키보드 - 인도 - 모디 (KaGaPa 음성 표기)"
+Language=mr
+Label=mr
+
+[keyboard-in-san-misc]
+Description="키보드 - 인도 - 산스크리트 기호"
+Language=sa
+Label=sas
+
+[keyboard-in-urd-navees]
+Description="키보드 - 인도 - Urdu (Navees)"
+Language=ur
+Label=ur
+
+[keyboard-be]
+Description="키보드 - 벨기에어"
+Language=de
+Label=be
+
+[keyboard-be-oss]
+Description="키보드 - 벨기에어 - 벨기에어 (다른 버전)"
+Language=de
+Label=be
+
+[keyboard-be-oss_latin9]
+Description="키보드 - 벨기에어 - 벨기에어 (Latin-9 전용, 다른 버전)"
+Language=de
+Label=be
+
+[keyboard-be-iso-alternate]
+Description="키보드 - 벨기에어 - 벨기에어 (ISO, 다른 버전)"
+Language=de
+Label=be
+
+[keyboard-be-nodeadkeys]
+Description="키보드 - 벨기에어 - 벨기에어 (데드키 없음)"
+Language=de
+Label=be
+
+[keyboard-be-wang]
+Description="키보드 - 벨기에어 - 벨기에어 (Wang 724 AZERTY)"
+Language=de
+Label=be
+
+[keyboard-be-sun_type6]
+Description="키보드 - 벨기에어 - 벨기에어 (썬 타입 6/7)"
+Language=de
+Label=be
+
+[keyboard-eg]
+Description="키보드 - 콥트어"
+Language=cop
+Label=eg
+
+[keyboard-cd]
+Description="키보드 - 프랑스어 (콩고 민주 공화국)"
+Language=fr
+Label=fr
+
+[keyboard-ba]
+Description="키보드 - 보스니아어"
+Language=bs
+Label=bs
+
+[keyboard-ba-alternatequotes]
+Description="키보드 - 보스니아어 - 보스니아어 (각괄호 포함)"
+Language=bs
+Label=ba
+
+[keyboard-ba-unicode]
+Description="키보드 - 보스니아어 - 보스니아어 (보스니아 이중 문자 포함)"
+Language=bs
+Label=ba
+
+[keyboard-ba-unicodeus]
+Description="키보드 - 보스니아어 - 보스니아어 (미국식, 보스니아 이중 문자 포함)"
+Language=bs
+Label=ba
+
+[keyboard-ba-us]
+Description="키보드 - 보스니아어 - 보스니아어 (미국식)"
+Language=bs
+Label=ba
+
+[keyboard-lv]
+Description="키보드 - 라트비아어"
+Language=lv
+Label=lv
+
+[keyboard-lv-apostrophe]
+Description="키보드 - 라트비아어 - 라트비아어 (아포스트로피)"
+Language=lv
+Label=lv
+
+[keyboard-lv-tilde]
+Description="키보드 - 라트비아어 - 라트비아어 (물결)"
+Language=lv
+Label=lv
+
+[keyboard-lv-fkey]
+Description="키보드 - 라트비아어 - 라트비아어 (F)"
+Language=lv
+Label=lv
+
+[keyboard-lv-modern]
+Description="키보드 - 라트비아어 - 라트비아어 (현대)"
+Language=lv
+Label=lv
+
+[keyboard-lv-ergonomic]
+Description="키보드 - 라트비아어 - 라트비아어 (어고노믹, ŪGJRMV)"
+Language=lv
+Label=lv
+
+[keyboard-lv-adapted]
+Description="키보드 - 라트비아어 - 라트비아어 (개조)"
+Language=lv
+Label=lv
+
+[keyboard-lv-dvorak]
+Description="키보드 - 라트비아어 - 라트비아어 (드보락)"
+Language=lv
+Label=lv
+
+[keyboard-lv-ykeydvorak]
+Description="키보드 - 라트비아어 - 라트비아어 (드보락, Y 포함)"
+Language=lv
+Label=lv
+
+[keyboard-lv-minuskeydvorak]
+Description="키보드 - 라트비아어 - 라트비아어 (드보락, 빼기 기호 포함)"
+Language=lv
+Label=lv
+
+[keyboard-lv-dvorakprogr]
+Description="키보드 - 라트비아어 - 라트비아어 (프로그래머 드보락)"
+Language=lv
+Label=lv
+
+[keyboard-lv-ykeydvorakprogr]
+Description="키보드 - 라트비아어 - 라트비아어 (프로그래머 드보락, Y 포함)"
+Language=lv
+Label=lv
+
+[keyboard-lv-minuskeydvorakprogr]
+Description="키보드 - 라트비아어 - 라트비아어 (프로그래머 드보락, 빼기 기호 포함)"
+Language=lv
+Label=lv
+
+[keyboard-lv-colemak]
+Description="키보드 - 라트비아어 - 라트비아어 (콜맥)"
+Language=lv
+Label=lv
+
+[keyboard-lv-apostrophecolemak]
+Description="키보드 - 라트비아어 - 라트비아어 (콜맥, 아포스트로피 포함)"
+Language=lv
+Label=lv
+
+[keyboard-lv-sun_type6]
+Description="키보드 - 라트비아어 - 라트비아어 (썬 타입 6/7)"
+Language=lv
+Label=lv
+
+[keyboard-lv-apostrophe-deadquotes]
+Description="키보드 - 라트비아어 - 라트비아어 (아포스트로피, 데드키 따옴표)"
+Language=lv
+Label=lv
+
+[keyboard-me]
+Description="키보드 - 몬테네그로어"
+Language=sr
+Label=sr
+
+[keyboard-me-cyrillic]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (키릴 문자)"
+Language=sr
+Label=me
+
+[keyboard-me-cyrillicyz]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (키릴 문자, ZE와 ZHE 뒤바꾸기)"
+Language=sr
+Label=me
+
+[keyboard-me-latinunicode]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (라틴 문자, 유니코드)"
+Language=sr
+Label=me
+
+[keyboard-me-latinyz]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (라틴 문자, QWERTY)"
+Language=sr
+Label=me
+
+[keyboard-me-latinunicodeyz]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (라틴 문자, 유니코드, QWERTY)"
+Language=sr
+Label=me
+
+[keyboard-me-cyrillicalternatequotes]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (키릴 문자, 각괄호 포함)"
+Language=sr
+Label=me
+
+[keyboard-me-latinalternatequotes]
+Description="키보드 - 몬테네그로어 - 몬테네그로어 (라틴 문자, 각괄호 포함)"
+Language=sr
+Label=me
+
+[keyboard-at]
+Description="키보드 - 독일어 (오스트리아)"
+Language=de
+Label=de
+
+[keyboard-at-nodeadkeys]
+Description="키보드 - 독일어 (오스트리아) - 독일어 (오스트리아, 데드키 없음)"
+Language=de
+Label=at
+
+[keyboard-at-mac]
+Description="키보드 - 독일어 (오스트리아) - 독일어 (오스트리아, 매킨토시)"
+Language=de
+Label=at
+
+[keyboard-ch]
+Description="키보드 - 독일어 (스위스)"
+Language=de
+Label=de
+
+[keyboard-ch-legacy]
+Description="키보드 - 독일어 (스위스) - 독일어 (스위스, 구형)"
+Language=de
+Label=ch
+
+[keyboard-ch-de_nodeadkeys]
+Description="키보드 - 독일어 (스위스) - 독일어 (스위스, 데드키 없음)"
+Language=de
+Label=de
+
+[keyboard-ch-fr]
+Description="키보드 - 독일어 (스위스) - 프랑스어 (스위스)"
+Language=fr
+Label=fr
+
+[keyboard-ch-fr_nodeadkeys]
+Description="키보드 - 독일어 (스위스) - 프랑스어 (스위스, 데드키 없음)"
+Language=fr
+Label=fr
+
+[keyboard-ch-fr_mac]
+Description="키보드 - 독일어 (스위스) - 프랑스어 (스위스, 매킨토시)"
+Language=fr
+Label=fr
+
+[keyboard-ch-de_mac]
+Description="키보드 - 독일어 (스위스) - 독일어 (스위스, 매킨토시)"
+Language=de
+Label=de
+
+[keyboard-ch-sun_type6_de]
+Description="키보드 - 독일어 (스위스) - 독일어 (스위스, 썬 타입 6/7)"
+Language=de
+Label=ch
+
+[keyboard-ch-sun_type6_fr]
+Description="키보드 - 독일어 (스위스) - 프랑스어 (스위스, 썬 타입 6/7)"
+Language=de
+Label=ch
+
+[keyboard-kz]
+Description="키보드 - 카자흐어"
+Language=kk
+Label=kk
+
+[keyboard-kz-ruskaz]
+Description="키보드 - 카자흐어 - 러시아어 (카자흐스탄, 카자흐어 포함)"
+Language=ru
+Label=ru
+
+[keyboard-kz-kazrus]
+Description="키보드 - 카자흐어 - 카자흐어 (러시아어 포함)"
+Language=kk
+Label=kz
+
+[keyboard-kz-ext]
+Description="키보드 - 카자흐어 - 카자흐어 (확장)"
+Language=kk
+Label=kz
+
+[keyboard-kz-latin]
+Description="키보드 - 카자흐어 - 카자흐어 (라틴 문자)"
+Language=kk
+Label=kz
+
+[keyboard-iq]
+Description="키보드 - 이라크"
+Language=ar
+Label=ar
+
+[keyboard-iq-ku]
+Description="키보드 - 이라크 - 쿠르드어 (이라크, 라틴 Q)"
+Language=ku
+Label=ku
+
+[keyboard-iq-ku_f]
+Description="키보드 - 이라크 - 쿠르드어 (이라크, F)"
+Language=ku
+Label=ku
+
+[keyboard-iq-ku_alt]
+Description="키보드 - 이라크 - 쿠르드어 (이라크, 라틴 Alt-Q)"
+Language=ku
+Label=ku
+
+[keyboard-iq-ku_ara]
+Description="키보드 - 이라크 - 쿠르드어 (이라크, 아랍어 라틴)"
+Language=ku
+Label=ku
+
+[keyboard-fo]
+Description="키보드 - 페로어"
+Language=fo
+Label=fo
+
+[keyboard-fo-nodeadkeys]
+Description="키보드 - 페로어 - 페로어 (데드키 없음)"
+Language=fo
+Label=fo
+
+[keyboard-mk]
+Description="키보드 - 마케도니아어"
+Language=mk
+Label=mk
+
+[keyboard-mk-nodeadkeys]
+Description="키보드 - 마케도니아어 - 마케도니아어 (데드키 없음)"
+Language=mk
+Label=mk
+
+[keyboard-cn]
+Description="키보드 - 중국어"
+Language=zh
+Label=zh
+
+[keyboard-cn-mon_trad]
+Description="키보드 - 중국어 - 몽골 (비칙 몽골 문자)"
+Language=mvf
+Label=cn
+
+[keyboard-cn-mon_trad_todo]
+Description="키보드 - 중국어 - 몽골 (토도)"
+Language=mvf
+Label=cn
+
+[keyboard-cn-mon_trad_xibe]
+Description="키보드 - 중국어 - 몽골 (시버 문자)"
+Language=sjo
+Label=cn
+
+[keyboard-cn-mon_trad_manchu]
+Description="키보드 - 중국어 - 몽골 (만주)"
+Language=mnc
+Label=cn
+
+[keyboard-cn-mon_trad_galik]
+Description="키보드 - 중국어 - 몽골 (갈릭 문자)"
+Language=mvf
+Label=cn
+
+[keyboard-cn-mon_todo_galik]
+Description="키보드 - 중국어 - 몽골 (토도 갈릭 문자)"
+Language=mvf
+Label=cn
+
+[keyboard-cn-mon_manchu_galik]
+Description="키보드 - 중국어 - 몽골 (만주 갈릭 문자)"
+Language=mnc
+Label=cn
+
+[keyboard-cn-tib]
+Description="키보드 - 중국어 - 티베트어"
+Language=bo
+Label=cn
+
+[keyboard-cn-tib_asciinum]
+Description="키보드 - 중국어 - 티베트어 (ASCII 숫자 포함)"
+Language=bo
+Label=cn
+
+[keyboard-cn-ug]
+Description="키보드 - 중국어 - 위구르어"
+Language=ug
+Label=ug
+
+[keyboard-cn-altgr-pinyin]
+Description="키보드 - 중국어 - 한어 병음 (AltGr 데드키 포함)"
+Language=zh
+Label=cn
+
+[keyboard-ca]
+Description="키보드 - 프랑스어 (캐나다)"
+Language=fr
+Label=fr
+
+[keyboard-ca-fr-dvorak]
+Description="키보드 - 프랑스어 (캐나다) - 프랑스어 (캐나다, 드보락)"
+Language=fr
+Label=fr
+
+[keyboard-ca-fr-legacy]
+Description="키보드 - 프랑스어 (캐나다) - 프랑스어 (캐나다, 구형)"
+Language=fr
+Label=fr
+
+[keyboard-ca-multix]
+Description="키보드 - 프랑스어 (캐나다) - 캐나다 (국제)"
+Language=fr
+Label=ca
+
+[keyboard-ca-multi]
+Description="키보드 - 프랑스어 (캐나다) - 캐나다 (국제, 1번째)"
+Language=fr
+Label=ca
+
+[keyboard-ca-multi-2gr]
+Description="키보드 - 프랑스어 (캐나다) - 캐나다 (국제, 2번째)"
+Language=fr
+Label=ca
+
+[keyboard-ca-ike]
+Description="키보드 - 프랑스어 (캐나다) - 이누이트어"
+Language=iu
+Label=ike
+
+[keyboard-ca-eng]
+Description="키보드 - 프랑스어 (캐나다) - 영어 (캐나다)"
+Language=en
+Label=en
+
+[keyboard-ca-kut]
+Description="키보드 - 프랑스어 (캐나다) - 쿠테나이어"
+Language=fr
+Label=kut
+
+[keyboard-ca-shs]
+Description="키보드 - 프랑스어 (캐나다) - 슈스와프어"
+Language=fr
+Label=shs
+
+[keyboard-ca-sun_type6]
+Description="키보드 - 프랑스어 (캐나다) - 다국어 (캐나다, 썬 타입 6/7)"
+Language=fr
+Label=ca
+
+[keyboard-gh]
+Description="키보드 - 영어 (가나)"
+Language=en
+Label=en
+
+[keyboard-gh-generic]
+Description="키보드 - 영어 (가나) - 영어 (가나, 다국어)"
+Language=en
+Label=gh
+
+[keyboard-gh-akan]
+Description="키보드 - 영어 (가나) - 아칸"
+Language=ak
+Label=ak
+
+[keyboard-gh-ewe]
+Description="키보드 - 영어 (가나) - 에베어"
+Language=ee
+Label=ee
+
+[keyboard-gh-fula]
+Description="키보드 - 영어 (가나) - 풀라"
+Language=ff
+Label=ff
+
+[keyboard-gh-ga]
+Description="키보드 - 영어 (가나) - 가어"
+Language=gaa
+Label=gaa
+
+[keyboard-gh-hausa]
+Description="키보드 - 영어 (가나) - 하우사어 (가나)"
+Language=ha
+Label=ha
+
+[keyboard-gh-avn]
+Description="키보드 - 영어 (가나) - 애버타임어"
+Language=avn
+Label=avn
+
+[keyboard-gh-gillbt]
+Description="키보드 - 영어 (가나) - 영어 (가나, GILLBT)"
+Language=en
+Label=gh
+
+[keyboard-fr]
+Description="키보드 - 프랑스어"
+Language=fr
+Label=fr
+
+[keyboard-fr-nodeadkeys]
+Description="키보드 - 프랑스어 - 프랑스어 (데드키 없음)"
+Language=fr
+Label=fr
+
+[keyboard-fr-oss]
+Description="키보드 - 프랑스어 - 프랑스어 (다른 버전)"
+Language=fr
+Label=fr
+
+[keyboard-fr-oss_latin9]
+Description="키보드 - 프랑스어 - 프랑스어 (다른 버전, Latin-9 전용)"
+Language=fr
+Label=fr
+
+[keyboard-fr-oss_nodeadkeys]
+Description="키보드 - 프랑스어 - 프랑스어 (다른 버전, 데드키 없음)"
+Language=fr
+Label=fr
+
+[keyboard-fr-latin9]
+Description="키보드 - 프랑스어 - 프랑스어 (구형, 다른 버전)"
+Language=fr
+Label=fr
+
+[keyboard-fr-latin9_nodeadkeys]
+Description="키보드 - 프랑스어 - 프랑스어 (구형, 다른 버전, 데드키 없음)"
+Language=fr
+Label=fr
+
+[keyboard-fr-bepo]
+Description="키보드 - 프랑스어 - 프랑스어 (BEPO)"
+Language=fr
+Label=fr
+
+[keyboard-fr-bepo_latin9]
+Description="키보드 - 프랑스어 - 프랑스어 (BEPO, Latin-9 전용)"
+Language=fr
+Label=fr
+
+[keyboard-fr-bepo_afnor]
+Description="키보드 - 프랑스어 - 프랑스어 (BEPO, AFNOR)"
+Language=fr
+Label=fr
+
+[keyboard-fr-dvorak]
+Description="키보드 - 프랑스어 - 프랑스어 (드보락)"
+Language=fr
+Label=fr
+
+[keyboard-fr-mac]
+Description="키보드 - 프랑스어 - 프랑스어 (매킨토시)"
+Language=fr
+Label=fr
+
+[keyboard-fr-azerty]
+Description="키보드 - 프랑스어 - 프랑스어 (AZERTY)"
+Language=fr
+Label=fr
+
+[keyboard-fr-afnor]
+Description="키보드 - 프랑스어 - 프랑스어 (AZERTY, AFNOR)"
+Language=fr
+Label=fr
+
+[keyboard-fr-bre]
+Description="키보드 - 프랑스어 - 프랑스어 (브르타뉴어)"
+Language=fr
+Label=fr
+
+[keyboard-fr-oci]
+Description="키보드 - 프랑스어 - 오크어"
+Language=oc
+Label=fr
+
+[keyboard-fr-geo]
+Description="키보드 - 프랑스어 - 조지아어 (프랑스, AZERTY Tskapo)"
+Language=ka
+Label=fr
+
+[keyboard-fr-us]
+Description="키보드 - 프랑스어 - 프랑스어 (미국식)"
+Language=fr
+Label=fr
+
+[keyboard-fr-sun_type6]
+Description="키보드 - 프랑스어 - 프랑스어 (썬 타입 6/7)"
+Language=fr
+Label=fr
+
+[keyboard-fr-us-alt]
+Description="키보드 - 프랑스어 - 프랑스어 (데드키 포함 미국식, 다른 버전)"
+Language=fr
+Label=fr
+
+[keyboard-fr-us-azerty]
+Description="키보드 - 프랑스어 - 프랑스어 (미국식, AZERTY)"
+Language=fr
+Label=fr
+
+[keyboard-gn]
+Description="키보드 - 응코 (AZERTY)"
+Language=nqo
+Label=gn
+
+[keyboard-uz]
+Description="키보드 - 우즈베크어"
+Language=uz
+Label=uz
+
+[keyboard-uz-latin]
+Description="키보드 - 우즈베크어 - 우즈베크어 (라틴 문자)"
+Language=uz
+Label=uz
+
+[keyboard-fi]
+Description="키보드 - 핀란드어"
+Language=fi
+Label=fi
+
+[keyboard-fi-winkeys]
+Description="키보드 - 핀란드어 - 핀란드어 (윈도우키)"
+Language=fi
+Label=fi
+
+[keyboard-fi-classic]
+Description="키보드 - 핀란드어 - 핀란드어 (클래식)"
+Language=fi
+Label=fi
+
+[keyboard-fi-nodeadkeys]
+Description="키보드 - 핀란드어 - 핀란드어 (클래식, 데드키 없음)"
+Language=fi
+Label=fi
+
+[keyboard-fi-smi]
+Description="키보드 - 핀란드어 - 북사오미 (핀란드)"
+Language=se
+Label=fi
+
+[keyboard-fi-mac]
+Description="키보드 - 핀란드어 - 핀란드어 (매킨토시)"
+Language=fi
+Label=fi
+
+[keyboard-fi-sun_type6]
+Description="키보드 - 핀란드어 - 핀란드어 (썬 타입 6/7)"
+Language=fi
+Label=fi
+
+[keyboard-fi-das]
+Description="키보드 - 핀란드어 - 핀란드어 (DAS)"
+Language=fi
+Label=fi
+
+[keyboard-fi-fidvorak]
+Description="키보드 - 핀란드어 - 핀란드어 (드보락)"
+Language=fi
+Label=fi
+
+[keyboard-lt]
+Description="키보드 - 리투아니아어"
+Language=lt
+Label=lt
+
+[keyboard-lt-std]
+Description="키보드 - 리투아니아어 - 리투아니아어 (표준)"
+Language=lt
+Label=lt
+
+[keyboard-lt-us]
+Description="키보드 - 리투아니아어 - 리투아니아어 (미국식)"
+Language=lt
+Label=lt
+
+[keyboard-lt-ibm]
+Description="키보드 - 리투아니아어 - 리투아니아어 (IBM LST 1205-92)"
+Language=lt
+Label=lt
+
+[keyboard-lt-lekp]
+Description="키보드 - 리투아니아어 - 리투아니아어 (LEKP)"
+Language=lt
+Label=lt
+
+[keyboard-lt-lekpa]
+Description="키보드 - 리투아니아어 - 리투아니아어 (LEKPa)"
+Language=lt
+Label=lt
+
+[keyboard-lt-sgs]
+Description="키보드 - 리투아니아어 - 사모기티아어"
+Language=sgs
+Label=lt
+
+[keyboard-lt-ratise]
+Description="키보드 - 리투아니아어 - 리투아니아어 (RATISE)"
+Language=lt
+Label=lt
+
+[keyboard-lt-us_dvorak]
+Description="키보드 - 리투아니아어 - 리투아니아어 (드보락)"
+Language=lt
+Label=lt
+
+[keyboard-lt-sun_type6]
+Description="키보드 - 리투아니아어 - 리투아니아어 (썬 타입 6/7)"
+Language=lt
+Label=lt
+
+[keyboard-my]
+Description="키보드 - 말레이어 (자위 문자, 아랍어 키보드)"
+Language=id
+Label=ms
+
+[keyboard-my-phonetic]
+Description="키보드 - 말레이어 (자위 문자, 아랍어 키보드) - 말레이어 (자위 문자, 음성 표기)"
+Language=id
+Label=my
+
+[keyboard-pt]
+Description="키보드 - 포르투갈어"
+Language=pt
+Label=pt
+
+[keyboard-pt-nodeadkeys]
+Description="키보드 - 포르투갈어 - 포르투갈어 (데드키 없음)"
+Language=pt
+Label=pt
+
+[keyboard-pt-mac]
+Description="키보드 - 포르투갈어 - 포르투갈어 (매킨토시)"
+Language=pt
+Label=pt
+
+[keyboard-pt-mac_nodeadkeys]
+Description="키보드 - 포르투갈어 - 포르투갈어 (매킨토시, 데드키 없음)"
+Language=pt
+Label=pt
+
+[keyboard-pt-nativo]
+Description="키보드 - 포르투갈어 - 포르투갈어 (나티보)"
+Language=pt
+Label=pt
+
+[keyboard-pt-nativo-us]
+Description="키보드 - 포르투갈어 - 포르투갈어 (나티보, 미국 키보드)"
+Language=pt
+Label=pt
+
+[keyboard-pt-nativo-epo]
+Description="키보드 - 포르투갈어 - 에스페란토 (포르투갈, 나티보)"
+Language=eo
+Label=pt
+
+[keyboard-pt-sun_type6]
+Description="키보드 - 포르투갈어 - 포르투갈어 (썬 타입 6/7)"
+Language=pt
+Label=pt
+
+[keyboard-pt-colemak]
+Description="키보드 - 포르투갈어 - 포르투갈어 (콜맥)"
+Language=pt
+Label=pt
+
+[keyboard-id]
+Description="키보드 - 인도네시아어 (라틴 문자)"
+Language=id
+Label=id
+
+[keyboard-id-phoneticx]
+Description="키보드 - 인도네시아어 (라틴 문자) - 인도네시아어 (아랍 페곤, 추가 음성 표기)"
+Language=id
+Label=id
+
+[keyboard-de]
+Description="키보드 - 독일어"
+Language=de
+Label=de
+
+[keyboard-de-deadacute]
+Description="키보드 - 독일어 - 독일어 (어큐트 데드키)"
+Language=de
+Label=de
+
+[keyboard-de-deadgraveacute]
+Description="키보드 - 독일어 - 독일어 (그레이브 어큐트 데드키)"
+Language=de
+Label=de
+
+[keyboard-de-nodeadkeys]
+Description="키보드 - 독일어 - 독일어 (데드키 없음)"
+Language=de
+Label=de
+
+[keyboard-de-e1]
+Description="키보드 - 독일어 - 독일어 (E1)"
+Language=de
+Label=de
+
+[keyboard-de-e2]
+Description="키보드 - 독일어 - 독일어 (E2)"
+Language=de
+Label=de
+
+[keyboard-de-T3]
+Description="키보드 - 독일어 - 독일어 (T3)"
+Language=de
+Label=de
+
+[keyboard-de-us]
+Description="키보드 - 독일어 - 독일어 (미국식)"
+Language=de
+Label=de
+
+[keyboard-de-ro]
+Description="키보드 - 독일어 - 루마니아어 (독일)"
+Language=ro
+Label=de
+
+[keyboard-de-ro_nodeadkeys]
+Description="키보드 - 독일어 - 루마니아어 (독일, 데드키 없음)"
+Language=ro
+Label=de
+
+[keyboard-de-dvorak]
+Description="키보드 - 독일어 - 독일어 (드보락)"
+Language=de
+Label=de
+
+[keyboard-de-neo]
+Description="키보드 - 독일어 - 독일어 (Neo 2)"
+Language=de
+Label=de
+
+[keyboard-de-mac]
+Description="키보드 - 독일어 - 독일어 (매킨토시)"
+Language=de
+Label=de
+
+[keyboard-de-mac_nodeadkeys]
+Description="키보드 - 독일어 - 독일어 (매킨토시, 데드키 없음)"
+Language=de
+Label=de
+
+[keyboard-de-dsb]
+Description="키보드 - 독일어 - 저지 소르브어"
+Language=dsb
+Label=de
+
+[keyboard-de-dsb_qwertz]
+Description="키보드 - 독일어 - 저지 소르브어 (QWERTZ)"
+Language=dsb
+Label=de
+
+[keyboard-de-qwerty]
+Description="키보드 - 독일어 - 독일어 (QWERTY)"
+Language=de
+Label=de
+
+[keyboard-de-tr]
+Description="키보드 - 독일어 - 터키어 (독일)"
+Language=tr
+Label=de
+
+[keyboard-de-ru]
+Description="키보드 - 독일어 - 러시아어 (독일, 음성 표기)"
+Language=ru
+Label=ru
+
+[keyboard-de-deadtilde]
+Description="키보드 - 독일어 - 독일어 (틸드 데드키)"
+Language=de
+Label=de
+
+[keyboard-de-hu]
+Description="키보드 - 독일어 - 독일어 (헝가리어 문자 포함, 데드키 없음)"
+Language=de
+Label=de
+
+[keyboard-de-pl]
+Description="키보드 - 독일어 - 폴란드어 (독일식, 데드키 없음)"
+Language=de
+Label=de
+
+[keyboard-de-sun_type6]
+Description="키보드 - 독일어 - 독일어 (썬 타입 6/7)"
+Language=de
+Label=de
+
+[keyboard-de-adnw]
+Description="키보드 - 독일어 - 독일어 (Aus der Neo-Welt)"
+Language=de
+Label=de
+
+[keyboard-de-koy]
+Description="키보드 - 독일어 - 독일어 (KOY)"
+Language=de
+Label=de
+
+[keyboard-de-bone]
+Description="키보드 - 독일어 - 독일어 (Bone)"
+Language=de
+Label=de
+
+[keyboard-de-bone_eszett_home]
+Description="키보드 - 독일어 - 독일어 (Bone, 홈 행에 에스체트 문자)"
+Language=de
+Label=de
+
+[keyboard-de-neo_qwertz]
+Description="키보드 - 독일어 - 독일어 (Neo, QWERTZ)"
+Language=de
+Label=de
+
+[keyboard-de-neo_qwerty]
+Description="키보드 - 독일어 - 독일어 (Neo, QWERTY)"
+Language=de
+Label=de
+
+[keyboard-de-ru-recom]
+Description="키보드 - 독일어 - 러시아어 (독일, 추천)"
+Language=ru
+Label=ru
+
+[keyboard-de-ru-translit]
+Description="키보드 - 독일어 - 러시아어 (독일, 음역)"
+Language=ru
+Label=ru
+
+[keyboard-de-lld]
+Description="키보드 - 독일어 - 독일어 (라딘)"
+Language=de
+Label=de_lld
+
+[keyboard-gr]
+Description="키보드 - 그리스어"
+Language=el
+Label=gr
+
+[keyboard-gr-simple]
+Description="키보드 - 그리스어 - 그리스어 (간단)"
+Language=el
+Label=gr
+
+[keyboard-gr-extended]
+Description="키보드 - 그리스어 - 그리스어 (확장)"
+Language=el
+Label=gr
+
+[keyboard-gr-nodeadkeys]
+Description="키보드 - 그리스어 - 그리스어 (데드키 없음)"
+Language=el
+Label=gr
+
+[keyboard-gr-polytonic]
+Description="키보드 - 그리스어 - 그리스어 (폴리토닉)"
+Language=el
+Label=gr
+
+[keyboard-gr-sun_type6]
+Description="키보드 - 그리스어 - 그리스어 (썬 타입 6/7)"
+Language=el
+Label=gr
+
+[keyboard-gr-colemak]
+Description="키보드 - 그리스어 - 그리스어 (콜맥)"
+Language=el
+Label=gr
+
+[keyboard-tg]
+Description="키보드 - 프랑스어 (토고)"
+Language=fr
+Label=fr-tg
+
+[keyboard-mao]
+Description="키보드 - 마오리어"
+Language=mi
+Label=mi
+
+[keyboard-sn]
+Description="키보드 - 월로프어"
+Language=wo
+Label=wo
+
+[keyboard-kh]
+Description="키보드 - 크메르어 (캄보디아)"
+Language=km
+Label=km
+
+[keyboard-az]
+Description="키보드 - 아제르바이잔어"
+Language=az
+Label=az
+
+[keyboard-az-cyrillic]
+Description="키보드 - 아제르바이잔어 - 아제르바이잔어 (키릴 문자)"
+Language=az
+Label=az
+
+[keyboard-hu]
+Description="키보드 - 헝가리어"
+Language=hu
+Label=hu
+
+[keyboard-hu-standard]
+Description="키보드 - 헝가리어 - 헝가리어 (표준)"
+Language=hu
+Label=hu
+
+[keyboard-hu-nodeadkeys]
+Description="키보드 - 헝가리어 - 헝가리어 (데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-qwerty]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwertz_comma_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 101키, 쉼표, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwertz_comma_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 101키, 쉼표, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwertz_dot_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 101키, 점, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwertz_dot_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 101키, 점, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwerty_comma_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY, 101키, 쉼표, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwerty_comma_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY, 101키, 쉼표, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-ead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY, 101키, 점, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-101_qwerty_dot_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY, 101키, 점, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwertz_comma_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 102키, 쉼표, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwertz_comma_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 102키, 쉼표, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwertz_dot_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 102키, 점, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwertz_dot_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 102키, 점, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwerty_comma_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 102키, 쉼표, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwerty_comma_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTZ, 102키, 쉼표, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwerty_dot_dead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY, 102키, 점, 데드키)"
+Language=hu
+Label=hu
+
+[keyboard-hu-102_qwerty_dot_nodead]
+Description="키보드 - 헝가리어 - 헝가리어 (QWERTY, 102키, 점, 데드키 없음)"
+Language=hu
+Label=hu
+
+[keyboard-hu-oldhun]
+Description="키보드 - 헝가리어 - 과거 헝가리어"
+Language=hu
+Label=oldhun
+
+[keyboard-hu-oldhunlig]
+Description="키보드 - 헝가리어 - 과거 헝가리어 (리거쳐 목적)"
+Language=hu
+Label=oldhun(lig)
+
+[keyboard-tr]
+Description="키보드 - 터키어"
+Language=tr
+Label=tr
+
+[keyboard-tr-f]
+Description="키보드 - 터키어 - 터키어 (F)"
+Language=tr
+Label=tr
+
+[keyboard-tr-alt]
+Description="키보드 - 터키어 - 터키어 (Alt-Q)"
+Language=tr
+Label=tr
+
+[keyboard-tr-ku]
+Description="키보드 - 터키어 - 쿠르드어 (터키, 라틴 Q)"
+Language=ku
+Label=ku
+
+[keyboard-tr-ku_f]
+Description="키보드 - 터키어 - 쿠르드어 (터키, F)"
+Language=ku
+Label=ku
+
+[keyboard-tr-ku_alt]
+Description="키보드 - 터키어 - 쿠르드어 (터키, 라틴 Alt-Q)"
+Language=ku
+Label=ku
+
+[keyboard-tr-intl]
+Description="키보드 - 터키어 - 터키어 (국제, 데드키 포함)"
+Language=tr
+Label=tr
+
+[keyboard-tr-crh]
+Description="키보드 - 터키어 - 크림타타르 (터키어 Q)"
+Language=crh
+Label=crh
+
+[keyboard-tr-crh_f]
+Description="키보드 - 터키어 - 크림타타르 (터키어 F)"
+Language=crh
+Label=crh
+
+[keyboard-tr-crh_alt]
+Description="키보드 - 터키어 - 크림타타르 (터키어 Alt-Q)"
+Language=crh
+Label=crh
+
+[keyboard-tr-ot]
+Description="키보드 - 터키어 - 오스만"
+Language=tr
+Label=tr
+
+[keyboard-tr-otf]
+Description="키보드 - 터키어 - 오스만 (F)"
+Language=tr
+Label=tr
+
+[keyboard-tr-otk]
+Description="키보드 - 터키어 - 과거 터키어"
+Language=tr
+Label=tr
+
+[keyboard-tr-sun_type6]
+Description="키보드 - 터키어 - 터키어 (썬 타입 6/7)"
+Language=tr
+Label=tr
+
+[keyboard-il]
+Description="키보드 - 히브리어"
+Language=he
+Label=he
+
+[keyboard-il-lyx]
+Description="키보드 - 히브리어 - 히브리어 (lyx)"
+Language=he
+Label=il
+
+[keyboard-il-phonetic]
+Description="키보드 - 히브리어 - 히브리어 (음성 표기)"
+Language=he
+Label=il
+
+[keyboard-il-biblical]
+Description="키보드 - 히브리어 - 히브리어 (성경 방식, Tiro)"
+Language=he
+Label=il
+
+[keyboard-il-biblicalSIL]
+Description="키보드 - 히브리어 - 히브리어 (성경, SIL 음성 표기)"
+Language=he
+Label=il
+
+[keyboard-it]
+Description="키보드 - 이탈리아어"
+Language=it
+Label=it
+
+[keyboard-it-nodeadkeys]
+Description="키보드 - 이탈리아어 - 이탈리아어 (데드키 없음)"
+Language=it
+Label=it
+
+[keyboard-it-winkeys]
+Description="키보드 - 이탈리아어 - 이탈리아어 (윈도우키)"
+Language=it
+Label=it
+
+[keyboard-it-mac]
+Description="키보드 - 이탈리아어 - 이탈리아어 (매킨토시)"
+Language=it
+Label=it
+
+[keyboard-it-us]
+Description="키보드 - 이탈리아어 - 이탈리아어 (미국식)"
+Language=it
+Label=it
+
+[keyboard-it-geo]
+Description="키보드 - 이탈리아어 - 조지아어 (이탈리아)"
+Language=ka
+Label=it
+
+[keyboard-it-ibm]
+Description="키보드 - 이탈리아어 - 이탈리아어 (IBM 142)"
+Language=it
+Label=it
+
+[keyboard-it-intl]
+Description="키보드 - 이탈리아어 - 이탈리아어 (국제, 데드키 포함)"
+Language=it
+Label=it
+
+[keyboard-it-scn]
+Description="키보드 - 이탈리아어 - 시칠리아어"
+Language=it
+Label=it
+
+[keyboard-it-fur]
+Description="키보드 - 이탈리아어 - 프리울리어 (이탈리아)"
+Language=fur
+Label=it
+
+[keyboard-it-sun_type6]
+Description="키보드 - 이탈리아어 - 이탈리아어 (썬 타입 6/7)"
+Language=it
+Label=it
+
+[keyboard-it-lld]
+Description="키보드 - 이탈리아어 - 이탈리아어 (라딘)"
+Language=it
+Label=it_lld
+
+[keyboard-it-dvorak]
+Description="키보드 - 이탈리아어 - 이탈리아어 (드보락)"
+Language=it
+Label=it
+
+[keyboard-jp]
+Description="키보드 - 일본어"
+Language=ja
+Label=ja
+
+[keyboard-jp-kana]
+Description="키보드 - 일본어 - 일본어 (가나)"
+Language=ja
+Label=jp
+
+[keyboard-jp-kana86]
+Description="키보드 - 일본어 - 일본어 (가나 86)"
+Language=ja
+Label=jp
+
+[keyboard-jp-OADG109A]
+Description="키보드 - 일본어 - 일본어 (OADG 109A)"
+Language=ja
+Label=jp
+
+[keyboard-jp-mac]
+Description="키보드 - 일본어 - 일본어 (매킨토시)"
+Language=ja
+Label=jp
+
+[keyboard-jp-dvorak]
+Description="키보드 - 일본어 - 일본어 (드보락)"
+Language=ja
+Label=jp
+
+[keyboard-jp-sun_type6]
+Description="키보드 - 일본어 - 일본어 (썬 타입 6)"
+Language=ja
+Label=jp
+
+[keyboard-jp-sun_type7]
+Description="키보드 - 일본어 - 일본어 (썬 타입 7, PC 호환)"
+Language=ja
+Label=jp
+
+[keyboard-jp-sun_type7_suncompat]
+Description="키보드 - 일본어 - 일본어 (썬 타입 7, 썬 호환)"
+Language=ja
+Label=jp
+
+[keyboard-latam]
+Description="키보드 - 스페인어 (라틴 아메리카)"
+Language=es
+Label=es
+
+[keyboard-latam-nodeadkeys]
+Description="키보드 - 스페인어 (라틴 아메리카) - 스페인어 (라틴 아메리카, 데드키 없음)"
+Language=es
+Label=latam
+
+[keyboard-latam-deadtilde]
+Description="키보드 - 스페인어 (라틴 아메리카) - (Latin American, dead tilde)"
+Language=es
+Label=latam
+
+[keyboard-latam-dvorak]
+Description="키보드 - 스페인어 (라틴 아메리카) - 스페인어 (라틴 아메리카, 드보락)"
+Language=es
+Label=latam
+
+[keyboard-latam-colemak]
+Description="키보드 - 스페인어 (라틴 아메리카) - 스페인어 (라틴 아메리카, 콜맥)"
+Language=es
+Label=latam
+
+[keyboard-latam-colemak-gaming]
+Description="키보드 - 스페인어 (라틴 아메리카) - 스페인어 (라틴 아메리카, 콜맥, 게임용)"
+Language=es
+Label=latam
+
+[keyboard-mt]
+Description="키보드 - 몰타어"
+Language=mt
+Label=mt
+
+[keyboard-mt-us]
+Description="키보드 - 몰타어 - 몰타어 (미국식)"
+Language=mt
+Label=mt
+
+[keyboard-mt-alt-us]
+Description="키보드 - 몰타어 - 몰타어 (미국식, AltGr 변경)"
+Language=mt
+Label=mt
+
+[keyboard-mt-alt-gb]
+Description="키보드 - 몰타어 - 몰타어 (영국식, AltGr 변경)"
+Language=mt
+Label=mt
+
+[keyboard-custom]
+Description="키보드 - om Layout"
+Language=
+Label=custom
+
+[keyboard-no]
+Description="키보드 - 노르웨이어"
+Language=no
+Label=no
+
+[keyboard-no-nodeadkeys]
+Description="키보드 - 노르웨이어 - 노르웨이어 (데드키 없음)"
+Language=no
+Label=no
+
+[keyboard-no-winkeys]
+Description="키보드 - 노르웨이어 - 노르웨이어 (윈도우키)"
+Language=no
+Label=no
+
+[keyboard-no-dvorak]
+Description="키보드 - 노르웨이어 - 노르웨이어 (드보락)"
+Language=no
+Label=no
+
+[keyboard-no-smi]
+Description="키보드 - 노르웨이어 - 북사오미 (노르웨이)"
+Language=se
+Label=no
+
+[keyboard-no-smi_nodeadkeys]
+Description="키보드 - 노르웨이어 - 북사오미 (노르웨이, 데드키 없음)"
+Language=se
+Label=no
+
+[keyboard-no-mac]
+Description="키보드 - 노르웨이어 - 노르웨이어 (매킨토시)"
+Language=no
+Label=no
+
+[keyboard-no-mac_nodeadkeys]
+Description="키보드 - 노르웨이어 - 노르웨이어 (매킨토시, 데드키 없음)"
+Language=no
+Label=no
+
+[keyboard-no-colemak]
+Description="키보드 - 노르웨이어 - 노르웨이어 (콜맥)"
+Language=no
+Label=no
+
+[keyboard-no-sun_type6]
+Description="키보드 - 노르웨이어 - 노르웨이어 (썬 타입 6/7)"
+Language=no
+Label=no
+
+[keyboard-pl]
+Description="키보드 - 폴란드어"
+Language=pl
+Label=pl
+
+[keyboard-pl-legacy]
+Description="키보드 - 폴란드어 - 폴란드어 (구형)"
+Language=pl
+Label=pl
+
+[keyboard-pl-qwertz]
+Description="키보드 - 폴란드어 - 폴란드어 (QWERTZ)"
+Language=pl
+Label=pl
+
+[keyboard-pl-dvorak]
+Description="키보드 - 폴란드어 - 폴란드어 (드보락)"
+Language=pl
+Label=pl
+
+[keyboard-pl-dvorak_quotes]
+Description="키보드 - 폴란드어 - 폴란드어 (드보락, 따옴표 키에 폴란드어 따옴표)"
+Language=pl
+Label=pl
+
+[keyboard-pl-dvorak_altquotes]
+Description="키보드 - 폴란드어 - 폴란드어 (드보락, 1 키에 폴란드어 따옴표)"
+Language=pl
+Label=pl
+
+[keyboard-pl-csb]
+Description="키보드 - 폴란드어 - 카슈브어"
+Language=csb
+Label=pl
+
+[keyboard-pl-szl]
+Description="키보드 - 폴란드어 - 실레지아어"
+Language=szl
+Label=pl
+
+[keyboard-pl-ru_phonetic_dvorak]
+Description="키보드 - 폴란드어 - 러시아어 (폴란드, 음성 표기 드보락)"
+Language=ru
+Label=ru
+
+[keyboard-pl-dvp]
+Description="키보드 - 폴란드어 - 폴란드어 (프로그래머 드보락)"
+Language=pl
+Label=pl
+
+[keyboard-pl-intl]
+Description="키보드 - 폴란드어 - 폴란드어 (국제, 데드키 포함)"
+Language=pl
+Label=pl
+
+[keyboard-pl-colemak]
+Description="키보드 - 폴란드어 - 폴란드어 (콜맥)"
+Language=pl
+Label=pl
+
+[keyboard-pl-colemak_dh]
+Description="키보드 - 폴란드어 - 폴란드어 (콜맥-DH)"
+Language=pl
+Label=pl
+
+[keyboard-pl-sun_type6]
+Description="키보드 - 폴란드어 - 폴란드어 (썬 타입 6/7)"
+Language=pl
+Label=pl
+
+[keyboard-pl-glagolica]
+Description="키보드 - 폴란드어 - 폴란드어 (글라골 문자)"
+Language=pl
+Label=pl
+
+[keyboard-ro]
+Description="키보드 - 루마니아어"
+Language=ro
+Label=ro
+
+[keyboard-ro-std]
+Description="키보드 - 루마니아어 - 루마니아어 (표준)"
+Language=ro
+Label=ro
+
+[keyboard-ro-winkeys]
+Description="키보드 - 루마니아어 - 루마니아어 (윈도우키)"
+Language=ro
+Label=ro
+
+[keyboard-ro-crh_dobruja]
+Description="키보드 - 루마니아어 - 크림타타르 (Dobruca-1 Q)"
+Language=crh
+Label=crh
+
+[keyboard-ro-ergonomic]
+Description="키보드 - 루마니아어 - 루마니아어 (어고노믹 터치 방식)"
+Language=ro
+Label=ro
+
+[keyboard-ro-sun_type6]
+Description="키보드 - 루마니아어 - 루마니아어 (썬 타입 6/7)"
+Language=ro
+Label=ro
+

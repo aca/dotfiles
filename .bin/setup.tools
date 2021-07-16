@@ -7,10 +7,6 @@ set -o xtrace
 # tpm
 [[ -d "$HOME/.tmux" ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# vim-plug
-[[ -f "$HOME/.vim/autoload/plug.vim" ]] || curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-[[ -f "$HOME/.local/share/nvim/site/autoload/plug.vim" ]] || curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 # oh-my-zsh
 [[ -d "$HOME/.oh-my-zsh" ]] ||  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -59,10 +55,3 @@ pip3 install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
 [[ "$HOSTNAME" == *"kakao"* ]] && pip3 install --upgrade neutron-lbaas
 
 pip install -U $(pip freeze | awk '{split($0, a, "=="); print a[1]}')
-
-cargo install --force fd-find
-cargo install --force bat
-cargo install --force hexyl
-cargo install --force hyperfine
-cargo install --force pastel
-cargo install --force diskus

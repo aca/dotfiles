@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# get go package path from current directory
-# pwd => github.com/aca/tools/sh
-
-git_root=$(realpath $(git rev-parse --show-toplevel 2>/dev/null || echo "."))
-echo "${git_root#"$GOPATH/src/"}"

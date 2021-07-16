@@ -3,7 +3,8 @@
 setlocal autoindent 
 setlocal tabstop=4 
 setlocal shiftwidth=4 
-setlocal textwidth=82 
+" setlocal textwidth=80 
+setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
 
 " hi link markdownCodeBlock Tag
@@ -50,3 +51,15 @@ syntax match todoCheckbox "\[\ \]" conceal cchar=
 syntax match todoCheckbox "\[x\]" conceal cchar=
 
 packadd vim-table-mode
+
+ " convert http://*  [title](http://*)
+command MakeLink lua require('_markdown').makelink()
+
+" update date for neuron
+function UpdateMarkdownDate()
+  let save_pos = getpos(".")
+  silent! exe '1,4s/^date: .*/date: '. strftime("%Y-%m-%dT%H:%M")
+  call setpos(".", save_pos)
+endfunction
+autocmd BufWritePost ~/src/zettels/**.md  call UpdateMarkdownDate()
+" autocmd BufWritePost ~/src/zettels/**.md mark ` | silent! exe '1,4s/^date: .*/date: '. strftime("%Y-%m-%dT%H:%M") | silent! normal ``

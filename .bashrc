@@ -64,3 +64,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 set -o vi
+
+if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

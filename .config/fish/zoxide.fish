@@ -3,17 +3,25 @@
 # Utility functions for zoxide.
 #
 
-# Remove definitions.
-
 # pwd based on the value of _ZO_RESOLVE_SYMLINKS.
 function __zoxide_pwd
-    pwd -L
+    builtin pwd -L
+end
+
+# A copy of fish's internal cd function. This makes it possible to use
+# `alias cd=z` without causing an infinite loop.
+if ! builtin functions -q __zoxide_cd_internal
+    if builtin functions -q cd
+        builtin functions -c cd __zoxide_cd_internal
+    else
+        alias __zoxide_cd_internal="builtin cd"
+    end
 end
 
 # cd + custom logic based on the value of _ZO_ECHO.
 function __zoxide_cd
-    cd $argv
-    and commandline -f repaint
+    __zoxide_cd_internal $argv
+    and builtin commandline -f repaint
 end
 
 # =============================================================================
@@ -22,8 +30,12 @@ end
 #
 
 # Initialize hook to add new entries to the database.
-function __zoxide_hook --on-variable PWD
-    zoxide add (__zoxide_pwd)
+if test "$__zoxide_hooked" != 1
+    set __zoxide_hooked 1
+    function __zoxide_hook --on-variable PWD
+        test -z "$fish_private_mode"
+        and command zoxide add -- (__zoxide_pwd)
+    end
 end
 
 # =============================================================================
@@ -37,45 +49,22 @@ function __zoxide_z
     set argc (count $argv)
     if test $argc -eq 0
         __zoxide_cd $HOME
-    else if begin; test $argc -eq 1; and test $argv[1] = '-'; end
+    else if test "$argv" = -
         __zoxide_cd -
-    else if begin; test $argc -eq 1; and test -d $argv[1]; end
+    else if begin
+            test $argc -eq 1; and test -d $argv[1]
+        end
         __zoxide_cd $argv[1]
     else
-        set -l __zoxide_result (zoxide query -- $argv)
+        set -l __zoxide_result (command zoxide query --exclude (__zoxide_pwd) -- $argv)
         and __zoxide_cd $__zoxide_result
     end
 end
 
 # Jump to a directory using interactive search.
 function __zoxide_zi
-    set -l __zoxide_result (zoxide query -i -- $argv)
+    set -l __zoxide_result (command zoxide query -i -- $argv)
     and __zoxide_cd $__zoxide_result
-end
-
-# Add a new entry to the database.
-function __zoxide_za
-    zoxide add $argv
-end
-
-# Query an entry from the database using only keywords.
-function __zoxide_zq
-    zoxide query $argv
-end
-
-# Query an entry from the database using interactive selection.
-function __zoxide_zqi
-    zoxide query -i $argv
-end
-
-# Remove an entry from the database using the exact path.
-function __zoxide_zr
-    zoxide remove $argv
-end
-
-# Remove an entry from the database using interactive selection.
-function __zoxide_zri
-    zoxide remove -i $argv
 end
 
 # =============================================================================
@@ -85,49 +74,20 @@ end
 
 # Remove definitions.
 function __zoxide_unset
-    set --erase $argv > /dev/null 2>&1
-    abbr --erase $argv > /dev/null 2>&1
-    functions --erase $argv > /dev/null 2>&1
+    set --erase $argv >/dev/null 2>&1
+    abbr --erase $argv >/dev/null 2>&1
+    builtin functions --erase $argv >/dev/null 2>&1
 end
 
-__zoxide_unset 'z'
-function z
-    __zoxide_z $argv
-end
+__zoxide_unset z
+alias z="__zoxide_z"
 
-__zoxide_unset 'zi'
-function zi
-    __zoxide_zi $argv
-end
-
-__zoxide_unset 'za'
-function za
-    __zoxide_za $argv
-end
-
-__zoxide_unset 'zq'
-function zq
-    __zoxide_zq $argv
-end
-
-__zoxide_unset 'zqi'
-function zqi
-    __zoxide_zqi $argv
-end
-
-__zoxide_unset 'zr'
-function zr
-    __zoxide_zr $argv
-end
-
-__zoxide_unset 'zri'
-function zri
-    __zoxide_zri $argv
-end
+__zoxide_unset zi
+alias zi="__zoxide_zi"
 
 # =============================================================================
 #
-# To initialize zoxide with fish, add the following line to your fish
-# configuration file (usually ~/.config/fish/config.fish):
+# To initialize zoxide, add this to your configuration (usually
+# ~/.config/fish/config.fish):
 #
 # zoxide init fish | source

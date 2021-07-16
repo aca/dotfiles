@@ -1,6 +1,11 @@
 #!/bin/bash
 
-aunpack "$@"
+for VAR in "$@"
+do
+  aunpack "$VAR"
+done
+
+
 
 
 

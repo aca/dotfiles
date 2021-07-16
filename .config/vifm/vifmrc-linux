@@ -55,13 +55,13 @@ fileviewer {*.mp3},<audio/mpeg> mp3info
 fileviewer {*.flac},<audio/flac> soxi
 
 " Video
-filextype {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+filextype {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.iso,*.ISO
           \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
           \*.as[fx],*.m2ts},
           \<video/*>
           \ mpv %f,
-fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-           \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.ISO,*.iso
+           \*.fl[icv],*.m2v,*.mov,*.webm,*.mts,*.m4v,*.r[am],*.qt,*.divx,
            \*.as[fx]},
           \<video/*>
          \ ls -al %c
@@ -93,8 +93,13 @@ filextype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
         \ gpicview %c,
         \ {View in shotwell}
         \ shotwell,
-fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
-         \ identify %f
+" fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+"          \ identify %f
+
+fileviewer <image/*>
+        \ vifmimg draw %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
 
 " OpenRaster
 filextype *.ora
@@ -136,15 +141,19 @@ filetype {*.torrent},<application/x-bittorrent> ktorrent %f &
 fileviewer {*.torrent},<application/x-bittorrent> dumptorrent -v %c
 
 " FuseZipMount
-filetype {*.zip,*.jar,*.war,*.ear,*.oxt,*.apkg},
-        \<application/zip,application/java-archive>
-       \ {Mount with fuse-zip}
-       \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
-       \ {View contents}
-       \ zip -sf %c | less,
-       \ {Extract here}
-       \ tar -xf %c,
-fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
+" filetype {*.zip,*.jar,*.war,*.ear,*.oxt,*.apkg},
+"         \<application/zip,application/java-archive>
+"        \ {Mount with fuse-zip}
+"        \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+"        \ {View contents}
+"        \ zip -sf %c | less,
+"        \ {Extract here}
+"        \ tar -xf %c,
+" fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
+
+" Comics
+filetype {*.zip},
+       \ mpv %c,
 
 " ArchiveMount
 filetype {*.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz},
@@ -163,9 +172,12 @@ filetype {*.rar},<application/x-rar>
 fileviewer {*.rar},<application/x-rar> unrar v %c
 
 " IsoMount
-filetype {*.iso},<application/x-iso9660-image>
-       \ {Mount with fuseiso}
-       \ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
+" filetype {*.iso},<application/x-iso9660-image>
+"        \ {Mount with fuseiso}
+"        \ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
+" filetype {*.iso},<application/x-iso9660-image>
+"        \ {Mount with fuseiso}
+"        \ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
 
 " SshMount
 filetype *.ssh
@@ -238,3 +250,5 @@ filextype */
 " filetype * start, explorer
 
 " fileviewer *[^/] env -uCOLORTERM ls -al %c
+fileviewer *.ts env -uCOLORTERM bat --color always --wrap never --pager never %c -p
+fileviewer * env -uCOLORTERM bat --color always --wrap never --pager never %c -p

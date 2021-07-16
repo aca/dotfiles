@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-pueue restart $@ && pueue remove $@
+for id in "$@"; do
+  pueue restart $id && pueue remove $id
+done

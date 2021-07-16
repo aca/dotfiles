@@ -1,25 +1,27 @@
 # vim: set filetype=zsh foldmethod=marker foldlevel=0:
 
-# # oh-my-zsh {{{
-# export ZSH="$HOME/.oh-my-zsh"
-#
-# DISABLE_AUTO_UPDATE="true"
-#
-# plugins=(
-#   # tmux
-#   # kubectl
-#   # fzf
-#   # zsh-vi-mode
-# )
-#
-# source $ZSH/oh-my-zsh.sh
-# # }}}
+PROMPT='%{$fg[green]%}%n@%m:%~ $ $fg[white]%'
+
+# oh-my-zsh {{{
+export ZSH="$HOME/.oh-my-zsh"
+# ZSH_THEME=robbyrussell
+
+DISABLE_AUTO_UPDATE="true"
+
+plugins=(
+  # tmux
+  # kubectl
+  fzf
+  # zsh-vi-mode
+)
+
+source $ZSH/oh-my-zsh.sh
+# }}}
 
 # Prompt {{{
-# local return_status="%{$fg_bold[red]%}%(?..%? )%{$reset_color%}"
-# PROMPT='${return_status}%n@%{$reset_color%}'"%m » "
-RPROMPT='%~'
-PS1="%n@%M $ "
+# PROMPT='%n@%m %3~%(!.#.$)%(?.. [%?]) '
+# RPROMPT='%~'
+# PS1="%n@%M $ "
 # }}}
 
 # Options {{{ 
@@ -53,7 +55,7 @@ setopt inc_append_history
 # Exports {{{
 export GOPATH=$HOME
 export GOPROXY=direct
-export TERM="xterm-color"
+# export TERM="xterm-color"
 # export PATH=$HOME/bin
 export GHQ_ROOT=$HOME/src
 export EDITOR=nvim
@@ -74,8 +76,6 @@ alias tk='tmux kill-server'
 alias td='tmux detach'
 # }}}
 
-# [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-[ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-true
+# if [ -f ~/.asdf/asdf.sh ]; then source ~/.asdf/asdf.sh; fi
+if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then source ~/.nix-profile/etc/profile.d/nix.sh; fi
+if [ -f ~/.fzf.zsh ]; then source ~/.fzf.zsh; fi
