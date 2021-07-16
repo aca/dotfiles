@@ -101,7 +101,7 @@ paq {'machakann/vim-swap', opt=true}
 paq {'aca/fzf-proj.vim', opt=true}
 -- paq {'tmsvg/pear-tree', opt=true}
 paq {'windwp/nvim-autopairs', opt=true}
-paq {"steelsojka/pears.nvim", opt=true}
+-- paq {"steelsojka/pears.nvim", opt=true}
 
 -- paq {'glepnir/galaxyline.nvim', branch='main'}
 -- paq 'kyazdani42/nvim-web-devicons'
