@@ -51,6 +51,7 @@ rmf $HOME/.config/bspwm
 rmf $HOME/.config/mimeapps.list
 rmf $HOME/.config/hub
 rmf $HOME/.config/kitty
+rmf ~/.oh-my-zsh
 rmf ~/.inputrc
 rmf ~/.bashrc
 rmf ~/.tool-versions
@@ -96,6 +97,8 @@ mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
 
 emptyDir ~/.local/share/nvim/site/pack/paqs
+# ls dotfiles/.local/share/nvim/site/pack/paqs/opt/ | xargs -I{} mkdir -p ~/.local/share/nvim/site/pack/paqs/opt/{}
+# ls dotfiles/.local/share/nvim/site/pack/paqs/start/ | xargs -I{} mkdir -p ~/.local/share/nvim/site/pack/paqs/start/{}
 
 # }}}
 
