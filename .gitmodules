@@ -4,9 +4,6 @@
 [submodule ".submodules/ohmyzsh"]
 	path = .submodules/ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule ".submodules/test"]
-	path = .submodules/test
-	url = https://github.com/aca/test
 [submodule ".tmux/plugins/tmux-yank"]
 	path = .tmux/plugins/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank.git
@@ -28,3 +25,6 @@
 [submodule ".tmux/plugins/tmux-open"]
 	path = .tmux/plugins/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open.git
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
