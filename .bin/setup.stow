@@ -14,7 +14,6 @@ isLinux() { if [[ "$OSTYPE" == "linux-gnu"* ]]; then return 0; else return 1; fi
 isDarwin() { if [[ "$OSTYPE" == "darwin"* ]]; then return 0; else return 1; fi; }
 # }}}
 
-
 if ! commandExists stow; then exit 1; fi
 if isDarwin; then sudo -v; fi
 
@@ -37,6 +36,7 @@ emptyDir $HOME/.config/pulse
 emptyDir $HOME/.config/nvim
 
 rmf $HOME/.scripts
+rmf $HOME/.oh-my-zsh
 rmf $HOME/.config/gtk-3.0
 rmf $HOME/.scim
 rmf $HOME/.bin

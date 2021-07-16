@@ -5,3 +5,9 @@ Setup
 
     git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles
     bash ~/src/configs/dotfiles/.bin/setup.stow
+
+Neovim
+    sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
+    make distclean
+    make -j4
+    sudo make install

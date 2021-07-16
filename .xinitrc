@@ -51,4 +51,6 @@ fish -c notsodeep.load
 
 xinput --set-prop "pointer:Razer Orochi V2" 'Coordinate Transformation Matrix' 1.0, 0, 0, 0, 1.0, 0, 0, 0, 2.5
 
+xhost local:root
+
 exec bspwm
