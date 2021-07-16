@@ -96,6 +96,11 @@ mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
 # }}}
 
+# tmux {{{
+mkdir -p ~/.tmux/plugins
+rmf ~/.tmux/plugins/tpm
+# }}}
+
 # stow dotfiles
 stow -v --target $HOME "dotfiles"
 
