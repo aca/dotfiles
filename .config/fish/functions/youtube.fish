@@ -1,4 +1,4 @@
-function youtube
+function youtube --wraps=youtube-dl
   if [ (count $argv) = 0 ]
     command youtube-dl (pbpaste | sgrep url)
   else

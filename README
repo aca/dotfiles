@@ -1,0 +1,7 @@
+dotfiles
+========
+
+Setup
+
+    git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+    bash ~/src/configs/dotfiles/.bin/setup.stow

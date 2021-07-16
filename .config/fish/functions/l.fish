@@ -1,5 +1,4 @@
-function l
-
+function l --wraps=exa
   set -gx EXA_ICON_SPACING 2
   
   # https://github.com/fenetikm/falcon/blob/master/exa/EXA_COLORS
