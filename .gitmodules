@@ -103,9 +103,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-terminal.lua"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-terminal.lua
 	url = https://github.com/norcalli/nvim-terminal.lua.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/paq-nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/paq-nvim
-	url = https://github.com/savq/paq-nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/funcs.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/funcs.nvim
 	url = https://github.com/aca/funcs.nvim.git
@@ -289,3 +286,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-markdown"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown
+[submodule ".local/share/nvim/site/pack/paqs/start/plenary.nvim"]
+	path = .local/share/nvim/site/pack/paqs/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
