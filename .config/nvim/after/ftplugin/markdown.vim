@@ -11,6 +11,7 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 " hi link markdownCode Tag
 
 " iamcco/markdown-preview.nvim {{{
+let g:mkdp_theme = 'dark'
 let g:mkdp_refresh_slow = 1
 " let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
 " let g:mkdp_markdown_css = expand('~/src/github.com/otsaloma/markdown-css/tufte.css.orig')

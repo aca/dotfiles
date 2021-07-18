@@ -372,6 +372,8 @@ nnoremap <c-g> 2<c-g>
 
 " imap <C-d> ##<ESC>:r! date "+\%H:\%M \%a \%m/\%d/\%Y"<CR>kJ$a<cr>
 imap <C-d> <ESC>:r! date "date +\%Y-\%m-\%d"<CR>kJ$a<cr>
+imap <c-t> [ ] <c-r>=strftime("%Y-%m-%d")<cr> | " todo
+
 
 " mistakes
 cnoreabbrev W! w!
@@ -561,9 +563,7 @@ end
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEMPLATE {{{
 augroup _template
-autocmd BufNewFile ~/src/zettels/[^/]\\\{1,100\}.md 0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh
-autocmd BufNewFile ~/src/zettels/dev/**.md 0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh
-autocmd BufNewFile ~/src/zettels/log/*.md 0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh "$(date +\%Y-\%m-\%d)"
+  autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
 augroup end
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
