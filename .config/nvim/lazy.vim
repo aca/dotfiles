@@ -1,26 +1,5 @@
 " vim: foldmethod=marker
 
-
-
-" " PAQ {{{
-"
-" command PaqInstall call <sid>loadPaq() | :PaqInstall
-" command PaqSync call <sid>loadPaq() | :PaqSync
-" command PaqClean   call <sid>loadPaq() | :PaqClean
-" command PaqUpdate  call <sid>loadPaq() | :PaqUpdate
-"
-" function s:loadPaq()
-"         " if empty(glob('~/.local/share/nvim/site/pack/paqs/opt/paq-nvim'))
-"         "   silent !git clone https://github.com/savq/paq-nvim.git ~/.local/share/nvim/site/pack/paqs/opt/paq-nvim
-"         " endif
-"         packadd paq-nvim
-"
-"         lua << EOF
-" EOF
-"
-" endfunction
-" " }}}
-
 " inkarkat/vim-ReplaceWithRegister {{{
 " [count]["x]gr{motion}   Replace {motion} text with the contents of register x.
 "                         Especially when using the unnamed register, this is
@@ -83,16 +62,6 @@ vnoremap <silent><Leader>r :QuickRun -mode v<cr>
 let g:lion_squeeze_spaces = 1
 packadd vim-lion
 " }}}
-
-packadd plenary.nvim
-
-lua <<EOF
-require '_gitsigns'
-require '_dial'
-require '_zenmode'
-require '_dap'
-require '_paq'
-EOF
 
 " https://github.com/steelsojka/pears.nvim {{{
 " packadd pears.nvim 
@@ -453,3 +422,12 @@ if os.getenv("USER") == "rok" then
 end
 EOF
 " }}}
+
+
+lua <<EOF
+require '_gitsigns'
+require '_dial'
+require '_zenmode'
+require '_dap'
+require '_paq'
+EOF
