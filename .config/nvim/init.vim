@@ -4,8 +4,6 @@
 
 " lua vim.lsp.set_log_level("debug")
 
-let syntax_manual=1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
 let g:_uname = 'macOS' | if has('unix') | let g:_uname = 'Linux' | endif

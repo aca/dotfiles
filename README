@@ -11,6 +11,8 @@ Fix submodules
     git submodule update --force --recursive --init --remote
     git submodule update --init --recursive
 
+    git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'
+
 Neovim
     sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
     make distclean
