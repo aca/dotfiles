@@ -263,12 +263,10 @@ lua require('_lsp')
 " https://github.com/stevearc/aerial.nvim
 " https://github.com/simrat39/symbols-outline.nvim
 " Symbol plugin
-let g:aerial = {
-   \ 'max_width' : 200,
-   \ 'min_width' : 30,
-   \ }
-
-
+" let g:aerial = {
+"    \ 'max_width' : 200,
+"    \ 'min_width' : 30,
+"    \ }
 
 function s:formatter(command)
   packadd neoformat

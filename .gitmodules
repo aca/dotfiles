@@ -55,9 +55,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-lspconfig"]
 	path = .local/share/nvim/site/pack/paqs/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule ".local/share/nvim/site/pack/paqs/start/aerial.nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/aerial.nvim
-	url = https://github.com/stevearc/aerial.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-fish"]
 	path = .local/share/nvim/site/pack/paqs/start/vim-fish
 	url = https://github.com/aca/vim-fish.git
@@ -67,9 +64,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-ts-rainbow"]
 	path = .local/share/nvim/site/pack/paqs/start/nvim-ts-rainbow
 	url = https://github.com/p00f/nvim-ts-rainbow.git
-[submodule ".local/share/nvim/site/pack/paqs/start/playground"]
-	path = .local/share/nvim/site/pack/paqs/start/playground
-	url = https://github.com/nvim-treesitter/playground.git
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-dap"]
 	path = .local/share/nvim/site/pack/paqs/start/nvim-dap
 	url = https://github.com/mfussenegger/nvim-dap.git
@@ -289,3 +283,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/paq-nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/paq-nvim
 	url = https://github.com/savq/paq-nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
+	path = .local/share/nvim/site/pack/paqs/opt/playground
+	url = https://github.com/nvim-treesitter/playground.git

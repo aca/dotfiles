@@ -40,19 +40,17 @@ require "paq" {
     {"justinmk/vim-dirvish"},
     {"hrsh7th/vim-vsnip"},
     {"hrsh7th/nvim-compe"},
-    -- paq {'andersevenrud/compe-tmux'},
+    -- {'andersevenrud/compe-tmux'},
     {"ray-x/lsp_signature.nvim"},
     {"pylance", url = "git@git.sr.ht:~acadx0/pylance"},
     {"neovim/nvim-lspconfig"},
-    {"stevearc/aerial.nvim"},
-    -- paq {'camspiers/snap'},
+    -- {"stevearc/aerial.nvim"},
 
     {"stefandtw/quickfix-reflector.vim", opt = true},
     {"lambdalisue/suda.vim", opt = true},
     {"RREthy/vim-illuminate", opt = true},
     {"arp242/switchy.vim", opt = true},
     {"psliwka/vim-smoothie", opt = true},
-    -- paq 'simrat39/symbols-outline.nvim'
 
     {"tommcdo/vim-lion", opt = true},
     {"machakann/vim-sandwich", opt = true},
@@ -129,11 +127,11 @@ require "paq" {
             vim.api.nvim_command("TSUpdate")
         end},
     {"p00f/nvim-ts-rainbow"},
-    {"nvim-treesitter/playground"},
+    {"nvim-treesitter/playground", opt=true},
     --  DAP
     -- paq {'haringsrob/nvim_context_vt'},
     {"mfussenegger/nvim-dap"},
     {"rcarriga/nvim-dap-ui"},
-    {"theHamsta/nvim-dap-virtual-text"},
+    -- {"theHamsta/nvim-dap-virtual-text"},
     {"ThePrimeagen/git-worktree.nvim", opt = true}
 }
