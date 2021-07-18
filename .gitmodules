@@ -61,9 +61,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-fish"]
 	path = .local/share/nvim/site/pack/paqs/start/vim-fish
 	url = https://github.com/aca/vim-fish.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vim-pandoc-syntax"]
-	path = .local/share/nvim/site/pack/paqs/start/vim-pandoc-syntax
-	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-treesitter"]
 	path = .local/share/nvim/site/pack/paqs/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
@@ -274,9 +271,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/git-worktree.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/git-worktree.nvim
 	url = https://github.com/ThePrimeagen/git-worktree.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/plenary.nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitsigns.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
