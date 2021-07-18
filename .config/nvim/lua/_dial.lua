@@ -8,5 +8,5 @@ require("dial").config.searchlist.normal = {
     "number#decimal#fixed#space",
     "date#[%Y/%m/%d]",
     "markup#markdown#header",
-    "char#alph#small#str",
+    "char#alph#small#str"
 }

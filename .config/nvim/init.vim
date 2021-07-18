@@ -297,14 +297,10 @@ nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
 nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-" nnoremap <silent> gr          :LspSagaFinder<CR>
-
-" lua require'lspsaga.diagnostic'.show_line_diagnostics()
-" nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-" inoremap <silent> <c-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 
 nnoremap <silent> ]d            <cmd>lua vim.lsp.diagnostic.goto_next({wrap = false})<CR>
 nnoremap <silent> [d            <cmd>lua vim.lsp.diagnostic.goto_prev({wrap = false})<CR>
+
 " nnoremap <silent> ;s            <cmd>SymbolsOutline<cr>
 nnoremap <silent> ;s            <cmd>AerialToggle<cr>
 nnoremap <silent> ]s            <cmd>AerialNext<cr>

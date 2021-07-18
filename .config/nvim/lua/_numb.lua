@@ -4,4 +4,4 @@ vim.cmd([[
   packadd numb.nvim
 ]])
 
-require('numb').setup()
+require("numb").setup()
