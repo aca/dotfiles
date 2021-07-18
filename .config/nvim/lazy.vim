@@ -26,6 +26,8 @@ packadd diffview.nvim
 packadd vim-smoothie
 packadd hop.nvim
 packadd clever-f.vim
+let g:tcomment_mapleader_uncomment_anyway=''
+let g:tcomment_mapleader_comment_anyway=''
 packadd tcomment_vim
 packadd vim-fold-cycle
 " packadd vim-oscyank
@@ -403,28 +405,10 @@ require('nvim-autopairs').setup({
 EOF
 " }}}
 
-" treesitter {{{
-lua <<EOF
-if os.getenv("USER") == "rok" then
-  require'nvim-treesitter.configs'.setup{
-    rainbow = {
-      enable = true,
-      extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-      max_file_lines = 200, -- Do not enable for files with more than 1000 lines, int
-    },
-    -- ensure_installed = "all",
-    ensure_installed = "maintained",
-    autopairs = {enable = true},
-    highlight = {
-      enable = true,
-    },
-  }
-end
-EOF
-" }}}
 
 
 lua <<EOF
+require '_treesitter'
 require '_gitsigns'
 require '_dial'
 require '_zenmode'

@@ -11,7 +11,6 @@ require "paq" {
     {"ojroques/vim-oscyank", opt = true},
     -- paq {'glacambre/firenvim', opt=true, run=vim.fn['firenvim#install(0)'] },
     {"tzachar/compe-tabnine", run = "./install.sh"},
-    {"heapslip/vimage.nvim"},
     {"nacro90/numb.nvim", opt = true},
     -- paq {'tyru/columnskip.vim'},
     {"inkarkat/vim-ReplaceWithRegister", opt = true},

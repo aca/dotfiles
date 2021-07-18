@@ -182,12 +182,12 @@ set guifont=Lotion\ Nerd\ Font\ NF:h28
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | packadd vim-oscyank | silent OSCYankReg " | endif
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | packadd vim-oscyank | silent OSCYankReg + | endif
 
-" Lazy load
+" Lazy load {{{
 function! LazyLoad(timer)
   source ~/.config/nvim/lazy.vim
 endfunction
-
 autocmd VimEnter * call timer_start(50, "LazyLoad")
+" }}}
 
 " ap/vim-buftabline {{{
 function s:setup_buftabline()
@@ -372,7 +372,6 @@ nnoremap <c-g> 2<c-g>
 
 " imap <C-d> ##<ESC>:r! date "+\%H:\%M \%a \%m/\%d/\%Y"<CR>kJ$a<cr>
 imap <C-d> <ESC>:r! date "date +\%Y-\%m-\%d"<CR>kJ$a<cr>
-
 
 " mistakes
 cnoreabbrev W! w!
@@ -568,10 +567,9 @@ autocmd BufNewFile ~/src/zettels/log/*.md 0r! ~/src/configs/dotfiles/.config/nvi
 augroup end
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 command GetVisualSelect <c-u>lua print("getvisual")
 xnoremap <leader><leader>a :<C-U> call GetVisualSelection(visualmode())<Cr>
-xnoremap <leader>a :<c-u>lua require('utils').get_visual_selection()<cr>
-vnoremap <leader>a :<c-u>lua require('utils').get_visual_selection()<cr>
 
 " https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
 " https://github.com/neovim/neovim/pull/13896/files " TODO: check updates
