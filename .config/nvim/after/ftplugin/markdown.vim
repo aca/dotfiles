@@ -1,8 +1,8 @@
 " vim:ft=vim et sw=2 foldmethod=marker
 
 setlocal autoindent 
-setlocal tabstop=4 
-setlocal shiftwidth=4 
+setlocal tabstop=2 
+setlocal shiftwidth=2 
 " setlocal textwidth=80 
 setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
@@ -41,9 +41,11 @@ nmap <leader>ip :call mdip#MarkdownClipboardImage()<CR>
 packadd md-img-paste.vim 
 " }}}
 
+" https://github.com/plasticboy/vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
-" packadd vim-markdown
+packadd vim-markdown
+" }}}
 
 set foldexpr=NestedMarkdownFolds()
 
@@ -62,4 +64,3 @@ function UpdateMarkdownDate()
   call setpos(".", save_pos)
 endfunction
 autocmd BufWritePost ~/src/zettels/**.md  call UpdateMarkdownDate()
-" autocmd BufWritePost ~/src/zettels/**.md mark ` | silent! exe '1,4s/^date: .*/date: '. strftime("%Y-%m-%dT%H:%M") | silent! normal ``

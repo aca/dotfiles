@@ -489,7 +489,7 @@ au BufReadPost *.rkt,*.rktl setfiletype scheme
 autocmd BufRead,BufNewFile *.fish setfiletype fish
 
 " https://github.com/vim-pandoc/vim-pandoc-syntax
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 
 augroup quickfix
 	autocmd!

@@ -154,7 +154,7 @@ paq {'aca/vim-fish'}
 -- paq {'ziglang/zig.vim'}
 -- paq {'rust-lang/rust.vim'}
 -- paq {'wlangstroth/vim-racket'}
--- paq {'plasticboy/vim-markdown', opt=true}
+paq {'plasticboy/vim-markdown', opt=true}
 -- paq {'rhysd/vim-gfm-syntax', opt=true} -- markdown
 -- paq {'rhysd/vim-gfm-syntax'} -- markdown
 -- paq {'gabrielelana/vim-markdown', opt=true}
@@ -162,7 +162,7 @@ paq {'aca/vim-fish'}
 -- paq {'masukomi/vim-markdown-folding'}
 -- paq {'rafkaplon/vim-markdown-folding', opt=true}
 -- paq {'plasticboy/vim-markdown', opt=true}
-paq {'vim-pandoc/vim-pandoc-syntax'}
+-- paq {'vim-pandoc/vim-pandoc-syntax'}
 
 paq {'xolox/vim-colorscheme-switcher', opt=true}
 paq {'xolox/vim-misc', opt=true}
