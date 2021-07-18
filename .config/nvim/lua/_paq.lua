@@ -73,7 +73,7 @@ require "paq" {
     {"ferrine/md-img-paste.vim", opt = true},
     {"buoto/gotests-vim", opt = true},
     {"110y/vim-go-expr-completion", opt = true},
-    {"iamcco/markdown-preview.nvim", opt = true, run = "yarn install --cwd app/", url="https://github.com/Alkindi42/markdown-preview.nvim.git"},
+    {"iamcco/markdown-preview.nvim", opt = true, run = "yarn install --cwd app/"},
     -- paq {'tpope/vim-markdown', opt=true},
     {"tweekmonster/startuptime.vim", opt = true},
     -- https://github.com/Pocco81/TrueZen.nvim

@@ -283,3 +283,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
 	path = .local/share/nvim/site/pack/paqs/opt/playground
 	url = https://github.com/nvim-treesitter/playground.git
+[submodule ".local/share/nvim/site/pack/paqs/start/vidir.nvim"]
+	path = .local/share/nvim/site/pack/paqs/start/vidir.nvim
+	url = https://github.com/aca/vidir.nvim.git
