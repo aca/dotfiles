@@ -21,4 +21,4 @@ rock=(
   "https://www.youtube.com/watch?v=G8nzGfsoJ3g"
 )
 
-tmux split-window -t bg -- mpv --no-video --term-playing-msg='Title: ${media-title}' "${playlists[@]}" 
+tmux split-window -t bg -- mpv --no-video --input-ipc-server=/tmp/mpvsocket --term-playing-msg='Title: ${media-title}' "${playlists[@]}" 
