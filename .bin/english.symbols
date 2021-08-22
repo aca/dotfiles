@@ -1,0 +1,35 @@
+#!/bin/sh
+# http://weih.github.io/symbolinenglish/
+fzf --header-lines=2 << \EOF
+Symbol 	English                                	
+~      	tilde                                  	
+`      	grave accent, backquote, backtick      	
+!      	exclamation mark, bang                 	
+@      	at                                     	
+#      	hash, hash tag, pound, octothorpe      	
+$      	dollar sign                            	
+%      	percent, mod                           	
+^      	caret, hat                             	
+&      	ampersand, and                         	
+*      	star, wildcard, asterisk               	
+( )    	parentheses, brackets                  	
+{ }    	curly brackets, braces                 	
+[ ]    	square brackets                        	
+-      	dash, hyphen, minus                    	
+_      	underscore                             	
+=      	equal                                  	
++      	plus, addition                         	
+|      	pipe, vertical bar                     	
+/      	slash, over, forward slash             	
+\      	backslash                              	
+:      	colon                                  	
+;      	semicolon                              	
+"      	quotation mark, quotes                 	
+'      	single quotes, apostrophe              	
+.      	period, dot, full stop                 	
+,      	comma                                  	
+<      	angle bracket, less than               	
+>      	angle bracket, more than, greater than 	
+?      	question mark                          	
+'
+EOF

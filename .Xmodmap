@@ -1,0 +1,17 @@
+! keycode
+!   xmodmap -pke 
+! activate
+!   xmodmap ~/.Xmodmap
+
+clear lock
+clear control
+keycode 66 = Control_L NoSymbol Control_L
+keycode 37 = Escape NoSymbol Escape
+add control = Control_L Control_R
+
+clear mod1
+clear mod4
+keycode 64 = Super_L NoSymbol Super_L
+keycode 133 = Super_L NoSymbol Super_L
+add mod1 = Alt_L Alt_R Meta_L
+add mod4 = Super_L Super_R Hyper_L

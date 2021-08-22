@@ -1,0 +1,15 @@
+#!/bin/bash
+
+read -r x y width height <<< $(bspc query -T -n | jq -r '.client.floatingRectangle | .x , .y, .width, .height'| tr '\n' ' ')
+read -r m_x m_y m_width m_height <<< $(bspc query -T -d | jq '.root.rectangle | .x , .y, .width, .height'| tr '\n' ' ')
+
+let "move_x = $m_x - $x +200"
+let "move_y = $m_y - $y +25"
+let "d_width = $m_width - $width - 400"
+let "d_height = $m_height - $height - 50"
+
+bspc node -z right $d_width 0
+bspc node -z bottom 0 $d_height
+
+bspc node -v $move_x $move_y
+

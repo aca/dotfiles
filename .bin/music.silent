@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+tmux new -s bg -d
+
+playlists=(
+ "https://www.youtube.com/watch?v=-g04TAjTv3Y" 
+ "https://www.youtube.com/watch?v=3e-QfQrjcqA" 
+ "https://www.youtube.com/watch?v=y5paOQU66hg"
+ "https://www.youtube.com/watch?v=Mfq3Tw2C1Ww"
+ "https://www.youtube.com/watch?v=9nuvr8cTq48"
+ "https://www.youtube.com/watch?v=J87xiphH_u0"
+ "https://www.youtube.com/watch?v=g732gm4Sr1U"
+ "https://www.youtube.com/watch?v=FNef-MexwBk"
+ "https://www.youtube.com/watch?v=qyqiu0U421U"
+)
+
+epic=(
+  "https://www.youtube.com/watch?v=iceS6BvhuQ8"
+  "https://www.youtube.com/watch?v=aVMkvCTT_yg"
+
+)
+
+rock=(
+  "https://www.youtube.com/watch?v=G8nzGfsoJ3g"
+  "https://www.youtube.com/watch?v=lFFV3iBSSJ0"
+)
+
+balladd=(
+  "https://www.youtube.com/watch?v=Tw_u7M_-oj8"
+)
+
+
+tmux split-window -t bg -- mpv --no-video --input-ipc-server=/tmp/mpvsocket --term-playing-msg='Title: ${media-title}' "${playlists[@]}" 
+# tmux split-window -t bg -- $SHELL -c "cat ~/src/playlists/latte | shuf | mpv --no-video --input-ipc-server=/tmp/mpvsocket --term-playing-msg='Title: ${media-title}' --playlist=- "

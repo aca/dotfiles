@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+cd ~/.config/mpv/scripts
+ln -svf --relative /home/rok/src/github.com/VideoPlayerCode/mpv-tools/scripts/cycle-video-rotate.lua
+ln -svf --relative /home/rok/src/github.com/zenyd/mpv-scripts/delete_file.lua
+ln -svf --relative /home/rok/src/github.com/jonniek/mpv-playlistmanager/playlistmanager.lua
+
+cd ~/.config/mpv/script-opts
+ln -svf --relative /home/rok/src/github.com/jonniek/mpv-playlistmanager/playlistmanager.conf

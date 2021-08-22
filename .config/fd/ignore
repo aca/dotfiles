@@ -1,0 +1,10 @@
+vendor
+.git
+.stfolder
+.sync
+node_modules
+.DocumentRevisions-V100
+.cache
+.Trash-502
+.parcel-cache
+dist

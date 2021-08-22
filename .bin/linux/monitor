@@ -1,0 +1,24 @@
+#!/usr/bin/env fish
+
+# set monitor (xrandr | grep '\bconnected' | cut -d' ' -f1)
+# echo $monitor
+#
+# # activate monitor
+# # for m in ( xrandr | grep 'connected' | cut -d' ' -f1 ); xrandr --output $m --auto; end
+#
+# # position monitor
+# switch (count $monitor)
+#   case 1
+#     # xrandr --output eDP-1 --primary --mode 2560x1440 --pos 1920x1440 --rotate normal
+#   case 2
+#     # xrandr --output eDP-1 --primary --mode 2560x1440 --pos 1920x1440 --rotate normal \
+#     #   --output $monitor[2] --mode 2560x1440 --pos 692x0 --rotate normal || \
+#     # xrandr --output eDP-1 --primary --mode 2560x1440 --pos 1920x1440 --rotate normal \
+#     #   --output $monitor[2]  --mode 1920x1080 --pos 3252x360 --rotate normal
+#   case 3
+#     # xrandr --output eDP-1 --primary --mode 2560x1440 --pos 838x2280 --rotate normal \
+#     #   --output $monitor[3] --mode 2560x1440 --pos 838x840 --rotate normal \
+#     #   --output $monitor[2] --mode 1920x1080 --pos 3398x840 --rotate left
+# end
+
+bash ~/.config/bspwm/bspwmrc

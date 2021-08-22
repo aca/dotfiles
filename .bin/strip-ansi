@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# https://stackoverflow.com/questions/17998978/removing-colors-from-output
+
+if command -v gsed 1>/dev/null 2>/dev/null; then
+  gsed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"
+else
+  sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"
+fi
+
+
+

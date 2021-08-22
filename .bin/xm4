@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+xdg-open "https://search.shopping.naver.com/search/all?exagency=true&exrental=true&exused=true&frm=NVSHPRC&maxPrice=300000&minPrice=230700&origQuery=wf-1000xm4&pagingIndex=1&pagingSize=40&productSet=total&query=wf-1000xm4&sort=rel&timestamp=&viewType=list"

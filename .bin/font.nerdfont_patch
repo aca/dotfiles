@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -xeuo pipefail
+
+python3 ~/src/github.com/ryanoasis/nerd-fonts/font-patcher --complete $1 -out $(pwd)

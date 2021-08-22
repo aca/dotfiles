@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  :
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # mkdir -p $HOME/tmp/capture
+  suffix=$(date +%Y%m%d_T%H%M%S)
+  screencapture -i capture_$suffix.png
+fi
+
+

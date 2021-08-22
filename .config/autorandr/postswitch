@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
+
+# reset key
+bash ~/.config/bspwm/bspwmrc
+/home/rok/.bin/key.xmodmap_reset
+
+# feh --bg-fill ~/Downloads/images/39428b58da0c76276ec27f1038331f19.jpg --bg-fill ~/Downloads/images/092ef4380dfd31515c342ad36395400a.png --bg-fill ~/Downloads/images/M3hqBT9x_o.jpg

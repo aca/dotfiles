@@ -1,0 +1,11 @@
+#!/usr/bin/env fish
+# 
+# cleanup completed torrents(without deleting files)
+# https://github.com/qbittorrent/qBittorrent/wiki/Web-API-Documentation
+
+export DISPLAY=':0'
+
+for i in (curl -s "localhost:4321/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != '-32400') | .hash')
+  noti -t "qbittorrent: complete" -m (curl -s "localhost:4321/api/v2/torrents/info?hashes=$i" | jq -r .[].name)
+  curl "http://localhost:4321/api/v2/torrents/delete?hashes=$i&deleteFiles=false"
+end

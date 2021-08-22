@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SHELL=$(which fish)
+export fish_history=''
+rm "$1.cast" "$1.gif"
+asciinema rec "$1.cast"  && asciicast2gif "$1.cast" "$1.gif" 

@@ -1,0 +1,29 @@
+set bell-style visible
+
+# By default, if filename completion is performed on a symbolic link pointing
+# to a directory, append a slash.
+set mark-symlinked-directories
+
+# Hit tab to show a list of possible completions, ignoring case>
+set completion-ignore-case
+set show-all-if-ambiguous
+set visible-stats
+
+# Using the Up/Down arrow keys.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Enable 8-bit input (do not strip 8th bit from input).
+set meta-flag
+
+# Synonym for meta-flag.
+set input-meta
+
+# Display 8-bit characters directly (rather than as a meta-prefixed escape sequence).
+set output-meta
+
+# Do not convert 8-bit characters into ASCII key sequences.
+set convert-meta off
+ 
+set vi-ins-mode-string \033[1;31m<(ins)>\033[0m \1\e[5 q\2
+set vi-cmd-mode-string \033[1;30m<(cmd)>\033[0m \1\e[1 q\2

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# set -euxo pipefail
+
+sudo /usr/bin/prime-switch
+startx
+# prime-offload

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+target=$1
+
+pandoc $target \
+  --output $(basename $target .md).html \
+  --css ~/src/github.com/otsaloma/markdown-css/tufte.css \
+  --highlight-style haddock \
+  --self-contained

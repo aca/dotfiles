@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cd ~/src/zettels/dev/commands
+
+$EDITOR $(fzf --preview 'cat {}' '--preview-window=right:75%')
+
+

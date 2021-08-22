@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+docker run -p 8084:8084 -p 9000:9000 \
+    --name halyard --rm \
+    -v ~/.hal:/home/spinnaker/.hal \
+    -it \
+    us-docker.pkg.dev/spinnaker-community/docker/halyard:stable

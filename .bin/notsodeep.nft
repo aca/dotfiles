@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+tmpfile=$(mktemp)
+echo $tmpfile
+cat >> $tmpfile << EOF
+# Translated by iptables-restore-translate v1.8.7 on Sat Aug 14 17:31:46 2021
+add table ip raw
+add chain ip raw PREROUTING { type filter hook prerouting priority -300; policy accept; }
+add chain ip raw OUTPUT { type filter hook output priority -300; policy accept; }
+add rule ip raw PREROUTING tcp sport 80 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
+add table ip nat
+add chain ip nat PREROUTING { type nat hook prerouting priority -100; policy accept; }
+add chain ip nat INPUT { type nat hook input priority 100; policy accept; }
+add chain ip nat OUTPUT { type nat hook output priority -100; policy accept; }
+add chain ip nat POSTROUTING { type nat hook postrouting priority 100; policy accept; }
+add table ip filter
+add chain ip filter INPUT { type filter hook input priority 0; policy accept; }
+add chain ip filter FORWARD { type filter hook forward priority 0; policy drop; }
+add chain ip filter OUTPUT { type filter hook output priority 0; policy accept; }
+# add chain ip filter ts-forward
+# add chain ip filter ts-input
+add rule ip filter INPUT tcp sport 443 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
+# Completed on Sat Aug 14 17:31:46 2021
+EOF
+
+sudo nft -f $tmpfile

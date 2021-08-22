@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+pushd . >/dev/null
+mkdir -p ~/src/zettels/log 2>/dev/null || true
+cd ~/src/zettels/log
+
+$EDITOR "$(date '+%Y-%m-%d').md"
+
+popd 2>/dev/null

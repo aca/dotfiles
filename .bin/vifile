@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# vidir all
+
+fd --type f | sort -n | vidir -

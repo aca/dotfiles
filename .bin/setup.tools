@@ -1,0 +1,57 @@
+#!/bin/bash
+set -o errexit
+set -o pipefail
+set -o nounset
+set -o xtrace
+
+# tpm
+[[ -d "$HOME/.tmux" ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# oh-my-zsh
+[[ -d "$HOME/.oh-my-zsh" ]] ||  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+gem install colorls
+gem install neovim
+
+go get -u mvdan.cc/sh/cmd/shfmt
+go get -u github.com/ericchiang/pup
+go get -u github.com/kisielk/errcheck
+go get -u github.com/rogpeppe/gohack
+go get -u github.com/cweill/gotests/...
+
+[[ "$OSTYPE" == "darwin"* ]] && npm install -g bundle-id-cli@latest
+npm install -g npm@latest
+npm install -g tldr@latest
+npm install -g neovim@latest
+npm install -g typescript@latest
+npm install -g bash-language-server@latest
+npm install -g curlconverter@latest
+npm install -g swagger-ui-watcher@latest
+npm install -g vscode-css-languageserver-bin@latest
+npm install -g dockerfile-language-server-nodejs@latest
+npm install -g vscode-html-languageserver-bin@latest
+npm install -g yaml-language-server@latest
+npm install -g vscode-json-languageserver@latest
+npm install -g vim-language-server@latest
+npm install -g typescript-language-server@latest
+npm update -g
+
+npm install -g parcel@next
+asdf reshim
+
+pip3 install --upgrade BeautifulSoup4
+pip3 install --upgrade requests
+pip3 install --upgrade lxml
+pip3 install --upgrade cfscrape
+pip3 install --upgrade youtube-dl
+
+pip3 install --upgrade neovim
+pip3 install --upgrade pynvim
+pip3 install --upgrade ansible
+pip3 install --upgrade ipython
+pip3 install --upgrade jupyterlab
+pip3 install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
+[[ "$HOSTNAME" == *"kakao"* ]] && pip3 install --upgrade python-openstackclient
+[[ "$HOSTNAME" == *"kakao"* ]] && pip3 install --upgrade neutron-lbaas
+
+pip install -U $(pip freeze | awk '{split($0, a, "=="); print a[1]}')

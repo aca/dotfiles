@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  printf "%s" $(iwgetid -r)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "$(networksetup -getairportnetwork en0 | cut -c 24-)"
+fi
+
+

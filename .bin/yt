@@ -1,0 +1,17 @@
+#!/usr/bin/env fish
+
+pueue group -a yt 2>/dev/null
+pueue parallel -g yt 2 2>/dev/null
+
+if [ ( string length -- "$argv" ) -eq 11 ]
+  echo "from id"
+  command pueue add -g yt -- youtube-dl "$argv"
+  # command youtube-dl "$argv"
+  exit $status
+end
+
+set cb (pbpaste)
+echo $cb
+
+command pueue add -g yt -- youtube-dl --yes-playlist "'"(pbpaste)"'"
+exit $status

@@ -1,0 +1,205 @@
+" vim: ft=vim
+
+" https://github.com/vifm/vifm/blob/master/data/vifmrc
+" https://github.com/vifm/vifm/blob/master/data/vifmrc-osx
+
+only
+
+" source ~/src/configs/dotfiles/.config/vifm/favicons.vifm
+
+if $VIM == ""
+  set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"
+else
+  set milleroptions="lsize:1,csize:2,rsize:3,rpreview:all"
+endif
+
+if executable('/usr/local/bin/fish')
+  let $SHELL="/usr/local/bin/fish"
+elseif executable('/usr/bin/fish')
+  let $SHELL="/usr/bin/fish"
+endif
+
+if executable('osascript')
+  source ~/.config/vifm/vifmrc-osx
+else
+  source ~/.config/vifm/vifmrc-linux
+endif
+
+
+nnoremap mv :move<cr>
+nnoremap rn :!vidir<cr>
+
+nnoremap b :bmgo<cr>
+delmarks!
+bmark! /mnt/ mount
+mark m /mnt/
+mark p ~/src/play/
+bmark! ~/src/play/ play
+mark a ~/archive/
+bmark! ~/archive/ archive
+mark b ~/archive/books/
+bmark! ~/archive/books/ books
+mark h ~/
+mark r /
+
+
+" toggle dotfiles
+nnoremap ;h :set dotfiles!<cr>
+
+" vs
+" tree!
+" view
+
+
+
+set millerview
+" set milleroptions="lsize:1,csize:2,rsize:0"
+set dotfiles "hidden
+
+nnoremap <space> tj
+nnoremap <C-s> :sync %d<cr>
+nnoremap <esc> ZZ
+nnoremap <C-c> ZZ
+
+nnoremap DD delete!
+
+
+command! treevs :tree  | vs | view!
+command! mview  :tree! | only
+nnoremap t :if getpanetype() == "tree" | mview | else | treevs | endif<cr>
+
+
+" ------------------------------------------------------------------------------
+set vicmd=nvim
+set syscalls
+set trash
+set history=50
+set nofollowlinks
+set fastrun
+set sortnumbers
+set undolevels=50
+set vimhelp
+set norunexec
+set timefmt=%m/%d\ %H:%M
+set wildmenu
+set wildstyle=popup
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+set ignorecase
+set smartcase
+set nohlsearch
+set incsearch
+set scrolloff=4
+if !has('win')
+    set slowfs=curlftpfs
+endif
+set statusline="%= %A %10u:%-7g %15s %20d  "
+
+mark h ~/
+mark r /
+mark d ~/Downloads
+mark s ~/src
+
+
+" :com[mand][!] command_name action
+" The following macros can be used in a command
+" %a is replaced with the user arguments.
+" %c the current file under the cursor.
+" %C the current file under the cursor in the other directory.
+" %f the current selected file, or files.
+" %F the current selected file, or files in the other directory.
+" %b same as %f %F.
+" %d the current directory name.
+" %D the other window directory name.
+" %m run the command in a menu window
+
+command! df df -h %m 2> /dev/null
+command! diff vim -d %f %F
+" command! zip zip -r %f.zip %f
+command! run !! ./%f
+command! make !!make %a
+command! mkcd :mkdir %a | cd %a
+command! vgrep vim "+grep %a"
+command! reload :write | restart
+
+set vifminfo=dhistory,chistory,state,tui,shistory,
+    \phistory,fhistory,dirstack,registers,bookmarks,bmarks
+
+nnoremap s :shell<cr>
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+
+
+
+" Start shell in current directory
+nnoremap s :shell<cr>
+
+" Display sorting dialog
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" Open file in new MacVim tab
+" nnoremap o :!mvim --remote-tab-silent %f<cr>
+nnoremap e :!nvim %f<cr>
+" Open file in new MacVim window
+nnoremap O :!mvim %f<cr>
+
+" Open file in the background using its default program
+nnoremap gb :!open -g %f<cr>
+
+" Yank current file path into the clipboard
+nnoremap yp :!printf \'%c:p\' | pbcopy<cr>
+
+" View preview in Quick Look
+" nnoremap <space> :!qlmanage -p %f > /dev/null 2>&1<cr>
+
+" Mappings for faster renaming
+nnoremap I cw<c-a>
+nnoremap cc cw<c-u>
+nnoremap A cw
+
+" Open editor to edit vifmrc and apply settings after returning to vifm
+nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
+" Open MacVim to edit vifmrc
+nnoremap ,C :!mvim --remote-tab-silent $MYVIFMRC &<cr>
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+" Midnight commander alike mappings
+" Open current directory in the other pane
+nnoremap <c-s> :sync %c<cr>
+" Open directory under cursor in the other pane
+nnoremap <a-o> :sync %c<cr>
+" Swap panes
+" nnoremap <c-u> <c-w>x
+
+
+nnoremap q :q<cr>
+
+colorscheme gruvbox
+
+" " highlight Win cterm=none ctermfg=255 ctermbg=234
+" " highlight Directory cterm=bold ctermfg=109 ctermbg=default
+" " highlight Link cterm=bold ctermfg=216 ctermbg=234
+" " highlight BrokenLink cterm=bold ctermfg=red ctermbg=239
+" " highlight Socket cterm=bold ctermfg=magenta ctermbg=default
+" " highlight Device cterm=bold ctermfg=red ctermbg=default
+" " highlight Fifo cterm=bold ctermfg=cyan ctermbg=default
+" " highlight Executable cterm=none ctermfg=150 ctermbg=default
+" highlight Selected cterm=bold ctermfg=125 ctermbg=231
+" " highlight CurrLine cterm=reverse
+" highlight TopLine cterm=none ctermfg=255 ctermbg=none
+" highlight TopLineSel cterm=bold ctermfg=110 ctermbg=default
+" " highlight StatusLine cterm=none ctermfg=240 ctermbg=235
+" " highlight WildMenu cterm=underline,reverse ctermfg=255 ctermbg=black
+" " highlight CmdLine cterm=none ctermfg=255 ctermbg=234
+" " highlight ErrorMsg cterm=none ctermfg=203 ctermbg=234
+" highlight Border cterm=none ctermfg=black ctermbg=none
+" " highlight JobLine cterm=bold,reverse ctermfg=black ctermbg=255
+" " highlight SuggestBox cterm=bold ctermfg=default ctermbg=default
+" " highlight CmpMismatch cterm=bold ctermfg=255 ctermbg=red
+" " highlight AuxWin cterm=bold,underline,reverse,standout ctermfg=default ctermbg=default

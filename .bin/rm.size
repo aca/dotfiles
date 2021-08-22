@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+if [ (count $argv) -ne 1 ]; exit 1; end
+fd --type f --size $argv[1] -x command rm -v

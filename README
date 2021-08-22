@@ -1,0 +1,28 @@
+dotfiles
+========
+
+Setup
+
+    git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+    bash ~/src/configs/dotfiles/.bin/setup.stow
+
+Fix submodules 
+
+    git submodule update --force --recursive --init --remote
+    git submodule update --init --recursive
+
+    git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'
+
+Neovim
+    sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
+    make distclean
+    make -j4
+    sudo make install
+
+# unbinds all submodules
+git submodule deinit -f .
+# checkout again
+git submodule update --init --recursive
+# update
+git submodule update --recursive --remote
+

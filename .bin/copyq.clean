@@ -1,0 +1,3 @@
+#!/bin/sh
+
+copyq remove $(seq 0 5000)
