@@ -719,4 +719,4 @@ command! DiffVifm packadd vifm.vim | :DiffVifm
 " let g:indent_blankline_space_char = ' '
 " let g:indentLine_fileTypeExclude = ['help', 'txt', 'markdown']
 " packadd indent-blankline.nvim
-"
+packadd vim-scriptease

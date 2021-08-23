@@ -80,7 +80,7 @@ set termguicolors " norcalli/nvim-colorizer.lua need this
 
 " number, toggle with ;n, performance issue
 " set ruler
-set nonumber
+set number
 set norelativenumber
 
 " tab
@@ -242,9 +242,8 @@ let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
 
 lua require('_lsp')
 
-function! LazyVim(_)
+function! LazyLoad(_)
   source ~/.config/nvim/lazy.vim
 endfunction
-autocmd VimEnter * call timer_start(25, "LazyVim")
+autocmd VimEnter * call timer_start(25, "LazyLoad")
 " }}}
-

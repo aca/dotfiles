@@ -6,6 +6,9 @@ vim.cmd([[
 ]])
 
 require("zen-mode").setup {
+  window = {
+          number = true,
+  },
   plugins = {
       gitsigns = { enabled = true },
     },

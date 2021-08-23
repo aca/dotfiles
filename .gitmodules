@@ -331,3 +331,12 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/indent-blankline.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-tmux-navigator"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-tmux-navigator
+	url = https://github.com/aca/vim-tmux-navigator.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-scriptease"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-scriptease
+	url = https://github.com/tpope/vim-scriptease.git
+[submodule ".submodules/lume"]
+	path = .submodules/lume
+	url = https://github.com/rxi/lume.git

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source _utils.sh
+
+if linux; then
+  echo "its' linux"
+fi
+
+if darwin; then
+  echo "its' mac"
+fi
+
+# google-chrome --headless --disable-gpu --print-to-pdf=file1.pdf http://www.example.com/
