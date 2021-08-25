@@ -207,6 +207,8 @@ cmp.setup {
     end
   },
 
+  preselect = cmp.PreselectMode.None,
+
   completion = {
     -- completeopt = 'menu,menuone,noselect',
     completeopt = 'menu,menuone,noinsert',

@@ -29,6 +29,7 @@ packadd nvim-lspinstall
 packadd diffview.nvim
 packadd vim-smoothie
 packadd hop.nvim
+lua require'hop'.setup()
 " packadd clever-f.vim
 
 let g:tcomment_mapleader_uncomment_anyway=''
@@ -209,7 +210,7 @@ command Luapad packadd nvim-luapad | :Luapad
 " }}}
 
 " phaazon/hop.nvim {{{
-" nmap <silent><Leader>w :HopWord<cr>
+nmap <silent><Leader>w :HopWord<cr>
 " }}}
 
 
