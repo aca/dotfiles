@@ -5,8 +5,7 @@ local configs = require "lspconfig/configs"
 --   let g:loaded_compe_tabnine = 1
 -- endif
 
--- vim.opt.completeopt = {"menuone", "noselect", "menu"}
-vim.opt.completeopt = {"menuone", "menu", "noselect"}
+-- vim.opt.completeopt = {"menu", "menuone", "noselect"}
 -- menuone,noselect,menu
 
 --  compe
@@ -209,26 +208,28 @@ cmp.setup {
   },
 
   completion = {
-    completeopt = 'menu,menuone,noselect',
+    -- completeopt = 'menu,menuone,noselect',
+    completeopt = 'menu,menuone,noinsert',
   },
 
     -- You must set mapping.
     mapping = {
-      ['<C-p>'] = cmp.mapping.prev_item(),
-      ['<C-n>'] = cmp.mapping.next_item(),
-      ['<C-d>'] = cmp.mapping.scroll(-4),
-      ['<C-f>'] = cmp.mapping.scroll(4),
+      ['<C-p>'] = cmp.mapping.select_prev_item(),
+      ['<C-n>'] = cmp.mapping.select_next_item(),
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
       ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
+        select = true,
       })
     },
 
   -- You should specify your *installed* sources.
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'calc' },
     { name = 'vsnip' }
   },
 }

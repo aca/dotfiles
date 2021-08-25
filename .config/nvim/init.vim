@@ -1,6 +1,6 @@
 " vim: foldmethod=marker
 
-" lua vim.lsp.set_log_level("debug")
+lua vim.lsp.set_log_level("debug")
 "
 " TODO
 " https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/

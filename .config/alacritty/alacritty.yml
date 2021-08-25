@@ -3,7 +3,7 @@ env:
 window:
   padding:
     x: 10
-    y: 0
+    y: 5
 
   dynamic_padding: true
   decorations: none

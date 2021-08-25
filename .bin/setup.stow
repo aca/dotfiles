@@ -7,6 +7,7 @@ cd ~/src/configs
 rmf() { rm -vrf "$@" || true; }
 
 emptyDir() { rmf "$1"; mkdir -p "$1"; }
+ensureDir() { mkdir -p "$1" || true }
 
 commandExists() { command -v "$@" > /dev/null 2>&1; }
 
@@ -99,6 +100,7 @@ rmf ~/.config/systemd/user/*.service
 mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
 mkdir -p $HOME/.kube
+
 
 emptyDir ~/.local/share/nvim/site/pack/paqs
 # ls dotfiles/.local/share/nvim/site/pack/paqs/opt/ | xargs -I{} mkdir -p ~/.local/share/nvim/site/pack/paqs/opt/{}
