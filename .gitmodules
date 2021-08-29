@@ -306,10 +306,10 @@
 	url = https://github.com/nvim-lua/popup.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/telescope.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/telescope.nvim
-	url = git@github.com:nvim-telescope/telescope.nvim.git
+	url = https://github.com/nvim-telescope/telescope.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dirdiff"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-dirdiff
-	url = git@github.com:will133/vim-dirdiff.git
+	url = https://github.com/will133/vim-dirdiff.git
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-cmp"]
 	path = .local/share/nvim/site/pack/paqs/start/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git
