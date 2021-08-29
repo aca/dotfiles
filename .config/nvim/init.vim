@@ -1,7 +1,10 @@
 " vim: foldmethod=marker
 
-lua vim.lsp.set_log_level("debug")
-"
+" lua vim.lsp.set_log_level("debug")
+
+" TODO https://github.com/lewis6991/impatient.nvim
+lua require('impatient')
+
 " TODO
 " https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 " https://github.com/dccsillag/magma-nvim
@@ -247,3 +250,7 @@ function! LazyLoad(_)
 endfunction
 autocmd VimEnter * call timer_start(25, "LazyLoad")
 " }}}
+"
+" https://github.com/mhinz/vim-galore/blob/master/README.md#saner-command-line-history
+cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
+cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"

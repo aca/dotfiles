@@ -5,14 +5,10 @@ cd ~/src/configs
 
 # funcs {{{
 rmf() { rm -vrf "$@" || true; }
-
 emptyDir() { rmf "$1"; mkdir -p "$1"; }
 ensureDir() { mkdir -p "$1" || true; }
-
 commandExists() { command -v "$@" > /dev/null 2>&1; }
-
 isLinux() { if [[ "$OSTYPE" == "linux-gnu"* ]]; then return 0; else return 1; fi; }
-
 isDarwin() { if [[ "$OSTYPE" == "darwin"* ]]; then return 0; else return 1; fi; }
 # }}}
 
@@ -100,17 +96,14 @@ rmf ~/.config/systemd/user/*.service
 mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
 mkdir -p $HOME/.kube
-
-
 emptyDir ~/.local/share/nvim/site/pack/paqs
-# ls dotfiles/.local/share/nvim/site/pack/paqs/opt/ | xargs -I{} mkdir -p ~/.local/share/nvim/site/pack/paqs/opt/{}
-# ls dotfiles/.local/share/nvim/site/pack/paqs/start/ | xargs -I{} mkdir -p ~/.local/share/nvim/site/pack/paqs/start/{}
-
 # }}}
 
-if commandExists zoxide; then zoxide init fish > dotfiles/.config/fish/zoxide.fish ; fi
+# plugins {{{
+commandExists zoxide && zoxide init fish > dotfiles/.config/fish/zoxide.fish
+# }}}
 
-# Stow {{{
+# stow {{{
 stow -v --target $HOME "dotfiles"
 
 # stow host specific dotfiles
@@ -119,3 +112,4 @@ if [[ -d "dotfiles.$(hostname)" ]]; then
   rmf ~/.config/gcloud
   sudo stow -v --target / "dotfiles.$(hostname)"
 fi
+# }}}

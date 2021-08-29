@@ -234,7 +234,7 @@
 	url = https://github.com/lewis6991/gitsigns.nvim
 [submodule ".local/share/nvim/site/pack/paqs/start/pylance"]
 	path = .local/share/nvim/site/pack/paqs/start/pylance
-	url = https://git.sr.ht/~acadx0/pylance
+	url = https://git.sr.ht/~acadx0/pylance.git
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
@@ -243,7 +243,7 @@
 	url = https://github.com/lwilletts/mpvc.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-markdown"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-markdown
-	url = https://github.com/plasticboy/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown.git
 [submodule ".local/share/nvim/site/pack/paqs/start/plenary.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
@@ -258,37 +258,37 @@
 	url = https://github.com/aca/vidir.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dadbod-ui"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-dadbod-ui
-	url = https://github.com/kristijanhusak/vim-dadbod-ui
+	url = https://github.com/kristijanhusak/vim-dadbod-ui.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dadbod"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-dadbod
-	url = https://github.com/tpope/vim-dadbod
+	url = https://github.com/tpope/vim-dadbod.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-jqplay"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-jqplay
-	url = https://github.com/bfrg/vim-jqplay
+	url = https://github.com/bfrg/vim-jqplay.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/pfp-vim"]
 	path = .local/share/nvim/site/pack/paqs/opt/pfp-vim
 	url = https://github.com/d0c-s4vage/pfp-vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-characterize"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-characterize
-	url = https://github.com/tpope/vim-characterize
+	url = https://github.com/tpope/vim-characterize.git
 [submodule ".submodules/zoxide"]
 	path = .submodules/zoxide
-	url = https://github.com/ajeetdsouza/zoxide
+	url = https://github.com/ajeetdsouza/zoxide.git
 [submodule ".submodules/kube-tmux"]
 	path = .submodules/kube-tmux
-	url = https://github.com/jonmosco/kube-tmux
+	url = https://github.com/jonmosco/kube-tmux.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-eunuch"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-eunuch
-	url = https://github.com/tpope/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-lspinstall"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-lspinstall
-	url = https://github.com/kabouzeid/nvim-lspinstall
+	url = https://github.com/kabouzeid/nvim-lspinstall.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/due.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/due.nvim
 	url = https://github.com/NFrid/due.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-treesitter"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-ts-rainbow"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-ts-rainbow
 	url = https://github.com/p00f/nvim-ts-rainbow.git
@@ -318,13 +318,13 @@
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-vsnip"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-vsnip
-	url = https://github.com/hrsh7th/cmp-vsnip
+	url = https://github.com/hrsh7th/cmp-vsnip.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/indentLine"]
 	path = .local/share/nvim/site/pack/paqs/opt/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/indent-blankline.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/indent-blankline.nvim
-	url = https://github.com/lukas-reineke/indent-blankline.nvim
+	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-tmux-navigator"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-tmux-navigator
 	url = https://github.com/aca/vim-tmux-navigator.git
@@ -336,10 +336,13 @@
 	url = https://github.com/rxi/lume.git
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-calc"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-calc
-	url = https://github.com/hrsh7th/cmp-calc
+	url = https://github.com/hrsh7th/cmp-calc.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-vsnip"]
 	path = .local/share/nvim/site/pack/paqs/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip.git
 [submodule "vim-tmux-navigator"]
 	path = .tmux/plugins/vim-tmux-navigator
 	url = https://github.com/aca/vim-tmux-navigator.git
+[submodule ".local/share/nvim/site/pack/paqs/start/impatient.nvim"]
+	path = .local/share/nvim/site/pack/paqs/start/impatient.nvim
+	url = https://github.com/lewis6991/impatient.nvim.git
