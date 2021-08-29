@@ -346,3 +346,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/impatient.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/impatient.nvim
 	url = https://github.com/lewis6991/impatient.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/gitlinker.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/gitlinker.nvim
+	url = https://github.com/ruifm/gitlinker.nvim.git

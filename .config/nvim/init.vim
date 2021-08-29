@@ -1,11 +1,16 @@
 " vim: foldmethod=marker
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OPT(dev){{{
 " lua vim.lsp.set_log_level("debug")
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" TODO https://github.com/lewis6991/impatient.nvim
+" TODO 
+" https://github.com/lewis6991/impatient.nvim
+" should be removed when merged to neovim core
 lua require('impatient')
 
-" TODO
+" TODO jupyter integration
 " https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 " https://github.com/dccsillag/magma-nvim
 
@@ -44,8 +49,8 @@ set listchars=tab:\ ──,space:·,nbsp:␣,trail:•,eol:↵,precedes:«,exten
 set showbreak=⤷\ 
 
 " fold
-" set foldlevel=0 " close all folds
-set foldlevel=99 " open all folds
+set foldlevel=0 " close all folds
+" set foldlevel=99 " open all folds
 set foldnestmax=3
 set updatetime=1000
 set foldmethod=marker
@@ -223,10 +228,11 @@ autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.conf
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" force lazy load with timer
 function! LazyLoad(_)
   source ~/.config/nvim/lazy.vim
 endfunction
-autocmd VimEnter * call timer_start(25, "LazyLoad")
-" }}}
+autocmd VimEnter * call timer_start(0, "LazyLoad")
 
+" NOTE: should replace init.vim someday
 lua require('_init')

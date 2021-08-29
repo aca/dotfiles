@@ -101,7 +101,7 @@ nmap <M-d> <Plug>MoveCharRight
 " lambdalisue/gina.vim {{{
 packadd gina.vim
 cnoreabbrev Git Gina
-command! Gbrowse execute "normal! vv" | :'<,'>Gina browse --exact :
+" command! Gbrowse execute "normal! vv" | :'<,'>Gina browse --exact :
 command! Glog :Gina log -- %:p
 command! Agit :packadd agit.vim | :Agit
 
@@ -721,3 +721,12 @@ command! DiffVifm packadd vifm.vim | :DiffVifm
 " let g:indentLine_fileTypeExclude = ['help', 'txt', 'markdown']
 " packadd indent-blankline.nvim
 packadd vim-scriptease
+
+" https://github.com/ruifm/gitlinker.nvim
+packadd gitlinker.nvim
+lua << EOF
+require"gitlinker".setup({
+  mappings = "gy"
+})
+EOF
+
