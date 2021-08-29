@@ -7,7 +7,7 @@ cd ~/src/configs
 rmf() { rm -vrf "$@" || true; }
 
 emptyDir() { rmf "$1"; mkdir -p "$1"; }
-ensureDir() { mkdir -p "$1" || true }
+ensureDir() { mkdir -p "$1" || true; }
 
 commandExists() { command -v "$@" > /dev/null 2>&1; }
 
@@ -119,4 +119,3 @@ if [[ -d "dotfiles.$(hostname)" ]]; then
   rmf ~/.config/gcloud
   sudo stow -v --target / "dotfiles.$(hostname)"
 fi
-# }}}

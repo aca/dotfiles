@@ -17,5 +17,5 @@ function src
   else
     popd
   end
-  bash -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
+  _update_src &
 end

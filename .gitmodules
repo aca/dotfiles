@@ -4,9 +4,6 @@
 [submodule ".tmux/plugins/tmux-remote"]
 	path = .tmux/plugins/tmux-remote
 	url = https://github.com/danyim/tmux-remote.git
-[submodule ".tmux/plugins/vim-tmux-navigator"]
-	path = .tmux/plugins/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator.git
 [submodule ".tmux/plugins/tmux-ssh-split"]
 	path = .tmux/plugins/tmux-ssh-split
 	url = https://github.com/pschmitt/tmux-ssh-split.git
@@ -34,9 +31,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-dirvish"]
 	path = .local/share/nvim/site/pack/paqs/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vim-vsnip"]
-	path = .local/share/nvim/site/pack/paqs/start/vim-vsnip
-	url = https://github.com/hrsh7th/vim-vsnip.git
 [submodule ".local/share/nvim/site/pack/paqs/start/lsp_signature.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/lsp_signature.nvim
 	url = https://github.com/ray-x/lsp_signature.nvim.git
@@ -343,3 +337,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-calc"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-calc
 	url = https://github.com/hrsh7th/cmp-calc
+[submodule ".local/share/nvim/site/pack/paqs/start/vim-vsnip"]
+	path = .local/share/nvim/site/pack/paqs/start/vim-vsnip
+	url = https://github.com/hrsh7th/vim-vsnip.git
