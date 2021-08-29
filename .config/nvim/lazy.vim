@@ -452,9 +452,13 @@ command! -bang -nargs=* RggWithFile call fzf#vim#grep('rg --column --line-number
 autocmd! FileType fzf
 autocmd  FileType fzf setlocal laststatus=1 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-au FileType fzf tnoremap <buffer> <Esc> <c-c>
+" TODO: reset
+" au FileType fzf tnoremap <buffer> <Esc> <c-c>
+au FileType fzf tnoremap <buffer> <c-j> <c-j>
+au FileType fzf tnoremap <buffer> <c-k> <c-k>
+
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-let $FZF_DEFAULT_OPTS = '--inline-info --color "gutter:-1"  '
+" let $FZF_DEFAULT_OPTS = '--inline-info --color "gutter:-1"  '
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 " let g:fzf_layout = { 'down': '40%' }
 " let g:fzf_layout = { 'window': 'enew' }
