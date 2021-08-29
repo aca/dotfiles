@@ -13,8 +13,8 @@ lua require('impatient')
 " FILETYPES {{{
 " /usr/local/share/nvim/runtime/filetype.vim
 
-" use treesitter highlight 
-autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua syntax off
+" use treesitter highlight(disable others)
+autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
 
 au BufRead,BufNewFile *.rkt,*.rktl  setf scheme
 au BufRead,BufNewFile *.fish        setf fish
@@ -24,6 +24,7 @@ au BufRead,BufNewFile *.hcl         setf hcl
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
+set shell=/bin/sh
 
 let g:_uname = 'Linux'
 if has('mac')
@@ -36,15 +37,9 @@ endif
 "   @ - Maximum number of items in the input-line history to be
 "   s - Maximum size of an item contents in KiB
 "   h - Disable the effect of 'hlsearch' when loading the shada
-set shada='300,<10,@50,s100,h
+set shada='50,<10,@50,s50
 set scrolloff=5
-
-" if filereadable("/usr/bin/sh") | set shell=/usr/bin/sh | elseif filereadable("/bin/sh") | set shell=/bin/sh | endif
-
-" let &statusline ="%f%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''} %= | %l:%c | %P"
-
 set laststatus=2
-
 set listchars=tab:\ ──,space:·,nbsp:␣,trail:•,eol:↵,precedes:«,extends:»
 set showbreak=⤷\ 
 
@@ -62,7 +57,6 @@ set foldopen+=search
 set nolist " don't render special chars(performance)
 
 set wildignore+=/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*
-" set regexpengine=1
 set conceallevel=2
 
 set inccommand=split
@@ -71,7 +65,6 @@ set pumblend=30
 set splitbelow
 set splitright
 set hidden " zepl.vim
-" set tags=./tags;/
 set breakindent
 set breakindentopt=sbr
 
@@ -130,6 +123,7 @@ set modelineexpr
 set modifiable
 set nobackup
 set nocompatible
+set completeopt=menu,menuone,noselect
 set noendofline
 set nofixeol
 set nojoinspaces
@@ -188,11 +182,7 @@ let g:loaded_getscriptPlugin   = 1
 " turn syntax off for long yaml
 " autocmd FileType yaml if line('$') > 500 | setlocal syntax=OFF | endif
 
-" zepl
-autocmd TermLeave,InsertLeave,BufLeave zepl:* normal! G
-
-" http://neovim.io/news/2021/07 TODO: not working?
-au TextYankPost * lua vim.highlight.on_yank() 
+autocmd TextYankPost * lua vim.highlight.on_yank() 
 
 autocmd QuickFixCmdPost cgetexpr cwindow
 autocmd QuickFixCmdPost cgetexpr set ft=qf
@@ -211,7 +201,7 @@ function s:Mkdir()
   endif
 endfunction
 
-" vim keep pos
+" restore cursor position on start
 au BufReadPost * silent! exe "normal! g`\"" 
 
 " set commentstring to '#' by default
@@ -232,25 +222,11 @@ autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.conf
 " if filereadable(expand("~/.config/nvim/secrets.vim")) | source $HOME/.config/nvim/secrets.vim | endif
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGINS {{{
-
-" hrsh7th/vim-vsnip {{{
-let g:vsnip_filetypes = {
-   \ 'sh' : ['bash'],
-   \ 'javascriptreact' : ['javascript'],
-   \ 'typescriptreact' : ['typescript', 'javascript'],
-   \ }
-let g:vsnip_snippet_dir = expand('~/.config/nvim/snippets')
-" }}}
-
-lua require('_lsp')
 
 function! LazyLoad(_)
   source ~/.config/nvim/lazy.vim
 endfunction
 autocmd VimEnter * call timer_start(25, "LazyLoad")
 " }}}
-"
-" https://github.com/mhinz/vim-galore/blob/master/README.md#saner-command-line-history
-cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
-cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
+
+lua require('_init')

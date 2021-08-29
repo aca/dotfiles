@@ -1,19 +1,9 @@
 " vim: foldmethod=marker
 
-packadd nvim-treesitter
-" packadd nvim-ts-rainbow
 
-" inkarkat/vim-ReplaceWithRegister {{{
-" [count]["x]gr{motion}   Replace {motion} text with the contents of register x.
-"                         Especially when using the unnamed register, this is
-"                         quicker than "_d{motion}P or "_c{motion}<C-R>"
-" [count]["x]grr          Replace [count] lines with the contents of register x.
-"                         To replace from the cursor position to the end of the
-"                         line use ["x]gr$
-" {Visual}["x]gr          Replace the selection with the contents of register x.
-" nmap <Leader>r  <Plug>ReplaceWithRegisterOperator
-" nmap <Leader>rr <Plug>ReplaceWithRegisterLine
-" xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
+packadd nvim-treesitter
+packadd nvim-ts-rainbow
+
 packadd vim-ReplaceWithRegister
 " }}}
 
@@ -71,13 +61,8 @@ let g:lion_squeeze_spaces = 1
 packadd vim-lion
 " }}}
 
-" https://github.com/steelsojka/pears.nvim {{{
-" packadd pears.nvim 
-" lua require("pears").setup()
-" lua require("pears").attach()
-" }}}
-
 " zepl.vim {{{
+autocmd TermLeave,InsertLeave,BufLeave zepl:* normal! G
 let g:repl_config = {
             \   'python': {
             \     'cmd': 'ipython',
@@ -640,6 +625,10 @@ vnoremap <C-Q>     <esc>:call <sid>close()<cr>
 " Save
 inoremap <C-s>     <esc>:update<cr>
 nnoremap <C-s>     :update<cr>
+
+" https://github.com/mhinz/vim-galore/blob/master/README.md#saner-command-line-history
+cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
+cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
