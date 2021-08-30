@@ -234,7 +234,7 @@
 	url = https://github.com/lewis6991/gitsigns.nvim
 [submodule ".local/share/nvim/site/pack/paqs/start/pylance"]
 	path = .local/share/nvim/site/pack/paqs/start/pylance
-	url = https://git.sr.ht/~acadx0/pylance.git
+	url = https://git.sr.ht/~acadx0/pylance
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
