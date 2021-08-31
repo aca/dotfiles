@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if tmux has-sessions -t bg 2>/dev/null ; then
+if ! tmux has-sessions -t bg 2>/dev/null ; then
   nohup tmux new -s bg -d >/dev/null 2>&1
 fi
 

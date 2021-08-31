@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # based on https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+# https://gist.github.com/davidalger/a3afa2410a40ce6ae59d4e6a3b18e5c7
 
 set -euxo pipefail
 
