@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+GLFW_IM_MODULE=fcitx5 ~/src/github.com/alkim0/kitty/kitty/launcher/kitty
