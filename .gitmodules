@@ -4,18 +4,9 @@
 [submodule ".tmux/plugins/tmux-remote"]
 	path = .tmux/plugins/tmux-remote
 	url = https://github.com/danyim/tmux-remote.git
-[submodule ".tmux/plugins/tmux-ssh-split"]
-	path = .tmux/plugins/tmux-ssh-split
-	url = https://github.com/pschmitt/tmux-ssh-split.git
-[submodule ".tmux/plugins/vim-tmux-focus-events"]
-	path = .tmux/plugins/vim-tmux-focus-events
-	url = https://github.com/tmux-plugins/vim-tmux-focus-events.git
 [submodule ".tmux/plugins/extrakto"]
 	path = .tmux/plugins/extrakto
 	url = https://github.com/laktak/extrakto.git
-[submodule ".tmux/plugins/tmux-open"]
-	path = .tmux/plugins/tmux-open
-	url = https://github.com/tmux-plugins/tmux-open.git
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
@@ -340,9 +331,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-vsnip"]
 	path = .local/share/nvim/site/pack/paqs/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip.git
-[submodule "vim-tmux-navigator"]
-	path = .tmux/plugins/vim-tmux-navigator
-	url = https://github.com/aca/vim-tmux-navigator.git
 [submodule ".local/share/nvim/site/pack/paqs/start/impatient.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/impatient.nvim
 	url = https://github.com/lewis6991/impatient.nvim.git
