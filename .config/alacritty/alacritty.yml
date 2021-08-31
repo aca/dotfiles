@@ -1,5 +1,5 @@
 env:
-  TERM: xterm-256color
+  TERM: xterm
 window:
   padding:
     x: 10
@@ -136,8 +136,7 @@ working_directory: None
 key_bindings:
   # https://github.com/alacritty/alacritty/issues/1359
   - { key: Q, mods: Control, chars: "\x11" } 
-
-  - { key: L,        mods: Control, chars: "\x0c"                            }
+  # - { key: L,        mods: Control, chars: "\x0c"                            }
   # - { key: R,        mods: Control, chars: "\x0c"                            }
   - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
   - { key: Home,                    chars: "\x1bOH",        mode: AppCursor  }
@@ -243,8 +242,8 @@ key_bindings:
   - { key: NumpadEnter,             chars: "\n"                              }
 
   # custom
-  - { key: Equals,    mods: Control,             action: IncreaseFontSize }
-  - { key: Minus,     mods: Control,             action: DecreaseFontSize }
+  - { key: Equals,    mods: Control|Shift,             action: IncreaseFontSize }
+  - { key: Minus,     mods: Control|Shift,             action: DecreaseFontSize }
   - { key: V,         mods: Control|Shift,       action: Paste            }
   - { key: C,         mods: Control|Shift,       action: Copy             }
   - { key: N,         mods: Command, command: { program: "open", args: ["-n", "/Applications/Alacritty.app"] } }
