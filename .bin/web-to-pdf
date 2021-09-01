@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source _utils.sh
+source _utils.bash
 
 if linux; then
   echo "its' linux"

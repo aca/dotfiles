@@ -8,7 +8,7 @@ set -o pipefail
 set -o nounset
 set -x
 
-source _utils.sh
+source _utils.bash
 
 asdf-clean(){
   asdf list $1 | grep -v $(asdf current $1 | awk '{print $1}') | xargs -I{} asdf uninstall $1 {} || true
