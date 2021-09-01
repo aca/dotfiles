@@ -16,12 +16,11 @@ list-all() {
     [[ ! -d $f ]] && continue
     
     # files
-    fd --maxdepth 1 --type f . "$f" 
+    fd --maxdepth 1 --type f . "$f" -a
 
     # or links
-    fd --maxdepth 1 --type l . "$f"
+    fd --maxdepth 1 --type l . "$f" -a
   done
 }
 
-# list-all
-$EDITOR $(list-all | xargs -I{} sh -c 'basename {} | tr -d "\n"; echo "    {}"' 2>/dev/null | fzf | awk '{print $2}')
+$EDITOR $(list-all | fzf)

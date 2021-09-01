@@ -8,6 +8,8 @@ set -o pipefail
 set -o nounset
 set -x
 
+source _utils.sh
+
 asdf-clean(){
   asdf list $1 | grep -v $(asdf current $1 | awk '{print $1}') | xargs -I{} asdf uninstall $1 {} || true
 }
@@ -23,31 +25,28 @@ else
   asdf update --head
 fi
 
+if darwin; then
+  brew install gpg2 || true
+fi
+
 asdf plugin-update --all
 asdf plugin-add golang || true
 asdf plugin-add java || true
 asdf plugin-add ruby || true
 asdf plugin-add rust || true
 asdf plugin-add python || true
-asdf plugin-add nodejs || true; bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+asdf plugin-add nodejs || true
 asdf plugin-add deno || true
 asdf plugin-add elixir || true
 asdf plugin-add erlang || true
 
-# asdf-default python '3.8.3' '2.7.17'
-# asdf-default java adopt-openjdk-14.0.1+7_openj9-0.20.0_large-heap
-# asdf-default golang 1.14.4
-# asdf-default ruby 2.6.3
-# asdf-default rust 1.44.1
-# asdf-default deno 1.1.1
-# asdf-default nodejs 14.4.0
-# asdf-default elixir 1.10.1
-# asdf-default erlang 22.2.6
-
-# asdf-clean golang
-# asdf-clean rust
-# asdf-clean deno
-# asdf-clean nodejs
+asdf-default python '3.9.6'
+asdf-default java 'openjdk-17'
+asdf-default golang 1.17
+asdf-default ruby 3.0.2
+asdf-default rust 1.54.0
+asdf-default deno 1.13.2
+asdf-default nodejs 16.8.0
 
 asdf reshim
 
