@@ -30,20 +30,20 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     }
 )
 
-lspconfig.tsserver.setup {capabilities = capabilities} -- Need typescript installed to use for javascript project
+-- lspconfig.tsserver.setup {capabilities = capabilities} -- Need typescript installed to use for javascript project
 lspconfig.gopls.setup {capabilities = capabilities}
 -- lspconfig.hls.setup {capabilities = capabilities}
 -- lspconfig.racket_langserver.setup{ capabilities = capabilities; }
-lspconfig.bashls.setup {capabilities = capabilities}
+-- lspconfig.bashls.setup {capabilities = capabilities}
 -- lspconfig.vimls.setup { capabilities = capabilities; }
 -- lspconfig.cssls.setup{ capabilities = capabilities; }
 -- lspconfig.dockerls.setup{ capabilities = capabilities; }
 -- lspconfig.html.setup{ capabilities = capabilities; }
-lspconfig.jsonls.setup {capabilities = capabilities}
-lspconfig.yamlls.setup {capabilities = capabilities}
+-- lspconfig.jsonls.setup {capabilities = capabilities}
+-- lspconfig.yamlls.setup {capabilities = capabilities}
 -- lspconfig.rust_analyzer.setup { capabilities = capabilities; }
 lspconfig.clangd.setup {capabilities = capabilities}
-lspconfig.terraformls.setup {capabilities = capabilities}
+-- lspconfig.terraformls.setup {capabilities = capabilities}
 
 -- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
 -- lspconfig.denols.setup{
@@ -70,23 +70,22 @@ lspconfig.pylance.setup {
     }
 }
 
-local sumneko_root_path = vim.fn.expand("$HOME/src/github.com/sumneko/lua-language-server")
-local luadev =
-    require("lua-dev").setup(
-    {
-        -- add any options here, or leave empty to use the default settings
-        lspconfig = {
-            cmd = {
-                sumneko_root_path .. "/bin/" .. vim.g._uname .. "/lua-language-server",
-                "-E",
-                sumneko_root_path .. "/main.lua"
-            },
-            capabilities = capabilities
-        }
-    }
-)
-
-lspconfig.sumneko_lua.setup(luadev)
+-- local sumneko_root_path = vim.fn.expand("$HOME/src/github.com/sumneko/lua-language-server")
+-- local luadev =
+--     require("lua-dev").setup(
+--     {
+--         -- add any options here, or leave empty to use the default settings
+--         lspconfig = {
+--             cmd = {
+--                 sumneko_root_path .. "/bin/" .. vim.g._uname .. "/lua-language-server",
+--                 "-E",
+--                 sumneko_root_path .. "/main.lua"
+--             },
+--             capabilities = capabilities
+--         }
+--     }
+-- )
+-- lspconfig.sumneko_lua.setup(luadev)
 
 -- configs.korean_ls = {
 -- default_config = {
