@@ -334,3 +334,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitlinker.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/gitlinker.nvim
 	url = https://github.com/ruifm/gitlinker.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/start/cmp-path"]
+	path = .local/share/nvim/site/pack/paqs/start/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
