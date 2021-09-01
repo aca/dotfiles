@@ -8,7 +8,7 @@
 " TODO 
 " https://github.com/lewis6991/impatient.nvim
 " should be removed when merged to neovim core
-lua require('impatient')
+" lua require'impatient'
 
 " TODO jupyter integration
 " https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/

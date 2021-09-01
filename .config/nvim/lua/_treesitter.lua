@@ -2,9 +2,7 @@ if os.getenv("USER") ~= "rok" then
     return
 end
 
-vim.cmd [[
-        packadd playground
-]]
+vim.cmd("packadd playground")
 
 require "nvim-treesitter.configs".setup {
     playground = {
