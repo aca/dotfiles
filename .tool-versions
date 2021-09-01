@@ -1,11 +1,10 @@
 python 3.9.7
-golang 1.15.6
-deno 1.9.0
-nodejs 16.1.0
+golang 1.7
+deno 1.13.2
+nodejs 16.8.0
 lua 5.1.5
-ruby 3.0.0
+ruby 3.0.2
 zig 0.7.1
-java openjdk-16.0.2
+java openjdk-17
 rust 1.54.0
-haskell 8.10.2
 kotlin 1.5.21
