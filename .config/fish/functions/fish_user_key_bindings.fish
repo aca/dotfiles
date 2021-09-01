@@ -63,13 +63,14 @@ function fish_user_key_bindings
         bind -M $mode \ce clear_screen
         # bind -M $mode \cn "commandline -i (fzf-complete-from-tmux.sh) 2>/dev/null"
         
-        bind -M $mode \cn fzf-cd-widget
+        # bind -M $mode \cn fzf-cd-widget
         bind -M $mode --erase --preset \cd # disable closing terminal
 
 
         # bind -M insert \cm fzf-cd-widget
     end
-    bind -M insert jk "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+
+    # bind -M insert jk "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
     
     bind --preset -M insert \cv fish_clipboard_paste_trim
     bind --preset -M visual \cv fish_clipboard_paste_trim

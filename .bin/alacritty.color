@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 set -exo pipefail
 
-cd ~/src/github.com/aaron-williamson/base16-alacritty/colors
+cd ~/src/github.com/aaron-williamson/base16-alacritty/colors || cd ~/src/github.com/aarowill/base16-alacritty/colors
 
 command -v realpath
 command -v shuf

@@ -1,5 +1,5 @@
 env:
-  TERM: xterm
+  TERM: xterm-256color
 window:
   padding:
     x: 10
@@ -328,40 +328,40 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Spacemacs - alacritty color config
-# Nasser Alshammari (https://github.com/nashamri/spacemacs-theme)
+# Base16 Black Metal (Dark Funeral) - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x1f2022'
-    foreground: '0xa3a3a3'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1f2022'
-    cursor: '0xa3a3a3'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x1f2022'
-    red:     '0xf2241f'
-    green:   '0x67b11d'
-    yellow:  '0xb1951d'
-    blue:    '0x4f97d7'
-    magenta: '0xa31db1'
-    cyan:    '0x2d9574'
-    white:   '0xa3a3a3'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xd0dfee'
+    yellow:  '0x5f81a5'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x585858'
-    red:     '0xffa500'
-    green:   '0x282828'
-    yellow:  '0x444155'
-    blue:    '0xb8b8b8'
-    magenta: '0xe8e8e8'
-    cyan:    '0xb03060'
-    white:   '0xf8f8f8'
+    black:   '0x333333'
+    red:     '0xaaaaaa'
+    green:   '0x121212'
+    yellow:  '0x222222'
+    blue:    '0x999999'
+    magenta: '0x999999'
+    cyan:    '0x444444'
+    white:   '0xc1c1c1'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd
