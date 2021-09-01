@@ -84,6 +84,4 @@ require('due_nvim').setup {
   }
 EOF
 
-
-
 autocmd BufWritePre ~/src/zettels/todo.md %!sort

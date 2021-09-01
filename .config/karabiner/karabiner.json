@@ -24,6 +24,8 @@
                                         "bundle_identifiers": [
                                             "^com\\.jetbrains\\..*$",
                                             "^io\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.vivaldi\\.Vivaldi$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.microsoft\\.VSCode$",
@@ -48,7 +50,9 @@
                                         "bundle_identifiers": [
                                             "^com\\.jetbrains\\..*$",
                                             "^io\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.apple\\.Terminal$",
+                                            "^com\\.vivaldi\\.Vivaldi$",
                                             "^org\\.qt-project\\.Qt\\.QtWebEngineCore$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.microsoft\\.VSCode$"

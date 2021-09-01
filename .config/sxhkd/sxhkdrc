@@ -32,11 +32,11 @@ super + {h,j,k,l}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '{1-9,10}'
+	bspc {desktop -f,node -d} '{1-9,10}';
 
 # focus last desktop
 super + Tab
-	bspc desktop -f last
+	bspc desktop -f last;
 
 # focus the next/previous desktop in the current monitor
 super + {semicolon,apostrophe}

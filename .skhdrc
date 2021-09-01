@@ -12,7 +12,7 @@
 
 # escape -> :issw com.apple.keylayout.ABC
 lcmd + lctrl + lalt - escape : open '/System/Applications/Mission Control.app'
-lcmd + lctrl + lalt - d : open '/System/Applications/Dictionary.app'
+# lcmd + lctrl + lalt - d : open '/System/Applications/Dictionary.app'
 
 # focus & and swap node in the given direction
 lcmd + lctrl + lalt - h : yabai -m window --focus west
@@ -24,7 +24,8 @@ lcmd + lctrl + lalt + shift - j : yabai -m window --swap south
 lcmd + lctrl + lalt + shift - k : yabai -m window --swap north
 lcmd + lctrl + lalt + shift - l : yabai -m window --swap east
 
-# focus or send to the given desktopskhd --reload
+# focus or send to the given desktop
+# skhd --reload
 lcmd + lctrl + lalt - 1 : yabai -m display --focus 1
 lcmd + lctrl + lalt - 2 : yabai -m display --focus 2
 lcmd + lctrl + lalt - 3 : yabai -m display --focus 3
@@ -92,20 +93,22 @@ resizeMode < j : yabai -m window --resize bottom:0:200; yabai -m window --resize
 resizeMode < k : yabai -m window --resize top:0:-200; yabai -m window --resize bottom:0:-200
 resizeMode < l : yabai -m window --resize right:200:0; yabai -m window --resize left:200:0
 
-:: appmode @ : yabai -m config active_window_border_color 0xFF000080
-lcmd + lctrl + lalt - x ; appmode
-appmode < escape ; default
-appmode < c : open /Applications/Google\ Chrome.app; skhd -k "escape"
-appmode < a : open /Applications/Alacritty.app; skhd -k "escape"
-appmode < k : open /Applications/KakaoTalk.app; skhd -k "escape"
+# :: appmode @ : yabai -m config active_window_border_color 0xFF000080
+# lcmd + lctrl + lalt - x ; appmode
+# appmode < escape ; default
+# appmode < c : open /Applications/Google\ Chrome.app; skhd -k "escape"
+# appmode < a : open /Applications/Alacritty.app; skhd -k "escape"
+# appmode < k : open /Applications/KakaoTalk.app; skhd -k "escape"
 
 # alacritty
 # lcmd + lctrl + lalt - a : open /Applications/Alacritty.app; skhd -k "escape"
-lcmd + lctrl + lalt - a : /Users/rok/bin/neovide; skhd -k "escape"
+# lcmd + lctrl + lalt - a : /Users/rok/bin/neovide; skhd -k "escape"
 
 # quit / restart bspwm
 # lcmd + lctrl + lalt + shift - q : brew services stop yabai
 # lcmd + lctrl + lalt + shift - r : brew services restart yabai
+
+
 
 
 # # |, sleep
@@ -267,3 +270,5 @@ lcmd + lctrl + lalt + shift - f : yabai -m window --toggle native-fullscreen
 #   kVK_DownArrow                 = 0x7D,
 #   kVK_UpArrow                   = 0x7E
 # };
+
+lcmd + lctrl + lalt - x : open '/Applications/kitty.app';
