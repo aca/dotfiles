@@ -180,7 +180,7 @@ nnoremap <a-o> :sync %c<cr>
 
 nnoremap q :q<cr>
 
-" colorscheme gruvbox
+colorscheme gruvbox
 
 " " highlight Win cterm=none ctermfg=255 ctermbg=234
 " " highlight Directory cterm=bold ctermfg=109 ctermbg=default

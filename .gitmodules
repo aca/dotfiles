@@ -337,3 +337,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-path"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-tmux-navigation"]
+	path = .local/share/nvim/site/pack/paqs/opt/nvim-tmux-navigation
+	url = https://github.com/alexghergh/nvim-tmux-navigation.git
+[submodule ".local/share/nvim/site/pack/paqs/start/tmux.nvim"]
+	path = .local/share/nvim/site/pack/paqs/start/tmux.nvim
+	url = https://github.com/aserowy/tmux.nvim.git
