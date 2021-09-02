@@ -4,12 +4,13 @@
 " lua vim.lsp.set_log_level("debug")
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+packadd vim-tmux-navigator
 
 " TODO 
 " https://github.com/lewis6991/impatient.nvim
 " should be removed when merged to neovim core
 " have issues on mac, it freeze sometimes
-lua require'impatient'
+" lua require'impatient'
 
 " TODO jupyter integration
 " https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
@@ -30,7 +31,7 @@ au BufRead,BufNewFile *.hcl         setf hcl
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
-set shell=/bin/bash
+" set shell=/bin/bash
 
 let g:_uname = 'Linux'
 if has('mac')
@@ -238,30 +239,30 @@ autocmd VimEnter * call timer_start(100, "LazyLoad")
 " NOTE: should replace init.vim someday
 lua require('main')
 
-lua << EOF
-require("tmux").setup({
-    -- overwrite default configuration
-    -- here, e.g. to enable default bindings
-    copy_sync = {
-        -- enables copy sync and overwrites all register actions to
-        -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
-        enable = false,
-    },
-    navigation = {
-        -- enables default keybindings (C-hjkl) for normal mode
-        enable_default_keybindings = true,
-    },
-    resize = {
-        -- enables default keybindings (A-hjkl) for normal mode
-        enable_default_keybindings = true,
-
-        -- sets resize steps for x axis
-        resize_step_x = 20,
-
-        -- sets resize steps for y axis
-        resize_step_y = 20,
-    }
-})
-EOF
+" lua << EOF
+" require("tmux").setup({
+"     -- overwrite default configuration
+"     -- here, e.g. to enable default bindings
+"     copy_sync = {
+"         -- enables copy sync and overwrites all register actions to
+"         -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
+"         enable = false,
+"     },
+"     navigation = {
+"         -- enables default keybindings (C-hjkl) for normal mode
+"         enable_default_keybindings = true,
+"     },
+"     resize = {
+"         -- enables default keybindings (A-hjkl) for normal mode
+"         enable_default_keybindings = true,
+"
+"         -- sets resize steps for x axis
+"         resize_step_x = 20,
+"
+"         -- sets resize steps for y axis
+"         resize_step_y = 20,
+"     }
+" })
+" EOF
 
 lua require('plug_lazy.tcomment')
