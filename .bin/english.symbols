@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # http://weih.github.io/symbolinenglish/
 fzf --header-lines=2 << \EOF
 Symbol 	English                                	

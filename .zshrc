@@ -13,7 +13,7 @@ plugins=(
   # kubectl
   # fzf
   # zsh-vi-mode
-  aws
+  # aws
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -83,4 +83,4 @@ alias td='tmux detach'
 
 true
 
-alias luamake=/Users/rok/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake
+alias luamake=$HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake

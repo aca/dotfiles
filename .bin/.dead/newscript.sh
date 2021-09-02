@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # https://gist.githubusercontent.com/aaronNGi/a9212f36a8e0c2bc0674e259563ad952/raw/b0b86302d07b5b8a3c154a100bf41d98097c44d0/newscript.sh
 

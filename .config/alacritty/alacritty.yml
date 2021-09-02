@@ -93,7 +93,7 @@ font:
     # style: Italic
     # style: Regular
 
-  size: 16
+  size: 24
   offset:
     x:  0
     y:  7

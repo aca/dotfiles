@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/bin/bash
 xdg-open "https://keep.google.com/u/0/"

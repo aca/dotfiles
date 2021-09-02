@@ -5,7 +5,6 @@
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 " TODO 
 " https://github.com/lewis6991/impatient.nvim
 " should be removed when merged to neovim core
@@ -31,7 +30,7 @@ au BufRead,BufNewFile *.hcl         setf hcl
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
-set shell=/bin/sh
+set shell=/bin/bash
 
 let g:_uname = 'Linux'
 if has('mac')
@@ -120,11 +119,11 @@ set ignorecase
 set incsearch
 set isfname-==
 set lazyredraw
-set redrawtime=20000
-syntax sync minlines=100
-syntax sync maxlines=200
-set synmaxcol=200
-set mmp=2000000    " memory limit
+" set redrawtime=20000
+" syntax sync minlines=100
+" syntax sync maxlines=200
+" set synmaxcol=200
+" set mmp=2000000    " memory limit
 " set modeline
 set modelineexpr
 set modifiable
@@ -189,7 +188,7 @@ let g:loaded_getscriptPlugin   = 1
 " turn syntax off for long yaml
 " autocmd FileType yaml if line('$') > 500 | setlocal syntax=OFF | endif
 
-autocmd TextYankPost * lua vim.highlight.on_yank() 
+" autocmd TextYankPost * lua vim.highlight.on_yank() 
 
 autocmd QuickFixCmdPost cgetexpr cwindow
 autocmd QuickFixCmdPost cgetexpr set ft=qf
@@ -237,7 +236,7 @@ endfunction
 autocmd VimEnter * call timer_start(100, "LazyLoad")
 
 " NOTE: should replace init.vim someday
-" lua require('_init')
+lua require('main')
 
 lua << EOF
 require("tmux").setup({
@@ -264,3 +263,5 @@ require("tmux").setup({
     }
 })
 EOF
+
+lua require('plug_lazy.tcomment')

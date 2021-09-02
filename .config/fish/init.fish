@@ -1,7 +1,14 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
-set -e SHELL # some programs should use bash by default
+# set -e SHELL
+if test -f /bin/dash
+  set -gx SHELL /bin/dash
+else if test -f /bin/bash
+  set -gx SHELL /bin/bash
+end
+
+set -gx SHELL /bin/dash
 
 # vars {{{
 #
@@ -46,7 +53,6 @@ if not set -q init_fish
     end
 
     set CDPATH .
-    set -e SHELL # some programs should use bash by default
     set -gx GTK_IM_MODULE fcitx
     set -gx QT_IM_MODULE fcitx
     set -gx XMODIFIERS "@im=fcitx"

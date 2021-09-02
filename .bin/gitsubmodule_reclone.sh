@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # https://stackoverflow.com/a/11258810
 

@@ -60,15 +60,15 @@ lspconfig.clangd.setup {capabilities = capabilities}
 --   }
 -- }
 
-require "pylance"
-lspconfig.pylance.setup {
-    capabilities = capabilities,
-    settings = {
-        python = {
-            analysis = {}
-        }
-    }
-}
+-- require "pylance"
+-- lspconfig.pylance.setup {
+--     capabilities = capabilities,
+--     settings = {
+--         python = {
+--             analysis = {}
+--         }
+--     }
+-- }
 
 -- local sumneko_root_path = vim.fn.expand("$HOME/src/github.com/sumneko/lua-language-server")
 -- local luadev =
@@ -99,19 +99,19 @@ lspconfig.pylance.setup {
 -- }
 -- lspconfig.korean_ls.setup {}
 
-if os.getenv("LS_KOREAN") == "on" then
-    configs.korean_ls = {
-        default_config = {
-            cmd = {"korean-ls", "--stdio"},
-            filetypes = {"text"},
-            root_dir = function()
-                return vim.loop.cwd()
-            end,
-            settings = {}
-        }
-    }
-    lspconfig.korean_ls.setup {}
-end
+-- if os.getenv("LS_KOREAN") == "on" then
+--     configs.korean_ls = {
+--         default_config = {
+--             cmd = {"korean-ls", "--stdio"},
+--             filetypes = {"text"},
+--             root_dir = function()
+--                 return vim.loop.cwd()
+--             end,
+--             settings = {}
+--         }
+--     }
+--     lspconfig.korean_ls.setup {}
+-- end
 
 -- neuron language server
 -- nvim_lsp.configs.neuron_ls = {

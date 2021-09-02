@@ -67,6 +67,4 @@ set -o vi
 
 if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
 
-[ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
-
-true
+if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi

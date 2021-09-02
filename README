@@ -24,5 +24,10 @@ git submodule deinit -f .
 # checkout again
 git submodule update --init --recursive
 # update
-git submodule update --recursive --remote
+git submodule update --init --recursive --remote
 
+
+Brew 
+
+$ brew bundle dump --describe --global
+$ brew bundle install --global

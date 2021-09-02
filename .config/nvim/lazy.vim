@@ -1,10 +1,8 @@
 " vim: foldmethod=marker
 
-
 packadd nvim-treesitter
 packadd nvim-ts-rainbow
 
-packadd vim-ReplaceWithRegister
 " }}}
 
 " machakann/vim-swap {{{
@@ -12,31 +10,10 @@ let g:swap_no_default_key_mappings = 1
 packadd vim-swap
 nmap g< <Plug>(swap-prev)
 nmap g> <Plug>(swap-next)
-" }}}
 
-packadd vim-eunuch
-packadd nvim-lspinstall
-packadd diffview.nvim
-packadd vim-smoothie
 packadd hop.nvim
 lua require'hop'.setup()
 " packadd clever-f.vim
-
-let g:tcomment_mapleader_uncomment_anyway=''
-let g:tcomment_mapleader_comment_anyway=''
-packadd tcomment_vim
-
-packadd vim-fold-cycle
-packadd vim-oscyank
-packadd pastefix.vim
-
-" packadd firenvim
-" packadd vim-sleuth
-" packadd vim-illuminate
-packadd vim-fetch
-packadd nvim-colorizer.lua
-packadd codi.vim
-packadd vim-characterize
 
 packadd xdg_open.vim
 let g:xdg_open_command='xdg-open'
@@ -355,19 +332,12 @@ let g:sandwich#recipes += [
 " https://github.com/windwp/nvim-autopairs {{{
 packadd nvim-autopairs 
 lua <<EOF
-if pcall(require, "compe") then
-        require("nvim-autopairs.completion.compe").setup({
-          map_cr = true, --  map <CR> on insert mode
-          map_complete = true -- it will auto insert `(` after select function or method item
-        })
-end
 
 require("nvim-autopairs.completion.cmp").setup({
   map_cr = true, --  map <CR> on insert mode
   map_complete = true, -- it will auto insert `(` after select function or method item
   auto_select = true -- automatically select the first item
 })
-
 
 require('nvim-autopairs').setup({
   check_ts = true
@@ -376,16 +346,14 @@ EOF
 " }}}
 
 lua <<EOF
-require '_treesitter'
-require '_gitsigns'
+-- require '_treesitter'
+-- require '_gitsigns'
 require '_dial'
 require '_zenmode'
 -- require '_dap'
-require '_paq'
+-- require '_paq'
+-- require '_dadbod'
 EOF
-
-packadd vim-dadbod
-packadd vim-dadbod-ui
 
 " utils {{{
 
@@ -717,16 +685,11 @@ smap <expr><Tab>                v:lua.tab_complete()
 imap <expr><S-Tab>              v:lua.s_tab_complete()
 smap <expr><S-Tab>              v:lua.s_tab_complete()
 
-packadd vim-rfc
-packadd vifm.vim
-
-command! DiffVifm packadd vifm.vim | :DiffVifm
 
 " let g:indent_blankline_char = '·'
 " let g:indent_blankline_space_char = ' '
 " let g:indentLine_fileTypeExclude = ['help', 'txt', 'markdown']
 " packadd indent-blankline.nvim
-packadd vim-scriptease
 
 " https://github.com/ruifm/gitlinker.nvim
 packadd gitlinker.nvim
