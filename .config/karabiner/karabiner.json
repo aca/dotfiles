@@ -23,7 +23,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.jetbrains\\..*$",
-                                            "^com\\.vmware\\.horizon$"
+                                            "^com\\.vmware\\.horizon$",
                                             "^io\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.vivaldi\\.Vivaldi$",
@@ -56,7 +56,7 @@
                                             "^com\\.vivaldi\\.Vivaldi$",
                                             "^org\\.qt-project\\.Qt\\.QtWebEngineCore$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.vmware\\.horizon$"
+                                            "^com\\.vmware\\.horizon$",
                                             "^com\\.microsoft\\.VSCode$"
                                         ],
                                         "type": "frontmost_application_unless"

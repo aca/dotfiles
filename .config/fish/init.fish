@@ -1,7 +1,7 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
-set -e SHELL
+# set -e SHELL
 # if test -f /bin/dash
 #   set -gx SHELL /bin/dash
 # else if test -f /bin/bash
@@ -177,23 +177,18 @@ abbr --global co 'pbpaste'
 #     end
 # end
 
-function _asdf_reshim
-      set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-      asdf reshim &
-end
-
-function _postexec --on-event fish_postexec
-  switch $argv
-    case 'ghq get *'
-      sh -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
-    case 'pip install *'
-      _asdf_reshim
-    case 'pip3 install *'
-      _asdf_reshim
-    case 'npm install -g *'
-      _asdf_reshim
-  end
-end
+# function _postexec --on-event fish_postexec
+#   switch $argv
+#     case 'ghq get *'
+#       sh -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
+#     case 'pip install *'
+#       _asdf_reshim
+#     case 'pip3 install *'
+#       _asdf_reshim
+#     case 'npm install -g *'
+#       _asdf_reshim
+#   end
+# end
 # }}}
 # OS specific {{{
 switch $_uname
@@ -202,7 +197,7 @@ switch $_uname
         abbr --global svcu 'systemctl --user'
         set -gx BROWSER google-chrome-stable
     case darwin
-        if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end
+        # if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end
         abbr --global svc 'brew services'
         abbr --global svcu 'brew services'
 end
@@ -213,10 +208,10 @@ if command -sq zoxide
   source $HOME/.config/fish/zoxide.fish
 end
 
-if not set -q $TMUX_PANE 
-  set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$TMUX_PANE"
-end
+# if not set -q $TMUX_PANE 
+#   set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$TMUX_PANE"
+# end
 
-if [ -e /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]
-  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
-end
+# if [ -e /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]
+#   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+# end
