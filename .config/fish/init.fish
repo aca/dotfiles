@@ -1,14 +1,14 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
-# set -e SHELL
-if test -f /bin/dash
-  set -gx SHELL /bin/dash
-else if test -f /bin/bash
-  set -gx SHELL /bin/bash
-end
-
-set -gx SHELL /bin/dash
+set -e SHELL
+# if test -f /bin/dash
+#   set -gx SHELL /bin/dash
+# else if test -f /bin/bash
+#   set -gx SHELL /bin/bash
+# end
+#
+# set -gx SHELL /bin/dash
 
 # vars {{{
 #

@@ -38,7 +38,7 @@ end
 
 function clear_screen
   clear 
-  set -q TMUX && tmux clear-history 1>/dev/null 2>/dev/null
+  set -q TMUX && tmux clear-history
   commandline -f force-repaint
 end
 

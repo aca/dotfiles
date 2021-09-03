@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sh -c "cd ~/src/configs/dotfiles/.config/nvim && nvim init.lua"

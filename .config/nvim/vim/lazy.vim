@@ -1,3 +1,4 @@
+packadd vim-tmux-navigator
 packadd vim-fold-cycle
 packadd vim-oscyank
 packadd pastefix.vim
@@ -8,10 +9,10 @@ packadd vim-characterize
 packadd vim-eunuch
 packadd vim-ReplaceWithRegister
 " packadd nvim-lspinstall
-" packadd diffview.nvim
-" packadd vim-smoothie
-" packadd vim-scriptease
-" packadd vim-rfc
-" packadd vifm.vim
+packadd diffview.nvim
+packadd vim-smoothie
+packadd vim-scriptease
+packadd vim-rfc
+packadd vifm.vim
 
 

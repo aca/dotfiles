@@ -23,9 +23,9 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.jetbrains\\..*$",
-                                            "^com\\.vmware\\.horizon$"
                                             "^io\\.alacritty$",
                                             "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.vmware\\.horizon$"
                                             "^com\\.vivaldi\\.Vivaldi$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
@@ -54,9 +54,9 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.vivaldi\\.Vivaldi$",
+                                            "^com\\.vmware\\.horizon$"
                                             "^org\\.qt-project\\.Qt\\.QtWebEngineCore$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.vmware\\.horizon$"
                                             "^com\\.microsoft\\.VSCode$"
                                         ],
                                         "type": "frontmost_application_unless"

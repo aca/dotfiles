@@ -4,8 +4,6 @@
 " lua vim.lsp.set_log_level("debug")
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-packadd vim-tmux-navigator
-
 " TODO 
 " https://github.com/lewis6991/impatient.nvim
 " should be removed when merged to neovim core
@@ -31,7 +29,7 @@ au BufRead,BufNewFile *.hcl         setf hcl
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEFAULTS {{{
-" set shell=/bin/bash
+set shell=/bin/sh
 
 let g:_uname = 'Linux'
 if has('mac')
@@ -230,39 +228,14 @@ autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.conf
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" force lazy load with timer
-function! LazyLoad(_)
-  source ~/.config/nvim/lazy.vim
-endfunction
-autocmd VimEnter * call timer_start(100, "LazyLoad")
+" " force lazy load with timer
+" function! LazyLoad(_)
+"   source ~/.config/nvim/lazy.vim
+" endfunction
+" autocmd VimEnter * call timer_start(100, "LazyLoad")
 
 " NOTE: should replace init.vim someday
 lua require('main')
 
-" lua << EOF
-" require("tmux").setup({
-"     -- overwrite default configuration
-"     -- here, e.g. to enable default bindings
-"     copy_sync = {
-"         -- enables copy sync and overwrites all register actions to
-"         -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
-"         enable = false,
-"     },
-"     navigation = {
-"         -- enables default keybindings (C-hjkl) for normal mode
-"         enable_default_keybindings = true,
-"     },
-"     resize = {
-"         -- enables default keybindings (A-hjkl) for normal mode
-"         enable_default_keybindings = true,
-"
-"         -- sets resize steps for x axis
-"         resize_step_x = 20,
-"
-"         -- sets resize steps for y axis
-"         resize_step_y = 20,
-"     }
-" })
-" EOF
 
 lua require('plug_lazy.tcomment')
