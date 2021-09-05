@@ -7,7 +7,7 @@ if not status --is-interactive; exit; end
 # else if test -f /bin/bash
 #   set -gx SHELL /bin/bash
 # end
-#
+
 # set -gx SHELL /bin/dash
 
 # vars {{{
@@ -208,9 +208,9 @@ if command -sq zoxide
   source $HOME/.config/fish/zoxide.fish
 end
 
-# if not set -q $TMUX_PANE 
-#   set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$TMUX_PANE"
-# end
+if not set -q $TMUX_PANE 
+  set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$TMUX_PANE"
+end
 
 # if [ -e /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]
 #   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
