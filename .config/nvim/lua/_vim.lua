@@ -79,7 +79,7 @@ set nowritebackup
 set nrformats+=alpha,hex,octal
 " set numberwidth=0
 " set showcmd
-set signcolumn=no " TODO: fix
+set signcolumn=yes
 set synmaxcol=0
 set timeoutlen=400
 set ttyfast

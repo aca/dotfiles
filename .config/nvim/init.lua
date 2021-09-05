@@ -26,6 +26,7 @@ require 'plugins.dap'
 require 'plugins.dial'
 require 'plugins._tmux'
 require 'plugins.gitsigns'
+
 require 'plugins.zenmode'
 require 'plugins.xdg_open'
 require 'plugins.numb'
