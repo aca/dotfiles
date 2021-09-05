@@ -2,8 +2,6 @@
 -- https://github.com/lewis6991/impatient.nvim
 require("impatient")
 
-vim.cmd [[set shell='/bin/sh']]
-
 -- TODO jupyter integration
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
@@ -74,6 +72,11 @@ packadd diffview.nvim
 packadd vim-smoothie
 packadd vim-scriptease
 packadd vim-rfc
+packadd vim-barbaric
 ]]
 
 end))
+
+vim.cmd [[
+source ~/.config/nvim/vim/tmp.vim
+]]

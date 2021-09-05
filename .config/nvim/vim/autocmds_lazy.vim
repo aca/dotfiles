@@ -1,7 +1,10 @@
-" TODO
-if executable('fcitx5-remote')
-  autocmd InsertLeave * silent call system("fcitx5-remote -c")
-endif
+" if executable('fcitx5-remote')
+"   autocmd InsertLeave * silent call system("fcitx5-remote -c")
+" endif
+"
+" if filereadable('/usr/local/lib/libInputSourceSwitcher.dylib')
+"     autocmd InsertLeave * call libcall('/usr/local/lib/libInputSourceSwitcher.dylib', 'Xkb_Switch_setXkbLayout', 'com.apple.keylayout.ABC')
+" endif
 
 autocmd BufWritePre lua vim.lsp.buf.formatting()
 
