@@ -18,15 +18,18 @@ scrolling:
 font:
   normal:
     style: Regular
-    # style: Ti
+    # family: Go Mono
+    # family: Consolas NF
+    # family: Iosevka Nerd Font Mono
+    # family: SF Mono
+
     # family: Menlo
     # family: DankMono Nerd Font
-    # family: FuraCode Nerd Font Mono
-    family: Iosevka Nerd Font Mono
     # family: Inconsolata Nerd Font
     # family: Iosevka Fixed
     # family: SauceCodePro Nerd Font Mono
     # family: Cascadia Mono
+    # family: Cascadia Code
     # family: EasyReading
     # family: BlexMono Nerd Font
     # family: MesloLGLDZ Nerd Font Mono
@@ -54,7 +57,7 @@ font:
     # family: agave Nerd Font
     # family: mononoki Nerd Font
     # family: JetBrainsMono Nerd Font
-    # family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro Nerd Font Mono
     # family: PragmataPro Nerd Font
     # family: Dina
     # family: Hack Nerd Font
@@ -74,7 +77,6 @@ font:
     # family: FuraCode Nerd Font Mono
     # family: Iosevka Nerd Font Mono
     # family: Operator Mono Book
-    # family: Lotion
     # family: Dina
     # style: Bold
 
@@ -95,8 +97,8 @@ font:
 
   size: 24
   offset:
-    x:  0
-    y:  7
+    x:  -1
+    y:  5
   glyph_offset:
     x: 0 
     y: 0
@@ -251,8 +253,8 @@ key_bindings:
   # custom
   - { key: Equals,    mods: Control,             action: IncreaseFontSize }
   - { key: Minus,     mods: Control,             action: DecreaseFontSize }
-  - { key: V,         mods: Control|Shift,       action: Paste            }
-  - { key: C,         mods: Control|Shift,       action: Copy             }
+    # - { key: V,         mods: Control,       action: Paste            }
+    # - { key: C,         mods: Control,       action: Copy             }
   - { key: N,         mods: Command, command: { program: "open", args: ["-n", "/Applications/Alacritty.app"] } }
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
   - { key: B,         mods: Alt,       chars: "\x1bb"                       }
@@ -335,40 +337,46 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Black Metal (Dark Funeral) - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Default Dark 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xc1c1c1'
+    background: '0x181818'
+    foreground: '0xd8d8d8'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xc1c1c1'
+    text: '0x181818'
+    cursor: '0xd8d8d8'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xd0dfee'
-    yellow:  '0x5f81a5'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    black:   '0x181818'
+    red:     '0xab4642'
+    green:   '0xa1b56c'
+    yellow:  '0xf7ca88'
+    blue:    '0x7cafc2'
+    magenta: '0xba8baf'
+    cyan:    '0x86c1b9'
+    white:   '0xd8d8d8'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0xaaaaaa'
-    green:   '0x121212'
-    yellow:  '0x222222'
-    blue:    '0x999999'
-    magenta: '0x999999'
-    cyan:    '0x444444'
-    white:   '0xc1c1c1'
+    black:   '0x585858'
+    red:     '0xab4642'
+    green:   '0xa1b56c'
+    yellow:  '0xf7ca88'
+    blue:    '0x7cafc2'
+    magenta: '0xba8baf'
+    cyan:    '0x86c1b9'
+    white:   '0xf8f8f8'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xdc9656' }
+    - { index: 17, color: '0xa16946' }
+    - { index: 18, color: '0x282828' }
+    - { index: 19, color: '0x383838' }
+    - { index: 20, color: '0xb8b8b8' }
+    - { index: 21, color: '0xe8e8e8' }
 # ColorEnd
