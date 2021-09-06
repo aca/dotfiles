@@ -11,7 +11,7 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 # yabai -m config focus_follows_mouse          off
 yabai -m config mouse_follows_focus          on
 # yabai -m config focus_follows_mouse          autoraise
-yabai -m config focus_follows_mouse          off
+yabai -m config focus_follows_mouse          on
 yabai -m config window_shadow                off
 yabai -m config window_border                on
 yabai -m config window_topmost               off

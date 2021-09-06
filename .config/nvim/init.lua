@@ -74,6 +74,7 @@ packadd vim-smoothie
 packadd vim-scriptease
 packadd vim-rfc
 packadd vim-barbaric
+packadd telescope.nvim
 ]]
 
 end))

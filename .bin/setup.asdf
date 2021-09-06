@@ -40,14 +40,7 @@ asdf plugin-add deno || true
 asdf plugin-add elixir || true
 asdf plugin-add erlang || true
 
-asdf-default python '3.9.6'
-asdf-default java 'openjdk-17'
-asdf-default golang 1.17
-asdf-default ruby 3.0.2
-asdf-default rust 1.54.0
-asdf-default deno 1.13.2
-asdf-default nodejs 16.8.0
-
+asdf install
 asdf reshim
 
 command tree ~/.asdf/installs/ -L 2

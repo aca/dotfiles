@@ -7,12 +7,6 @@
 [submodule ".tmux/plugins/extrakto"]
 	path = .tmux/plugins/extrakto
 	url = https://github.com/laktak/extrakto.git
-[submodule ".local/share/nvim/site/pack/paqs/start/nvim-colors"]
-	path = .local/share/nvim/site/pack/paqs/start/nvim-colors
-	url = https://github.com/aca/nvim-colors.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vimage.nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/vimage.nvim
-	url = https://github.com/heapslip/vimage.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/lua-dev.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/lua-dev.nvim
 	url = https://github.com/folke/lua-dev.nvim.git
@@ -235,9 +229,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/plenary.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/paq-nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/paq-nvim
-	url = https://github.com/savq/paq-nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
 	path = .local/share/nvim/site/pack/paqs/opt/playground
 	url = https://github.com/nvim-treesitter/playground.git
@@ -286,15 +277,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-rfc"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-rfc
 	url = https://github.com/mhinz/vim-rfc.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vim-monotone"]
-	path = .local/share/nvim/site/pack/paqs/start/vim-monotone
-	url = https://github.com/Lokaltog/vim-monotone.git
 [submodule ".local/share/nvim/site/pack/paqs/start/popup.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/popup.nvim
 	url = https://github.com/nvim-lua/popup.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/telescope.nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/telescope.nvim
-	url = https://github.com/nvim-telescope/telescope.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dirdiff"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-dirdiff
 	url = https://github.com/will133/vim-dirdiff.git
@@ -340,21 +325,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-tmux-navigation"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-tmux-navigation
 	url = https://github.com/alexghergh/nvim-tmux-navigation.git
-[submodule ".local/share/nvim/site/pack/paqs/start/tmux.nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/tmux.nvim
-	url = https://github.com/aserowy/tmux.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vim-startuptime"]
-	path = .local/share/nvim/site/pack/paqs/start/vim-startuptime
-	url = https://github.com/dstein64/vim-startuptime.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-wintabs"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-wintabs
 	url = https://github.com/zefei/vim-wintabs.git
-[submodule ".local/share/nvim/site/pack/paqs/start/nord-vim"]
-	path = .local/share/nvim/site/pack/paqs/start/nord-vim
-	url = https://github.com/arcticicestudio/nord-vim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/zenbones.nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/zenbones.nvim
-	url = https://github.com/mcchrish/zenbones.nvim
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-barbaric"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-barbaric
 	url = https://github.com/rlue/vim-barbaric
@@ -364,3 +337,6 @@
 [submodule ".submodules/fish-kubectl-completions"]
 	path = .submodules/fish-kubectl-completions
 	url = https://github.com/evanlucas/fish-kubectl-completions.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/telescope.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim.git
