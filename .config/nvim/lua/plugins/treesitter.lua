@@ -1,6 +1,6 @@
-if os.getenv("USER") ~= "rok" then
-    return
-end
+-- if os.getenv("USER") ~= "rok" then
+--     return
+-- end
 
 vim.cmd [[
         packadd playground
