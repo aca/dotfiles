@@ -355,9 +355,12 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/zenbones.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/zenbones.nvim
 	url = https://github.com/mcchrish/zenbones.nvim
-[submodule ".local/share/nvim/site/pack/paqs/start/falcon"]
-	path = .local/share/nvim/site/pack/paqs/start/falcon
-	url = https://github.com/fenetikm/falcon.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-barbaric"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-barbaric
 	url = https://github.com/rlue/vim-barbaric
+[submodule ".submodules/smug"]
+	path = .submodules/smug
+	url = https://github.com/ivaaaan/smug.git
+[submodule ".submodules/fish-kubectl-completions"]
+	path = .submodules/fish-kubectl-completions
+	url = https://github.com/evanlucas/fish-kubectl-completions.git

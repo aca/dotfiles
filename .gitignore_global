@@ -1,3 +1,6 @@
+.stfolder
+.obsidian
+
 terraform.tfstate*
 .DS_store
 node_modules/

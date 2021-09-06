@@ -61,7 +61,7 @@ function fish_user_key_bindings
         bind -M $mode \ca complete
         bind -M $mode \cq exit
         bind -M $mode \ce clear_screen
-        bind -M $mode \cc backward-kill-line # clear commandline (c-u by default)
+        # bind -M $mode \cc kill-whole-line # clear commandline (c-u by default)
         # bind -M $mode \cn "commandline -i (fzf-complete-from-tmux.sh) 2>/dev/null"
 
         # bind -M $mode \cn fzf-cd-widget
@@ -70,6 +70,10 @@ function fish_user_key_bindings
 
         # bind -M insert \cm fzf-cd-widget
     end
+
+    # bind --preset -M insert \cc echo\ -n\ \(string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
+    # bind --preset \cl echo\ -n\ \(string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
+    # bind --preset -M visual \cl echo\ -n\ \(string\ replace\ \\e\\\[3J\ \"\"\)\;\ commandline\ -f\ repaint
 
     # bind -M insert jk "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
 

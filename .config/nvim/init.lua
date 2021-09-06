@@ -19,7 +19,7 @@ require '_colors'
 
 vim.cmd "source ~/.config/nvim/vim/autocmds.vim"
 
-vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
+vim.loop.new_timer():start(50, 0, vim.schedule_wrap(function()
 
 require 'plugins.treesitter'
 require 'plugins.dap'
