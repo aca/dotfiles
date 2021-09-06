@@ -1,0 +1,1 @@
+../../../.submodules/smug/completion/smug.fish
