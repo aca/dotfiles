@@ -52,8 +52,6 @@ lcmd + lctrl + lalt - 0x33 : yabai -m space --focus recent;
 # focus & move next/previous monitor, [ ]
 lcmd + lctrl + lalt - 0x1E : yabai -m display --focus next;
 lcmd + lctrl + lalt - 0x21 : yabai -m display --focus prev;
-# lcmd + lctrl + lalt + shift - 0x21 : yabai -m window --display prev; yabai -m display --focus prev
-# lcmd + lctrl + lalt + shift - 0x1E : yabai -m window --display next; yabai -m display --focus next
 lcmd + lctrl + lalt + shift - 0x1E : yabai -m window --display next;
 lcmd + lctrl + lalt + shift - 0x21 : yabai -m window --display prev;
 

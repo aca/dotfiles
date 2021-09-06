@@ -30,7 +30,13 @@ function _watch_command
   if [ "$command" = "" ]
           return
   end
-  watch --beep --interval 2 --differences=permanent --exec fish -c "$command | perl -pe 's/\x1b\[[0-9;]*[mG]//g'"
+
+  if command -q viddy
+    viddy -n3 --shell fish -- $command
+  else
+    watch --beep --interval 2 --differences=permanent --exec fish -c "$command | perl -pe 's/\x1b\[[0-9;]*[mG]//g'"
+  end
+
   commandline -r ""
   echo
   commandline -f force-repaint

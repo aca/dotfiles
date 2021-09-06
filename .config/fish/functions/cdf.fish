@@ -1,6 +1,4 @@
-
-noti -m "cdf loaded"
-function cdf -d 'cd'
+function cdf -d 'cd' --description 'cd to file'
   if [ (count $argv) -eq 0 ]
     cd
   else if [ -f $argv[1] ] 

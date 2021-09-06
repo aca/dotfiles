@@ -64,7 +64,8 @@ cmp.setup {
     },
     sources = {
         {name = "nvim_lsp"},
-        {name = "calc"},
-        {name = "vsnip"}
+        -- {name = "calc"},
+        {name = "vsnip"},
+        {name = "path"},
     }
 }

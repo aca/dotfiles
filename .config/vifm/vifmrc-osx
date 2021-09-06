@@ -78,6 +78,10 @@ filetype *.md5
        \ {Check MD5 hash sum}
        \ md5sum -c %f %S,
 
+" Markdown
+fileviewer *.md
+       \ nvim -c %f,
+
 " SHA1
 filetype *.sha1
        \ {Check SHA1 hash sum}

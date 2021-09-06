@@ -65,7 +65,7 @@ nnoremap <c-g> 2<c-g>
 
 " imap <C-d> ##<ESC>:r! date "+\%H:\%M \%a \%m/\%d/\%Y"<CR>kJ$a<cr>
 " imap <C-d> <ESC>:r! date "date +\%Y-\%m-\%d"<CR>kJ$a<cr>
-" imap <c-t> [ ] <c-r>=strftime("%Y-%m-%d")<cr> | " todo
+imap <c-d> <c-r>=strftime("## %Y-%m-%d %H:%M:%S")<cr>
 
 " mistakes
 cnoreabbrev W! w!

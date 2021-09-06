@@ -29,5 +29,8 @@ git submodule update --init --recursive --remote
 
 Brew 
 
-$ brew bundle dump --describe --global
-$ brew bundle install --global
+  # Update
+  rm ~/.Brewfile && brew bundle dump --describe --global && mv ~/.Brewfile ~/src/configs/dotfiles
+
+  # Install  
+  brew bundle install --global
