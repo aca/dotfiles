@@ -150,7 +150,8 @@ abbr --global co 'pbpaste'
 
 # }}}
 # hooks {{{
-# # share history
+#
+# share history
 # function _save_history --on-event fish_postexec; history --save; end 
 
 # # virtualenv
@@ -170,18 +171,18 @@ abbr --global co 'pbpaste'
 #     end
 # end
 
-# function _postexec --on-event fish_postexec
-#   switch $argv
-#     case 'ghq get *'
-#       sh -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
-#     case 'pip install *'
-#       _asdf_reshim
-#     case 'pip3 install *'
-#       _asdf_reshim
-#     case 'npm install -g *'
-#       _asdf_reshim
-#   end
-# end
+function _postexec --on-event fish_postexec
+  switch $argv
+    case 'ghq get *'
+      sh -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
+    case 'pip install *'
+      _asdf_reshim
+    case 'pip3 install *'
+      _asdf_reshim
+    case 'npm install -g *'
+      _asdf_reshim
+  end
+end
 # }}}
 # OS specific {{{
 switch $_uname

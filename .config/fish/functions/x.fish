@@ -1,7 +1,11 @@
-function x -d 'zettels'
-  if test (count $argv) -eq 0
-    bash -c "cd ~/src/zettels && $EDITOR \$(fd -t f -e md | fzf --ansi --preview='bat --style plain --color=always  {}')"
-  else
-    bash -c "cd ~/src/zettels && $EDITOR $argv.md"
-  end
+function x --description "scratch"
+    cd ~/src/scratch
+    if [ (count $argv) -eq 0 ]
+      FZF_TMUX_HEIGHT='100%' FZF_ALT_C_OPTS='--preview "exa --tree --level 3 {}"' FZF_ALT_C_COMMAND='fd --hidden --type d --max-depth 1 ' fzf-cd-widget
+      return
+    end
+
+    set d (date +%Y%m%d_$argv)
+    mkdir $d
+    cd $d
 end

@@ -34,6 +34,7 @@ emptyDir $HOME/.config/pulse
 emptyDir $HOME/.config/nvim
 
 rmf $HOME/.kube/config
+rmf $HOME/.hammerspoon
 rmf $HOME/.scripts
 rmf $HOME/.oh-my-zsh
 rmf $HOME/.config/gh

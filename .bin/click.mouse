@@ -2,6 +2,6 @@
 
 osascript <<EOF
 tell application "System Events"
-    click at {456,789}
+    click at {100,100}
 end tell
 EOF
