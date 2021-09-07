@@ -157,9 +157,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-go-expr-completion"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-go-expr-completion
 	url = https://github.com/110y/vim-go-expr-completion.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim
-	url = https://github.com/Alkindi42/markdown-preview.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/startuptime.vim"]
 	path = .local/share/nvim/site/pack/paqs/opt/startuptime.vim
 	url = https://github.com/tweekmonster/startuptime.vim.git
@@ -340,3 +337,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/telescope.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim

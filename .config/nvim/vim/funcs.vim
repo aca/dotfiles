@@ -75,4 +75,3 @@ xmap s :SortVis<CR>
 " :YankPath | copy current path in form of filename:linenr
 command! YankPath :lua require'_utils'.yankpath()
 nnoremap yp :YankPath<cr>
-" }}}

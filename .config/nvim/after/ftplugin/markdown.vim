@@ -13,7 +13,7 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 
 " iamcco/markdown-preview.nvim {{{
 " let g:mkdp_theme = 'dark'
-let g:mkdp_refresh_slow = 1
+" let g:mkdp_refresh_slow = 1
 " let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
 let g:mkdp_markdown_css = expand('~/.config/nvim/tufte.css')
 let g:mkdp_auto_close = 0
@@ -34,6 +34,10 @@ let g:mkdp_preview_options = {
 nnoremap <silent><leader>md :silent! call mkdp#util#open_preview_page()<cr>
 let $NODE_NO_WARNINGS=1
 packadd markdown-preview.nvim
+
+if ! isdirectory(stdpath('data') . '/site/pack/paqs/opt/markdown-preview.nvim/app/bin')
+  silent call mkdp#util#install()
+end
 " }}}
 
 " ferrine/md-img-paste.vim {{{
@@ -84,3 +88,4 @@ require('due_nvim').setup {
 EOF
 
 autocmd BufWritePre ~/src/zettels/todo.md %!sort
+
