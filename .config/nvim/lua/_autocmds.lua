@@ -14,9 +14,6 @@ au BufReadPost * silent! exe "normal! g`\""
 
 " set commentstring to '#' by default
 au BufWinEnter,BufAdd * if (&ft =="") | setlocal commentstring=#\ %s | endif
-
-" zettels
-autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
 ]]
 
 -- TODO
