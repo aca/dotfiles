@@ -340,3 +340,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim
 	url = https://github.com/iamcco/markdown-preview.nvim
+[submodule ".submodules/mpv-playlistmanager"]
+	path = .submodules/mpv-playlistmanager
+	url = https://github.com/jonniek/mpv-playlistmanager.git
+[submodule ".submodules/mpv-scripts"]
+	path = .submodules/mpv-scripts
+	url = https://github.com/zenyd/mpv-scripts.git

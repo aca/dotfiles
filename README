@@ -30,7 +30,7 @@ git submodule update --init --recursive --remote
 Brew 
 
   # Update
-  rm ~/.Brewfile && brew bundle dump --describe --global && mv ~/.Brewfile ~/src/configs/dotfiles
+  command rm ~/.Brewfile && brew bundle dump --describe --global && command mv ~/.Brewfile ~/src/configs/dotfiles && setup.stow
 
   # Install  
   brew bundle install --global

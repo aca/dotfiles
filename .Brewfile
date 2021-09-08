@@ -1,8 +1,15 @@
+tap "boz/repo"
+tap "filippo.io/age", "https://filippo.io/age"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "jez/formulae"
+tap "johanhaleby/kubetail"
 tap "koekeishiya/formulae"
+tap "sachaos/tap"
+# Simple, modern, secure file encryption
+brew "age"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
 # Macro processing language
@@ -17,10 +24,14 @@ brew "bash"
 brew "bat"
 # Garbage collector for C and C++
 brew "bdw-gc"
+# Get/set bluetooth power and discoverable state
+brew "blueutil"
 # Generic-purpose lossless compression algorithm by Google
 brew "brotli"
 # Asynchronous DNS library
 brew "c-ares"
+# Powerful, enterprise-ready, open source web server with automatic HTTPS
+brew "caddy"
 # Library for manipulating PNG images
 brew "libpng"
 # Software library to render fonts
@@ -241,6 +252,8 @@ brew "libidn"
 brew "ghostscript"
 # Remote repository management made easy
 brew "ghq"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Command-line option parsing utility
 brew "gnu-getopt"
 # Common error values for all GnuPG components
@@ -293,6 +306,8 @@ brew "oniguruma"
 brew "jq"
 # JSON parser for C
 brew "json-c"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Tool that can switch between kubectl contexts easily and create aliases
@@ -365,6 +380,8 @@ brew "nmap"
 brew "noti"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
 # Show ps output as a tree
 brew "pstree"
 # Command-line tool for managing long-running shell commands
@@ -377,6 +394,8 @@ brew "scrcpy"
 brew "sphinx-doc"
 # Soak up standard input and write to a file
 brew "sponge"
+# Tail multiple Kubernetes pods & their containers
+brew "stern"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Open source continuous file synchronization application
@@ -395,18 +414,30 @@ brew "ttyd"
 brew "unixodbc"
 # Ncurses based file manager with vi like keybindings
 brew "vifm", args: ["HEAD"]
+# Executes a program periodically, showing output fullscreen
+brew "watch"
 # Internet file retriever
 brew "wget"
 # General-purpose lossless data-compression library
 brew "zlib"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+# kubernetes tail - pod log viewer
+brew "boz/repo/kail"
+# Convert Pandoc Markdown-style footnotes into sidenotes
+brew "jez/formulae/pandoc-sidenote"
+# Tail logs from multiple Kubernetes pods at the same time
+brew "johanhaleby/kubetail/kubetail"
 # Simple hotkey-daemon for macOS.
 brew "koekeishiya/formulae/skhd", args: ["with-logging"]
 # A tiling window manager for macOS based on binary space partitioning.
 brew "koekeishiya/formulae/yabai"
+# Modern waach command. Viddy well, gopher. Viddy well.
+brew "sachaos/tap/viddy"
 # GPU-accelerated terminal emulator
 cask "alacritty"
+# Android SDK component
+cask "android-platform-tools"
 # Clipboard manager with advanced features
 cask "copyq"
 # App to build and share containerized applications and microservices
@@ -435,3 +466,5 @@ cask "telegram"
 cask "virtualbox"
 # Web browser focusing on customization and control
 cask "vivaldi"
+# Network protocol analyzer
+cask "wireshark"
