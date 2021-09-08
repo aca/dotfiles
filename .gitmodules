@@ -346,3 +346,6 @@
 [submodule ".submodules/mpv-scripts"]
 	path = .submodules/mpv-scripts
 	url = https://github.com/zenyd/mpv-scripts.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-pandoc-syntax"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-pandoc-syntax
+	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
