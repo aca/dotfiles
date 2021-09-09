@@ -1,6 +1,8 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
+if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
+
 # set -e SHELL
 # if test -f /bin/dash
 #   set -gx SHELL /bin/dash
@@ -110,7 +112,6 @@ if not set -q init_fish
     if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -x --append PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
     if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --append PATH $HOME/sdk/gotip/bin                          ; end
     if [ -d $HOME/xxx/bin ]                               ; set -x --append PATH $HOME/xxx/bin                                ; end
-    if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
     if [ -d /usr/local/opt/coreutils/libexec/gnubin ]     ; set -x --append PATH /usr/local/opt/coreutils/libexec/gnubin      ; end
     if [ -d $HOME/.local/bin ]                            ; set -x --append PATH $HOME/.local/bin                             ; end
     if [ -d $HOME/.cargo/bin ]                            ; set -x --append PATH $HOME/.cargo/bin                             ; end

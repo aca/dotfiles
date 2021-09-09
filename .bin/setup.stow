@@ -114,3 +114,12 @@ if [[ -d "dotfiles.$(hostname)" ]]; then
   sudo stow -v --target / "dotfiles.$(hostname)"
 fi
 # }}}
+
+# cleanup {{{
+if isDarwin; then
+  rm ~/.xinitrc
+  rm ~/.xprofile
+  rm ~/.xsession
+fi
+# }}}
+

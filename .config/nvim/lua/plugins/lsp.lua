@@ -60,15 +60,15 @@ lspconfig.clangd.setup {capabilities = capabilities}
 --   }
 -- }
 
--- require "pylance"
--- lspconfig.pylance.setup {
---     capabilities = capabilities,
---     settings = {
---         python = {
---             analysis = {}
---         }
---     }
--- }
+require "pylance"
+lspconfig.pylance.setup {
+    capabilities = capabilities,
+    settings = {
+        python = {
+            analysis = {}
+        }
+    }
+}
 
 -- local sumneko_root_path = vim.fn.expand("$HOME/src/github.com/sumneko/lua-language-server")
 -- local luadev =
