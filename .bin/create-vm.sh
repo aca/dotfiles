@@ -6,6 +6,8 @@ then
  exit 1
 fi
 
+export LIBVIRT_DEFAULT_URI='qemu+ssh://rok@100.90.85.73/system'
+
 sudo virt-install \
   --name $1 \
   --ram 4096 \
@@ -16,9 +18,8 @@ sudo virt-install \
   --network default \
   --graphics none \
   --console pty,target_type=serial \
-  --cdrom '/home/rok/Downloads/ubuntu-20.04.3-live-server-amd64.iso' 
-
-  # --extra-args 'console=ttyS0,115200n8 serial'
+  --cdrom '/home/rok/Downloads/ubuntu-20.04.3-live-server-amd64.iso' \
+  --extra-args 'console=ttyS0,115200n8 serial'
 
 
   # --network bridge:br0,model=virtio \

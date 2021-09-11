@@ -2,7 +2,7 @@
 
 tmux new -s bg -d
 
-playlists=(
+silent=(
  "https://www.youtube.com/watch?v=-g04TAjTv3Y" 
  "https://www.youtube.com/watch?v=3e-QfQrjcqA" 
  "https://www.youtube.com/watch?v=y5paOQU66hg"
@@ -30,5 +30,5 @@ balladd=(
 )
 
 
-tmux split-window -t bg -- mpv --no-video --input-ipc-server=/tmp/mpvsocket --term-playing-msg='Title: ${media-title}' "${epic[@]}" 
+tmux split-window -t bg -- mpv --no-video --input-ipc-server=/tmp/mpvsocket --term-playing-msg='Title: ${media-title}' "${silent[@]}" 
 # tmux split-window -t bg -- $SHELL -c "cat ~/src/playlists/latte | shuf | mpv --no-video --input-ipc-server=/tmp/mpvsocket --term-playing-msg='Title: ${media-title}' --playlist=- "

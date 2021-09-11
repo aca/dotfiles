@@ -8,6 +8,7 @@ tap "jez/formulae"
 tap "johanhaleby/kubetail"
 tap "koekeishiya/formulae"
 tap "sachaos/tap"
+tap "tilt-dev/tap"
 # Simple, modern, secure file encryption
 brew "age"
 # Codec library for encoding and decoding AV1 video streams
@@ -310,6 +311,8 @@ brew "json-c"
 brew "k9s"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Package manager for kubectl plugins
+brew "krew"
 # Tool that can switch between kubectl contexts easily and create aliases
 brew "kubectx"
 # DNS library written in C
@@ -334,6 +337,8 @@ brew "unibilium"
 brew "libtermkey"
 # Multi-platform support library with a focus on asynchronous I/O
 brew "libuv"
+# C virtualization API
+brew "libvirt", restart_service: true
 # C99 library which implements a VT220 or xterm terminal emulator
 brew "libvterm"
 # C websockets server library
@@ -434,6 +439,10 @@ brew "koekeishiya/formulae/skhd", args: ["with-logging"]
 brew "koekeishiya/formulae/yabai"
 # Modern waach command. Viddy well, gopher. Viddy well.
 brew "sachaos/tap/viddy"
+# Making local Kubernetes clusters easy to set up and tear down
+brew "tilt-dev/tap/ctlptl"
+# Tilt powers multi-service developments for teams that deploy to Kubernetes.
+brew "tilt-dev/tap/tilt"
 # GPU-accelerated terminal emulator
 cask "alacritty"
 # Android SDK component

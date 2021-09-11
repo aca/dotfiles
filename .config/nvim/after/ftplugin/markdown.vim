@@ -8,8 +8,8 @@ setlocal shiftwidth=2
 setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
 
-" hi link markdownCodeBlock Tag
-" hi link markdownCode Tag
+hi link markdownCodeBlock Boolean
+hi link markdownCode Boolean
 
 set foldexpr=NestedMarkdownFolds()
 
@@ -41,6 +41,9 @@ command MakeLink lua require('_markdown').makelink()
 
 lua require('plugins.due')
 packadd vim-table-mode
+
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+packadd vim-pandoc-syntax
 source ~/.config/nvim/vim/md-img-paste.vim
 source ~/.config/nvim/vim/markdown-preview.vim
 source ~/.config/nvim/vim/vim-markdown.vim

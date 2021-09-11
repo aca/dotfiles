@@ -33,7 +33,6 @@ emptyDir $HOME/.config/fcitx
 emptyDir $HOME/.config/pulse
 emptyDir $HOME/.config/nvim
 
-rmf $HOME/.kube/config
 rmf $HOME/.hammerspoon
 rmf $HOME/.scripts
 rmf $HOME/.oh-my-zsh
@@ -98,6 +97,10 @@ mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
 mkdir -p $HOME/.kube
 emptyDir ~/.local/share/nvim/site/pack/paqs
+
+ensureDir $HOME/.ssh
+rmf $HOME/.ssh/config
+
 # }}}
 
 # plugins {{{
@@ -109,7 +112,6 @@ stow -v --target $HOME "dotfiles"
 
 # stow host specific dotfiles
 if [[ -d "dotfiles.$(hostname)" ]]; then 
-  rmf $HOME/.ssh
   rmf ~/.config/gcloud
   sudo stow -v --target / "dotfiles.$(hostname)"
 fi
