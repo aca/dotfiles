@@ -32,7 +32,8 @@ function _watch_command
   end
 
   if command -q viddy
-    viddy -n3 --shell fish -- $command
+    # viddy -n3 --shell fish -c "$command"
+    viddy fish -c "$command"
   else
     watch --beep --interval 2 --differences=permanent --exec fish -c "$command | perl -pe 's/\x1b\[[0-9;]*[mG]//g'"
   end

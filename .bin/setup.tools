@@ -12,6 +12,7 @@ export GO111MODULE=on
 go install github.com/cweill/gotests/gotests@latest
 go get github.com/sanity-io/litter@latest
 go install golang.org/x/tools/gopls@latest
+go install github.com/sachaos/viddy@latest
 go install mvdan.cc/gofumpt@latest
 go install mvdan.cc/gofumpt/gofumports@latest
 go install mvdan.cc/xurls/v2/cmd/xurls@latest

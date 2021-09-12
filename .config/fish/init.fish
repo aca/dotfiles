@@ -1,7 +1,6 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
-if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
 
 # set -e SHELL
 # if test -f /bin/dash
@@ -107,6 +106,7 @@ if not set -q init_fish
     set -px PATH $HOME/.bin
     set -px PATH $HOME/.bin/$_uname
 
+    if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
     if [ -d $HOME/.raku/bin ]                             ; set -x --append PATH $HOME/.raku/bin                              ; end
     if [ -d $HOME/.linkerd2/bin ]                         ; set -x --append PATH $HOME/.linkerd2/bin                          ; end
     if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -x --append PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
@@ -173,15 +173,17 @@ abbr --global co 'pbpaste'
 # end
 
 function _postexec --on-event fish_postexec
+
   switch $argv
     case 'ghq get *'
-      sh -c 'cd ~/src && fd --hidden --type d --follow --max-depth 7 > ~/src/.src' &
+      set_color red; echo "[HOOK] updating source database"; set_color normal;
+      _update_src &
     case 'pip install *'
-      _asdf_reshim
+      set_color red; echo "[HOOK] asdf reshim"; set_color normal;
+      asdf reshim &
     case 'pip3 install *'
-      _asdf_reshim
-    case 'npm install -g *'
-      _asdf_reshim
+      set_color red; echo "[HOOK] asdf reshim"; set_color normal;
+      asdf reshim &
   end
 end
 # }}}

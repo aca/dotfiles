@@ -1,4 +1,5 @@
 local lspconfig = require "lspconfig"
+local util = require "lspconfig/util"
 local configs = require "lspconfig/configs"
 
 -- Based on https://github.com/hrsh7th/cmp-nvim-lsp
@@ -30,7 +31,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     }
 )
 
--- lspconfig.tsserver.setup {capabilities = capabilities} -- Need typescript installed to use for javascript project
+lspconfig.tsserver.setup { capabilities = capabilities } -- Need typescript installed to use for javascript project
+
 lspconfig.gopls.setup {capabilities = capabilities}
 -- lspconfig.hls.setup {capabilities = capabilities}
 -- lspconfig.racket_langserver.setup{ capabilities = capabilities; }

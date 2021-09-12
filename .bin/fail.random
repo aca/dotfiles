@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env fish
 
-random="$(($RANDOM % 3))"
-exit $random
+set x (random 1 5)
+[ $x -gt 1 ] && echo "success"

@@ -12,3 +12,4 @@ function! VisualStarSearchSet(cmdtype,...)
 endfunction
 xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
+nnoremap <leader>* viW<esc>:call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
