@@ -20,7 +20,7 @@ font:
     style: Regular
     # family: Go Mono
     # family: Consolas NF
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
     # family: SF Mono
 
     # family: Menlo
@@ -57,7 +57,7 @@ font:
     # family: agave Nerd Font
     # family: mononoki Nerd Font
     # family: JetBrainsMono Nerd Font
-    # family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro Nerd Font Mono
     # family: PragmataPro Nerd Font
     # family: Dina
     # family: Hack Nerd Font
@@ -97,8 +97,8 @@ font:
 
   size: 24
   offset:
-    x: 0
-    y: 3
+    x: -1
+    y: 0
   glyph_offset:
     x: 0 
     y: 0
@@ -337,40 +337,46 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Brewer - alacritty color config
-# Timothée Poisot (http://github.com/tpoisot)
+# Base16 Darktooth 256 - alacritty color config
+# Jason Milkins (https://github.com/jasonm23)
 colors:
   # Default colors
   primary:
-    background: '0x0c0d0e'
-    foreground: '0xb7b8b9'
+    background: '0x1d2021'
+    foreground: '0xa89984'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x0c0d0e'
-    cursor: '0xb7b8b9'
+    text: '0x1d2021'
+    cursor: '0xa89984'
 
   # Normal colors
   normal:
-    black:   '0x0c0d0e'
-    red:     '0xe31a1c'
-    green:   '0x31a354'
-    yellow:  '0xdca060'
-    blue:    '0x3182bd'
-    magenta: '0x756bb1'
-    cyan:    '0x80b1d3'
-    white:   '0xb7b8b9'
+    black:   '0x1d2021'
+    red:     '0xfb543f'
+    green:   '0x95c085'
+    yellow:  '0xfac03b'
+    blue:    '0x0d6678'
+    magenta: '0x8f4673'
+    cyan:    '0x8ba59b'
+    white:   '0xa89984'
 
   # Bright colors
   bright:
-    black:   '0x737475'
-    red:     '0xe6550d'
-    green:   '0x2e2f30'
-    yellow:  '0x515253'
-    blue:    '0x959697'
-    magenta: '0xdadbdc'
-    cyan:    '0xb15928'
-    white:   '0xfcfdfe'
+    black:   '0x665c54'
+    red:     '0xfb543f'
+    green:   '0x95c085'
+    yellow:  '0xfac03b'
+    blue:    '0x0d6678'
+    magenta: '0x8f4673'
+    cyan:    '0x8ba59b'
+    white:   '0xfdf4c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xfe8625' }
+    - { index: 17, color: '0xa87322' }
+    - { index: 18, color: '0x32302f' }
+    - { index: 19, color: '0x504945' }
+    - { index: 20, color: '0x928374' }
+    - { index: 21, color: '0xd5c4a1' }
 # ColorEnd
