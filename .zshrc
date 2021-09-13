@@ -80,5 +80,6 @@ alias td='tmux detach'
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
 [ -f ~/.fzf/shell/key-bindings.zsh ] && source ~/.fzf/shell/key-bindings.zsh
+[ -e $HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake ] && alias luamake=$HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake
 
-alias luamake=$HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake
+true
