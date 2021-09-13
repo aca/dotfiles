@@ -62,7 +62,6 @@ source ~/.config/nvim/vim/luapad.vim
 
 vim.cmd [[
 packadd vim-fold-cycle
-packadd pastefix.vim
 packadd vim-fetch
 packadd nvim-colorizer.lua
 packadd codi.vim
@@ -82,6 +81,3 @@ end))
 vim.cmd [[
 source ~/.config/nvim/vim/tmp.vim
 ]]
-
-
-

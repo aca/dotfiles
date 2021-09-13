@@ -31,9 +31,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-peekup"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-peekup
 	url = https://github.com/gennaro-tedesco/nvim-peekup.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/pastefix.vim"]
-	path = .local/share/nvim/site/pack/paqs/opt/pastefix.vim
-	url = https://github.com/lambdalisue/pastefix.vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-oscyank"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-oscyank
 	url = https://github.com/ojroques/vim-oscyank.git
