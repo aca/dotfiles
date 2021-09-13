@@ -68,4 +68,4 @@ set -o vi
 if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
 
 if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi
-[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
+if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi

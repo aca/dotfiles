@@ -340,3 +340,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-pandoc-syntax"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-pandoc-syntax
 	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
+[submodule ".submodules/zsh-fzf-history-search"]
+	path = .submodules/zsh-fzf-history-search
+	url = https://github.com/joshskidmore/zsh-fzf-history-search.git

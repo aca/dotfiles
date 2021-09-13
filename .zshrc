@@ -1,10 +1,11 @@
 # vim: set filetype=zsh foldmethod=marker foldlevel=0:
+# PROMPT='%{$fg[green]%}%{$PROMPT}%{$fg[white]%}'
 
-PROMPT='%{$fg[green]%}%n@%m:%~ $ $fg[white]%'
+autoload -U promptinit && promptinit
+prompt restore
 
 # oh-my-zsh {{{
 export ZSH="$HOME/.oh-my-zsh"
-# ZSH_THEME=robbyrussell
 
 DISABLE_AUTO_UPDATE="true"
 
@@ -17,12 +18,6 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-# }}}
-
-# Prompt {{{
-# PROMPT='%n@%m %3~%(!.#.$)%(?.. [%?]) '
-# RPROMPT='%~'
-# PS1="%n@%M $ "
 # }}}
 
 # Options {{{ 
@@ -51,6 +46,9 @@ setopt PUSHD_IGNORE_DUPS       # don't push multiple copies of same dir onto sta
 setopt PUSHD_SILENT            # [default] don't print dir stack after pushing/popping
 setopt SHARE_HISTORY           # share history across shells
 setopt inc_append_history
+
+setopt inc_appendhistorytime  # append command to history file immediately after execution
+setopt EXTENDED_HISTORY  # record command start time
 #  }}} zsh options
 
 # Exports {{{
@@ -79,7 +77,16 @@ alias td='tmux detach'
 
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
-[ -f ~/.fzf/shell/key-bindings.zsh ] && source ~/.fzf/shell/key-bindings.zsh
 [ -e $HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake ] && alias luamake=$HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake
 
-true
+source ~/.fzf/shell/key-bindings.zsh
+source ~/.submodules/zsh-fzf-history-search/zsh-fzf-history-search.zsh
+
+# PATH {{{
+export PATH=$HOME/.bin:$PATH
+export PATH=$HOME/.krew/bin:$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+# clean path
+typeset -U path
+# }}}

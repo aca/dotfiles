@@ -1,5 +1,5 @@
-env:
-  TERM: screen-256color
+# env:
+#   TERM: screen-256color
 window:
   padding:
     x: 10
@@ -132,13 +132,11 @@ live_config_reload: true
 #     - -c
 #     - "tmux attach || tmux"
 
-shell:
-  program: /usr/local/bin/fish
-  args:
-    - --login 
-  #     # - -c
-  #     # - "tmux attach -t main || tmux new -s main && tmux attach -t main"
-  #     #   - --interactive
+# shell:
+  # program: /usr/local/bin/fish
+  # program: zsh
+  # args:
+  #   - --login 
 
 working_directory: None
 

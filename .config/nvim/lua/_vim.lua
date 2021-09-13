@@ -5,9 +5,9 @@ set listchars=tab:\ ──,space:·,nbsp:␣,trail:•,eol:↵,precedes:«,exten
 set showbreak=⤷\ 
 
 " fold
-set foldlevel=0 " close all folds
+" set foldlevel=0 " close all folds
 " set foldlevel=99 " open all folds
-set foldnestmax=3
+" set foldnestmax=3
 set foldmethod=marker
 set foldcolumn=0
 " set cofoldenable
