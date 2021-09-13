@@ -12,9 +12,11 @@ if not status --is-interactive; exit; end
 # set -gx SHELL /bin/dash
 
 # vars {{{
-#
+
 if not set -q init_fish
     set -gx init_fish
+    set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
+    set -gx VIRSH_DEFAULT_CONNECT_URI "qemu:///system"
 
     # In case TERM=xterm-256color not exists
     if [ "$USER" = "ubuntu" ]; set -gx TERM linux; end
