@@ -1,6 +1,4 @@
-if vim.g._minimal then
-  return
-end
+if vim.g._minimal then return end
 
 local dap = require("dap")
 

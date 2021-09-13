@@ -46,4 +46,3 @@ au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 packadd vim-pandoc-syntax
 source ~/.config/nvim/vim/md-img-paste.vim
 source ~/.config/nvim/vim/markdown-preview.vim
-source ~/.config/nvim/vim/vim-markdown.vim

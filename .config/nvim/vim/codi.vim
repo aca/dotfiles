@@ -1,3 +1,3 @@
 if _minimal | finish | end
 
-packadd codi.vim
+command! Codi :packadd codi.vim | :Codi

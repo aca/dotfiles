@@ -1,2 +1,4 @@
 " open test (toggle test)
-nnoremap <silent> <leader>tt :call switchy#switch('edit', 'edit')<CR>
+" open _test.go
+nnoremap <silent> <leader>tt :packadd switchy.vim \| call switchy#switch('edit', 'edit')<CR>
+

@@ -29,7 +29,7 @@ require 'plugins.gitsigns'
 
 require 'plugins.zenmode'
 require 'plugins.xdg_open'
-require 'plugins.numb'
+-- require 'plugins.numb'
 require 'plugins.hop'
 require 'plugins.lion'
 require 'plugins.move'
