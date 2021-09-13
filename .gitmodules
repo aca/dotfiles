@@ -298,9 +298,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-scriptease"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease.git
-[submodule ".submodules/lume"]
-	path = .submodules/lume
-	url = https://github.com/rxi/lume.git
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-calc"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-calc
 	url = https://github.com/hrsh7th/cmp-calc.git
@@ -325,9 +322,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-barbaric"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-barbaric
 	url = https://github.com/rlue/vim-barbaric
-[submodule ".submodules/smug"]
-	path = .submodules/smug
-	url = https://github.com/ivaaaan/smug.git
 [submodule ".submodules/fish-kubectl-completions"]
 	path = .submodules/fish-kubectl-completions
 	url = https://github.com/evanlucas/fish-kubectl-completions.git
