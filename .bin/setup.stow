@@ -117,10 +117,3 @@ if [[ -d "dotfiles.$(hostname)" ]]; then
 fi
 # }}}
 
-# cleanup {{{
-if isDarwin; then
-  rm ~/.xinitrc
-  rm ~/.xprofile
-  rm ~/.xsession
-fi
-# }}}

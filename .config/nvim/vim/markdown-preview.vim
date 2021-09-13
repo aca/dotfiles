@@ -19,7 +19,7 @@ let g:mkdp_preview_options = {
 
 let $NODE_NO_WARNINGS=1
 
-if ! isdirectory(stdpath('data') . '/site/pack/paqs/opt/markdown-preview.nvim/app/bin')
+if !isdirectory(stdpath('data') . '/site/pack/paqs/opt/markdown-preview.nvim/app/bin')
   packadd markdown-preview.nvim
   silent call mkdp#util#install()
 end

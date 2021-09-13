@@ -5,9 +5,6 @@
 --colors=match:fg:black
 --colors=match:bg:yellow
 --colors=match:style:nobold
-# --no-heading
-# --with-filename
-# --line-number
 --follow
 --hidden
 
@@ -23,6 +20,5 @@
 --glob=!dist/**
 --glob=!fish_history
 --glob=!.neuron/**
-
 
 --smart-case

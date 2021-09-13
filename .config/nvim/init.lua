@@ -58,18 +58,18 @@ source ~/.config/nvim/vim/sandwich.vim
 source ~/.config/nvim/vim/quickrun.vim
 source ~/.config/nvim/vim/vifm.vim
 source ~/.config/nvim/vim/luapad.vim
+source ~/.config/nvim/vim/smoothie.vim
+source ~/.config/nvim/vim/codi.vim
 ]]
 
 vim.cmd [[
 packadd vim-fold-cycle
 packadd vim-fetch
 packadd nvim-colorizer.lua
-packadd codi.vim
 packadd vim-characterize
 packadd vim-eunuch
 packadd vim-ReplaceWithRegister
 packadd diffview.nvim
-packadd vim-smoothie
 packadd vim-scriptease
 packadd vim-rfc
 packadd vim-barbaric

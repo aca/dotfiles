@@ -1,3 +1,7 @@
+if vim.g._minimal then
+  return
+end
+
 local dap = require("dap")
 
 vim.g.dap_virtual_text = true
