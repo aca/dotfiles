@@ -124,9 +124,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-swap"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-swap
 	url = https://github.com/machakann/vim-swap.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/fzf-proj.vim"]
-	path = .local/share/nvim/site/pack/paqs/opt/fzf-proj.vim
-	url = https://github.com/aca/fzf-proj.vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-autopairs"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-autopairs
 	url = https://github.com/windwp/nvim-autopairs.git
@@ -154,9 +151,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-go-expr-completion"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-go-expr-completion
 	url = https://github.com/110y/vim-go-expr-completion.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/startuptime.vim"]
-	path = .local/share/nvim/site/pack/paqs/opt/startuptime.vim
-	url = https://github.com/tweekmonster/startuptime.vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/zen-mode.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/zen-mode.nvim
 	url = https://github.com/folke/zen-mode.nvim.git
@@ -238,9 +232,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-jqplay"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-jqplay
 	url = https://github.com/bfrg/vim-jqplay.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/pfp-vim"]
-	path = .local/share/nvim/site/pack/paqs/opt/pfp-vim
-	url = https://github.com/d0c-s4vage/pfp-vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-characterize"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-characterize
 	url = https://github.com/tpope/vim-characterize.git
@@ -313,12 +304,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-path"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-tmux-navigation"]
-	path = .local/share/nvim/site/pack/paqs/opt/nvim-tmux-navigation
-	url = https://github.com/alexghergh/nvim-tmux-navigation.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-wintabs"]
-	path = .local/share/nvim/site/pack/paqs/opt/vim-wintabs
-	url = https://github.com/zefei/vim-wintabs.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-barbaric"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-barbaric
 	url = https://github.com/rlue/vim-barbaric

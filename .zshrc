@@ -1,8 +1,8 @@
 # vim: set filetype=zsh foldmethod=marker foldlevel=0:
 # PROMPT='%{$fg[green]%}%{$PROMPT}%{$fg[white]%}'
 
-autoload -U promptinit && promptinit
-prompt restore
+# autoload -U promptinit && promptinit
+# prompt restore
 
 # oh-my-zsh {{{
 export ZSH="$HOME/.oh-my-zsh"
@@ -17,7 +17,7 @@ plugins=(
   # aws
 )
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 # }}}
 
 # Options {{{ 

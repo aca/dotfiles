@@ -23,7 +23,7 @@ Neovim
 # unbinds all submodules
 git submodule deinit -f .
 # checkout again
-git submodule update --init --recursive
+git submodule update --init --remote
 # update
 git submodule update --init --recursive --remote
 

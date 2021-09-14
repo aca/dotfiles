@@ -42,7 +42,7 @@ command MakeLink lua require('_markdown').makelink()
 lua require('plugins.due')
 packadd vim-table-mode
 
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-packadd vim-pandoc-syntax
+" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+" packadd vim-pandoc-syntax
 source ~/.config/nvim/vim/md-img-paste.vim
 source ~/.config/nvim/vim/markdown-preview.vim
