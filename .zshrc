@@ -75,6 +75,14 @@ alias tk='tmux kill-server'
 alias td='tmux detach'
 # }}}
 
+# PATH {{{
+export PATH=$HOME/.bin:$PATH
+export PATH=$HOME/.krew/bin:$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+typeset -U path # clean path
+# }}}
+
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
 [ -e $HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake ] && alias luamake=$HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake
@@ -82,11 +90,3 @@ alias td='tmux detach'
 source ~/.fzf/shell/key-bindings.zsh
 source ~/.submodules/zsh-fzf-history-search/zsh-fzf-history-search.zsh
 
-# PATH {{{
-export PATH=$HOME/.bin:$PATH
-export PATH=$HOME/.krew/bin:$PATH
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-# clean path
-typeset -U path
-# }}}

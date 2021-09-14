@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-terminal.font
-terminal.color
+term.font
+term.color

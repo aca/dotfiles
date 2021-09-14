@@ -1,4 +1,5 @@
 tap "boz/repo"
+tap "cloudflare/cloudflare"
 tap "filippo.io/age", "https://filippo.io/age"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -309,6 +310,8 @@ brew "jq"
 brew "json-c"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "k9s"
+# Tool to move from `docker-compose` to Kubernetes
+brew "kompose"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Package manager for kubectl plugins
@@ -373,24 +376,26 @@ brew "youtube-dl"
 brew "mpv"
 # Library for a binary-based efficient data interchange format
 brew "msgpack"
-# Parser generator tool and incremental parsing library
-brew "tree-sitter"
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim", args: ["HEAD"], link: false
 # Small build system for use with gyp or CMake
 brew "ninja"
 # Port scanning utility for large networks
 brew "nmap"
+# Prometheus exporter for machine metrics
+brew "node_exporter"
 # Trigger notifications when a process completes
 brew "noti"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
+# Service monitoring system and time series database
+brew "prometheus"
 # Show ps output as a tree
 brew "pstree"
 # Command-line tool for managing long-running shell commands
 brew "pueue", restart_service: true
+# Perl 6 compiler targeting MoarVM
+brew "rakudo"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Display and control your Android device
@@ -407,12 +412,18 @@ brew "stow"
 brew "syncthing"
 # User interface to the TELNET protocol
 brew "telnet"
+# Text interface for Git repositories
+brew "tig"
 # Clean C library for processing UTF-8 Unicode data
 brew "utf8proc"
 # Terminal multiplexer
-brew "tmux", args: ["HEAD"]
+brew "tmux"
+# Command-line interface to the freedesktop.org trashcan
+brew "trash-cli"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Parser generator tool and incremental parsing library
+brew "tree-sitter"
 # Command-line tool for sharing terminal over the web
 brew "ttyd"
 # ODBC 3 connectivity for UNIX
@@ -423,12 +434,16 @@ brew "vifm", args: ["HEAD"]
 brew "watch"
 # Internet file retriever
 brew "wget"
+# Homebrew, but with Docker images
+brew "whalebrew"
 # General-purpose lossless data-compression library
 brew "zlib"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # kubernetes tail - pod log viewer
 brew "boz/repo/kail"
+# Argo Tunnel
+brew "cloudflare/cloudflare/cloudflared"
 # Convert Pandoc Markdown-style footnotes into sidenotes
 brew "jez/formulae/pandoc-sidenote"
 # Tail logs from multiple Kubernetes pods at the same time
