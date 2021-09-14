@@ -6,9 +6,9 @@ function l --wraps=exa
 
   switch (pwd)
     case (realpath ~/src/zettels) ]
-      set -gx EXA_IGNORE 'Icon?|javasharedresources|.DS_Store|neuron.dhall|.neuron|.git|head.html'
+      set EXA_IGNORE 'Icon?|javasharedresources|.DS_Store|neuron.dhall|.neuron|.git|head.html'
     case '*'
-      set -gx EXA_IGNORE 'Icon?|javasharedresources|.DS_Store'
+      set EXA_IGNORE 'Icon?|javasharedresources|.DS_Store'
     end
   exa --icons --long --group -I "$EXA_IGNORE" -s=time $argv 
 end
