@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+blueutil --connect c4-5d-83-dd-82-f0
+
