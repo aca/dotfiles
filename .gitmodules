@@ -328,6 +328,3 @@
 [submodule ".submodules/zsh-fzf-history-search"]
 	path = .submodules/zsh-fzf-history-search
 	url = https://github.com/joshskidmore/zsh-fzf-history-search.git
-[submodule ".local/share/nvim/site/pack/paqs/start/github-nvim-theme"]
-	path = .local/share/nvim/site/pack/paqs/start/github-nvim-theme
-	url = https://github.com/projekt0n/github-nvim-theme.git
