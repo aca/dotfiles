@@ -13,6 +13,7 @@ else
   set milleroptions="lsize:1,csize:2,rsize:3,rpreview:all"
 endif
 
+
 if executable('/usr/local/bin/fish')
   let $SHELL="/usr/local/bin/fish"
 elseif executable('/usr/bin/fish')

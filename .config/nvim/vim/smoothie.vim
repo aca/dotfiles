@@ -1,3 +1,3 @@
 if _minimal | finish | end
 
-" packadd vim-smoothie
+packadd vim-smoothie

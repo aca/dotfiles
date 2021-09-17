@@ -13,6 +13,8 @@ list-all() {
     [[ "$f" =~ '~/.dotnet/tools' ]] && continue
     [[ "$f" =~ '/Applications/Wireshark.app/' ]] && continue
     [[ "$f" =~ '/Library/TeX/texbin' ]] && continue
+    [[ "$f" =~ '/opt/X11/bin' ]] && continue
+    [[ "$f" =~ '~/bin' ]] && continue
     [[ ! -d $f ]] && continue
     
     # files

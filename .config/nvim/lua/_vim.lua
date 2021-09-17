@@ -6,7 +6,7 @@ set showbreak=⤷\
 
 " fold
 " set foldlevel=0 " close all folds
-" set foldlevel=99 " open all folds
+set foldlevel=99 " open all folds
 " set foldnestmax=3
 set foldmethod=marker
 set foldcolumn=0

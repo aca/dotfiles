@@ -1,15 +1,9 @@
 #!/usr/bin/env fish
 
-pushd . >/dev/null
 mkdir -p ~/src/zettels/log 2>/dev/null || true
-cd ~/src/zettels/log
 
 if [ (count $argv) -eq 0 ]
-  $EDITOR "$(date '+%Y-%m-%d').md"
+  $EDITOR "$HOME/src/zettels/log/"$(date '+%Y-%m-%d').md
 else
-  $EDITOR "$(date '+%Y-%m-%d')_$argv.md"
+  $EDITOR "$HOME/src/zettels/log/"$(date '+%Y-%m-%d')_$argv.md
 end
-
-
-
-popd 2>/dev/null

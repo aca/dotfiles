@@ -79,7 +79,7 @@ filetype *.md5
        \ md5sum -c %f %S,
 
 " Markdown
-fileviewer *.md
+filetype *.md
        \ nvim -c %f,
 
 " SHA1

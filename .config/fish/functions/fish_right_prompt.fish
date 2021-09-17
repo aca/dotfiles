@@ -8,7 +8,7 @@ function fish_right_prompt
     if test $CMD_DURATION
         set -l duration
         # Show duration of the last command in seconds
-        echo "$CMD_DURATION 1000" | awk '{printf " %.3fs ", $1 / $2}'
+        echo "$CMD_DURATION 1000" | awk '{printf " %5.3fs ", $1 / $2}'
 #
 #         # set exclude_cmd "zsh|bash|man|ssh|v|t|f"
 #         # if test $CMD_DURATION -gt 10000

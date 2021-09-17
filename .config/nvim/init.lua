@@ -44,6 +44,7 @@ require 'plugins.oscyank'
 require 'plugins.gitlinker'
 require 'plugins.neoformat'
 require 'plugins.vim-test'
+require 'plugins.dadbod'
 
 vim.cmd [[
 source ~/.config/nvim/vim/mapping.vim
