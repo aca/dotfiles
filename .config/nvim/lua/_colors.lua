@@ -6,3 +6,5 @@ colorscheme tomorrow-night
 " colorscheme falcon
 ]]
 
+
+-- require("github-theme").setup({theme_style = "dark_default"})

@@ -150,6 +150,15 @@ abbr --global ci 'pbcopy'
 abbr --global co 'pbpaste'
 # abbr --global tm 'tmux'
 # abbr --global td 'tmux detach'
+abbr --global gcm git commit --allow-empty-message -m
+abbr --global gacm git commit -a --allow-empty-message -m
+# abbr --global gacm2  git commit -a --allow-empty-message -m
+# abbr --global gacm3  git commit -a --allow-empty-message -m
+# abbr --global gacm4  git commit -a --allow-empty-message -m
+# abbr --global gacm5  git commit -a --allow-empty-message -m
+# abbr --global gacm6  git commit -a --allow-empty-message -m
+# abbr --global gacm7  git commit -a --allow-empty-message -m
+# abbr --global gacm8  git commit -a --allow-empty-message -m
 
 # }}}
 # hooks {{{

@@ -1,3 +1,4 @@
+" Replaced with vim-barbaric
 " if executable('fcitx5-remote')
 "   autocmd InsertLeave * silent call system("fcitx5-remote -c")
 " endif

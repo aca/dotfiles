@@ -15,8 +15,3 @@ au BufReadPost * silent! exe "normal! g`\""
 " set commentstring to '#' by default
 au BufWinEnter,BufAdd * if (&ft =="") | setlocal commentstring=#\ %s | endif
 ]]
-
--- TODO
--- if g:_uname == "linux"
---   autocmd InsertLeave * silent call system("fcitx5-remote -c")
--- end
