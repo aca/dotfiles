@@ -2,6 +2,7 @@ vim.cmd [[
         packadd playground
         packadd nvim-treesitter
         packadd nvim-ts-rainbow
+      set foldexpr=nvim_treesitter#foldexpr()
 ]]
 
 require "nvim-treesitter.configs".setup {
@@ -23,3 +24,11 @@ require "nvim-treesitter.configs".setup {
         enable = true
     }
 }
+
+
+vim.cmd [[
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+]]

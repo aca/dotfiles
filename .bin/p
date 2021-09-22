@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
 
-fd $argv[1] | mpv --really-quiet --playlist=-
-# disown && exit
+fd $argv[1] | mpv --really-quiet --playlist=- &
+disown && exit
 

@@ -22,3 +22,7 @@ autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
 
 " if there's no other window but quickfix close vim
 au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+
+autocmd TermOpen * setlocal nonumber norelativenumber
+autocmd TermOpen * startinsert
+tnoremap <Esc> <C-\><C-n>

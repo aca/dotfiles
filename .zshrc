@@ -8,6 +8,8 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 DISABLE_AUTO_UPDATE="true"
+export ZSH_THEME="jreese"
+
 
 plugins=(
   # tmux
@@ -17,7 +19,7 @@ plugins=(
   # aws
 )
 
-# source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 # }}}
 
 # Options {{{ 

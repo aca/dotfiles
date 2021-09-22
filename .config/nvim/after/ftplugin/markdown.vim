@@ -1,5 +1,7 @@
 " vim:ft=vim et sw=2 foldmethod=marker
 
+imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
+
 set nonu
 setlocal autoindent 
 setlocal tabstop=2 

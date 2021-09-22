@@ -1,6 +1,7 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
+status job-control full
 
 # set -e SHELL
 # if test -f /bin/dash

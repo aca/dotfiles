@@ -32,8 +32,8 @@ set termguicolors " norcalli/nvim-colorizer.lua need this
 
 " number, toggle with ;n, performance issue
 " set ruler
-set number
-set norelativenumber
+" set number
+set relativenumber
 
 set shortmess=aItcF
 

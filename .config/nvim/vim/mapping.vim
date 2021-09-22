@@ -6,8 +6,8 @@
 "
 " LSP
 "
-nnoremap <silent> gD            <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gd            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gt            <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
@@ -38,7 +38,7 @@ smap <expr><S-Tab>              v:lua.s_tab_complete()
 "
 nnoremap <expr>   <bslash>f &foldlevel ? 'zM' :'zR'
 nnoremap <silent> <bslash>w :set wrap!<CR>
-nnoremap <silent> <bslash>n :set number! \| set relativenumber!<CR>
+nnoremap <silent> <bslash>n :set relativenumber!<CR>
 nnoremap <silent> <bslash>g :Gitsigns toggle_signs<cr>
 nnoremap <silent> <bslash>s
              \ : if exists("syntax_on") <BAR>
@@ -63,9 +63,6 @@ vnoremap g<C-a> <C-a>
 vnoremap g<C-x> <C-x>
 nnoremap <c-g> 2<c-g>
 
-" imap <C-d> ##<ESC>:r! date "+\%H:\%M \%a \%m/\%d/\%Y"<CR>kJ$a<cr>
-" imap <C-d> <ESC>:r! date "date +\%Y-\%m-\%d"<CR>kJ$a<cr>
-imap <c-d> <c-r>=strftime("## %Y-%m-%d %H:%M:%S")<cr>
 
 " mistakes
 cnoreabbrev W! w!
@@ -110,7 +107,7 @@ nnoremap ]c :packadd vim-misc \| packadd vim-colorscheme-switcher \| :PrevColorS
 
 " Split
 nnoremap <leader>o :only<cr>
-noremap  <Leader>h :<C-u>split<CR>
+noremap  <Leader><leader><leader> :<C-u>split<CR>
 noremap  <Leader>v :<C-u>vsplit<CR>
 command! Fish terminal fish
 " nnoremap <leader>s :botright 10sp<bar>  :Fish<cr>i

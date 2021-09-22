@@ -334,40 +334,46 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Tomorrow Night - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Base16 Seti UI 256 - alacritty color config
+# 
 colors:
   # Default colors
   primary:
-    background: '0x1d1f21'
-    foreground: '0xc5c8c6'
+    background: '0x151718'
+    foreground: '0xd6d6d6'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1d1f21'
-    cursor: '0xc5c8c6'
+    text: '0x151718'
+    cursor: '0xd6d6d6'
 
   # Normal colors
   normal:
-    black:   '0x1d1f21'
-    red:     '0xcc6666'
-    green:   '0xb5bd68'
-    yellow:  '0xf0c674'
-    blue:    '0x81a2be'
-    magenta: '0xb294bb'
-    cyan:    '0x8abeb7'
-    white:   '0xc5c8c6'
+    black:   '0x151718'
+    red:     '0xcd3f45'
+    green:   '0x9fca56'
+    yellow:  '0xe6cd69'
+    blue:    '0x55b5db'
+    magenta: '0xa074c4'
+    cyan:    '0x55dbbe'
+    white:   '0xd6d6d6'
 
   # Bright colors
   bright:
-    black:   '0x969896'
-    red:     '0xde935f'
-    green:   '0x282a2e'
-    yellow:  '0x373b41'
-    blue:    '0xb4b7b4'
-    magenta: '0xe0e0e0'
-    cyan:    '0xa3685a'
+    black:   '0x41535b'
+    red:     '0xcd3f45'
+    green:   '0x9fca56'
+    yellow:  '0xe6cd69'
+    blue:    '0x55b5db'
+    magenta: '0xa074c4'
+    cyan:    '0x55dbbe'
     white:   '0xffffff'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xdb7b55' }
+    - { index: 17, color: '0x8a553f' }
+    - { index: 18, color: '0x282a2b' }
+    - { index: 19, color: '0x3b758c' }
+    - { index: 20, color: '0x43a5d5' }
+    - { index: 21, color: '0xeeeeee' }
 # ColorEnd

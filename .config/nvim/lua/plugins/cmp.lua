@@ -33,6 +33,14 @@ end
 
 require("cmp_nvim_lsp").setup()
 local cmp = require "cmp"
+local cmp_sources = {
+        {name = "nvim_lsp"},
+        {name = "calc"},
+        {name = "vsnip"},
+        {name = "path"},
+        {name = 'cmp_tabnine'},
+        -- {name = 'buffer'},
+    }
 cmp.setup {
     -- You should change this example to your chosen snippet engine.
     snippet = {
@@ -51,8 +59,8 @@ cmp.setup {
     mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),
         ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        -- ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
         ["<CR>"] = cmp.mapping.confirm(
@@ -62,10 +70,5 @@ cmp.setup {
             }
         )
     },
-    sources = {
-        {name = "nvim_lsp"},
-        -- {name = "calc"},
-        {name = "vsnip"},
-        {name = "path"},
-    }
+    sources = cmp_sources,
 }

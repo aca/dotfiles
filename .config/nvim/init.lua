@@ -45,8 +45,10 @@ require 'plugins.gitlinker'
 require 'plugins.neoformat'
 require 'plugins.vim-test'
 require 'plugins.dadbod'
+-- require 'plugins.gps'
 
 vim.cmd [[
+source ~/.config/nvim/vim/statusline.vim
 source ~/.config/nvim/vim/mapping.vim
 source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
@@ -82,4 +84,3 @@ end))
 vim.cmd [[
 source ~/.config/nvim/vim/tmp.vim
 ]]
-
