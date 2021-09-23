@@ -9,15 +9,13 @@ require("impatient")
 -- # debug
 -- vim.lsp.set_log_level("debug")
 
-require '_autocmds'
 require '_vim'
 require '_g'
 require('plugins.vsnip')
 require('plugins.lsp')
 require('plugins.cmp')
-require '_colors'
-
-vim.cmd "source ~/.config/nvim/vim/autocmds.vim"
+vim.cmd [[ source ~/.config/nvim/vim/colors.vim ]]
+vim.cmd [[ source ~/.config/nvim/vim/autocmds.vim ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
 
@@ -45,7 +43,6 @@ require 'plugins.gitlinker'
 require 'plugins.neoformat'
 require 'plugins.vim-test'
 require 'plugins.dadbod'
--- require 'plugins.gps'
 
 vim.cmd [[
 source ~/.config/nvim/vim/statusline.vim

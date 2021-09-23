@@ -349,3 +349,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-devicons"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
+[submodule ".submodules/is_vim"]
+	path = .submodules/is_vim
+	url = https://github.com/Collin-T/is_vim.git

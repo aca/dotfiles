@@ -1,3 +1,4 @@
+-- TODO: migrate to LUA
 vim.cmd [[
 set shell=/bin/sh
 
