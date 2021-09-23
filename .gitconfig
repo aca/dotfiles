@@ -1,5 +1,13 @@
+[user]
+  email = "acadx0@gmail.com"
+  name = "aca"
+
+[github]
+  user = aca
+
 [include]
   path = ~/.gitconfig.local
+
 
 [core]
   editor = nvim
@@ -26,3 +34,8 @@
 
 [web]
   browser = chrome
+
+[pull]
+	ff = only
+
+

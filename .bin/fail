@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-exit ${1:-1}
+c=${1:-1}
+echo "fail with $c"
+exit $c
+
 

@@ -98,6 +98,8 @@ mkdir -p $HOME/bin
 mkdir -p $HOME/.kube
 emptyDir ~/.local/share/nvim/site/pack/paqs
 
+ensureDir $HOME/.config/autostart
+
 ensureDir $HOME/.ssh
 rmf $HOME/.ssh/config
 

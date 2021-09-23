@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+bluetoothctl connect 34:88:5D:5C:6A:FA
+bluetoothctl connect 28:11:A5:77:30:4F

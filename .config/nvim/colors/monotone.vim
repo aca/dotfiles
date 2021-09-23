@@ -33,7 +33,8 @@ hi! ErrorMsg       ctermfg=1 ctermbg=0 guifg=#cc6666 guibg=#1d1f21
 hi Warning       ctermfg=214 guifg=#f5ac46
 hi WarningMsg    cterm=bold ctermfg=214 gui=bold guifg=#f5ac46
 hi MoreMsg       cterm=bold ctermfg=153 gui=bold guifg=#46bbf5
-hi MatchParen    ctermfg=16 ctermbg=214 guifg=#121111 guibg=#f5ac46
+" hi MatchParen    ctermfg=16 ctermbg=214 guifg=#121111 guibg=#f5ac46
+hi MatchParen    gui=underline guibg=NONE
 hi link ParenMatch MatchParen
 hi Pmenu         ctermfg=246 ctermbg=235 guifg=#787271 guibg=#171616
 hi PmenuSbar     ctermbg=235 guibg=#171616

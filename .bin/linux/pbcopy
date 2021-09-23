@@ -1,2 +1,10 @@
-#!/bin/sh
-xsel --clipboard --input
+#!/bin/bash
+
+[ -n "$SSH_CLIENT" ] && SESSION_TYPE="remote"
+
+if [[ $SESSION_TYPE == "remote" ]]; then
+	cat | nc -c localhost 2224
+else
+	cat | xsel --clipboard --input
+fi
+
