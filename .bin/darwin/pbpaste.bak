@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+source _utils.bash
+
+tailscale() {
+  pgrep Tailscale 1>/dev/null 2>/dev/null
+}
+
+if darwin && tailscale; then
+  piknik -paste
+else
+  /usr/bin/pbpaste "$@"
+fi
+
