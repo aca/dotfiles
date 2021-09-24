@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
 
-set x (random 1 5)
+set x (random 0 2)
 
-fail 3
+fail $x
