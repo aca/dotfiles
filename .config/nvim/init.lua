@@ -8,7 +8,7 @@ require("impatient")
 -- https://github.com/dccsillag/magma-nvim
 
 -- # debug
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 
 require '_vim'
 require '_g'
@@ -60,6 +60,7 @@ source ~/.config/nvim/vim/sandwich.vim
 source ~/.config/nvim/vim/vifm.vim
 source ~/.config/nvim/vim/luapad.vim
 source ~/.config/nvim/vim/smoothie.vim
+source ~/.config/nvim/vim/barbaric.vim
 " source ~/.config/nvim/vim/codi.vim
 ]]
 
@@ -73,18 +74,8 @@ packadd vim-ReplaceWithRegister
 packadd diffview.nvim
 packadd vim-scriptease
 packadd vim-rfc
-
-" let g:barbaric_libxkbswitch = ''
-" let g:barbaric_fcitx_cmd = 'fcitx5-remote'
-" if g:_uname == 'macOS'
-"   let g:barbaric_ime = 'macos'
-"   let g:barbaric_default = '0'
-" elseif g:_uname == 'Linux'
-"   let g:barbaric_ime = 'fcitx'
-" end
-" 
-" packadd vim-barbaric
 " packadd telescope.nvim
+
 ]]
 
 end))
@@ -92,3 +83,4 @@ end))
 vim.cmd [[
 source ~/.config/nvim/vim/tmp.vim
 ]]
+

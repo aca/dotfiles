@@ -1,6 +1,8 @@
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
+set -gx SHELL /bin/bash
+
 # set -e SHELL
 # if test -f /bin/dash
 #   set -gx SHELL /bin/dash

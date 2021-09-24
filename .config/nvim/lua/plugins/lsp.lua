@@ -2,6 +2,7 @@ local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
 local configs = require "lspconfig/configs"
 
+
 -- Based on https://github.com/hrsh7th/cmp-nvim-lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
@@ -48,19 +49,67 @@ lspconfig.clangd.setup {capabilities = capabilities}
 -- lspconfig.terraformls.setup {capabilities = capabilities}
 
 -- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
--- lspconfig.denols.setup{
---   -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" , "json"},
---   -- filetypes = { "json", "yaml", "markdown"},
---   filetypes = { "json", "yaml"},
---   root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git", vim.fn.getcwd()),
---   settings = {
---     init_options = {
---       enable = true,
---       lint = true,
---       unstable = false
+lspconfig.denols.setup{
+  -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" , "json"},
+  -- filetypes = { "json", "yaml", "markdown"},
+  filetypes = { "json", "yaml"},
+  root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git", vim.fn.getcwd()),
+  settings = {
+    init_options = {
+      enable = true,
+      lint = true,
+      unstable = false
+    }
+  }
+}
+
+-- local luadev =
+--     require("lua-dev").setup(
+--     {
+--         lspconfig = {
+--             cmd = require'lspcontainers'.command('sumneko_lua'),
+--             capabilities = capabilities
+--         }
 --     }
---   }
--- }
+-- )
+--
+-- lspconfig.sumneko_lua.setup(luadev)
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+lspconfig.sumneko_lua.setup {
+  cmd = require'lspcontainers'.command('sumneko_lua'),
+  settings = {
+    capabilities = capabilities,
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = runtime_path,
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+--[[
+
+Custom lang servers
+
+--]]
 
 require "pylance"
 lspconfig.pylance.setup {
@@ -71,27 +120,6 @@ lspconfig.pylance.setup {
         }
     }
 }
-
--- local sumneko_root_path = vim.fn.expand("$HOME/src/github.com/sumneko/lua-language-server")
--- local luadev =
---     require("lua-dev").setup(
---     {
---         -- add any options here, or leave empty to use the default settings
---         lspconfig = {
---             cmd = {
---                 "docker", "run", "-v", vim.fn.getcwd() .. ":/src" , "-i" , "asd"
---             },
---             capabilities = capabilities
---         }
---     }
--- )
-print( "docker", "run", "-v", vim.fn.getcwd() .. ":/src" , "-i", "asd")
-lspconfig.sumneko_lua.setup {
-  cmd = {
-    "docker", "run", "-v", vim.fn.getcwd() .. ":/src" , "-i", "asd"
-  };
-}
--- lspconfig.sumneko_lua.setup(luadev)
 
 -- configs.korean_ls = {
 -- default_config = {
