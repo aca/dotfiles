@@ -164,3 +164,4 @@ vim.g.loaded_netrwPlugin       = 1
 vim.g.loaded_remote_plugins    = 1
 vim.g.loaded_getscript         = 1
 vim.g.loaded_getscriptPlugin   = 1
+

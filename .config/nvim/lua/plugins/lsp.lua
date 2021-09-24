@@ -79,14 +79,18 @@ lspconfig.pylance.setup {
 --         -- add any options here, or leave empty to use the default settings
 --         lspconfig = {
 --             cmd = {
---                 sumneko_root_path .. "/bin/" .. vim.g._uname .. "/lua-language-server",
---                 "-E",
---                 sumneko_root_path .. "/main.lua"
+--                 "docker", "run", "-v", vim.fn.getcwd() .. ":/src" , "-i" , "asd"
 --             },
 --             capabilities = capabilities
 --         }
 --     }
 -- )
+print( "docker", "run", "-v", vim.fn.getcwd() .. ":/src" , "-i", "asd")
+lspconfig.sumneko_lua.setup {
+  cmd = {
+    "docker", "run", "-v", vim.fn.getcwd() .. ":/src" , "-i", "asd"
+  };
+}
 -- lspconfig.sumneko_lua.setup(luadev)
 
 -- configs.korean_ls = {

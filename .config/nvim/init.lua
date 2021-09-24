@@ -8,7 +8,7 @@ require("impatient")
 -- https://github.com/dccsillag/magma-nvim
 
 -- # debug
--- vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("debug")
 
 require '_vim'
 require '_g'
