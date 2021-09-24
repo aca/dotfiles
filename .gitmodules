@@ -229,9 +229,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dadbod"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-dadbod
 	url = https://github.com/tpope/vim-dadbod.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-jqplay"]
-	path = .local/share/nvim/site/pack/paqs/opt/vim-jqplay
-	url = https://github.com/bfrg/vim-jqplay.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-characterize"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-characterize
 	url = https://github.com/tpope/vim-characterize.git
@@ -289,9 +286,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-scriptease"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease.git
-[submodule ".local/share/nvim/site/pack/paqs/start/cmp-calc"]
-	path = .local/share/nvim/site/pack/paqs/start/cmp-calc
-	url = https://github.com/hrsh7th/cmp-calc.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-vsnip"]
 	path = .local/share/nvim/site/pack/paqs/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip.git
@@ -301,9 +295,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitlinker.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/gitlinker.nvim
 	url = https://github.com/ruifm/gitlinker.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/cmp-path"]
-	path = .local/share/nvim/site/pack/paqs/start/cmp-path
-	url = https://github.com/hrsh7th/cmp-path.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-barbaric"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-barbaric
 	url = https://github.com/rlue/vim-barbaric
@@ -328,21 +319,12 @@
 [submodule ".submodules/zsh-fzf-history-search"]
 	path = .submodules/zsh-fzf-history-search
 	url = https://github.com/joshskidmore/zsh-fzf-history-search.git
-[submodule ".local/share/nvim/site/pack/paqs/start/cmp-buffer"]
-	path = .local/share/nvim/site/pack/paqs/start/cmp-buffer
-	url = https://github.com/hrsh7th/cmp-buffer.git
-[submodule ".local/share/nvim/site/pack/paqs/start/cmp-tabnine"]
-	path = .local/share/nvim/site/pack/paqs/start/cmp-tabnine
-	url = https://github.com/tzachar/cmp-tabnine.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-gps"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-gps
 	url = https://github.com/SmiteshP/nvim-gps
 [submodule ".local/share/nvim/site/pack/paqs/opt/lualine.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/lualine.nvim
 	url = https://github.com/hoob3rt/lualine.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/feline.nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/feline.nvim
-	url = https://github.com/famiu/feline.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-web-devicons"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-web-devicons
 	url = https://github.com/kyazdani42/nvim-web-devicons.git

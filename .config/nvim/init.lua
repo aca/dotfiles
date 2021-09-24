@@ -47,7 +47,7 @@ require 'plugins.dadbod'
 vim.cmd [[
 source ~/.config/nvim/vim/statusline.vim
 source ~/.config/nvim/vim/mapping.vim
-source ~/.config/nvim/vim/zepl.vim
+" source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
 source ~/.config/nvim/vim/funcs.vim
 source ~/.config/nvim/vim/visualstarsearch.vim
@@ -55,11 +55,11 @@ source ~/.config/nvim/vim/fzf.vim
 source ~/.config/nvim/vim/autocmds_lazy.vim
 source ~/.config/nvim/vim/startify.vim
 source ~/.config/nvim/vim/sandwich.vim
-source ~/.config/nvim/vim/quickrun.vim
+" source ~/.config/nvim/vim/quickrun.vim
 source ~/.config/nvim/vim/vifm.vim
 source ~/.config/nvim/vim/luapad.vim
 source ~/.config/nvim/vim/smoothie.vim
-source ~/.config/nvim/vim/codi.vim
+" source ~/.config/nvim/vim/codi.vim
 ]]
 
 vim.cmd [[
@@ -72,8 +72,18 @@ packadd vim-ReplaceWithRegister
 packadd diffview.nvim
 packadd vim-scriptease
 packadd vim-rfc
-packadd vim-barbaric
-packadd telescope.nvim
+
+" let g:barbaric_libxkbswitch = ''
+" let g:barbaric_fcitx_cmd = 'fcitx5-remote'
+" if g:_uname == 'macOS'
+"   let g:barbaric_ime = 'macos'
+"   let g:barbaric_default = '0'
+" elseif g:_uname == 'Linux'
+"   let g:barbaric_ime = 'fcitx'
+" end
+" 
+" packadd vim-barbaric
+" packadd telescope.nvim
 ]]
 
 end))

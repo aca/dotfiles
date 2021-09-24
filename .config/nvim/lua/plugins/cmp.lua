@@ -1,12 +1,12 @@
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-        max_lines = 500;
-        max_num_results = 4;
-        sort = true;
-        run_on_every_keystroke = true;
-})
+-- local tabnine = require('cmp_tabnine.config')
+-- tabnine:setup({
+--         max_lines = 500;
+--         max_num_results = 4;
+--         sort = true;
+--         run_on_every_keystroke = true;
+-- })
 
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
