@@ -56,7 +56,7 @@ source ~/.config/nvim/vim/fzf.vim
 source ~/.config/nvim/vim/autocmds_lazy.vim
 source ~/.config/nvim/vim/startify.vim
 source ~/.config/nvim/vim/sandwich.vim
-" source ~/.config/nvim/vim/quickrun.vim
+source ~/.config/nvim/vim/quickrun.vim
 source ~/.config/nvim/vim/vifm.vim
 source ~/.config/nvim/vim/luapad.vim
 source ~/.config/nvim/vim/smoothie.vim
