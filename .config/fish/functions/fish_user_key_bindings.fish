@@ -7,7 +7,7 @@ function _pueue_add
     set command (string join ' ' "aria2c" "'$command'")
   end
 
-  pueue add -- "$command"
+  pueue add -g commandline -- "$command"
   commandline -f force-repaint
 end
 

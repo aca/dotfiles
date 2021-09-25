@@ -32,7 +32,7 @@ require("gitsigns").setup {
         ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
         ['n <leader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
     },
-    watch_index = {
+    watch_gitdir = {
         interval = 1000
     },
     -- current_line_blame = false,
