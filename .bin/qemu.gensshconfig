@@ -1,0 +1,18 @@
+#!/usr/bin/env fish
+
+# virsh net-dhcp-leases default | sed '1,2d' | awk '{print $5,$6}'
+# virsh domifaddr  k8s-master-1
+
+set sshconfig (realpath ~/.ssh/hosts_qemu)
+echo '# vim:set ft=sshconfig:' > $sshconfig
+
+for l in (virsh net-dhcp-leases default | sed '1,2d' | awk '{print $5,$6}'  | awk 'NF>0')
+  set host (echo $l | awk '{print $2}')
+  set ip (echo $l | awk '{print $1}' | sed 's/\/.*//')
+
+  echo "Host $host" >> $sshconfig
+  echo "  Hostname $ip" >> $sshconfig
+  echo '  User root' >> $sshconfig
+  echo '  ' >> $sshconfig
+end
+
