@@ -1,6 +1,9 @@
 " vim:ft=vim et sw=2 foldmethod=marker
 
+hi link markdownCodeBlock String
+
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
+
 
 set nonu
 setlocal autoindent 
@@ -9,9 +12,6 @@ setlocal shiftwidth=2
 " setlocal textwidth=80 
 setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
-
-hi link markdownCodeBlock Boolean
-hi link markdownCode Boolean
 
 set foldexpr=NestedMarkdownFolds()
 
