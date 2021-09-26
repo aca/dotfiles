@@ -55,14 +55,14 @@ endf
 
 set laststatus=2
 " set noshowmode
-" set statusline=%2*\ %{WebDevIconsGetFileTypeSymbol()}\ 
-set statusline=\ %{WebDevIconsGetFileTypeSymbol()}\ 
-" set statusline+=%3*\ %{NvimGps()}
-set statusline+=\ %{NvimGps()}
+set statusline=%2*\ %{WebDevIconsGetFileTypeSymbol()}\ 
+" set statusline=\ %{WebDevIconsGetFileTypeSymbol()}\ 
+set statusline+=%3*\ %{NvimGps()}
+" set statusline+=\ %{NvimGps()}
 set statusline+=%=                                       " Right Side
 " set statusline+=%0*\ %n\                                 " Buffer number
-" set statusline+=%3*\ %<%f%m%r%h%w:%l:%v\                 " File path, modified, readonly, helpfile, preview
-set statusline+=\ %<%f%m%r%h%w:%l:%v\                 " File path, modified, readonly, helpfile, preview
+set statusline+=%3*\ %<%f%m%r%h%w:%l:%v\                 " File path, modified, readonly, helpfile, preview
+" set statusline+=\ %<%f%m%r%h%w:%l:%v\                    " File path, modified, readonly, helpfile, preview
 " set statusline+=%1*│                                     " Separator
 " set statusline+=%3*│                                     " Separator
 " set statusline+=%2*\ %Y\                                 " FileType

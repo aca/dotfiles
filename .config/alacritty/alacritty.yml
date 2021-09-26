@@ -334,40 +334,40 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Gruvbox dark, hard - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+# Base16 Twilight - alacritty color config
+# David Hart (https://github.com/hartbit)
 colors:
   # Default colors
   primary:
-    background: '0x1d2021'
-    foreground: '0xd5c4a1'
+    background: '0x1e1e1e'
+    foreground: '0xa7a7a7'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1d2021'
-    cursor: '0xd5c4a1'
+    text: '0x1e1e1e'
+    cursor: '0xa7a7a7'
 
   # Normal colors
   normal:
-    black:   '0x1d2021'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xd5c4a1'
+    black:   '0x1e1e1e'
+    red:     '0xcf6a4c'
+    green:   '0x8f9d6a'
+    yellow:  '0xf9ee98'
+    blue:    '0x7587a6'
+    magenta: '0x9b859d'
+    cyan:    '0xafc4db'
+    white:   '0xa7a7a7'
 
   # Bright colors
   bright:
-    black:   '0x665c54'
-    red:     '0xfe8019'
-    green:   '0x3c3836'
-    yellow:  '0x504945'
-    blue:    '0xbdae93'
-    magenta: '0xebdbb2'
-    cyan:    '0xd65d0e'
-    white:   '0xfbf1c7'
+    black:   '0x5f5a60'
+    red:     '0xcda869'
+    green:   '0x323537'
+    yellow:  '0x464b50'
+    blue:    '0x838184'
+    magenta: '0xc3c3c3'
+    cyan:    '0x9b703f'
+    white:   '0xffffff'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

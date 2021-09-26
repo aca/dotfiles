@@ -21,7 +21,6 @@ source ~/.config/nvim/vim/autocmds.vim
 ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
-
 require 'plugins.treesitter'
 require 'plugins.dap'
 require 'plugins.dial'
@@ -77,7 +76,6 @@ packadd diffview.nvim
 packadd vim-scriptease
 packadd vim-rfc
 " packadd telescope.nvim
-
 ]]
 
 end))
