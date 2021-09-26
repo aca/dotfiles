@@ -15,8 +15,10 @@ require '_g'
 require('plugins.vsnip')
 require('plugins.lsp')
 require('plugins.cmp')
-vim.cmd [[ source ~/.config/nvim/vim/colors.vim ]]
-vim.cmd [[ source ~/.config/nvim/vim/autocmds.vim ]]
+vim.cmd [[ 
+source ~/.config/nvim/vim/colors.vim 
+source ~/.config/nvim/vim/autocmds.vim
+]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
 
@@ -83,4 +85,3 @@ end))
 vim.cmd [[
 source ~/.config/nvim/vim/tmp.vim
 ]]
-

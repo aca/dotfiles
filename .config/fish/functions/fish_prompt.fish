@@ -11,9 +11,9 @@
 function _save_start --on-event fish_preexec
   set -l pid $fish_pid
   eval "set -gx cmd_$pid_start (date '+%H:%M:%S')"
-end # share history
-function _save_end --on-event fish_postexec
+end
 
+function _save_end --on-event fish_postexec
   set -l last_pipestatus $pipestatus
   set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
 
@@ -38,19 +38,11 @@ function _save_end --on-event fish_postexec
         end
         set msg "$msg""$time_msg"
       end
-
-      # Show duration of the last command in seconds
-      # set exclude_cmd "zsh|bash|man|ssh|v|t|f"
-      # if test $CMD_DURATION -gt 10000
-      #     and echo $history[1] | grep -vqE "^($exclude_cmd).*"
-      #     # command -v noti 1>/dev/null 2>/dev/null && noti -m "$history[1]"
-      # end
   end
 
   if test "$msg" != ""
     echo -s (set_color --italics red)"« $msg"
   end
-
 end
 
 # # Defined in /usr/local/share/fish/functions/fish_prompt.fish @ line 4

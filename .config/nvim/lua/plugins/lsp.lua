@@ -44,7 +44,7 @@ lspconfig.gopls.setup {capabilities = capabilities}
 -- lspconfig.html.setup{ capabilities = capabilities; }
 -- lspconfig.jsonls.setup {capabilities = capabilities}
 -- lspconfig.yamlls.setup {capabilities = capabilities}
--- lspconfig.rust_analyzer.setup { capabilities = capabilities; }
+lspconfig.rust_analyzer.setup { capabilities = capabilities}
 lspconfig.clangd.setup {capabilities = capabilities}
 -- lspconfig.terraformls.setup {capabilities = capabilities}
 

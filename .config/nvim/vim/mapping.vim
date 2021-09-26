@@ -143,9 +143,9 @@ function s:close()
     q!
   endif
 endfunction
-inoremap <C-Q>     <esc>:call <sid>close()<cr>
-nnoremap <C-Q>     :call <sid>close()<cr>
-vnoremap <C-Q>     <esc>:call <sid>close()<cr>
+inoremap <silent><C-Q>     <esc>:call <sid>close()<cr>
+nnoremap <silent><C-Q>     :call <sid>close()<cr>
+vnoremap <silent><C-Q>     <esc>:call <sid>close()<cr>
 
 " Save
 inoremap <C-s>     <esc>:update<cr>

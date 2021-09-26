@@ -3,7 +3,9 @@
 " colorscheme monotone
 " colorscheme falcon
 
-colorscheme monotone
+" set background=light
+" colorscheme monotone
+colorscheme solarized8
 
 hi! link LspDiagnosticsDefaultInformation Comment
 hi! link LspDiagnosticsDefaultHint Comment
