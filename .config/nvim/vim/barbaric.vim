@@ -5,6 +5,7 @@ if g:_uname == 'macOS'
   let g:barbaric_default = '0'
 elseif g:_uname == 'Linux'
   let g:barbaric_ime = 'fcitx'
+  let g:barbaric_default = '-c'
 end
 
 packadd vim-barbaric

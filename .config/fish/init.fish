@@ -16,8 +16,6 @@ set -gx SHELL /bin/bash
 
 if not set -q init_fish
     set -gx init_fish
-    # set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
-    # set -gx VIRSH_DEFAULT_CONNECT_URI "qemu:///system"
 
     # In case TERM=xterm-256color not exists
     if [ "$USER" = "ubuntu" ]; set -gx TERM linux; end
@@ -198,12 +196,16 @@ abbr --global gacm git commit -a --allow-empty-message -m
 #   end
 # end
 # }}}
+
 # OS specific {{{
 switch $_uname
     case linux
         abbr --global svc 'sudo systemctl'
         abbr --global svcu 'systemctl --user'
+
         set -gx BROWSER google-chrome-stable
+        set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
+        set -gx VIRSH_DEFAULT_CONNECT_URI "qemu:///system"
     case darwin
         # if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end
         abbr --global svc 'brew services'

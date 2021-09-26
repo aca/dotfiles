@@ -30,9 +30,12 @@ end
 #
 
 # Initialize hook to add new entries to the database.
-function __zoxide_hook --on-variable PWD
-    test -z "$fish_private_mode"
-    and command zoxide add -- (__zoxide_pwd)
+if test "$__zoxide_hooked" != 1
+    set __zoxide_hooked 1
+    function __zoxide_hook --on-variable PWD
+        test -z "$fish_private_mode"
+        and command zoxide add -- (__zoxide_pwd)
+    end
 end
 
 # =============================================================================
@@ -53,15 +56,15 @@ function __zoxide_z
         end
         __zoxide_cd $argv[1]
     else
-        set -l result (command zoxide query --exclude (__zoxide_pwd) -- $argv)
-        and __zoxide_cd $result
+        set -l __zoxide_result (command zoxide query --exclude (__zoxide_pwd) -- $argv)
+        and __zoxide_cd $__zoxide_result
     end
 end
 
 # Jump to a directory using interactive search.
 function __zoxide_zi
-    set -l result (command zoxide query -i -- $argv)
-    and __zoxide_cd $result
+    set -l __zoxide_result (command zoxide query -i -- $argv)
+    and __zoxide_cd $__zoxide_result
 end
 
 # =============================================================================

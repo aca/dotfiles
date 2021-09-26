@@ -1,5 +1,6 @@
 -- TODO: should be removed when merged to neovim core
 -- https://github.com/lewis6991/impatient.nvim
+-- https://github.com/neovim/neovim/pull/15436
 -- require("impatient").enable_profile()
 require("impatient")
 
