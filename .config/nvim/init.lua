@@ -1,8 +1,3 @@
--- TODO: should be removed when merged to neovim core
--- https://github.com/lewis6991/impatient.nvim
--- https://github.com/neovim/neovim/pull/15436
--- require("impatient").enable_profile()
-require("impatient")
 
 -- TODO jupyter integration
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
@@ -11,11 +6,21 @@ require("impatient")
 -- # debug
 -- vim.lsp.set_log_level("debug")
 
+
+-- TODO: should be removed when merged to neovim core
+-- https://github.com/lewis6991/impatient.nvim
+-- https://github.com/neovim/neovim/pull/15436
+-- require("impatient").enable_profile()
+require("impatient")
+
 require '_vim'
 require '_g'
-require('plugins.vsnip')
 require('plugins.lsp')
+
+-- vim.cmd [[ packadd coq_nvim ]]
+require('plugins.vsnip')
 require('plugins.cmp')
+
 vim.cmd [[ 
 source ~/.config/nvim/vim/colors.vim 
 source ~/.config/nvim/vim/autocmds.vim
@@ -76,11 +81,10 @@ packadd vim-ReplaceWithRegister
 packadd diffview.nvim
 packadd vim-scriptease
 packadd vim-rfc
-" packadd telescope.nvim
+packadd telescope.nvim
 ]]
 
 end))
 
-vim.cmd [[
-source ~/.config/nvim/vim/tmp.vim
-]]
+vim.cmd [[ source ~/.config/nvim/vim/tmp.vim ]]
+

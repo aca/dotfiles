@@ -20,7 +20,8 @@ font:
     style: Regular
     # family: Go Mono
     # family: Consolas NF
-    # family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font Mono
+    # family: SauceCodePro Nerd Font Mono
     # family: SF Mono
 
     # family: Menlo
@@ -57,7 +58,6 @@ font:
     # family: agave Nerd Font
     # family: mononoki Nerd Font
     # family: JetBrainsMono Nerd Font
-    family: SauceCodePro Nerd Font Mono
     # family: PragmataPro Nerd Font
     # family: Dina
     # family: Hack Nerd Font
@@ -98,7 +98,7 @@ font:
   size: 24
   offset:
     x: 0
-    y: -1
+    y: 0
   glyph_offset:
     x: 0 
     y: 0

@@ -166,5 +166,4 @@ vim.g.loaded_getscript         = 1
 vim.g.loaded_getscriptPlugin   = 1
 
 -- https://github.com/nathom/filetype.nvim
--- vim.g.did_load_filetypes = 1
-
+vim.g.did_load_filetypes = 1
