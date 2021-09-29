@@ -82,6 +82,7 @@ packadd diffview.nvim
 packadd vim-scriptease
 packadd vim-rfc
 packadd telescope.nvim
+packadd todo-comments.nvim
 ]]
 
 end))
