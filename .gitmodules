@@ -337,18 +337,12 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/lspcontainers.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/lspcontainers.nvim
 	url = https://github.com/lspcontainers/lspcontainers.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/cmp-tabnine"]
-	path = .local/share/nvim/site/pack/paqs/start/cmp-tabnine
-	url = https://github.com/tzachar/cmp-tabnine.git
 [submodule ".submodules/kube-fzf"]
 	path = .submodules/kube-fzf
 	url = https://github.com/thecasualcoder/kube-fzf.git
 [submodule ".local/share/nvim/site/pack/paqs/start/filetype.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/filetype.nvim
 	url = https://github.com/nathom/filetype.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/coq_nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/coq_nvim
-	url = https://github.com/ms-jpq/coq_nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/goerr-nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/goerr-nvim
 	url = https://github.com/Snyssfx/goerr-nvim.git
@@ -358,3 +352,13 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/todo-comments.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/todo-comments.nvim
 	url = https://github.com/folke/todo-comments.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/start/cmp-buffer"]
+	path = .local/share/nvim/site/pack/paqs/start/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer.git
+[submodule ".local/share/nvim/site/pack/paqs/start/cmp-path"]
+	path = .local/share/nvim/site/pack/paqs/start/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/compe-tmux"]
+	path = .local/share/nvim/site/pack/paqs/opt/compe-tmux
+	url = https://github.com/andersevenrud/compe-tmux.git
+	branch = cmp

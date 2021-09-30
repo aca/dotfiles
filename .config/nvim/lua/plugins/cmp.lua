@@ -43,10 +43,16 @@ require("cmp_nvim_lsp").setup()
 local cmp = require "cmp"
 local cmp_sources = {
         {name = "nvim_lsp"},
-        -- {name = "path"},
-        {name = 'cmp_tabnine'},
+        {name = "path"},
+        -- {name = 'cmp_tabnine'},
         -- {name = "vsnip"},
-        -- {name = 'buffer'},
+        {name = 'buffer'},
+        {
+          name = 'tmux',
+          opts = {
+            all_panes = false,
+          }
+        },
     }
 cmp.setup {
     -- You should change this example to your chosen snippet engine.

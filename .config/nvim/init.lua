@@ -11,28 +11,27 @@
 -- https://github.com/lewis6991/impatient.nvim
 -- https://github.com/neovim/neovim/pull/15436
 -- require("impatient").enable_profile()
-require("impatient")
-
+require "impatient"
 require '_vim'
 require '_g'
-require('plugins.lsp')
 
--- vim.cmd [[ packadd coq_nvim ]]
-require('plugins.vsnip')
-require('plugins.cmp')
+require 'plugins.vsnip'
+require 'plugins.lsp'
 
-vim.cmd [[ 
-source ~/.config/nvim/vim/colors.vim 
+vim.cmd [[
+source ~/.config/nvim/vim/colors.vim
 source ~/.config/nvim/vim/autocmds.vim
+
+source ~/.config/nvim/vim/statusline.vim
 ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
+require 'plugins.cmp'
 require 'plugins.treesitter'
 require 'plugins.dap'
 require 'plugins.dial'
-require 'plugins._tmux'
+require 'plugins.tmux'
 require 'plugins.gitsigns'
-
 require 'plugins.zenmode'
 require 'plugins.xdg_open'
 -- require 'plugins.numb'
@@ -53,9 +52,8 @@ require 'plugins.vim-test'
 require 'plugins.dadbod'
 
 vim.cmd [[
-source ~/.config/nvim/vim/statusline.vim
 source ~/.config/nvim/vim/mapping.vim
-" source ~/.config/nvim/vim/zepl.vim
+source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
 source ~/.config/nvim/vim/funcs.vim
 source ~/.config/nvim/vim/visualstarsearch.vim
@@ -85,7 +83,12 @@ packadd telescope.nvim
 packadd todo-comments.nvim
 ]]
 
+
+vim.cmd [[
+execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim'
+]]
+
 end))
 
-vim.cmd [[ source ~/.config/nvim/vim/tmp.vim ]]
+
 
