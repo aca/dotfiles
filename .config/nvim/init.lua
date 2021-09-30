@@ -22,7 +22,6 @@ vim.cmd [[
 source ~/.config/nvim/vim/colors.vim
 source ~/.config/nvim/vim/autocmds.vim
 
-source ~/.config/nvim/vim/statusline.vim
 ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
@@ -66,10 +65,9 @@ source ~/.config/nvim/vim/vifm.vim
 source ~/.config/nvim/vim/luapad.vim
 source ~/.config/nvim/vim/smoothie.vim
 source ~/.config/nvim/vim/barbaric.vim
+source ~/.config/nvim/vim/statusline.vim
 " source ~/.config/nvim/vim/codi.vim
-]]
 
-vim.cmd [[
 packadd vim-fold-cycle
 packadd vim-fetch
 packadd nvim-colorizer.lua

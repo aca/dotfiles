@@ -14,6 +14,8 @@ tap "tilt-dev/tap"
 brew "age"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
+# Archival front-end
+brew "atool"
 # Macro processing language
 brew "m4"
 # Automatic configure script builder
@@ -88,6 +90,8 @@ brew "pixman"
 brew "cairo"
 # Cross-platform make
 brew "cmake"
+# GNU multiple precision arithmetic library
+brew "gmp"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Securely send things from one computer to another
@@ -136,8 +140,6 @@ brew "frei0r"
 brew "fribidi"
 # Library and utilities for processing GIFs
 brew "giflib"
-# GNU multiple precision arithmetic library
-brew "gmp"
 # Generic library support script
 brew "libtool"
 # GNU Ubiquitous Intelligent Language for Extensions
@@ -300,6 +302,8 @@ brew "libomp"
 brew "openexr"
 # Tools and libraries to manipulate images in many formats
 brew "imagemagick"
+# CLI wrapper for basic network utilities on macOS - ip command
+brew "iproute2mac"
 # Istio configuration command-line utility
 brew "istioctl"
 # Regular expressions library
@@ -308,8 +312,16 @@ brew "oniguruma"
 brew "jq"
 # JSON parser for C
 brew "json-c"
+# Handy way to save and run project-specific commands
+brew "just"
+# Modern load testing tool, using Go and JavaScript
+brew "k6"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "k9s"
+# Selection-based modal text editor
+brew "kakoune"
+# Run local Kubernetes cluster in Docker
+brew "kind"
 # Tool to move from `docker-compose` to Kubernetes
 brew "kompose"
 # Kubernetes command-line interface
@@ -330,6 +342,8 @@ brew "libarchive"
 brew "libcbor"
 # Provides library functionality for FIDO U2F & FIDO 2.0, including USB
 brew "libfido2"
+# Postgres C API library
+brew "libpq"
 # General purpose TCP-IP emulator
 brew "libslirp"
 # C library SSHv1/SSHv2 client and server protocols
@@ -354,6 +368,8 @@ brew "vde"
 brew "qemu"
 # Linux virtual machines
 brew "lima"
+# Next-gen compiler infrastructure
+brew "llvm"
 # Powerful, lightweight programming language
 brew "lua"
 # OpenResty's Branch of LuaJIT 2
@@ -364,6 +380,8 @@ brew "luarocks"
 brew "luv"
 # Run a Kubernetes cluster locally
 brew "minikube"
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
 # Embeddable Javascript interpreter
 brew "mujs"
 # Encoding detector library
@@ -380,14 +398,26 @@ brew "msgpack"
 brew "ninja"
 # Port scanning utility for large networks
 brew "nmap"
+# Tiny, lightning fast, feature-packed file manager
+brew "nnn"
 # Prometheus exporter for machine metrics
 brew "node_exporter"
 # Trigger notifications when a process completes
 brew "noti"
+# Libraries for security-enabled client and server applications
+brew "nss"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
+# Copy/paste anything over the network
+brew "piknik"
+# Paste PNG into files
+brew "pngpaste"
+# Object-relational database system
+brew "postgresql"
+# OpenBSD and Darwin versions of pgrep, pkill, and pfind
+brew "proctools"
 # Service monitoring system and time series database
 brew "prometheus"
 # Show ps output as a tree
@@ -396,10 +426,20 @@ brew "pstree"
 brew "pueue", restart_service: true
 # Perl 6 compiler targeting MoarVM
 brew "rakudo"
+# Unified tool to manage your Rancher server
+brew "rancher-cli"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Experimental Rust compiler front-end for IDEs
+brew "rust-analyzer"
 # Display and control your Android device
 brew "scrcpy"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Autoformat shell script source code
+brew "shfmt"
+# Editor of encrypted files
+brew "sops"
 # Tool to create intelligent and beautiful documentation
 brew "sphinx-doc"
 # Soak up standard input and write to a file
@@ -417,7 +457,7 @@ brew "tig"
 # Clean C library for processing UTF-8 Unicode data
 brew "utf8proc"
 # Terminal multiplexer
-brew "tmux"
+brew "tmux", args: ["HEAD"]
 # Command-line interface to the freedesktop.org trashcan
 brew "trash-cli"
 # Display directories as trees (with optional color/HTML output)
@@ -429,7 +469,7 @@ brew "ttyd"
 # ODBC 3 connectivity for UNIX
 brew "unixodbc"
 # Ncurses based file manager with vi like keybindings
-brew "vifm", args: ["HEAD"]
+brew "vifm"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever
@@ -460,6 +500,8 @@ brew "tilt-dev/tap/ctlptl"
 brew "tilt-dev/tap/tilt"
 # GPU-accelerated terminal emulator
 cask "alacritty"
+# Application launcher and productivity software
+cask "alfred"
 # Android SDK component
 cask "android-platform-tools"
 # Clipboard manager with advanced features
