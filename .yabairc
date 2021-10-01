@@ -36,6 +36,7 @@ yabai -m config window_gap                   1
 
 # yabai -m query --windows
 yabai -m rule --add app='^CopyQ$' manage=off 
+yabai -m rule --add app='^mpv$' manage=off
 # yabai -m rule --add app='^System Preferences$' manage=off
 # yabai -m rule --add app='^Finder$' manage=off
 

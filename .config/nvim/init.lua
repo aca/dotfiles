@@ -21,7 +21,6 @@ require 'plugins.lsp'
 vim.cmd [[
 source ~/.config/nvim/vim/colors.vim
 source ~/.config/nvim/vim/autocmds.vim
-
 ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
@@ -87,6 +86,3 @@ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim'
 ]]
 
 end))
-
-
-
