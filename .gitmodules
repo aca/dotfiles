@@ -365,3 +365,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-fugitive"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/bullets.vim"]
+	path = .local/share/nvim/site/pack/paqs/opt/bullets.vim
+	url = https://github.com/dkarter/bullets.vim.git

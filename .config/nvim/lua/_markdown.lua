@@ -13,13 +13,15 @@ end
 M.makelink = function()
 	local line = api.nvim_get_current_line()
 	local url = string.match(line, "[http://][https://][%w|%p]*")
-	local cmd = 'curl -s "' .. url .. "\" | pup 'title json{}' | jq -r '.[0].text'"
 
+  -- TODO: replace with https://github.com/NTBBloodbath/rest.nvim
+	local cmd = 'curl -s "' .. url .. "\" | pup 'title json{}' | jq -r '.[0].text'"
 	local err = vim.api.nvim_get_vvar("shell_error")
 	if 0 ~= err then
-		print("command failed: " .. err)
+		print("failed to update link")
 		return
 	end
+
 	local title = vim.fn.systemlist(cmd)[1]
 	local replaced = string.format("[%s](%s)", title, url)
 	api.nvim_set_current_line(replace(line, url, replaced))

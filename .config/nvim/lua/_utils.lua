@@ -1,3 +1,5 @@
+-- TODO!!: move to scripts
+
 local M = {}
 local vim = vim
 
@@ -6,12 +8,11 @@ function M.yankpath()
 	fp = fp:gsub(vim.call("expand", "~"), "~")
 
 	local curpos = vim.fn.getcurpos()
-
-	print(fp .. ":" .. curpos[2])
 	if fp == "" then
 		return
 	end
 
+	print(fp .. ":" .. curpos[2])
 	vim.cmd("let @+=" .. "'" .. fp .. ":" .. curpos[2] .. "'")
 	vim.cmd("let @*=" .. "'" .. fp .. ":" .. curpos[2] .. "'")
 end

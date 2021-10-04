@@ -4,18 +4,32 @@
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
 lua require('plugins.due')
+
+" TODO: configure
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch'
+    \]
+packadd bullets.vim
+
+
+
 packadd vim-table-mode
 " au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 " packadd vim-pandoc-syntax
 source ~/.config/nvim/vim/md-img-paste.vim
 source ~/.config/nvim/vim/markdown-preview.vim
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " etc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-hi link markdownCodeBlock String
+hi link markdownCodeBlock markdownCode
 
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 
@@ -34,7 +48,7 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 set foldexpr=NestedMarkdownFolds()
 
  " convert http://*  [title](http://*)
-command MakeLink lua require('_markdown').makelink()
+command FormatLink lua require('scripts.md_format_links').format_link()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom syntax
