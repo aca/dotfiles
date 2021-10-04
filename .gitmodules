@@ -362,3 +362,6 @@
 	path = .local/share/nvim/site/pack/paqs/opt/compe-tmux
 	url = https://github.com/andersevenrud/compe-tmux.git
 	branch = cmp
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-fugitive"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git

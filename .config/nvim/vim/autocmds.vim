@@ -1,6 +1,6 @@
 " /usr/local/share/nvim/runtime/filetype.vim
 " use treesitter highlight(disable others)
-autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
+" autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
 
 au BufRead,BufNewFile *.rkt,*.rktl  setf scheme
 au BufRead,BufNewFile *.fish        setf fish

@@ -19,6 +19,7 @@
     --color-markdown-table-tr-border: #c6cbd1;
     --color-markdown-code-bg: #f0f6fc26;
 }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --color-text-primary: #c9d1d9;
@@ -392,97 +393,83 @@ div.epigraph > blockquote > footer > cite {
 }
 /* end chapter epigraphs styles */
 
-/*!
-  Theme: Default
-  Description: Original highlight.js style
-  Author: (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
-  Maintainer: @highlightjs/core-team
-  Website: https://highlightjs.org/
-  License: see project LICENSE
-  Touched: 2021
-
 /*
 
-Google Code style (c) Aahan Krish <geekpanth3r@gmail.com>
+Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
 
 */
 
 .hljs {
-  background: white !important;
-  color: black !important;
+  background: #23241f;
+  color: #f8f8f2;
 }
 
-.hljs-comment,
-.hljs-quote {
-  color: #800 !important;
+.hljs-tag,
+.hljs-subst {
+  color: #f8f8f2;
+}
+
+.hljs-strong,
+.hljs-emphasis {
+  color: #a8a8a2;
+}
+
+.hljs-bullet,
+.hljs-quote,
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+  color: #ae81ff;
+}
+
+.hljs-code,
+.hljs-title,
+.hljs-section,
+.hljs-selector-class {
+  color: #a6e22e;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-emphasis {
+  font-style: italic;
 }
 
 .hljs-keyword,
 .hljs-selector-tag,
-.hljs-section,
-.hljs-title,
-.hljs-name {
-  color: #008 !important;
+.hljs-name,
+.hljs-attr {
+  color: #f92672;
 }
 
-.hljs-variable,
-.hljs-template-variable {
-  color: #660 !important;
+.hljs-symbol,
+.hljs-attribute {
+  color: #66d9ef;
+}
+
+.hljs-params,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #f8f8f2;
 }
 
 .hljs-string,
+.hljs-type,
+.hljs-built_in,
+.hljs-selector-id,
 .hljs-selector-attr,
 .hljs-selector-pseudo,
-.hljs-regexp {
-  color: #080 !important;
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+  color: #e6db74;
 }
 
-.hljs-literal,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-meta,
-.hljs-number,
-.hljs-link {
-  color: #066 !important;
-}
-
-.hljs-title,
-.hljs-doctag,
-.hljs-type,
-.hljs-attr,
-.hljs-built_in,
-.hljs-params {
-  color: #606 !important;
-}
-
-.hljs-attribute,
-.hljs-subst {
-  color: #000 !important;
-}
-
-.hljs-formula {
-  background-color: #eee !important;
-  font-style: italic !important;
-}
-
-.hljs-selector-id,
-.hljs-selector-class {
-  color: #9B703 !importantF
-}
-
-.hljs-addition {
-  background-color: #baeeba !important;
-}
-
-.hljs-deletion {
-  background-color: #ffc8bd !important;
-}
-
-.hljs-doctag,
-.hljs-strong {
-  font-weight: bold !important;
-}
-
-.hljs-emphasis {
-  font-style: italic !important;
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e;
 }

@@ -70,4 +70,6 @@ python3 -m pip install --upgrade git+https://github.com/yt-dlp/yt-dlp
 
 pip install -U $(pip freeze | awk '{split($0, a, "=="); print a[1]}')
 
+cargo install stylua
+
 asdf reshim

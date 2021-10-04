@@ -3,6 +3,8 @@
 " https://github.com/vifm/vifm/blob/master/data/vifmrc
 " https://github.com/vifm/vifm/blob/master/data/vifmrc-osx
 
+set tuioptions="p"
+
 only
 
 " source ~/src/configs/dotfiles/.config/vifm/favicons.vifm

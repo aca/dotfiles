@@ -1,6 +1,6 @@
 #!/bin/bash
 # http://weih.github.io/symbolinenglish/
-fzf --header-lines=2 << \EOF
+fzf --header-lines=1 << \EOF
 Symbol 	English                                	
 ~      	tilde                                  	
 `      	grave accent, backquote, backtick      	

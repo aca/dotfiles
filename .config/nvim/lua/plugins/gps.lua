@@ -1,11 +1,8 @@
-vim.cmd [[
+vim.cmd([[
 packadd nvim-gps
 " packadd feline.nvim
 " packadd nvim-web-devicons
-]]
-
-
-
+]])
 
 -- local components = require('feline.presets')["default"].components
 --
@@ -21,4 +18,3 @@ packadd nvim-gps
 -- require('feline').setup({
 --   components = components
 -- })
-

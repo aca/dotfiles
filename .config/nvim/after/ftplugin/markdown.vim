@@ -4,8 +4,10 @@ hi link markdownCodeBlock String
 
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 
-
-set nonu
+setlocal laststatus=0
+setlocal signcolumn=no
+setlocal nonu
+setlocal norelativenumber
 setlocal autoindent 
 setlocal tabstop=2 
 setlocal shiftwidth=2 

@@ -1,15 +1,21 @@
+-- OPT [[
 
--- TODO jupyter integration
+-- vim.lsp.set_log_level("debug")
+
+-- ]]
+
+-- TODO [[
+
+-- jupyter integration
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
 
--- # debug
--- vim.lsp.set_log_level("debug")
-
-
--- TODO: should be removed when merged to neovim core
+-- should be removed when merged to neovim core
 -- https://github.com/lewis6991/impatient.nvim
 -- https://github.com/neovim/neovim/pull/15436
+
+-- ]]
+
 -- require("impatient").enable_profile()
 require "impatient"
 require '_vim'
@@ -24,11 +30,12 @@ source ~/.config/nvim/vim/autocmds.vim
 ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
-require 'plugins.cmp'
+require 'plugins.tmux'
 require 'plugins.treesitter'
+require 'plugins.autopairs'
+require 'plugins.cmp'
 require 'plugins.dap'
 require 'plugins.dial'
-require 'plugins.tmux'
 require 'plugins.gitsigns'
 require 'plugins.zenmode'
 require 'plugins.xdg_open'
@@ -42,7 +49,6 @@ require 'plugins.git-messenger'
 require 'plugins.buftabline'
 require 'plugins.tcomment'
 require 'plugins.scrollview'
-require 'plugins.autopairs'
 require 'plugins.oscyank'
 require 'plugins.gitlinker'
 require 'plugins.neoformat'
@@ -53,6 +59,7 @@ vim.cmd [[
 source ~/.config/nvim/vim/mapping.vim
 source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
+" packadd vim-fugitive
 source ~/.config/nvim/vim/funcs.vim
 source ~/.config/nvim/vim/visualstarsearch.vim
 source ~/.config/nvim/vim/fzf.vim
@@ -79,7 +86,6 @@ packadd vim-rfc
 packadd telescope.nvim
 packadd todo-comments.nvim
 ]]
-
 
 vim.cmd [[
 execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim'

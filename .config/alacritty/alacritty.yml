@@ -20,7 +20,7 @@ font:
     style: Regular
     # family: Go Mono
     # family: Consolas NF
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
     # family: SauceCodePro Nerd Font Mono
     # family: SF Mono
 
@@ -36,6 +36,7 @@ font:
     # family: MesloLGLDZ Nerd Font Mono
     # family: Monoid Nerd Font
     # family: Lekton Nerd Font Mono
+    # family: Lotion Nerd Font Mono
     # family: Spleen
     # family: CrimsonText Nerd Font
     # family: FantasqueSansMono Nerd Font
@@ -46,7 +47,6 @@ font:
     # family: InconsolataGo Nerd Font
     # family: VictorMono Nerd Font
     # family: Iosevka Nerd Font Mono
-    # family: Lotion Nerd Font Mono
     # family: JuniusX
     # family: NanumBarunpen
     # family: D2Coding ligature
@@ -58,6 +58,7 @@ font:
     # family: agave Nerd Font
     # family: mononoki Nerd Font
     # family: JetBrainsMono Nerd Font
+    # family: PragmataPro Nerd Font
     # family: PragmataPro Nerd Font
     # family: Dina
     # family: Hack Nerd Font
@@ -95,10 +96,10 @@ font:
     # style: Italic
     # style: Regular
 
-  size: 24
+  size: 12
   offset:
-    x: 0
-    y: 0
+    x: -1
+    y: 6
   glyph_offset:
     x: 0 
     y: 0
@@ -334,40 +335,40 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Gruvbox dark, pale - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+# Base16 Eighties - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x262626'
-    foreground: '0xdab997'
+    background: '0x2d2d2d'
+    foreground: '0xd3d0c8'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x262626'
-    cursor: '0xdab997'
+    text: '0x2d2d2d'
+    cursor: '0xd3d0c8'
 
   # Normal colors
   normal:
-    black:   '0x262626'
-    red:     '0xd75f5f'
-    green:   '0xafaf00'
-    yellow:  '0xffaf00'
-    blue:    '0x83adad'
-    magenta: '0xd485ad'
-    cyan:    '0x85ad85'
-    white:   '0xdab997'
+    black:   '0x2d2d2d'
+    red:     '0xf2777a'
+    green:   '0x99cc99'
+    yellow:  '0xffcc66'
+    blue:    '0x6699cc'
+    magenta: '0xcc99cc'
+    cyan:    '0x66cccc'
+    white:   '0xd3d0c8'
 
   # Bright colors
   bright:
-    black:   '0x8a8a8a'
-    red:     '0xff8700'
-    green:   '0x3a3a3a'
-    yellow:  '0x4e4e4e'
-    blue:    '0x949494'
-    magenta: '0xd5c4a1'
-    cyan:    '0xd65d0e'
-    white:   '0xebdbb2'
+    black:   '0x747369'
+    red:     '0xf99157'
+    green:   '0x393939'
+    yellow:  '0x515151'
+    blue:    '0xa09f93'
+    magenta: '0xe8e6df'
+    cyan:    '0xd27b53'
+    white:   '0xf2f0ec'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

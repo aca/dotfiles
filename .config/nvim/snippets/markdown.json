@@ -1,19 +1,24 @@
 {
-	"Insert definition list": {
-	  "prefix": "definition list",
-		"body": ["${1:term}", ": ${2:definition}", "$0"],
-		"description": "Insert definition list"
-	},
-	"Insert link": {
-		"prefix": "link",
-		"body": "[${TM_SELECTED_TEXT:${1:text}}](https://${2:link})$0",
-		"description": "Insert link"
-	},
-	"Insert image": {
-		"prefix": "image",
-		"body": "![${TM_SELECTED_TEXT:${1:alt}}](https://${2:link})$0",
-		"description": "Insert image"
-	},
+  "Insert definition list": {
+    "prefix": "definition list",
+    "body": ["${1:term}", ": ${2:definition}", "$0"],
+    "description": "Insert definition list"
+  },
+  "Insert link": {
+    "prefix": "link",
+    "body": "[${TM_SELECTED_TEXT:${1:text}}](https://${2:link})$0",
+    "description": "Insert link"
+  },
+  "Insert horizontal rule": {
+    "prefix": "---",
+    "body": "--------------------------------------------------------------------------------\n",
+    "description": "Insert horizontal rule"
+  },
+  "Insert image": {
+    "prefix": "image",
+    "body": "![${TM_SELECTED_TEXT:${1:alt}}](https://${2:link})$0",
+    "description": "Insert image"
+  },
   "neuron": {
     "prefix": [
       "neuron"

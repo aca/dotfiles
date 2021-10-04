@@ -1,35 +1,3 @@
-function _pueue_add
-  set -l command (commandline -b)
-  commandline -r ""
-  echo
-
-  if echo $command | string match -q "https://*"
-    set command (string join ' ' "aria2c" "'$command'")
-  end
-
-  pueue add -g commandline -- "$command"
-  commandline -f force-repaint
-end
-
-function execute_bash
-  set -l command (commandline -b | string split0)
-  echo
-  printf "$command" | bash
-  # commandline -C 1000000000
-  # if command -sq tput
-  #     echo -n (tput el; or tput ce)
-  # end
-  # commandline ""
-  emit fish_cancel
-  commandline -f repaint
-end
-
-function clear_screen
-  clear
-  set -q TMUX && tmux clear-history
-  commandline -f force-repaint
-end
-
 function fish_user_key_bindings
     fish_vi_key_bindings
     fzf_key_bindings
@@ -45,7 +13,7 @@ function fish_user_key_bindings
         bind -M $mode \cf forward-char
         bind -M $mode \ca complete
         bind -M $mode \cq exit
-        bind -M $mode \ce clear_screen
+        bind -M $mode \ce _clear
         bind -M $mode --erase --preset \cd # disable closing terminal
     end
 

@@ -1,7 +1,7 @@
 vim.g.buftabline_show = 1
 vim.g.buftabline_numbers = 2
 
-vim.cmd [[
+vim.cmd([[
   packadd vim-buftabline
 
   nmap <leader>1 <Plug>BufTabLine.Go(1)
@@ -14,4 +14,4 @@ vim.cmd [[
   nmap <leader>8 <Plug>BufTabLine.Go(8)
   nmap <leader>9 <Plug>BufTabLine.Go(9)
   nmap <leader>0 <Plug>BufTabLine.Go(10)
-]]
+]])

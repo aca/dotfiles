@@ -1,5 +1,5 @@
 -- vim.cmd([[
--- 
+--
 --   autocmd TermLeave,InsertLeave,BufLeave zepl:* normal! G
 -- let g:repl_config = { << EOF
 --   'python': { 'cmd': 'ipython', 'formatter': function('zepl#contrib#python#formatter') } }

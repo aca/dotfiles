@@ -1,6 +1,6 @@
-vim.cmd [[
+vim.cmd([[
   packadd hop.nvim
   nmap <silent><Leader>w :HopWord<cr>
-]]
+]])
 
-require'hop'.setup()
+require("hop").setup()

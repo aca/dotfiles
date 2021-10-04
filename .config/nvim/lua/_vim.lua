@@ -1,5 +1,5 @@
 -- TODO: migrate to LUA
-vim.cmd [[
+vim.cmd([[
 set shell=/bin/sh
 
 set listchars=tab:\ ──,space:·,nbsp:␣,trail:•,eol:↵,precedes:«,extends:»
@@ -94,9 +94,10 @@ set nocursorcolumn
 set nocursorline " lag in redraw scrreen
 
 " get rid of fold char
-set fillchars=fold:\ 
+" set fillchars=fold:\ 
+set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 
-]]
+]])
 
 local opt = vim.opt
 opt.cursorline = true -- Highlight the current line
@@ -109,15 +110,15 @@ opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
 opt.laststatus = 2
 
 opt.formatoptions = opt.formatoptions
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "c" -- In general, I like it when comments respect textwidth
-  + "q" -- Allow formatting comments w/ gq
-  - "o" -- O and o, don't continue comments
-  + "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
+	- "a" -- Auto formatting is BAD.
+	- "t" -- Don't auto format my code. I got linters for that.
+	+ "c" -- In general, I like it when comments respect textwidth
+	+ "q" -- Allow formatting comments w/ gq
+	- "o" -- O and o, don't continue comments
+	+ "r" -- But do continue when pressing enter.
+	+ "n" -- Indent past the formatlistpat, not underneath it.
+	+ "j" -- Auto-remove comments if possible.
+	- "2" -- I'm not in gradeschool anymore
 
 opt.inccommand = "split"
 opt.swapfile = false -- Living on the edge
@@ -144,26 +145,24 @@ opt.equalalways = false -- I don't like my windows changing all the time
 opt.splitright = true -- Prefer windows splitting to the right
 opt.splitbelow = true -- Prefer windows splitting to the bottom
 
-
-
 -- disable default vim stuffs for faster startuptime
 vim.g.loaded_tutor_mode_plugin = 1
-vim.g.loaded_logiPat           = 1
-vim.g.loaded_rrhelper          = 1
-vim.g.loaded_tarPlugin         = 1
-vim.g.loaded_remote_plugins    = 1
-vim.g.loaded_gzip              = 1
-vim.g.loaded_zipPlugin         = 1
-vim.g.loaded_2html_plugin      = 1
-vim.g.loaded_shada_plugin      = 1
-vim.g.loaded_spellfile_plugin  = 1
-vim.g.loaded_netrw             = 1
-vim.g.loaded_netrwSettings     = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_rrhelper = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_remote_plugins = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_shada_plugin = 1
+vim.g.loaded_spellfile_plugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
-vim.g.loaded_netrwPlugin       = 1
-vim.g.loaded_remote_plugins    = 1
-vim.g.loaded_getscript         = 1
-vim.g.loaded_getscriptPlugin   = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_remote_plugins = 1
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
 
 -- https://github.com/nathom/filetype.nvim
 vim.g.did_load_filetypes = 1

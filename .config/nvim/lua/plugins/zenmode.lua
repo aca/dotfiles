@@ -5,11 +5,11 @@ vim.cmd([[
   nnoremap <silent> <bslash>z :ZenMode<CR>
 ]])
 
-require("zen-mode").setup {
-  window = {
-          number = true,
-  },
-  plugins = {
-      gitsigns = { enabled = true },
-    },
-}
+require("zen-mode").setup({
+	window = {
+		number = true,
+	},
+	plugins = {
+		gitsigns = { enabled = true },
+	},
+})

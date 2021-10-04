@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   let g:move_map_keys = 0
   packadd vim-move
   vmap <M-j> <Plug>MoveBlockDown
@@ -15,4 +15,4 @@ vim.cmd [[
   nmap <M-w> <Plug>MoveLineUp
   nmap <M-a> <Plug>MoveCharLeft
   nmap <M-d> <Plug>MoveCharRight
-]]
+]])
