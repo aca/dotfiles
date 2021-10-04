@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+
+set -euo pipefail
+
+src=$(realpath "$1")
+dest=$(realpath "$2")
+
+rsync -bvizP --size-only -rl "$src/" "$dest/"
+
+
+
+# vim: set ft=bash:
