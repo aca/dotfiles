@@ -21,7 +21,7 @@ font:
     # family: Go Mono
     # family: Consolas NF
     # family: Iosevka Nerd Font Mono
-    # family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro Nerd Font Mono
     # family: SF Mono
 
     # family: Menlo
@@ -99,7 +99,7 @@ font:
   size: 12
   offset:
     x: -1
-    y: 6
+    y: 4
   glyph_offset:
     x: 0 
     y: 0
