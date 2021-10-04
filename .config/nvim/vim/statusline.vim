@@ -24,7 +24,7 @@ endf
 
 func! Fticon() abort
   let icon = luaeval("require'nvim-web-devicons'.get_icon( vim.bo.filetype)")
-  return icon == v:null? icon: ''
+  return icon != v:null? icon: ''
 endf
 
 " status bar colors
