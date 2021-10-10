@@ -73,9 +73,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-boxdraw"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-boxdraw
 	url = https://github.com/gyim/vim-boxdraw.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/xdg_open.vim"]
-	path = .local/share/nvim/site/pack/paqs/opt/xdg_open.vim
-	url = https://github.com/aca/xdg_open.vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-fold-cycle"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-fold-cycle
 	url = https://github.com/arecarn/vim-fold-cycle.git
@@ -368,3 +365,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/bullets.vim"]
 	path = .local/share/nvim/site/pack/paqs/opt/bullets.vim
 	url = https://github.com/dkarter/bullets.vim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/gx-extended.vim"]
+	path = .local/share/nvim/site/pack/paqs/opt/gx-extended.vim
+	url = https://github.com/stsewd/gx-extended.vim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/headlines.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/headlines.nvim
+	url = https://github.com/lukas-reineke/headlines.nvim.git

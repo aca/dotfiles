@@ -170,3 +170,16 @@ lspconfig.pylance.setup({
 -- end
 
 -- lspconfig.emmet_ls.setup{ capabilities = capabilities; }
+
+configs.zk = {
+  default_config = {
+    cmd = {'zk', 'lsp'},
+    filetypes = {'markdown'},
+    root_dir = function()
+      return vim.loop.cwd()
+    end,
+    settings = {}
+  };
+}
+
+lspconfig.zk.setup({ on_attach = function(client, buffer) end })

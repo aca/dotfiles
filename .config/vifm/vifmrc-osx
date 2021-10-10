@@ -80,7 +80,7 @@ filetype *.md5
 
 " Markdown
 filetype *.md
-       \ nvim -c %f,
+       \ exec nvim %f,
 
 " SHA1
 filetype *.sha1

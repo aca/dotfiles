@@ -1,8 +1,6 @@
 if _minimal | finish | end
 
-let g:mdip_imgdir_absolute = expand("~/src/zettels/static")
-" nmap <silent><leader>ip :call mdip#MarkdownClipboardImage()<CR><esc>:s#<c-r>=expand("~/src/zettels/image")<cr>#\~/src/zettels/image<cr>
-" nmap <silent><leader>ip :call mdip#MarkdownClipboardImage()<CR>
+let g:mdip_imgdir_absolute = expand("~/src/zettels/archive")
 
 function s:img_paste()
   call mdip#MarkdownClipboardImage()

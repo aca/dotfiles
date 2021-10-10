@@ -92,3 +92,8 @@ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim'
 ]]
 
 end))
+
+vim.cmd [[
+" let g:gxext#debug = 1
+" packadd gx-extended.vim
+]]
