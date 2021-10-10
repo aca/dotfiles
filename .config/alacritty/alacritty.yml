@@ -22,6 +22,7 @@ font:
     # family: Consolas NF
     # family: Iosevka Nerd Font Mono
     family: SauceCodePro Nerd Font Mono
+    # family: Lotion Nerd Font Mono
     # family: SF Mono
 
     # family: Menlo
@@ -36,7 +37,6 @@ font:
     # family: MesloLGLDZ Nerd Font Mono
     # family: Monoid Nerd Font
     # family: Lekton Nerd Font Mono
-    # family: Lotion Nerd Font Mono
     # family: Spleen
     # family: CrimsonText Nerd Font
     # family: FantasqueSansMono Nerd Font

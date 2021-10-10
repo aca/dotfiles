@@ -61,6 +61,7 @@ source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
 " packadd vim-fugitive
 source ~/.config/nvim/vim/funcs.vim
+source ~/.config/nvim/vim/switchy.vim
 source ~/.config/nvim/vim/visualstarsearch.vim
 source ~/.config/nvim/vim/fzf.vim
 source ~/.config/nvim/vim/autocmds_lazy.vim
