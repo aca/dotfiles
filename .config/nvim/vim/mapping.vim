@@ -68,7 +68,7 @@ nnoremap <c-g> 2<c-g>
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev q1 q!
-cnoreabbrev E e
+" cnoreabbrev E e
 cnoreabbrev Wq wq
 cnoreabbrev Wa wa
 cnoreabbrev wQ wq

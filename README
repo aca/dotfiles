@@ -2,41 +2,40 @@ dotfiles
 ========
 
 Setup
+-----
+# VPN: Tailscale
 
-    # VPN: Tailscale
+# stow
+git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
 
-    # stow
-    git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles
-    bash ~/src/configs/dotfiles/.bin/setup.stow
+# install ssh keys
+curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 
-    # install ssh keys
-    curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+Update
+------
+git submodule update --init --recursive
 
-Fix submodules 
+# set branch for submodules
+git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'
 
-    git submodule update --force --recursive --init --remote
-    git submodule update --init --recursive
-
-    git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'
-
-Neovim
-    sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
-    make distclean
-    make -j4
-    sudo make install
-
-# unbinds all submodules
+# clean submodules (remove all submodule files)
 git submodule deinit -f .
-# checkout again
-git submodule update --init --remote
-# update
-git submodule update --init --recursive --remote
-
 
 Brew 
+----
+# Update
+command rm ~/.Brewfile* && brew bundle dump --describe --global && command mv ~/.Brewfile ~/src/configs/dotfiles && setup.stow
 
-  # Update
-  command rm ~/.Brewfile* && brew bundle dump --describe --global && command mv ~/.Brewfile ~/src/configs/dotfiles && setup.stow
+# Install  
+brew bundle install --global
 
-  # Install  
-  brew bundle install --global
+Neovim
+------
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
+sudo make -j4 CMAKE_BUILD_TYPE=Release install
+
+Fish
+----
+sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt-get update
+sudo apt-get install fish

@@ -27,6 +27,7 @@ require 'plugins.lsp'
 vim.cmd [[
 source ~/.config/nvim/vim/colors.vim
 source ~/.config/nvim/vim/autocmds.vim
+
 ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
@@ -61,7 +62,7 @@ source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
 " packadd vim-fugitive
 source ~/.config/nvim/vim/funcs.vim
-source ~/.config/nvim/vim/switchy.vim
+" source ~/.config/nvim/vim/switchy.vim
 source ~/.config/nvim/vim/visualstarsearch.vim
 source ~/.config/nvim/vim/fzf.vim
 source ~/.config/nvim/vim/autocmds_lazy.vim
@@ -74,6 +75,8 @@ source ~/.config/nvim/vim/smoothie.vim
 source ~/.config/nvim/vim/barbaric.vim
 source ~/.config/nvim/vim/statusline.vim
 " source ~/.config/nvim/vim/codi.vim
+
+source ~/.config/nvim/vim/projectionist.vim
 
 packadd vim-fold-cycle
 packadd vim-fetch
