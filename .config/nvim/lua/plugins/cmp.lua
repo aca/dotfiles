@@ -73,26 +73,65 @@ cmp.setup({
 	},
 	-- You must set mapping.
 	mapping = {
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		-- ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		-- ["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.close(),
+		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
+		-- ["<C-n>"] = cmp.mapping.select_next_item(),
+		-- -- ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+		-- -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
+		-- ["<C-Space>"] = cmp.mapping.complete(),
+		-- ["<C-e>"] = cmp.mapping.close(),
+		-- ["<CR>"] = cmp.mapping(function(fallback)
+		-- 	if vim.fn.complete_info()["selected"] ~= -1 then
+		-- 		cmp.confirm({
+		-- 			behavior = cmp.ConfirmBehavior.Replace,
+		-- 			select = true,
+		-- 		})
+		-- 	else
+		-- 		fallback()
+		-- 		-- vim.fn.feedkeys(t("<cr>"), "n")
+		-- 	end
+		-- end, {
+		-- 	"i",
+		-- 	"s",
+		-- }),
+    --
+    --
 		["<CR>"] = cmp.mapping(function(fallback)
-			if vim.fn.complete_info()["selected"] ~= -1 then
+			-- if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+			if cmp.core.view:get_selected_entry() then
 				cmp.confirm({
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,
 				})
 			else
 				fallback()
-				-- vim.fn.feedkeys(t("<cr>"), "n")
 			end
 		end, {
 			"i",
 			"s",
 		}),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Tab>'] = function(fallback)
+              if cmp.visible() then
+                  cmp.select_next_item()
+              elseif vim.fn['vsnip#available']() == 1 then
+                  vim.fn.feedkeys(t('<Plug>(vsnip-expand-or-jump)'), '')
+              else
+                  -- fallback() -- it hangs
+                  vim.api.nvim_feedkeys("\t", "n", true)
+              end
+          end,
+          ['<S-Tab>'] = function(fallback)
+              if cmp.visible() then
+                  cmp.select_next_item()
+              elseif vim.fn['vsnip#available']() == 1 then
+                  vim.fn.feedkeys(t('<Plug>(vsnip-jump-prev)'), '')
+              else
+                  fallback()
+              end
+          end,
 	},
 	sources = cmp_sources,
 })

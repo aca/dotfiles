@@ -368,3 +368,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-projectionist"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-projectionist
 	url = https://github.com/tpope/vim-projectionist.git
+[submodule ".tmux/plugins/tmux-easy-motion"]
+	path = .tmux/plugins/tmux-easy-motion
+	url = https://github.com/IngoMeyer441/tmux-easy-motion.git
