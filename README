@@ -11,9 +11,16 @@ git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs
 # install ssh keys
 curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 
+Setup machine
+-------------
+sudo apt install stow
+git clone --depth 1 --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
+cd ~/src/configs/dotfiles && git pull --rebase
+git submodule update --init
+
 Update
 ------
-git submodule update --init --recursive
+git submodule update --init --remote
 
 # set branch for submodules
 git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'
@@ -31,11 +38,20 @@ brew bundle install --global
 
 Neovim
 ------
-sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl
-sudo make -j4 CMAKE_BUILD_TYPE=Release install
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl -y
+git clone -j8 https://github.com/neovim/neovim ~/tmp/neovim
+cd ~/tmp/neovim && sudo make -j4 CMAKE_BUILD_TYPE=Release install
 
 Fish
 ----
 sudo apt-add-repository ppa:fish-shell/release-3
-sudo apt-get update
-sudo apt-get install fish
+sudo apt-get update -y
+sudo apt-get install fish -y
+
+ASDF
+----
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+
+# ghq
+asdf plugin add ghq
+asdf install ghq latest
