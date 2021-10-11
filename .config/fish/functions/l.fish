@@ -1,5 +1,4 @@
 function l --wraps=exa
-
   if type -q "exa"
     set -gx EXA_ICON_SPACING 2
 
@@ -15,4 +14,5 @@ function l --wraps=exa
     exa --icons --long --group -I "$EXA_IGNORE" -s=time $argv 
   else
     ls
+  end
 end
