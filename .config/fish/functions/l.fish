@@ -13,6 +13,6 @@ function l --wraps=exa
       end
     exa --icons --long --group -I "$EXA_IGNORE" -s=time $argv 
   else
-    ls
+    command ls
   end
 end
