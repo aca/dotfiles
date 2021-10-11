@@ -60,9 +60,7 @@ vim.cmd [[
 source ~/.config/nvim/vim/mapping.vim
 source ~/.config/nvim/vim/zepl.vim
 source ~/.config/nvim/vim/gina.vim
-" packadd vim-fugitive
 source ~/.config/nvim/vim/funcs.vim
-" source ~/.config/nvim/vim/switchy.vim
 source ~/.config/nvim/vim/visualstarsearch.vim
 source ~/.config/nvim/vim/fzf.vim
 source ~/.config/nvim/vim/autocmds_lazy.vim
@@ -74,9 +72,8 @@ source ~/.config/nvim/vim/luapad.vim
 source ~/.config/nvim/vim/smoothie.vim
 source ~/.config/nvim/vim/barbaric.vim
 source ~/.config/nvim/vim/statusline.vim
-" source ~/.config/nvim/vim/codi.vim
-
 source ~/.config/nvim/vim/projectionist.vim
+" source ~/.config/nvim/vim/codi.vim
 
 packadd vim-fold-cycle
 packadd vim-fetch
