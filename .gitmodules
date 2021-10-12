@@ -371,3 +371,12 @@
 [submodule ".tmux/plugins/tmux-easy-motion"]
 	path = .tmux/plugins/tmux-easy-motion
 	url = https://github.com/IngoMeyer441/tmux-easy-motion.git
+[submodule ".tmux/plugins/tmux-easymotion"]
+	path = .tmux/plugins/tmux-easymotion
+	url = https://github.com/ddzero2c/tmux-easymotion.git
+[submodule ".tmux/plugins/tmux-fingers"]
+	path = .tmux/plugins/tmux-fingers
+	url = https://github.com/Morantron/tmux-fingers.git
+[submodule ".tmux/plugins/tmux-fuzzback"]
+	path = .tmux/plugins/tmux-fuzzback
+	url = https://github.com/roosta/tmux-fuzzback.git
