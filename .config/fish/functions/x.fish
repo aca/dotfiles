@@ -8,4 +8,6 @@ function x --description "scratch"
     set d (date +%Y%m%d_$argv)
     mkdir $d
     cd $d
+    git init 
+    git remote add origin https://git.aca.us.to/scratch/(basename (pwd)).git
 end
