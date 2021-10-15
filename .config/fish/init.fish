@@ -117,9 +117,10 @@ if not set -q init_fish
     if [ -d $HOME/.local/bin ]                            ; set -x --append PATH $HOME/.local/bin                             ; end
     if [ -d $HOME/.cargo/bin ]                            ; set -x --append PATH $HOME/.cargo/bin                             ; end
     if [ -d $HOME/.nix-profile/bin ]                      ; set -x --append PATH $HOME/.nix-profile/bin                       ; end
-    if [ -d /opt/local/bin ]                              ; set -x --append PATH /opt/local/bin                               ; end
-    if [ -d /opt/local/sbin ]                             ; set -x --append PATH /opt/local/sbin                              ; end
+    # if [ -d /opt/local/bin ]                              ; set -x --append PATH /opt/local/bin                               ; end
+    # if [ -d /opt/local/sbin ]                             ; set -x --append PATH /opt/local/sbin                              ; end
     if [ -d /usr/local/opt/llvm/bin ]                     ; set -x --append PATH /usr/local/opt/llvm/bin                      ; end
+    if [ -d /usr/local/sbin ]                             ; set -x --append PATH /usr/local/sbin                              ; end
     if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --append PATH $HOME/src/go.googlesource.com/go/bin         ; end
 end
 
@@ -182,19 +183,19 @@ abbr --global gacm git commit -a --allow-empty-message -m
 #     end
 # end
 
-# function _postexec --on-event fish_postexec
-#   switch $argv
-#     case 'ghq get *'
-#       set_color red; echo "[HOOK] updating source database"; set_color normal;
-#       _update_src &
-#     case 'pip install *'
-#       set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-#       asdf reshim &
-#     case 'pip3 install *'
-#       set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-#       asdf reshim &
-#   end
-# end
+function _postexec --on-event fish_postexec
+  switch $argv
+    case 'ghq get *'
+      set_color red; echo "[HOOK] updating source database"; set_color normal;
+      _update_src &
+  #   case 'pip install *'
+  #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
+  #     asdf reshim &
+  #   case 'pip3 install *'
+  #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
+  #     asdf reshim &
+  end
+end
 # }}}
 
 # OS specific {{{

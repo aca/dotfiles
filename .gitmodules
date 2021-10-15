@@ -380,3 +380,15 @@
 [submodule ".tmux/plugins/tmux-fuzzback"]
 	path = .tmux/plugins/tmux-fuzzback
 	url = https://github.com/roosta/tmux-fuzzback.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/wilder.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/wilder.nvim
+	url = https://github.com/gelguy/wilder.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/Comment.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/Comment.nvim
+	url = https://github.com/numToStr/Comment.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-ts-context-commentstring"]
+	path = .local/share/nvim/site/pack/paqs/opt/nvim-ts-context-commentstring
+	url = https://github.com/JoosepAlviste/nvim-ts-context-commentstring.git
+[submodule ".tmux/plugins/tmux-open"]
+	path = .tmux/plugins/tmux-open
+	url = https://github.com/tmux-plugins/tmux-open.git

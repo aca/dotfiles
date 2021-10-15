@@ -7,12 +7,15 @@ set tuioptions="p"
 
 only
 
+nnoremap - <C-w>5<
+nnoremap _ <C-w>5>
+
 " source ~/src/configs/dotfiles/.config/vifm/favicons.vifm
 
 if $VIM == ""
   set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"
 else
-  set milleroptions="lsize:1,csize:2,rsize:3,rpreview:all"
+  set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"
 endif
 
 
@@ -95,7 +98,11 @@ set scrolloff=4
 if !has('win')
     set slowfs=curlftpfs
 endif
-set statusline="%= %A %10u:%-7g %15s %20d  "
+" set statusline="%= %A %10u:%-7g %15s %20d  "
+
+" Total size of selected files
+" To get the total size of selected files change %s to %E in ~/.vifm/vifmrc, like so:
+set statusline="  %t%= %A %10u:%-7g %15E %20d  "
 
 mark h ~/
 mark r /

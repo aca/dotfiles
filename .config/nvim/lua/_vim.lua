@@ -2,28 +2,10 @@
 vim.cmd([[
 set shell=/bin/sh
 
-set listchars=tab:\ ──,space:·,nbsp:␣,trail:•,eol:↵,precedes:«,extends:»
-set showbreak=⤷\ 
-
-" fold
-" set foldlevel=0 " close all folds
-set foldlevel=99 " open all folds
-" set foldnestmax=3
-set foldmethod=marker
-set foldcolumn=0
-" set cofoldenable
-set foldopen+=search
-" set foldlevelstart=99
-
-set nolist " don't render special chars(performance)
+set guifont=SauceCodePro\ Nerd\ Font
 
 set wildignore+=/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*
 set conceallevel=2
-
-set wildoptions=pum
-set pumblend=30
-set breakindent
-set breakindentopt=sbr
 
 " https://vimhelp.org/term.txt.html
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -40,9 +22,6 @@ set shortmess=aItcF
 
 set mouse=a
 set mousemodel=popup
-
-let mapleader      = ' '
-let maplocalleader = ' '
 
 " https://jdhao.github.io/2021/06/17/nifty_nvim_techniques_s10/
 " fix E447: Can’t find file “file_path=path/to/file.txt” in path.
@@ -63,41 +42,40 @@ set lazyredraw
 " set synmaxcol=200
 " set mmp=2000000    " memory limit
 " set modeline
-set modelineexpr
-set modifiable
-set nobackup
-set nocompatible
-set completeopt=menu,menuone,noselect
-set noendofline
-set nofixeol
-set noshowcmd
-set noshowmode
-set nostartofline " Keep the cursor on the same column
-set noswapfile
-set nowrap
-set nowrapscan
-set nowritebackup
 set nrformats+=alpha,hex,octal
 " set numberwidth=0
 " set showcmd
 set signcolumn=yes
+set completeopt=menu,menuone,noselect
 set synmaxcol=0
-set timeoutlen=400
-set ttyfast
 set virtualedit=block
 " set virtualedit=all
 set whichwrap=b,s
 " set wildmenu
 " set wildmode=full
 set wrapmargin=0
-set nocursorcolumn
-set nocursorline " lag in redraw scrreen
 
 " get rid of fold char
 " set fillchars=fold:\ 
 set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 
 ]])
+
+vim.g.mapleader      = ' '
+vim.g.maplocalleader = ' '
+
+
+vim.g.cursorcolumn = false
+vim.g.cursorline = true
+
+vim.g.timeoutlen=400
+
+-- fold
+vim.g.foldlevel=99
+vim.g.foldlevelstart=99
+vim.g.foldmethod="marker"
+vim.g.foldcolumn=0
+
 
 local opt = vim.opt
 opt.cursorline = true -- Highlight the current line
@@ -156,8 +134,6 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_shada_plugin = 1
 vim.g.loaded_spellfile_plugin = 1
-
-
 vim.g.loaded_remote_plugins = 1
 vim.g.loaded_getscript = 1
 vim.g.loaded_getscriptPlugin = 1
@@ -165,7 +141,24 @@ vim.g.loaded_getscriptPlugin = 1
 -- https://github.com/nathom/filetype.nvim
 vim.g.did_load_filetypes = 1
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwSettings = 1
-vim.g.loaded_netrwFileHandlers = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwSettings = 1
+-- vim.g.loaded_netrwFileHandlers = 1
+-- vim.g.loaded_netrwPlugin = 1
+
+vim.g.modelineexpr = true
+vim.g.modifiable = true
+vim.g.endofline = false
+vim.g.backup = false
+vim.g.compatible = false
+vim.g.fixeol = false
+vim.g.showcmd = false
+vim.g.showmode = false
+vim.g.startofline = false
+vim.g.swapfile = false
+vim.g.wrap = false
+vim.g.wrapscan = false
+vim.g.writebackup = false
+
+-- vim.g.wildoptions=pum
+-- vim.g.pumblend=30

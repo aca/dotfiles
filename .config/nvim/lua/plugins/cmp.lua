@@ -48,7 +48,7 @@ local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "path" },
 	-- {name = 'cmp_tabnine'},
-	{name = "vsnip"},
+	-- {name = "vsnip"},
 	{ name = "buffer" },
 	{
 		name = "tmux",
@@ -57,6 +57,7 @@ local cmp_sources = {
 		},
 	},
 }
+
 cmp.setup({
 	-- You should change this example to your chosen snippet engine.
 	snippet = {

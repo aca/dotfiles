@@ -17,7 +17,7 @@ autocmd  FileType fzf setlocal laststatus=1 noshowmode noruler | autocmd BufLeav
 au FileType fzf tnoremap <buffer> <c-j> <c-j>
 au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
-let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+" let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 
@@ -35,6 +35,8 @@ vnoremap <silent><Leader>fw   y:Rg <C-R>"<CR>
 nnoremap <silent><Leader>fm   :FZFMarks<cr>
 nnoremap <silent><leader>fl   :BLines<cr>
 nnoremap <silent><leader>ff   :Files<cr>
+" nnoremap <silent><leader>ff   :lua require('telescope.builtin').find_files({layout_config={width=0.9}})<cr>
+" nnoremap <silent><Leader>ff   :lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy())<cr>
 nnoremap <silent><leader>fh   :History<CR>
 nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
