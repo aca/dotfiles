@@ -176,7 +176,6 @@ lspconfig.pylance.setup({
 --   }
 -- end
 
--- lspconfig.emmet_ls.setup{ capabilities = capabilities; }
 
 configs.zk = {
   default_config = {

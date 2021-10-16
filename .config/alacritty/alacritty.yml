@@ -335,40 +335,46 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Eighties - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Base16 Black Metal (Bathory) 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x2d2d2d'
-    foreground: '0xd3d0c8'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x2d2d2d'
-    cursor: '0xd3d0c8'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x2d2d2d'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xd3d0c8'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xfbcb97'
+    yellow:  '0xe78a53'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x747369'
-    red:     '0xf99157'
-    green:   '0x393939'
-    yellow:  '0x515151'
-    blue:    '0xa09f93'
-    magenta: '0xe8e6df'
-    cyan:    '0xd27b53'
-    white:   '0xf2f0ec'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0xfbcb97'
+    yellow:  '0xe78a53'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd
