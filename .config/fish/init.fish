@@ -140,7 +140,7 @@ _prepend_path $HOME/.asdf/bin
 
 # "alias" makes fish init too slow, keep it minimal and use function instead
 # abbr --global v 'nvim'
-abbr --global g 'rg -i'
+abbr --global g 'stdbuf -o0 -e0 -i0 rg -i'
 abbr --global pu 'pueue'
 abbr --global cmd 'command'
 abbr --global k 'kubectl'
