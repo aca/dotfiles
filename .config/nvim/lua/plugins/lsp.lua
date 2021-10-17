@@ -30,7 +30,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.emmet_ls.setup({
   capabilities = capabilities,
-  cmd = { "ts-node", "/Users/rok/src/github.com/aca/emmet-ls/src/server.ts" , "--stdio"},
+  cmd = { "ts-node", "~/src/github.com/aca/emmet-ls/src/server.ts" , "--stdio"},
 })
 
 lspconfig.gopls.setup({ capabilities = capabilities })
