@@ -4,8 +4,9 @@ local configs = require("lspconfig/configs")
 
 -- Based on https://github.com/hrsh7th/cmp-nvim-lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
 -- capabilities.textDocument.completion.completionItem.preselectSupport = false
 -- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
 -- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
@@ -20,12 +21,13 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --     }
 -- }
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = true,
-	signs = true,
-	underline = true,
-	update_in_insert = true,
-})
+-- TODO: slow diagnostic update on mac
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- 	virtual_text = true,
+-- 	signs = true,
+-- 	underline = true,
+-- 	update_in_insert = true,
+-- })
 
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.emmet_ls.setup({
@@ -42,25 +44,25 @@ lspconfig.gopls.setup({ capabilities = capabilities })
 -- lspconfig.dockerls.setup{ capabilities = capabilities; }
 -- lspconfig.html.setup{ capabilities = capabilities; }
 -- lspconfig.jsonls.setup {capabilities = capabilities}
--- lspconfig.yamlls.setup {capabilities = capabilities}
+lspconfig.yamlls.setup {capabilities = capabilities}
 lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({ capabilities = capabilities })
 -- lspconfig.terraformls.setup {capabilities = capabilities}
 
 -- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
-lspconfig.denols.setup({
-	-- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" , "json"},
-	-- filetypes = { "json", "yaml", "markdown"},
-	filetypes = { "json", "yaml" },
-	root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git", vim.fn.getcwd()),
-	settings = {
-		init_options = {
-			enable = true,
-			lint = true,
-			unstable = false,
-		},
-	},
-})
+-- lspconfig.denols.setup({
+-- 	-- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" , "json"},
+-- 	-- filetypes = { "json", "yaml", "markdown"},
+-- 	filetypes = { "json", "yaml" },
+-- 	root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git", vim.fn.getcwd()),
+-- 	settings = {
+-- 		init_options = {
+-- 			enable = true,
+-- 			lint = true,
+-- 			unstable = false,
+-- 		},
+-- 	},
+-- })
 
 -- local luadev =
 --     require("lua-dev").setup(
@@ -189,3 +191,9 @@ configs.zk = {
 }
 
 lspconfig.zk.setup({ on_attach = function(client, buffer) end })
+
+
+-- vim.api.nvim_set_keymap('n', '<LeftMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.hover({border = "single"})<CR>', { noremap=true, 
+-- silent=true })
+--
+-- vim.api.nvim_set_keymap('n', '<RightMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>', { noremap=true, silent=true })

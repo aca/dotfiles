@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd $HOME/src/github.com/neovim/neovim
+git pull --rebase origin master
+# sudo make distclean
+sudo make -j4 CMAKE_BUILD_TYPE=Release install

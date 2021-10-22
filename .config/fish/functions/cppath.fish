@@ -5,6 +5,6 @@ function cppath --description 'realpath(argv) | pbcopy'
   else
     set p $argv[1]
   end
-  realpath $p | tr -d '\n' |sed "s#$HOME#~#"  | string escape | pbcopy
+  realpath $p | tr -d '\n' | string escape -n |  sed "s#$HOME#~#"  | pbcopy
 end
 

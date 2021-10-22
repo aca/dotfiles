@@ -96,7 +96,7 @@ font:
     # style: Italic
     # style: Regular
 
-  size: 12
+  size: 22
   offset:
     x: -1
     y: 4

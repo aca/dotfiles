@@ -40,7 +40,7 @@ Neovim
 ------
 sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl -y
 git clone -j8 https://github.com/neovim/neovim ~/tmp/neovim
-cd ~/tmp/neovim && sudo make -j4 CMAKE_BUILD_TYPE=Release install
+cd ~/tmp/neovim && sudo make distclean && sudo make -j4 CMAKE_BUILD_TYPE=Release install
 
 Fish
 ----

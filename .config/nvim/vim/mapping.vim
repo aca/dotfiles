@@ -2,12 +2,8 @@
 " https://vim.fandom.com/wiki/Unused_keys
 "
 
-
-nnoremap ; :
-vnoremap ; :
-
-nnoremap ;; ;
-vnoremap ;; ;
+nnoremap ;; :
+vnoremap ;; :
 
 "
 " LSP
@@ -23,14 +19,15 @@ nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> ]d            <cmd>lua vim.lsp.diagnostic.goto_next({wrap = false})<CR>
 nnoremap <silent> [d            <cmd>lua vim.lsp.diagnostic.goto_prev({wrap = false})<CR>
 
-nnoremap <silent> <bslash>d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> <bslash>dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
-nnoremap <silent> <bslash>r            <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <bslash>n            <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <bslash>a            <cmd>lua vim.lsp.buf.code_action()<CR>
-vnoremap <silent> <bslash>a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
-nnoremap <silent> <bslash>i            <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <bslash>f            <cmd>Neoformat<cr>
+nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
+nnoremap <silent> ;r            <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> ;n            <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
+vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
+nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> ;f            <cmd>Neoformat<cr>
+nnoremap <silent> ;ff            <cmd>Neoformat<cr>
 
 imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <expr><Tab>                v:lua.tab_complete()
