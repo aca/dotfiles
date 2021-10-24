@@ -4,7 +4,7 @@ python -m pip install -U pip
 
 pip install --upgrade pynvim
 pip install --upgrade pytest
-pip install --upgrade youtube-dl
+# pip install --upgrade youtube-dl
 pip install --upgrade black
 pip install --upgrade requests
 pip install --upgrade ansible

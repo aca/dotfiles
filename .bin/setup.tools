@@ -47,7 +47,6 @@ pip3 install --upgrade BeautifulSoup4
 pip3 install --upgrade requests
 pip3 install --upgrade lxml
 pip3 install --upgrade cfscrape
-pip3 install --upgrade youtube-dl
 
 pip install --upgrade BeautifulSoup4
 pip install --upgrade ansible

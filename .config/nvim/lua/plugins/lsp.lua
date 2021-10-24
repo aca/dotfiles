@@ -32,7 +32,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.emmet_ls.setup({
   capabilities = capabilities,
-  cmd = { "ts-node", "~/src/github.com/aca/emmet-ls/src/server.ts" , "--stdio"},
+  -- cmd = { "ts-node", "$HOME/src/github.com/aca/emmet-ls/src/server.ts" , "--stdio"},
+  cmd = { "emmetls.sh"},
 })
 
 lspconfig.gopls.setup({ capabilities = capabilities })
@@ -76,38 +77,38 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 --
 -- lspconfig.sumneko_lua.setup(luadev)
 
-if vim.fn.executable("docker") == 1 then
-  local runtime_path = vim.split(package.path, ";")
-  table.insert(runtime_path, "lua/?.lua")
-  table.insert(runtime_path, "lua/?/init.lua")
-  lspconfig.sumneko_lua.setup({
-    cmd = {"lua-language-server"},
-    -- cmd = require("lspcontainers").command("sumneko_lua"),
-    settings = {
-      capabilities = capabilities,
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-          -- Setup your lua path
-          path = runtime_path,
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  })
-end
+-- if vim.fn.executable("docker") == 1 then
+--   local runtime_path = vim.split(package.path, ";")
+--   table.insert(runtime_path, "lua/?.lua")
+--   table.insert(runtime_path, "lua/?/init.lua")
+--   lspconfig.sumneko_lua.setup({
+--     cmd = {"lua-language-server"},
+--     -- cmd = require("lspcontainers").command("sumneko_lua"),
+--     settings = {
+--       capabilities = capabilities,
+--       Lua = {
+--         runtime = {
+--           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--           version = "LuaJIT",
+--           -- Setup your lua path
+--           path = runtime_path,
+--         },
+--         diagnostics = {
+--           -- Get the language server to recognize the `vim` global
+--           globals = { "vim" },
+--         },
+--         workspace = {
+--           -- Make the server aware of Neovim runtime files
+--           library = vim.api.nvim_get_runtime_file("", true),
+--         },
+--         -- Do not send telemetry data containing a randomized but unique identifier
+--         telemetry = {
+--           enable = false,
+--         },
+--       },
+--     },
+--   })
+-- end
 
 --[[
 
@@ -179,18 +180,18 @@ lspconfig.pylance.setup({
 -- end
 
 
-configs.zk = {
-  default_config = {
-    cmd = {'zk', 'lsp'},
-    filetypes = {'markdown'},
-    root_dir = function()
-      return vim.loop.cwd()
-    end,
-    settings = {}
-  };
-}
-
-lspconfig.zk.setup({ on_attach = function(client, buffer) end })
+-- configs.zk = {
+--   default_config = {
+--     cmd = {'zk', 'lsp'},
+--     filetypes = {'markdown'},
+--     root_dir = function()
+--       return vim.loop.cwd()
+--     end,
+--     settings = {}
+--   };
+-- }
+--
+-- lspconfig.zk.setup({ on_attach = function(client, buffer) end })
 
 
 -- vim.api.nvim_set_keymap('n', '<LeftMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.hover({border = "single"})<CR>', { noremap=true, 
