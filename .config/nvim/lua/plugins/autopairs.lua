@@ -10,6 +10,7 @@ packadd nvim-autopairs
 
 local remap = vim.api.nvim_set_keymap
 local npairs = require("nvim-autopairs")
+-- npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 
 -- skip it, if you use another global object
 _G.MUtils = {}

@@ -1,9 +1,7 @@
 -- OPT [[
 
-vim.lsp.set_log_level("debug")
-if vim.fn.has 'nvim-0.5.1' == 1 then
-  require('vim.lsp.log').set_format_func(vim.inspect)
-end
+-- vim.lsp.set_log_level("debug")
+-- require('vim.lsp.log').set_format_func(vim.inspect)
 
 -- ]]
 
@@ -33,7 +31,7 @@ vim.cmd [[ source ~/.config/nvim/vim/autocmds.vim ]]
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
 require 'plugins.tmux'
 require 'plugins.treesitter'
-require 'plugins.autopairs'
+-- require 'plugins.autopairs'
 require 'plugins.cmp'
 require 'plugins.dap'
 require 'plugins.dial'
@@ -42,7 +40,7 @@ require 'plugins.zenmode'
 require 'plugins.xdg_open'
 require 'plugins.numb'
 require 'plugins.hop'
--- require 'plugins.lion'
+require 'plugins.lion'
 require 'plugins.move'
 require 'plugins.suda'
 require 'plugins.zepl'
@@ -70,7 +68,7 @@ vim.cmd [[ source ~/.config/nvim/vim/vifm.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/luapad.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/barbaric.vim ]]
 -- vim.cmd [[ source ~/.config/nvim/vim/smoothie.vim ]]
--- vim.cmd [[ source ~/.config/nvim/vim/statusline.vim ]]
+vim.cmd [[ source ~/.config/nvim/vim/statusline.vim ]]
 -- vim.cmd [[ source ~/.config/nvim/vim/projectionist.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/codi.vim ]]
 vim.cmd [[ packadd vim-fold-cycle ]]

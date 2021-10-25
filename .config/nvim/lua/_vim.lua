@@ -63,7 +63,6 @@ set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
 
-
 vim.g.cursorcolumn = false
 vim.g.cursorline = true
 
@@ -103,7 +102,6 @@ opt.shada = { "!", "'1000", "<50", "s10", "h" }
 opt.hidden = true -- zepl.vim
 
 opt.joinspaces = false -- Two spaces and grade school, we're done
-
 opt.belloff = "all" -- Just turn the dang bell off
 
 -- Tabs
