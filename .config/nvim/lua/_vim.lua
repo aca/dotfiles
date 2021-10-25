@@ -44,7 +44,6 @@ set lazyredraw
 " set modeline
 set nrformats+=alpha,hex,octal
 " set numberwidth=0
-" set showcmd
 set signcolumn=yes
 set completeopt=menu,menuone,noselect
 set synmaxcol=0
@@ -111,6 +110,7 @@ opt.belloff = "all" -- Just turn the dang bell off
 opt.autoindent = true
 opt.cindent = true
 opt.wrap = true
+opt.wrapscan = false
 
 opt.tabstop = 2
 opt.shiftwidth = 2
@@ -146,19 +146,6 @@ vim.g.did_load_filetypes = 1
 -- vim.g.loaded_netrwFileHandlers = 1
 -- vim.g.loaded_netrwPlugin = 1
 
-vim.g.modelineexpr = true
-vim.g.modifiable = true
-vim.g.endofline = false
-vim.g.backup = false
-vim.g.compatible = false
-vim.g.fixeol = false
-vim.g.showcmd = false
-vim.g.showmode = false
-vim.g.startofline = false
-vim.g.swapfile = false
-vim.g.wrap = false
-vim.g.wrapscan = false
-vim.g.writebackup = false
-
--- vim.g.wildoptions=pum
--- vim.g.pumblend=30
+vim.opt.modelineexpr = true
+vim.opt.showcmd = false
+vim.opt.showmode = false
