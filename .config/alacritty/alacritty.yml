@@ -335,46 +335,40 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Kimber 256 - alacritty color config
-# Mishka Nguyen (https://github.com/akhsiM)
+# Base16 Black Metal - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x222222'
-    foreground: '0xdedee7'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x222222'
-    cursor: '0xdedee7'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x222222'
-    red:     '0xc88c8c'
-    green:   '0x99c899'
-    yellow:  '0xd8b56d'
-    blue:    '0x537c9c'
-    magenta: '0x86cacd'
-    cyan:    '0x78b4b4'
-    white:   '0xdedee7'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x644646'
-    red:     '0xc88c8c'
-    green:   '0x99c899'
-    yellow:  '0xd8b56d'
-    blue:    '0x537c9c'
-    magenta: '0x86cacd'
-    cyan:    '0x78b4b4'
-    white:   '0xffffe6'
+    black:   '0x333333'
+    red:     '0xaaaaaa'
+    green:   '0x121212'
+    yellow:  '0x222222'
+    blue:    '0x999999'
+    magenta: '0x999999'
+    cyan:    '0x444444'
+    white:   '0xc1c1c1'
 
-  indexed_colors:
-    - { index: 16, color: '0x476c88' }
-    - { index: 17, color: '0x704f4f' }
-    - { index: 18, color: '0x313131' }
-    - { index: 19, color: '0x555d55' }
-    - { index: 20, color: '0x5a5a5a' }
-    - { index: 21, color: '0xc3c3b4' }
+draw_bold_text_with_bright_colors: false
 # ColorEnd

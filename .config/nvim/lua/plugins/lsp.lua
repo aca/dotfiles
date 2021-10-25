@@ -32,8 +32,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.emmet_ls.setup({
   capabilities = capabilities,
-  -- cmd = { "ts-node", "$HOME/src/github.com/aca/emmet-ls/src/server.ts" , "--stdio"},
-  cmd = { "emmetls.sh"},
+  cmd = { "emmet-ls", "--stdio"},
+  -- cmd = { "emmetls.sh"},
 })
 
 lspconfig.gopls.setup({ capabilities = capabilities })

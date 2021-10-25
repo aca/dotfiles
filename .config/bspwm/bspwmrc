@@ -3,10 +3,9 @@
 # ~/.config/polybar/launch.sh
 
 if [[ "$(hostname)" == "rok-te3" ]]; then
-        if [ "$(bspc query -M --names | wc -l)" = 3 ]; then
-          bspc monitor $(xrandr -q | grep '^eDP.*\bconnected' | awk '{print $1}') -d 7 8 9
-          bspc monitor $(xrandr -q | grep '^DP.*\bconnected' | awk '{print $1}' | awk 'NR==1') -d 4 5 6
-          bspc monitor $(xrandr -q | grep '^DP.*\bconnected' | awk '{print $1}' | awk 'NR==2') -d 1 2 3
+        if [[ $(bspc query -M --names | wc -l) -gt 1 ]]; then
+          bspc monitor HDMI-0 -d 1 2 3
+          bspc monitor DP-1 -d 4 5 6 
         else
           bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
         fi
