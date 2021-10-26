@@ -28,9 +28,10 @@ require 'plugins.lsp'
 vim.cmd [[ source ~/.config/nvim/vim/colors.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/autocmds.vim ]]
 
+require 'plugins.treesitter'
+
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
 require 'plugins.tmux'
-require 'plugins.treesitter'
 -- require 'plugins.autopairs'
 require 'plugins.cmp'
 require 'plugins.dap'
