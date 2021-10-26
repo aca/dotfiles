@@ -147,3 +147,10 @@ vim.g.did_load_filetypes = 1
 vim.opt.modelineexpr = true
 vim.opt.showcmd = false
 vim.opt.showmode = false
+
+opt.wildmode = { "longest", "list", "full" }
+-- Cool floating window popup menu for completion on command line
+opt.pumblend = 17
+
+opt.wildmode = opt.wildmode - "list"
+opt.wildmode = opt.wildmode + { "longest", "full" }

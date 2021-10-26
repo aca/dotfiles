@@ -101,7 +101,7 @@ if not set -q init_fish
     set -gx FZF_DEFAULT_COMMAND 'fd --hidden --type f'
     set -gx FZF_DEFAULT_OPTS '--reverse --color "gutter:-1" --inline-info --cycle -m --bind ctrl-a:toggle-all --bind ctrl-j:down --bind ctrl-k:up'
     set -gx FZF_CTRL_T_COMMAND 'fd --hidden'
-    set -gx FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10'
+    set -gx FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10 --no-ignore'
 
     echo $PATH | tr " " "\n"
 

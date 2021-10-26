@@ -104,8 +104,9 @@ nnoremap ]f :NextFile<cr>
 nnoremap [f :PrevFile<cr>
 nnoremap [j g;
 nnoremap ]j g,
-nnoremap [c :packadd vim-misc \| packadd vim-colorscheme-switcher \| :NextColorScheme<cr>
-nnoremap ]c :packadd vim-misc \| packadd vim-colorscheme-switcher \| :PrevColorScheme<cr>
+" diff change
+" nnoremap [C :packadd vim-misc \| packadd vim-colorscheme-switcher \| :NextColorScheme<cr>
+" nnoremap ]C :packadd vim-misc \| packadd vim-colorscheme-switcher \| :PrevColorScheme<cr>
 
 " Split
 nnoremap <leader>o :only<cr>
