@@ -10,7 +10,6 @@ packadd nvim-autopairs
 
 local remap = vim.api.nvim_set_keymap
 local npairs = require("nvim-autopairs")
-npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
 
 -- skip it, if you use another global object
 _G.MUtils = {}
@@ -28,3 +27,7 @@ remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap =
 npairs.setup({
 	check_ts = true,
 })
+
+npairs.add_rules(require('nvim-autopairs.rules.endwise-elixir'))
+npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))

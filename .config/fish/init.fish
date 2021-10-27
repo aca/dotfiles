@@ -109,8 +109,8 @@ if not set -q init_fish
     set -px PATH $HOME/.bin
     set -px PATH $HOME/.bin/$_uname
 
-    if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                          ; end
-    if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --prepend PATH $HOME/src/go.googlesource.com/go/bin         ; end
+    # if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                          ; end
+    # if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --prepend PATH $HOME/src/go.googlesource.com/go/bin         ; end
 
     if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
     if [ -d $HOME/.raku/bin ]                             ; set -x --append PATH $HOME/.raku/bin                              ; end
@@ -126,7 +126,7 @@ if not set -q init_fish
     if [ -d /usr/local/opt/llvm/bin ]                     ; set -x --append PATH /usr/local/opt/llvm/bin                      ; end
     if [ -d /usr/local/sbin ]                             ; set -x --append PATH /usr/local/sbin                              ; end
 
-    if [ -d /usr/local/sbin ]                             ; set -x --append PATH $HOME/.asdf/shims                              ; end
+    if [ -d /usr/local/sbin ]                             ; set -x --append PATH $HOME/.asdf/shims                            ; end
     if [ -d /usr/local/sbin ]                             ; set -x --append PATH $HOME/.asdf/bin                              ; end
 end
 

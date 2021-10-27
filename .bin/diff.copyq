@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nvim -d <(copyq read 0) <(copyq read 1)
