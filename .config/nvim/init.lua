@@ -87,3 +87,4 @@ vim.cmd [[ packadd vim-fetch ]]
 
 vim.cmd [[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]]
 end))
+
