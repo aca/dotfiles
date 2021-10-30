@@ -37,6 +37,7 @@ nnoremap <silent><leader>fl   :BLines<cr>
 nnoremap <silent><leader>ff   :Files<cr>
 " nnoremap <silent><leader>ff   :lua require('telescope.builtin').find_files({layout_config={width=0.9}})<cr>
 " nnoremap <silent><Leader>ff   :lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy())<cr>
+
 nnoremap <silent><leader>fh   :History<CR>
 nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
