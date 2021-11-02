@@ -392,3 +392,6 @@
 [submodule ".tmux/plugins/tmux-open"]
 	path = .tmux/plugins/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open.git
+[submodule ".config/nvim/lua/rocks/lua-gumbo"]
+	path = .config/nvim/lua/rocks/lua-gumbo
+	url = https://github.com/craigbarnes/lua-gumbo.git

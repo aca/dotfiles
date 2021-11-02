@@ -19,8 +19,7 @@ packadd bullets.vim
 
 
 packadd vim-table-mode
-" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-" packadd vim-pandoc-syntax
+packadd vim-pandoc-syntax
 source ~/.config/nvim/vim/md-img-paste.vim
 source ~/.config/nvim/vim/markdown-preview.vim
 
@@ -79,3 +78,5 @@ autocmd Syntax * call s:customSyntax()
 " sort todo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocmd BufWritePre ~/src/zettels/todo.md %!sort
+
+command! MakeLink lua require'_markdown'.makelink()

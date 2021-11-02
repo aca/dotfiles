@@ -13,15 +13,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors " norcalli/nvim-colorizer.lua need this
 " set t_Co=256
 
-" number, toggle with ;n, performance issue
-" set ruler
-" set number
-set relativenumber
-
 set shortmess=aItcF
-
-set mouse=a
-set mousemodel=popup
 
 " https://jdhao.github.io/2021/06/17/nifty_nvim_techniques_s10/
 " fix E447: Can’t find file “file_path=path/to/file.txt” in path.
@@ -29,13 +21,11 @@ set isfname-==
 
 set backspace=indent,eol,start
 set clipboard^=unnamed,unnamedplus
-set diffopt=filler,vertical
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 set fileformats=unix,dos,mac
 set isfname-==
-set lazyredraw
 " set redrawtime=20000
 " syntax sync minlines=100
 " syntax sync maxlines=200
@@ -45,37 +35,39 @@ set lazyredraw
 set nrformats+=alpha,hex,octal
 " set numberwidth=0
 set signcolumn=yes
-set completeopt=menu,menuone,noselect
 set synmaxcol=0
 set virtualedit=block
 " set virtualedit=all
 set whichwrap=b,s
-" set wildmenu
-" set wildmode=full
-set wrapmargin=0
-
-" get rid of fold char
-" set fillchars=fold:\ 
-set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 
 ]])
 
-vim.g.mapleader      = ' '
-vim.g.maplocalleader = ' '
+local opt = vim.opt
+local g = vim.g
 
-vim.g.cursorcolumn = false
-vim.g.cursorline = true
+opt.diffopt='filler,vertical'
+opt.completeopt='menu,menuone,noselect'
 
-vim.g.timeoutlen=400
+opt.fillchars='fold: ,vert:│,eob: ,msgsep:‾'
+opt.wrapmargin=0
+
+opt.lazyredraw = true
+
+g.mapleader      = ' '
+g.maplocalleader = ' '
+
+g.cursorcolumn = false
+g.cursorline = true
+
+g.timeoutlen=400
 
 -- fold
-vim.g.foldlevel=99
-vim.g.foldlevelstart=99
-vim.g.foldmethod="marker"
-vim.g.foldcolumn=0
+g.foldlevel=99
+g.foldlevelstart=99
+g.foldmethod="marker"
+g.foldcolumn=0
 
 
-local opt = vim.opt
 opt.cursorline = true -- Highlight the current line
 opt.ignorecase = true -- Ignore case when searching...
 opt.smartcase = true -- ... unless there is a capital letter in the query
@@ -122,27 +114,27 @@ opt.splitright = true -- Prefer windows splitting to the right
 opt.splitbelow = true -- Prefer windows splitting to the bottom
 
 -- disable default vim stuffs for faster startuptime
-vim.g.loaded_tutor_mode_plugin = 1
-vim.g.loaded_logiPat = 1
-vim.g.loaded_rrhelper = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_remote_plugins = 1
-vim.g.loaded_gzip = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_shada_plugin = 1
-vim.g.loaded_spellfile_plugin = 1
-vim.g.loaded_remote_plugins = 1
-vim.g.loaded_getscript = 1
-vim.g.loaded_getscriptPlugin = 1
+g.loaded_tutor_mode_plugin = 1
+g.loaded_logiPat = 1
+g.loaded_rrhelper = 1
+g.loaded_tarPlugin = 1
+g.loaded_remote_plugins = 1
+g.loaded_gzip = 1
+g.loaded_zipPlugin = 1
+g.loaded_2html_plugin = 1
+g.loaded_shada_plugin = 1
+g.loaded_spellfile_plugin = 1
+g.loaded_remote_plugins = 1
+g.loaded_getscript = 1
+g.loaded_getscriptPlugin = 1
 
 -- https://github.com/nathom/filetype.nvim
-vim.g.did_load_filetypes = 1
+g.did_load_filetypes = 1
 
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwSettings = 1
--- vim.g.loaded_netrwFileHandlers = 1
--- vim.g.loaded_netrwPlugin = 1
+-- g.loaded_netrw = 1
+-- g.loaded_netrwSettings = 1
+-- g.loaded_netrwFileHandlers = 1
+-- g.loaded_netrwPlugin = 1
 
 vim.opt.modelineexpr = true
 vim.opt.showcmd = false

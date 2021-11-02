@@ -2,11 +2,14 @@
 " use treesitter highlight(disable others)
 " autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
 
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+
 au BufRead,BufNewFile *.rkt,*.rktl  setf scheme
 au BufRead,BufNewFile *.fish        setf fish
 au BufRead,BufNewFile *.tf,*.tfvars setf terraform
 au BufRead,BufNewFile *.hcl         setf hcl
 au BufRead,BufNewFile *.h           setf c
+
 
 " make directory if not exists
 autocmd BufWritePre * call s:Mkdir()

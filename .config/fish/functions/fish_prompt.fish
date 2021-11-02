@@ -2,12 +2,16 @@
 #
 # » fail 3
 # « exit: 3
+#
 # » sleep 2 && fail 3
 # « exit: 3, took 2.01s from 11:59:44 to 11:59:46
+#
 # » sleep 2
 # « took 2.00s from 11:59:48 to 11:59:50
+#
 # » fail 1 | fail 2 | fail 3
 # « exit: 1|2|3
+#
 function _save_start --on-event fish_preexec
   set -l pid $fish_pid
   eval "set -gx cmd_$pid_start (date '+%H:%M:%S')"
@@ -51,5 +55,6 @@ function fish_prompt
     prompt_login
     echo -n " "
   end
-  echo "» "
-end
+  # echo "» "
+  set_color D9DD6B; echo -n "λ "; set_color normal
+  end
