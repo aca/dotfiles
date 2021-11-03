@@ -107,7 +107,7 @@ if not set -q init_fish
     set -px PATH $HOME/.bin
     set -px PATH $HOME/.bin/$_uname
 
-    # if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                         ; end
+    if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                         ; end
     # if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --prepend PATH $HOME/src/go.googlesource.com/go/bin        ; end
     # if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -x --append PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
     if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end

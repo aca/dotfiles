@@ -14,14 +14,13 @@ if ! builtin functions -q __zoxide_cd_internal
     if builtin functions -q cd
         builtin functions -c cd __zoxide_cd_internal
     else
-        alias __zoxide_cd_internal="builtin cd"
+        alias __zoxide_cd_internal='builtin cd'
     end
 end
 
 # cd + custom logic based on the value of _ZO_ECHO.
 function __zoxide_cd
     __zoxide_cd_internal $argv
-    and builtin commandline -f repaint
 end
 
 # =============================================================================
@@ -30,12 +29,9 @@ end
 #
 
 # Initialize hook to add new entries to the database.
-if test "$__zoxide_hooked" != 1
-    set __zoxide_hooked 1
-    function __zoxide_hook --on-variable PWD
-        test -z "$fish_private_mode"
-        and command zoxide add -- (__zoxide_pwd)
-    end
+function __zoxide_hook --on-variable PWD
+    test -z "$fish_private_mode"
+    and command zoxide add -- (__zoxide_pwd)
 end
 
 # =============================================================================
@@ -51,20 +47,47 @@ function __zoxide_z
         __zoxide_cd $HOME
     else if test "$argv" = -
         __zoxide_cd -
-    else if begin
-            test $argc -eq 1; and test -d $argv[1]
-        end
+    else if test $argc -eq 1 -a -d $argv[1]
         __zoxide_cd $argv[1]
     else
-        set -l __zoxide_result (command zoxide query --exclude (__zoxide_pwd) -- $argv)
-        and __zoxide_cd $__zoxide_result
+        set -l result (command zoxide query --exclude (__zoxide_pwd) -- $argv)
+        and __zoxide_cd $result
     end
+end
+
+# Completions for `z`.
+function __zoxide_z_complete
+    set -l trigger '**'
+    set -l trigger_length (string length $trigger)
+
+    set -l line (commandline -op)
+    set -l interactive 0
+    if test (string sub -s "-$trigger_length" $line[-1]) = $trigger
+        set line[-1] (string sub -e "-$trigger_length" $line[-1])
+        set interactive 1
+    end
+
+    set -l query $line[2..-1]
+    if test $interactive -eq 0 -a (count (commandline -cop)) -le 1
+        __fish_complete_directories "$query" ''
+        return
+    end
+    set -l result (_ZO_FZF_OPTS='--bind=ctrl-z:ignore --exit-0 --height=35% --inline-info --no-sort --reverse --select-1' zoxide query -i -- $query)
+    set -l exit $status
+    if test $exit -ne 0
+        test $exit -eq 130
+        and commandline -p "$line"
+        return
+    end
+
+    set -l cmd $line[1]
+    commandline -p "$cmd "(string escape $result)
 end
 
 # Jump to a directory using interactive search.
 function __zoxide_zi
-    set -l __zoxide_result (command zoxide query -i -- $argv)
-    and __zoxide_cd $__zoxide_result
+    set -l result (command zoxide query -i -- $argv)
+    and __zoxide_cd $result
 end
 
 # =============================================================================
@@ -80,10 +103,12 @@ function __zoxide_unset
 end
 
 __zoxide_unset z
-alias z="__zoxide_z"
+alias z=__zoxide_z
+complete -e z
+complete -c z -f -a '(__zoxide_z_complete)'
 
 __zoxide_unset zi
-alias zi="__zoxide_zi"
+alias zi=__zoxide_zi
 
 # =============================================================================
 #

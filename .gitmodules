@@ -395,3 +395,6 @@
 [submodule ".config/nvim/lua/rocks/lua-gumbo"]
 	path = .config/nvim/lua/rocks/lua-gumbo
 	url = https://github.com/craigbarnes/lua-gumbo.git
+[submodule ".local/share/nvim/site/pack/paqs/start/null-ls.nvim"]
+	path = .local/share/nvim/site/pack/paqs/start/null-ls.nvim
+	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
