@@ -45,7 +45,9 @@ set whichwrap=b,s
 local opt = vim.opt
 local g = vim.g
 
-opt.diffopt='filler,vertical'
+-- https://jdhao.github.io/2021/10/24/diff_in_vim/
+opt.diffopt='filler,vertical,internal,algorithm:histogram'
+
 opt.completeopt='menu,menuone,noselect'
 
 opt.fillchars='fold: ,vert:│,eob: ,msgsep:‾'

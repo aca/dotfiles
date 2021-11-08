@@ -24,6 +24,7 @@ require '_g'
 
 require 'plugins.vsnip'
 require 'plugins.lsp'
+require 'zettels'
 
 vim.cmd [[ source ~/.config/nvim/vim/colors.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/autocmds.vim ]]

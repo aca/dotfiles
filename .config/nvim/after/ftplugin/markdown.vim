@@ -20,6 +20,8 @@ packadd bullets.vim
 
 packadd vim-table-mode
 packadd vim-pandoc-syntax
+hi link pandocCodeblock pandocDelimitedCodeblock
+
 source ~/.config/nvim/vim/md-img-paste.vim
 source ~/.config/nvim/vim/markdown-preview.vim
 
