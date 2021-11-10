@@ -24,10 +24,12 @@ require '_g'
 
 require 'plugins.vsnip'
 require 'plugins.lsp'
-require 'zettels'
+-- require 'zettels' -- TODO
 
 vim.cmd [[ source ~/.config/nvim/vim/colors.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/autocmds.vim ]]
+
+vim.cmd [[ packadd orgmode.nvim ]]
 
 vim.loop.new_timer():start(0, 0, vim.schedule_wrap(function()
 require 'plugins.tmux'
@@ -47,7 +49,6 @@ require 'plugins.suda'
 require 'plugins.zepl'
 require 'plugins.git-messenger'
 require 'plugins.buftabline'
--- require 'plugins.tcomment'
 require 'plugins.comment'
 require 'plugins.scrollview'
 require 'plugins.oscyank'

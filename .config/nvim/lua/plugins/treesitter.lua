@@ -4,9 +4,6 @@ vim.cmd([[
         packadd nvim-ts-rainbow
 ]])
 
--- https://github.com/nvim-treesitter/nvim-treesitter/issues/1383
--- require 'nvim-treesitter.install'.compilers = { "gcc" }
-
 require("nvim-treesitter.configs").setup({
 	playground = {
 		enable = true,
@@ -20,7 +17,7 @@ require("nvim-treesitter.configs").setup({
 		max_file_lines = 200, -- Do not enable for files with more than 1000 lines, int
 	},
 	-- ensure_installed = "all",
-	ensure_installed = "maintained",
+	-- ensure_installed = "maintained",
   -- disable = { "vim" },
   disable = {},
   enable = "all",

@@ -398,3 +398,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/null-ls.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/null-ls.nvim
 	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/orgmode.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/orgmode.nvim
+	url = https://github.com/kristijanhusak/orgmode.nvim.git

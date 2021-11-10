@@ -60,6 +60,6 @@ local no_really = {
     },
 }
 
-null_ls.register(no_really)
-null_ls.config({})
-require("lspconfig")["null-ls"].setup({})
+-- null_ls.register(no_really)
+-- null_ls.config({})
+-- require("lspconfig")["null-ls"].setup({})
