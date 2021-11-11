@@ -86,6 +86,8 @@ vim.cmd [[ packadd telescope.nvim ]]
 vim.cmd [[ packadd todo-comments.nvim ]]
 vim.cmd [[ packadd clever-f.vim ]]
 vim.cmd [[ packadd vim-fetch ]]
+vim.cmd [[ packadd git-worktree.nvim ]]
+vim.cmd [[ packadd harpoon ]]
 
 vim.cmd [[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]]
 end))

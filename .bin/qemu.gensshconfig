@@ -9,6 +9,11 @@ for h in (virsh list --state-running | sed '1,2d' | sed '/^$/d' | awk '{print $2
   echo "Host $h" >> $sshconfig
   echo "  Hostname $ip" >> $sshconfig
   echo '  User root' >> $sshconfig
+
+  if [ "$HOSTNAME" != "rok-te3" ]
+    echo '  ProxyJump aca' >> $sshconfig
+  end
+
   echo '  ' >> $sshconfig
 end
 

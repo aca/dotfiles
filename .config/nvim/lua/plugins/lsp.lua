@@ -53,7 +53,7 @@ lspconfig.gopls.setup {
 
 -- lspconfig.hls.setup {capabilities = capabilities}
 -- lspconfig.racket_langserver.setup{ capabilities = capabilities; }
--- lspconfig.bashls.setup {capabilities = capabilities}
+lspconfig.bashls.setup {capabilities = capabilities}
 -- lspconfig.vimls.setup { capabilities = capabilities; }
 -- lspconfig.cssls.setup{ capabilities = capabilities; }
 -- lspconfig.dockerls.setup{ capabilities = capabilities; }
