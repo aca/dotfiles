@@ -74,6 +74,7 @@ vim.cmd [[ source ~/.config/nvim/vim/smoothie.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/statusline.vim ]]
 -- vim.cmd [[ source ~/.config/nvim/vim/projectionist.vim ]]
 vim.cmd [[ source ~/.config/nvim/vim/codi.vim ]]
+
 vim.cmd [[ packadd vim-fold-cycle ]]
 vim.cmd [[ packadd nvim-colorizer.lua ]]
 vim.cmd [[ packadd vim-characterize ]]

@@ -5,10 +5,10 @@ command! Glog :Gina log -- %:p
 command! Agit :packadd agit.vim | :Agit
 
 " gina show always in vsplit
-call gina#custom#command#option(
-        \ '/\%(show\)',
-        \ '--opener', 'vsplit'
-        \)
+" call gina#custom#command#option(
+"         \ '/\%(show\)',
+"         \ '--opener', 'vsplit'
+"         \)
 
 " gina show close with q
 call gina#custom#mapping#nmap(
