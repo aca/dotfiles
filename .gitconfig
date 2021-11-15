@@ -56,3 +56,6 @@
 [sendemail.linux]
     tocmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nol"
     cccmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nom"
+
+[credential]
+	helper = cache --timeout=26280000
