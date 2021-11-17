@@ -1,0 +1,135 @@
+#!/bin/sh
+#
+# set -euo pipefail
+# set -x
+#
+# POSIX compatible script to download binaries
+#
+# ref
+# https://google.github.io/styleguide/shellguide.html#s1.1-which-shell-to-use
+# https://news.ycombinator.com/item?id=29055988 # POSIX DISCUSSIONS
+
+# Detect OS/ARCH
+# https://github.com/git/git/blob/5a73c6bdc717127c2da99f57bc630c4efd8aed02/config.mak.uname#L11
+uname_S=$(sh -c 'uname -s 2>/dev/null || echo not')
+uname_M=$(sh -c 'uname -m 2>/dev/null || echo not')
+# uname_O=$(sh -c 'uname -o 2>/dev/null || echo not')
+# uname_R=$(sh -c 'uname -r 2>/dev/null || echo not')
+# uname_P=$(sh -c 'uname -p 2>/dev/null || echo not')
+# uname_V=$(sh -c 'uname -v 2>/dev/null || echo not')
+
+# if isLinux; then echo "linux"; fi
+# if isDarwin; then echo "darwin"; fi
+isLinux() {
+  [ "$uname_S" = "linux" ] || [ "$uname_S" = "Linux" ]
+}
+
+isDarwin() {
+  [ "$uname_S" = "Darwin" ] || [ "$uname_S" = "darwin" ]
+}
+
+isAMD64() {
+  [ "$uname_M" = "x86_64" ]
+}
+
+commandExists() {
+  # https://news.ycombinator.com/item?id=29055988
+  command -v "$1" 1>/dev/null 2>/dev/null
+}
+
+install_gh() {
+  if isLinux; then
+    _target=linux
+  elif isDarwin; then
+    _target=macOS
+  fi
+
+  _url="$(curl -s 'https://api.github.com/repos/cli/cli/releases/latest' | jq -r '.assets[].browser_download_url' | grep amd64 | grep $_target)"
+  _basename="$(basename "$_url" | sed 's|\.tar\.gz$||')"
+  _bin_dir="$_basename/bin/gh"
+  curl -L "$_url" | tar -xvz - "$_bin_dir"
+  _install "$_bin_dir"
+}
+
+install_ripgrep() {
+  if isLinux; then
+    _target=linux-musl
+  elif isDarwin; then
+    _target=apple-darwin
+  fi
+
+  _url="$(curl -s 'https://api.github.com/repos/BurntSushi/ripgrep/releases/latest' | jq -r '.assets[].browser_download_url' | grep x86_64 | grep $_target)"
+  _basename="$(basename "$_url" | sed 's|\.tar\.gz$||')"
+  _bin_dir="$_basename/rg"
+  curl -L "$_url" | tar -xvz - "$_bin_dir"
+  _install "$_bin_dir"
+}
+
+install_fd() {
+  if isLinux; then
+    _target=linux-musl
+  elif isDarwin; then
+    _target=apple-darwin
+  fi
+
+  _url="$(curl -s 'https://api.github.com/repos/sharkdp/fd/releases/latest' | jq -r '.assets[].browser_download_url' | grep x86_64 | grep $_target)"
+  _basename="$(basename "$_url" | sed 's|\.tar\.gz$||')"
+  _bin_dir="$_basename/fd"
+  curl -L "$_url" | tar -xvz - "$_bin_dir"
+  _install "$_bin_dir"
+}
+
+install_fzf() {
+  if isLinux; then
+    _target=linux
+  elif isDarwin; then
+    _target=darwin
+  fi
+
+  _url="$(curl -s 'https://api.github.com/repos/junegunn/fzf/releases/latest' | jq -r '.assets[].browser_download_url' | grep amd64 | grep $_target)"
+  _basename="$(basename "$_url" | sed 's|\.tar\.gz$||')"
+  _bin_dir="fzf"
+  curl -L "$_url" | tar -xvz - "$_bin_dir"
+  _install "$_bin_dir"
+}
+
+_install() {
+  if isLinux; then
+    _target=/bin
+  elif isDarwin; then
+    _target=/usr/local/bin
+  fi
+
+  # DEBUG
+  # _target=.
+
+  if commandExists sudo; then
+    sudo mv "$1" $_target
+    sudo chmod +x "$_target/$1"
+  else
+    mv "$1" $_target
+    chmod +x "$_target/$1"
+  fi
+}
+
+_precheck() {
+  mkdir -p ~/tmp || true
+  cd ~/tmp || exit 1
+
+  commandExists jq || exit 1
+  commandExists sed || exit 1
+  commandExists curl || exit 1
+}
+
+main() {
+
+  _precheck
+
+  install_gh
+  install_ripgrep
+  install_fd
+  install_fzf
+
+}
+
+main

@@ -130,8 +130,8 @@ g.loaded_remote_plugins = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 
--- https://github.com/nathom/filetype.nvim
-g.did_load_filetypes = 1
+-- TODO: replace with https://github.com/nathom/filetype.nvim
+-- g.did_load_filetypes = 1
 
 -- g.loaded_netrw = 1
 -- g.loaded_netrwSettings = 1

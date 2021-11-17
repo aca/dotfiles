@@ -92,4 +92,3 @@ vim.cmd [[ packadd harpoon ]]
 
 vim.cmd [[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]]
 end))
-
