@@ -47,7 +47,7 @@ local cmp = require("cmp")
 local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "path" },
-	-- {name = 'cmp_tabnine'},
+	-- { name = 'cmp_tabnine'},
 	{name =  "vsnip" },
 	{ name = "buffer" },
 	{

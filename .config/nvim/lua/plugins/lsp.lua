@@ -140,15 +140,27 @@ lspconfig.pylance.setup({
 	},
 })
 
+configs.lsp_dev = {
+default_config = {
+    cmd = {"ts-node", "/Users/rok/src/github.com/aca/lsp-dev/server.ts", "--stdio"},
+    filetypes = {"text", "markdown", "go"},
+    root_dir = function()
+        return vim.loop.cwd()
+    end,
+    settings = {}
+  }
+}
+lspconfig.lsp_dev.setup {}
+
 -- configs.korean_ls = {
 -- default_config = {
 --     cmd = {"korean-ls", "--stdio"},
---     filetypes = {"text"},
+--     filetypes = {"text", "markdown"},
 --     root_dir = function()
 --         return vim.loop.cwd()
 --     end,
 --     settings = {}
--- }
+--   }
 -- }
 -- lspconfig.korean_ls.setup {}
 
