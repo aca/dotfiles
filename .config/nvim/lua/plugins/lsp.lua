@@ -1,4 +1,4 @@
-local lspconfig = require("lspconfig")
+local lhttps://opengitops.dev/spconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")
 
@@ -30,11 +30,11 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- })
 
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
-lspconfig.emmet_ls.setup({
-  capabilities = capabilities,
-  cmd = { "emmet-ls", "--stdio"},
-  -- cmd = { "emmetls.sh"},
-})
+-- lspconfig.emmet_ls.setup({
+--   capabilities = capabilities,
+--   cmd = { "emmet-ls", "--stdio"},
+--   -- cmd = { "emmetls.sh"},
+-- })
 
 lspconfig.gopls.setup({ capabilities = capabilities })
 
@@ -140,17 +140,17 @@ lspconfig.pylance.setup({
 	},
 })
 
-configs.lsp_dev = {
-default_config = {
-    cmd = {"ts-node", "/Users/rok/src/github.com/aca/lsp-dev/server.ts", "--stdio"},
-    filetypes = {"text", "markdown", "go"},
-    root_dir = function()
-        return vim.loop.cwd()
-    end,
-    settings = {}
-  }
-}
-lspconfig.lsp_dev.setup {}
+-- configs.lsp_dev = {
+-- default_config = {
+--     cmd = {"ts-node", "/Users/rok/src/github.com/aca/lsp-dev/server.ts", "--stdio"},
+--     filetypes = {"text", "markdown", "go"},
+--     root_dir = function()
+--         return vim.loop.cwd()
+--     end,
+--     settings = {}
+--   }
+-- }
+-- lspconfig.lsp_dev.setup {}
 
 -- configs.korean_ls = {
 -- default_config = {
