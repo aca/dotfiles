@@ -101,7 +101,7 @@ opt.belloff = "all" -- Just turn the dang bell off
 -- Tabs
 opt.autoindent = true
 opt.cindent = true
-opt.wrap = true
+opt.wrap = false
 opt.wrapscan = false
 
 opt.tabstop = 2

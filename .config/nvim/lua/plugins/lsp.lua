@@ -1,4 +1,4 @@
-local lhttps://opengitops.dev/spconfig = require("lspconfig")
+local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")
 
@@ -29,6 +29,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- 	update_in_insert = true,
 -- })
 
+lspconfig.tailwindcss.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 -- lspconfig.emmet_ls.setup({
 --   capabilities = capabilities,

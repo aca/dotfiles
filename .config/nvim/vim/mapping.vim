@@ -26,8 +26,8 @@ nnoremap <silent> ;n            <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
-nnoremap <silent> ;f            <cmd>lua require("lsp_run_quickfix")()<cr>
+nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
+" nnoremap <silent> ;f            <cmd>lua require("lsp_run_quickfix")()<cr>
 " nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.code_action('')<CR>
 nnoremap <silent> ;ff            <cmd>Neoformat<cr>
 

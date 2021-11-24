@@ -1,6 +1,6 @@
 python 3.10.0
 deno 1.13.2
-nodejs 16.8.0
+nodejs 16.13.0
 lua 5.1.5
 ruby 3.0.2
 zig 0.7.1
