@@ -27,6 +27,7 @@ require("nvim-treesitter.configs").setup({
   },
 	-- ensure_installed = "all",
 	-- ensure_installed = "maintained",
+	-- ensure_installed = { "c", "rust", "python", "go", "cpp", "bash" },
   -- disable = { "vim" },
   disable = {},
   enable = "all",

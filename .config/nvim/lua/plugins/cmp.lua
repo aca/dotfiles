@@ -48,11 +48,11 @@ local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "path" },
 	-- { name = 'cmp_tabnine'},
-	{name =  "vsnip" },
+	{ name =  "vsnip" },
 	{ name = "buffer" },
 	{
 		name = "tmux",
-		opts = {
+		option = {
 			all_panes = false,
 		},
 	},

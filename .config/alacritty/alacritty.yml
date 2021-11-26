@@ -20,15 +20,15 @@ scrolling:
 
 font:
   normal:
-    style: Regular
+    # style: Regular
     # family: MonoLisa Nerd Font
     # family: NotoSans Nerd Font Mono
    
     # family: Go Mono
     # family: Consolas NF
     # family: Iosevka Nerd Font Mono
-    family: SauceCodePro Nerd Font Mono
-    # family: Lotion Nerd Font Mono
+    # family: SauceCodePro Nerd Font Mono
+    family: Lotion Nerd Font Mono
     # family: SF Mono
 
     # family: Menlo
@@ -105,7 +105,7 @@ font:
   size: 12
   offset:
     x: 0
-    y: 5
+    y: 2
   glyph_offset:
     x: 0 
     y: 0

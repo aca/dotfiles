@@ -1,8 +1,11 @@
 -- OPT [[
-
 -- vim.lsp.set_log_level("debug")
 -- require('vim.lsp.log').set_format_func(vim.inspect)
-
+-- ]]
+--
+-- UPDATE [[
+-- :TSInstall all
+-- :TSUpdate all
 -- ]]
 
 -- TODO [[
@@ -18,7 +21,9 @@
 -- ]]
 
 -- require("impatient").enable_profile()
+-- :LuaCacheClear
 require "impatient"
+
 require '_vim'
 require '_g'
 

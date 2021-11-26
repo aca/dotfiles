@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# vim: set ft=bash:
 
 # asdf
 # https://github.com/asdf-vm/asdf

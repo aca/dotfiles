@@ -1,4 +1,5 @@
 #!/bin/sh
+# vim:set ft=sh:
 #
 # set -euo pipefail
 # set -x
@@ -119,17 +120,19 @@ _precheck() {
   commandExists jq || exit 1
   commandExists sed || exit 1
   commandExists curl || exit 1
+
+  if ! isAMD64; then
+    echo "Only support x86_64"
+    exit 1
+  fi
 }
 
 main() {
-
   _precheck
-
   install_gh
   install_ripgrep
   install_fd
   install_fzf
-
 }
 
 main
