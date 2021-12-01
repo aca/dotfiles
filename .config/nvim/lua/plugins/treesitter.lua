@@ -16,21 +16,21 @@ require("nvim-treesitter.configs").setup({
 		extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
 		max_file_lines = 200, -- Do not enable for files with more than 1000 lines, int
 	},
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<CR>',
-      scope_incremental = '<CR>',
-      node_incremental = '<TAB>',
-      node_decremental = '<S-TAB>',
-    },
-  },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<CR>",
+			scope_incremental = "<CR>",
+			node_incremental = "<TAB>",
+			node_decremental = "<S-TAB>",
+		},
+	},
 	-- ensure_installed = "all",
 	-- ensure_installed = "maintained",
 	-- ensure_installed = { "c", "rust", "python", "go", "cpp", "bash" },
-  -- disable = { "vim" },
-  disable = {},
-  enable = "all",
+	-- disable = { "vim" },
+	disable = {},
+	enable = "all",
 	-- enable = {
 	-- 	"go",
 	-- 	"c",
@@ -44,7 +44,7 @@ require("nvim-treesitter.configs").setup({
 	-- 	"dockerfile",
 	-- 	"gomod",
 	-- 	"html",
-  --   "vim",
+	--   "vim",
 	-- },
 	autopairs = {
 		enable = true,

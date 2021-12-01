@@ -14,9 +14,9 @@ M.makelink = function()
 	local line = api.nvim_get_current_line()
 	local url = string.match(line, "[http://][https://][%w|%p]*")
 
-  -- http://www.pixelbeat.org/cmdline.html
-  -- sed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q'
-	local cmd = 'curl -s --fail "' .. url .. '"' .. '|' .. "sed -n 's/.*<title>\\(.*\\)<\\/title>.*/\\1/ip;T;q'"
+	-- http://www.pixelbeat.org/cmdline.html
+	-- sed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q'
+	local cmd = 'curl -s --fail "' .. url .. '"' .. "|" .. "sed -n 's/.*<title>\\(.*\\)<\\/title>.*/\\1/ip;T;q'"
 	local err = vim.api.nvim_get_vvar("shell_error")
 	if 0 ~= err then
 		print("failed to update link")

@@ -29,6 +29,7 @@ command! -bar -bang FZFMarks call fzf#vim#marks(s:fzfmarks(), 0)
 
 nnoremap <silent><c-f>        :Rgg<cr>
 nnoremap <silent><m-f>        :RggWithFile<cr>
+vnoremap <silent><c-f>        y:Rg <C-R>"<CR>
 nnoremap <silent><Leader>fw   :Rg <C-R><C-W><CR>
 nnoremap <silent><Leader>fW   :Rg <C-R><C-A><CR>
 vnoremap <silent><Leader>fw   y:Rg <C-R>"<CR>

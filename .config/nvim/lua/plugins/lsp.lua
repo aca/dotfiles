@@ -31,36 +31,35 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lspconfig.tailwindcss.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
--- lspconfig.emmet_ls.setup({
---   capabilities = capabilities,
---   cmd = { "emmet-ls", "--stdio"},
---   -- cmd = { "emmetls.sh"},
--- })
+lspconfig.emmet_ls.setup({
+	capabilities = capabilities,
+	cmd = { "emmet-ls", "--stdio" },
+	-- cmd = { "emmetls.sh"},
+})
 
 lspconfig.gopls.setup({ capabilities = capabilities })
 
-lspconfig.gopls.setup {
-  capabilities = capabilities ,
-  settings = {
-    gopls = {
-      analyses = {
-        unusedparams = false,
-      },
-      staticcheck = true,
-    },
-  },
-}
-
+lspconfig.gopls.setup({
+	capabilities = capabilities,
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = false,
+			},
+			staticcheck = true,
+		},
+	},
+})
 
 -- lspconfig.hls.setup {capabilities = capabilities}
 -- lspconfig.racket_langserver.setup{ capabilities = capabilities; }
-lspconfig.bashls.setup {capabilities = capabilities}
+lspconfig.bashls.setup({ capabilities = capabilities })
 -- lspconfig.vimls.setup { capabilities = capabilities; }
 -- lspconfig.cssls.setup{ capabilities = capabilities; }
 -- lspconfig.dockerls.setup{ capabilities = capabilities; }
 -- lspconfig.html.setup{ capabilities = capabilities; }
 -- lspconfig.jsonls.setup {capabilities = capabilities}
-lspconfig.yamlls.setup {capabilities = capabilities}
+lspconfig.yamlls.setup({ capabilities = capabilities })
 lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({ capabilities = capabilities })
 -- lspconfig.terraformls.setup {capabilities = capabilities}
@@ -206,7 +205,6 @@ lspconfig.pylance.setup({
 --   }
 -- end
 
-
 -- configs.zk = {
 --   default_config = {
 --     cmd = {'zk', 'lsp'},
@@ -220,89 +218,85 @@ lspconfig.pylance.setup({
 --
 -- lspconfig.zk.setup({ on_attach = function(client, buffer) end })
 
-
--- vim.api.nvim_set_keymap('n', '<LeftMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.hover({border = "single"})<CR>', { noremap=true, 
+-- vim.api.nvim_set_keymap('n', '<LeftMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.hover({border = "single"})<CR>', { noremap=true,
 -- silent=true })
 --
 -- vim.api.nvim_set_keymap('n', '<RightMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>', { noremap=true, silent=true })
-
 
 -- [[
 -- https://stackoverflow.com/questions/67988374/neovim-lsp-auto-fix-fix-current
 -- ]]
 
 local function run_action(action)
-    if action.edit or type(action.command) == "table" then
-        if action.edit then
-            vim.lsp.util.apply_workspace_edit(action.edit)
-        end
-        if type(action.command) == "table" then
-            vim.lsp.buf.execute_command(action.command)
-        end
-    else
-        vim.lsp.buf.execute_command(action)
-    end
+	if action.edit or type(action.command) == "table" then
+		if action.edit then
+			vim.lsp.util.apply_workspace_edit(action.edit)
+		end
+		if type(action.command) == "table" then
+			vim.lsp.buf.execute_command(action.command)
+		end
+	else
+		vim.lsp.buf.execute_command(action)
+	end
 end
 
 local function do_action(action, client)
-    if
-      not action.edit
-      and client
-      and type(client.resolved_capabilities.code_action) == "table"
-      and client.resolved_capabilities.code_action.resolveProvider
-    then
-        client.request("codeAction/resolve", action, function(err, real)
-            if err then
-                return
-            end
-            if real then
-                run_action(real)
-            else
-                run_action(action)
-            end
-        end)
-    else
-        run_action(action) 
-    end
+	if
+		not action.edit
+		and client
+		and type(client.resolved_capabilities.code_action) == "table"
+		and client.resolved_capabilities.code_action.resolveProvider
+	then
+		client.request("codeAction/resolve", action, function(err, real)
+			if err then
+				return
+			end
+			if real then
+				run_action(real)
+			else
+				run_action(action)
+			end
+		end)
+	else
+		run_action(action)
+	end
 end
 
-function X() 
-    local params = vim.lsp.util.make_range_params() -- get params for current position
-    params.context = {
-        diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
-        only = {"quickfix"}
-    }
+function X()
+	local params = vim.lsp.util.make_range_params() -- get params for current position
+	params.context = {
+		diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
+		only = { "quickfix" },
+	}
 
-    local results, err = vim.lsp.buf_request_sync(
-        0, -- current buffer
-        "textDocument/codeAction", -- get code actions
-        params,
-        900
-    )
+	local results, err = vim.lsp.buf_request_sync(
+		0, -- current buffer
+		"textDocument/codeAction", -- get code actions
+		params,
+		900
+	)
 
+	if err then
+		return
+	end
 
-    if err then return end
+	if not results or vim.tbl_isempty(results) then
+		-- print "No quickfixes!"
+		return
+	end
 
-    if not results or vim.tbl_isempty(results) then
-        -- print "No quickfixes!"
-        return
-    end
+	-- we have an action!
+	for cid, resp in pairs(results) do
+		if resp.result then
+			for _, result in pairs(resp.result) do
+				if result.kind == "source.organizeImports" then
+					-- P(result)
+					do_action(result, vim.lsp.get_client_by_id(cid))
+				end
+				return
+			end
+		end
+	end
 
-    -- we have an action!
-    for cid, resp in pairs(results) do
-        if resp.result then
-            for _, result in pairs(resp.result) do 
-                if result.kind == "source.organizeImports" then
-                  -- P(result)
-                  do_action(result, vim.lsp.get_client_by_id(cid))
-                end
-                return
-            end
-        end 
-    end
-
-    -- print "No quickfixes!"
+	-- print "No quickfixes!"
 end
-
-
-

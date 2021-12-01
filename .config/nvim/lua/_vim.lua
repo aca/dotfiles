@@ -46,29 +46,28 @@ local opt = vim.opt
 local g = vim.g
 
 -- https://jdhao.github.io/2021/10/24/diff_in_vim/
-opt.diffopt='filler,vertical,internal,algorithm:histogram'
+opt.diffopt = "filler,vertical,internal,algorithm:histogram"
 
-opt.completeopt='menu,menuone,noselect'
+opt.completeopt = "menu,menuone,noselect"
 
-opt.fillchars='fold: ,vert:│,eob: ,msgsep:‾'
-opt.wrapmargin=0
+opt.fillchars = "fold: ,vert:│,eob: ,msgsep:‾"
+opt.wrapmargin = 0
 
 opt.lazyredraw = true
 
-g.mapleader      = ' '
-g.maplocalleader = ' '
+g.mapleader = " "
+g.maplocalleader = " "
 
 g.cursorcolumn = false
 g.cursorline = true
 
-g.timeoutlen=400
+g.timeoutlen = 400
 
 -- fold
-g.foldlevel=99
-g.foldlevelstart=99
-g.foldmethod="marker"
-g.foldcolumn=0
-
+g.foldlevel = 99
+g.foldlevelstart = 99
+g.foldmethod = "marker"
+g.foldcolumn = 0
 
 opt.cursorline = true -- Highlight the current line
 opt.ignorecase = true -- Ignore case when searching...

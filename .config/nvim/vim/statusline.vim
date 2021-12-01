@@ -61,13 +61,13 @@ endf
 set laststatus=2
 " set noshowmode
 " set statusline=%2*\ %{WebDevIconsGetFileTypeSymbol()}\ 
-set statusline=%2*\ %{Fticon()}\ 
+" set statusline=%2*\ %{Fticon()}\ 
 " set statusline=\ %{WebDevIconsGetFileTypeSymbol()}\ 
-set statusline+=%3*\ %{NvimGps()}
+set statusline+=%2*%<%f%m%r%h%w\ %3*\ %{NvimGps()}
 " set statusline+=\ %{NvimGps()}
 set statusline+=%=                                       " Right Side
 " set statusline+=%0*\ %n\                                 " Buffer number
-set statusline+=%3*\ %<%f%m%r%h%w:%l:%v\                 " File path, modified, readonly, helpfile, preview
+set statusline+=%l:%v                 " File path, modified, readonly, helpfile, preview
 " set statusline+=\ %<%f%m%r%h%w:%l:%v\                    " File path, modified, readonly, helpfile, preview
 " set statusline+=%1*│                                     " Separator
 " set statusline+=%3*│                                     " Separator
@@ -78,7 +78,7 @@ set statusline+=%3*\ %<%f%m%r%h%w:%l:%v\                 " File path, modified, 
 " set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
 
 " hi! User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
-hi! User2 ctermfg=007 ctermbg=236 guibg=#4e4e4e guifg=#FFFFFF gui=italic
+hi! User2 ctermfg=007 ctermbg=236 guibg=#111f28 guifg=#FFFFFF gui=italic
 hi! User3 ctermfg=236 ctermbg=236 guibg=#303030 
 " hi! User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
 "

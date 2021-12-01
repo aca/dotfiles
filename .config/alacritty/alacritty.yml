@@ -28,14 +28,14 @@ font:
     # family: Consolas NF
     # family: Iosevka Nerd Font Mono
     # family: SauceCodePro Nerd Font Mono
-    family: Lotion Nerd Font Mono
+    # family: Lotion Nerd Font Mono
     # family: SF Mono
 
     # family: Menlo
     # family: DankMono Nerd Font
     # family: Inconsolata Nerd Font
     # family: Iosevka Fixed
-    # family: SauceCodePro Nerd Font Mono
+    family: SauceCodePro Nerd Font Mono
     # family: Cascadia Mono
     # family: Cascadia Code
     # family: EasyReading
@@ -104,8 +104,7 @@ font:
 
   size: 12
   offset:
-    x: 0
-    y: 2
+
   glyph_offset:
     x: 0 
     y: 0
@@ -341,40 +340,46 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 iA Dark - alacritty color config
-# iA Inc. (modified by aramisgithub)
+# Base16 Black Metal (Venom) 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x1a1a1a'
-    foreground: '0xcccccc'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1a1a1a'
-    cursor: '0xcccccc'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x1a1a1a'
-    red:     '0xd88568'
-    green:   '0x83a471'
-    yellow:  '0xb99353'
-    blue:    '0x8eccdd'
-    magenta: '0xb98eb2'
-    cyan:    '0x7c9cae'
-    white:   '0xcccccc'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xf8f7f2'
+    yellow:  '0x79241f'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x767676'
-    red:     '0xd86868'
-    green:   '0x222222'
-    yellow:  '0x1d414d'
-    blue:    '0xb8b8b8'
-    magenta: '0xe8e8e8'
-    cyan:    '0x8b6c37'
-    white:   '0xf8f8f8'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0xf8f7f2'
+    yellow:  '0x79241f'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd
