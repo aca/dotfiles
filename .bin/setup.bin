@@ -35,7 +35,7 @@ isAMD64() {
 
 commandExists() {
   # https://news.ycombinator.com/item?id=29055988
-  command -v "$1" 1>/dev/null 2>/dev/null
+  command -v "$1" &> /dev/null
 }
 
 install_gh() {

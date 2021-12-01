@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-find .config/nvim -type f -name '*.lua' -exec stylua {} \;
+# format nvim configs
+command -v stylua &>/dev/null && find .config/nvim -type f -name '*.lua' -exec stylua {} \;
