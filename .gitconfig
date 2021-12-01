@@ -26,6 +26,7 @@
   excludesFile = ~/.gitignore_global
   sparseCheckout = true
   quotepath = false
+	hooksPath = .githooks/
         
 [alias]
   co = checkout
