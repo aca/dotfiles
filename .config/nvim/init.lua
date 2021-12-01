@@ -47,7 +47,7 @@ vim.loop.new_timer():start(
 		require("plugins.treesitter")
 		require("plugins.autopairs")
 		require("plugins.cmp")
-		require("plugins.dap")
+		       require("plugins.dap")
 		require("plugins.dial")
 		require("plugins.gitsigns")
 		require("plugins.zenmode")
