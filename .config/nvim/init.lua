@@ -27,9 +27,13 @@ require("impatient")
 require("_vim")
 require("_g")
 
+-- TODO: remove when it's merged to core
+require("plugins.filetype")
 require("plugins.vsnip")
 require("plugins.lsp")
--- require 'zettels' -- TODO
+
+-- TODO: zettels related
+-- require 'zettels'
 
 vim.cmd([[ source ~/.config/nvim/vim/colors.vim ]])
 vim.cmd([[ source ~/.config/nvim/vim/autocmds.vim ]])
@@ -95,6 +99,7 @@ vim.loop.new_timer():start(
 		vim.cmd([[ packadd clever-f.vim ]])
 		vim.cmd([[ packadd vim-fetch ]])
 		vim.cmd([[ packadd git-worktree.nvim ]])
+
 		vim.cmd([[ packadd harpoon ]])
 
 		vim.cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])

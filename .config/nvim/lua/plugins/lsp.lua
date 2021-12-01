@@ -130,15 +130,15 @@ Custom lang servers
 
 --]]
 
-require("pylance")
-lspconfig.pylance.setup({
-	capabilities = capabilities,
-	settings = {
-		python = {
-			analysis = {},
-		},
-	},
-})
+-- require("pylance")
+-- lspconfig.pylance.setup({
+-- 	capabilities = capabilities,
+-- 	settings = {
+-- 		python = {
+-- 			analysis = {},
+-- 		},
+-- 	},
+-- })
 
 -- configs.lsp_dev = {
 -- default_config = {

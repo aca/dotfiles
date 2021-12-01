@@ -104,6 +104,8 @@ font:
 
   size: 12
   offset:
+    x: -1
+    y: 5
 
   glyph_offset:
     x: 0 
@@ -340,46 +342,40 @@ key_bindings:
   # - { key: Space,     mods: Shift,     chars: "\x60"                  }
 
 # ColorStart
-# Base16 Black Metal (Venom) 256 - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Helios - alacritty color config
+# Alex Meyer (https://github.com/reyemxela)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xc1c1c1'
+    background: '0x1d2021'
+    foreground: '0xd5d5d5'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xc1c1c1'
+    text: '0x1d2021'
+    cursor: '0xd5d5d5'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xf8f7f2'
-    yellow:  '0x79241f'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    black:   '0x1d2021'
+    red:     '0xd72638'
+    green:   '0x88b92d'
+    yellow:  '0xf19d1a'
+    blue:    '0x1e8bac'
+    magenta: '0xbe4264'
+    cyan:    '0x1ba595'
+    white:   '0xd5d5d5'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0x5f8787'
-    green:   '0xf8f7f2'
-    yellow:  '0x79241f'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    black:   '0x6f7579'
+    red:     '0xeb8413'
+    green:   '0x383c3e'
+    yellow:  '0x53585b'
+    blue:    '0xcdcdcd'
+    magenta: '0xdddddd'
+    cyan:    '0xc85e0d'
+    white:   '0xe5e5e5'
 
-  indexed_colors:
-    - { index: 16, color: '0xaaaaaa' }
-    - { index: 17, color: '0x444444' }
-    - { index: 18, color: '0x121212' }
-    - { index: 19, color: '0x222222' }
-    - { index: 20, color: '0x999999' }
-    - { index: 21, color: '0x999999' }
+draw_bold_text_with_bright_colors: false
 # ColorEnd
