@@ -404,3 +404,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/filetype.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/filetype.nvim
 	url = https://github.com/nathom/filetype.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/start/zenbones.nvim"]
+	path = .local/share/nvim/site/pack/paqs/start/zenbones.nvim
+	url = https://github.com/mcchrish/zenbones.nvim.git
