@@ -46,7 +46,7 @@ local opt = vim.opt
 local g = vim.g
 
 -- https://jdhao.github.io/2021/10/24/diff_in_vim/
-opt.diffopt = "filler,vertical,internal,algorithm:histogram"
+opt.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000"
 
 opt.completeopt = "menu,menuone,noselect"
 

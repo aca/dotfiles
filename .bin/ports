@@ -2,7 +2,7 @@
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   # sudo netstat -tulanp
-  sudo ss --listening --tcp --numeric
+  sudo ss --listening -p --tcp --numeric
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   sudo lsof -iTCP -sTCP:LISTEN -n -P
 fi

@@ -34,3 +34,5 @@ hi! link DiagnosticSignInfo Comment
 hi! link DiagnosticSignHint Comment
 
 hi! VertSplit guibg=NONE
+
+let g:zenbones_compat = 1
