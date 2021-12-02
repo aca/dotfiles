@@ -25,4 +25,5 @@ list-all() {
   done
 }
 
-$EDITOR $(list-all | fzf)
+list-all | fzf | xargs -I{} nvim {}
+

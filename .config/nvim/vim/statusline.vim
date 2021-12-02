@@ -67,7 +67,7 @@ set statusline+=%2*%<%f%m%r%h%w\ %3*\ %{NvimGps()}
 " set statusline+=\ %{NvimGps()}
 set statusline+=%=                                       " Right Side
 " set statusline+=%0*\ %n\                                 " Buffer number
-set statusline+=%l:%v                 " File path, modified, readonly, helpfile, preview
+" set statusline+=%l:%v                 " File path, modified, readonly, helpfile, preview
 " set statusline+=\ %<%f%m%r%h%w:%l:%v\                    " File path, modified, readonly, helpfile, preview
 " set statusline+=%1*│                                     " Separator
 " set statusline+=%3*│                                     " Separator

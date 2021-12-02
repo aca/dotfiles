@@ -6,7 +6,7 @@ env:
 window:
   padding:
     x: 15
-    y: 0
+    y: 8
 
   dynamic_padding: true
   decorations: none
@@ -20,7 +20,7 @@ scrolling:
 
 font:
   normal:
-    # style: Regular
+    style: Regular
     # family: MonoLisa Nerd Font
     # family: NotoSans Nerd Font Mono
    
@@ -51,8 +51,8 @@ font:
     # family: FiraCode Nerd Font Mono
     # family: CaskaydiaCove Nerd Font Mono
     # family: InconsolataGo Nerd Font
-    family: VictorMono Nerd Font
-    # family: Iosevka Nerd Font Mono
+    # family: VictorMono Nerd Font
+    family: Iosevka Nerd Font Mono
     # family: JuniusX
     # family: NanumBarunpen
     # family: D2Coding ligature
@@ -104,7 +104,7 @@ font:
 
   size: 12
   offset:
-    x: 0
+    x: 1
     y: 3
 
   glyph_offset:
