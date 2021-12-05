@@ -407,3 +407,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/zenbones.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/zenbones.nvim
 	url = https://github.com/mcchrish/zenbones.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/start/elvish.vim"]
+	path = .local/share/nvim/site/pack/paqs/start/elvish.vim
+	url = https://github.com/dmix/elvish.vim.git

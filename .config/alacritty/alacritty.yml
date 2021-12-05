@@ -52,7 +52,8 @@ font:
     # family: CaskaydiaCove Nerd Font Mono
     # family: InconsolataGo Nerd Font
     # family: VictorMono Nerd Font
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
+    family: Cartograph Mono CF
     # family: JuniusX
     # family: NanumBarunpen
     # family: D2Coding ligature
@@ -104,11 +105,11 @@ font:
 
   size: 12
   offset:
-    x: 1
+    x: -2
     y: 3
 
   glyph_offset:
-    x: 0 
+    x: 10 
     y: 0
 
 # draw_bold_text_with_bright_colors: true

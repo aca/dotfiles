@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if xset -q | grep 'Caps Lock: ' | sed 's/01.*//' | grep on; then
+if xset -q | grep 'Caps Lock: ' | awk '{print $4}' | grep on; then
   xdotool key Caps_Lock
 fi
 

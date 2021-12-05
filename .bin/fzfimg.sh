@@ -141,7 +141,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     export -f draw_preview calculate_position
     SHELL="${BASH_BINARY}" \
         fzf --preview "draw_preview {}" \
-            --preview-window "${DEFAULT_PREVIEW_POSITION}" \
+            --preview-window "${DEFAULT_PREVIEW_POSITION},80%" \
             --bind "${REDRAW_KEY}:${REDRAW_COMMAND}" \
             "${@}"
 fi

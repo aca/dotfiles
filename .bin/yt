@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 pueue group -a yt 2>/dev/null
-pueue parallel -g yt 2 2>/dev/null
+pueue parallel -g yt 1 2>/dev/null
 
 if [ ( string length -- "$argv" ) -eq 11 ]
   echo "from id"

@@ -8,3 +8,4 @@ node_modules
 .Trash-502
 .parcel-cache
 dist
+@eaDir
