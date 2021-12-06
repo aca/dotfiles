@@ -8,7 +8,7 @@ window:
     x: 15
     y: 8
 
-  dynamic_padding: true
+  # dynamic_padding: true
   decorations: none
   startup_mode: Windowed
 
@@ -53,7 +53,8 @@ font:
     # family: InconsolataGo Nerd Font
     # family: VictorMono Nerd Font
     # family: Iosevka Nerd Font Mono
-    family: Cartograph Mono CF
+    # family: Cartograph Mono CF
+    family: Anonymice Nerd Font
     # family: JuniusX
     # family: NanumBarunpen
     # family: D2Coding ligature
@@ -79,7 +80,8 @@ font:
     # style: Book Italic
     # style: Light Italic
 
-  # bold:
+  bold:
+    family: Anonymous Pro
     # family: SauceCodePro Nerd Font Mono
     # family: FantasqueSansMono Nerd Font Mono
     # family: FuraCode Nerd Font Mono
@@ -88,7 +90,8 @@ font:
     # family: Dina
     # style: Bold
 
-  # italic:
+  italic:
+    family: Anonymous Pro
     # family: Operator Mono Book
     # family: DankMono Nerd Font
     # family: DankMono Nerd Font Mono
@@ -103,10 +106,10 @@ font:
     # style: Italic
     # style: Regular
 
-  size: 12
+  size: 28
   offset:
-    x: -2
-    y: 3
+    x: 0
+    y: 8
 
   glyph_offset:
     x: 0 
@@ -116,21 +119,11 @@ font:
 background_opacity: 1
 
 mouse:
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
   hide_when_typing: true
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
   save_to_clipboard: true
-
-
-# cursor:
-#   style: 
-#     shape: Beam
-#     # blinking: Always
-#   unfocused_hollow: true
-  
 
 live_config_reload: true
 
@@ -260,7 +253,7 @@ key_bindings:
   - { key: Equals,    mods: Control,             action: IncreaseFontSize }
   - { key: Minus,     mods: Control,             action: DecreaseFontSize }
   - { key: V,         mods: Control|Shift,       action: Paste            }
-    # - { key: C,         mods: Control,       action: Copy             }
+  # - { key: C,         mods: Control,             action: Copy             }
   - { key: N,         mods: Command, command: { program: "open", args: ["-n", "/Applications/Alacritty.app"] } }
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
   - { key: B,         mods: Alt,       chars: "\x1bb"                       }
@@ -338,45 +331,41 @@ key_bindings:
   - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      } # Alt + \
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
-  # - { key: Space,   mods: Shift,        chars: "\x1b[32;2u" }
-
-  # - { key: Space,     mods: Shift,     chars: "\x60"                  }
-
 # ColorStart
-# Base16 Black Metal (Khold) - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Kimber - alacritty color config
+# Mishka Nguyen (https://github.com/akhsiM)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xc1c1c1'
+    background: '0x222222'
+    foreground: '0xdedee7'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xc1c1c1'
+    text: '0x222222'
+    cursor: '0xdedee7'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xeceee3'
-    yellow:  '0x974b46'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    black:   '0x222222'
+    red:     '0xc88c8c'
+    green:   '0x99c899'
+    yellow:  '0xd8b56d'
+    blue:    '0x537c9c'
+    magenta: '0x86cacd'
+    cyan:    '0x78b4b4'
+    white:   '0xdedee7'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0xaaaaaa'
-    green:   '0x121212'
-    yellow:  '0x222222'
-    blue:    '0x999999'
-    magenta: '0x999999'
-    cyan:    '0x444444'
-    white:   '0xc1c1c1'
+    black:   '0x644646'
+    red:     '0x476c88'
+    green:   '0x313131'
+    yellow:  '0x555d55'
+    blue:    '0x5a5a5a'
+    magenta: '0xc3c3b4'
+    cyan:    '0x704f4f'
+    white:   '0xffffe6'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

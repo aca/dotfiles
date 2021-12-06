@@ -410,3 +410,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/elvish.vim"]
 	path = .local/share/nvim/site/pack/paqs/start/elvish.vim
 	url = https://github.com/dmix/elvish.vim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/sniprun"]
+	path = .local/share/nvim/site/pack/paqs/opt/sniprun
+	url = https://github.com/michaelb/sniprun.git

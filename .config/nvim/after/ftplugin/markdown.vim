@@ -4,6 +4,9 @@
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+packadd sniprun
+" nmap <leader>R :RunCodeBlock<CR>
+
 
 lua require('plugins.due')
 
@@ -82,3 +85,6 @@ autocmd Syntax * call s:customSyntax()
 " autocmd BufWritePre ~/src/zettels/todo.md %!sort
 
 command! MakeLink lua require'_markdown'.makelink()
+
+
+
