@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # update background_opacity option for alacritty
 
 if command -v gsed >/dev/null 2>&1;then

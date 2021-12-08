@@ -1,5 +1,5 @@
 -- OPT [[
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 -- require('vim.lsp.log').set_format_func(vim.inspect)
 -- ]]
 --
@@ -24,20 +24,27 @@ vim.lsp.set_log_level("debug")
 -- :LuaCacheClear
 require("impatient")
 
-require("_vim")
-require("_g")
+-- require("_vim")
+-- require("_g")
 
 -- TODO: remove when it's merged to core
-require("plugins.filetype")
-require("plugins.vsnip")
-require("plugins.lsp")
+-- require("plugins.filetype")
+-- require("plugins.vsnip")
+-- require("plugins.lsp")
 
 -- TODO: zettels related
 -- require 'zettels'
 
-vim.cmd([[ source ~/.config/nvim/vim/colors.vim ]])
-vim.cmd([[ source ~/.config/nvim/vim/autocmds.vim ]])
-vim.cmd([[ packadd orgmode.nvim ]])
+vim.g._uname = "Linux"
+if vim.call("has", "mac") then
+  vim.g._uname = "macOS"
+end
+
+-- run in minimal mode
+vim.g._minimal = os.getenv("USER") ~= "rok"
+
+
+-- vim.cmd([[ packadd orgmode.nvim ]])
 
 vim.loop.new_timer():start(
 	0,
@@ -99,6 +106,7 @@ vim.loop.new_timer():start(
 		vim.cmd([[ packadd clever-f.vim ]])
 		vim.cmd([[ packadd vim-fetch ]])
 		vim.cmd([[ packadd git-worktree.nvim ]])
+		vim.cmd([[ packadd symbols-outline.nvim ]])
 
 		vim.cmd([[ packadd harpoon ]])
 

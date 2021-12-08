@@ -20,68 +20,10 @@ scrolling:
 
 font:
   normal:
-    style: Regular
-    # family: MonoLisa Nerd Font
-    # family: NotoSans Nerd Font Mono
-   
-    # family: Go Mono
-    # family: Consolas NF
-    # family: Iosevka Nerd Font Mono
-    # family: SauceCodePro Nerd Font Mono
-    # family: Lotion Nerd Font Mono
-    # family: SF Mono
-
-    # family: Menlo
-    # family: DankMono Nerd Font
-    # family: Inconsolata Nerd Font
-    # family: Iosevka Fixed
-    # family: SauceCodePro Nerd Font Mono
-    # family: Cascadia Mono
-    # family: Cascadia Code
-    # family: EasyReading
-    # family: BlexMono Nerd Font
-    # family: MesloLGLDZ Nerd Font Mono
-    # family: Monoid Nerd Font
-    # family: Lekton Nerd Font Mono
-    # family: Spleen
-    # family: CrimsonText Nerd Font
-    # family: FantasqueSansMono Nerd Font
-    # family: FantasqueSansMono Nerd Font
-    # family: FuraCode Nerd Font Mono
-    # family: FiraCode Nerd Font Mono
-    # family: CaskaydiaCove Nerd Font Mono
-    # family: InconsolataGo Nerd Font
-    # family: VictorMono Nerd Font
-    # family: Iosevka Nerd Font Mono
-    # family: Cartograph Mono CF
-    family: Anonymice Nerd Font
-    # family: JuniusX
-    # family: NanumBarunpen
-    # family: D2Coding ligature
-    # family: Lotion Nerd Font
-    # family: Operator Mono Light
-    # family: Operator Mono Nerd Medium
-    # family: OperatorMono Nerd Font
-    # family: Sudo Nerd Font
-    # family: agave Nerd Font
-    # family: mononoki Nerd Font
-    # family: JetBrainsMono Nerd Font
-    # family: PragmataPro Nerd Font
-    # family: PragmataPro Nerd Font
-    # family: Dina
-    # family: Hack Nerd Font
-    # family: TerminessTTF Nerd Font
-    # family: NotoMono Nerd Font
-    # family: FuraCode Nerd Font Mono
-    # family: Oxygen Mono
-    # family: Cutive mono
-    # family: Dina
-    # style: Italic
-    # style: Book Italic
-    # style: Light Italic
-
-  bold:
-    family: Anonymous Pro
+    # style: Regular
+    family: Lekton Nerd Font Mono
+  # bold:
+  #   family: Anonymous Pro
     # family: SauceCodePro Nerd Font Mono
     # family: FantasqueSansMono Nerd Font Mono
     # family: FuraCode Nerd Font Mono
@@ -90,8 +32,8 @@ font:
     # family: Dina
     # style: Bold
 
-  italic:
-    family: Anonymous Pro
+  # italic:
+  #   family: Anonymous Pro
     # family: Operator Mono Book
     # family: DankMono Nerd Font
     # family: DankMono Nerd Font Mono

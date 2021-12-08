@@ -36,6 +36,10 @@ npm install -g vim-language-server@latest
 npm install -g vscode-css-languageserver-bin@latest
 npm install -g vscode-html-languageserver-bin@latest
 npm install -g vscode-json-languageserver@latest
+npm install -g @tailwindcss/language-server
+npm install -g pnpm
+npm install -g yarn
+
 
 npm install -g yarn
 yarn global add yaml-language-server@latest

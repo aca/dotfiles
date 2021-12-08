@@ -2,4 +2,4 @@
 
 cd ~/.asdf/shims
 rg "# asdf-plugin: nodejs" --files-with-matches | xargs -I{} rm {}
-rg "# asdf-plugin: python" --files-with-matches | xargs -I{} rm {}
+# rg "# asdf-plugin: python" --files-with-matches | xargs -I{} rm {}

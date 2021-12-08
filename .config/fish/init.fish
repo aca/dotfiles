@@ -1,3 +1,5 @@
+
+
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
@@ -122,6 +124,11 @@ if not set -q init_fish
     if [ -d /usr/local/sbin ]                             ; set -x --append PATH /usr/local/sbin                              ; end
     if [ -d $HOME/.asdf/shims ]                           ; set -x --append PATH $HOME/.asdf/shims                            ; end
     if [ -d $HOME/.asdf/bin ]                             ; set -x --append PATH $HOME/.asdf/bin                              ; end
+
+    # npm
+    # Avoid installing binaries in /usr/local/bin.
+    # Maybe replace it with asdf-vm if it's performance issue get fixed
+    set -gx NPM_CONFIG_GLOBALCONFIG $HOME/.npmrc.global
 end
 
 function _prepend_path

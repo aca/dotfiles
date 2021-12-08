@@ -50,12 +50,12 @@ local cmp_sources = {
 	-- { name = 'cmp_tabnine'},
 	{ name = "vsnip" },
 	{ name = "buffer" },
-	{
-		name = "tmux",
-		option = {
-			all_panes = false,
-		},
-	},
+	-- {
+	-- 	name = "tmux",
+	-- 	option = {
+	-- 		all_panes = false,
+	-- 	},
+	-- },
 }
 
 cmp.setup({
