@@ -1,0 +1,19 @@
+#!/usr/bin/env raku
+
+grammar { [<submodule>]* }
+
+grammar submodule {
+    rule  TOP  { <submodule> <path> <url> <branch> }
+    token name  { \[submodule .*\] }
+    token path  { path = \S+ }
+    token file  { url = \S+ }
+    token branch  { branch = \S+ }
+}
+
+for lines() {
+  if $_ ne "" {
+    my $m = log.parse($_);
+    say "\n- $m<time>";
+    say "$m<msg>";
+  }
+}

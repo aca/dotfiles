@@ -37,12 +37,11 @@ require("impatient")
 
 vim.g._uname = "Linux"
 if vim.call("has", "mac") then
-  vim.g._uname = "macOS"
+	vim.g._uname = "macOS"
 end
 
 -- run in minimal mode
 vim.g._minimal = os.getenv("USER") ~= "rok"
-
 
 -- vim.cmd([[ packadd orgmode.nvim ]])
 

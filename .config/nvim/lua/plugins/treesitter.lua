@@ -4,17 +4,17 @@ vim.cmd([[
         packadd nvim-ts-rainbow
 ]])
 
-local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-local query = require 'vim.treesitter.query'
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")
 
 parser_config.markdown = {
-  install_info = {
-    url = 'https://github.com/MDeiml/tree-sitter-markdown',
-    branch = 'main',
-    files = { 'src/parser.c', 'src/scanner.cc' },
-  },
-  filetype = 'markdown'
+	install_info = {
+		url = "https://github.com/MDeiml/tree-sitter-markdown",
+		branch = "main",
+		files = { "src/parser.c", "src/scanner.cc" },
+	},
+	filetype = "markdown",
 }
 
 require("nvim-treesitter.configs").setup({
@@ -64,8 +64,8 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		enable = true,
-    additional_vim_regex_highlighting = true,
-    disable = {},
+		additional_vim_regex_highlighting = true,
+		disable = {},
 	},
 })
 
