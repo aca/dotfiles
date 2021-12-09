@@ -415,3 +415,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/symbols-outline.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/symbols-outline.nvim
 	url = https://github.com/simrat39/symbols-outline.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/linearf"]
+	path = .local/share/nvim/site/pack/paqs/opt/linearf
+	url = https://github.com/octaltree/linearf.git
