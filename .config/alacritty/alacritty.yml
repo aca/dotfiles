@@ -21,7 +21,7 @@ scrolling:
 font:
   normal:
     # style: Regular
-    family: Lekton Nerd Font Mono
+    family: BlexMono Nerd Font Mono
   # bold:
   #   family: Anonymous Pro
     # family: SauceCodePro Nerd Font Mono
@@ -274,40 +274,46 @@ key_bindings:
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
 # ColorStart
-# Base16 Kimber - alacritty color config
-# Mishka Nguyen (https://github.com/akhsiM)
+# Base16 Black Metal (Immortal) 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x222222'
-    foreground: '0xdedee7'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x222222'
-    cursor: '0xdedee7'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x222222'
-    red:     '0xc88c8c'
-    green:   '0x99c899'
-    yellow:  '0xd8b56d'
-    blue:    '0x537c9c'
-    magenta: '0x86cacd'
-    cyan:    '0x78b4b4'
-    white:   '0xdedee7'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0x7799bb'
+    yellow:  '0x556677'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x644646'
-    red:     '0x476c88'
-    green:   '0x313131'
-    yellow:  '0x555d55'
-    blue:    '0x5a5a5a'
-    magenta: '0xc3c3b4'
-    cyan:    '0x704f4f'
-    white:   '0xffffe6'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0x7799bb'
+    yellow:  '0x556677'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd

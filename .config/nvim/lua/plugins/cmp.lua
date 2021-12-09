@@ -1,5 +1,25 @@
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 
+vim.cmd([[ 
+packadd nvim-cmp
+packadd cmp-buffer
+packadd cmp-nvim-lsp
+packadd cmp-path
+packadd cmp-tmux
+packadd cmp-vsnip
+]])
+
+require("cmp").register_source("path", require("cmp_path").new())
+
+vim.g.vsnip_filetypes = {
+	javascriptreact = { "javascript" },
+	sh = { "bash" },
+	typescriptreact = { "typescript", "javascript" },
+	vimspec = { "vim" },
+}
+
+vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
+
 local remap = vim.api.nvim_set_keymap
 local npairs = require("nvim-autopairs")
 

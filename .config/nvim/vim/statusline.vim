@@ -63,7 +63,7 @@ set laststatus=2
 " set statusline=%2*\ %{WebDevIconsGetFileTypeSymbol()}\ 
 " set statusline=%2*\ %{Fticon()}\ 
 " set statusline=\ %{WebDevIconsGetFileTypeSymbol()}\ 
-set statusline+=%2*%<%f%m%r%h%w\ %3*\ %{NvimGps()}
+set statusline+=%1*%<%f%m%r%h%w\ %3*\ %{NvimGps()}
 " set statusline+=\ %{NvimGps()}
 set statusline+=%=                                       " Right Side
 " set statusline+=%0*\ %n\                                 " Buffer number
@@ -77,7 +77,7 @@ set statusline+=%=                                       " Right Side
 " set statusline+=%2*\%v:%l                         " Colomn number
 " set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
 
-" hi! User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
+hi! User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi! User2 ctermfg=007 ctermbg=236 guibg=#111f28 guifg=#FFFFFF gui=italic
 hi! User3 ctermfg=236 ctermbg=236 guibg=#303030 
 " hi! User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e

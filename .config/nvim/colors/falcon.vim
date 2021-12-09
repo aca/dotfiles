@@ -39,7 +39,7 @@ hi! TabLineSel guifg=#DFDFE5 ctermfg=254 guibg=NONE ctermbg=NONE gui=NONE cterm=
 hi! Title guifg=#cfc1b2 ctermfg=181 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi! Visual guifg=#DFDFE5 ctermfg=254 guibg=#2D1078 ctermbg=4 gui=NONE cterm=NONE
 hi! WildMenu guifg=#020221 ctermfg=0 guibg=#FFC552 ctermbg=221 gui=NONE cterm=NONE
-hi! Comment guifg=#787882 ctermfg=243 guibg=NONE ctermbg=NONE gui=Italic cterm=Italic
+" hi! Comment guifg=#787882 ctermfg=243 guibg=NONE ctermbg=NONE gui=Italic cterm=Italic
 hi! Constant guifg=#B4B4B9 ctermfg=249 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
 hi! String guifg=#C8D0E3 ctermfg=252 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi! link Character String

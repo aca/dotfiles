@@ -46,7 +46,7 @@ vim.g._minimal = os.getenv("USER") ~= "rok"
 -- vim.cmd([[ packadd orgmode.nvim ]])
 
 vim.loop.new_timer():start(
-	0,
+	200,
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")
