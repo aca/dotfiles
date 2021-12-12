@@ -12,7 +12,7 @@ unmap("b");
 unmap("r");
 unmap("x");
 unmap("X");
-unmap(";");
+// unmap(";");
 unmap("<Alt-b>");
 unmap("<Alt-d>");
 unmap("<Alt-f>");

@@ -1,19 +1,24 @@
 #!/usr/bin/env raku
 
-grammar { [<submodule>]* }
-
-grammar submodule {
-    rule  TOP  { <submodule> <path> <url> <branch> }
-    token name  { \[submodule .*\] }
-    token path  { path = \S+ }
-    token file  { url = \S+ }
-    token branch  { branch = \S+ }
+grammar submodules {
+    token TOP { [<submodule>]* }
+    token submodule  { '[submodule ' <path> \n }
+    token path  { [a-zA-Z0-9-_]+ }
 }
 
-for lines() {
-  if $_ ne "" {
-    my $m = log.parse($_);
-    say "\n- $m<time>";
-    say "$m<msg>";
-  }
-}
+my $xxx = q:to/END/;
+[submodule ".tmux/plugins/tmux-yank"]
+[submodule ".tmux/plugins/tmux-xx"]
+END
+
+my $match=submodules.parse($xxx);
+
+say $match{'submodule'}[0]{'path'};
+
+# say "-------";
+#
+# say $match;
+# say "-------";
+# # say $match.keys.;
+
+

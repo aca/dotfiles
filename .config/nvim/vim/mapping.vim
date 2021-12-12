@@ -1,6 +1,8 @@
 "
 " https://vim.fandom.com/wiki/Unused_keys
-"
+
+
+imap <C-l> <esc>
 
 nnoremap ;; :
 vnoremap ;; :

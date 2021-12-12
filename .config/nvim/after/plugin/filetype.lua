@@ -7,8 +7,8 @@ require("filetype").setup({
 			elv = "elvish",
 		},
 		shebang = {
-			-- Set the filetype of files with a dash shebang to sh
 			bash = "bash",
+      raku = "raku",
 		},
 	},
 })

@@ -29,7 +29,7 @@ NextCandidate=
 TogglePreedit=
 
 [Hotkey/EnumerateForwardKeys]
-0=Shift+space
+0=Super+space
 
 [Behavior]
 # Active By Default

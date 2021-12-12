@@ -32,6 +32,22 @@ require("impatient")
 -- require("plugins.vsnip")
 -- require("plugins.lsp")
 
+
+-- TODO
+-- require("filetype").setup({
+--
+-- 	overrides = {
+-- 		extensions = {
+-- 			-- Set the filetype of *.pn files to potion
+-- 			elv = "elvish",
+-- 		},
+-- 		shebang = {
+-- 			bash = "bash",
+--       raku = "raku",
+-- 		},
+-- 	},
+-- })
+
 -- TODO: zettels related
 -- require 'zettels'
 
