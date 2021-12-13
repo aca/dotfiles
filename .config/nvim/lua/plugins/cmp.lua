@@ -39,15 +39,15 @@ end
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
 _G.tab_complete = function()
-  print("tab complete")
+	print("tab complete")
 	if vim.fn.call("vsnip#jumpable", { 1 }) == 1 then
-    print("1")
+		print("1")
 		return t("<Plug>(vsnip-jump-next)")
 	elseif vim.fn.pumvisible() == 1 then
-    print("2")
+		print("2")
 		return t("<C-n>")
 	else
-    print("3")
+		print("3")
 		local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
 		if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
 			return t("<Right>")
@@ -141,16 +141,16 @@ cmp.setup({
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			-- elseif vim.fn["vsnip#available"]() == 1 then
-			-- 	vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
+				-- elseif vim.fn["vsnip#available"]() == 1 then
+				-- 	vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
 			else
-        local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
-        if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Right>', true, true, true), 'n', true)
-        else
-          fallback()
-        end
-        -- return t("<Tab>")
+				local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
+				if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
+					vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
+				else
+					fallback()
+				end
+				-- return t("<Tab>")
 				-- vim.api.nvim_feedkeys("\t", "n", true)
 			end
 		end,
