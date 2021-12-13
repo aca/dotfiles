@@ -1,7 +1,7 @@
-vim.cmd [[
+vim.cmd([[
   packadd nvim-dap
   packadd nvim-dap-ui
-]]
+]])
 
 local dap = require("dap")
 

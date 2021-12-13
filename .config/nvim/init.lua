@@ -34,7 +34,7 @@ vim.loop.new_timer():start(
 	vim.schedule_wrap(function()
 		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
 		require("plugins.tmux")
-    vim.cmd([[ packadd nvim-lspconfig ]])
+		vim.cmd([[ packadd nvim-lspconfig ]])
 		require("plugins.lsp")
 		require("plugins.autopairs")
 		require("plugins.cmp")

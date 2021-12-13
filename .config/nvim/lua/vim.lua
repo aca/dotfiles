@@ -117,7 +117,6 @@ opt.equalalways = false -- I don't like my windows changing all the time
 opt.splitright = true -- Prefer windows splitting to the right
 opt.splitbelow = true -- Prefer windows splitting to the bottom
 
-
 vim.opt.modelineexpr = true
 vim.opt.showcmd = false
 vim.opt.showmode = false
@@ -128,7 +127,6 @@ opt.pumblend = 17
 
 opt.wildmode = opt.wildmode - "list"
 opt.wildmode = opt.wildmode + { "longest", "full" }
-
 
 local g = vim.g
 
@@ -163,7 +161,6 @@ g.loaded_netrwPlugin = 1
 -- run in minimal mode
 vim.g._minimal = os.getenv("USER") ~= "rok"
 
-
 -- TODO: remove when it's merged to core
 -- In init.lua or filetype.nvim's config file
 require("filetype").setup({
@@ -179,7 +176,7 @@ require("filetype").setup({
 	},
 })
 
-vim.cmd [[
+vim.cmd([[
 autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
 autocmd FileType markdown syntax off
-]]
+]])

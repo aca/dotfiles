@@ -10,7 +10,7 @@ local install = require("nvim-treesitter.install")
 
 -- NOTES: https://github.com/tree-sitter/tree-sitter-haskell#building-on-macos
 if vim.g._uname == "macOS" then
-  install.compilers = {"gcc"}
+	install.compilers = { "gcc" }
 end
 
 parser_config.markdown = {
