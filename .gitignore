@@ -1,4 +1,1 @@
-.tmux/plugins
-.submodules/
-.local/share/nvim/site/pack/paqs/
 .config/fish/zoxide.fish

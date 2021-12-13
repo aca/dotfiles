@@ -259,9 +259,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dirdiff"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-dirdiff
 	url = https://github.com/will133/vim-dirdiff.git
-[submodule ".local/share/nvim/site/pack/paqs/start/nvim-cmp"]
-	path = .local/share/nvim/site/pack/paqs/start/nvim-cmp
-	url = https://github.com/hrsh7th/nvim-cmp.git
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-nvim-lsp"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
@@ -406,9 +403,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/elvish.vim"]
 	path = .local/share/nvim/site/pack/paqs/start/elvish.vim
 	url = https://github.com/dmix/elvish.vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/sniprun"]
-	path = .local/share/nvim/site/pack/paqs/opt/sniprun
-	url = https://github.com/michaelb/sniprun.git
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-tmux"]
 	path = .local/share/nvim/site/pack/paqs/start/cmp-tmux
 	url = https://github.com/andersevenrud/cmp-tmux.git
@@ -418,3 +412,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/linearf"]
 	path = .local/share/nvim/site/pack/paqs/opt/linearf
 	url = https://github.com/octaltree/linearf.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-cmp"]
+	path = .local/share/nvim/site/pack/paqs/opt/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
