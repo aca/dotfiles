@@ -14,18 +14,15 @@
 -- https://github.com/dccsillag/magma-nvim
 --
 -- ]]
+
 -- TODO: impatient.nvim should be removed when merged to neovim core [[
 -- impatient.nvim should be removed when merged to neovim core
 -- https://github.com/lewis6991/impatient.nvim
 -- https://github.com/neovim/neovim/pull/15436
 -- ]]
-
 -- require("impatient").enable_profile()
 -- :LuaCacheClear
 require("impatient")
-
--- require("_vim")
--- require("_g")
 
 -- TODO: remove when it's merged to core
 -- require("plugins.filetype")
@@ -34,7 +31,6 @@ require("impatient")
 
 -- TODO
 -- require("filetype").setup({
---
 -- 	overrides = {
 -- 		extensions = {
 -- 			-- Set the filetype of *.pn files to potion
@@ -123,7 +119,6 @@ vim.loop.new_timer():start(
 		vim.cmd([[ packadd symbols-outline.nvim ]])
 
 		vim.cmd([[ packadd harpoon ]])
-
 		vim.cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
 	end)
 )
