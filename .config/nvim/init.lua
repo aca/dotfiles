@@ -2,17 +2,17 @@
 -- vim.lsp.set_log_level("debug")
 -- require('vim.lsp.log').set_format_func(vim.inspect)
 -- ]]
---
+
 -- UPDATE [[
 -- :TSInstall all
 -- :TSUpdate all
 -- ]]
 
--- TODO: add treesitter https://github.com/MDeiml/tree-sitter-markdown
+require("vim")
+
 -- TODO: jupyter integration [[
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
---
 -- ]]
 
 -- TODO: impatient.nvim should be removed when merged to neovim core [[
@@ -20,48 +20,22 @@
 -- https://github.com/lewis6991/impatient.nvim
 -- https://github.com/neovim/neovim/pull/15436
 -- ]]
+-- require("impatient")
 -- require("impatient").enable_profile()
 -- :LuaCacheClear
-require("impatient")
-
--- TODO: remove when it's merged to core
--- require("plugins.filetype")
--- require("plugins.vsnip")
--- require("plugins.lsp")
-
--- TODO
--- require("filetype").setup({
--- 	overrides = {
--- 		extensions = {
--- 			-- Set the filetype of *.pn files to potion
--- 			elv = "elvish",
--- 		},
--- 		shebang = {
--- 			bash = "bash",
---       raku = "raku",
--- 		},
--- 	},
--- })
 
 -- TODO: zettels related
 -- require 'zettels'
 
-vim.g._uname = "Linux"
-if vim.call("has", "mac") then
-	vim.g._uname = "macOS"
-end
-
--- run in minimal mode
-vim.g._minimal = os.getenv("USER") ~= "rok"
-
--- vim.cmd([[ packadd orgmode.nvim ]])
-
+require("plugins.treesitter")
 vim.loop.new_timer():start(
-	200,
+	100,
 	0,
 	vim.schedule_wrap(function()
+		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
 		require("plugins.tmux")
-		require("plugins.treesitter")
+    vim.cmd([[ packadd nvim-lspconfig ]])
+		require("plugins.lsp")
 		require("plugins.autopairs")
 		require("plugins.cmp")
 		require("plugins.dap")
@@ -85,7 +59,6 @@ vim.loop.new_timer():start(
 		require("plugins.vim-test")
 		require("plugins.dadbod")
 
-		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/autocmds_lazy.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/mapping.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/zepl.vim ]])
@@ -98,7 +71,7 @@ vim.loop.new_timer():start(
 		vim.cmd([[ source ~/.config/nvim/vim/vifm.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/luapad.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/barbaric.vim ]])
-		vim.cmd([[ source ~/.config/nvim/vim/smoothie.vim ]])
+		-- vim.cmd([[ source ~/.config/nvim/vim/smoothie.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/codi.vim ]])
 		-- vim.cmd [[ source ~/.config/nvim/vim/projectionist.vim ]]

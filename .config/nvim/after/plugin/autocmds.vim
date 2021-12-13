@@ -11,7 +11,6 @@ au BufRead,BufNewFile *.tf,*.tfvars setf terraform
 au BufRead,BufNewFile *.hcl         setf hcl
 au BufRead,BufNewFile *.h           setf c
 
-
 " make directory if not exists
 autocmd BufWritePre * call s:Mkdir()
 function s:Mkdir()

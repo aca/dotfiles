@@ -4,6 +4,8 @@
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" set syntax=off
+
 packadd sniprun
 " nmap <leader>R :RunCodeBlock<CR>
 

@@ -1,4 +1,7 @@
--- if vim.g._minimal then return end
+vim.cmd [[
+  packadd nvim-dap
+  packadd nvim-dap-ui
+]]
 
 local dap = require("dap")
 

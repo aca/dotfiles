@@ -1,3 +1,6 @@
+packadd fzf
+packadd fzf.vim
+
 let g:fzf_action = {
 \ 'ctrl-t': 'tab split',
 \ 'ctrl-s': 'split',
@@ -44,6 +47,3 @@ nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
 nnoremap <silent><leader>fC   :Colors<cr>
 nnoremap <silent><leader>fc   :Commits<cr>
-
-packadd fzf
-packadd fzf.vim

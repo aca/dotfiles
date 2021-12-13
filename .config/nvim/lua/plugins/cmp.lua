@@ -9,7 +9,8 @@ packadd cmp-tmux
 packadd cmp-vsnip
 ]])
 
-require("cmp").register_source("path", require("cmp_path").new())
+-- lazy load
+-- require("cmp").register_source("path", require("cmp_path").new())
 
 vim.g.vsnip_filetypes = {
 	javascriptreact = { "javascript" },

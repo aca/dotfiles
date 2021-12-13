@@ -10,7 +10,6 @@ set conceallevel=2
 " https://vimhelp.org/term.txt.html
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors " norcalli/nvim-colorizer.lua need this
 " set t_Co=256
 
 set shortmess=aItcF
@@ -44,6 +43,8 @@ set whichwrap=b,s
 
 local opt = vim.opt
 local g = vim.g
+
+opt.termguicolors = true
 
 -- https://jdhao.github.io/2021/10/24/diff_in_vim/
 opt.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000"
@@ -97,6 +98,8 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
+opt.number = true
+
 -- Tabs
 opt.autoindent = true
 opt.cindent = true
@@ -113,6 +116,26 @@ opt.incsearch = true -- Makes search act like search in modern browsers
 opt.equalalways = false -- I don't like my windows changing all the time
 opt.splitright = true -- Prefer windows splitting to the right
 opt.splitbelow = true -- Prefer windows splitting to the bottom
+
+
+vim.opt.modelineexpr = true
+vim.opt.showcmd = false
+vim.opt.showmode = false
+
+opt.wildmode = { "longest", "list", "full" }
+-- Cool floating window popup menu for completion on command line
+opt.pumblend = 17
+
+opt.wildmode = opt.wildmode - "list"
+opt.wildmode = opt.wildmode + { "longest", "full" }
+
+
+local g = vim.g
+
+g._uname = "Linux"
+if vim.call("has", "mac") then
+	g._uname = "macOS"
+end
 
 -- disable default vim stuffs for faster startuptime
 g.loaded_tutor_mode_plugin = 1
@@ -132,18 +155,31 @@ g.loaded_getscriptPlugin = 1
 -- TODO: replace with https://github.com/nathom/filetype.nvim
 g.did_load_filetypes = 1
 
--- g.loaded_netrw = 1
--- g.loaded_netrwSettings = 1
--- g.loaded_netrwFileHandlers = 1
--- g.loaded_netrwPlugin = 1
+g.loaded_netrw = 1
+g.loaded_netrwSettings = 1
+g.loaded_netrwFileHandlers = 1
+g.loaded_netrwPlugin = 1
 
-vim.opt.modelineexpr = true
-vim.opt.showcmd = false
-vim.opt.showmode = false
+-- run in minimal mode
+vim.g._minimal = os.getenv("USER") ~= "rok"
 
-opt.wildmode = { "longest", "list", "full" }
--- Cool floating window popup menu for completion on command line
-opt.pumblend = 17
 
-opt.wildmode = opt.wildmode - "list"
-opt.wildmode = opt.wildmode + { "longest", "full" }
+-- TODO: remove when it's merged to core
+-- In init.lua or filetype.nvim's config file
+require("filetype").setup({
+	overrides = {
+		extensions = {
+			-- Set the filetype of *.pn files to potion
+			elv = "elvish",
+		},
+		shebang = {
+			bash = "bash",
+			raku = "raku",
+		},
+	},
+})
+
+vim.cmd [[
+autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
+autocmd FileType markdown syntax off
+]]

@@ -45,7 +45,7 @@ function _save_end --on-event fish_postexec
   end
 
   if test "$msg" != ""
-    echo -s (set_color --italics red)"« $msg"
+    echo -s (set_color red)"« $msg"
   end
 end
 

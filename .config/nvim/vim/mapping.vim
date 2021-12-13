@@ -4,7 +4,7 @@
 
 inoremap <c-c> <esc>
 vnoremap <c-c> <esc>
-vnoremap i I
+vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
 
 nnoremap ;; :
 vnoremap ;; :

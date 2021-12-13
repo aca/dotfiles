@@ -1,12 +1,17 @@
 vim.cmd([[
-        packadd playground
         packadd nvim-treesitter
         packadd nvim-ts-rainbow
+        packadd playground
 ]])
 
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")
+
+-- NOTES: https://github.com/tree-sitter/tree-sitter-haskell#building-on-macos
+if vim.g._uname == "macOS" then
+  install.compilers = {"gcc"}
+end
 
 parser_config.markdown = {
 	install_info = {
@@ -57,14 +62,14 @@ require("nvim-treesitter.configs").setup({
 	-- 	"dockerfile",
 	-- 	"gomod",
 	-- 	"html",
-	--   "vim",
+	--  "vim",
 	-- },
 	autopairs = {
 		enable = true,
 	},
 	highlight = {
 		enable = true,
-		additional_vim_regex_highlighting = true,
+		additional_vim_regex_highlighting = false,
 		disable = {},
 	},
 })
