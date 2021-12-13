@@ -21,7 +21,7 @@ scrolling:
 font:
   normal:
     # style: Regular
-    family: BlexMono Nerd Font Mono
+    family: Hasklug Nerd Font Mono
   # bold:
   #   family: Anonymous Pro
     # family: SauceCodePro Nerd Font Mono
@@ -33,7 +33,7 @@ font:
     # style: Bold
 
   italic:
-    family: Anonymous Pro
+    family: Hasklug Nerd Font Mono
     # family: Operator Mono Book
     # family: DankMono Nerd Font
     # family: DankMono Nerd Font Mono
@@ -51,7 +51,7 @@ font:
   size: 28
   offset:
     x: 0
-    y: 8
+    y: 3
 
   glyph_offset:
     x: 0 
