@@ -32,7 +32,6 @@ require("impatient")
 -- require("plugins.vsnip")
 -- require("plugins.lsp")
 
-
 -- TODO
 -- require("filetype").setup({
 --

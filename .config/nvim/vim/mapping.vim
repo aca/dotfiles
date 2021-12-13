@@ -2,7 +2,9 @@
 " https://vim.fandom.com/wiki/Unused_keys
 
 
-imap <C-l> <esc>
+inoremap <c-c> <esc>
+vnoremap <c-c> <esc>
+vnoremap i I
 
 nnoremap ;; :
 vnoremap ;; :
@@ -34,10 +36,10 @@ nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
 nnoremap <silent> ;ff            <cmd>Neoformat<cr>
 
 imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
-imap <expr><Tab>                v:lua.tab_complete()
-smap <expr><Tab>                v:lua.tab_complete()
-imap <expr><S-Tab>              v:lua.s_tab_complete()
-smap <expr><S-Tab>              v:lua.s_tab_complete()
+" imap <expr><Tab>                v:lua.tab_complete()
+" smap <expr><Tab>                v:lua.tab_complete()
+" imap <expr><S-Tab>              v:lua.s_tab_complete()
+" smap <expr><S-Tab>              v:lua.s_tab_complete()
 
 "
 " Toggle
