@@ -5,8 +5,8 @@ env:
 
 window:
   padding:
-    x: 15
-    y: 8
+    x: 60
+    y: 50
 
   # dynamic_padding: true
   decorations: none
