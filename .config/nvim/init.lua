@@ -47,11 +47,11 @@ vim.loop.new_timer():start(
 		vim.cmd([[ autocmd CursorHold * lua require("plugins.gitsigns") ]])
 		vim.cmd([[ autocmd CursorHold * lua require("plugins.buftabline")]])
 
-    require("plugins.numb")
+		require("plugins.numb")
 		require("plugins.hop")
 		require("plugins.lion")
 		require("plugins.zenmode")
-    require("plugins.move")
+		require("plugins.move")
 		require("plugins.suda")
 		-- require("plugins.zepl")
 		-- require("plugins.git-messenger")

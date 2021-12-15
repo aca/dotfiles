@@ -52,7 +52,6 @@ set whichwrap=b,s
 
 ]])
 
-
 opt.termguicolors = true
 
 -- https://jdhao.github.io/2021/10/24/diff_in_vim/
@@ -137,7 +136,6 @@ opt.pumblend = 17
 -- opt.wildmode = opt.wildmode - "list"
 -- opt.wildmode = opt.wildmode + { "longest", "full" }
 
-
 -- disable default vim stuffs for faster startuptime
 g.loaded_tutor_mode_plugin = 1
 g.loaded_logiPat = 1
@@ -153,11 +151,10 @@ g.loaded_remote_plugins = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 
-g.loaded_matchit=1
+g.loaded_matchit = 1
 
 -- https://github.com/monkoose/matchparen.nvim
-g.loaded_matchparen=1
-
+g.loaded_matchparen = 1
 
 -- TODO: replace with https://github.com/nathom/filetype.nvim
 g.did_load_filetypes = 1
