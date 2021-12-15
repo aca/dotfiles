@@ -11,7 +11,7 @@
 	path = .local/share/nvim/site/pack/paqs/start/lua-dev.nvim
 	url = https://github.com/folke/lua-dev.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-dirvish"]
-	path = .local/share/nvim/site/pack/paqs/start/vim-dirvish
+	path = .local/share/nvim/site/pack/paqs/opt/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
 [submodule ".local/share/nvim/site/pack/paqs/start/lsp_signature.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/lsp_signature.nvim
@@ -209,7 +209,7 @@
 	path = .local/share/nvim/site/pack/paqs/opt/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
 [submodule ".local/share/nvim/site/pack/paqs/start/plenary.nvim"]
-	path = .local/share/nvim/site/pack/paqs/start/plenary.nvim
+	path = .local/share/nvim/site/pack/paqs/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
 	path = .local/share/nvim/site/pack/paqs/opt/playground
@@ -415,3 +415,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-cmp"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-gtfo"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-gtfo
+	url = https://github.com/justinmk/vim-gtfo.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/matchparen.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/matchparen.nvim
+	url = https://github.com/monkoose/matchparen.nvim.git

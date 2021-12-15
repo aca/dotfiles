@@ -8,6 +8,8 @@
 -- :TSUpdate all
 -- ]]
 
+-- print(vim.o.runtimepath)
+
 require("vim")
 
 -- TODO: jupyter integration [[
@@ -29,39 +31,39 @@ require("vim")
 
 require("plugins.treesitter")
 vim.loop.new_timer():start(
-	100,
+	1000,
 	0,
 	vim.schedule_wrap(function()
 		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
 		require("plugins.tmux")
+		vim.cmd([[ packadd plenary.nvim ]])
 		vim.cmd([[ packadd nvim-lspconfig ]])
+		vim.cmd([[ packadd vim-vsnip ]])
 		require("plugins.lsp")
 		require("plugins.autopairs")
 		require("plugins.cmp")
-		require("plugins.dap")
-		require("plugins.dial")
-		require("plugins.gitsigns")
-		require("plugins.zenmode")
-		require("plugins.xdg_open")
-		require("plugins.numb")
+		-- vim.cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
+
+		vim.cmd([[ autocmd CursorHold * lua require("plugins.gitsigns") ]])
+		vim.cmd([[ autocmd CursorHold * lua require("plugins.buftabline")]])
+
+    require("plugins.numb")
 		require("plugins.hop")
 		require("plugins.lion")
-		require("plugins.move")
+		require("plugins.zenmode")
+    require("plugins.move")
 		require("plugins.suda")
-		require("plugins.zepl")
-		require("plugins.git-messenger")
-		require("plugins.buftabline")
+		-- require("plugins.zepl")
+		-- require("plugins.git-messenger")
 		require("plugins.comment")
-		require("plugins.scrollview")
+		-- require("plugins.scrollview")
 		require("plugins.oscyank")
-		require("plugins.gitlinker")
 		require("plugins.neoformat")
 		require("plugins.vim-test")
 		require("plugins.dadbod")
 
 		vim.cmd([[ source ~/.config/nvim/vim/autocmds_lazy.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/mapping.vim ]])
-		vim.cmd([[ source ~/.config/nvim/vim/zepl.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/gina.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/funcs.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/visualstarsearch.vim ]])
@@ -69,29 +71,54 @@ vim.loop.new_timer():start(
 		vim.cmd([[ source ~/.config/nvim/vim/sandwich.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/quickrun.vim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/vifm.vim ]])
-		vim.cmd([[ source ~/.config/nvim/vim/luapad.vim ]])
-		vim.cmd([[ source ~/.config/nvim/vim/barbaric.vim ]])
+		-- vim.cmd([[ source ~/.config/nvim/vim/luapad.vim ]])
 		-- vim.cmd([[ source ~/.config/nvim/vim/smoothie.vim ]])
-		vim.cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
-		vim.cmd([[ source ~/.config/nvim/vim/codi.vim ]])
+		-- vim.cmd([[ source ~/.config/nvim/vim/codi.vim ]])
 		-- vim.cmd [[ source ~/.config/nvim/vim/projectionist.vim ]]
 
 		vim.cmd([[ packadd vim-fold-cycle ]])
-		vim.cmd([[ packadd nvim-colorizer.lua ]])
 		vim.cmd([[ packadd vim-characterize ]])
 		vim.cmd([[ packadd vim-eunuch ]])
 		vim.cmd([[ packadd vim-ReplaceWithRegister ]])
 		vim.cmd([[ packadd diffview.nvim ]])
 		vim.cmd([[ packadd vim-scriptease ]])
-		vim.cmd([[ packadd vim-rfc ]])
-		vim.cmd([[ packadd telescope.nvim ]])
-		vim.cmd([[ packadd todo-comments.nvim ]])
+		-- vim.cmd([[ packadd vim-rfc ]])
+		-- vim.cmd([[ packadd telescope.nvim ]])
+		-- vim.cmd([[ packadd todo-comments.nvim ]])
 		vim.cmd([[ packadd clever-f.vim ]])
 		vim.cmd([[ packadd vim-fetch ]])
-		vim.cmd([[ packadd git-worktree.nvim ]])
 		vim.cmd([[ packadd symbols-outline.nvim ]])
+		vim.cmd([[ packadd vim-dirvish ]])
+		vim.cmd([[ packadd matchparen.nvim ]])
 
-		vim.cmd([[ packadd harpoon ]])
+		-- vim.cmd([[ packadd harpoon ]])
+		-- vim.cmd([[ packadd vim-gtfo ]])
 		vim.cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
+
+		-- netrw for gx
+		-- vim.cmd([[ packadd gx-extended.vim ]])
+
+		require("funcs")
+	end)
+)
+
+vim.loop.new_timer():start(
+	2000,
+	0,
+	vim.schedule_wrap(function()
+		require("plugins.dial")
+		require("plugins.gitlinker")
+		require("plugins.dap")
+		require("matchparen").setup()
+
+		vim.cmd([[ source ~/.config/nvim/vim/barbaric.vim ]])
+		vim.cmd([[ packadd nvim-colorizer.lua ]])
+		vim.cmd([[ packadd git-worktree.nvim ]])
+		vim.cmd([[
+      unlet g:loaded_netrwPlugin
+      source /usr/local/share/nvim/runtime/plugin/netrwPlugin.vim
+      unlet g:loaded_matchit
+      source /usr/local/share/nvim/runtime/plugin/matchit.vim
+    ]])
 	end)
 )

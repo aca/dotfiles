@@ -1,4 +1,15 @@
 -- TODO: migrate to LUA
+
+-- run in minimal mode
+local g = vim.g
+local opt = vim.opt
+
+g._minimal = os.getenv("USER") ~= "rok"
+g._uname = "Linux"
+if vim.call("has", "mac") then
+	g._uname = "macOS"
+end
+
 vim.cmd([[
 set shell=/bin/sh
 
@@ -41,8 +52,6 @@ set whichwrap=b,s
 
 ]])
 
-local opt = vim.opt
-local g = vim.g
 
 opt.termguicolors = true
 
@@ -121,19 +130,13 @@ vim.opt.modelineexpr = true
 vim.opt.showcmd = false
 vim.opt.showmode = false
 
-opt.wildmode = { "longest", "list", "full" }
+-- opt.wildmode = { "longest", "list", "full" }
 -- Cool floating window popup menu for completion on command line
 opt.pumblend = 17
 
-opt.wildmode = opt.wildmode - "list"
-opt.wildmode = opt.wildmode + { "longest", "full" }
+-- opt.wildmode = opt.wildmode - "list"
+-- opt.wildmode = opt.wildmode + { "longest", "full" }
 
-local g = vim.g
-
-g._uname = "Linux"
-if vim.call("has", "mac") then
-	g._uname = "macOS"
-end
 
 -- disable default vim stuffs for faster startuptime
 g.loaded_tutor_mode_plugin = 1
@@ -150,16 +153,19 @@ g.loaded_remote_plugins = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 
+g.loaded_matchit=1
+
+-- https://github.com/monkoose/matchparen.nvim
+g.loaded_matchparen=1
+
+
 -- TODO: replace with https://github.com/nathom/filetype.nvim
 g.did_load_filetypes = 1
 
-g.loaded_netrw = 1
-g.loaded_netrwSettings = 1
-g.loaded_netrwFileHandlers = 1
+-- g.loaded_netrw = 1
+-- g.loaded_netrwSettings = 1
+-- g.loaded_netrwFileHandlers = 1
 g.loaded_netrwPlugin = 1
-
--- run in minimal mode
-vim.g._minimal = os.getenv("USER") ~= "rok"
 
 -- TODO: remove when it's merged to core
 -- In init.lua or filetype.nvim's config file

@@ -25,12 +25,16 @@
                                             "^com\\.jetbrains\\..*$",
                                             "^com\\.vmware\\.horizon$",
                                             "^io\\.alacritty$",
+                                            "^com\\.github\\.wez\\.wezterm$",
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.vivaldi\\.Vivaldi$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.microsoft\\.VSCode$",
                                             "^org\\.qt-project\\.Qt\\.QtWebEngineCore$"
+                                        ],
+                                        "file_paths": [
+                                          "/usr/local/bin/wezterm-gui$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -55,9 +59,13 @@
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.vivaldi\\.Vivaldi$",
                                             "^org\\.qt-project\\.Qt\\.QtWebEngineCore$",
+                                            "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.vmware\\.horizon$",
                                             "^com\\.microsoft\\.VSCode$"
+                                        ],
+                                        "file_paths": [
+                                          "/usr/local/bin/wezterm-gui$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }

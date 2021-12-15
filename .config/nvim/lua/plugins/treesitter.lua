@@ -1,7 +1,7 @@
 vim.cmd([[
         packadd nvim-treesitter
-        packadd nvim-ts-rainbow
-        packadd playground
+        " packadd nvim-ts-rainbow
+        " packadd playground
 ]])
 
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -9,9 +9,9 @@ local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")
 
 -- NOTES: https://github.com/tree-sitter/tree-sitter-haskell#building-on-macos
-if vim.g._uname == "macOS" then
-	install.compilers = { "gcc" }
-end
+-- if vim.g._uname == "macOS" then
+-- end
+install.compilers = { "gcc" }
 
 parser_config.markdown = {
 	install_info = {
@@ -74,21 +74,7 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-vim.cmd([[
-
-" set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr()
-
-]])
-
--- https://www.reddit.com/r/neovim/comments/pmknoi/nextbestthing_to_treesitter_for_markdown/
--- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
---
--- parser_configs.markdown = {
---   install_info = {
---     url = "https://github.com/ikatyang/tree-sitter-markdown",
---     files = { "src/parser.c", "src/scanner.cc" },
---   },
---   filetype = "markdown",
--- }
---
+-- vim.cmd([[
+-- set foldmethod=expr
+-- set foldexpr=nvim_treesitter#foldexpr()
+-- ]])

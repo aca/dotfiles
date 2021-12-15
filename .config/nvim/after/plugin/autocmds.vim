@@ -5,11 +5,11 @@ autocmd FileType markdown syntax off
 
 " au BufNewFile,BufFilePre,BufRead *.md,*.markdown set filetype=markdown.pandoc
 
-au BufRead,BufNewFile *.rkt,*.rktl  setf scheme
-au BufRead,BufNewFile *.fish        setf fish
-au BufRead,BufNewFile *.tf,*.tfvars setf terraform
-au BufRead,BufNewFile *.hcl         setf hcl
-au BufRead,BufNewFile *.h           setf c
+" au BufRead,BufNewFile *.rkt,*.rktl  setf scheme
+" au BufRead,BufNewFile *.fish        setf fish
+" au BufRead,BufNewFile *.tf,*.tfvars setf terraform
+" au BufRead,BufNewFile *.hcl         setf hcl
+" au BufRead,BufNewFile *.h           setf c
 
 " make directory if not exists
 autocmd BufWritePre * call s:Mkdir()
