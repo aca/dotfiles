@@ -31,12 +31,12 @@ require("vim")
 
 require("plugins.treesitter")
 
-		vim.cmd([[ packadd plenary.nvim ]])
-		vim.cmd([[ packadd nvim-lspconfig ]])
-		vim.cmd([[ packadd vim-vsnip ]])
-		require("plugins.lsp")
-		require("plugins.autopairs")
-		require("plugins.cmp")
+vim.cmd([[ packadd plenary.nvim ]])
+vim.cmd([[ packadd nvim-lspconfig ]])
+vim.cmd([[ packadd vim-vsnip ]])
+require("plugins.lsp")
+require("plugins.autopairs")
+require("plugins.cmp")
 vim.loop.new_timer():start(
 	1000,
 	0,
