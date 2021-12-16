@@ -5,8 +5,8 @@ env:
 
 window:
   padding:
-    x: 20
-    y: 10
+    x: 10
+    y: 0
 
   # dynamic_padding: true
   decorations: none
@@ -21,19 +21,21 @@ scrolling:
 font:
   normal:
     # style: Regular
-    family: Hasklug Nerd Font Mono
+    # family: Hasklug Nerd Font Mono
+    family: BlexMono Nerd Font Mono
+    # family: PragmataPro Nerd Font
+    # family: DankMono Nerd Font
+
   # bold:
-  #   family: Anonymous Pro
     # family: SauceCodePro Nerd Font Mono
     # family: FantasqueSansMono Nerd Font Mono
     # family: FuraCode Nerd Font Mono
-    # family: Iosevka Nerd Font Mono
     # family: Operator Mono Book
     # family: Dina
     # style: Bold
 
-  italic:
-    family: Hasklug Nerd Font Mono
+  # italic:
+  #   family: BlexMono Nerd Font Mono
     # family: Operator Mono Book
     # family: DankMono Nerd Font
     # family: DankMono Nerd Font Mono
@@ -51,7 +53,7 @@ font:
   size: 28
   offset:
     x: 0
-    y: 3
+    y: 4
 
   glyph_offset:
     x: 0 
@@ -274,46 +276,40 @@ key_bindings:
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
 # ColorStart
-# Base16 Monokai 256 - alacritty color config
-# Wimer Hazenberg (http://www.monokai.nl)
+# Base16 Bespin - alacritty color config
+# Jan T. Sott
 colors:
   # Default colors
   primary:
-    background: '0x272822'
-    foreground: '0xf8f8f2'
+    background: '0x28211c'
+    foreground: '0x8a8986'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x272822'
-    cursor: '0xf8f8f2'
+    text: '0x28211c'
+    cursor: '0x8a8986'
 
   # Normal colors
   normal:
-    black:   '0x272822'
-    red:     '0xf92672'
-    green:   '0xa6e22e'
-    yellow:  '0xf4bf75'
-    blue:    '0x66d9ef'
-    magenta: '0xae81ff'
-    cyan:    '0xa1efe4'
-    white:   '0xf8f8f2'
+    black:   '0x28211c'
+    red:     '0xcf6a4c'
+    green:   '0x54be0d'
+    yellow:  '0xf9ee98'
+    blue:    '0x5ea6ea'
+    magenta: '0x9b859d'
+    cyan:    '0xafc4db'
+    white:   '0x8a8986'
 
   # Bright colors
   bright:
-    black:   '0x75715e'
-    red:     '0xf92672'
-    green:   '0xa6e22e'
-    yellow:  '0xf4bf75'
-    blue:    '0x66d9ef'
-    magenta: '0xae81ff'
-    cyan:    '0xa1efe4'
-    white:   '0xf9f8f5'
+    black:   '0x666666'
+    red:     '0xcf7d34'
+    green:   '0x36312e'
+    yellow:  '0x5e5d5c'
+    blue:    '0x797977'
+    magenta: '0x9d9b97'
+    cyan:    '0x937121'
+    white:   '0xbaae9e'
 
-  indexed_colors:
-    - { index: 16, color: '0xfd971f' }
-    - { index: 17, color: '0xcc6633' }
-    - { index: 18, color: '0x383830' }
-    - { index: 19, color: '0x49483e' }
-    - { index: 20, color: '0xa59f85' }
-    - { index: 21, color: '0xf5f4f1' }
+draw_bold_text_with_bright_colors: false
 # ColorEnd

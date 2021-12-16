@@ -9,7 +9,6 @@
 packadd sniprun
 " nmap <leader>R :RunCodeBlock<CR>
 
-
 lua require('plugins.due')
 
 " TODO: configure
@@ -20,8 +19,6 @@ let g:bullets_enabled_file_types = [
     \ 'scratch'
     \]
 packadd bullets.vim
-
-
 
 packadd vim-table-mode
 packadd vim-pandoc-syntax
@@ -87,7 +84,3 @@ autocmd Syntax * call s:customSyntax()
 " autocmd BufWritePre ~/src/zettels/todo.md %!sort
 
 command! MakeLink lua require'_markdown'.makelink()
-
-
-
-

@@ -13,15 +13,6 @@ local install = require("nvim-treesitter.install")
 -- end
 install.compilers = { "gcc" }
 
-parser_config.markdown = {
-	install_info = {
-		url = "https://github.com/MDeiml/tree-sitter-markdown",
-		branch = "main",
-		files = { "src/parser.c", "src/scanner.cc" },
-	},
-	filetype = "markdown",
-}
-
 require("nvim-treesitter.configs").setup({
 	playground = {
 		enable = true,
@@ -32,7 +23,7 @@ require("nvim-treesitter.configs").setup({
 	rainbow = {
 		enable = true,
 		extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-		max_file_lines = 200, -- Do not enable for files with more than 1000 lines, int
+		max_file_lines = 150, -- Do not enable for files with more than 1000 lines, int
 	},
 	incremental_selection = {
 		enable = true,
@@ -43,27 +34,7 @@ require("nvim-treesitter.configs").setup({
 			node_decremental = "<S-TAB>",
 		},
 	},
-	-- ensure_installed = "all",
-	-- ensure_installed = "maintained",
-	-- ensure_installed = { "c", "rust", "python", "go", "cpp", "bash" },
-	-- disable = { "vim" },
-	disable = {},
 	enable = "all",
-	-- enable = {
-	-- 	"go",
-	-- 	"c",
-	-- 	"rust",
-	-- 	"python",
-	-- 	"javascript",
-	-- 	"typescript",
-	-- 	"bash",
-	-- 	"fish",
-	-- 	"cpp",
-	-- 	"dockerfile",
-	-- 	"gomod",
-	-- 	"html",
-	--  "vim",
-	-- },
 	autopairs = {
 		enable = true,
 	},

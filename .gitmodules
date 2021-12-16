@@ -421,3 +421,15 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/matchparen.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/matchparen.nvim
 	url = https://github.com/monkoose/matchparen.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/linearf-my-flavors"]
+	path = .local/share/nvim/site/pack/paqs/opt/linearf-my-flavors
+	url = https://github.com/octaltree/linearf-my-flavors.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/fzf-lua"]
+	path = .local/share/nvim/site/pack/paqs/opt/fzf-lua
+	url = https://github.com/ibhagwan/fzf-lua.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/sniprun"]
+	path = .local/share/nvim/site/pack/paqs/opt/sniprun
+	url = https://github.com/michaelb/sniprun.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/luatab.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/luatab.nvim
+	url = https://github.com/alvarosevilla95/luatab.nvim.git

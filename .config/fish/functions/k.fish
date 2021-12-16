@@ -1,2 +1,0 @@
-function k -d ''
-end

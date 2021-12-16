@@ -5,6 +5,9 @@ if not status --is-interactive; exit; end
 
 set -gx SHELL /bin/bash
 
+set -gx GKSwstype iterm # julia 
+set -gx MPLBACKEND "module://itermplot" # itermplot
+
 # set -e SHELL
 # if test -f /bin/dash
 #   set -gx SHELL /bin/dash

@@ -82,11 +82,15 @@ wezterm.on("move-down", function(window, pane)
 	move_around(window, pane, "Down", "j")
 end)
 
-return {
-
+local config = {
+  window_decorations = "RESIZE",
+  font = wezterm.font("BlexMono Nerd Font Mono"),
   adjust_window_size_when_changing_font_size = false,
+  default_prog = {"/usr/local/bin/fish", "-l"},
 
-  color_scheme = "Tomorrow Night Burns",
+  -- color_scheme = "Tomorrow Night Burns",
+  color_scheme = "Builtin Solarized Dark",
+--  use_ime = true,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
@@ -102,14 +106,14 @@ return {
     {key="v", mods="SHIFT|CTRL", action="Paste"},
 
     -- split
-		{ key = "|", mods = "LEADER|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
+		{ key = "%", mods = "LEADER|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
 		{ key = '"', mods = "LEADER|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }), },
 		{ key = "v", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
 		{ key = "s", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
 
     -- close
-		{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
-		{ key = "X", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+		{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = false } }) },
+		{ key = "X", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
 
 		{ key = "1", mods = "LEADER", action = wezterm.action({ ActivateTab = 0 }) },
 		{ key = "2", mods = "LEADER", action = wezterm.action({ ActivateTab = 1 }) },
@@ -199,3 +203,5 @@ return {
 --
 -- 	},
 -- }
+--
+return config

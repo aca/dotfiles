@@ -166,11 +166,3 @@ cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
 
 " 0 goes to first https://github.com/yuki-yano/zero.nvim/blob/main/lua/zero.lua
 lua vim.api.nvim_set_keymap('n', '0', "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'", {silent = true, noremap = true, expr = true})
-
-" https://stackoverflow.com/questions/3760444/in-vim-is-there-a-way-to-set-very-magic-permanently-and-globally/23021259#23021259
-" nnoremap / /\v
-" vnoremap / /\v
-" cnoremap %s/ %smagic/
-" cnoremap \>s/ \>smagic/
-" nnoremap :g/ :g/\v
-" nnoremap :g// :g//

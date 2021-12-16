@@ -63,7 +63,7 @@ set laststatus=2
 " set statusline=%2*\ %{WebDevIconsGetFileTypeSymbol()}\ 
 " set statusline=%2*\ %{Fticon()}\ 
 " set statusline=\ %{WebDevIconsGetFileTypeSymbol()}\ 
-set statusline+=%1*%<%f%m%r%h%w\ %3*\ %{NvimGps()}
+set statusline=%1*%<%f%m%r%h%w\ %3*\ %{NvimGps()}
 " set statusline+=\ %{NvimGps()}
 set statusline+=%=                                       " Right Side
 " set statusline+=%0*\ %n\                                 " Buffer number

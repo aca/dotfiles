@@ -3,3 +3,4 @@
 #   ulimit -n 65536
 #   ulimit -u 1064
 # fi
+. "$HOME/.cargo/env"
