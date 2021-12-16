@@ -6,7 +6,6 @@ packadd cmp-buffer
 packadd cmp-nvim-lsp
 packadd cmp-path
 packadd cmp-tmux
-packadd cmp-vsnip
 ]])
 
 -- lazy load

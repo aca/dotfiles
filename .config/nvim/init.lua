@@ -30,18 +30,19 @@ require("vim")
 -- require 'zettels'
 
 require("plugins.treesitter")
-vim.loop.new_timer():start(
-	1000,
-	0,
-	vim.schedule_wrap(function()
-		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
-		require("plugins.tmux")
+
 		vim.cmd([[ packadd plenary.nvim ]])
 		vim.cmd([[ packadd nvim-lspconfig ]])
 		vim.cmd([[ packadd vim-vsnip ]])
 		require("plugins.lsp")
 		require("plugins.autopairs")
 		require("plugins.cmp")
+vim.loop.new_timer():start(
+	1000,
+	0,
+	vim.schedule_wrap(function()
+		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
+		require("plugins.tmux")
 		-- vim.cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
 
 		vim.cmd([[ autocmd CursorHold * lua require("plugins.gitsigns") ]])
