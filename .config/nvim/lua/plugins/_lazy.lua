@@ -23,7 +23,6 @@ vim.cmd([[ source ~/.config/nvim/vim/startify.vim ]])
 
 vim.cmd([[ source ~/.config/nvim/vim/sandwich.vim ]])
 vim.cmd([[ source ~/.config/nvim/vim/quickrun.vim ]])
-vim.cmd([[ source ~/.config/nvim/vim/vifm.vim ]])
 
 vim.cmd([[ packadd vim-fold-cycle ]])
 vim.cmd([[ packadd vim-characterize ]])
@@ -51,7 +50,7 @@ vim.cmd([[
 
 vim.cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
 
-require("plugins.comment")
+require("plugins.scrollview")
 require("plugins.zenmode")
 require("plugins.suda")
 

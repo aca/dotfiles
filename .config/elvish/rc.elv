@@ -1,6 +1,3 @@
-use github.com/xiaq/edit.elv/smart-matcher
-smart-matcher:apply
-
 fn ll {|@a|
     ls -alt -G $@a
 }
@@ -11,17 +8,18 @@ fn v {|@a|
 
 # var _whoami = (constantly (styled (whoami)@(hostname) inverse))
 
-set edit:prompt = { put 'λ ' }
-set edit:rprompt = { }
+# set edit:prompt = { put 'λ ' }
+# set edit:rprompt = { }
 # set edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
 # set edit:rprompt = { tilde-abbr $pwd }
 
 set edit:small-word-abbr['ll'] = 'ls -ltr'
 set edit:small-word-abbr['k'] = 'kubectl'
 set edit:small-word-abbr['v'] = 'nvim'
-set edit:small-word-abbr['os '] = 'openstack '
-set edit:small-word-abbr['ta '] = 'tmux attach -t '
-#
+set edit:small-word-abbr['os'] = 'openstack '
+set edit:small-word-abbr['ta'] = 'tmux attach -t '
+set edit:small-word-abbr['elv'] = 'elvish'
+
 # set edit:abbr['ci '] = 'pbcopy'
 # set edit:abbr['co '] = 'pbpaste'
 # set edit:abbr['copyq.history '] = 'copyq read (seq 0 100) | nvim - '
@@ -152,28 +150,57 @@ set edit:small-word-abbr['ta '] = 'tmux attach -t '
 # .rw-r--r--  307 rok staff 13 Dec 10:58   pactl.pci.fish
 # .rw-r--r-- 1.6k rok staff 13 Dec 20:59   fish_prompt.fish
 
-# https://github.com/elves/elvish/issues/1053#issuecomment-859223554
-# Filter the command history through the fzf program. This is normally bound
-# to Ctrl-R.
+# # https://github.com/elves/elvish/issues/1053#issuecomment-859223554
+# # Filter the command history through the fzf program. This is normally bound
+# # to Ctrl-R.
+# fn fzf_history {||
+#
+#   var new-cmd = (
+#     edit:command-history &dedup &newest-first &cmd-only |
+#     to-terminated "\x00" |
+#     try {
+#       fzf --no-multi --no-sort --read0 --layout=reverse --info=hidden --exact ^
+#         --height 40% ^
+#         --query=$edit:current-command
+#     } except {
+#       # If the user presses [Escape] to cancel the fzf operation it will exit
+#       # with a non-zero status. Ignore that we ran this function in that case.
+#       return
+#     }
+#   )
+#   # set edit:navigation = $new-cmd
+#   # edit:redraw &full=$true
+# }
+
 fn fzf_history {||
+
+  edit:hislist
+  return
+  if ( not (has-external "fzf") ) {
+    edit:history:start
+    return
+  }
   var new-cmd = (
     edit:command-history &dedup &newest-first &cmd-only |
     to-terminated "\x00" |
     try {
-      fzf --no-multi --no-sort --read0 --layout=reverse --info=hidden --exact ^
-        --query=$edit:current-command
+      echo (fzf --no-multi --height=30% --no-sort --read0 --layout=reverse --info=hidden --exact --query=$edit:current-command)
     } except {
+      edit:redraw &full=$true
       # If the user presses [Escape] to cancel the fzf operation it will exit
       # with a non-zero status. Ignore that we ran this function in that case.
       return
     }
   )
+  edit:redraw &full=$true
+  echo $new-cmd > /dev/tty
   set edit:current-command = $new-cmd
 }
 
+
 # https://elv.sh/ref/edit.html#keybindings
 # set edit:insert:binding[Ctrl-R] = {|| fzf_history >/dev/tty 2>&1 }
-# set edit:insert:binding[Ctrl-E] = { clear > /dev/tty; edit:redraw &full=$true; tmux clear-history }
+set edit:insert:binding[Ctrl-E] = { clear > /dev/tty; edit:redraw &full=$true; tmux clear-history }
 
 use math
 

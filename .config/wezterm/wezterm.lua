@@ -127,6 +127,7 @@ local config = {
 
 		{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab="CurrentPaneDomain" }) },
 
+		{ key = ";", mods = "LEADER", action = "ActivateLastTab" },
 		{ key = ";", mods = "LEADER", action = wezterm.action({ ActivateTabRelative=-1 }) },
 		{ key = "'", mods = "LEADER", action = wezterm.action({ ActivateTabRelative=1 }) },
 

@@ -1,3 +1,5 @@
+vim.cmd([[ packad nvim-lspconfig ]])
+
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")

@@ -430,6 +430,12 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/sniprun"]
 	path = .local/share/nvim/site/pack/paqs/opt/sniprun
 	url = https://github.com/michaelb/sniprun.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/luatab.nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/luatab.nvim
-	url = https://github.com/alvarosevilla95/luatab.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/LuaSnip"]
+	path = .local/share/nvim/site/pack/paqs/opt/LuaSnip
+	url = https://github.com/L3MON4D3/LuaSnip.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/cmp_luasnip"]
+	path = .local/share/nvim/site/pack/paqs/opt/cmp_luasnip
+	url = https://github.com/saadparwaiz1/cmp_luasnip.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/friendly-snippets"]
+	path = .local/share/nvim/site/pack/paqs/opt/friendly-snippets
+	url = https://github.com/rafamadriz/friendly-snippets.git

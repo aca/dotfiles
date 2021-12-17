@@ -31,11 +31,10 @@ nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
-" nnoremap <silent> ;f            <cmd>lua require("lsp_run_quickfix")()<cr>
-" nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.code_action('')<CR>
 nnoremap <silent> ;ff            <cmd>Neoformat<cr>
 
-imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
+" imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
+" imap <expr><C-j>                require('luasnip').lsp_expand(args.body)
 " imap <expr><Tab>                v:lua.tab_complete()
 " smap <expr><Tab>                v:lua.tab_complete()
 " imap <expr><S-Tab>              v:lua.s_tab_complete()
