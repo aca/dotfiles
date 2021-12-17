@@ -10,7 +10,6 @@
 
 require("vim")
 
-
 -- TODO: jupyter integration [[
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
@@ -28,8 +27,6 @@ require("impatient")
 -- TODO: zettels related
 -- require 'zettels'
 
-
-
 require("plugins.treesitter")
 vim.loop.new_timer():start(
 	0,
@@ -38,16 +35,15 @@ vim.loop.new_timer():start(
 		vim.cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
 
 		vim.cmd([[ packadd nvim-lspconfig ]])
-    require("plugins.lsp")
-    require("plugins.autopairs")
-
+		require("plugins.lsp")
+		require("plugins.autopairs")
 
 		require("plugins.tmux")
 		vim.cmd([[ packadd plenary.nvim ]])
 		vim.cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
-    vim.cmd([[ source ~/.config/nvim/vim/vifm.vim ]])
+		vim.cmd([[ source ~/.config/nvim/vim/vifm.vim ]])
 
-    require("plugins.comment")
+		require("plugins.comment")
 
 		-- require("plugins.zepl")
 		-- require("plugins.git-messenger")
@@ -66,4 +62,3 @@ vim.loop.new_timer():start(
 
 vim.cmd([[ autocmd CursorHold * lua require("plugins._lazy") ]])
 vim.cmd([[ autocmd InsertEnter * lua require("plugins.cmp")]])
-    

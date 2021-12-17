@@ -65,11 +65,11 @@ cmp.setup({
 	-- 		vim.fn["vsnip#anonymous"](args.body)
 	-- 	end,
 	-- },
-  snippet = {
-    expand = function(args)
-      require'luasnip'.lsp_expand(args.body)
-    end
-  },
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
 	-- preselect = cmp.PreselectMode.None,
 	preselect = "none",
 	completion = {
@@ -111,8 +111,8 @@ cmp.setup({
 		["<S-Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			-- elseif vim.fn["vsnip#available"]() == 1 then
-			-- 	vim.fn.feedkeys(t("<Plug>(vsnip-jump-prev)"), "")
+				-- elseif vim.fn["vsnip#available"]() == 1 then
+				-- 	vim.fn.feedkeys(t("<Plug>(vsnip-jump-prev)"), "")
 			else
 				fallback()
 			end
