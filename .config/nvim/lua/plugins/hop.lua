@@ -1,6 +1,6 @@
 vim.cmd([[
   packadd hop.nvim
-  nmap <silent>s :HopWord<cr>
+  nmap <silent>w :HopWord<cr>
 ]])
 
 require("hop").setup()

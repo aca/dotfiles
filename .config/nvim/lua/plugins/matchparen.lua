@@ -1,2 +1,3 @@
 vim.cmd([[ packadd matchparen.nvim ]])
-require("matchparen").setup()
+-- TODOOOO: fix
+-- require("matchparen").setup()

@@ -18,7 +18,7 @@ autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
 " Highlight TODO
-autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+" autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
 
 " if there's no other window but quickfix close vim
 au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif

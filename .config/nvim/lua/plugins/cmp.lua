@@ -13,7 +13,31 @@ packadd friendly-snippets
 packadd cmp_luasnip
 ]])
 
+local cmp = require('cmp')
+
+-- ~/src/configs/dotfiles/.local/share/nvim/site/pack/paqs/opt/cmp-path/after/plugin/cmp_path.lua
+cmp.register_source('path', require('cmp_path').new())
+
+cmp.register_source('buffer', require('cmp_buffer'))
+
+-- Luasnip [[
+-- ~/.local/share/nvim/site/pack/paqs/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua
+cmp.register_source("luasnip", require("cmp_luasnip").new())
+vim.api.nvim_exec(
+	[[
+  augroup cmp_luasnip
+    au!
+    autocmd User LuasnipCleanup lua require'cmp_luasnip'.clear_cache()
+    autocmd User LuasnipSnippetsAdded lua require'cmp_luasnip'.refresh()
+  augroup END
+]],
+	false
+)
 require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/paqs/opt/friendly-snippets" } })
+-- ]]
+
+require("cmp_nvim_lsp").setup()
+
 
 -- vim.g.vsnip_filetypes = {
 -- 	javascriptreact = { "javascript" },
@@ -39,8 +63,6 @@ local t = function(str)
 	return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-require("cmp_nvim_lsp").setup()
-local cmp = require("cmp")
 local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "path" },
@@ -57,6 +79,13 @@ local cmp_sources = {
 	-- },
 }
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
+
 cmp.setup({
 	-- You should change this example to your chosen snippet engine.
 	-- snippet = {
@@ -67,14 +96,11 @@ cmp.setup({
 	-- },
 	snippet = {
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	-- preselect = cmp.PreselectMode.None,
 	preselect = "none",
-	completion = {
-		completeopt = "menu,menuone,noselect",
-	},
 	-- You must set mapping.
 	mapping = {
 		["<CR>"] = cmp.mapping(function(fallback)
@@ -94,11 +120,16 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-				-- elseif vim.fn["vsnip#available"]() == 1 then
-				-- 	vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
+      -- elseif vim.fn["vsnip#available"]() == 1 then
+      --   vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
+      -- elseif has_words_before() then
+      --   cmp.complete()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
 			else
 				local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
 				if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then

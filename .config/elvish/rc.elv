@@ -1,10 +1,28 @@
+# env init
+if (not (has-env _ENV)) {
+  set-env _ENV ""
+  set-env _OS (uname)
+}
+
 fn ll {|@a|
+  if (eq $E:_OS Darwin) {
     ls -alt -G $@a
+  } else {
+    ls -alt --color=auto $@a
+  }
 }
 
 fn v {|@a|
     nvim $@a
 }
+
+# use function ll
+# set edit:small-word-abbr['ll'] = 'ls -ltr'
+set edit:small-word-abbr['k'] = 'kubectl'
+set edit:small-word-abbr['v'] = 'nvim'
+set edit:small-word-abbr['os'] = 'openstack '
+set edit:small-word-abbr['ta'] = 'tmux attach -t '
+set edit:small-word-abbr['elv'] = 'elvish'
 
 # var _whoami = (constantly (styled (whoami)@(hostname) inverse))
 
@@ -13,12 +31,6 @@ fn v {|@a|
 # set edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
 # set edit:rprompt = { tilde-abbr $pwd }
 
-set edit:small-word-abbr['ll'] = 'ls -ltr'
-set edit:small-word-abbr['k'] = 'kubectl'
-set edit:small-word-abbr['v'] = 'nvim'
-set edit:small-word-abbr['os'] = 'openstack '
-set edit:small-word-abbr['ta'] = 'tmux attach -t '
-set edit:small-word-abbr['elv'] = 'elvish'
 
 # set edit:abbr['ci '] = 'pbcopy'
 # set edit:abbr['co '] = 'pbpaste'
@@ -172,10 +184,9 @@ set edit:small-word-abbr['elv'] = 'elvish'
 #   # edit:redraw &full=$true
 # }
 
-fn fzf_history {||
+use str
 
-  edit:hislist
-  return
+fn fzf_history {||
   if ( not (has-external "fzf") ) {
     edit:history:start
     return
@@ -184,22 +195,19 @@ fn fzf_history {||
     edit:command-history &dedup &newest-first &cmd-only |
     to-terminated "\x00" |
     try {
-      echo (fzf --no-multi --height=30% --no-sort --read0 --layout=reverse --info=hidden --exact --query=$edit:current-command)
+      str:trim-space (fzf --no-multi --height=30% --no-sort --read0 --info=hidden --exact --query=$edit:current-command | slurp)
     } except {
       edit:redraw &full=$true
-      # If the user presses [Escape] to cancel the fzf operation it will exit
-      # with a non-zero status. Ignore that we ran this function in that case.
       return
     }
   )
   edit:redraw &full=$true
-  echo $new-cmd > /dev/tty
   set edit:current-command = $new-cmd
 }
+set edit:insert:binding[Ctrl-R] = {|| fzf_history >/dev/tty 2>&1 }
 
 
 # https://elv.sh/ref/edit.html#keybindings
-# set edit:insert:binding[Ctrl-R] = {|| fzf_history >/dev/tty 2>&1 }
 set edit:insert:binding[Ctrl-E] = { clear > /dev/tty; edit:redraw &full=$true; tmux clear-history }
 
 use math

@@ -7,4 +7,5 @@ fi
 
 setxkbmap -option
 xmodmap ~/.Xmodmap
-# xset r rate 150 75
+xset r rate 230 75
+

@@ -5,7 +5,7 @@
 " colorscheme monotone
 " colorscheme monotone
 " colorscheme tomorrow-night
-colorscheme monotone
+colorscheme falcon
 
 hi! link LspDiagnosticsDefaultInformation Comment
 hi! link LspDiagnosticsDefaultHint Comment

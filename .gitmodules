@@ -439,3 +439,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/friendly-snippets"]
 	path = .local/share/nvim/site/pack/paqs/opt/friendly-snippets
 	url = https://github.com/rafamadriz/friendly-snippets.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/lightspeed.nvim"]
+	path = .local/share/nvim/site/pack/paqs/opt/lightspeed.nvim
+	url = https://github.com/ggandor/lightspeed.nvim.git

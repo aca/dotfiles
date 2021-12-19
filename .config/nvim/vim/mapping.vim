@@ -1,6 +1,6 @@
 "
 " https://vim.fandom.com/wiki/Unused_keys
-
+" 
 
 inoremap <c-c> <esc>
 vnoremap <c-c> <esc>
@@ -9,14 +9,16 @@ vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
 nnoremap ;; :
 vnoremap ;; :
 
-"
+
 " LSP
-"
+inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
 nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gt            <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
+" this makes p slow
+" nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
+
 nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
@@ -31,10 +33,11 @@ nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
-nnoremap <silent> ;ff            <cmd>Neoformat<cr>
+nnoremap <silent> ;ff           <cmd>Neoformat<cr>
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
-" imap <expr><C-j>                require('luasnip').lsp_expand(args.body)
+" imap <expr><C-j>                  lua  require('luasnip').lsp_expand(args.body)
+imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 
 " imap <expr><Tab>                v:lua.tab_complete()
 " smap <expr><Tab>                v:lua.tab_complete()
 " imap <expr><S-Tab>              v:lua.s_tab_complete()
@@ -115,7 +118,7 @@ nnoremap ]j g,
 
 " Split
 nnoremap <leader>o :only<cr>
-noremap  <Leader><leader><leader> :<C-u>split<CR>
+noremap  <Leader>h :<C-u>split<CR>
 noremap  <Leader>v :<C-u>vsplit<CR>
 command! Fish terminal fish
 " nnoremap <leader>s :botright 10sp<bar>  :Fish<cr>i
@@ -137,9 +140,6 @@ nnoremap vv g^vg_"+ygv
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
-
-" command! -nargs=* T split | terminal <args>
-" command! -nargs=* VT vsplit | terminal <args>
 
 " close window, or buffer, or exit
 function s:close()

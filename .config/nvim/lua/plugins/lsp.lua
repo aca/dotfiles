@@ -81,17 +81,17 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 -- 	},
 -- })
 
--- local luadev =
---     require("lua-dev").setup(
---     {
---         lspconfig = {
---             cmd = require'lspcontainers'.command('sumneko_lua'),
---             capabilities = capabilities
---         }
---     }
--- )
---
--- lspconfig.sumneko_lua.setup(luadev)
+local luadev =
+    require("lua-dev").setup(
+    {
+        lspconfig = {
+            cmd = require'lspcontainers'.command('sumneko_lua'),
+            capabilities = capabilities
+        }
+    }
+)
+
+lspconfig.sumneko_lua.setup(luadev)
 
 -- if vim.fn.executable("docker") == 1 then
 --   local runtime_path = vim.split(package.path, ";")
@@ -217,88 +217,5 @@ Custom lang servers
 --     settings = {}
 --   };
 -- }
---
+
 -- lspconfig.zk.setup({ on_attach = function(client, buffer) end })
-
--- vim.api.nvim_set_keymap('n', '<LeftMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.hover({border = "single"})<CR>', { noremap=true,
--- silent=true })
---
--- vim.api.nvim_set_keymap('n', '<RightMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>', { noremap=true, silent=true })
-
--- [[
--- https://stackoverflow.com/questions/67988374/neovim-lsp-auto-fix-fix-current
--- ]]
-
-local function run_action(action)
-	if action.edit or type(action.command) == "table" then
-		if action.edit then
-			vim.lsp.util.apply_workspace_edit(action.edit)
-		end
-		if type(action.command) == "table" then
-			vim.lsp.buf.execute_command(action.command)
-		end
-	else
-		vim.lsp.buf.execute_command(action)
-	end
-end
-
-local function do_action(action, client)
-	if
-		not action.edit
-		and client
-		and type(client.resolved_capabilities.code_action) == "table"
-		and client.resolved_capabilities.code_action.resolveProvider
-	then
-		client.request("codeAction/resolve", action, function(err, real)
-			if err then
-				return
-			end
-			if real then
-				run_action(real)
-			else
-				run_action(action)
-			end
-		end)
-	else
-		run_action(action)
-	end
-end
-
-function X()
-	local params = vim.lsp.util.make_range_params() -- get params for current position
-	params.context = {
-		diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
-		only = { "quickfix" },
-	}
-
-	local results, err = vim.lsp.buf_request_sync(
-		0, -- current buffer
-		"textDocument/codeAction", -- get code actions
-		params,
-		900
-	)
-
-	if err then
-		return
-	end
-
-	if not results or vim.tbl_isempty(results) then
-		-- print "No quickfixes!"
-		return
-	end
-
-	-- we have an action!
-	for cid, resp in pairs(results) do
-		if resp.result then
-			for _, result in pairs(resp.result) do
-				if result.kind == "source.organizeImports" then
-					-- P(result)
-					do_action(result, vim.lsp.get_client_by_id(cid))
-				end
-				return
-			end
-		end
-	end
-
-	-- print "No quickfixes!"
-end

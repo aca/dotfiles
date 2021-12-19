@@ -20,14 +20,15 @@ scrolling:
 
 font:
   normal:
+    # family: Operator Mono Book
     # style: Regular
     # family: Hasklug Nerd Font Mono
-    family: BlexMono Nerd Font Mono
-    # family: PragmataPro Nerd Font
+    # family: BlexMono Nerd Font Mono
+    # family: MesloLGL Nerd Font Mono
+    family: SauceCodePro Nerd Font Mono
     # family: DankMono Nerd Font
 
   # bold:
-    # family: SauceCodePro Nerd Font Mono
     # family: FantasqueSansMono Nerd Font Mono
     # family: FuraCode Nerd Font Mono
     # family: Operator Mono Book
@@ -36,7 +37,6 @@ font:
 
   # italic:
   #   family: BlexMono Nerd Font Mono
-    # family: Operator Mono Book
     # family: DankMono Nerd Font
     # family: DankMono Nerd Font Mono
     # family: SauceCodePro Nerd Font Mono
@@ -52,8 +52,8 @@ font:
 
   size: 28
   offset:
-    x: 0
-    y: 4
+    x: -2
+    y: 2
 
   glyph_offset:
     x: 0 
@@ -275,44 +275,6 @@ key_bindings:
   - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      } # Alt + \
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
-# ColorStart
-# Base16 Bespin - alacritty color config
-# Jan T. Sott
-colors:
-  # Default colors
-  primary:
-    background: '0x28211c'
-    foreground: '0x8a8986'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x28211c'
-    cursor: '0x8a8986'
-
-  # Normal colors
-  normal:
-    black:   '0x28211c'
-    red:     '0xcf6a4c'
-    green:   '0x54be0d'
-    yellow:  '0xf9ee98'
-    blue:    '0x5ea6ea'
-    magenta: '0x9b859d'
-    cyan:    '0xafc4db'
-    white:   '0x8a8986'
-
-  # Bright colors
-  bright:
-    black:   '0x666666'
-    red:     '0xcf7d34'
-    green:   '0x36312e'
-    yellow:  '0x5e5d5c'
-    blue:    '0x797977'
-    magenta: '0x9d9b97'
-    cyan:    '0x937121'
-    white:   '0xbaae9e'
-
-draw_bold_text_with_bright_colors: false
-# ColorEnd
 
 
 # # Base16 Bespin - alacritty color config
@@ -349,3 +311,41 @@ draw_bold_text_with_bright_colors: false
 #     magenta: '0x9d9b97'
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
+# ColorStart
+# Base16 Black Metal - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
+colors:
+  # Default colors
+  primary:
+    background: '0x000000'
+    foreground: '0xc1c1c1'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x000000'
+    cursor: '0xc1c1c1'
+
+  # Normal colors
+  normal:
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
+
+  # Bright colors
+  bright:
+    black:   '0x333333'
+    red:     '0xaaaaaa'
+    green:   '0x121212'
+    yellow:  '0x222222'
+    blue:    '0x999999'
+    magenta: '0x999999'
+    cyan:    '0x444444'
+    white:   '0xc1c1c1'
+
+draw_bold_text_with_bright_colors: false
+# ColorEnd

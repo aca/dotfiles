@@ -12,11 +12,12 @@ nnoremap _ <C-w>5>
 
 " source ~/src/configs/dotfiles/.config/vifm/favicons.vifm
 
-if $VIM == ""
-  set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"
-else
-  set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"
-endif
+" if $VIM == ""
+"   set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"
+" else
+"   set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"
+" endif
+set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"
 
 
 if executable('/usr/local/bin/fish')

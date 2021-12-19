@@ -1,8 +1,16 @@
--- TODO: migrate to LUA
+-- TODO: impatient.nvim should be removed when merged to neovim core [[
+-- impatient.nvim should be removed when merged to neovim core
+-- https://github.com/lewis6991/impatient.nvim
+-- https://github.com/neovim/neovim/pull/15436
+-- ]]
+require("impatient")
+-- require("impatient").enable_profile()
+-- :LuaCacheClear
 
 -- run in minimal mode
 local g = vim.g
 local opt = vim.opt
+local o = vim.o
 
 g._minimal = os.getenv("USER") ~= "rok"
 g._uname = "Linux"
@@ -10,59 +18,28 @@ if vim.call("has", "mac") then
 	g._uname = "macOS"
 end
 
-vim.cmd([[
-set shell=/bin/sh
+opt.shell = "/bin/sh"
+o.wildignore = "/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*"
+o.conceallevel = 2
+o.shortmess = "aItcF"
+o.clipboard = "unnamed,unnamedplus"
+opt.signcolumn = "yes"
+o.virtualedit = "block"
+-- o.virtualedit="all"
+o.nrformats = "bin,hex,alpha,octal"
 
-set guifont=SauceCodePro\ Nerd\ Font
+opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
 
-set wildignore+=/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*
-set conceallevel=2
+o.termguicolors = true
 
-" https://vimhelp.org/term.txt.html
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" set t_Co=256
+o.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000" -- https://jdhao.github.io/2021/10/24/diff_in_vim/
+o.completeopt = "menu,menuone,noselect"
 
-set shortmess=aItcF
+-- o.fillchars = "fold: ,vert:│,eob: ,msgsep:‾"
+opt.fillchars = { eob = "~" }
+o.wrapmargin = 0
 
-" https://jdhao.github.io/2021/06/17/nifty_nvim_techniques_s10/
-" fix E447: Can’t find file “file_path=path/to/file.txt” in path.
-set isfname-==
-
-set backspace=indent,eol,start
-set clipboard^=unnamed,unnamedplus
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-set fileformats=unix,dos,mac
-set isfname-==
-" set redrawtime=20000
-" syntax sync minlines=100
-" syntax sync maxlines=200
-" set synmaxcol=200
-" set mmp=2000000    " memory limit
-" set modeline
-set nrformats+=alpha,hex,octal
-" set numberwidth=0
-set signcolumn=yes
-set synmaxcol=0
-set virtualedit=block
-" set virtualedit=all
-set whichwrap=b,s
-
-]])
-
-opt.termguicolors = true
-
--- https://jdhao.github.io/2021/10/24/diff_in_vim/
-opt.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000"
-
-opt.completeopt = "menu,menuone,noselect"
-
-opt.fillchars = "fold: ,vert:│,eob: ,msgsep:‾"
-opt.wrapmargin = 0
-
-opt.lazyredraw = true
+o.lazyredraw = true
 
 g.mapleader = " "
 g.maplocalleader = " "
@@ -125,9 +102,9 @@ opt.equalalways = false -- I don't like my windows changing all the time
 opt.splitright = true -- Prefer windows splitting to the right
 opt.splitbelow = true -- Prefer windows splitting to the bottom
 
-vim.opt.modelineexpr = true
-vim.opt.showcmd = false
-vim.opt.showmode = false
+opt.modelineexpr = true
+opt.showcmd = false
+opt.showmode = false
 
 -- opt.wildmode = { "longest", "list", "full" }
 -- Cool floating window popup menu for completion on command line
