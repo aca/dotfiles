@@ -81,15 +81,12 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 -- 	},
 -- })
 
-local luadev =
-    require("lua-dev").setup(
-    {
-        lspconfig = {
-            cmd = require'lspcontainers'.command('sumneko_lua'),
-            capabilities = capabilities
-        }
-    }
-)
+local luadev = require("lua-dev").setup({
+	lspconfig = {
+		cmd = require("lspcontainers").command("sumneko_lua"),
+		capabilities = capabilities,
+	},
+})
 
 lspconfig.sumneko_lua.setup(luadev)
 

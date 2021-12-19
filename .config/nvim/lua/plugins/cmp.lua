@@ -13,12 +13,12 @@ packadd friendly-snippets
 packadd cmp_luasnip
 ]])
 
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 -- ~/src/configs/dotfiles/.local/share/nvim/site/pack/paqs/opt/cmp-path/after/plugin/cmp_path.lua
-cmp.register_source('path', require('cmp_path').new())
+cmp.register_source("path", require("cmp_path").new())
 
-cmp.register_source('buffer', require('cmp_buffer'))
+cmp.register_source("buffer", require("cmp_buffer"))
 
 -- Luasnip [[
 -- ~/.local/share/nvim/site/pack/paqs/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua
@@ -37,7 +37,6 @@ require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/sit
 -- ]]
 
 require("cmp_nvim_lsp").setup()
-
 
 -- vim.g.vsnip_filetypes = {
 -- 	javascriptreact = { "javascript" },
@@ -80,8 +79,8 @@ local cmp_sources = {
 }
 
 local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local luasnip = require("luasnip")
@@ -120,16 +119,16 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-    -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+		-- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-      -- elseif vim.fn["vsnip#available"]() == 1 then
-      --   vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
-      -- elseif has_words_before() then
-      --   cmp.complete()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+				-- elseif vim.fn["vsnip#available"]() == 1 then
+				--   vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
+				-- elseif has_words_before() then
+				--   cmp.complete()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
 			else
 				local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
 				if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
