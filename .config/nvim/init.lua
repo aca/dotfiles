@@ -110,5 +110,3 @@ vim.loop.new_timer():start(
 		cmd([[ packadd todo-comments.nvim ]])
 	end)
 )
-
-vim.cmd([[ autocmd InsertEnter * lua require("plugins._lazy") ]])
