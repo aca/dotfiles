@@ -1,7 +1,6 @@
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 
 vim.cmd([[ 
-packadd LuaSnip
 packadd nvim-cmp
 packadd cmp-buffer
 packadd cmp-nvim-lsp
@@ -14,10 +13,8 @@ packadd cmp_luasnip
 ]])
 
 local cmp = require("cmp")
-
--- ~/src/configs/dotfiles/.local/share/nvim/site/pack/paqs/opt/cmp-path/after/plugin/cmp_path.lua
+require("cmp_nvim_lsp").setup()
 cmp.register_source("path", require("cmp_path").new())
-
 cmp.register_source("buffer", require("cmp_buffer"))
 
 -- Luasnip [[
@@ -33,10 +30,7 @@ vim.api.nvim_exec(
 ]],
 	false
 )
-require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/paqs/opt/friendly-snippets" } })
 -- ]]
-
-require("cmp_nvim_lsp").setup()
 
 -- vim.g.vsnip_filetypes = {
 -- 	javascriptreact = { "javascript" },
@@ -65,11 +59,10 @@ end
 local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "path" },
-	-- { name = 'cmp_tabnine'},
 	{ name = "buffer" },
-
-	-- { name = "vsnip" },
 	{ name = "luasnip" },
+	-- { name = 'cmp_tabnine'},
+	-- { name = "vsnip" },
 	-- {
 	-- 	name = "tmux",
 	-- 	-- option = {
@@ -84,7 +77,6 @@ local has_words_before = function()
 end
 
 local luasnip = require("luasnip")
-
 cmp.setup({
 	-- You should change this example to your chosen snippet engine.
 	-- snippet = {

@@ -312,40 +312,46 @@ key_bindings:
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
 # ColorStart
-# Base16 Black Metal - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Windows 95 256 - alacritty color config
+# Fergus Collins (https://github.com/C-Fergus)
 colors:
   # Default colors
   primary:
     background: '0x000000'
-    foreground: '0xc1c1c1'
+    foreground: '0xa8a8a8'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text: '0x000000'
-    cursor: '0xc1c1c1'
+    cursor: '0xa8a8a8'
 
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    red:     '0xfc5454'
+    green:   '0x54fc54'
+    yellow:  '0xfcfc54'
+    blue:    '0x5454fc'
+    magenta: '0xfc54fc'
+    cyan:    '0x54fcfc'
+    white:   '0xa8a8a8'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0xaaaaaa'
-    green:   '0x121212'
-    yellow:  '0x222222'
-    blue:    '0x999999'
-    magenta: '0x999999'
-    cyan:    '0x444444'
-    white:   '0xc1c1c1'
+    black:   '0x545454'
+    red:     '0xfc5454'
+    green:   '0x54fc54'
+    yellow:  '0xfcfc54'
+    blue:    '0x5454fc'
+    magenta: '0xfc54fc'
+    cyan:    '0x54fcfc'
+    white:   '0xfcfcfc'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xa85400' }
+    - { index: 17, color: '0x00a800' }
+    - { index: 18, color: '0x1c1c1c' }
+    - { index: 19, color: '0x383838' }
+    - { index: 20, color: '0x7e7e7e' }
+    - { index: 21, color: '0xd2d2d2' }
 # ColorEnd

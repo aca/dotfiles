@@ -6,26 +6,26 @@
 
 " set syntax=off
 
-packadd sniprun
+" packadd sniprun
 " nmap <leader>R :RunCodeBlock<CR>
 
 lua require('plugins.due')
 
 " TODO: configure
-let g:bullets_enabled_file_types = [
-    \ 'markdown',
-    \ 'text',
-    \ 'gitcommit',
-    \ 'scratch'
-    \]
-packadd bullets.vim
+" let g:bullets_enabled_file_types = [
+"     \ 'markdown',
+"     \ 'text',
+"     \ 'gitcommit',
+"     \ 'scratch'
+"     \]
+" packadd bullets.vim
 
 packadd vim-table-mode
 packadd vim-pandoc-syntax
 hi link pandocCodeblock pandocDelimitedCodeblock
 
-source ~/.config/nvim/vim/md-img-paste.vim
-source ~/.config/nvim/vim/markdown-preview.vim
+" source ~/.config/nvim/vim/md-img-paste.vim
+" source ~/.config/nvim/vim/markdown-preview.vim
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

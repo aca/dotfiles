@@ -1,22 +1,6 @@
--- TODO: impatient.nvim should be removed when merged to neovim core [[
--- impatient.nvim should be removed when merged to neovim core
--- https://github.com/lewis6991/impatient.nvim
--- https://github.com/neovim/neovim/pull/15436
--- ]]
-require("impatient")
--- require("impatient").enable_profile()
--- :LuaCacheClear
-
--- run in minimal mode
 local g = vim.g
 local opt = vim.opt
 local o = vim.o
-
-g._minimal = os.getenv("USER") ~= "rok"
-g._uname = "Linux"
-if vim.call("has", "mac") then
-	g._uname = "macOS"
-end
 
 opt.shell = "/bin/sh"
 o.wildignore = "/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*"
@@ -25,7 +9,6 @@ o.shortmess = "aItcF"
 o.clipboard = "unnamed,unnamedplus"
 opt.signcolumn = "yes"
 o.virtualedit = "block"
--- o.virtualedit="all"
 o.nrformats = "bin,hex,alpha,octal"
 
 opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
@@ -106,7 +89,9 @@ opt.modelineexpr = true
 opt.showcmd = false
 opt.showmode = false
 
--- opt.wildmode = { "longest", "list", "full" }
+-- opt.wildmenu = true
+-- opt.wildmode = "longest:full"
+-- opt.wildoptions = "pum"
 -- Cool floating window popup menu for completion on command line
 opt.pumblend = 17
 
@@ -140,23 +125,3 @@ g.did_load_filetypes = 1
 -- g.loaded_netrwSettings = 1
 -- g.loaded_netrwFileHandlers = 1
 g.loaded_netrwPlugin = 1
-
--- TODO: remove when it's merged to core
--- In init.lua or filetype.nvim's config file
-require("filetype").setup({
-	overrides = {
-		extensions = {
-			-- Set the filetype of *.pn files to potion
-			elv = "elvish",
-		},
-		shebang = {
-			bash = "bash",
-			raku = "raku",
-		},
-	},
-})
-
-vim.cmd([[
-autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim syntax off
-autocmd FileType markdown syntax off
-]])

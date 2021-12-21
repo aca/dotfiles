@@ -6,8 +6,6 @@ set -o xtrace
 
 cd $(mktemp -d)
 
-# gem install neovim
-
 export GO111MODULE=on 
 go install github.com/cweill/gotests/gotests@latest
 go get github.com/sanity-io/litter@latest
@@ -39,9 +37,6 @@ npm install -g vscode-json-languageserver@latest
 npm install -g @tailwindcss/language-server
 npm install -g pnpm
 npm install -g yarn
-
-
-npm install -g yarn
 yarn global add yaml-language-server@latest
 yarn global upgrade
 npm update -g
@@ -51,7 +46,6 @@ pip3 install --upgrade BeautifulSoup4
 pip3 install --upgrade requests
 pip3 install --upgrade lxml
 pip3 install --upgrade cfscrape
-
 pip install --upgrade BeautifulSoup4
 pip install --upgrade ansible
 pip install --upgrade black
@@ -67,12 +61,11 @@ pip3 install --upgrade ipython
 pip3 install --upgrade jupyterlab
 pip3 install --upgrade neovim
 pip3 install --upgrade numpy scipy matplotlib ipython jupyter pandas sympy nose
-[[ "$HOSTNAME" == *"kakao"* ]] && pip3 install --upgrade python-openstackclient
-[[ "$HOSTNAME" == *"kakao"* ]] && pip3 install --upgrade neutron-lbaas
+# pip3 install --upgrade python-openstackclient
+# pip3 install --upgrade neutron-lbaas
 python3 -m pip install --upgrade git+https://github.com/yt-dlp/yt-dlp
-
 pip install -U $(pip freeze | awk '{split($0, a, "=="); print a[1]}')
 
 cargo install stylua
 
-asdf reshim
+# asdf reshim

@@ -16,54 +16,43 @@
 -- TODO: zettels related
 -- require 'zettels'
 
+-- https://github.com/lewis6991/impatient.nvim
+require("impatient")
+require("globals")
 require("vim")
 require("plugins.treesitter")
+require("plugins.filetype")
 
+local vim = vim
 local cmd = vim.cmd
+
 vim.loop.new_timer():start(
-	0,
+	50,
 	0,
 	vim.schedule_wrap(function()
 		-- nav
-		cmd([[ source ~/.config/nvim/vim/fzf.vim ]])
-		cmd([[ source ~/.config/nvim/vim/visualstarsearch.vim ]])
-		cmd([[ packadd clever-f.vim ]])
-		cmd([[ packadd vim-fetch ]])
-		cmd([[ source ~/.config/nvim/vim/smoothie.vim ]])
-		cmd([[ source ~/.config/nvim/vim/startify.vim ]])
-		cmd([[ source ~/.config/nvim/vim/vifm.vim ]])
 		-- cmd([[ packadd telescope.nvim ]])
-		cmd([[ packadd vim-fold-cycle ]])
-
 		require("plugins.hop")
 		-- TODO: https://github.com/ggandor/lightspeed.nvim
 		-- cmd([[ packadd lightspeed.nvim ]])
 		require("plugins.tmux")
 		require("plugins.vim-test")
-		cmd([[ packadd vim-dirvish ]])
+		cmd("packadd plenary.nvim")
 
 		-- dev
-		cmd([[ packadd nvim-lspconfig ]])
+		-- this should be loaded in order -- [[
 		require("plugins.lsp")
 		require("plugins.autopairs")
-		cmd([[ packadd symbols-outline.nvim ]])
+		require("plugins.luasnip")
 		require("plugins.cmp")
+		-- ]]
+
 		require("plugins.neoformat")
 		require("plugins.dap")
-		cmd([[ packadd plenary.nvim ]])
 
 		-- utils
 		-- require("plugins.zepl")
-		cmd([[ packadd vim-characterize ]])
 		require("plugins.dadbod")
-		-- cmd([[ source ~/.config/nvim/vim/codi.vim ]])
-		cmd([[ source ~/.config/nvim/vim/quickrun.vim ]])
-
-		cmd([[ source ~/.config/nvim/vim/funcs.vim ]])
-		cmd([[ packadd vim-eunuch ]])
-		-- cmd([[ packadd vim-rfc ]])
-		cmd([[ packadd nvim-colorizer.lua ]])
-		cmd([[ source ~/.config/nvim/vim/barbaric.vim ]])
 		require("plugins.suda")
 
 		-- view
@@ -71,42 +60,34 @@ vim.loop.new_timer():start(
 		require("plugins.buftabline")
 		require("plugins.scrollview")
 		-- require("plugins.zenmode")
-		cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
-		cmd([[ packadd diffview.nvim ]])
+		-- cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
 
 		-- edit
 		require("plugins.comment")
 		require("plugins.move")
-		cmd([[ packadd vim-ReplaceWithRegister ]])
 		require("plugins.lion")
-		cmd([[ source ~/.config/nvim/vim/sandwich.vim ]])
 		require("plugins.autopairs")
 		require("plugins.dial")
 
-		-- lazyload default plugins
-		cmd([[ source ~/.config/nvim/vim/netrw.vim ]])
-		cmd([[ source ~/.config/nvim/vim/matchit.vim ]])
-
 		-- git
-		cmd([[ source ~/.config/nvim/vim/gina.vim ]])
 		require("plugins.gitlinker")
+		require("plugins.octo")
 		require("plugins.git-messenger")
 		require("plugins.gitsigns")
-		cmd([[ packadd git-worktree.nvim ]])
-
-		-- vim
-		cmd([[ source ~/.config/nvim/vim/luapad.vim ]])
-		cmd([[ packadd vim-scriptease ]])
 
 		-- misc
-		cmd([[ source ~/.config/nvim/vim/autocmds_lazy.vim ]])
-		cmd([[ source ~/.config/nvim/vim/mapping.vim ]])
-		-- vim.cmd [[ source ~/.config/nvim/vim/projectionist.vim ]]
-		-- vim.cmd([[ packadd harpoon ]])
-		-- vim.cmd([[ packadd vim-gtfo ]])
-		cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
+		-- cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
+
 		-- require("plugins.numb")
 		-- require("plugins.oscyank")
-		cmd([[ packadd todo-comments.nvim ]])
+
+		require("plugins.telescope")
+		-- require("plugins.harpoon")
+
+		cmd("runtime! autoload/plugin/*")
+		cmd("runtime! autoload/func/*")
+		cmd("runtime! autoload/autocmd/*")
+		cmd("runtime! autoload/command/*")
+		cmd("runtime! autoload/map.vim")
 	end)
 )

@@ -1,3 +1,9 @@
+# vi mode binding
+# https://github.com/elves/elvish/issues/971
+set edit:insert:binding[Ctrl-'['] = $edit:command:start~
+
+# use readline-binding
+
 # env init
 if (not (has-env _ENV)) {
   set-env _ENV ""
@@ -208,7 +214,7 @@ set edit:insert:binding[Ctrl-R] = {|| fzf_history >/dev/tty 2>&1 }
 
 
 # https://elv.sh/ref/edit.html#keybindings
-set edit:insert:binding[Ctrl-E] = { clear > /dev/tty; edit:redraw &full=$true; tmux clear-history }
+# set edit:insert:binding[Ctrl-L] = { clear > /dev/tty; edit:redraw &full=$true; tmux clear-history }
 
 use math
 
