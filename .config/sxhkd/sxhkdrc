@@ -14,7 +14,8 @@ super + m
   xdo activate -n telegram-desktop;
 
 super + x
-  /home/rok/src/configs/dotfiles/.bin/linux/kitty;
+  xrandr --auto
+
 
 # TODO find appropriate usage
 # jttps://github.com/baskerville/bspwm/issues/900
