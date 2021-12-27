@@ -457,3 +457,6 @@
 [submodule ".submodules/mpv-bookmarker"]
 	path = .submodules/mpv-bookmarker
 	url = https://github.com/NurioHin/mpv-bookmarker.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-diagon"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-diagon
+	url = https://github.com/willchao612/vim-diagon.git
