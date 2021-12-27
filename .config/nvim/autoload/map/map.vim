@@ -50,7 +50,7 @@ imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luas
 "
 " Toggle
 "
-nnoremap <expr>   ;f &foldlevel ? 'zM' :'zR'
+nnoremap <expr>   ;o &foldlevel ? 'zM' :'zR'
 nnoremap <silent> ;w :set wrap!<CR>
 nnoremap <silent> ;n :set relativenumber!<CR>
 nnoremap <silent> ;m :Messages<cr><c-w><c-w>
@@ -69,7 +69,7 @@ nnoremap <silent> ;s
 " - ~/src/ (directory)
 " - ~/src (it sometimes does not open directory properly)
 " ~/.config/nvim/init.vim:9^2 (cursor at ^)
-" nnoremap <silent>gf WBgF
+nnoremap <silent>gf WBgF
 
 " visual block increment
 vnoremap <C-a> g<C-a>
@@ -85,6 +85,7 @@ cnoreabbrev Q! q!
 cnoreabbrev q1 q!
 " cnoreabbrev E e
 cnoreabbrev Wq wq
+cnoreabbrev Echo echo
 cnoreabbrev Wa wa
 cnoreabbrev wQ wq
 cnoreabbrev WQ wq
@@ -95,6 +96,7 @@ cnoreabbrev Qall qall
 cnoreabbrev QA qa
 cnoreabbrev Vs vs
 cnoreabbrev VS vs
+cnoreabbrev l lua
 
 " repeat last command
 " noremap <leader>re @:<CR>

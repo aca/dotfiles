@@ -4,7 +4,7 @@
 --     font = wezterm.font("SauceCodePro Nerd Font"),
 --     check_for_updates = false,
 --     use_ime = true,
---     color_scheme = "Builtin Solarized Dark",
+--     color_scheme = 'Arthur',
 --     inactive_pane_hsb = {
 --         hue = 1.0,
 --         saturation = 1.0,
@@ -56,15 +56,20 @@ local wezterm = require("wezterm")
 local move_around = function(window, pane, direction_wez, direction_nvim)
 	wezterm.log_info(pane:get_title())
 	wezterm.log_info(pane:get_title():sub(-4))
-	wezterm.log_info(string.find(pane:get_title(), "vim"))
+	wezterm.log_info(string.find(pane:get_title(), "nvim"))
 	if string.find(pane:get_title(), "vim") then
-		-- wezterm.log_info("this is neovim")
 		window:perform_action(wezterm.action({ SendString = "\x17" .. direction_nvim }), pane)
 	else
-		-- wezterm.log_info("this is not neovim")
 		window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 	end
 end
+
+wezterm.on("open_in_vim", function(window, pane)
+	 local file = io.open( "/tmp/wezterm_buf", "w" )
+	 file:write(pane:get_lines_as_text(3000))
+	 file:close()
+   window:perform_action(wezterm.action({ SpawnCommandInNewTab = { args = { "/Users/rok/.bin/nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(3000,0)" } } }), pane)
+end)
 
 wezterm.on("move-left", function(window, pane)
 	move_around(window, pane, "Left", "h")
@@ -83,36 +88,51 @@ wezterm.on("move-down", function(window, pane)
 end)
 
 local config = {
-  window_decorations = "RESIZE",
-  font = wezterm.font("BlexMono Nerd Font Mono"),
-  adjust_window_size_when_changing_font_size = false,
-  default_prog = {"/usr/local/bin/fish", "-l"},
-  enable_kitty_graphics=true,
+	window_decorations = "RESIZE",
+	font = wezterm.font("BlexMono Nerd Font Mono"),
+	adjust_window_size_when_changing_font_size = false,
+	default_prog = { "/usr/local/bin/fish", "--login" },
+	enable_kitty_graphics = true,
+  set_environment_variables = { 
+    PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. os.getenv("HOME") .. "/bin",
+  },
 
-  -- color_scheme = "Tomorrow Night Burns",
-  color_scheme = "Builtin Solarized Dark",
---  use_ime = true,
+	color_scheme = "Arthur",
+	--  use_ime = true,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
 	keys = {
 
-    { key = "[", mods = "LEADER",  action="ActivateCopyMode"},
+		-- { key = "b", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
+		{ key = "[", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
 
-    {key="C", mods="CTRL|SHIFT", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
+		{ key = "C", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
 
-    {key="-", mods="CTRL", action="DecreaseFontSize"},
-    {key="=", mods="CTRL", action="IncreaseFontSize"},
+		{ key = "-", mods = "CTRL", action = "DecreaseFontSize" },
+		{ key = "=", mods = "CTRL", action = "IncreaseFontSize" },
 
-    {key="v", mods="SHIFT|CTRL", action="Paste"},
+		{ key = "v", mods = "SHIFT|CTRL", action = "Paste" },
 
-    -- split
-		{ key = "%", mods = "LEADER|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
-		{ key = '"', mods = "LEADER|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }), },
-		{ key = "v", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
+		-- split
+		{
+			key = "%",
+			mods = "LEADER|SHIFT",
+			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+		},
+		{
+			key = '"',
+			mods = "LEADER|SHIFT",
+			action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+		},
+		{
+			key = "v",
+			mods = "LEADER",
+			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+		},
 		{ key = "s", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
 
-    -- close
+		-- close
 		{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = false } }) },
 		{ key = "X", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
 
@@ -126,26 +146,25 @@ local config = {
 		{ key = "8", mods = "LEADER", action = wezterm.action({ ActivateTab = 7 }) },
 		{ key = "9", mods = "LEADER", action = wezterm.action({ ActivateTab = 8 }) },
 
-		{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab="CurrentPaneDomain" }) },
+		{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
 
-		{ key = ";", mods = "LEADER", action = "ActivateLastTab" },
-		{ key = ";", mods = "LEADER", action = wezterm.action({ ActivateTabRelative=-1 }) },
-		{ key = "'", mods = "LEADER", action = wezterm.action({ ActivateTabRelative=1 }) },
+		{ key = "Backspace", mods = "LEADER", action = "ActivateLastTab" },
+		{ key = ";", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = -1 }) },
+		{ key = "'", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
 
-    -- pane move
+		-- pane move
 		{ key = "h", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
 		{ key = "j", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
 		{ key = "k", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
 		{ key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 
-    -- pane move(vim aware)
+		-- pane move(vim aware)
 		{ key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
 		{ key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
 		{ key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
 		{ key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
 
-
-    -- resize
+		-- resize
 		{ key = "h", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
 		{ key = "j", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
 		{ key = "k", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },

@@ -33,7 +33,7 @@ g.cursorline = true
 g.timeoutlen = 400
 
 -- fold
-g.foldlevel = 99
+g.foldlevel = 0
 g.foldlevelstart = 99
 g.foldmethod = "marker"
 g.foldcolumn = 0
@@ -66,7 +66,11 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
-opt.number = true
+if g._minimal then
+  opt.number = false
+else
+  opt.number = true
+end
 
 -- Tabs
 opt.autoindent = true

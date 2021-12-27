@@ -16,15 +16,18 @@
 -- TODO: zettels related
 -- require 'zettels'
 
+local vim = vim
+local g = vim.g
+local cmd = vim.cmd
+
 -- https://github.com/lewis6991/impatient.nvim
 require("impatient")
 require("globals")
 require("vim")
-require("plugins.treesitter")
-require("plugins.filetype")
-
-local vim = vim
-local cmd = vim.cmd
+if not g._minimal then
+	require("plugins.filetype")
+end
+print(g._minimal)
 
 vim.loop.new_timer():start(
 	50,
@@ -39,27 +42,35 @@ vim.loop.new_timer():start(
 		require("plugins.vim-test")
 		cmd("packadd plenary.nvim")
 
-		-- dev
-		-- this should be loaded in order -- [[
-		require("plugins.lsp")
-		require("plugins.autopairs")
-		require("plugins.luasnip")
-		require("plugins.cmp")
-		-- ]]
+		if not g._minimal then
+			require("plugins.treesitter")
+			require("plugins.lsp")
+			require("plugins.autopairs")
+			require("plugins.luasnip")
+			require("plugins.cmp")
 
-		require("plugins.neoformat")
-		require("plugins.dap")
+      require("plugins.dap")
+      require("plugins.neoformat")
 
-		-- utils
+			require("plugins.buftabline")
+			require("plugins.scrollview")
+			require("plugins.dadbod")
+			require("plugins.zenmode")
+      require("plugins.oscyank")
+
+			-- git
+			require("plugins.gitlinker")
+			require("plugins.octo")
+			require("plugins.git-messenger")
+			require("plugins.gitsigns")
+		end
+
+
 		-- require("plugins.zepl")
-		require("plugins.dadbod")
 		require("plugins.suda")
 
 		-- view
 		-- require("plugins.matchparen") -- TODO: fix
-		require("plugins.buftabline")
-		require("plugins.scrollview")
-		-- require("plugins.zenmode")
 		-- cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
 
 		-- edit
@@ -69,17 +80,10 @@ vim.loop.new_timer():start(
 		require("plugins.autopairs")
 		require("plugins.dial")
 
-		-- git
-		require("plugins.gitlinker")
-		require("plugins.octo")
-		require("plugins.git-messenger")
-		require("plugins.gitsigns")
-
 		-- misc
 		-- cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
 
 		-- require("plugins.numb")
-		require("plugins.oscyank")
 
 		require("plugins.telescope")
 		-- require("plugins.harpoon")
@@ -88,7 +92,7 @@ vim.loop.new_timer():start(
 		cmd("runtime! autoload/func/*")
 		cmd("runtime! autoload/autocmd/*")
 		cmd("runtime! autoload/command/*")
-		cmd("runtime! autoload/map.vim")
+		cmd("runtime! autoload/map/*")
 		cmd("runtime! autoload/lib/*")
 	end)
 )

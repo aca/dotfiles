@@ -235,9 +235,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-eunuch"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-lspinstall"]
-	path = .local/share/nvim/site/pack/paqs/opt/nvim-lspinstall
-	url = https://github.com/kabouzeid/nvim-lspinstall.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/due.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/due.nvim
 	url = https://github.com/NFrid/due.nvim.git
@@ -460,3 +457,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-diagon"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-diagon
 	url = https://github.com/willchao612/vim-diagon.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-lsp-installer"]
+	path = .local/share/nvim/site/pack/paqs/opt/nvim-lsp-installer
+	url = https://github.com/williamboman/nvim-lsp-installer.git

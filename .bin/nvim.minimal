@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nvim -c 'let g:_minimal=v:true' "$@"

@@ -1,5 +1,5 @@
 packadd vim-scriptease 
-packadd todo-comments.nvim 
+" packadd todo-comments.nvim 
 packadd git-worktree.nvim
 
 packadd vim-ReplaceWithRegister
@@ -14,3 +14,4 @@ packadd vim-rfc
 packadd symbols-outline.nvim
 packadd bufferize.vim
 packadd vim-diagon
+packadd nvim-lsp-installer
