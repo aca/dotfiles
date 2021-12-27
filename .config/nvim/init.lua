@@ -49,14 +49,14 @@ vim.loop.new_timer():start(
 			require("plugins.luasnip")
 			require("plugins.cmp")
 
-      require("plugins.dap")
-      require("plugins.neoformat")
+			require("plugins.dap")
+			require("plugins.neoformat")
 
 			require("plugins.buftabline")
 			require("plugins.scrollview")
 			require("plugins.dadbod")
 			require("plugins.zenmode")
-      require("plugins.oscyank")
+			require("plugins.oscyank")
 
 			-- git
 			require("plugins.gitlinker")
@@ -64,7 +64,6 @@ vim.loop.new_timer():start(
 			require("plugins.git-messenger")
 			require("plugins.gitsigns")
 		end
-
 
 		-- require("plugins.zepl")
 		require("plugins.suda")

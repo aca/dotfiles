@@ -67,9 +67,9 @@ opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
 if g._minimal then
-  opt.number = false
+	opt.number = false
 else
-  opt.number = true
+	opt.number = true
 end
 
 -- Tabs

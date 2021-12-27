@@ -15,8 +15,10 @@ Setup machine
 -------------
 sudo apt install stow
 git clone --depth 1 --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
-cd ~/src/configs/dotfiles && git pull --rebase
-git submodule update --init
+
+Sync
+----
+cd ~/src/configs/dotfiles && git pull --rebase && git submodule update --init
 
 Update
 ------
