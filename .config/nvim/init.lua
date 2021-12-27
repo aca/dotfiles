@@ -79,7 +79,7 @@ vim.loop.new_timer():start(
 		-- cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
 
 		-- require("plugins.numb")
-		-- require("plugins.oscyank")
+		require("plugins.oscyank")
 
 		require("plugins.telescope")
 		-- require("plugins.harpoon")
@@ -89,5 +89,6 @@ vim.loop.new_timer():start(
 		cmd("runtime! autoload/autocmd/*")
 		cmd("runtime! autoload/command/*")
 		cmd("runtime! autoload/map.vim")
+		cmd("runtime! autoload/lib/*")
 	end)
 )

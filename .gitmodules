@@ -448,3 +448,12 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/octo.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/octo.nvim
 	url = https://github.com/pwntester/octo.nvim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/bufferize.vim"]
+	path = .local/share/nvim/site/pack/paqs/opt/bufferize.vim
+	url = https://github.com/AndrewRadev/bufferize.vim.git
+[submodule ".submodules/lume"]
+	path = .submodules/lume
+	url = https://github.com/rxi/lume.git
+[submodule ".submodules/mpv-bookmarker"]
+	path = .submodules/mpv-bookmarker
+	url = https://github.com/NurioHin/mpv-bookmarker.git

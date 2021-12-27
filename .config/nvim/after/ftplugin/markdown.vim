@@ -1,5 +1,9 @@
 " vim:ft=vim et sw=2 foldmethod=marker
 
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+" set foldexpr=NestedMarkdownFolds()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -48,7 +52,6 @@ setlocal shiftwidth=2
 setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
 
-set foldexpr=NestedMarkdownFolds()
 
  " convert http://*  [title](http://*)
 command FormatLink lua require('scripts.md_format_links').format_link()

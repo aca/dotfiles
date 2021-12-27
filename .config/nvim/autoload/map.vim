@@ -50,11 +50,12 @@ imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luas
 "
 " Toggle
 "
-nnoremap <expr>   <bslash>f &foldlevel ? 'zM' :'zR'
-nnoremap <silent> <bslash>w :set wrap!<CR>
-nnoremap <silent> <bslash>n :set relativenumber!<CR>
-nnoremap <silent> <bslash>g :Gitsigns toggle_signs<cr>
-nnoremap <silent> <bslash>s
+nnoremap <expr>   ;f &foldlevel ? 'zM' :'zR'
+nnoremap <silent> ;w :set wrap!<CR>
+nnoremap <silent> ;n :set relativenumber!<CR>
+nnoremap <silent> ;m :Messages<cr><c-w><c-w>
+nnoremap <silent> ;g :Gitsigns toggle_signs<cr>
+nnoremap <silent> ;s
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>
              \ else <BAR>
@@ -68,7 +69,7 @@ nnoremap <silent> <bslash>s
 " - ~/src/ (directory)
 " - ~/src (it sometimes does not open directory properly)
 " ~/.config/nvim/init.vim:9^2 (cursor at ^)
-nnoremap <silent>gf WBgF
+" nnoremap <silent>gf WBgF
 
 " visual block increment
 vnoremap <C-a> g<C-a>

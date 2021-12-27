@@ -5,6 +5,7 @@ require("filetype").setup({
 		extensions = {
 			-- Set the filetype of *.pn files to potion
 			elv = "elvish",
+			keymap = "c",
 		},
 		shebang = {
 			bash = "bash",

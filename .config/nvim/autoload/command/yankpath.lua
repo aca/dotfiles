@@ -12,4 +12,3 @@ function _G.yankpath()
 	vim.cmd("let @+=" .. "'" .. fp .. ":" .. curpos[2] .. "'")
 	vim.cmd("let @*=" .. "'" .. fp .. ":" .. curpos[2] .. "'")
 end
-

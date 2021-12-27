@@ -12,3 +12,4 @@ packadd vim-characterize
 packadd vim-dirvish
 packadd vim-rfc 
 packadd symbols-outline.nvim
+packadd bufferize.vim

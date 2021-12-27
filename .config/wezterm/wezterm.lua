@@ -87,6 +87,7 @@ local config = {
   font = wezterm.font("BlexMono Nerd Font Mono"),
   adjust_window_size_when_changing_font_size = false,
   default_prog = {"/usr/local/bin/fish", "-l"},
+  enable_kitty_graphics=true,
 
   -- color_scheme = "Tomorrow Night Burns",
   color_scheme = "Builtin Solarized Dark",
