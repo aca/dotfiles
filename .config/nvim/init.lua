@@ -62,21 +62,20 @@ vim.loop.new_timer():start(
 			require("plugins.git-messenger")
 			require("plugins.gitsigns")
 
-      -- edit
-      require("plugins.comment")
-      require("plugins.move")
-      require("plugins.lion")
-      require("plugins.autopairs")
-      require("plugins.dial")
-      require("plugins.suda")
-      require("plugins.telescope")
-      require("plugins.vim-test")
+			-- edit
+			require("plugins.comment")
+			require("plugins.move")
+			require("plugins.lion")
+			require("plugins.autopairs")
+			require("plugins.dial")
+			require("plugins.suda")
+			require("plugins.telescope")
+			require("plugins.vim-test")
 		end
 
 		-- view
 		-- require("plugins.matchparen") -- TODO: fix
 		-- cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
-
 
 		-- misc
 		-- cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
