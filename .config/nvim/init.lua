@@ -27,7 +27,6 @@ require("vim")
 if not g._minimal then
 	require("plugins.filetype")
 end
-print(g._minimal)
 
 vim.loop.new_timer():start(
 	50,
@@ -39,7 +38,6 @@ vim.loop.new_timer():start(
 		-- TODO: https://github.com/ggandor/lightspeed.nvim
 		-- cmd([[ packadd lightspeed.nvim ]])
 		require("plugins.tmux")
-		require("plugins.vim-test")
 		cmd("packadd plenary.nvim")
 
 		if not g._minimal then
@@ -63,28 +61,28 @@ vim.loop.new_timer():start(
 			require("plugins.octo")
 			require("plugins.git-messenger")
 			require("plugins.gitsigns")
-		end
 
-		-- require("plugins.zepl")
-		require("plugins.suda")
+      -- edit
+      require("plugins.comment")
+      require("plugins.move")
+      require("plugins.lion")
+      require("plugins.autopairs")
+      require("plugins.dial")
+      require("plugins.suda")
+      require("plugins.telescope")
+      require("plugins.vim-test")
+		end
 
 		-- view
 		-- require("plugins.matchparen") -- TODO: fix
 		-- cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
 
-		-- edit
-		require("plugins.comment")
-		require("plugins.move")
-		require("plugins.lion")
-		require("plugins.autopairs")
-		require("plugins.dial")
 
 		-- misc
 		-- cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
 
 		-- require("plugins.numb")
 
-		require("plugins.telescope")
 		-- require("plugins.harpoon")
 
 		cmd("runtime! autoload/plugin/*")

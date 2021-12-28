@@ -68,7 +68,7 @@ wezterm.on("open_in_vim", function(window, pane)
 	 local file = io.open( "/tmp/wezterm_buf", "w" )
 	 file:write(pane:get_lines_as_text(3000))
 	 file:close()
-   window:perform_action(wezterm.action({ SpawnCommandInNewTab = { args = { "/Users/rok/.bin/nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(3000,0)" } } }), pane)
+   window:perform_action(wezterm.action({ SpawnCommandInNewTab = { args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" } } }), pane)
 end)
 
 wezterm.on("move-left", function(window, pane)
@@ -94,7 +94,7 @@ local config = {
 	default_prog = { "/usr/local/bin/fish", "--login" },
 	enable_kitty_graphics = true,
   set_environment_variables = { 
-    PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. os.getenv("HOME") .. "/bin",
+    PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. os.getenv("HOME") .. "/.bin",
   },
 
 	color_scheme = "Arthur",

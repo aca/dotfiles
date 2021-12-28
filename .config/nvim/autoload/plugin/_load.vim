@@ -1,3 +1,5 @@
+if exists('g:_minimal') && g:_minimal == v:true | finish | end
+
 packadd vim-scriptease 
 " packadd todo-comments.nvim 
 packadd git-worktree.nvim

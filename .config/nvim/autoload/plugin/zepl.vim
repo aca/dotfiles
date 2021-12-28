@@ -1,4 +1,4 @@
-if _minimal | finish | end
+if exists('g:_minimal') && g:_minimal == v:true | finish | end
 
 autocmd TermLeave,InsertLeave,BufLeave zepl:* normal! G
 let g:repl_config = {

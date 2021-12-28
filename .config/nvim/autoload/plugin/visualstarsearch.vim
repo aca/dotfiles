@@ -1,3 +1,5 @@
+if exists('g:_minimal') && g:_minimal == v:true | finish | end
+
 function! VisualStarSearchSet(cmdtype,...)
   let temp = @"
   normal! gvy

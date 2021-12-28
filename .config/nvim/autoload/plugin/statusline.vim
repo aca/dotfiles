@@ -1,3 +1,5 @@
+if exists('g:_minimal') && g:_minimal == v:true | finish | end
+
 packadd nvim-gps
 packadd nvim-web-devicons
 " packadd vim-devicons

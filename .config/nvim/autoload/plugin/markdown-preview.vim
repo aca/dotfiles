@@ -1,3 +1,5 @@
+if exists('g:_minimal') && g:_minimal == v:true | finish | end
+
 let g:mkdp_theme = 'light'
 " let g:mkdp_refresh_slow = 1
 " let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
