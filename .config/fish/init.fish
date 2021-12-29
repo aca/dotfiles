@@ -237,9 +237,13 @@ if command -sq zoxide
   source $HOME/.config/fish/zoxide.fish
 end
 
-if not set -q $TMUX_PANE 
-  set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$TMUX_PANE"
+if not set -q $WEZTERM_PANE
+  set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$WEZTERM_PANE"
 end
+
+# if not set -q $TMUX_PANE 
+#   set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$TMUX_PANE"
+# end
 
 # if [ -e /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]
 #   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc

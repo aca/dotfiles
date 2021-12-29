@@ -54,6 +54,13 @@
 local wezterm = require("wezterm")
 
 local move_around = function(window, pane, direction_wez, direction_nvim)
+  local x = "env NVIM_LISTEN_ADDRESS=/tmp/nvim" .. pane:pane_id() .. " /home/rok/.local/bin/nvr -c 'echo 3'"
+	wezterm.log_info(x)
+ --  local handle = io.popen("env NVIM_LISTEN_ADDRESS=/tmp/nvim" .. pane:pane_id() .. " nvr -c 'echo 3'")
+ --  local result = handle:read("*a")
+ --  handle:close()
+	-- wezterm.log_info(result)
+
 	wezterm.log_info(pane:get_title())
 	wezterm.log_info(pane:get_title():sub(-4))
 	wezterm.log_info(string.find(pane:get_title(), "nvim"))
@@ -66,7 +73,7 @@ end
 
 wezterm.on("open_in_vim", function(window, pane)
 	 local file = io.open( "/tmp/wezterm_buf", "w" )
-	 file:write(pane:get_lines_as_text(3000))
+	 file:write(pane:get_logical_lines_as_text(3000))
 	 file:close()
    window:perform_action(wezterm.action({ SpawnCommandInNewTab = { args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" } } }), pane)
 end)
@@ -98,7 +105,7 @@ local config = {
   },
 
 	color_scheme = "Arthur",
-	--  use_ime = true,
+	use_ime = true,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
