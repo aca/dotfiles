@@ -18,7 +18,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --   if resolved_capabilities.declaration then
 --     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 --   end
---   
+--
 --   if resolved_capabilities.goto_definition then
 --     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 --   end
