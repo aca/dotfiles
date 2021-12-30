@@ -72,7 +72,7 @@ lcmd + lctrl + lalt - 0x30 : yabai -m window --focus recent
 lcmd + lctrl + lalt - f : yabai -m window --toggle zoom-fullscreen
 
 # space, float / unfloat window and center on screen
-lcmd + lctrl + lalt - 0x31 : yabai -m window --toggle float; yabai -m window --grid 50:50:1:2:48:47
+# lcmd + lctrl + lalt - 0x31 : yabai -m window --toggle float; yabai -m window --grid 50:50:1:2:48:47
 
 # focus last window (limit to current desktop)
 lcmd + lctrl + lalt - w : yabai -m window --focus last;

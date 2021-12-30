@@ -59,7 +59,7 @@ end
 local cmp_sources = {
 	{ name = "nvim_lsp" },
 	{ name = "path" },
-	{ name = "buffer" },
+	{ name = "buffer", option = { keyword_length = 5 } },
 	{ name = "luasnip" },
 	-- { name = 'cmp_tabnine'},
 	-- { name = "vsnip" },

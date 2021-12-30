@@ -1,4 +1,4 @@
-
+export HOMEBREW_CASK_OPTS=--no-quarantine
 
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 

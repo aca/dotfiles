@@ -34,9 +34,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-oscyank"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-oscyank
 	url = https://github.com/ojroques/vim-oscyank.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/numb.nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/numb.nvim
-	url = https://github.com/nacro90/numb.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-ReplaceWithRegister"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-ReplaceWithRegister
 	url = https://github.com/inkarkat/vim-ReplaceWithRegister.git
@@ -388,9 +385,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/orgmode.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/orgmode.nvim
 	url = https://github.com/kristijanhusak/orgmode.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/harpoon"]
-	path = .local/share/nvim/site/pack/paqs/opt/harpoon
-	url = https://github.com/ThePrimeagen/harpoon.git
 [submodule ".local/share/nvim/site/pack/paqs/start/filetype.nvim"]
 	path = .local/share/nvim/site/pack/paqs/start/filetype.nvim
 	url = https://github.com/nathom/filetype.nvim.git

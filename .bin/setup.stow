@@ -32,6 +32,7 @@ emptyDir $HOME/.config/vifm
 emptyDir $HOME/.config/fcitx
 emptyDir $HOME/.config/pulse
 emptyDir $HOME/.config/nvim
+emptyDir $HOME/.config/nvim/autoload
 
 rmf $HOME/.hammerspoon
 rmf $HOME/.scripts

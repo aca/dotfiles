@@ -1,17 +1,26 @@
+vim.api.nvim_add_user_command("CommandWithLuaCallback", function(opts)
+	result = opts
+	P(opts)
+end, {
+	nargs = "*",
+	bang = true,
+	count = 2,
+})
+
+--
+--
 -- OPT [[
 -- vim.lsp.set_log_level("debug")
 -- require('vim.lsp.log').set_format_func(vim.inspect)
 -- ]]
 
--- UPDATE [[
+-- UPDATE
 -- :TSInstall all
 -- :TSUpdate all
--- ]]
 
--- TODO: jupyter integration [[
+-- TODO: jupyter integration
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
--- ]]
 
 -- TODO: zettels related
 -- require 'zettels'
@@ -32,11 +41,6 @@ vim.loop.new_timer():start(
 	50,
 	0,
 	vim.schedule_wrap(function()
-		-- nav
-		-- cmd([[ packadd telescope.nvim ]])
-		require("plugins.hop")
-		-- TODO: https://github.com/ggandor/lightspeed.nvim
-		-- cmd([[ packadd lightspeed.nvim ]])
 		require("plugins.tmux")
 		cmd("packadd plenary.nvim")
 
@@ -69,26 +73,21 @@ vim.loop.new_timer():start(
 			require("plugins.autopairs")
 			require("plugins.dial")
 			require("plugins.suda")
-			require("plugins.telescope")
 			require("plugins.vim-test")
+
+			-- nav
+			require("plugins.telescope")
+			require("plugins.hop")
 		end
 
-		-- view
+		-- lazyload
 		-- require("plugins.matchparen") -- TODO: fix
-		-- cmd([[ source ~/.config/nvim/vim/statusline.vim ]])
-
-		-- misc
-		-- cmd([[ execute 'silent! source ' . '~/.config/nvim/' . hostname() . '_lazy.vim' ]])
-
-		-- require("plugins.numb")
-
-		-- require("plugins.harpoon")
-
 		cmd("runtime! autoload/plugin/*")
 		cmd("runtime! autoload/func/*")
 		cmd("runtime! autoload/autocmd/*")
 		cmd("runtime! autoload/command/*")
 		cmd("runtime! autoload/map/*")
 		cmd("runtime! autoload/lib/*")
+		cmd("runtime! autoload/local/*")
 	end)
 )

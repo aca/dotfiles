@@ -82,6 +82,7 @@ nnoremap <c-g> 2<c-g>
 " mistakes
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
+cnoreabbrev Q1 q!
 cnoreabbrev q1 q!
 " cnoreabbrev E e
 cnoreabbrev Wq wq
@@ -115,9 +116,8 @@ nnoremap ]t :tabn<cr>
 nnoremap [t :tabp<cr>
 nnoremap ]w <c-w>w
 nnoremap [w <c-w>W
-" nnoremap ]f :NextFile<cr>
-nnoremap ]f :call v:lua.open_nextfile()<cr>
-nnoremap [f :call v:lua.open_prevfile()<cr>
+nnoremap ]f :NextFile<cr>
+nnoremap [f :PrevFile<cr>
 nnoremap [j g;
 nnoremap ]j g,
 " diff change
@@ -175,6 +175,6 @@ cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
 lua vim.api.nvim_set_keymap('n', '0', "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'", {silent = true, noremap = true, expr = true})
 
 " copy current path in form of filename:linenr
-nnoremap yp :call v:lua.yankpath()<cr>
+nnoremap yp :YankPath<cr>
 
 nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>

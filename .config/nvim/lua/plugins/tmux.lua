@@ -1,6 +1,7 @@
 vim.cmd([[
   packadd zen-mode.nvim
 ]])
+
 vim.cmd([[
   packadd vim-tmux-navigator
   nnoremap <silent><c-h> <cmd>TmuxNavigateLeft<cr>

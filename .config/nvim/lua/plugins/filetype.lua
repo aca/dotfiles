@@ -9,6 +9,7 @@ require("filetype").setup({
 		},
 		shebang = {
 			bash = "bash",
+			sh = "bash",
 			raku = "raku",
 		},
 	},

@@ -1,82 +1,51 @@
--- local wezterm = require("wezterm")
---
--- local config = {
---     font = wezterm.font("SauceCodePro Nerd Font"),
---     check_for_updates = false,
---     use_ime = true,
---     color_scheme = 'Arthur',
---     inactive_pane_hsb = {
---         hue = 1.0,
---         saturation = 1.0,
---         brightness = 1.0,
---     },
---     default_prog = { '/bin/bash', '-l' },
---     font_size = 16.0,
---     launch_menu = {},
---     leader = { key="b", mods="CTRL", timeout_milliseconds=10000 },
---     keys = {
---         { key = "x", mods = "LEADER",  action="ActivateCopyMode"},
---         { key = "%", mods = "LEADER", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
---         { key="|", mods="LEADER", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
---         { key="k", mods="LEADER", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
---         { key="-", mods="LEADER", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
---
---         { key = "h", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Left"}},
---         { key = "j", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Down"}},
---         { key = "k", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Up"}},
---         { key = "l", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Right"}},
---     },
---     set_environment_variables = {},
--- }
---
--- if wezterm.target_triple == "x86_64-pc-windows-msvc" then
---     config.front_end = "Software" -- OpenGL doesn't work quite well with RDP.
---     config.term = "" -- Set to empty so FZF works on windows
---     config.default_prog = { "cmd.exe" }
---     table.insert(config.launch_menu, { label = "PowerShell", args = {"powershell.exe", "-NoLogo"} })
---
---     -- Find installed visual studio version(s) and add their compilation
---     -- environment command prompts to the menu
---     for _, vsvers in ipairs(wezterm.glob("Microsoft Visual Studio/20*", "C:/Program Files (x86)")) do
---         local year = vsvers:gsub("Microsoft Visual Studio/", "")
---         table.insert(config.launch_menu, {
---             label = "x64 Native Tools VS " .. year,
---             args = {"cmd.exe", "/k", "C:/Program Files (x86)/" .. vsvers .. "/BuildTools/VC/Auxiliary/Build/vcvars64.bat"},
---         })
---     end
--- else
---     table.insert(config.launch_menu, { label = "bash", args = {"bash", "-l"} })
---     table.insert(config.launch_menu, { label = "fish", args = {"fish", "-l"} })
--- end
---
--- return config
-
 local wezterm = require("wezterm")
+local os = require("os")
+local homedir = os.getenv("HOME")
+
+function log(msg)
+  wezterm.log_info(msg);
+end
+
+wezterm.on("open_in_vim", function(window, pane)
+	local file = io.open("/tmp/wezterm_buf", "w")
+	file:write(pane:get_logical_lines_as_text(3000))
+	file:close()
+
+	window:perform_action(
+		wezterm.action({
+			SplitVertical = {
+				domain = "CurrentPaneDomain",
+				args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
+			},
+		}),
+		pane
+	)
+	-- window:perform_action(
+	-- 	wezterm.action({
+	-- 		SpawnCommandInNewTab = {
+	-- 			args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
+	-- 		},
+	-- 	}),
+	-- 	pane
+	-- )
+end)
 
 local move_around = function(window, pane, direction_wez, direction_nvim)
-  local x = "env NVIM_LISTEN_ADDRESS=/tmp/nvim" .. pane:pane_id() .. " /home/rok/.local/bin/nvr -c 'echo 3'"
-	wezterm.log_info(x)
- --  local handle = io.popen("env NVIM_LISTEN_ADDRESS=/tmp/nvim" .. pane:pane_id() .. " nvr -c 'echo 3'")
- --  local result = handle:read("*a")
- --  handle:close()
-	-- wezterm.log_info(result)
-
-	wezterm.log_info(pane:get_title())
-	wezterm.log_info(pane:get_title():sub(-4))
-	wezterm.log_info(string.find(pane:get_title(), "nvim"))
-	if string.find(pane:get_title(), "vim") then
+	local result = os.execute(
+		"env NVIM_LISTEN_ADDRESS=/tmp/nvim"
+			.. pane:pane_id()
+			.. " "
+			.. homedir
+			.. "/bin/"
+			.. "wezterm.nvim.navigator "
+			.. direction_nvim
+	)
+	if result then
 		window:perform_action(wezterm.action({ SendString = "\x17" .. direction_nvim }), pane)
 	else
 		window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 	end
 end
-
-wezterm.on("open_in_vim", function(window, pane)
-	 local file = io.open( "/tmp/wezterm_buf", "w" )
-	 file:write(pane:get_logical_lines_as_text(3000))
-	 file:close()
-   window:perform_action(wezterm.action({ SpawnCommandInNewTab = { args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" } } }), pane)
-end)
 
 wezterm.on("move-left", function(window, pane)
 	move_around(window, pane, "Left", "h")
@@ -94,18 +63,59 @@ wezterm.on("move-down", function(window, pane)
 	move_around(window, pane, "Down", "j")
 end)
 
+function file_exists(name)
+	-- local f = io.open(name, "r")
+	-- if f ~= nil then
+	-- 	io.close(f)
+	-- 	return true
+	-- else
+	-- 	return false
+	-- end
+  if os.execute("stat " .. name) then
+    return true
+  else 
+    return false
+  end
+end
+
+local vim_resize = function(window, pane, direction_wez, direction_nvim)
+	if file_exists("/tmp/nvim" .. pane:pane_id()) then
+		window:perform_action(wezterm.action({ SendString = "\x1b" .. direction_nvim }), pane)
+	else
+		window:perform_action(wezterm.action({ AdjustPaneSize = { direction_wez, 5 } }), pane)
+	end
+end
+
+wezterm.on("resize-left", function(window, pane)
+	vim_resize(window, pane, "Left", "h")
+end)
+
+wezterm.on("resize-right", function(window, pane)
+	vim_resize(window, pane, "Right", "l")
+end)
+
+wezterm.on("resize-up", function(window, pane)
+	vim_resize(window, pane, "Up", "k")
+end)
+
+wezterm.on("resize-down", function(window, pane)
+	vim_resize(window, pane, "Down", "j")
+end)
+
 local config = {
 	window_decorations = "RESIZE",
 	font = wezterm.font("BlexMono Nerd Font Mono"),
 	adjust_window_size_when_changing_font_size = false,
 	default_prog = { "/usr/local/bin/fish", "--login" },
 	enable_kitty_graphics = true,
-  set_environment_variables = { 
-    PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. os.getenv("HOME") .. "/.bin",
-  },
+	-- debug_key_events = true,
+	set_environment_variables = {
+		-- This fails to find wezterm.nvim.navigator
+		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
+	},
 
 	color_scheme = "Arthur",
-	use_ime = true,
+	use_ime = false,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
@@ -172,64 +182,18 @@ local config = {
 		{ key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
 
 		-- resize
-		{ key = "h", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
-		{ key = "j", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
-		{ key = "k", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
-		{ key = "l", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
+		{ key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
+		{ key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
+		{ key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
+		{ key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
+		-- { key = "h", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
+		-- { key = "j", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
+		-- { key = "k", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
+		-- { key = "l", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
 
 		-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
 		{ key = "a", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x01" }) },
 	},
 }
 
--- return {
--- 	-- timeout_milliseconds defaults to 1000 and can be omitted
--- 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 },
--- 	use_ime = true,
--- 	keys = {
--- 		{
--- 			key = "v",
--- 			mods = "LEADER",
--- 			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
--- 		},
--- 		{
--- 			key = "s",
--- 			mods = "LEADER",
--- 			action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
--- 		},
--- 	},
--- }
-
--- return {
--- 	-- timeout_milliseconds defaults to 1000 and can be omitted
--- 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 },
--- 	use_ime = true,
--- 	keys = {
--- 		{ key = "v", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
--- 		-- { key = "%", mods = "LEADER|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
--- 		-- { key = '"', mods = "LEADER|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
--- 		{ key = "s", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
---
--- 		{ key = "h", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
--- 		{ key = "j", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
--- 		{ key = "k", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
--- 		{ key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
---
--- 		{ key = "H", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
--- 		{ key = "J", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
--- 		{ key = "K", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
--- 		{ key = "L", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
---
---
--- 		-- { key = "z", mods = "LEADER", action = "TogglePaneZoomState" },
--- 		{ key = "c", mods = "LEADER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
--- 		{ key = "H", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
--- 		{ key = "J", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
--- 		{ key = "K", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
--- 		{ key = "L", mods = "LEADER|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
---
---
--- 	},
--- }
---
 return config
