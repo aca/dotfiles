@@ -454,3 +454,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-lsp-installer"]
 	path = .local/share/nvim/site/pack/paqs/opt/nvim-lsp-installer
 	url = https://github.com/williamboman/nvim-lsp-installer.git
+[submodule ".submodules/vifmimg"]
+	path = .submodules/vifmimg
+	url = https://github.com/cirala/vifmimg.git

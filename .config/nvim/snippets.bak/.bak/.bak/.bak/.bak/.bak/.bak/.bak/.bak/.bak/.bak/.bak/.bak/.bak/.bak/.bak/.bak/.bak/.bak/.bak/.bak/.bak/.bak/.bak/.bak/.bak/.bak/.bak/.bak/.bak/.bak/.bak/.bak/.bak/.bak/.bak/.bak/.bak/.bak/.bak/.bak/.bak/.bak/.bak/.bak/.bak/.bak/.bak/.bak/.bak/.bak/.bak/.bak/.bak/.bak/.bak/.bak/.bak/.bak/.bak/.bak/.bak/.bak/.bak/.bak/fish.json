@@ -1,8 +1,0 @@
-{
-  "isset": {
-    "prefix": ["isset"],
-    "body": [
-      "if not set -q argv[1]; echo \"notfound\"; end"
-    ]
-  }
-}

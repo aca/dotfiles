@@ -95,11 +95,46 @@ filextype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
         \ shotwell,
 " fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
 "          \ identify %f
+" fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+"          \ wezterm imgcat --width $(echo '%pw - 8' | bc) --height $(echo '%ph - 8' | bc) %c:p %pd
 
-fileviewer <image/*>
-        \ vifmimg draw %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+" fileviewer <image/*>
+"     \ vifmimg draw %px %py %pw %ph %c
+"     \ %pc
+"     \ vifmimg clear
+
+" fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+"          \ echo %pw %ph $(echo '%pw - 5' | bc)
+
+" fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+"          \ wezterm imgcat --width=50 --height=50 %c:p %pd
+
+" fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+"          \ wezterm imgcat --width=100%% --height=100%% %c:p %pd
+
+" fileviewer *.png,*.jpeg,*.jpg
+"   \ env -u COLORTERM viu -w %pw -h %ph -s %c %pd
+"
+fileviewer *.png,*.jpeg,*.jpg
+  \ env -u COLORTERM viu -w %pw -h %ph -s %c %pd
+
+fileviewer *.png,*.jpeg,*.jpg
+  \ viu %c %pd
+
+" fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+"          \ wezterm imgcat %c:p %pd
+"
+" if executable('wezterm')
+"     fileviewer *.png,*.jpeg,*.jpg
+" elseif executable('viu')
+"     fileviewer *.png,*.jpeg,*.jpg
+"       \ env -u COLORTERM viu -w %pw -h %ph -s %c
+" endif
+
+" fileviewer <image/*>
+"         \ vifmimg draw %px %py %pw %ph %c
+"         \ %pc
+"         \ vifmimg clear
 
 " OpenRaster
 filextype *.ora

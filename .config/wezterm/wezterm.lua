@@ -125,6 +125,7 @@ local config = {
 		{ key = "[", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
 
 		{ key = "C", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
+		{ key = "C", mods = "CTRL", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
 
 		{ key = "-", mods = "CTRL", action = "DecreaseFontSize" },
 		{ key = "=", mods = "CTRL", action = "IncreaseFontSize" },
@@ -136,6 +137,16 @@ local config = {
 			key = "%",
 			mods = "LEADER|SHIFT",
 			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+		},
+		{
+			key = "%",
+			mods = "LEADER",
+			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+		},
+		{
+			key = '"',
+			mods = "LEADER",
+			action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
 		},
 		{
 			key = '"',
@@ -151,6 +162,7 @@ local config = {
 
 		-- close
 		{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = false } }) },
+		{ key = "X", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
 		{ key = "X", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
 
 		{ key = "1", mods = "LEADER", action = wezterm.action({ ActivateTab = 0 }) },
