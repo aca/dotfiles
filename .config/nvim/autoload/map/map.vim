@@ -116,8 +116,8 @@ nnoremap ]t :tabn<cr>
 nnoremap [t :tabp<cr>
 nnoremap ]w <c-w>w
 nnoremap [w <c-w>W
-nnoremap ]f :NextFile<cr>
-nnoremap [f :PrevFile<cr>
+" nnoremap ]f :NextFile<cr>
+" nnoremap [f :PrevFile<cr>
 nnoremap [j g;
 nnoremap ]j g,
 " diff change

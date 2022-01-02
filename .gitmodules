@@ -457,3 +457,9 @@
 [submodule ".submodules/vifmimg"]
 	path = .submodules/vifmimg
 	url = https://github.com/cirala/vifmimg.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/vim-searchx"]
+	path = .local/share/nvim/site/pack/paqs/opt/vim-searchx
+	url = https://github.com/hrsh7th/vim-searchx.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/nextfile.vim"]
+	path = .local/share/nvim/site/pack/paqs/opt/nextfile.vim
+	url = https://github.com/tyru/nextfile.vim.git
