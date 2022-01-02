@@ -1,5 +1,10 @@
+
+# pprint $edit:insert:binding                                      rok@rok-te3
+ # &Tab=  <builtin <edit:completion>:smart-start>
+
 # vi mode binding
 # https://github.com/elves/elvish/issues/971
+
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 
 # use readline-binding
@@ -225,3 +230,32 @@ set edit:after-command = [
     }
   }
 ]
+
+
+var all-packages = [1 2 3]
+
+set edit:completion:arg-completer[kubectl] = {|@args|
+    var n = (count $args)
+    if (== $n 2) {
+        # apt x<Tab> -- complete a subcommand name
+        put install uninstall install2
+    } elif (== $n 3) {
+        put $@all-packages
+    }
+}
+
+# fn fzf_wezterm {||
+#   var new-cmd = (
+#     edit:command-history &dedup &newest-first &cmd-only |
+#     to-terminated "\x00" |
+#     try {
+#       str:trim-space (fzf --no-multi --height=30% --no-sort --read0 --info=hidden --exact --query=$edit:current-command | slurp)
+#     } except {
+#       edit:redraw &full=$true
+#       return
+#     }
+#   )
+#   edit:redraw &full=$true
+#   set edit:current-command = $new-cmd
+# }
+# set edit:insert:binding[Ctrl-F] = {|| fzf_history >/dev/tty 2>&1 }

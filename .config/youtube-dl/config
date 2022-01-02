@@ -5,4 +5,5 @@
 --download-archive ".youtube-dl"
 --rm-cache-dir
 --yes-playlist
+--paths temp:/tmp/yt_downloads
 --netrc

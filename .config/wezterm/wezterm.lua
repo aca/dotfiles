@@ -2,6 +2,10 @@ local wezterm = require("wezterm")
 local os = require("os")
 local homedir = os.getenv("HOME")
 
+wezterm.on("window-config-reloaded", function(window, pane)
+  window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
+end)
+
 function log(msg)
   wezterm.log_info(msg);
 end
@@ -45,10 +49,12 @@ local move_around = function(window, pane, direction_wez, direction_nvim)
 	else
 		window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 	end
+  -- window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 end
 
 wezterm.on("move-left", function(window, pane)
-	move_around(window, pane, "Left", "h")
+	-- move_around(window, pane, "Left", "h")
+  window:perform_action(wezterm.action({ ActivatePaneDirection = "Left" }), pane)
 end)
 
 wezterm.on("move-right", function(window, pane)
@@ -186,6 +192,11 @@ local config = {
 		{ key = "j", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
 		{ key = "k", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
 		{ key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
+
+		-- { key = "h", mods = "CTRL", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
+		-- { key = "j", mods = "CTRL", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+		-- { key = "k", mods = "CTRL", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
+		-- { key = "l", mods = "CTRL", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 
 		-- pane move(vim aware)
 		{ key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
