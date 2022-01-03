@@ -1,6 +1,6 @@
 -- OPT [[
--- vim.lsp.set_log_level("debug")
--- require('vim.lsp.log').set_format_func(vim.inspect)
+vim.lsp.set_log_level("debug")
+require('vim.lsp.log').set_format_func(vim.inspect)
 -- ]]
 
 -- UPDATE
@@ -18,26 +18,18 @@ local vim = vim
 local g = vim.g
 local cmd = vim.cmd
 
+
 -- https://github.com/lewis6991/impatient.nvim
 require("impatient")
 require("globals")
 require("vim")
 if not g._minimal then
 	require("plugins.filetype")
-  require("plugins.treesitter")
+	require("plugins.treesitter")
 end
 
-cmd "packadd broot.vim"
-cmd [[
-command! -nargs=? -complete=command Broot           call g:OpenBrootInPathInWindow(s:broot_default_explore_path, <f-args>)
-command! -nargs=? -complete=command BrootCurrentDir call g:OpenBrootInPathInWindow("%:p:h", <f-args>)
-command! -nargs=? -complete=command BrootWorkingDir call g:OpenBrootInPathInWindow(".", <f-args>)
-command! -nargs=? -complete=command BrootHomeDir    call g:OpenBrootInPathInWindow("~", <f-args>)
-]]
-
-
 vim.loop.new_timer():start(
-	20,
+	200,
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")

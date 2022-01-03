@@ -8,6 +8,9 @@ local configs = require("lspconfig/configs")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- local on_attach = function(client, bufnr)
+-- end
+
 -- https://github.com/lalanikarim/nvim-config/blob/main/lsp.vim
 -- local on_attach = function(client, bufnr)
 --   local resolved_capabilities = client.resolved_capabilities
@@ -65,18 +68,17 @@ lspconfig.emmet_ls.setup({
 	-- cmd = { "emmetls.sh"},
 })
 
-lspconfig.gopls.setup({ capabilities = capabilities })
-
 lspconfig.gopls.setup({
 	capabilities = capabilities,
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = false,
-			},
-			staticcheck = true,
-		},
-	},
+  -- autostart = true,
+	-- settings = {
+	-- 	gopls = {
+	-- 		analyses = {
+	-- 			unusedparams = false,
+	-- 		},
+	-- 		staticcheck = true,
+	-- 	},
+	-- },
 })
 
 -- lspconfig.hls.setup {capabilities = capabilities}
@@ -107,14 +109,14 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 -- 	},
 -- })
 
-local luadev = require("lua-dev").setup({
-	lspconfig = {
-		cmd = require("lspcontainers").command("sumneko_lua"),
-		capabilities = capabilities,
-	},
-})
-
-lspconfig.sumneko_lua.setup(luadev)
+-- local luadev = require("lua-dev").setup({
+-- 	lspconfig = {
+-- 		cmd = require("lspcontainers").command("sumneko_lua"),
+-- 		capabilities = capabilities,
+-- 	},
+-- })
+--
+-- lspconfig.sumneko_lua.setup(luadev)
 
 -- if vim.fn.executable("docker") == 1 then
 --   local runtime_path = vim.split(package.path, ";")
@@ -242,4 +244,10 @@ Custom lang servers
 -- }
 
 -- lspconfig.zk.setup({ on_attach = function(client, buffer) end })
---
+
+-- require "lsp_signature".setup({
+--   bind = true, -- This is mandatory, otherwise border config won't get registered.
+--   -- handler_opts = {
+--   --   border = "rounded"
+--   -- }
+-- })

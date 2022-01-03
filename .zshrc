@@ -92,3 +92,5 @@ typeset -U path # clean path
 source ~/.fzf/shell/key-bindings.zsh
 source ~/.submodules/zsh-fzf-history-search/zsh-fzf-history-search.zsh
 
+
+source /Users/kyungrok.chung/.config/broot/launcher/bash/br
