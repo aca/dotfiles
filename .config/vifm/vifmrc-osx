@@ -1,5 +1,11 @@
 " vim: filetype=vim :
 
+
+" fileviewer */,.*/ tree -L 2 -I .git %c
+" fileviewer */,.*/ br -c ':pt' %c
+
+     
+
 " Pdf
 filetype {*.pdf},<application/pdf>
        \ {Open in Preview}

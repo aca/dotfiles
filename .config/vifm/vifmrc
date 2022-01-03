@@ -3,45 +3,48 @@
 " https://github.com/vifm/vifm/blob/master/data/vifmrc
 " https://github.com/vifm/vifm/blob/master/data/vifmrc-osx
 
-set tuioptions="p"
+" set tuioptions="p"
 
 only
+vs
+view!
+set tabscope=pane
+
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
 nnoremap - <C-w>5<
 nnoremap _ <C-w>5>
 
+" fileviewer */,.*/ exa --tree -L 2 %c
+fileviewer */,.*/ broot -c :pt %c
+
+" fileviewer *.png,*.jpeg,*.jpg
+"   \ env -u COLORTERM viu -w %pw -h %ph -s %c %pd
+
+if executable('wezterm')
+    fileviewer *.png,*.jpeg,*.jpg
+      \ wezterm imgcat --width %pw --height %ph %c:p %pd
+endif
+
 " source ~/src/configs/dotfiles/.config/vifm/favicons.vifm
 
-set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"
+" set milleroptions="rsize:3,rpreview:all"
+" set millerview
 
-command togglepreview : if &milleroptions == "lsize:1,csize:1,rsize:3,rpreview:all"
-                        \| execute 'set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"'
-                        \| else
-                        \| execute 'set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"'
-                        \| endif
+" command togglepreview : if &milleroptions == "lsize:1,csize:1,rsize:3,rpreview:all"
+"                         \| execute 'set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"'
+"                         \| else
+"                         \| execute 'set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"'
+"                         \| endif
+" nnoremap ;p :togglepreview<cr>
 
-nnoremap ;p :togglepreview<cr>
-
-" command! fzfcd : let $FZF_RES = term('fd --type d . %a --hidden --exclude .git | fzf 2> /dev/tty')
-"               \| if $FZF_RES != ''
-"               \|     execute 'cd' fnameescape($FZF_RES)
-"               \| endif
-
-
-
-
-if executable('/usr/local/bin/fish')
-  let $SHELL="/usr/local/bin/fish"
-elseif executable('/usr/bin/fish')
-  let $SHELL="/usr/bin/fish"
-endif
+let $SHELL="/bin/sh"
 
 if executable('osascript')
   source ~/.config/vifm/vifmrc-osx
 else
   source ~/.config/vifm/vifmrc-linux
 endif
-
 
 nnoremap mv :move<cr>
 nnoremap rn :!vidir<cr>
@@ -69,8 +72,6 @@ nnoremap ;h :set dotfiles!<cr>
 
 
 
-set millerview
-" set milleroptions="lsize:1,csize:2,rsize:0"
 set dotfiles "hidden
 
 nnoremap <space> tj
@@ -153,7 +154,7 @@ nnoremap S :sort<cr>
 
 
 " Start shell in current directory
-nnoremap s :shell<cr>
+nnoremap s :!fish<cr>
 
 " Display sorting dialog
 nnoremap S :sort<cr>
@@ -230,3 +231,5 @@ highlight BrokenLink	cterm=bold	ctermfg=167	ctermbg=default
 highlight Device	cterm=none,standout	ctermfg=214	ctermbg=default
 highlight Fifo		cterm=none	ctermfg=172	ctermbg=default
 highlight Socket	cterm=bold	ctermfg=223	ctermbg=default
+
+

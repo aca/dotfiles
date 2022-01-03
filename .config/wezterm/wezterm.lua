@@ -2,9 +2,9 @@ local wezterm = require("wezterm")
 local os = require("os")
 local homedir = os.getenv("HOME")
 
-wezterm.on("window-config-reloaded", function(window, pane)
-  window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
-end)
+-- wezterm.on("window-config-reloaded", function(window, pane)
+--   window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
+-- end)
 
 function log(msg)
   wezterm.log_info(msg);
@@ -12,9 +12,8 @@ end
 
 wezterm.on("open_in_vim", function(window, pane)
 	local file = io.open("/tmp/wezterm_buf", "w")
-	file:write(pane:get_logical_lines_as_text(3000))
+	file:write(pane:get_logical_lines_as_text(1000))
 	file:close()
-
 	window:perform_action(
 		wezterm.action({
 			SplitVertical = {
@@ -24,14 +23,6 @@ wezterm.on("open_in_vim", function(window, pane)
 		}),
 		pane
 	)
-	-- window:perform_action(
-	-- 	wezterm.action({
-	-- 		SpawnCommandInNewTab = {
-	-- 			args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
-	-- 		},
-	-- 	}),
-	-- 	pane
-	-- )
 end)
 
 local move_around = function(window, pane, direction_wez, direction_nvim)
@@ -49,11 +40,9 @@ local move_around = function(window, pane, direction_wez, direction_nvim)
 	else
 		window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 	end
-  -- window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 end
 
 wezterm.on("move-left", function(window, pane)
-	-- move_around(window, pane, "Left", "h")
   window:perform_action(wezterm.action({ ActivatePaneDirection = "Left" }), pane)
 end)
 
@@ -70,13 +59,6 @@ wezterm.on("move-down", function(window, pane)
 end)
 
 function file_exists(name)
-	-- local f = io.open(name, "r")
-	-- if f ~= nil then
-	-- 	io.close(f)
-	-- 	return true
-	-- else
-	-- 	return false
-	-- end
   if os.execute("stat " .. name) then
     return true
   else 
@@ -120,7 +102,7 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = "Arthur",
+	color_scheme = '3024 Night',
 	use_ime = false,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted

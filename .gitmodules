@@ -463,3 +463,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nextfile.vim"]
 	path = .local/share/nvim/site/pack/paqs/opt/nextfile.vim
 	url = https://github.com/tyru/nextfile.vim.git
+[submodule ".local/share/nvim/site/pack/paqs/opt/broot.vim"]
+	path = .local/share/nvim/site/pack/paqs/opt/broot.vim
+	url = https://gitlab.com/lstwn/broot.vim.git

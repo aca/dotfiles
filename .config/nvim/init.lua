@@ -1,14 +1,3 @@
-vim.api.nvim_add_user_command("CommandWithLuaCallback", function(opts)
-	result = opts
-	P(opts)
-end, {
-	nargs = "*",
-	bang = true,
-	count = 2,
-})
-
---
---
 -- OPT [[
 -- vim.lsp.set_log_level("debug")
 -- require('vim.lsp.log').set_format_func(vim.inspect)
@@ -35,17 +24,26 @@ require("globals")
 require("vim")
 if not g._minimal then
 	require("plugins.filetype")
+  require("plugins.treesitter")
 end
 
+cmd "packadd broot.vim"
+cmd [[
+command! -nargs=? -complete=command Broot           call g:OpenBrootInPathInWindow(s:broot_default_explore_path, <f-args>)
+command! -nargs=? -complete=command BrootCurrentDir call g:OpenBrootInPathInWindow("%:p:h", <f-args>)
+command! -nargs=? -complete=command BrootWorkingDir call g:OpenBrootInPathInWindow(".", <f-args>)
+command! -nargs=? -complete=command BrootHomeDir    call g:OpenBrootInPathInWindow("~", <f-args>)
+]]
+
+
 vim.loop.new_timer():start(
-	50,
+	20,
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")
 		cmd("packadd plenary.nvim")
 
 		if not g._minimal then
-			require("plugins.treesitter")
 			require("plugins.lsp")
 			require("plugins.autopairs")
 			require("plugins.luasnip")
