@@ -1,6 +1,6 @@
 -- OPT [[
 vim.lsp.set_log_level("debug")
-require('vim.lsp.log').set_format_func(vim.inspect)
+require("vim.lsp.log").set_format_func(vim.inspect)
 -- ]]
 
 -- UPDATE
@@ -17,7 +17,6 @@ require('vim.lsp.log').set_format_func(vim.inspect)
 local vim = vim
 local g = vim.g
 local cmd = vim.cmd
-
 
 -- https://github.com/lewis6991/impatient.nvim
 require("impatient")

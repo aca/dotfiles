@@ -70,7 +70,7 @@ lspconfig.emmet_ls.setup({
 
 lspconfig.gopls.setup({
 	capabilities = capabilities,
-  -- autostart = true,
+	-- autostart = true,
 	-- settings = {
 	-- 	gopls = {
 	-- 		analyses = {
