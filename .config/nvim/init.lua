@@ -1,6 +1,6 @@
 -- OPT [[
-vim.lsp.set_log_level("debug")
-require("vim.lsp.log").set_format_func(vim.inspect)
+-- vim.lsp.set_log_level("debug")
+-- require("vim.lsp.log").set_format_func(vim.inspect)
 -- ]]
 
 -- UPDATE
@@ -23,8 +23,8 @@ require("impatient")
 require("globals")
 require("vim")
 if not g._minimal then
-	require("plugins.filetype")
 	require("plugins.treesitter")
+  require("plugins.lsp")
 end
 
 vim.loop.new_timer():start(
@@ -35,8 +35,8 @@ vim.loop.new_timer():start(
 		cmd("packadd plenary.nvim")
 
 		if not g._minimal then
-			require("plugins.lsp")
 			require("plugins.autopairs")
+      -- require("plugins.filetype")
 			require("plugins.luasnip")
 			require("plugins.cmp")
 

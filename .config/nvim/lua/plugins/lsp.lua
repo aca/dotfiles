@@ -68,18 +68,20 @@ lspconfig.emmet_ls.setup({
 	-- cmd = { "emmetls.sh"},
 })
 
-lspconfig.gopls.setup({
-	capabilities = capabilities,
-	-- autostart = true,
-	-- settings = {
-	-- 	gopls = {
-	-- 		analyses = {
-	-- 			unusedparams = false,
-	-- 		},
-	-- 		staticcheck = true,
-	-- 	},
-	-- },
-})
+lspconfig.gopls.setup({capabilities = capabilities})
+-- lspconfig.gopls.setup({capabilities = capabilities})
+-- lspconfig.gopls.setup({
+-- 	capabilities = capabilities,
+-- 	-- autostart = true,
+-- 	-- settings = {
+-- 	-- 	gopls = {
+-- 	-- 		analyses = {
+-- 	-- 			unusedparams = false,
+-- 	-- 		},
+-- 	-- 		staticcheck = true,
+-- 	-- 	},
+-- 	-- },
+-- })
 
 -- lspconfig.hls.setup {capabilities = capabilities}
 -- lspconfig.racket_langserver.setup{ capabilities = capabilities; }
@@ -109,14 +111,14 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 -- 	},
 -- })
 
--- local luadev = require("lua-dev").setup({
--- 	lspconfig = {
--- 		cmd = require("lspcontainers").command("sumneko_lua"),
--- 		capabilities = capabilities,
--- 	},
--- })
---
--- lspconfig.sumneko_lua.setup(luadev)
+local luadev = require("lua-dev").setup({
+	lspconfig = {
+		cmd = require("lspcontainers").command("sumneko_lua"),
+		capabilities = capabilities,
+	},
+})
+
+lspconfig.sumneko_lua.setup(luadev)
 
 -- if vim.fn.executable("docker") == 1 then
 --   local runtime_path = vim.split(package.path, ";")

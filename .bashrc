@@ -70,5 +70,3 @@ if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
 if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi
 if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
 # . "$HOME/.cargo/env"
-
-source /Users/kyungrok.chung/.config/broot/launcher/bash/br

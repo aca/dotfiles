@@ -58,9 +58,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vifm.vim"]
 	path = .local/share/nvim/site/pack/paqs/opt/vifm.vim
 	url = https://github.com/vifm/vifm.vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-floaterm"]
-	path = .local/share/nvim/site/pack/paqs/opt/vim-floaterm
-	url = https://github.com/voldikss/vim-floaterm.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-fetch"]
 	path = .local/share/nvim/site/pack/paqs/opt/vim-fetch
 	url = https://github.com/wsdjeg/vim-fetch.git
@@ -349,9 +346,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/headlines.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/headlines.nvim
 	url = https://github.com/lukas-reineke/headlines.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-projectionist"]
-	path = .local/share/nvim/site/pack/paqs/opt/vim-projectionist
-	url = https://github.com/tpope/vim-projectionist.git
 [submodule ".tmux/plugins/tmux-easy-motion"]
 	path = .tmux/plugins/tmux-easy-motion
 	url = https://github.com/IngoMeyer441/tmux-easy-motion.git
@@ -364,9 +358,6 @@
 [submodule ".tmux/plugins/tmux-fuzzback"]
 	path = .tmux/plugins/tmux-fuzzback
 	url = https://github.com/roosta/tmux-fuzzback.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/wilder.nvim"]
-	path = .local/share/nvim/site/pack/paqs/opt/wilder.nvim
-	url = https://github.com/gelguy/wilder.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/Comment.nvim"]
 	path = .local/share/nvim/site/pack/paqs/opt/Comment.nvim
 	url = https://github.com/numToStr/Comment.nvim.git
