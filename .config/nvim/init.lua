@@ -41,8 +41,8 @@ vim.loop.new_timer():start(
 		if not g._minimal then
 			cmd("packadd plenary.nvim")
 			require("plugins.autopairs")
-			require("plugins.luasnip")
 			require("plugins.cmp")
+			require("plugins.luasnip")
 
 			require("plugins.dap")
 			require("plugins.neoformat")

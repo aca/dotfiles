@@ -1,5 +1,9 @@
+# vim:foldmethod=marker foldmarker=[[,]]
+#
+# Reference
+# https://github.com/xiaq/etc/blob/master/rc.elv
 
-# pprint $edit:insert:binding                                      rok@rok-te3
+# pprint $edit:insert:binding
  # &Tab=  <builtin <edit:completion>:smart-start>
 
 # vi mode binding
@@ -7,33 +11,39 @@
 
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 
+use env
+use platform
+
+if (eq $E:ELVISH_PATH "") {
+    set E:ELVISH_PATH = 1
+    set paths = [
+      ~/.opam/default/bin
+      ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
+      ~/.racket/*[nomatch-ok]/bin
+      ~/.npm-global/bin
+      ~/Library/Python/*[nomatch-ok]/bin
+      ~/.cargo/bin
+      ~/.local/bin
+      ~/bin
+      $@paths
+    ]
+}
+
 # use readline-binding
 
-# env init
-if (not (has-env _ENV)) {
-  set-env _ENV ""
-  set-env _OS (uname)
-}
 
-fn ll {|@a|
-  if (eq $E:_OS Darwin) {
-    ls -alt -G $@a
-  } else {
-    ls -alt --color=auto $@a
-  }
-}
-
-fn v {|@a|
-    nvim $@a
-}
-
-# use function ll
-# set edit:small-word-abbr['ll'] = 'ls -ltr'
+# abbr [[
 set edit:small-word-abbr['k'] = 'kubectl'
 set edit:small-word-abbr['v'] = 'nvim'
 set edit:small-word-abbr['os'] = 'openstack '
 set edit:small-word-abbr['ta'] = 'tmux attach -t '
 set edit:small-word-abbr['elv'] = 'elvish'
+# ]]
+
+# alias [[
+fn ll {|@a| e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+fn v {|@a| nvim $@a }
+# ]]
 
 # var _whoami = (constantly (styled (whoami)@(hostname) inverse))
 

@@ -1,31 +1,51 @@
 -- vim:foldmethod=marker foldmarker=[[,]]
+
+-- init [[
 vim.cmd([[ 
 packadd nvim-lspconfig
 packadd nvim-lsp-installer
 ]])
 
-vim.api.nvim_add_user_command("LspSetup", function()
-	vim.cmd([[
-  LspInstall 
-   \ vimls
-   \ html
-   \ rust_analyzer@nightly
-   \ tailwindcss
-   \ bashls
-   \ sumneko_lua
-  ]])
-end, {})
-
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 -- local configs = require("lspconfig/configs")
-
--- Based on https://github.com/hrsh7th/cmp-nvim-lsp
+-- ]]
+-- capabilities [[
+-- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+local completionItem = capabilities.textDocument.completion.completionItem
+completionItem.snippetSupport = true
+completionItem.preselectSupport = true
+completionItem.insertReplaceSupport = true
+completionItem.labelDetailsSupport = true
+completionItem.deprecatedSupport = true
+completionItem.commitCharactersSupport = true
+completionItem.tagSupport = { valueSet = { 1 } }
+completionItem.resolveSupport = {
+	properties = {
+		"documentation",
+		"detail",
+		"additionalTextEdits",
+	},
+}
 
+-- ]]
+-- handlers [[
+
+-- TODO: slow diagnostic update on mac
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- 	virtual_text = true,
+-- 	signs = true,
+-- 	underline = true,
+-- 	update_in_insert = true,
+-- })
+
+-- ]]
+-- on_attach [[
 local on_attach = function(client, bufnr)
 	local resolved_capabilities = client.resolved_capabilities
+	local api = vim.api
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
@@ -43,40 +63,15 @@ local on_attach = function(client, bufnr)
 		-- Add this <leader> bound mapping so formatting the entire document is easier.
 		-- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 	end
+	-- print("loaded")
+
+	require("lsp_signature").on_attach()
 end
-
--- capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
--- capabilities.textDocument.completion.completionItem.preselectSupport = false
--- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
--- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
--- capabilities.textDocument.completion.completionItem.deprecatedSupport = true
--- capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
--- capabilities.textDocument.completion.completionItem.tagSupport = {valueSet = {1}}
--- capabilities.textDocument.completion.completionItem.resolveSupport = {
---     properties = {
---         "documentation",
---         "detail",
---         "additionalTextEdits"
---     }
--- }
-
--- TODO: slow diagnostic update on mac
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
--- 	virtual_text = true,
--- 	signs = true,
--- 	underline = true,
--- 	update_in_insert = true,
--- })
-
-lspconfig.emmet_ls.setup({
-	capabilities = capabilities,
-	cmd = { "emmet-ls", "--stdio" },
-	-- cmd = { "emmetls.sh"},
-})
-
--- lspconfig.gopls.setup({ capabilities = capabilities })
+-- ]]
+-- server: gopls [[
 lspconfig.gopls.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 	settings = {
 		gopls = {
 			analyses = {
@@ -86,37 +81,66 @@ lspconfig.gopls.setup({
 		},
 	},
 })
+-- ]]
+-- server: pylance [[
+lspconfig.pyright.setup({
+	cmd = require("pylance"),
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = false,
+			},
+			staticcheck = true,
+		},
+	},
+})
+-- ]]
+-- server: servers with installer [[
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+	local opts = {
+		lspconfig = {
+			capabilities = capabilities,
+		},
+		on_attach = on_attach,
+	}
 
--- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
--- lspconfig.denols.setup({
--- 	-- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" , "json"},
--- 	-- filetypes = { "json", "yaml", "markdown"},
--- 	filetypes = { "json", "yaml" },
--- 	root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git", vim.fn.getcwd()),
--- 	settings = {
--- 		init_options = {
--- 			enable = true,
--- 			lint = true,
--- 			unstable = false,
--- 		},
--- 	},
--- })
-
---[[
-
-Custom lang servers
-
---]]
-
--- require("pylance")
--- lspconfig.pylance.setup({
--- 	capabilities = capabilities,
--- 	settings = {
--- 		python = {
--- 			analysis = {},
--- 		},
--- 	},
--- })
+	if server.name == "sumneko_lua" then
+		-- local runtime_path = vim.split(package.path, ";")
+		-- table.insert(runtime_path, "lua/?.lua")
+		-- table.insert(runtime_path, "lua/?/init.lua")
+		opts = require("lua-dev").setup({
+			lspconfig = {
+				capabilities = capabilities,
+				-- Lua = {
+				-- 	runtime = {
+				-- 		-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+				-- 		version = "LuaJIT",
+				-- 		-- Setup your lua path
+				-- 		path = runtime_path,
+				-- 	},
+				-- 	diagnostics = {
+				-- 		-- Get the language server to recognize the `vim` global
+				-- 		globals = { "vim" },
+				-- 	},
+				-- 	workspace = {
+				-- 		-- Make the server aware of Neovim runtime files
+				-- 		library = vim.api.nvim_get_runtime_file("", true),
+				-- 	},
+				-- 	-- Do not send telemetry data containing a randomized but unique identifier
+				-- 	telemetry = {
+				-- 		enable = false,
+				-- 	},
+				-- },
+			},
+			on_attach = on_attach,
+		})
+	end
+	server:setup(opts)
+end)
+-- ]]
 
 -- configs.lsp_dev = {
 -- default_config = {
@@ -195,61 +219,3 @@ Custom lang servers
 -- }
 
 -- lspconfig.zk.setup({ on_attach = function(client, buffer) end })
-
--- require "lsp_signature".setup({
---   bind = true, -- This is mandatory, otherwise border config won't get registered.
---   -- handler_opts = {
---   --   border = "rounded"
---   -- }
--- })
-
--- sumneko_lua, with luadev [[
-
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-	local opts = {
-		lspconfig = {
-			capabilities = capabilities,
-		},
-	}
-
-	if server.name == "sumneko_lua" then
-		opts = require("lua-dev").setup({
-			lspconfig = {
-				capabilities = capabilities,
-			},
-		})
-	end
-	server:setup(opts)
-end)
-
---   local runtime_path = vim.split(package.path, ";")
---   table.insert(runtime_path, "lua/?.lua")
---   table.insert(runtime_path, "lua/?/init.lua")
---   lspconfig.sumneko_lua.setup({
---     cmd = {"lua-language-server"},
---     settings = {
---       capabilities = capabilities,
---       Lua = {
---         runtime = {
---           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---           version = "LuaJIT",
---           -- Setup your lua path
---           path = runtime_path,
---         },
---         diagnostics = {
---           -- Get the language server to recognize the `vim` global
---           globals = { "vim" },
---         },
---         workspace = {
---           -- Make the server aware of Neovim runtime files
---           library = vim.api.nvim_get_runtime_file("", true),
---         },
---         -- Do not send telemetry data containing a randomized but unique identifier
---         telemetry = {
---           enable = false,
---         },
---       },
---     },
---   })
--- ]]

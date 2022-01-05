@@ -53,7 +53,7 @@ font:
 
   size: 28
   offset:
-    x: -2
+    x: -3
     y: 2
 
   glyph_offset:

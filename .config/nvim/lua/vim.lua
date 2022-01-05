@@ -35,7 +35,7 @@ g.cursorline = true
 g.timeoutlen = 400
 
 -- fold
-g.foldlevel = 0
+g.foldlevel = 99
 g.foldlevelstart = 99
 -- g.foldmethod = "marker"
 g.foldcolumn = 0

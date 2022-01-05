@@ -10,6 +10,14 @@ local function log(msg)
 	wezterm.log_info(msg)
 end
 
+wezterm.on("update-right-status", function(window, pane)
+  local status = ""
+  if window:dead_key_is_active() then
+    status = "COMPOSE"
+  end
+  window:set_right_status(status)
+end);
+
 wezterm.on("open_in_vim", function(window, pane)
 	local file = io.open("/tmp/wezterm_buf", "w")
 	file:write(pane:get_logical_lines_as_text(1000))
@@ -102,7 +110,7 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = "3024 Night",
+	color_scheme = 'Jellybeans',
 	use_ime = true,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
@@ -151,8 +159,8 @@ local config = {
 
 		-- close
 		{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = false } }) },
-		{ key = "X", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
-		{ key = "X", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
+		-- { key = "X", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
+		{ key = "x", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
 
 		{ key = "1", mods = "LEADER", action = wezterm.action({ ActivateTab = 0 }) },
 		{ key = "2", mods = "LEADER", action = wezterm.action({ ActivateTab = 1 }) },
