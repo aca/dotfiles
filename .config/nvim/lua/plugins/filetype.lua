@@ -1,4 +1,4 @@
--- TODO: replace with core filetype.lua 
+-- TODO: replace with core filetype.lua
 -- https://github.com/neovim/neovim/pull/16600#issuecomment-990409210
 -- In init.lua or filetype.nvim's config file
 

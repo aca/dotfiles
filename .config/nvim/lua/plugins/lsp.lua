@@ -5,7 +5,7 @@ packadd nvim-lsp-installer
 ]])
 
 vim.api.nvim_add_user_command("LspSetup", function()
-  vim.cmd [[
+	vim.cmd([[
   LspInstall 
    \ vimls
    \ html
@@ -13,7 +13,7 @@ vim.api.nvim_add_user_command("LspSetup", function()
    \ tailwindcss
    \ bashls
    \ sumneko_lua
-  ]]
+  ]])
 end, {})
 
 local lspconfig = require("lspconfig")
@@ -25,22 +25,25 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, bufnr)
-  local resolved_capabilities = client.resolved_capabilities
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+	local resolved_capabilities = client.resolved_capabilities
+	local function buf_set_keymap(...)
+		vim.api.nvim_buf_set_keymap(bufnr, ...)
+	end
+	local function buf_set_option(...)
+		vim.api.nvim_buf_set_option(bufnr, ...)
+	end
 
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  if resolved_capabilities.goto_definition == true then
-      api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-  end
+	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+	if resolved_capabilities.goto_definition == true then
+		api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+	end
 
-  if resolved_capabilities.document_formatting == true then
-      api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-      -- Add this <leader> bound mapping so formatting the entire document is easier.
-      -- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  end
+	if resolved_capabilities.document_formatting == true then
+		api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+		-- Add this <leader> bound mapping so formatting the entire document is easier.
+		-- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	end
 end
-
 
 -- capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
 -- capabilities.textDocument.completion.completionItem.preselectSupport = false

@@ -19,9 +19,9 @@ o.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000" -- ht
 o.completeopt = "menu,menuone,noselect"
 
 -- o.fillchars = "fold: ,vert:│,eob: ,msgsep:‾"
-opt.fillchars = { 
-  eob = " ",
-  -- vert =  " ",
+opt.fillchars = {
+	eob = " ",
+	-- vert =  " ",
 }
 o.wrapmargin = 0
 

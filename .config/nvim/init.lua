@@ -19,7 +19,6 @@ require("impatient") -- https://github.com/lewis6991/impatient.nvim
 -- TODO: zettels related
 -- require 'zettels'
 
-
 local vim = vim
 local g = vim.g
 local cmd = vim.cmd
