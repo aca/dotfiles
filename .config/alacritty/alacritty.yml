@@ -4,6 +4,7 @@ env:
   TERM: xterm-256color
 
 window:
+  opacity: 1
   padding:
     x: 10
     y: 0
@@ -23,10 +24,11 @@ font:
     # family: Operator Mono Book
     # style: Regular
     # family: Hasklug Nerd Font Mono
-    # family: BlexMono Nerd Font Mono
+    family: BlexMono Nerd Font Mono
     # family: MesloLGL Nerd Font Mono
-    family: SauceCodePro Nerd Font Mono
+    # family: SauceCodePro Nerd Font Mono
     # family: DankMono Nerd Font
+    # family: Iosevka Nerd Font Mono
 
   # bold:
     # family: FantasqueSansMono Nerd Font Mono
@@ -45,7 +47,6 @@ font:
     # family: FuraCode Nerd Font Mono
     # family: Iosevka Nerd Font Mono
     # style: Heavy Italic
-    # family: Iosevka Nerd Font Mono
     # family: Dina
     # style: Italic
     # style: Regular
@@ -60,7 +61,6 @@ font:
     y: 0
 
 # draw_bold_text_with_bright_colors: true
-background_opacity: 1
 
 mouse:
   hide_when_typing: true
@@ -312,46 +312,46 @@ key_bindings:
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
 # ColorStart
-# Base16 Windows 95 256 - alacritty color config
-# Fergus Collins (https://github.com/C-Fergus)
+# Base16 Bespin 256 - alacritty color config
+# Jan T. Sott
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xa8a8a8'
+    background: '0x28211c'
+    foreground: '0x8a8986'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xa8a8a8'
+    text: '0x28211c'
+    cursor: '0x8a8986'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xfc5454'
-    green:   '0x54fc54'
-    yellow:  '0xfcfc54'
-    blue:    '0x5454fc'
-    magenta: '0xfc54fc'
-    cyan:    '0x54fcfc'
-    white:   '0xa8a8a8'
+    black:   '0x28211c'
+    red:     '0xcf6a4c'
+    green:   '0x54be0d'
+    yellow:  '0xf9ee98'
+    blue:    '0x5ea6ea'
+    magenta: '0x9b859d'
+    cyan:    '0xafc4db'
+    white:   '0x8a8986'
 
   # Bright colors
   bright:
-    black:   '0x545454'
-    red:     '0xfc5454'
-    green:   '0x54fc54'
-    yellow:  '0xfcfc54'
-    blue:    '0x5454fc'
-    magenta: '0xfc54fc'
-    cyan:    '0x54fcfc'
-    white:   '0xfcfcfc'
+    black:   '0x666666'
+    red:     '0xcf6a4c'
+    green:   '0x54be0d'
+    yellow:  '0xf9ee98'
+    blue:    '0x5ea6ea'
+    magenta: '0x9b859d'
+    cyan:    '0xafc4db'
+    white:   '0xbaae9e'
 
   indexed_colors:
-    - { index: 16, color: '0xa85400' }
-    - { index: 17, color: '0x00a800' }
-    - { index: 18, color: '0x1c1c1c' }
-    - { index: 19, color: '0x383838' }
-    - { index: 20, color: '0x7e7e7e' }
-    - { index: 21, color: '0xd2d2d2' }
+    - { index: 16, color: '0xcf7d34' }
+    - { index: 17, color: '0x937121' }
+    - { index: 18, color: '0x36312e' }
+    - { index: 19, color: '0x5e5d5c' }
+    - { index: 20, color: '0x797977' }
+    - { index: 21, color: '0x9d9b97' }
 # ColorEnd

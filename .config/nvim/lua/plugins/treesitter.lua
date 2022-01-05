@@ -4,8 +4,8 @@ vim.cmd([[
         " packadd playground
 ]])
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-local query = require("vim.treesitter.query")
+-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+-- local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")
 
 -- NOTES: https://github.com/tree-sitter/tree-sitter-haskell#building-on-macos

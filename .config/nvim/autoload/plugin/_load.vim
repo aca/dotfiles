@@ -13,7 +13,7 @@ packadd vim-eunuch
 packadd vim-characterize 
 packadd vim-dirvish
 packadd vim-rfc 
-packadd symbols-outline.nvim
+" packadd symbols-outline.nvim
 packadd bufferize.vim
 packadd vim-diagon
 packadd nvim-lsp-installer

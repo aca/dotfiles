@@ -31,10 +31,6 @@ hi! link DiagnosticSignWarn Comment
 hi! link DiagnosticSignInfo Comment
 hi! link DiagnosticSignHint Comment
 
-hi! VertSplit guibg=NONE
-
-let g:zenbones_compat = 1
-
 hi! User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
 hi! User2 ctermfg=007 ctermbg=236 guibg=#111f28 guifg=#FFFFFF gui=italic
 hi! User3 ctermfg=236 ctermbg=236 guibg=#303030 

@@ -6,8 +6,8 @@ local homedir = os.getenv("HOME")
 --   window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
 -- end)
 
-function log(msg)
-  wezterm.log_info(msg);
+local function log(msg)
+	wezterm.log_info(msg)
 end
 
 wezterm.on("open_in_vim", function(window, pane)
@@ -43,7 +43,7 @@ local move_around = function(window, pane, direction_wez, direction_nvim)
 end
 
 wezterm.on("move-left", function(window, pane)
-  window:perform_action(wezterm.action({ ActivatePaneDirection = "Left" }), pane)
+	window:perform_action(wezterm.action({ ActivatePaneDirection = "Left" }), pane)
 end)
 
 wezterm.on("move-right", function(window, pane)
@@ -58,12 +58,12 @@ wezterm.on("move-down", function(window, pane)
 	move_around(window, pane, "Down", "j")
 end)
 
-function file_exists(name)
-  if os.execute("stat " .. name) then
-    return true
-  else 
-    return false
-  end
+local function file_exists(name)
+	if os.execute("stat " .. name) then
+		return true
+	else
+		return false
+	end
 end
 
 local vim_resize = function(window, pane, direction_wez, direction_nvim)
@@ -96,17 +96,18 @@ local config = {
 	adjust_window_size_when_changing_font_size = false,
 	default_prog = { "/usr/local/bin/fish", "--login" },
 	enable_kitty_graphics = true,
-	-- debug_key_events = true,
+	debug_key_events = true,
 	set_environment_variables = {
 		-- This fails to find wezterm.nvim.navigator
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = '3024 Night',
-	use_ime = false,
+	color_scheme = "3024 Night",
+	use_ime = true,
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+	send_composed_key_when_left_alt_is_pressed = false,
 	keys = {
 
 		-- { key = "b", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
@@ -197,7 +198,166 @@ local config = {
 		-- { key = "l", mods = "ALT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
 
 		-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-		{ key = "a", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x01" }) },
+		-- { key = "a", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x01" }) },
+
+		-- alt key
+		-- { key = "a", mods = "ALT", action = wezterm.action({ SendString = "\x1ba" }) },
+		-- { key = "b", mods = "ALT", action = wezterm.action({ SendString = "\x1bb" }) },
+		-- { key = "c", mods = "ALT", action = wezterm.action({ SendString = "\x1bc" }) },
+		-- { key = "d", mods = "ALT", action = wezterm.action({ SendString = "\x1bd" }) },
+		-- { key = "e", mods = "ALT", action = wezterm.action({ SendString = "\x1be" }) },
+		-- { key = "f", mods = "ALT", action = wezterm.action({ SendString = "\x1bf" }) },
+		-- { key = "g", mods = "ALT", action = wezterm.action({ SendString = "\x1bg" }) },
+		-- { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },
+		-- { key = "i", mods = "ALT", action = wezterm.action({ SendString = "\x1bi" }) },
+		-- { key = "j", mods = "ALT", action = wezterm.action({ SendString = "\x1bj" }) },
+		-- { key = "k", mods = "ALT", action = wezterm.action({ SendString = "\x1bk" }) },
+		-- { key = "l", mods = "ALT", action = wezterm.action({ SendString = "\x1bl" }) },
+		-- { key = "m", mods = "ALT", action = wezterm.action({ SendString = "\x1bm" }) },
+		-- { key = "n", mods = "ALT", action = wezterm.action({ SendString = "\x1bn" }) },
+		-- { key = "o", mods = "ALT", action = wezterm.action({ SendString = "\x1bo" }) },
+		-- { key = "p", mods = "ALT", action = wezterm.action({ SendString = "\x1bp" }) },
+		-- { key = "q", mods = "ALT", action = wezterm.action({ SendString = "\x1bq" }) },
+		-- { key = "r", mods = "ALT", action = wezterm.action({ SendString = "\x1br" }) },
+		-- { key = "s", mods = "ALT", action = wezterm.action({ SendString = "\x1bs" }) },
+		-- { key = "t", mods = "ALT", action = wezterm.action({ SendString = "\x1bt" }) },
+		-- { key = "u", mods = "ALT", action = wezterm.action({ SendString = "\x1bu" }) },
+		-- { key = "v", mods = "ALT", action = wezterm.action({ SendString = "\x1bv" }) },
+		-- { key = "w", mods = "ALT", action = wezterm.action({ SendString = "\x1bw" }) },
+		-- { key = "x", mods = "ALT", action = wezterm.action({ SendString = "\x1bx" }) },
+		-- { key = "y", mods = "ALT", action = wezterm.action({ SendString = "\x1by" }) },
+		-- { key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
+
+		-- {
+		-- 	key = "a",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bA" }),
+		-- },
+		-- {
+		-- 	key = "b",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bB" }),
+		-- },
+		-- {
+		-- 	key = "c",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bC" }),
+		-- },
+		-- {
+		-- 	key = "d",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bD" }),
+		-- },
+		-- {
+		-- 	key = "e",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bE" }),
+		-- },
+		-- {
+		-- 	key = "f",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bF" }),
+		-- },
+		-- {
+		-- 	key = "g",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bG" }),
+		-- },
+		-- {
+		-- 	key = "h",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bH" }),
+		-- },
+		-- {
+		-- 	key = "i",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bI" }),
+		-- },
+		-- {
+		-- 	key = "j",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bJ" }),
+		-- },
+		-- {
+		-- 	key = "k",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bK" }),
+		-- },
+		-- {
+		-- 	key = "l",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bL" }),
+		-- },
+		-- {
+		-- 	key = "m",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bM" }),
+		-- },
+		-- {
+		-- 	key = "n",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bN" }),
+		-- },
+		-- {
+		-- 	key = "o",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bO" }),
+		-- },
+		-- {
+		-- 	key = "p",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bP" }),
+		-- },
+		-- {
+		-- 	key = "q",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bQ" }),
+		-- },
+		-- {
+		-- 	key = "r",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bR" }),
+		-- },
+		-- {
+		-- 	key = "s",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bS" }),
+		-- },
+		-- {
+		-- 	key = "t",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bT" }),
+		-- },
+		-- {
+		-- 	key = "u",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bU" }),
+		-- },
+		-- {
+		-- 	key = "v",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bV" }),
+		-- },
+		-- {
+		-- 	key = "w",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bW" }),
+		-- },
+		-- {
+		-- 	key = "x",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bX" }),
+		-- },
+		-- {
+		-- 	key = "y",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bY" }),
+		-- },
+		-- {
+		-- 	key = "z",
+		-- 	mods = "ALT|SHIFT",
+		-- 	action = wezterm.action({ SendString = "\x1bZ" }),
+		-- },
 	},
 }
 

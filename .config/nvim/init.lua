@@ -1,11 +1,16 @@
--- OPT [[
+require("impatient") -- https://github.com/lewis6991/impatient.nvim
+
+-- DEBUG [[
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 -- ]]
 
--- UPDATE
+-- UPDATE [[
 -- :TSInstall all
 -- :TSUpdate all
+--
+-- :LspUpdateAll
+-- ]]
 
 -- TODO: jupyter integration
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
@@ -14,17 +19,18 @@
 -- TODO: zettels related
 -- require 'zettels'
 
+
 local vim = vim
 local g = vim.g
 local cmd = vim.cmd
 
--- https://github.com/lewis6991/impatient.nvim
-require("impatient")
+-- require("impatient").enable_profile() -- DEBUG
 require("globals")
 require("vim")
+require("plugins.filetype")
 if not g._minimal then
+	require("plugins.lsp")
 	require("plugins.treesitter")
-  require("plugins.lsp")
 end
 
 vim.loop.new_timer():start(
@@ -32,11 +38,10 @@ vim.loop.new_timer():start(
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")
-		cmd("packadd plenary.nvim")
 
 		if not g._minimal then
+			cmd("packadd plenary.nvim")
 			require("plugins.autopairs")
-      -- require("plugins.filetype")
 			require("plugins.luasnip")
 			require("plugins.cmp")
 

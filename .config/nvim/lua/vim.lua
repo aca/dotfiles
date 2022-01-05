@@ -19,7 +19,10 @@ o.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000" -- ht
 o.completeopt = "menu,menuone,noselect"
 
 -- o.fillchars = "fold: ,vert:│,eob: ,msgsep:‾"
-opt.fillchars = { eob = " " }
+opt.fillchars = { 
+  eob = " ",
+  -- vert =  " ",
+}
 o.wrapmargin = 0
 
 o.lazyredraw = true
@@ -29,13 +32,12 @@ g.maplocalleader = " "
 
 g.cursorcolumn = false
 g.cursorline = true
-
 g.timeoutlen = 400
 
 -- fold
 g.foldlevel = 0
 g.foldlevelstart = 99
-g.foldmethod = "marker"
+-- g.foldmethod = "marker"
 g.foldcolumn = 0
 
 opt.cursorline = true -- Highlight the current line
@@ -126,8 +128,8 @@ g.loaded_matchit = 1
 -- https://github.com/monkoose/matchparen.nvim
 g.loaded_matchparen = 1
 
--- TODO: replace with https://github.com/nathom/filetype.nvim
-g.did_load_filetypes = 1
+g.do_filetype_lua = 1
+g.did_load_filetypes = 0
 
 -- g.loaded_netrw = 1
 -- g.loaded_netrwSettings = 1

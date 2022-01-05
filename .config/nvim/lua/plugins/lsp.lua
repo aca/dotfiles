@@ -1,41 +1,46 @@
-vim.cmd([[ packad nvim-lspconfig ]])
+-- vim:foldmethod=marker foldmarker=[[,]]
+vim.cmd([[ 
+packadd nvim-lspconfig
+packadd nvim-lsp-installer
+]])
+
+vim.api.nvim_add_user_command("LspSetup", function()
+  vim.cmd [[
+  LspInstall 
+   \ vimls
+   \ html
+   \ rust_analyzer@nightly
+   \ tailwindcss
+   \ bashls
+   \ sumneko_lua
+  ]]
+end, {})
 
 local lspconfig = require("lspconfig")
-local util = require("lspconfig/util")
-local configs = require("lspconfig/configs")
+-- local util = require("lspconfig/util")
+-- local configs = require("lspconfig/configs")
 
 -- Based on https://github.com/hrsh7th/cmp-nvim-lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- local on_attach = function(client, bufnr)
--- end
+local on_attach = function(client, bufnr)
+  local resolved_capabilities = client.resolved_capabilities
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
--- https://github.com/lalanikarim/nvim-config/blob/main/lsp.vim
--- local on_attach = function(client, bufnr)
---   local resolved_capabilities = client.resolved_capabilities
---   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
---   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
---   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
---
---   if resolved_capabilities.declaration then
---     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
---   end
---
---   if resolved_capabilities.goto_definition then
---     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
---   end
---
---   if resolved_capabilities.goto_definition == true then
---       api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
---   end
---
---   if resolved_capabilities.document_formatting == true then
---       api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
---       -- Add this <leader> bound mapping so formatting the entire document is easier.
---       map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
---   end
--- end
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  if resolved_capabilities.goto_definition == true then
+      api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+  end
+
+  if resolved_capabilities.document_formatting == true then
+      api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+      -- Add this <leader> bound mapping so formatting the entire document is easier.
+      -- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+end
+
 
 -- capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
 -- capabilities.textDocument.completion.completionItem.preselectSupport = false
@@ -60,41 +65,24 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- 	update_in_insert = true,
 -- })
 
-lspconfig.tailwindcss.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
-lspconfig.tsserver.setup({ capabilities = capabilities }) -- Need typescript installed to use for javascript project
 lspconfig.emmet_ls.setup({
 	capabilities = capabilities,
 	cmd = { "emmet-ls", "--stdio" },
 	-- cmd = { "emmetls.sh"},
 })
 
-lspconfig.gopls.setup({capabilities = capabilities})
--- lspconfig.gopls.setup({capabilities = capabilities})
--- lspconfig.gopls.setup({
--- 	capabilities = capabilities,
--- 	-- autostart = true,
--- 	-- settings = {
--- 	-- 	gopls = {
--- 	-- 		analyses = {
--- 	-- 			unusedparams = false,
--- 	-- 		},
--- 	-- 		staticcheck = true,
--- 	-- 	},
--- 	-- },
--- })
-
--- lspconfig.hls.setup {capabilities = capabilities}
--- lspconfig.racket_langserver.setup{ capabilities = capabilities; }
-lspconfig.bashls.setup({ capabilities = capabilities })
--- lspconfig.vimls.setup { capabilities = capabilities; }
--- lspconfig.cssls.setup{ capabilities = capabilities; }
--- lspconfig.dockerls.setup{ capabilities = capabilities; }
--- lspconfig.html.setup{ capabilities = capabilities; }
--- lspconfig.jsonls.setup {capabilities = capabilities}
-lspconfig.yamlls.setup({ capabilities = capabilities })
-lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-lspconfig.clangd.setup({ capabilities = capabilities })
--- lspconfig.terraformls.setup {capabilities = capabilities}
+-- lspconfig.gopls.setup({ capabilities = capabilities })
+lspconfig.gopls.setup({
+	capabilities = capabilities,
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = false,
+			},
+			staticcheck = true,
+		},
+	},
+})
 
 -- https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
 -- lspconfig.denols.setup({
@@ -110,48 +98,6 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 -- 		},
 -- 	},
 -- })
-
-local luadev = require("lua-dev").setup({
-	lspconfig = {
-		cmd = require("lspcontainers").command("sumneko_lua"),
-		capabilities = capabilities,
-	},
-})
-
-lspconfig.sumneko_lua.setup(luadev)
-
--- if vim.fn.executable("docker") == 1 then
---   local runtime_path = vim.split(package.path, ";")
---   table.insert(runtime_path, "lua/?.lua")
---   table.insert(runtime_path, "lua/?/init.lua")
---   lspconfig.sumneko_lua.setup({
---     cmd = {"lua-language-server"},
---     -- cmd = require("lspcontainers").command("sumneko_lua"),
---     settings = {
---       capabilities = capabilities,
---       Lua = {
---         runtime = {
---           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---           version = "LuaJIT",
---           -- Setup your lua path
---           path = runtime_path,
---         },
---         diagnostics = {
---           -- Get the language server to recognize the `vim` global
---           globals = { "vim" },
---         },
---         workspace = {
---           -- Make the server aware of Neovim runtime files
---           library = vim.api.nvim_get_runtime_file("", true),
---         },
---         -- Do not send telemetry data containing a randomized but unique identifier
---         telemetry = {
---           enable = false,
---         },
---       },
---     },
---   })
--- end
 
 --[[
 
@@ -253,3 +199,54 @@ Custom lang servers
 --   --   border = "rounded"
 --   -- }
 -- })
+
+-- sumneko_lua, with luadev [[
+
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+	local opts = {
+		lspconfig = {
+			capabilities = capabilities,
+		},
+	}
+
+	if server.name == "sumneko_lua" then
+		opts = require("lua-dev").setup({
+			lspconfig = {
+				capabilities = capabilities,
+			},
+		})
+	end
+	server:setup(opts)
+end)
+
+--   local runtime_path = vim.split(package.path, ";")
+--   table.insert(runtime_path, "lua/?.lua")
+--   table.insert(runtime_path, "lua/?/init.lua")
+--   lspconfig.sumneko_lua.setup({
+--     cmd = {"lua-language-server"},
+--     settings = {
+--       capabilities = capabilities,
+--       Lua = {
+--         runtime = {
+--           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--           version = "LuaJIT",
+--           -- Setup your lua path
+--           path = runtime_path,
+--         },
+--         diagnostics = {
+--           -- Get the language server to recognize the `vim` global
+--           globals = { "vim" },
+--         },
+--         workspace = {
+--           -- Make the server aware of Neovim runtime files
+--           library = vim.api.nvim_get_runtime_file("", true),
+--         },
+--         -- Do not send telemetry data containing a randomized but unique identifier
+--         telemetry = {
+--           enable = false,
+--         },
+--       },
+--     },
+--   })
+-- ]]

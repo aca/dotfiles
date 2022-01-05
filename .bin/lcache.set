@@ -2,5 +2,8 @@
 
 set -euo pipefail
 
+tmpf=$(mktemp)
+
 mkdir $HOME/.cache/lcache 2>/dev/null || true
-cat - > "$HOME/.cache/lcache/$1"
+cat - > $tmpf
+mv $tmpf "$HOME/.cache/lcache/$1"
