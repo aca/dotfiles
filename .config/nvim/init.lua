@@ -28,8 +28,8 @@ require("globals")
 require("vim")
 require("plugins.filetype")
 if not g._minimal then
-	require("plugins.lsp")
 	require("plugins.treesitter")
+  require("plugins.lsp")
 end
 
 vim.loop.new_timer():start(
@@ -39,7 +39,6 @@ vim.loop.new_timer():start(
 		require("plugins.tmux")
 
 		if not g._minimal then
-			cmd("packadd plenary.nvim")
 			require("plugins.autopairs")
 			require("plugins.cmp")
 			require("plugins.luasnip")
@@ -66,21 +65,24 @@ vim.loop.new_timer():start(
 			require("plugins.autopairs")
 			require("plugins.dial")
 			require("plugins.suda")
-			require("plugins.vim-test")
+			-- require("plugins.vim-test") -- TODO: replace
 
 			-- nav
-			require("plugins.telescope")
+			-- Not used
+			-- require("plugins.telescope") -- TODO: replace
 			require("plugins.hop")
+
+      -- require("plugins.matchparen") -- TODO: fix
 		end
 
-		-- lazyload
-		-- require("plugins.matchparen") -- TODO: fix
-		cmd("runtime! autoload/plugin/*")
-		cmd("runtime! autoload/func/*")
-		cmd("runtime! autoload/autocmd/*")
-		cmd("runtime! autoload/command/*")
-		cmd("runtime! autoload/map/*")
-		cmd("runtime! autoload/lib/*")
-		cmd("runtime! autoload/local/*")
+		cmd([[
+    runtime! autoload/plugin/*
+		runtime! autoload/func/*
+		runtime! autoload/autocmd/*
+		runtime! autoload/command/*
+		runtime! autoload/map/*
+		runtime! autoload/lib/*
+		runtime! autoload/local/*
+    ]])
 	end)
 )

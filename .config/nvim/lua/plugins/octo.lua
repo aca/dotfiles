@@ -1,3 +1,6 @@
-vim.cmd("packadd octo.nvim")
+vim.cmd([[
+packadd plenary.nvim
+packadd octo.nvim
+]])
 
 require("octo").setup()

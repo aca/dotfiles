@@ -1,3 +1,4 @@
 vim.cmd([[
-  packadd telescope.nvim
+packadd plenary.nvim
+packadd telescope.nvim
 ]])
