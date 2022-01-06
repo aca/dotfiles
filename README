@@ -14,7 +14,9 @@ curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 Setup machine
 -------------
 sudo apt install stow
-git clone --depth 1 --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
+
+rm -rf ~/src/configs/dotfiles
+git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
 
 Sync
 ----

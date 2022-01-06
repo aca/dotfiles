@@ -40,8 +40,8 @@ vim.loop.new_timer():start(
 
 		if not g._minimal then
 			require("plugins.autopairs")
-			require("plugins.cmp")
 			require("plugins.luasnip")
+			require("plugins.cmp")
 
 			require("plugins.dap")
 			require("plugins.neoformat")
