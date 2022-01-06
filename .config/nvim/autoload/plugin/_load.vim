@@ -1,9 +1,5 @@
 if exists('g:_minimal') && g:_minimal == v:true | finish | end
 
-packadd vim-scriptease 
-" packadd todo-comments.nvim 
-packadd git-worktree.nvim
-
 packadd vim-ReplaceWithRegister
 packadd diffview.nvim 
 packadd vim-fold-cycle
@@ -16,4 +12,7 @@ packadd vim-rfc
 " packadd symbols-outline.nvim
 packadd bufferize.vim
 packadd vim-diagon
-packadd nvim-lsp-installer
+packadd vim-scriptease 
+packadd git-worktree.nvim
+" packadd todo-comments.nvim 
+

@@ -2,3 +2,6 @@ io.mpv png all
 io.mpv avi all
 io.mpv mkv all
 io.mpv mp4 all
+io.mpv jpg all
+io.mpv gif all
+io.mpv jpeg all

@@ -1,4 +1,4 @@
-#hvimh set foldmethod=marker commentstring=#\ %s:
+# vim: set foldmethod=marker commentstring=#\ %s:
 
 # | yabai   | bspwm   |
 # | ---     | ---     |

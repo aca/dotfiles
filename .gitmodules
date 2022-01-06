@@ -1,12 +1,6 @@
-[submodule ".tmux/plugins/tmux-yank"]
-	path = .tmux/plugins/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank.git
 [submodule ".tmux/plugins/tmux-remote"]
 	path = .tmux/plugins/tmux-remote
 	url = https://github.com/danyim/tmux-remote.git
-[submodule ".tmux/plugins/extrakto"]
-	path = .tmux/plugins/extrakto
-	url = https://github.com/laktak/extrakto.git
 [submodule ".local/share/nvim/site/pack/paqs/start/lua-dev.nvim"]
 	path = .local/share/nvim/site/pack/bundle/start/lua-dev.nvim
 	url = https://github.com/folke/lua-dev.nvim.git
@@ -340,18 +334,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/headlines.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/headlines.nvim
 	url = https://github.com/lukas-reineke/headlines.nvim.git
-[submodule ".tmux/plugins/tmux-easy-motion"]
-	path = .tmux/plugins/tmux-easy-motion
-	url = https://github.com/IngoMeyer441/tmux-easy-motion.git
-[submodule ".tmux/plugins/tmux-easymotion"]
-	path = .tmux/plugins/tmux-easymotion
-	url = https://github.com/ddzero2c/tmux-easymotion.git
-[submodule ".tmux/plugins/tmux-fingers"]
-	path = .tmux/plugins/tmux-fingers
-	url = https://github.com/Morantron/tmux-fingers.git
-[submodule ".tmux/plugins/tmux-fuzzback"]
-	path = .tmux/plugins/tmux-fuzzback
-	url = https://github.com/roosta/tmux-fuzzback.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/Comment.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/Comment.nvim
 	url = https://github.com/numToStr/Comment.nvim.git
@@ -454,3 +436,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nrepl.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/nrepl.nvim
 	url = https://github.com/ii14/nrepl.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim
+	url = https://github.com/anuvyklack/pretty-fold.nvim.git

@@ -8,7 +8,7 @@ require("impatient") -- https://github.com/lewis6991/impatient.nvim
 -- UPDATE [[
 -- :TSInstall all
 -- :TSUpdate all
---
+
 -- :LspUpdateAll
 -- ]]
 
@@ -33,7 +33,7 @@ if not g._minimal then
 end
 
 vim.loop.new_timer():start(
-	200,
+	100,
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")
@@ -52,37 +52,31 @@ vim.loop.new_timer():start(
 			require("plugins.zenmode")
 			require("plugins.oscyank")
 
-			-- git
 			require("plugins.gitlinker")
 			require("plugins.octo")
 			require("plugins.git-messenger")
 			require("plugins.gitsigns")
 
-			-- edit
 			require("plugins.comment")
 			require("plugins.move")
 			require("plugins.lion")
-			require("plugins.autopairs")
 			require("plugins.dial")
 			require("plugins.suda")
 			-- require("plugins.vim-test") -- TODO: replace
 
-			-- nav
-			-- Not used
 			-- require("plugins.telescope") -- TODO: replace
 			require("plugins.hop")
-
 			-- require("plugins.matchparen") -- TODO: fix
 		end
 
 		cmd([[
     runtime! autoload/plugin/*
-		runtime! autoload/func/*
-		runtime! autoload/autocmd/*
-		runtime! autoload/command/*
-		runtime! autoload/map/*
-		runtime! autoload/lib/*
-		runtime! autoload/local/*
+    runtime! autoload/func/*
+    runtime! autoload/autocmd/*
+    runtime! autoload/command/*
+    runtime! autoload/map/*
+    runtime! autoload/lib/*
+    runtime! autoload/local/*
     ]])
 	end)
 )

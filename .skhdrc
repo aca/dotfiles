@@ -10,7 +10,8 @@
 # | space   | desktop |
 # | display | X       |
 
-# escape -> :issw com.apple.keylayout.ABC
+escape -> :issw com.apple.keylayout.ABC
+# escape -> :xkbswitch -s 0
 lcmd + lctrl + lalt - escape : open '/System/Applications/Mission Control.app';
 # lcmd + lctrl + lalt - d : open '/System/Applications/Dictionary.app'
 
@@ -77,7 +78,9 @@ lcmd + lctrl + lalt - f : yabai -m window --toggle zoom-fullscreen
 # focus last window (limit to current desktop)
 lcmd + lctrl + lalt - w : yabai -m window --focus last;
 lcmd + lctrl + lalt - 0x30 : yabai -m window --focus last;
-lcmd + lctrl + lalt - q : fish -c "yabai.circular next"; yabai -m window --focus last;
+# lcmd + lctrl + lalt - q : fish -c "yabai.circular next"; yabai -m window --focus last;
+lcmd + lctrl + lalt - q : yabai -m window --close;
+lcmd + lctrl + lalt - i : yabai -m window --close;
 
 # balance size of windows, '='
 lcmd + lctrl + lalt - 0x18 : yabai -m space --balance;

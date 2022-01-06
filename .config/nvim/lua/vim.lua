@@ -30,13 +30,13 @@ o.lazyredraw = true
 g.mapleader = " "
 g.maplocalleader = " "
 
-g.cursorcolumn = false
-g.cursorline = true
-g.timeoutlen = 400
+opt.cursorcolumn = false
+opt.cursorline = true
+opt.timeoutlen = 400
 
 -- fold
-g.foldlevel = 99
-g.foldlevelstart = 99
+opt.foldlevel = 99
+opt.foldlevelstart = 99
 -- g.foldmethod = "marker"
 g.foldcolumn = 0
 

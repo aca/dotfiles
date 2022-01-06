@@ -85,5 +85,3 @@ autocmd Syntax * call s:customSyntax()
 " sort todo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocmd BufWritePre ~/src/zettels/todo.md %!sort
-
-command! MakeLink lua require'_markdown'.makelink()
