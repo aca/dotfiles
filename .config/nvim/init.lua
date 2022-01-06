@@ -29,7 +29,7 @@ require("vim")
 require("plugins.filetype")
 if not g._minimal then
 	require("plugins.treesitter")
-  require("plugins.lsp")
+	require("plugins.lsp")
 end
 
 vim.loop.new_timer():start(
@@ -72,7 +72,7 @@ vim.loop.new_timer():start(
 			-- require("plugins.telescope") -- TODO: replace
 			require("plugins.hop")
 
-      -- require("plugins.matchparen") -- TODO: fix
+			-- require("plugins.matchparen") -- TODO: fix
 		end
 
 		cmd([[
