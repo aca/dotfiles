@@ -88,9 +88,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-illuminate"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-illuminate
 	url = https://github.com/RREthy/vim-illuminate.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-smoothie"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-smoothie
-	url = https://github.com/psliwka/vim-smoothie.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-lion"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-lion
 	url = https://github.com/tommcdo/vim-lion.git
@@ -265,9 +262,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitlinker.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gitlinker.nvim
 	url = https://github.com/ruifm/gitlinker.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-barbaric"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-barbaric
-	url = https://github.com/rlue/vim-barbaric
 [submodule ".submodules/fish-kubectl-completions"]
 	path = .submodules/fish-kubectl-completions
 	url = https://github.com/evanlucas/fish-kubectl-completions.git
@@ -439,3 +433,18 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim
 	url = https://github.com/anuvyklack/pretty-fold.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-scrollbar"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-scrollbar
+	url = https://github.com/petertriho/nvim-scrollbar.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/fcitx.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/fcitx.vim
+	url = https://github.com/lilydjwg/fcitx.vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/barbar.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/barbar.nvim
+	url = https://github.com/romgrk/barbar.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/minimap.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/minimap.vim
+	url = https://github.com/wfxr/minimap.vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/neoscroll.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/neoscroll.nvim
+	url = https://github.com/karb94/neoscroll.nvim.git

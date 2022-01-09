@@ -81,7 +81,7 @@ end
 -- Tabs
 opt.autoindent = true
 opt.cindent = true
-opt.wrap = false
+opt.wrap = true
 opt.wrapscan = false
 
 opt.tabstop = 2

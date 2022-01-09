@@ -122,7 +122,7 @@ local config = {
 		{ key = "[", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
 
 		{ key = "C", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
-		{ key = "C", mods = "CTRL", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
+		-- { key = "C", mods = "CTRL", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
 
 		{ key = "-", mods = "CTRL", action = "DecreaseFontSize" },
 		{ key = "=", mods = "CTRL", action = "IncreaseFontSize" },

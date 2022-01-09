@@ -26,8 +26,8 @@ nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
-nnoremap <silent> ]d            <cmd>lua vim.lsp.diagnostic.goto_next({wrap = false})<CR>
-nnoremap <silent> [d            <cmd>lua vim.lsp.diagnostic.goto_prev({wrap = false})<CR>
+nnoremap <silent> ]d            <cmd>lua vim.diagnostic.goto_next({wrap = false})<CR>
+nnoremap <silent> [d            <cmd>lua vim.diagnostic.goto_prev({wrap = false})<CR>
 
 nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
@@ -84,6 +84,8 @@ cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Q1 q!
 cnoreabbrev q1 q!
+cnoreabbrev qq q!
+cnoreabbrev ww w!
 " cnoreabbrev E e
 cnoreabbrev Wq wq
 cnoreabbrev Echo echo
@@ -151,13 +153,15 @@ vmap > >gv
 
 " close window, or buffer, or exit
 function s:close()
-  if winnr('$') != 1 
-    close
+  if getwininfo(win_getid())[0]['quickfix'] == 1
+    cclose
+  elseif getwininfo(win_getid())[0]['loclist'] == 1
+    lclose
   elseif len(getbufinfo({'buflisted':1})) > 1
-    bd!
+    BufferClose!
   else
     q!
-  endif
+  end
 endfunction
 inoremap <silent><C-Q>     <esc>:call <sid>close()<cr>
 nnoremap <silent><C-Q>     :call <sid>close()<cr>

@@ -1,4 +1,5 @@
 require("impatient") -- https://github.com/lewis6991/impatient.nvim
+-- require("impatient").enable_profile() -- DEBUG
 
 -- DEBUG [[
 -- vim.lsp.set_log_level("debug")
@@ -23,20 +24,28 @@ local vim = vim
 local g = vim.g
 local cmd = vim.cmd
 
--- require("impatient").enable_profile() -- DEBUG
 require("globals")
 require("vim")
 require("plugins.filetype")
 if not g._minimal then
 	require("plugins.treesitter")
 	require("plugins.lsp")
+
 end
+
+-- cmd([[
+--  let g:minimap_width = 10
+--  let g:minimap_auto_start = 1
+--  let g:minimap_auto_start_win_enter = 1
+--  packadd minimap.vim
+--  ]])
 
 vim.loop.new_timer():start(
 	100,
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")
+		require("plugins.hop")
 
 		if not g._minimal then
 			require("plugins.autopairs")
@@ -63,9 +72,7 @@ vim.loop.new_timer():start(
 			require("plugins.dial")
 			require("plugins.suda")
 			-- require("plugins.vim-test") -- TODO: replace
-
 			-- require("plugins.telescope") -- TODO: replace
-			require("plugins.hop")
 			-- require("plugins.matchparen") -- TODO: fix
 		end
 

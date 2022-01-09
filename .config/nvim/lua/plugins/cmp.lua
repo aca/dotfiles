@@ -113,26 +113,24 @@ cmp.setup({
 		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 		-- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
 		["<Tab>"] = function(fallback)
-			if cmp.visible() then
+			local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
+			if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
+			elseif luasnip.jumpable(1) then
+				luasnip.jump(1)
+			elseif cmp.visible() then
 				cmp.select_next_item()
-				-- elseif vim.fn["vsnip#available"]() == 1 then
-				--   vim.fn.feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "")
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
 			else
-				local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
-				if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
-					vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
-				else
-					fallback()
-				end
+				fallback()
 			end
 		end,
 		["<S-Tab>"] = function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
+			if luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 				-- elseif vim.fn["vsnip#available"]() == 1 then
 				-- 	vim.fn.feedkeys(t("<Plug>(vsnip-jump-prev)"), "")
+			elseif cmp.visible() then
+				cmp.select_next_item()
 			else
 				fallback()
 			end

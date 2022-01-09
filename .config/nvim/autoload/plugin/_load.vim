@@ -1,5 +1,6 @@
 if exists('g:_minimal') && g:_minimal == v:true | finish | end
 
+packadd plenary.nvim
 packadd vim-ReplaceWithRegister
 packadd diffview.nvim 
 packadd vim-fold-cycle

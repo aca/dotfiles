@@ -1,4 +1,6 @@
 " vim:ft=vim et sw=2 foldmethod=marker
+"
+set textwidth=40
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
