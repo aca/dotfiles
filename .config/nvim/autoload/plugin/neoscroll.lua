@@ -1,5 +1,5 @@
-vim.cmd [[
+vim.cmd([[
   packadd neoscroll.nvim
-]]
+]])
 
-require('neoscroll').setup()
+require("neoscroll").setup()

@@ -8,5 +8,3 @@
 --   " ScrollViewEnable
 --   autocmd CursorHold * if line('$') > 300 | ScrollViewEnable | endif
 -- ]])
-
-

@@ -30,7 +30,6 @@ require("plugins.filetype")
 if not g._minimal then
 	require("plugins.treesitter")
 	require("plugins.lsp")
-
 end
 
 -- cmd([[

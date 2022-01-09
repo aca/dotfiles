@@ -1,5 +1,7 @@
 vim.cmd("packadd LuaSnip")
-require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" } })
+require("luasnip/loaders/from_vscode").load({
+	paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
+})
 
 local ls = require("luasnip")
 -- some shorthands...
