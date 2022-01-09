@@ -52,12 +52,8 @@ vim.loop.new_timer():start(
 			require("plugins.cmp")
 
 			require("plugins.dap")
-			require("plugins.neoformat")
 
 			require("plugins.buftabline")
-			require("plugins.scrollview")
-			require("plugins.dadbod")
-			require("plugins.zenmode")
 			require("plugins.oscyank")
 
 			require("plugins.gitlinker")
@@ -66,10 +62,6 @@ vim.loop.new_timer():start(
 			require("plugins.gitsigns")
 
 			require("plugins.comment")
-			require("plugins.move")
-			require("plugins.lion")
-			require("plugins.dial")
-			require("plugins.suda")
 			-- require("plugins.vim-test") -- TODO: replace
 			-- require("plugins.telescope") -- TODO: replace
 			-- require("plugins.matchparen") -- TODO: fix

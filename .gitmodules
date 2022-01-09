@@ -43,9 +43,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/hop.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/hop.nvim
 	url = https://github.com/phaazon/hop.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-scrollview"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-scrollview
-	url = https://github.com/dstein64/nvim-scrollview.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/clever-f.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/clever-f.vim
 	url = https://github.com/rhysd/clever-f.vim.git
