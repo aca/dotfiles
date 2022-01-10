@@ -26,7 +26,6 @@ local cmd = vim.cmd
 
 require("globals")
 require("vim")
-require("plugins.filetype")
 if not g._minimal then
 	require("plugins.treesitter")
 	require("plugins.lsp")

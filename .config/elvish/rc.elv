@@ -10,6 +10,12 @@
 # https://github.com/elves/elvish/issues/971
 
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
+set edit:rprompt-persistent = $true
+
+set edit:prompt = { put 'λ ' }
+# set edit:rprompt = { }
+set edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
+set edit:rprompt = { tilde-abbr $pwd }
 
 use env
 use platform
@@ -17,14 +23,20 @@ use platform
 if (eq $E:ELVISH_PATH "") {
     set E:ELVISH_PATH = 1
     set paths = [
-      ~/.opam/default/bin
-      ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
-      ~/.racket/*[nomatch-ok]/bin
-      ~/.npm-global/bin
-      ~/Library/Python/*[nomatch-ok]/bin
+      # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
+      # ~/.racket/*[nomatch-ok]/bin
+      # ~/.npm-global/bin
+      # ~/Library/Python/*[nomatch-ok]/bin
       ~/.cargo/bin
       ~/.local/bin
       ~/bin
+      ~/.asdf/bin
+      ~/.asdf/shims
+      ~/.nix-profile/bin
+      ~/.krew/bin
+      ~/.raku/bin
+      ~/.bin
+      ~/.bin/$platform:os
       $@paths
     ]
 }
@@ -33,11 +45,13 @@ if (eq $E:ELVISH_PATH "") {
 
 
 # abbr [[
-set edit:small-word-abbr['k'] = 'kubectl'
-set edit:small-word-abbr['v'] = 'nvim'
-set edit:small-word-abbr['os'] = 'openstack '
-set edit:small-word-abbr['ta'] = 'tmux attach -t '
-set edit:small-word-abbr['elv'] = 'elvish'
+# this is terrible
+# "rm -v" expands to "rm -nvim"
+# set edit:small-word-abbr['k'] = 'kubectl'
+# set edit:small-word-abbr['v'] = 'nvim'
+# set edit:small-word-abbr['os'] = 'openstack '
+# set edit:small-word-abbr['ta'] = 'tmux attach -t '
+# set edit:small-word-abbr['elv'] = 'elvish'
 # ]]
 
 # alias [[
@@ -46,11 +60,6 @@ fn v {|@a| nvim $@a }
 # ]]
 
 # var _whoami = (constantly (styled (whoami)@(hostname) inverse))
-
-# set edit:prompt = { put 'λ ' }
-# set edit:rprompt = { }
-# set edit:rprompt = (constantly (styled (whoami)@(hostname) inverse))
-# set edit:rprompt = { tilde-abbr $pwd }
 
 
 # set edit:abbr['ci '] = 'pbcopy'
@@ -269,3 +278,24 @@ set edit:completion:arg-completer[kubectl] = {|@args|
 #   set edit:current-command = $new-cmd
 # }
 # set edit:insert:binding[Ctrl-F] = {|| fzf_history >/dev/tty 2>&1 }
+
+# UNIX comm alternative but keep sorted
+# list all non md files
+#     λ fd --type f | filterline fd --extension 'md' 
+fn filterline {
+  |@rest|
+
+  var second = [(eval (echo $@rest))]
+  from-lines | each { 
+    |x|  
+    if (not (has-value $second $x)) {
+      put $x
+    }
+  }
+
+  # eval "$@rest"
+  # echo $@rest | eval (all)
+  # echo $@rest | eval (all)
+
+  # eval (echo $rest)
+}

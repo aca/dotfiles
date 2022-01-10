@@ -1,7 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 cd ~/src
 fd --hidden --type d --follow --max-depth 5 > ~/src/.src
-# echo "git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next" >> ~/src/.src
+
+# additional source directory
+echo "git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next" >> ~/src/.src
 fd . $HOME/src/configs/dotfiles/.local/share/nvim/site/pack/bundle/start --type d --max-depth 1 | sed "s|^$HOME/src/||" >> ~/src/.src
 fd . $HOME/src/configs/dotfiles/.local/share/nvim/site/pack/bundle/opt --type d --max-depth 1 | sed "s|^$HOME/src/||" >> ~/src/.src
