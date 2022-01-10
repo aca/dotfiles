@@ -9,7 +9,7 @@ packadd vim-fetch " TODO: replace or mv to start
 packadd vim-eunuch 
 packadd vim-characterize 
 packadd vim-dirvish
-packadd vim-rfc 
+" packadd vim-rfc 
 " packadd symbols-outline.nvim
 packadd bufferize.vim
 packadd vim-diagon
