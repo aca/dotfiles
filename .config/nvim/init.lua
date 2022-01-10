@@ -46,8 +46,8 @@ vim.loop.new_timer():start(
 		require("plugins.hop")
 
 		if not g._minimal then
-      cmd("packadd plenary.nvim")
-      require("plugins.telescope")
+			cmd("packadd plenary.nvim")
+			require("plugins.telescope")
 
 			require("plugins.autopairs")
 			require("plugins.luasnip")
