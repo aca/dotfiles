@@ -8,12 +8,14 @@ packadd clever-f.vim
 packadd vim-fetch " TODO: replace or mv to start
 packadd vim-eunuch 
 packadd vim-characterize 
-packadd vim-dirvish
+" packadd vim-dirvish
 " packadd vim-rfc 
 " packadd symbols-outline.nvim
 packadd bufferize.vim
 packadd vim-diagon
 packadd vim-scriptease 
-packadd git-worktree.nvim
 " packadd todo-comments.nvim 
+packadd vim-gist
+
+
 

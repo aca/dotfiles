@@ -10,10 +10,12 @@
 # | space   | desktop |
 # | display | X       |
 
-escape -> :issw com.apple.keylayout.ABC
+# escape -> :issw com.apple.keylayout.ABC
 # escape -> :xkbswitch -s 0
 lcmd + lctrl + lalt - escape : open '/System/Applications/Mission Control.app';
 # lcmd + lctrl + lalt - d : open '/System/Applications/Dictionary.app'
+
+lcmd - h : echo
 
 # focus & and swap node in the given direction
 lcmd + lctrl + lalt - h : yabai -m window --focus west

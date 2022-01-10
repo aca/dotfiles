@@ -5,7 +5,7 @@
 	path = .local/share/nvim/site/pack/bundle/start/lua-dev.nvim
 	url = https://github.com/folke/lua-dev.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-dirvish"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-dirvish
+	path = .local/share/nvim/site/pack/bundle/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
 [submodule ".local/share/nvim/site/pack/paqs/start/lsp_signature.nvim"]
 	path = .local/share/nvim/site/pack/bundle/start/lsp_signature.nvim
@@ -445,3 +445,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/neoscroll.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/neoscroll.nvim
 	url = https://github.com/karb94/neoscroll.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-gist"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-gist
+	url = https://github.com/mattn/vim-gist.git

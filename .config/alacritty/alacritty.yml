@@ -53,7 +53,7 @@ font:
 
   size: 28
   offset:
-    x: -2
+    x: -3
     y: 0
 
   glyph_offset:
@@ -314,46 +314,40 @@ key_bindings:
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
 # ColorStart
-# Base16 Gruvbox dark, pale 256 - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+# Base16 Seti UI - alacritty color config
+# 
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xdab997'
+    background: '0x151718'
+    foreground: '0xd6d6d6'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x262626'
-    cursor: '0xdab997'
+    text: '0x151718'
+    cursor: '0xd6d6d6'
 
   # Normal colors
   normal:
-    black:   '0x262626'
-    red:     '0xd75f5f'
-    green:   '0xafaf00'
-    yellow:  '0xffaf00'
-    blue:    '0x83adad'
-    magenta: '0xd485ad'
-    cyan:    '0x85ad85'
-    white:   '0xdab997'
+    black:   '0x151718'
+    red:     '0xcd3f45'
+    green:   '0x9fca56'
+    yellow:  '0xe6cd69'
+    blue:    '0x55b5db'
+    magenta: '0xa074c4'
+    cyan:    '0x55dbbe'
+    white:   '0xd6d6d6'
 
   # Bright colors
   bright:
-    black:   '0x8a8a8a'
-    red:     '0xd75f5f'
-    green:   '0xafaf00'
-    yellow:  '0xffaf00'
-    blue:    '0x83adad'
-    magenta: '0xd485ad'
-    cyan:    '0x85ad85'
-    white:   '0xebdbb2'
+    black:   '0x41535b'
+    red:     '0xdb7b55'
+    green:   '0x282a2b'
+    yellow:  '0x3b758c'
+    blue:    '0x43a5d5'
+    magenta: '0xeeeeee'
+    cyan:    '0x8a553f'
+    white:   '0xffffff'
 
-  indexed_colors:
-    - { index: 16, color: '0xff8700' }
-    - { index: 17, color: '0xd65d0e' }
-    - { index: 18, color: '0x3a3a3a' }
-    - { index: 19, color: '0x4e4e4e' }
-    - { index: 20, color: '0x949494' }
-    - { index: 21, color: '0xd5c4a1' }
+draw_bold_text_with_bright_colors: false
 # ColorEnd

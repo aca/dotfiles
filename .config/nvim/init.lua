@@ -39,13 +39,16 @@ end
 --  ]])
 
 vim.loop.new_timer():start(
-	100,
+	200,
 	0,
 	vim.schedule_wrap(function()
 		require("plugins.tmux")
 		require("plugins.hop")
 
 		if not g._minimal then
+      cmd("packadd plenary.nvim")
+      require("plugins.telescope")
+
 			require("plugins.autopairs")
 			require("plugins.luasnip")
 			require("plugins.cmp")
@@ -62,7 +65,6 @@ vim.loop.new_timer():start(
 
 			require("plugins.comment")
 			-- require("plugins.vim-test") -- TODO: replace
-			-- require("plugins.telescope") -- TODO: replace
 			-- require("plugins.matchparen") -- TODO: fix
 		end
 

@@ -83,19 +83,36 @@ lspconfig.gopls.setup({
 })
 -- ]]
 -- server: pylance [[
-lspconfig.pyright.setup({
-	cmd = require("pylance"),
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = false,
+local ok, pylance = pcall(require, "pylance")
+if ok then
+	lspconfig.pyright.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = {
+			gopls = {
+				analyses = {
+					unusedparams = false,
+				},
+				staticcheck = true,
 			},
-			staticcheck = true,
 		},
-	},
-})
+	})
+else
+	lspconfig.pyright.setup({
+		cmd = pylance,
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = {
+			gopls = {
+				analyses = {
+					unusedparams = false,
+				},
+				staticcheck = true,
+			},
+		},
+	})
+end
+
 -- ]]
 -- server: servers with installer [[
 local lsp_installer = require("nvim-lsp-installer")

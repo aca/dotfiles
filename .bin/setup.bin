@@ -6,21 +6,10 @@
 #
 # POSIX compatible script to download binaries
 #
-# ref
-# https://google.github.io/styleguide/shellguide.html#s1.1-which-shell-to-use
-# https://news.ycombinator.com/item?id=29055988 # POSIX DISCUSSIONS
-
-# Detect OS/ARCH
-# https://github.com/git/git/blob/5a73c6bdc717127c2da99f57bc630c4efd8aed02/config.mak.uname#L11
+# Detect OS/ARCH https://github.com/git/git/blob/5a73c6bdc717127c2da99f57bc630c4efd8aed02/config.mak.uname#L11
 uname_S=$(sh -c 'uname -s 2>/dev/null || echo not')
 uname_M=$(sh -c 'uname -m 2>/dev/null || echo not')
-# uname_O=$(sh -c 'uname -o 2>/dev/null || echo not')
-# uname_R=$(sh -c 'uname -r 2>/dev/null || echo not')
-# uname_P=$(sh -c 'uname -p 2>/dev/null || echo not')
-# uname_V=$(sh -c 'uname -v 2>/dev/null || echo not')
 
-# if isLinux; then echo "linux"; fi
-# if isDarwin; then echo "darwin"; fi
 isLinux() {
   [ "$uname_S" = "linux" ] || [ "$uname_S" = "Linux" ]
 }
@@ -127,12 +116,8 @@ _precheck() {
   fi
 }
 
-main() {
-  _precheck
-  install_gh
-  install_ripgrep
-  install_fd
-  install_fzf
-}
-
-main
+_precheck
+install_gh
+install_ripgrep
+install_fd
+install_fzf

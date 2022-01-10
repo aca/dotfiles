@@ -19,8 +19,8 @@ set -gx MPLBACKEND "module://itermplot" # itermplot
 
 # vars {{{
 
-if not set -q init_fish
-    set -gx init_fish
+if not set -q _FISH_INIT_VAR
+    set -gx _FISH_INIT_VAR
 
     # In case TERM=xterm-256color not exists
     if [ "$USER" = "ubuntu" ]; set -gx TERM linux; end
