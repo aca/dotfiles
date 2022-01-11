@@ -22,7 +22,7 @@ scrolling:
 font:
   normal:
     # family: Operator Mono Book
-    # style: Regular
+    style: Regular
     # family: Hasklug Nerd Font Mono
     # family: BlexMono Nerd Font Mono
     # family: MesloLGL Nerd Font Mono
@@ -51,7 +51,7 @@ font:
     # style: Italic
     # style: Regular
 
-  size: 28
+  size: 20
   offset:
     x: -3
     y: 0

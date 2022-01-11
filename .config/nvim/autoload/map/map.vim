@@ -69,7 +69,7 @@ nnoremap <silent> ;s
 " - ~/src/ (directory)
 " - ~/src (it sometimes does not open directory properly)
 " ~/.config/nvim/init.vim:9^2 (cursor at ^)
-nnoremap <silent>gf WBgF
+" nnoremap <silent>gf WBgF
 
 " visual block increment
 vnoremap <C-a> g<C-a>

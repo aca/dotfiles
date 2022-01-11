@@ -47,8 +47,8 @@ if (eq $E:ELVISH_PATH "") {
 # abbr [[
 # this is terrible
 # "rm -v" expands to "rm -nvim"
-# set edit:small-word-abbr['k'] = 'kubectl'
-# set edit:small-word-abbr['v'] = 'nvim'
+set edit:small-word-abbr['k'] = 'kubectl'
+set edit:small-word-abbr['v'] = 'nvim'
 # set edit:small-word-abbr['os'] = 'openstack '
 # set edit:small-word-abbr['ta'] = 'tmux attach -t '
 # set edit:small-word-abbr['elv'] = 'elvish'

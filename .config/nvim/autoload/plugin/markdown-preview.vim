@@ -50,4 +50,4 @@ function s:markdown_preview()
   call mkdp#util#open_preview_page()
 endfunction
 
-nnoremap <silent><leader>md :call <sid>markdown_preview()<cr>
+nnoremap <leader>md :call <sid>markdown_preview()<cr>
