@@ -1,0 +1,29 @@
+#!/bin/bash
+
+command_exists() {
+	command -v "$@" > /dev/null 2>&1
+}
+
+FZF="fzf"
+# if command_exists fzy; then
+#   FZF="fzy --lines $(tput lines)"
+# fi
+
+# if command_exists sk; then
+#   FZF="sk --tac"
+# fi
+
+if [ ! -f ~/src/.src ]; then
+  echo "not exist"
+  src.update
+fi
+
+d=$(cat ~/src/.src | $FZF)
+
+if [ -z "$d" ]; then
+  echo $PWD
+else
+  echo ~/src/$d
+fi
+
+src.update &

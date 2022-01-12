@@ -1,3 +1,7 @@
+--smart-case
+--follow
+--hidden
+
 --colors=line:fg:243
 --colors=line:style:nobold
 --colors=path:fg:243
@@ -5,8 +9,6 @@
 --colors=match:fg:black
 --colors=match:bg:yellow
 --colors=match:style:nobold
---follow
---hidden
 
 --glob=!.stfolder/**
 --glob=!.DocumentRevisions-V100/**
@@ -20,5 +22,3 @@
 --glob=!dist/**
 --glob=!fish_history
 --glob=!.neuron/**
-
---smart-case

@@ -3,7 +3,7 @@ export HOMEBREW_CASK_OPTS=--no-quarantine
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
 
-set -gx SHELL /bin/bash
+set -gx SHELL /bin/sh
 
 set -gx GKSwstype iterm # julia 
 set -gx MPLBACKEND "module://itermplot" # itermplot
@@ -201,19 +201,19 @@ abbr --global gacm git commit -a --allow-empty-message -m
 #     end
 # end
 
-function _postexec --on-event fish_postexec
-  switch $argv
-    case 'ghq get *'
-      set_color red; echo "[HOOK] updating source database"; set_color normal;
-      _update_src &
-  #   case 'pip install *'
-  #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-  #     asdf reshim &
-  #   case 'pip3 install *'
-  #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-  #     asdf reshim &
-  end
-end
+# function _postexec --on-event fish_postexec
+#   switch $argv
+#     case 'ghq get *'
+#       set_color red; echo "[HOOK] updating source database"; set_color normal;
+#       _update_src &
+#   #   case 'pip install *'
+#   #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
+#   #     asdf reshim &
+#   #   case 'pip3 install *'
+#   #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
+#   #     asdf reshim &
+#   end
+# end
 # }}}
 
 # OS specific {{{

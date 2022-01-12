@@ -22,16 +22,20 @@ scrolling:
 font:
   normal:
     # family: Operator Mono Book
-    style: Regular
+    # style: Regular
     # family: Hasklug Nerd Font Mono
-    # family: BlexMono Nerd Font Mono
+    family: BlexMono Nerd Font Mono
     # family: MesloLGL Nerd Font Mono
-    family: SauceCodePro Nerd Font Mono
+    # family: Noto Sans Condensed Medium Nerd Font
+    # family: SauceCodePro Nerd Font Mono
+    # family: Lotion
     # family: DankMono Nerd Font
+    # family: FantasqueSansMono Nerd Font Mono
+    # family: Input Mono Narrow
+    # family: .
     # family: Iosevka Nerd Font Mono
 
   # bold:
-    # family: FantasqueSansMono Nerd Font Mono
     # family: FuraCode Nerd Font Mono
     # family: Operator Mono Book
     # family: Dina
@@ -43,7 +47,6 @@ font:
     # family: DankMono Nerd Font Mono
     # family: SauceCodePro Nerd Font Mono
     # family: OperatorMono Nerd Font
-    # family: Lotion
     # family: FuraCode Nerd Font Mono
     # family: Iosevka Nerd Font Mono
     # style: Heavy Italic
@@ -51,10 +54,10 @@ font:
     # style: Italic
     # style: Regular
 
-  size: 20
+  size: 28
   offset:
-    x: -3
-    y: 0
+    x: -1
+    y: 1
 
   glyph_offset:
     x: 0 
@@ -314,40 +317,40 @@ key_bindings:
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
 # ColorStart
-# Base16 Seti UI - alacritty color config
-# 
+# Base16 Bespin - alacritty color config
+# Jan T. Sott
 colors:
   # Default colors
   primary:
-    background: '0x151718'
-    foreground: '0xd6d6d6'
+    background: '0x28211c'
+    foreground: '0x8a8986'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x151718'
-    cursor: '0xd6d6d6'
+    text: '0x28211c'
+    cursor: '0x8a8986'
 
   # Normal colors
   normal:
-    black:   '0x151718'
-    red:     '0xcd3f45'
-    green:   '0x9fca56'
-    yellow:  '0xe6cd69'
-    blue:    '0x55b5db'
-    magenta: '0xa074c4'
-    cyan:    '0x55dbbe'
-    white:   '0xd6d6d6'
+    black:   '0x28211c'
+    red:     '0xcf6a4c'
+    green:   '0x54be0d'
+    yellow:  '0xf9ee98'
+    blue:    '0x5ea6ea'
+    magenta: '0x9b859d'
+    cyan:    '0xafc4db'
+    white:   '0x8a8986'
 
   # Bright colors
   bright:
-    black:   '0x41535b'
-    red:     '0xdb7b55'
-    green:   '0x282a2b'
-    yellow:  '0x3b758c'
-    blue:    '0x43a5d5'
-    magenta: '0xeeeeee'
-    cyan:    '0x8a553f'
-    white:   '0xffffff'
+    black:   '0x666666'
+    red:     '0xcf7d34'
+    green:   '0x36312e'
+    yellow:  '0x5e5d5c'
+    blue:    '0x797977'
+    magenta: '0x9d9b97'
+    cyan:    '0x937121'
+    white:   '0xbaae9e'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd
