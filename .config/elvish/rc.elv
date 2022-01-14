@@ -3,6 +3,17 @@
 # Reference
 # https://github.com/xiaq/etc/blob/master/rc.elv
 
+use epm
+
+# use epm
+# epm:install github.com/zzamboni/elvish-completions
+
+use github.com/zzamboni/elvish-completions/git
+#
+# # epm:install github.com/href/elvish-gitstatus
+# # epm:install github.com/zzamboni/elvish-themes
+# use github.com/href/elvish-gitstatus/gitstatus
+
 # use str
 use platform
 # use math
@@ -23,6 +34,36 @@ if (eq $E:SSH "") {
 }
 
 set edit:rprompt = { tilde-abbr $pwd }
+
+# set edit:prompt = {
+#     var git = (gitstatus:query $pwd)
+#
+#     if (bool $git[is-repository]) {
+#
+#         # show the branch, or current commit if not on a branch
+#         var branch = ''
+#         if (eq $git[local-branch] "") {
+#             set branch = $git[commit][:8]
+#         } else {
+#             set branch = $git[local-branch]
+#         }
+#
+#         put '|'
+#         put (styled $branch red)
+#
+#         # show a state indicator
+#         if (or (> $git[unstaged] 0) (> $git[untracked] 0)) {
+#             put (styled '*' yellow)
+#         } elif (> $git[staged] 0) {
+#             put (styled '*' green)
+#         } elif (> $git[commits-ahead] 0) {
+#             put (styled '^' yellow)
+#         } elif (> $git[commits-behind] 0) {
+#             put (styled '⌄' yellow)
+#         }
+#
+#     }
+# }
 
 # abbr [[
 fn ll {|@a| e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a }

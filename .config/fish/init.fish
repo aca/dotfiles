@@ -73,12 +73,12 @@ if not set -q _FISH_INIT_VAR
     set -gx MANPAGER 'nvim +Man!'
     set -gx MANWIDTH '88'
     
-    set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
+    set -gx RIPGREP_CONFIG_PATH $HOME/.ripgreprc
     set -gx BROWSER google-chrome
     set -gx COLORTERM truecolor
     set -gx EDITOR nvim
     set -gx VISUAL nvim
-    set -gx GOPATH "$HOME"
+    set -gx GOPATH $HOME
     set -gx GOPROXY direct
 
     set -gx LANG en_US.UTF-8
@@ -86,7 +86,7 @@ if not set -q _FISH_INIT_VAR
     set -gx LC_ALL en_US.UTF-8
 
     # set -q SSH_CLIENT && set -gx TERM xterm
-    set -gx XDG_CONFIG_HOME "$HOME/.config"
+    set -gx XDG_CONFIG_HOME $HOME/.config
 
     #  colorful man
     # set -gx LESS_TERMCAP_mb (printf "\033[01;31m")

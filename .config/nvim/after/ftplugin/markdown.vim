@@ -1,6 +1,6 @@
 " vim:ft=vim et sw=2 foldmethod=marker
 "
-set textwidth=40
+" set textwidth=40
 set nowrap
 
 set foldmethod=expr
@@ -52,7 +52,7 @@ setlocal autoindent
 setlocal tabstop=2 
 setlocal shiftwidth=2 
 " setlocal textwidth=80 
-setlocal formatoptions-=t
+" setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
 
 
@@ -63,6 +63,11 @@ command FormatLink lua require('scripts.md_format_links').format_link()
 " custom syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+echom "loaded"
+syn region NeorgConcealURLValue matchgroup=mkdDelimiter start="(" end=")" contained oneline conceal
+syn region NeorgConcealURL matchgroup=mkdDelimiter start="[^\\]\@=\[" skip="\\\]" end="\]\ze(" nextgroup=NeorgConcealURLValue oneline skipwhite concealends
+
+
 function! s:customSyntax() abort
   " todo syntax , https://gist.github.com/huytd/668fc018b019fbc49fa1c09101363397
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
@@ -70,6 +75,9 @@ function! s:customSyntax() abort
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[-\]'hs=e-4 conceal cchar=☒
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
+
+  syn region NeorgConcealURLValue matchgroup=mkdDelimiter start=/(/ end=/)/  contained oneline conceal
+  syn region NeorgConcealURL matchgroup=mkdDelimiter start=/\([^\\]\|\_^\)\@<=\[\%\(\%\(\\\=[^\]]\)\+\](\)\@=/ end=/[^\\]\@<=\]/  oneline concealends nextgroup=NeorgConcealURLValue skipwhite
 endfunction
 
 autocmd Syntax * call s:customSyntax()

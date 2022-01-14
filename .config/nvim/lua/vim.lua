@@ -58,8 +58,8 @@ opt.formatoptions = opt.formatoptions
 	- "t" -- Don't auto format my code. I got linters for that.
 	+ "c" -- In general, I like it when comments respect textwidth
 	+ "q" -- Allow formatting comments w/ gq
-	- "o" -- O and o, don't continue comments
-	+ "r" -- But do continue when pressing enter.
+	-- - "o" -- O and o, don't continue comments
+	-- + "r" -- But do continue when pressing enter.
 	+ "n" -- Indent past the formatlistpat, not underneath it.
 	+ "j" -- Auto-remove comments if possible.
 	- "2" -- I'm not in gradeschool anymore
@@ -81,6 +81,8 @@ end
 -- Tabs
 opt.autoindent = true
 opt.cindent = true
+-- https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
+opt.cinkeys = opt.cinkeys - "0#"
 opt.wrap = true
 opt.wrapscan = false
 

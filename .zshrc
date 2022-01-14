@@ -6,10 +6,8 @@
 
 # oh-my-zsh {{{
 export ZSH="$HOME/.oh-my-zsh"
-
 DISABLE_AUTO_UPDATE="true"
-export ZSH_THEME="jreese"
-
+# export ZSH_THEME="jreese"
 
 plugins=(
   # tmux
@@ -20,6 +18,10 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+local NEWLINE=$'\n'; local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})%(?..« exit: %?${NEWLINE})"
+# PROMPT='${ret_status}%{$fg[cyan]%}%{$reset_color%}𝑍 '
+PROMPT='%{$fg[cyan]%}𝑍 '
+RPROMPT='%~'
 # }}}
 
 # Options {{{ 
@@ -43,7 +45,7 @@ setopt INTERACTIVE_COMMENTS    # [default] allow comments, even in interactive s
 setopt LIST_PACKED             # make completion lists more densely packed
 setopt MENU_COMPLETE           # auto-insert first possible ambiguous completion
 setopt NO_NOMATCH              # [default] unmatched patterns are left unchanged
-setopt PRINT_EXIT_VALUE        # [default] for non-zero exit status
+# setopt PRINT_EXIT_VALUE        # [default] for non-zero exit status
 setopt PUSHD_IGNORE_DUPS       # don't push multiple copies of same dir onto stack
 setopt PUSHD_SILENT            # [default] don't print dir stack after pushing/popping
 setopt SHARE_HISTORY           # share history across shells
@@ -56,8 +58,6 @@ setopt EXTENDED_HISTORY  # record command start time
 # Exports {{{
 export GOPATH=$HOME
 export GOPROXY=direct
-# export TERM="xterm-color"
-# export PATH=$HOME/bin
 export GHQ_ROOT=$HOME/src
 export EDITOR=nvim
 export VISUAL=nvim
@@ -77,17 +77,16 @@ alias tk='tmux kill-server'
 alias td='tmux detach'
 # }}}
 
-# PATH {{{
-export PATH=$HOME/.bin:$PATH
-export PATH=$HOME/.krew/bin:$PATH
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-typeset -U path # clean path
-# }}}
+# # PATH {{{
+# export PATH=$HOME/.bin:$PATH
+# export PATH=$HOME/.krew/bin:$PATH
+# export PATH=$HOME/bin:$PATH
+# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+# typeset -U path # clean path
+# # }}}
 
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-[ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
-[ -e $HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake ] && alias luamake=$HOME/src/github.com/sumneko/lua-language-server/3rd/luamake/luamake
+# [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
 
 source ~/.fzf/shell/key-bindings.zsh
 source ~/.submodules/zsh-fzf-history-search/zsh-fzf-history-search.zsh

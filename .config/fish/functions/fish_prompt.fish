@@ -56,5 +56,7 @@ function fish_prompt
     echo -n " "
   end
   # echo "» "
-  set_color D9DD6B; echo -n "λ "; set_color normal
+  #“𝑓
+  # set_color D9DD6B; echo -n "fish λ "; set_color normal
+  set_color D9DD6B; echo -n "ℱ "; set_color normal
   end

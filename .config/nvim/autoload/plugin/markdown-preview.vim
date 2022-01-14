@@ -23,6 +23,7 @@ if exists('g:_minimal') && g:_minimal == v:true | finish | end
 function s:markdown_preview() 
   " let g:mkdp_browser = 'min -F'
   let $NODE_NO_WARNINGS=1
+  let g:mkdp_echo_preview_url = 0
 
   " let g:mkdp_theme = 'light'
   " let g:mkdp_refresh_slow = 1

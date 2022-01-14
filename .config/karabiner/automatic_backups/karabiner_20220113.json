@@ -747,33 +747,13 @@
                             },
                             "to": [
                                 {
-                                    "key_code": "escape"
-                                }
-                            ]
-                        },
-                        {
-                            "from": {
-                                "key_code": "left_option"
-                            },
-                            "to": [
-                                {
                                     "key_code": "left_command"
                                 }
                             ]
                         },
                         {
                             "from": {
-                                "key_code": "right_command"
-                            },
-                            "to": [
-                                {
-                                    "key_code": "right_option"
-                                }
-                            ]
-                        },
-                        {
-                            "from": {
-                                "key_code": "right_option"
+                                "key_code": "left_option"
                             },
                             "to": [
                                 {
@@ -942,7 +922,7 @@
                             },
                             "to": [
                                 {
-                                    "key_code": "escape"
+                                    "key_code": "right_control"
                                 }
                             ]
                         },
@@ -972,7 +952,7 @@
                             },
                             "to": [
                                 {
-                                    "key_code": "right_control"
+                                    "key_code": "right_command"
                                 }
                             ]
                         }

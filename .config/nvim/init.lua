@@ -24,6 +24,14 @@ local vim = vim
 local g = vim.g
 local cmd = vim.cmd
 
+-- vim.cmd [[
+-- " https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
+-- " set nosmartindent
+-- set cindent
+-- set cinkeys-=0#
+-- set indentkeys-=0#
+-- ]]
+
 require("globals")
 require("vim")
 if not g._minimal then
