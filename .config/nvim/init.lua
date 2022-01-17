@@ -69,7 +69,6 @@ vim.loop.new_timer():start(
 			require("plugins.gitsigns")
 
 			require("plugins.comment")
-
 			require("plugins.dap")
 			-- require("plugins.vim-test") -- TODO: replace
 			-- require("plugins.matchparen") -- TODO: fix

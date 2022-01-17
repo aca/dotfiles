@@ -1,4 +1,0 @@
-#!/bin/sh
-
-exec nvim -c 'cd ~/src/configs/dotfiles/.config/nvim' ~/src/configs/caddy/Caddyfile
-

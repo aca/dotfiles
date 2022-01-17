@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+c=${1:-1}
+exit $c
+
+

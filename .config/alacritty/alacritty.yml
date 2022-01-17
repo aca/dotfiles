@@ -22,7 +22,7 @@ scrolling:
 font:
   normal:
     # family: Operator Mono Book
-    # style: Regular
+    style: Regular
     # family: Hasklug Nerd Font Mono
     # family: 
     # family: MesloLGL Nerd Font Mono

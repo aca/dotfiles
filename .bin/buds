@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-blueutil --connect c4-5d-83-dd-82-f0 || bluetoothctl connect C4:5D:83:DD:82:F0
-

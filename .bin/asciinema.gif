@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
+# private shell
 export SHELL=$(which fish)
 export fish_history=''
+
+command -v asciicast2gif
+
+# npm install --global asciicast2gif
+
 rm "$1.cast" "$1.gif"
 asciinema rec "$1.cast"  && asciicast2gif "$1.cast" "$1.gif" 

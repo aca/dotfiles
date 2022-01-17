@@ -1,5 +1,0 @@
-#!/usr/bin/env fish
-
-
-echo $CMD_DURATION
-

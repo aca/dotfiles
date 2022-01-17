@@ -1,0 +1,3 @@
+#!/bin/bash
+
+[[ "$OSTYPE" == "linux-gnu"* ]]

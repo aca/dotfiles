@@ -44,8 +44,11 @@ set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 set edit:insert:binding[Ctrl-E] = { edit:clear > /dev/tty; edit:redraw &full=$true; }
 set edit:after-command = [
   {|m| 
+    pprint $m
+    # printf "Duration: %.2f" $m[duration]
     if (> $m[duration] 1) {
-      echo (styled (printf "« %q took %s seconds\n" $m[src][code] $m[duration]) '#ff0000')
+      printf "Duration: %.2f %s" $m[duration] "| "(styled (put $m[src][code]) 'underlined')"\n"
+      # echo (styled (printf "%s took %ss\n" $m[src][code] $m[duration]) '#ff0000')
     }
   }
 ]

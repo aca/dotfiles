@@ -4,6 +4,8 @@ set -euxo pipefail
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   printf "%s" $(iwgetid -r)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # $ networksetup -getairportnetwork en0
+  # Current Wi-Fi Network: tossinvest
   echo "$(networksetup -getairportnetwork en0 | cut -c 24-)"
 fi
 

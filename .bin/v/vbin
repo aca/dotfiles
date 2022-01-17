@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+list-all() {
+  for f in $(echo $PATH | tr ':' '\n' | sort -u); do
+    [[ "$f" =~ "$HOME/.asdf/bin" ]] && continue
+    [[ "$f" =~ "golang" ]] && continue
+    [[ "$f" =~ "$HOME/.asdf/shims" ]] && continue
+    [[ "$f" =~ ".nix-profile" ]] && continue
+    [[ "$f" =~ "jvm" ]] && continue
+    [[ "$f" =~ "/usr" ]] && continue
+    [[ "$f" == "/bin" ]] && continue
+    [[ "$f" =~ "/sbin" ]] && continue
+    [[ "$f" =~ '~/.dotnet/tools' ]] && continue
+    [[ "$f" =~ '/Applications/Wireshark.app/' ]] && continue
+    [[ "$f" =~ '/Library/TeX/texbin' ]] && continue
+    [[ "$f" =~ '/opt/X11/bin' ]] && continue
+    [[ "$f" =~ '~/bin' ]] && continue
+    [[ ! -d $f ]] && continue
+    
+    # files
+    fd --maxdepth 1 --type f . "$f" -a
+
+    # or links
+    fd --maxdepth 1 --type l . "$f" -a
+  done
+}
+
+list-all | fzf | xargs -I{} nvim {}
+

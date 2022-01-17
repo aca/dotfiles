@@ -10,7 +10,7 @@
 # | space   | desktop |
 # | display | X       |
 
-# escape -> :issw com.apple.keylayout.ABC
+escape -> :issw com.apple.keylayout.ABC
 # escape -> :xkbswitch -s 0
 lcmd + lctrl + lalt - escape : open '/System/Applications/Mission Control.app';
 # lcmd + lctrl + lalt - d : open '/System/Applications/Dictionary.app'

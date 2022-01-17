@@ -4,6 +4,7 @@
 # https://github.com/xiaq/etc/blob/master/rc.elv
 
 use epm
+use str
 
 # use epm
 # epm:install github.com/zzamboni/elvish-completions
@@ -31,7 +32,7 @@ var hostinfo = ''
 if (not-eq $E:SSH "") {
   set hostinfo = (whoami)@(hostname)' '
 }
-set edit:prompt = { styled $hostinfo(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
+set edit:prompt = { styled 'E|'$hostinfo(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
 set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
 
 # set edit:prompt = {
@@ -78,7 +79,7 @@ fn ll {|@a| e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 # This should be replaced to abbr later
 fn v {|@a| nvim $@a }
 fn k {|@a| kubectl $@a }
-fn w {|@a| cd (src.dir) }
+fn w {|| cd (src.dir); sh -c "src.update &" }
 # ]]
 
 # wrapper

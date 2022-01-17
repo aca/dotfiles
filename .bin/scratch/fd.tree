@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+
+fd --hidden --max-depth 2 | sed -e "s/[^-][^\/]*\// │/g" -e "s/│\([^ ]\)/│── \1/"

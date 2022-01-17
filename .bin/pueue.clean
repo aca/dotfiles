@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/sh
 pueue status | grep Success | awk '{print $1}' | xargs -I{} pueue remove {}

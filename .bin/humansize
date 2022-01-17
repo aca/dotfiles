@@ -1,3 +1,0 @@
-#!/bin/bash
-
-numfmt --to=iec-i --suffix=B --padding=7 | tr -d " \t\n\r" 

@@ -2,12 +2,4 @@
 
 source _utils.bash
 
-if linux; then
-  echo "its' linux"
-fi
-
-if darwin; then
-  echo "its' mac"
-fi
-
-# google-chrome --headless --disable-gpu --print-to-pdf=file1.pdf http://www.example.com/
+google-chrome --headless --disable-gpu --print-to-pdf=file1.pdf http://www.example.com/

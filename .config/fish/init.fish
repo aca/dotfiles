@@ -1,4 +1,3 @@
-export HOMEBREW_CASK_OPTS=--no-quarantine
 
 # non interactive-shell ends here
 if not status --is-interactive; exit; end 
@@ -85,6 +84,8 @@ if not set -q _FISH_INIT_VAR
     set -gx LANGUAGE en_US.UTF-8
     set -gx LC_ALL en_US.UTF-8
 
+    set -gx HOMEBREW_CASK_OPTS "--no-quarantine"
+
     # set -q SSH_CLIENT && set -gx TERM xterm
     set -gx XDG_CONFIG_HOME $HOME/.config
 
@@ -110,6 +111,8 @@ if not set -q _FISH_INIT_VAR
 
     set -px PATH $HOME/bin
     set -px PATH $HOME/.bin
+    set -px PATH $HOME/.bin/v
+    set -px PATH $HOME/.bin/lib
     set -px PATH $HOME/.bin/$_uname
 
     if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                         ; end
@@ -248,4 +251,3 @@ end
 # if [ -e /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]
 #   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
 # end
-

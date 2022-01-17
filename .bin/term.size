@@ -4,12 +4,11 @@
 redraw() {
     clear
     echo "Width = $(tput cols) Height = $(tput lines)"
-    sleep 1
 }
 
-# trap redraw WINCH
-
 redraw
+
+# trap redraw WINCH
 # while true; do
 #     :
 # done
