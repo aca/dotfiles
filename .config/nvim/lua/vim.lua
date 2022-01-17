@@ -2,7 +2,7 @@ local g = vim.g
 local opt = vim.opt
 local o = vim.o
 
-opt.mmp=20000
+opt.mmp = 20000
 opt.shell = "/bin/sh"
 o.wildignore = "/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*"
 o.conceallevel = 2
@@ -53,7 +53,6 @@ if g._minimal then
 else
 	opt.laststatus = 2
 end
-
 
 opt.formatoptions = opt.formatoptions
 	- "a" -- Auto formatting is BAD.
