@@ -20,7 +20,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 local NEWLINE=$'\n'; local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})%(?..« exit: %?${NEWLINE})"
 # PROMPT='${ret_status}%{$fg[cyan]%}%{$reset_color%}𝑍 '
-PROMPT='%{$fg[cyan]%}𝑍 '
+# PROMPT='%{$fg[green]%}%{$PROMPT}%{$fg[white]%}'
+PROMPT='%{$fg[yellow]%}𝓩%{$reset_color%} '
 RPROMPT='%~'
 # }}}
 
@@ -90,6 +91,3 @@ alias td='tmux detach'
 
 source ~/.fzf/shell/key-bindings.zsh
 source ~/.submodules/zsh-fzf-history-search/zsh-fzf-history-search.zsh
-
-
-source /Users/kyungrok.chung/.config/broot/launcher/bash/br

@@ -8,7 +8,7 @@ use epm
 # use epm
 # epm:install github.com/zzamboni/elvish-completions
 
-use github.com/zzamboni/elvish-completions/git
+# use github.com/zzamboni/elvish-completions/git
 #
 # # epm:install github.com/href/elvish-gitstatus
 # # epm:install github.com/zzamboni/elvish-themes
@@ -27,13 +27,12 @@ use /completion
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 set edit:rprompt-persistent = $true
 
-if (eq $E:SSH "") {
-  set edit:prompt = ( constantly (styled 'λ ' '#baae57'))
-} else {
-  set edit:prompt = ( constantly (styled (whoami)@(hostname) 'λ ' inverse)  )
+var hostinfo = ''
+if (not-eq $E:SSH "") {
+  set hostinfo = (whoami)@(hostname)' '
 }
-
-set edit:rprompt = { tilde-abbr $pwd }
+set edit:prompt = { styled $hostinfo(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
+set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
 
 # set edit:prompt = {
 #     var git = (gitstatus:query $pwd)
@@ -84,6 +83,7 @@ fn w {|@a| cd (src.dir) }
 
 # wrapper
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
+fn dc {|@a| cd $@a }
 
 
 # set edit:abbr['ci '] = 'pbcopy'
@@ -97,3 +97,21 @@ fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 #
 # set edit:abbr['ll']  = 'ls -al'
 #
+
+
+# UNIX comm alternative but keep sorted
+# list all non md files
+# 
+#   λ fd --type f | filterline fd --extension 'md' 
+# 
+fn filterline {
+  |@rest|
+
+  var second = [(eval (echo $@rest))]
+  from-lines | each { 
+    |x|  
+    if (not (has-value $second $x)) {
+      put $x
+    }
+  }
+}

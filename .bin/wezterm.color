@@ -269,5 +269,3 @@ synthwave
 echo $color
 
 sed_i "s/color_scheme = .*/color_scheme = '$color',/" ~/src/configs/dotfiles/.config/wezterm/wezterm.lua
-
-

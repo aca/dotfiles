@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# fd --type f --hidden | fzf -m --ansi --preview  "bat --color=always --style=header,grid --line-range :250 {}" | xargs -0 -I{} printf %q $(realpath "{}" | head -n 1)  | pbcopy
+
+fd --type f --hidden | fzf -m --ansi --preview  "bat --color=always --style=header,grid --line-range :250 {}" | xargs -d '\n' -I{} printf %q $(realpath "{}" | head -n 1) | pbcopy
+pbpaste

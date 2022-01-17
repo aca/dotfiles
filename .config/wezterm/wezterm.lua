@@ -10,13 +10,13 @@ local function log(msg)
 	wezterm.log_info(msg)
 end
 
-wezterm.on("update-right-status", function(window, pane)
-  local status = ""
-  if window:dead_key_is_active() then
-    status = "COMPOSE"
-  end
-  window:set_right_status(status)
-end);
+-- wezterm.on("update-right-status", function(window, pane)
+--   local status = ""
+--   if window:dead_key_is_active() then
+--     status = "COMPOSE"
+--   end
+--   window:set_right_status(status)
+-- end);
 
 wezterm.on("open_in_vim", function(window, pane)
 	local file = io.open("/tmp/wezterm_buf", "w")
@@ -44,14 +44,17 @@ local move_around = function(window, pane, direction_wez, direction_nvim)
 			.. direction_nvim
 	)
 	if result then
+		-- window:toast_notification("wezterm", "move in vim", nil, 4000)
 		window:perform_action(wezterm.action({ SendString = "\x17" .. direction_nvim }), pane)
 	else
+		-- window:toast_notification("wezterm", "move in wezterm", nil, 4000)
 		window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
 	end
 end
 
 wezterm.on("move-left", function(window, pane)
-	window:perform_action(wezterm.action({ ActivatePaneDirection = "Left" }), pane)
+	-- window:perform_action(wezterm.action({ ActivatePaneDirection = "Left" }), pane)
+	move_around(window, pane, "Left", "h")
 end)
 
 wezterm.on("move-right", function(window, pane)
@@ -100,7 +103,13 @@ end)
 
 local config = {
 	window_decorations = "RESIZE",
-	font = wezterm.font("BlexMono Nerd Font Mono"),
+	tab_bar_at_bottom = true,
+	hide_tab_bar_if_only_one_tab = true,
+	use_fancy_tab_bar = false,
+	tab_max_width = 100,
+
+	font = wezterm.font("SauceCodePro Nerd Font Mono"),
+
 	adjust_window_size_when_changing_font_size = false,
 	default_prog = { "/usr/local/bin/fish", "--login" },
 	enable_kitty_graphics = true,
@@ -110,8 +119,14 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = 'Jellybeans',
+	color_scheme = 'ayu',
 	use_ime = true,
+
+	-- no inactive pane
+	inactive_pane_hsb = {
+		saturation = 1.0,
+		brightness = 1.0,
+	},
 
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
@@ -126,8 +141,6 @@ local config = {
 
 		{ key = "-", mods = "CTRL", action = "DecreaseFontSize" },
 		{ key = "=", mods = "CTRL", action = "IncreaseFontSize" },
-
-		{ key = "v", mods = "SHIFT|CTRL", action = "Paste" },
 
 		-- split
 		{
@@ -368,5 +381,14 @@ local config = {
 		-- },
 	},
 }
+
+if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
+	table.insert(
+		config.keys,
+		{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action({ PasteFrom = "PrimarySelection" }) }
+	)
+else
+	table.insert(config.keys, { key = "V", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) })
+end
 
 return config

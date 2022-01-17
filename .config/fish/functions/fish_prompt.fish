@@ -53,10 +53,8 @@ end
 function fish_prompt
   if set -q SSH_TTY
     prompt_login
-    echo -n " "
+    echo -n ' '
   end
-  # echo "» "
-  #“𝑓
-  # set_color D9DD6B; echo -n "fish λ "; set_color normal
-  set_color D9DD6B; echo -n "ℱ "; set_color normal
+  set_color '7c7c7c'; echo -n $(date "+%H:%M"); set_color red;echo -n " | ";  set_color normal
+
   end

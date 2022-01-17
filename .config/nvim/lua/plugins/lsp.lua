@@ -131,6 +131,26 @@ lsp_installer.on_server_ready(function(server)
 		on_attach = on_attach,
 	}
 
+  if server.name == "tailwindcss" then
+    opts.filetypes = {
+      'haml',
+      'html',
+      'css',
+      'less',
+      'postcss',
+      'sass',
+      'scss',
+      'stylus',
+      'sugarss',
+      'javascript',
+      'javascriptreact',
+      'typescript',
+      'typescriptreact',
+      'vue',
+      'svelte',
+    }
+  end
+
 	if server.name == "sumneko_lua" then
 		-- local runtime_path = vim.split(package.path, ";")
 		-- table.insert(runtime_path, "lua/?.lua")

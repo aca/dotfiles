@@ -2,8 +2,8 @@
 
 " colorscheme substrata
 " colorscheme monotone
-colorscheme tomorrow-night
-" colorscheme falcon
+" colorscheme tomorrow-night
+colorscheme falcon
 
 hi! link LspDiagnosticsDefaultInformation Comment
 hi! link LspDiagnosticsDefaultHint Comment

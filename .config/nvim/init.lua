@@ -60,9 +60,6 @@ vim.loop.new_timer():start(
 			require("plugins.autopairs")
 			require("plugins.luasnip")
 			require("plugins.cmp")
-
-			require("plugins.dap")
-
 			require("plugins.buftabline")
 			require("plugins.oscyank")
 
@@ -72,6 +69,8 @@ vim.loop.new_timer():start(
 			require("plugins.gitsigns")
 
 			require("plugins.comment")
+
+			require("plugins.dap")
 			-- require("plugins.vim-test") -- TODO: replace
 			-- require("plugins.matchparen") -- TODO: fix
 		end

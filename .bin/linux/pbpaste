@@ -1,3 +1,3 @@
 #!/bin/sh
 
-xsel --clipboard --output
+xsel --clipboard --output 2>/dev/null
