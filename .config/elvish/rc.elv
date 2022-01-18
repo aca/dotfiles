@@ -30,7 +30,7 @@ set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 set edit:rprompt-persistent = $true
 
 var hostinfo = ''
-if (not-eq $E:SSH "") {
+if (not-eq $E:SSH_CLIENT "") {
   set hostinfo = (whoami)@(hostname)' '
 }
 set edit:prompt = { styled $hostinfo'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
