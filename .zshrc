@@ -4,6 +4,8 @@
 # autoload -U promptinit && promptinit
 # prompt restore
 
+bindkey '^e' clear-screen
+
 # oh-my-zsh {{{
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
@@ -20,9 +22,9 @@ source $ZSH/oh-my-zsh.sh
 local NEWLINE=$'\n'; local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?${NEWLINE})%{$reset_color%}"
 # PROMPT='${ret_status}%{$fg[cyan]%}%{$reset_color%}𝑍 '
 # PROMPT='%{$fg[green]%}%{$PROMPT}%{$fg[white]%}'
-PROMPT='${ret_status}%{$fg[#7c7c7c]%}Z|%T %{$fg[green]%}|%{$reset_color%} '
+PROMPT='${ret_status}%{$fg[#7c7c7c]%}Z|%T %{$fg[yellow]%}|%{$reset_color%} '
 ZLE_RPROMPT_INDENT=0
-RPROMPT='%{$fg[yellow]%}%~'
+RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
 # }}}
 
 typeset -F SECONDS
@@ -36,26 +38,11 @@ function -report-start-time() {
   emulate -L zsh
   if [ $ZSH_START_TIME ]; then
     local DELTA=$(($SECONDS - $ZSH_START_TIME))
-    local DAYS=$((~~($DELTA / 86400)))
-    local HOURS=$((~~(($DELTA - $DAYS * 86400) / 3600)))
-    local MINUTES=$((~~(($DELTA - $DAYS * 86400 - $HOURS * 3600) / 60)))
-    local SECS=$(($DELTA - $DAYS * 86400 - $HOURS * 3600 - $MINUTES * 60))
-    local ELAPSED=''
-    test "$DAYS" != '0' && ELAPSED="${DAYS}d"
-    test "$HOURS" != '0' && ELAPSED="${ELAPSED}${HOURS}h"
-    test "$MINUTES" != '0' && ELAPSED="${ELAPSED}${MINUTES}m"
-    if [ "$ELAPSED" = '' ]; then
-      SECS="$(print -f "%.2f" $SECS)s"
-    elif [ "$DAYS" != '0' ]; then
-      SECS=''
-    else
-      SECS="$((~~$SECS))s"
+    if (( $DELTA > 1 )); then
+      SECS="$(print -f "%.2f" $DELTA)s"
+      echo $fg[italic]$fg[red]"« took: "$SECS" / done: "$(date "+%Y-%m-%d %H:%M:%S")
     fi
-    ELAPSED="${ELAPSED}${SECS}"
-    export RPROMPT="%F{cyan}%{$__WINCENT[ITALIC_ON]%}${ELAPSED}%f $RPROMPT_BASE"
     unset ZSH_START_TIME
-  else
-    export RPROMPT="$RPROMPT_BASE"
   fi
 }
 add-zsh-hook precmd -report-start-time

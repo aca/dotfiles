@@ -32,8 +32,16 @@ var hostinfo = ''
 if (not-eq $E:SSH "") {
   set hostinfo = (whoami)@(hostname)' '
 }
-set edit:prompt = { styled 'E|'$hostinfo(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
+set edit:prompt = { styled $hostinfo'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
 set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
+
+set edit:after-command = [
+  {|m| 
+    if (> $m[duration] 2) {
+      print (styled (styled (printf "« took: %.3fs / done: "(date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red) italic)
+    }
+  }
+]
 
 # set edit:prompt = {
 #     var git = (gitstatus:query $pwd)
@@ -107,7 +115,6 @@ fn dc {|@a| cd $@a }
 # 
 fn filterline {
   |@rest|
-
   var second = [(eval (echo $@rest))]
   from-lines | each { 
     |x|  

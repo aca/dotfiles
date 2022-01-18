@@ -42,16 +42,6 @@ set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 
 # https://elv.sh/ref/edit.html#keybindings
 set edit:insert:binding[Ctrl-E] = { edit:clear > /dev/tty; edit:redraw &full=$true; }
-set edit:after-command = [
-  {|m| 
-    pprint $m
-    # printf "Duration: %.2f" $m[duration]
-    if (> $m[duration] 1) {
-      printf "Duration: %.2f %s" $m[duration] "| "(styled (put $m[src][code]) 'underlined')"\n"
-      # echo (styled (printf "%s took %ss\n" $m[src][code] $m[duration]) '#ff0000')
-    }
-  }
-]
 
 fn watch_command { ||
   if (eq (str:trim-space $edit:current-command) "") {

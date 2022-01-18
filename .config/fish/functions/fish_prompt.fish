@@ -22,31 +22,28 @@ function _save_end --on-event fish_postexec
   set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
 
   set -l status_color (set_color --italics red)
-  set -l prompt_status (__fish_print_pipestatus "" "" "|" "$status_color" "$statusb_color" $last_pipestatus)
-
-  set -l msg ""
+  set -l prompt_status (__fish_print_pipestatus "" "" "|" "$status_color" "$status_color" $last_pipestatus)
 
   if [ "$prompt_status" != "" ]
-    set msg (echo -n "exit:" $prompt_status )
+    echo (set_color --italics red)"« exit:" $prompt_status
   end
-
-  set -l time_msg ""
 
   if test $CMD_DURATION
       set -l duration $CMD_DURATION
-      if [ $duration -gt 2000 ]
+      if [ $duration -gt 1000 ]
         set -l formated_duration (echo "$CMD_DURATION 1000" | awk '{printf "%.2fs", $1 / $2}')
-        set time_msg (eval "echo (set_color --italics red)took $formated_duration from $cmd_$pid_start to (date '+%H:%M:%S')")
-        if test $msg != ""
-          set time_msg (set_color --italics red)", ""$time_msg"
-        end
-        set msg "$msg""$time_msg"
+        echo (set_color --italics red)« took: $formated_duration / done: (date '+%Y-%m-%d %H:%M:%S')
+        # set time_msg (eval "echo (set_color --italics red)took: $formated_duration / done: (date '+%Y-%m-%d %H:%M:%S')")
+        # if test $msg != ""
+        #   set time_msg (set_color --italics red)", ""$time_msg"
+        # end
+        # set msg "$msg""$time_msg"
       end
   end
 
-  if test "$msg" != ""
-    echo -s (set_color red)"« $msg"
-  end
+  # if test "$msg" != ""
+  #   echo -s (set_color red)"« $msg"
+  # end
 end
 
 # # Defined in /usr/local/share/fish/functions/fish_prompt.fish @ line 4
