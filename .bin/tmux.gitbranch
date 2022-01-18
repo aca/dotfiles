@@ -1,5 +1,0 @@
-#!/bin/bash
-branch=$(git branch --show-current)
-if [ "$branch" != "" ]; then
-  printf "#[fg=green]git#[fg=cyan]#[fg=default]:$branch "
-fi

@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
+#!/bin/sh
 
-fd $argv[1] | mpv --really-quiet --playlist=- &
-disown && exit
-
+shuf | mpv --playlist=- "$@"

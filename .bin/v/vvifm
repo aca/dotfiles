@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ~/src/configs/dotfiles/.config/vifm
+nvim vifmrc

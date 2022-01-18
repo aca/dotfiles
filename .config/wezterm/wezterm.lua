@@ -119,7 +119,7 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = '3024 Night',
+	color_scheme = 'IR_Black',
 	use_ime = true,
 
 	-- no inactive pane
@@ -133,7 +133,7 @@ local config = {
 	send_composed_key_when_left_alt_is_pressed = false,
 	keys = {
 
-		-- { key = "b", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
+		{ key = "b", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
 		{ key = "[", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
 
 		{ key = "C", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
@@ -248,6 +248,7 @@ local config = {
 		{ key = "x", mods = "ALT", action = wezterm.action({ SendString = "\x1bx" }) },
 		{ key = "y", mods = "ALT", action = wezterm.action({ SendString = "\x1by" }) },
 		{ key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
+
 
 		-- {
 		-- 	key = "a",
@@ -379,6 +380,10 @@ local config = {
 		-- 	mods = "ALT|SHIFT",
 		-- 	action = wezterm.action({ SendString = "\x1bZ" }),
 		-- },
+    --
+    --
+    {key=";", mods="CTRL", action=wezterm.action{ScrollByLine=-3}},
+    {key="'", mods="CTRL", action=wezterm.action{ScrollByLine=3}},
 	},
 }
 
@@ -388,7 +393,7 @@ if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 		{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action({ PasteFrom = "PrimarySelection" }) }
 	)
 else
-	table.insert(config.keys, { key = "V", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) })
+	-- table.insert(config.keys, { key = "V", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) })
 end
 
 return config

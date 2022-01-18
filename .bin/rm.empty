@@ -1,6 +1,8 @@
-#!/usr/bin/env fish
+#!/bin/sh
 
-for i in (seq 10)
+set -e
+
+while true; do
   fd --type empty -x command rm -v
-end
- 
+  sleep 0.5
+done

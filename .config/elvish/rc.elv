@@ -75,6 +75,8 @@ set edit:after-command = [
 # }
 
 # abbr [[
+fn l {|@a| e:ls $@a }
+fn la {|@a| e:ls -a $@a }
 fn ll {|@a| e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 
 # TODO: https://github.com/elves/elvish/issues/1472

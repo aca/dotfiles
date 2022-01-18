@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-while clipnotify; do
-  pbpaste | piknik -copy
-done

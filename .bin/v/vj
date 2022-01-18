@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nvim -c "set ft=json" -

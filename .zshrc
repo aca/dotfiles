@@ -1,9 +1,5 @@
 # vim: set filetype=zsh foldmethod=marker foldlevel=0:
 
-# autoload -U promptinit && promptinit
-# prompt restore
-
-################################################################################
 # oh-my-zsh {{{
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -51,7 +47,7 @@ function -report-start-time() {
 add-zsh-hook precmd -report-start-time
 
 # }}}
-# Options {{{ 
+# options {{{ 
 set -o physical
 set -o vi
 setopt AUTO_CD                 # [default] .. is shortcut for cd .. (etc)
@@ -81,7 +77,7 @@ setopt inc_append_history
 setopt inc_appendhistorytime  # append command to history file immediately after execution
 setopt EXTENDED_HISTORY  # record command start time
 #  }}} zsh options
-# Exports {{{
+# exports {{{
 export GOPATH=$HOME
 export GOPROXY=direct
 export GHQ_ROOT=$HOME/src
@@ -97,19 +93,21 @@ export LC_ALL=en_US.UTF-8
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 typeset -U path # clean path
 # }}}
-# Aliases {{{
+# aliases {{{
 alias v='nvim'
 alias vim='nvim'
 alias k='kubectl'
 alias f='vifm'
 alias t='tmux'
 alias ta='tmux attach -t'
-alias tk='tmux kill-server'
+# alias tk='tmux kill-server'
 alias td='tmux detach'
+# }}}
+# Bind {{{
+bindkey '^e' clear-screen
+source ~/.fzf/shell/key-bindings.zsh
 # }}}
 
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 # [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
 
-bindkey '^e' clear-screen
-source ~/.fzf/shell/key-bindings.zsh

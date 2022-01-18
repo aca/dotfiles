@@ -317,40 +317,46 @@ key_bindings:
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
 # ColorStart
-# Base16 Bespin - alacritty color config
-# Jan T. Sott
+# Base16 Ashes 256 - alacritty color config
+# Jannik Siebert (https://github.com/janniks)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0x8a8986'
+    background: '0x1c2023'
+    foreground: '0xc7ccd1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x28211c'
-    cursor: '0x8a8986'
+    text: '0x1c2023'
+    cursor: '0xc7ccd1'
 
   # Normal colors
   normal:
-    black:   '0x28211c'
-    red:     '0xcf6a4c'
-    green:   '0x54be0d'
-    yellow:  '0xf9ee98'
-    blue:    '0x5ea6ea'
-    magenta: '0x9b859d'
-    cyan:    '0xafc4db'
-    white:   '0x8a8986'
+    black:   '0x1c2023'
+    red:     '0xc7ae95'
+    green:   '0x95c7ae'
+    yellow:  '0xaec795'
+    blue:    '0xae95c7'
+    magenta: '0xc795ae'
+    cyan:    '0x95aec7'
+    white:   '0xc7ccd1'
 
   # Bright colors
   bright:
-    black:   '0x666666'
-    red:     '0xcf7d34'
-    green:   '0x36312e'
-    yellow:  '0x5e5d5c'
-    blue:    '0x797977'
-    magenta: '0x9d9b97'
-    cyan:    '0x937121'
-    white:   '0xbaae9e'
+    black:   '0x747c84'
+    red:     '0xc7ae95'
+    green:   '0x95c7ae'
+    yellow:  '0xaec795'
+    blue:    '0xae95c7'
+    magenta: '0xc795ae'
+    cyan:    '0x95aec7'
+    white:   '0xf3f4f5'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xc7c795' }
+    - { index: 17, color: '0xc79595' }
+    - { index: 18, color: '0x393f45' }
+    - { index: 19, color: '0x565e65' }
+    - { index: 20, color: '0xadb3ba' }
+    - { index: 21, color: '0xdfe2e5' }
 # ColorEnd

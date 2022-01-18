@@ -1,4 +1,3 @@
-#!/bin/bash
-date +%y%m%dT%H%M%S
+#!/bin/sh
 
-# date +%y-%m-%d
+date +%y%m%dT%H%M%S
