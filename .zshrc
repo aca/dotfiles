@@ -24,8 +24,9 @@ source $ZSH/oh-my-zsh.sh
 
 local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?
 )%{$reset_color%}"
-local hostinfo="%($SSH_TTY == '='?::%n@%m )"
-PROMPT='${ret_status}%{$fg[#7c7c7c]%}%($SSH_TTY == '='?::%n@%m )Z|%T %{$fg[yellow]%}|%{$reset_color%} '
+local hostinfo=""
+if [[ "$SSH_TTY" != '' ]]; then hostinfo="%n@%m "; fi
+PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}Z|%T %{$fg[yellow]%}|%{$reset_color%} '
 ZLE_RPROMPT_INDENT=0
 RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
 
