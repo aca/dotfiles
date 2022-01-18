@@ -1,12 +1,11 @@
 # vim: set filetype=zsh foldmethod=marker foldlevel=0:
-# PROMPT='%{$fg[green]%}%{$PROMPT}%{$fg[white]%}'
 
 # autoload -U promptinit && promptinit
 # prompt restore
 
-bindkey '^e' clear-screen
-
+################################################################################
 # oh-my-zsh {{{
+
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 
@@ -19,13 +18,16 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-local NEWLINE=$'\n'; local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?${NEWLINE})%{$reset_color%}"
-# PROMPT='${ret_status}%{$fg[cyan]%}%{$reset_color%}𝑍 '
-# PROMPT='%{$fg[green]%}%{$PROMPT}%{$fg[white]%}'
-PROMPT='${ret_status}%{$fg[#7c7c7c]%}Z|%T %{$fg[yellow]%}|%{$reset_color%} '
+
+# }}}
+# prompt {{{
+
+local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?
+)%{$reset_color%}"
+local hostinfo="%($SSH_TTY == '='?::%n@%m )"
+PROMPT='${ret_status}%{$fg[#7c7c7c]%}%($SSH_TTY == '='?::%n@%m )Z|%T %{$fg[yellow]%}|%{$reset_color%} '
 ZLE_RPROMPT_INDENT=0
 RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
-# }}}
 
 typeset -F SECONDS
 function -record-start-time() {
@@ -47,6 +49,7 @@ function -report-start-time() {
 }
 add-zsh-hook precmd -report-start-time
 
+# }}}
 # Options {{{ 
 set -o physical
 set -o vi
@@ -77,7 +80,6 @@ setopt inc_append_history
 setopt inc_appendhistorytime  # append command to history file immediately after execution
 setopt EXTENDED_HISTORY  # record command start time
 #  }}} zsh options
-
 # Exports {{{
 export GOPATH=$HOME
 export GOPROXY=direct
@@ -87,8 +89,13 @@ export VISUAL=nvim
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-# }}}
 
+# export PATH=$HOME/.bin:$PATH
+# export PATH=$HOME/.krew/bin:$PATH
+# export PATH=$HOME/bin:$PATH
+# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+typeset -U path # clean path
+# }}}
 # Aliases {{{
 alias v='nvim'
 alias vim='nvim'
@@ -100,15 +107,8 @@ alias tk='tmux kill-server'
 alias td='tmux detach'
 # }}}
 
-# # PATH {{{
-# export PATH=$HOME/.bin:$PATH
-# export PATH=$HOME/.krew/bin:$PATH
-# export PATH=$HOME/bin:$PATH
-# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-# typeset -U path # clean path
-# # }}}
-
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 # [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
 
+bindkey '^e' clear-screen
 source ~/.fzf/shell/key-bindings.zsh
