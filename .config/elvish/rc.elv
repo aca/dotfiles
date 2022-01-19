@@ -6,6 +6,7 @@
 
 use epm
 use str
+use zoxide
 
 # use epm
 # epm:install github.com/zzamboni/elvish-completions

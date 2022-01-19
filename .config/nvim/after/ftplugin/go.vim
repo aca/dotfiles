@@ -10,4 +10,5 @@ setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 
 nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
 
-autocmd BufWritePre *.go lua require('lsp_run_codeaction')("source.organizeImports", 500); vim.lsp.buf.formatting()
+" TODO fix
+" autocmd BufWritePre *.go lua require('lsp_run_codeaction')("source.organizeImports", 500); vim.lsp.buf.formatting()

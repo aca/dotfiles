@@ -119,8 +119,13 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = 'IR_Black',
+	color_scheme = 'Blazer',
 	use_ime = true,
+
+  -- TODO
+  quick_select_patterns = {
+    "[%a]+",
+  },
 
 	-- no inactive pane
 	inactive_pane_hsb = {

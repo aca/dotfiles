@@ -70,3 +70,5 @@ fn fzf_cd {||
 set edit:insert:binding[Alt-c] = {|| 
   fzf_cd > /dev/tty 2>&1
 }
+
+set edit:insert:binding[Ctrl-D] = { edit:location:start }
