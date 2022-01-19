@@ -5,6 +5,7 @@ packadd nvim-cmp
 packadd cmp-buffer
 packadd cmp-nvim-lsp
 packadd cmp-path
+packadd cmp-copilot
 
 " packadd cmp-tmux
 
@@ -61,6 +62,7 @@ local cmp_sources = {
 	{ name = "path" },
 	{ name = "buffer", option = { keyword_length = 5 } },
 	{ name = "luasnip" },
+	{ name = "copilot" },
 	-- { name = 'cmp_tabnine'},
 	-- { name = "vsnip" },
 	-- {

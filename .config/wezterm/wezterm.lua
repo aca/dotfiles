@@ -119,7 +119,7 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = 'Blazer',
+	color_scheme = 'Dracula+',
 	use_ime = true,
 
   -- TODO

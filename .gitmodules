@@ -436,3 +436,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-gist"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-gist
 	url = https://github.com/mattn/vim-gist.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/copilot.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/copilot.vim
+	url = https://github.com/github/copilot.vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/cmp-copilot"]
+	path = .local/share/nvim/site/pack/bundle/opt/cmp-copilot
+	url = https://github.com/hrsh7th/cmp-copilot.git

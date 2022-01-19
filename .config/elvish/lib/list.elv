@@ -21,7 +21,7 @@ fn index { | @args |
       return # NOTES: is return an error?
     }
   }
-  put (num -1)
+  put $nil # error?
 }
 
 
