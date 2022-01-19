@@ -52,7 +52,7 @@ vim.loop.new_timer():start(
 		require("plugins.tmux")
 		require("plugins.hop")
 		-- TODO: init load?
-    require("plugins.treesitter")
+		require("plugins.treesitter")
 
 		if not g._minimal then
 			cmd("packadd plenary.nvim")
@@ -87,6 +87,6 @@ vim.loop.new_timer():start(
 	end)
 )
 
-cmd [[
+cmd([[
 packadd copilot.vim
-]]
+]])
