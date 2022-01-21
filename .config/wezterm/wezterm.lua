@@ -20,17 +20,27 @@ end
 
 wezterm.on("open_in_vim", function(window, pane)
 	local file = io.open("/tmp/wezterm_buf", "w")
-	file:write(pane:get_logical_lines_as_text(1000))
+	file:write(pane:get_logical_lines_as_text(3000))
 	file:close()
+
 	window:perform_action(
 		wezterm.action({
-			SplitVertical = {
-				domain = "CurrentPaneDomain",
+			SpawnCommandInNewTab = {
 				args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
 			},
 		}),
 		pane
 	)
+
+	-- window:perform_action(
+	-- 	wezterm.action({
+	-- 		SplitVertical = {
+	-- 			domain = "CurrentPaneDomain",
+	-- 			args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
+	-- 		},
+	-- 	}),
+	-- 	pane
+	-- )
 end)
 
 local move_around = function(window, pane, direction_wez, direction_nvim)
@@ -119,13 +129,13 @@ local config = {
 		PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
 	},
 
-	color_scheme = 'Dracula+',
+	color_scheme = "Dracula+",
 	use_ime = true,
 
-  -- TODO
-  quick_select_patterns = {
-    "[%a]+",
-  },
+	-- TODO
+	quick_select_patterns = {
+		"[A-Za-z0-9-_.]{6,100}",
+	},
 
 	-- no inactive pane
 	inactive_pane_hsb = {
@@ -140,6 +150,8 @@ local config = {
 
 		{ key = "b", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
 		{ key = "[", mods = "LEADER", action = wezterm.action({ EmitEvent = "open_in_vim" }) },
+
+    { key="w", mods="LEADER", action="QuickSelect" },
 
 		{ key = "C", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
 		-- { key = "C", mods = "CTRL", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
@@ -253,7 +265,6 @@ local config = {
 		{ key = "x", mods = "ALT", action = wezterm.action({ SendString = "\x1bx" }) },
 		{ key = "y", mods = "ALT", action = wezterm.action({ SendString = "\x1by" }) },
 		{ key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
-
 
 		-- {
 		-- 	key = "a",
@@ -385,10 +396,10 @@ local config = {
 		-- 	mods = "ALT|SHIFT",
 		-- 	action = wezterm.action({ SendString = "\x1bZ" }),
 		-- },
-    --
-    --
-    {key=";", mods="CTRL", action=wezterm.action{ScrollByLine=-3}},
-    {key="'", mods="CTRL", action=wezterm.action{ScrollByLine=3}},
+		--
+		--
+		{ key = ";", mods = "CTRL", action = wezterm.action({ ScrollByLine = -3 }) },
+		{ key = "'", mods = "CTRL", action = wezterm.action({ ScrollByLine = 3 }) },
 	},
 }
 

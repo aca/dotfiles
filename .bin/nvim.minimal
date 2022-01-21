@@ -2,4 +2,7 @@
 
 [ -n "$WEZTERM_PANE" ] && export NVIM_LISTEN_ADDRESS="/tmp/nvim$WEZTERM_PANE"
 
-env _VIM_MODE=minimal nvim "$@"
+# :%s/  \~.*$//g
+
+env _VIM_MODE=minimal nvim -c "set nowrap" "$@"
+
