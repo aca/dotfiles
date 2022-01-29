@@ -18,3 +18,5 @@ if [ -z "$d" ]; then
 else
   echo ~/src/$d
 fi
+
+sh -c "src.update &"

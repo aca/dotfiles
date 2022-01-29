@@ -41,6 +41,8 @@ function s:markdown_preview()
       \ 'hide_yaml_meta': 1,
       \ 'sequence_diagrams': {},
       \ 'flowchart_diagrams': {},
+      \ 'prefers-color-scheme': 'dark',                                           
+      \ 'theme': 'dark',                                           
       \ 'disable_filename': 1
       \ }
   packadd markdown-preview.nvim

@@ -30,11 +30,11 @@ completionItem.deprecatedSupport = true
 completionItem.commitCharactersSupport = true
 completionItem.tagSupport = { valueSet = { 1 } }
 completionItem.resolveSupport = {
-	properties = {
-		"documentation",
-		"detail",
-		"additionalTextEdits",
-	},
+    properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+    },
 }
 
 -- ]]
@@ -51,138 +51,124 @@ completionItem.resolveSupport = {
 -- ]]
 -- on_attach [[
 local on_attach = function(client, bufnr)
-	local resolved_capabilities = client.resolved_capabilities
-	local api = vim.api
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
+    local resolved_capabilities = client.resolved_capabilities
+    local api = vim.api
+    local function buf_set_keymap(...)
+        vim.api.nvim_buf_set_keymap(bufnr, ...)
+    end
+    local function buf_set_option(...)
+        vim.api.nvim_buf_set_option(bufnr, ...)
+    end
 
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-	if resolved_capabilities.goto_definition == true then
-		api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-	end
+    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    if resolved_capabilities.goto_definition == true then
+        api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+    end
 
-	if resolved_capabilities.document_formatting == true then
-		api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-		-- Add this <leader> bound mapping so formatting the entire document is easier.
-		-- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	end
-	-- print("loaded")
+    if resolved_capabilities.document_formatting == true then
+        api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+        -- Add this <leader> bound mapping so formatting the entire document is easier.
+        -- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+    -- print("loaded")
 
-	require("lsp_signature").on_attach()
+    require("lsp_signature").on_attach()
 end
 -- ]]
 -- server: gopls [[
 lspconfig.gopls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = false,
-			},
-			staticcheck = true,
-		},
-	},
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = false,
+            },
+            staticcheck = true,
+        },
+    },
 })
 -- ]]
 -- server: pylance [[
 local ok, pylance = pcall(require, "pylance")
 if ok then
-	lspconfig.pyright.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		settings = {
-			gopls = {
-				analyses = {
-					unusedparams = false,
-				},
-				staticcheck = true,
-			},
-		},
-	})
+    lspconfig.pyright.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+            gopls = {
+                analyses = {
+                    unusedparams = false,
+                },
+                staticcheck = true,
+            },
+        },
+    })
 else
-	lspconfig.pyright.setup({
-		cmd = pylance,
-		capabilities = capabilities,
-		on_attach = on_attach,
-		settings = {
-			gopls = {
-				analyses = {
-					unusedparams = false,
-				},
-				staticcheck = true,
-			},
-		},
-	})
+    lspconfig.pyright.setup({
+        cmd = pylance,
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+            gopls = {
+                analyses = {
+                    unusedparams = false,
+                },
+                staticcheck = true,
+            },
+        },
+    })
 end
 
 -- ]]
 -- server: servers with installer [[
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
-	local opts = {
-		lspconfig = {
-			capabilities = capabilities,
-		},
-		on_attach = on_attach,
-	}
+    local opts = {
+        lspconfig = {
+            capabilities = capabilities,
+        },
+        on_attach = on_attach,
+    }
 
-	if server.name == "tailwindcss" then
-		opts.filetypes = {
-			"haml",
-			"html",
-			"css",
-			"less",
-			"postcss",
-			"sass",
-			"scss",
-			"stylus",
-			"sugarss",
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"vue",
-			"svelte",
-		}
-	end
+    if server.name == "tailwindcss" then
+        opts.filetypes = {
+            "haml",
+            "html",
+            "css",
+            "less",
+            "postcss",
+            "sass",
+            "scss",
+            "stylus",
+            "sugarss",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "vue",
+            "svelte",
+        }
+    end
 
-	if server.name == "sumneko_lua" then
-		-- local runtime_path = vim.split(package.path, ";")
-		-- table.insert(runtime_path, "lua/?.lua")
-		-- table.insert(runtime_path, "lua/?/init.lua")
-		opts = require("lua-dev").setup({
-			lspconfig = {
-				capabilities = capabilities,
-				-- Lua = {
-				-- 	runtime = {
-				-- 		-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-				-- 		version = "LuaJIT",
-				-- 		-- Setup your lua path
-				-- 		path = runtime_path,
-				-- 	},
-				-- 	diagnostics = {
-				-- 		-- Get the language server to recognize the `vim` global
-				-- 		globals = { "vim" },
-				-- 	},
-				-- 	workspace = {
-				-- 		-- Make the server aware of Neovim runtime files
-				-- 		library = vim.api.nvim_get_runtime_file("", true),
-				-- 	},
-				-- 	-- Do not send telemetry data containing a randomized but unique identifier
-				-- 	telemetry = {
-				-- 		enable = false,
-				-- 	},
-				-- },
-			},
-			on_attach = on_attach,
-		})
-	end
-	server:setup(opts)
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+    if server.name == "sumneko_lua" then
+        local runtime_path = vim.split(package.path, ";")
+        table.insert(runtime_path, "lua/?.lua")
+        table.insert(runtime_path, "lua/?/init.lua")
+        opts = require("lua-dev").setup({
+            lspconfig = {
+                capabilities = capabilities,
+            },
+            on_attach = on_attach,
+        })
+        opts.settings.Lua.diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim", "wezterm" },
+            disable = { "unused-function", "unused-label", "unused-vararg", "unused-local" },
+        }
+    end
+    server:setup(opts)
 end)
 -- ]]
 

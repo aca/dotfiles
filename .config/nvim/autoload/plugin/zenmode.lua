@@ -6,15 +6,15 @@ vim.cmd([[
 ]])
 
 require("zen-mode").setup({
-	window = {
-		options = {
-			number = false,
-			relativenumber = false,
-		},
-		width = 120, -- width of the Zen window
-		-- height = 30, -- height of the Zen window
-	},
-	plugins = {
-		gitsigns = { enabled = true },
-	},
+    window = {
+        options = {
+            number = false,
+            relativenumber = false,
+        },
+        width = 120, -- width of the Zen window
+        -- height = 30, -- height of the Zen window
+    },
+    plugins = {
+        gitsigns = { enabled = true },
+    },
 })

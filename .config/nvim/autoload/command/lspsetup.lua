@@ -1,5 +1,5 @@
 vim.api.nvim_add_user_command("LspSetup", function()
-	vim.cmd([[
+    vim.cmd([[
   LspInstall 
    \ vimls
    \ html

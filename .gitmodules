@@ -115,9 +115,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/codi.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/codi.vim
 	url = https://github.com/metakirby5/codi.vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-yaml-folds"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-yaml-folds
-	url = https://github.com/pedrohdz/vim-yaml-folds.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/md-img-paste.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/md-img-paste.vim
 	url = https://github.com/ferrine/md-img-paste.vim.git
@@ -187,9 +184,6 @@
 [submodule ".submodules/mpvc"]
 	path = .submodules/mpvc
 	url = https://github.com/lwilletts/mpvc.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-markdown"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown
-	url = https://github.com/plasticboy/vim-markdown.git
 [submodule ".local/share/nvim/site/pack/paqs/start/plenary.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
@@ -211,9 +205,6 @@
 [submodule ".submodules/zoxide"]
 	path = .submodules/zoxide
 	url = https://github.com/ajeetdsouza/zoxide.git
-[submodule ".submodules/kube-tmux"]
-	path = .submodules/kube-tmux
-	url = https://github.com/jonmosco/kube-tmux.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-eunuch"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
@@ -334,9 +325,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/orgmode.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/orgmode.nvim
 	url = https://github.com/kristijanhusak/orgmode.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/start/zenbones.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/zenbones.nvim
-	url = https://github.com/mcchrish/zenbones.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/elvish.vim"]
 	path = .local/share/nvim/site/pack/bundle/start/elvish.vim
 	url = https://github.com/dmix/elvish.vim.git
@@ -442,3 +430,15 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-copilot"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-copilot
 	url = https://github.com/hrsh7th/cmp-copilot.git
+[submodule ".config/elvish/lib/edit.elv"]
+	path = .config/elvish/lib/edit.elv
+	url = https://github.com/xiaq/edit.elv.git
+[submodule ".config/elvish/lib/elvish-bash-completion"]
+	path = .config/elvish/lib/elvish-bash-completion
+	url = https://github.com/ezh/elvish-bash-completion.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim
+	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-markdown"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown
+	url = https://github.com/preservim/vim-markdown.git

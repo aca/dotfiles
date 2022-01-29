@@ -1,5 +1,5 @@
 if vim.g._minimal then
-	return
+    return
 end
 
 vim.cmd([[

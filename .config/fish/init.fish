@@ -203,20 +203,6 @@ abbr --global gacm git commit -a --allow-empty-message -m
 #       end
 #     end
 # end
-
-# function _postexec --on-event fish_postexec
-#   switch $argv
-#     case 'ghq get *'
-#       set_color red; echo "[HOOK] updating source database"; set_color normal;
-#       _update_src &
-#   #   case 'pip install *'
-#   #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-#   #     asdf reshim &
-#   #   case 'pip3 install *'
-#   #     set_color red; echo "[HOOK] asdf reshim"; set_color normal;
-#   #     asdf reshim &
-#   end
-# end
 # }}}
 
 # OS specific {{{

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # format nvim configs
-command -v stylua &>/dev/null && find .config/nvim -type f -name '*.lua' -exec stylua {} \;
+# command -v stylua &>/dev/null && fd --type f --extension lua -x stylua --indent-width 4 --indent-type Spaces '{}';

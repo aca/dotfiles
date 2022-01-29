@@ -4,18 +4,20 @@
 # Reference
 # https://github.com/xiaq/etc/blob/master/rc.elv
 
-use epm
+# epm:install github.com/zzamboni/elvish-completions
+# use github.com/zzamboni/elvish-completions/cd
+
+# epm:install github.com/ezh/elvish-bash-completion
+
 use str
 use zoxide
 
-# use epm
-# epm:install github.com/zzamboni/elvish-completions
+use carapace
+use elvish-bash-completion/git
+use elvish-bash-completion/kubectl
 
-# use github.com/zzamboni/elvish-completions/git
-#
-# # epm:install github.com/href/elvish-gitstatus
-# # epm:install github.com/zzamboni/elvish-themes
-# use github.com/href/elvish-gitstatus/gitstatus
+use edit.elv/smart-matcher
+smart-matcher:apply
 
 # use str
 use platform
@@ -38,9 +40,17 @@ set edit:prompt = { styled $hostinfo'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| 
 set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
 
 set edit:after-command = [
-  {|m| 
-    if (> $m[duration] 2) {
+  {|m|
+    try {
+      if (< $m[duration] 2) {
+        return
+      }
+      if (str:has-prefix $m[src][code] "cd (vifm") {
+        return
+      }
       print (styled (styled (printf "« took: %.3fs / done: "(date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red) italic)
+    } except {
+
     }
   }
 ]
@@ -76,9 +86,16 @@ set edit:after-command = [
 # }
 
 # abbr [[
-fn l {|@a| e:ls $@a }
+fn l {|@a| 
+  # e:ls $@a
+  e:exa --icons -1
+}
 fn la {|@a| e:ls -a $@a }
-fn ll {|@a| e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+fn ll {|@a|
+  # e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a 
+  # https://github.com/fenetikm/falcon/blob/master/exa/EXA_COLORS
+  e:exa -l --icons
+}
 
 # TODO: https://github.com/elves/elvish/issues/1472
 # set edit:small-word-abbr['k'] = 'kubectl'
@@ -91,13 +108,15 @@ fn ll {|@a| e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 # This should be replaced to abbr later
 fn v {|@a| nvim $@a }
 fn k {|@a| kubectl $@a }
-fn w {|| cd (src.dir); sh -c "src.update &" }
+fn s {|| cd (src.dir); sh -c "src.update &" }
+fn x {|@a| cd (scratch $@a) }
 # ]]
 
 # wrapper
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn dc {|@a| cd $@a }
-
+fn zs {|@a| zsh $@a }
+fn from-0 { || from-terminated "\x00" }
 
 # set edit:abbr['ci '] = 'pbcopy'
 # set edit:abbr['co '] = 'pbpaste'

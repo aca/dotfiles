@@ -104,10 +104,35 @@ alias ta='tmux attach -t'
 alias td='tmux detach'
 # }}}
 # Bind {{{
-bindkey '^e' clear-screen
 source ~/.fzf/shell/key-bindings.zsh
+bindkey '^e' clear-screen
+
+_exit() { exit }; zle -N _exit
+bindkey '^q' _exit;
+
+_paste() { LBUFFER+="$(clippaste)" }; zle -N _paste
+bindkey '^v' _paste # Paste
+
+_copy() { 
+  echo $BUFFER | clipcopy
+}; zle -N _copy
+
+# for faster '^x', remove all unused bindings 
+bindkey -r "^X^R"
+bindkey -r "^X?" 
+bindkey -r "^XC" 
+bindkey -r "^Xa" 
+bindkey -r "^Xc" 
+bindkey -r "^Xd" 
+bindkey -r "^Xe" 
+bindkey -r "^Xh" 
+bindkey -r "^Xm" 
+bindkey -r "^Xn" 
+bindkey -r "^Xt" 
+bindkey -r "^X~" 
+bindkey '^x' _copy # copy
+
 # }}}
 
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 # [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
-

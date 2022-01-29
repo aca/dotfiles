@@ -19,11 +19,14 @@ o.termguicolors = true
 o.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000" -- https://jdhao.github.io/2021/10/24/diff_in_vim/
 o.completeopt = "menu,menuone,noselect"
 
--- o.fillchars = "fold: ,vert:│,eob: ,msgsep:‾"
-opt.fillchars = {
-	eob = " ",
-	-- vert =  " ",
+opt.fillchars = opt.fillchars + {
+    eob = " ",
+    foldclose = "▸",
+    foldopen = "▾",
+    fold = " ",
+    -- vert =  " ",
 }
+
 o.wrapmargin = 0
 
 o.lazyredraw = true
@@ -36,10 +39,11 @@ opt.cursorline = true
 opt.timeoutlen = 400
 
 -- fold
+opt.foldmethod="syntax"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
--- g.foldmethod = "marker"
-g.foldcolumn = 0
+-- -- g.foldmethod = "marker"
+g.foldcolumn = 3
 
 opt.cursorline = true -- Highlight the current line
 opt.ignorecase = true -- Ignore case when searching...
@@ -49,21 +53,21 @@ opt.updatetime = 1000 -- Make updates happen faster
 opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
 opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
 if g._minimal then
-	opt.laststatus = 0
+    opt.laststatus = 0
 else
-	opt.laststatus = 2
+    opt.laststatus = 2
 end
 
 opt.formatoptions = opt.formatoptions
-	- "a" -- Auto formatting is BAD.
-	- "t" -- Don't auto format my code. I got linters for that.
-	+ "c" -- In general, I like it when comments respect textwidth
-	+ "q" -- Allow formatting comments w/ gq
-	-- - "o" -- O and o, don't continue comments
-	-- + "r" -- But do continue when pressing enter.
-	+ "n" -- Indent past the formatlistpat, not underneath it.
-	+ "j" -- Auto-remove comments if possible.
-	- "2" -- I'm not in gradeschool anymore
+    - "a" -- Auto formatting is BAD.
+    - "t" -- Don't auto format my code. I got linters for that.
+    + "c" -- In general, I like it when comments respect textwidth
+    + "q" -- Allow formatting comments w/ gq
+    -- - "o" -- O and o, don't continue comments
+    -- + "r" -- But do continue when pressing enter.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "j" -- Auto-remove comments if possible.
+    - "2" -- I'm not in gradeschool anymore
 
 opt.inccommand = "split"
 opt.swapfile = false -- Living on the edge
@@ -73,10 +77,9 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
+opt.number = false
 if g._minimal then
-	opt.number = false
-else
-	opt.number = true
+    opt.number = false
 end
 
 -- Tabs
@@ -110,6 +113,10 @@ opt.pumblend = 17
 
 -- opt.wildmode = opt.wildmode - "list"
 -- opt.wildmode = opt.wildmode + { "longest", "full" }
+
+-- opt.list = true
+-- opt.listchars:append("space:⋅")
+-- opt.listchars:append("eol:↴")
 
 -- disable default vim stuffs for faster startuptime
 g.loaded_tutor_mode_plugin = 1

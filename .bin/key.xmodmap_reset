@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+set -euox pipefail
+
 if xset -q | grep 'Caps Lock: ' | awk '{print $4}' | grep on; then
   xdotool key Caps_Lock
 fi
-
 
 setxkbmap -option
 xmodmap ~/.Xmodmap

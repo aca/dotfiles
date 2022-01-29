@@ -1,0 +1,15 @@
+#!/bin/sh
+
+d=""
+if [ "$#" -eq 0 ]; then
+  d=~/src/scratch/$(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)
+else
+  d=~/src/scratch/$(date "+%Y-%m-%d")_$1
+  mkdir $d
+fi
+
+# git init
+# git remote add origin https://git.aca.us.to/scratch/(basename (pwd)).git
+
+echo $d
+

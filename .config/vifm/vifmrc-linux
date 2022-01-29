@@ -115,11 +115,11 @@ filextype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
 " fileviewer *.png,*.jpeg,*.jpg
 "   \ env -u COLORTERM viu -w %pw -h %ph -s %c %pd
 "
-fileviewer *.png,*.jpeg,*.jpg
-  \ env -u COLORTERM viu -w %pw -h %ph -s %c %pd
+" fileviewer *.png,*.jpeg,*.jpg
+"   \ env -u COLORTERM viu -w %pw -h %ph -s %c %pd
 
-fileviewer *.png,*.jpeg,*.jpg
-  \ viu %c %pd
+" fileviewer *.png,*.jpeg,*.jpg
+"   \ viu %c %pd
 
 " fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
 "          \ wezterm imgcat %c:p %pd
@@ -170,10 +170,6 @@ filetype *.sha512
 filetype {*.asc},<application/pgp-signature>
        \ {Check signature}
        \ !!gpg --verify %c,
-
-" Torrent
-filetype {*.torrent},<application/x-bittorrent> ktorrent %f &
-fileviewer {*.torrent},<application/x-bittorrent> dumptorrent -v %c
 
 " FuseZipMount
 " filetype {*.zip,*.jar,*.war,*.ear,*.oxt,*.apkg},

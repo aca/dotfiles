@@ -1,0 +1,17 @@
+#!/usr/bin/env elvish
+
+use list
+use str
+
+var colors = [ (fc-list | rg '.*: (\w+ Nerd Font):.*' -r '$1' | sort| uniq) ]
+# var colors = [ ( fc-list | awk -F'[:,]' '{print $2}' | sort | uniq| from-lines | peach {|x| str:trim-space $x} ) ]
+
+var color = (
+  try {
+    put $colors[(+ (put $colors | list:index ( perl -ne 'print "$1" if /.*wezterm.font\(''(.*)''\)/' ~/.config/wezterm/wezterm.lua)) 1)]
+  } except {
+    put $colors[0]
+  }
+)
+put $color
+sed_i "s/wezterm.font.*/wezterm.font('"$color"'),/" ~/src/configs/dotfiles/.config/wezterm/wezterm.lua

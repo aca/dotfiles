@@ -22,18 +22,18 @@ scrolling:
 font:
   normal:
     # family: Operator Mono Book
-    style: Regular
+    style: Oblique
     # family: Hasklug Nerd Font Mono
     # family: 
     # family: MesloLGL Nerd Font Mono
     # family: Noto Sans Condensed Medium Nerd Font
-    family: SauceCodePro Nerd Font Mono
+    # family: VictorMono Nerd Font Mono
     # family: Lotion
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
     # family: .
-    # family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font Mono
 
   # bold:
     # family: FuraCode Nerd Font Mono
@@ -81,10 +81,14 @@ live_config_reload: true
 #     - -c
 #     - "tmux attach || tmux"
 
+# shell:
+#   program: /usr/local/bin/fish
+#   args:
+#     - --login 
+
 shell:
-  program: /usr/local/bin/fish
-  args:
-    - --login 
+  program: /home/rok/bin/elvish
+
 
 working_directory: None
 
@@ -317,46 +321,40 @@ key_bindings:
 #     cyan:    '0x937121'
 #     white:   '0xbaae9e'
 # ColorStart
-# Base16 Ashes 256 - alacritty color config
-# Jannik Siebert (https://github.com/janniks)
+# Base16 Black Metal (Nile) - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x1c2023'
-    foreground: '0xc7ccd1'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1c2023'
-    cursor: '0xc7ccd1'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x1c2023'
-    red:     '0xc7ae95'
-    green:   '0x95c7ae'
-    yellow:  '0xaec795'
-    blue:    '0xae95c7'
-    magenta: '0xc795ae'
-    cyan:    '0x95aec7'
-    white:   '0xc7ccd1'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xaa9988'
+    yellow:  '0x777755'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x747c84'
-    red:     '0xc7ae95'
-    green:   '0x95c7ae'
-    yellow:  '0xaec795'
-    blue:    '0xae95c7'
-    magenta: '0xc795ae'
-    cyan:    '0x95aec7'
-    white:   '0xf3f4f5'
+    black:   '0x333333'
+    red:     '0xaaaaaa'
+    green:   '0x121212'
+    yellow:  '0x222222'
+    blue:    '0x999999'
+    magenta: '0x999999'
+    cyan:    '0x444444'
+    white:   '0xc1c1c1'
 
-  indexed_colors:
-    - { index: 16, color: '0xc7c795' }
-    - { index: 17, color: '0xc79595' }
-    - { index: 18, color: '0x393f45' }
-    - { index: 19, color: '0x565e65' }
-    - { index: 20, color: '0xadb3ba' }
-    - { index: 21, color: '0xdfe2e5' }
+draw_bold_text_with_bright_colors: false
 # ColorEnd

@@ -65,14 +65,14 @@ super + f
     fi
 
 
-# # space, float / unfloat window and center on screen
-# super + space
-#     if [ -z "$(bspc query -N -n focused.floating)" ]; then \
-#         bspc node focused -t floating; \
-#         ~/src/configs/dotfiles/.bin/bspc.center; \
-#     else \
-#         bspc node focused -t tiled; \
-#     fi
+# space, float / unfloat window and center on screen
+super + t
+    if [ -z "$(bspc query -N -n focused.floating)" ]; then \
+        bspc node focused -t floating; \
+        ~/src/configs/dotfiles/.bin/bspc.center; \
+    else \
+        bspc node focused -t tiled; \
+    fi
 
 # space, float / unfloat window and center on screen
 super + c

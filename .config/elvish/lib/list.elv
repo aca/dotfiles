@@ -42,3 +42,34 @@ fn remove { |@args|
   var idx = (index $lst $elem)
   put [ (all $lst[0..$idx]) (all $lst[( + 1 $idx )..(count $lst)]) ]
 }
+
+# var f = { |x y| put ( + $x $y ) }
+# use list; put [1 2 3 4] | list:reduce { |x y| put ( + $x $y ) };
+# use list; var arr = [1 2 3 4]; list:reduce $arr { |x y| put ( + $x $y ) } 0;
+fn reduce { |@args|
+  var lst
+  var f
+  var acc = $nil
+  if (not-eq (kind-of $args[0]) list) {
+    set lst = (one) 
+    set f = $args[0]
+    if (eq (count $args) 2) {
+      set acc = $args[1]
+    } else {
+      set acc = $lst[0]
+    }
+  } else {
+    set lst = $args[0]
+    set f = $args[1]
+    if (eq (count $args) 3) {
+      set acc = $args[2]
+    } else {
+      set acc = $lst[0]
+    }
+  }
+
+  for i $lst[1..] {
+    set acc = ($f $acc $i)
+  }
+  put $acc
+}

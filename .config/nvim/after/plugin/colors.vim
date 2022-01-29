@@ -1,9 +1,11 @@
 " set background=light
 
 " colorscheme substrata
+" colorscheme raider
 " colorscheme monotone
 " colorscheme tomorrow-night
-colorscheme falcon
+" colorscheme falcon
+colorscheme tomorrow-night
 
 hi! link LspDiagnosticsDefaultInformation Comment
 hi! link LspDiagnosticsDefaultHint Comment
@@ -30,9 +32,3 @@ hi! link DiagnosticSignError Comment
 hi! link DiagnosticSignWarn Comment
 hi! link DiagnosticSignInfo Comment
 hi! link DiagnosticSignHint Comment
-
-hi! User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
-hi! User2 ctermfg=007 ctermbg=236 guibg=#111f28 guifg=#FFFFFF gui=italic
-hi! User3 ctermfg=236 ctermbg=236 guibg=#303030 
-set statusline=%1*%<%f%m%r%h%w\ %3*
-set statusline+=%=                  

@@ -1,0 +1,6 @@
+@theme "/usr/share/rofi/themes/Monokai.rasi"
+
+configuration {
+  icon-theme: "Papirus";
+  show-icons: true;
+}

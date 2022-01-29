@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$(fd -0 --type f --hidden | fzf --read0 -m --ansi --preview  "bat --color=always --style=header,grid --line-range :250 -- {}" | xargs -0 -I{} realpath -- {})

@@ -6,5 +6,5 @@ packadd plenary.nvim
 ]])
 
 require("gitlinker").setup({
-	mappings = "gy",
+    mappings = "gy",
 })

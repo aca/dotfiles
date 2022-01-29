@@ -17,5 +17,5 @@ function src
   else
     popd
   end
-  _update_src &
+  src.update &
 end

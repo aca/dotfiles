@@ -103,10 +103,6 @@ filetype *.sha512
        \ {Check SHA512 hash sum}
        \ sha512sum -c %f %S,
 
-" Torrent
-filetype {*.torrent},<application/x-bittorrent> open -a Transmission.app
-fileviewer {*.torrent},<application/x-bittorrent> dumptorrent -v %c
-
 " Extract zip files
 filetype {*.zip},<application/zip,application/java-archive> unzip %f
 fileviewer {*.zip,*.jar,*.war,*.ear},

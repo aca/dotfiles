@@ -3,6 +3,6 @@ vim.cmd([[
 ]])
 
 require("due_nvim").setup({
-	pattern_start = " ",
-	pattern_end = " ",
+    pattern_start = " ",
+    pattern_end = " ",
 })

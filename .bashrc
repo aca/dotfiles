@@ -70,3 +70,8 @@ if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
 if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi
 if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
 # . "$HOME/.cargo/env"
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION

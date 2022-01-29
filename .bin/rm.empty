@@ -3,6 +3,7 @@
 set -e
 
 while true; do
-  fd --type empty -x command rm -v
+  fd --type empty -x rm -vrf
+  # TODO: fix
   sleep 0.5
 done

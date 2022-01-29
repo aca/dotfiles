@@ -3,7 +3,7 @@ vim.cmd([[
 ]])
 
 require("scrollbar").setup({
-	handle = {
-		color = "#161821",
-	},
+    handle = {
+        color = "#161821",
+    },
 })

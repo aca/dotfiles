@@ -1,6 +1,6 @@
 vim.cmd("packadd LuaSnip")
 require("luasnip/loaders/from_vscode").load({
-	paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
+    paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
 })
 
 local ls = require("luasnip")
@@ -25,24 +25,24 @@ local r = ls.restore_node
 -- local conds = require("luasnip.extras.expand_conditions")
 
 local function shebang(_, _)
-	local cstring = vim.split(vim.bo.commentstring, "%s", true)[1]
-	if cstring == "/*" then
-		cstring = "//"
-	end
-	cstring = vim.trim(cstring)
-	local ft = vim.bo.filetype
-	if ft == "python" then
-		ft = "python3"
-	end
-	return sn(nil, {
-		t(cstring),
-		t("!/usr/bin/env "),
-		i(1, ft),
-	})
+    local cstring = vim.split(vim.bo.commentstring, "%s", true)[1]
+    if cstring == "/*" then
+        cstring = "//"
+    end
+    cstring = vim.trim(cstring)
+    local ft = vim.bo.filetype
+    if ft == "python" then
+        ft = "python3"
+    end
+    return sn(nil, {
+        t(cstring),
+        t("!/usr/bin/env "),
+        i(1, ft),
+    })
 end
 
 ls.snippets.all = {
-	s({ trig = "bang", dscr = "Add SheBang" }, {
-		d(1, shebang, {}),
-	}),
+    s({ trig = "bang", dscr = "Add SheBang" }, {
+        d(1, shebang, {}),
+    }),
 }
