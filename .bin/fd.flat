@@ -1,0 +1,3 @@
+#!/bin/sh
+
+fd --type f -x mv -v -n -- {} .

@@ -6,8 +6,6 @@ if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
 
 if (eq $E:_ELVISH_ENV "") {
 
-    # https://github.com/elves/elvish/issues/1488
-    stty -ixon
     set E:XDG_CONFIG_HOME = ~/.config
 
 

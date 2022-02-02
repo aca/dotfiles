@@ -10,15 +10,15 @@
 " view!
 " set tabscope=pane
 only
-set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"
 set millerview
 
-" command togglepreview : if &milleroptions == "lsize:1,csize:1,rsize:3,rpreview:all"
-"                         \| execute 'set milleroptions="lsize:1,csize:2,rsize:3,rpreview:dirs"'
-"                         \| else
-"                         \| execute 'set milleroptions="lsize:1,csize:1,rsize:3,rpreview:all"'
-"                         \| endif
-" nnoremap ;p :togglepreview<cr>
+set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"
+command togglepreview : if &milleroptions == "lsize:1,csize:2,rsize:2,rpreview:all"
+                        \| execute 'set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"'
+                        \| else
+                        \| execute 'set milleroptions="lsize:1,csize:2,rsize:2,rpreview:all"'
+                        \| endif
+nnoremap ;p :togglepreview<cr>
 
 set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
@@ -238,26 +238,53 @@ endif
 " Reset all styles first
 
 highlight clear
+" highlight Win cterm=none ctermfg=245 ctermbg=234
+" highlight Directory cterm=bold ctermfg=166 ctermbg=234
+" highlight Link cterm=bold ctermfg=yellow ctermbg=234
+" highlight BrokenLink cterm=reverse ctermfg=red ctermbg=default
+"
+" highlight Socket cterm=bold ctermfg=125 ctermbg=default
+" highlight Device cterm=bold ctermfg=red ctermbg=default
+" highlight Fifo cterm=bold ctermfg=cyan ctermbg=default
+" highlight Executable cterm=bold ctermfg=0x2aa198 ctermbg=default
+"
+" highlight Selected cterm=bold ctermfg=125 ctermbg=235
+" highlight CurrLine cterm=bold ctermfg=245 ctermbg=235
+"
+" highlight TopLine cterm=italic gui=italic ctermfg=white ctermbg=none
+" highlight TopLineSel cterm=italic gui=italic ctermfg=white ctermbg=none
+" " highlight TopLineSel cterm=bold ctermfg=black ctermbg=default
+" highlight StatusLine cterm=bold ctermfg=none ctermbg=none
+" highlight WildMenu cterm=underline,reverse ctermfg=white ctermbg=black
+" highlight CmdLine cterm=none ctermfg=white ctermbg=none
+" highlight ErrorMsg cterm=none ctermfg=red ctermbg=black
+" highlight Border cterm=none ctermfg=none ctermbg=none
 
 
-highlight Win cterm=none ctermfg=245 ctermbg=234
-highlight Directory cterm=bold ctermfg=166 ctermbg=234
-highlight Link cterm=bold ctermfg=yellow ctermbg=234
-highlight BrokenLink cterm=reverse ctermfg=red ctermbg=default
 
-highlight Socket cterm=bold ctermfg=125 ctermbg=default
-highlight Device cterm=bold ctermfg=red ctermbg=default
-highlight Fifo cterm=bold ctermfg=cyan ctermbg=default
-highlight Executable cterm=bold ctermfg=0x2aa198 ctermbg=default
+" Reset all styles first
+highlight clear
 
-highlight Selected cterm=bold ctermfg=125 ctermbg=235
-highlight CurrLine cterm=bold ctermfg=245 ctermbg=235
+highlight Border	cterm=none	ctermfg=237	ctermbg=237
 
-highlight TopLine cterm=italic gui=italic ctermfg=white ctermbg=none
-highlight TopLineSel cterm=italic gui=italic ctermfg=white ctermbg=none
-" highlight TopLineSel cterm=bold ctermfg=black ctermbg=default
-highlight StatusLine cterm=bold ctermfg=none ctermbg=none
-highlight WildMenu cterm=underline,reverse ctermfg=white ctermbg=black
-highlight CmdLine cterm=none ctermfg=white ctermbg=none
-highlight ErrorMsg cterm=none ctermfg=red ctermbg=black
-highlight Border cterm=none ctermfg=none ctermbg=none
+highlight TopLine	cterm=none	ctermfg=188	ctermbg=237
+highlight TopLineSel	cterm=underline	ctermfg=188	ctermbg=237
+
+highlight Win		cterm=none	ctermfg=188	ctermbg=237
+highlight Directory	cterm=none	ctermfg=188	ctermbg=237
+highlight CurrLine	cterm=none	ctermfg=188	ctermbg=236
+highlight OtherLine	cterm=none	ctermfg=247	ctermbg=237
+highlight Selected	cterm=none	ctermfg=188	ctermbg=238
+
+highlight JobLine	cterm=bold	ctermfg=188	ctermbg=238
+highlight StatusLine	cterm=none	ctermfg=188	ctermbg=235
+highlight WildMenu	cterm=none	ctermfg=188	ctermbg=238
+highlight CmdLine	cterm=none	ctermfg=188	ctermbg=237
+highlight ErrorMsg	cterm=none	ctermfg=188	ctermbg=237
+
+highlight Executable	cterm=none	ctermfg=188	ctermbg=237
+highlight Link		cterm=none	ctermfg=188	ctermbg=237
+highlight BrokenLink	cterm=none	ctermfg=188	ctermbg=237
+highlight Device	cterm=none	ctermfg=188	ctermbg=237
+highlight Fifo		cterm=none	ctermfg=188	ctermbg=237
+highlight Socket	cterm=none	ctermfg=188	ctermbg=237

@@ -41,8 +41,7 @@ vim.loop.new_timer():start(
 
         require("plugins.treesitter")
         if not g._minimal then
-            cmd("packadd plenary.nvim")
-            require("plugins.telescope")
+            -- require("plugins.telescope")
             vim.cmd([[
               set foldexpr=nvim_treesitter#foldexpr()
             ]])
@@ -54,7 +53,7 @@ vim.loop.new_timer():start(
             require("plugins.oscyank")
 
             require("plugins.gitlinker")
-            require("plugins.octo")
+            -- require("plugins.octo")
             require("plugins.git-messenger")
             require("plugins.gitsigns")
 

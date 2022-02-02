@@ -3,8 +3,8 @@
 set sshconfig (realpath ~/.ssh/hosts_qemu)
 echo '# vim:set ft=sshconfig:' > $sshconfig
 
-for h in (virsh list --state-running | sed '1,2d' | sed '/^$/d' | awk '{print $2}')
-  set ip (virsh domifaddr $h | sed '1,2d' | sed '/^$/d'  | awk '{print $4}' | sed '/^$/d' | sed 's|/24$||')
+for h in (sudo virsh list --state-running | sed '1,2d' | sed '/^$/d' | awk '{print $2}')
+  set ip (sudo virsh domifaddr $h | sed '1,2d' | sed '/^$/d'  | awk '{print $4}' | sed '/^$/d' | sed 's|/24$||')
 
   echo "Host $h" >> $sshconfig
   echo "  Hostname $ip" >> $sshconfig

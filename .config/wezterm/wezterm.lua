@@ -22,12 +22,13 @@ end
 wezterm.on("open_in_vim", function(window, pane)
     local file = io.open("/tmp/wezterm_buf", "w")
     file:write(pane:get_logical_lines_as_text(5000))
+    file:flush()
     file:close()
 
     window:perform_action(
         wezterm.action({
             SpawnCommandInNewTab = {
-                args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
+                args = { "nvim.wez", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
             },
         }),
         pane
@@ -126,9 +127,12 @@ local config = {
     -- window_background_opacity = 1,
     tab_max_width = 100,
 
+    scrollback_lines = 50000,
+
     -- font = wezterm.font('SauceCodePro Nerd Font', {stretch="UltraCondensed"}),
-    -- -- font = wezterm.font('Iosevka'),
     font = wezterm.font("Iosevka Curly Slab"),
+    -- font = wezterm.font("Iosevka"),
+    -- font = wezterm.font("VictorMono Nerd Font"),
 
     adjust_window_size_when_changing_font_size = false,
     default_prog = { homedir .. "/bin/elvish" },
@@ -142,20 +146,20 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    -- color_scheme = 'Pnevma',
+    color_scheme = 'Teerb',
 
-    colors = {
-        ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
-        -- background = "#1c1c1c",
-        background = "#000000",
-        brights = { "#4a4845", "#d78787", "#afbea2", "#e4c9af", "#a1bdce", "#d7beda", "#b1e7dd", "#efefef" },
-        cursor_bg = "#e4c9af",
-        cursor_border = "#e4c9af",
-        cursor_fg = "#000000",
-        foreground = "#d0d0d0",
-        selection_bg = "#4d4d4d",
-        selection_fg = "#ffffff",
-    },
+    -- colors = {
+    --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
+    --     -- background = "#1c1c1c",
+    --     background = "#000000",
+    --     brights = { "#4a4845", "#d78787", "#afbea2", "#e4c9af", "#a1bdce", "#d7beda", "#b1e7dd", "#efefef" },
+    --     cursor_bg = "#e4c9af",
+    --     cursor_border = "#e4c9af",
+    --     cursor_fg = "#000000",
+    --     foreground = "#d0d0d0",
+    --     selection_bg = "#4d4d4d",
+    --     selection_fg = "#ffffff",
+    -- },
 
     status_update_interval = 10000,
 
@@ -200,11 +204,19 @@ local config = {
 
         { key = "w", mods = "LEADER", action = "QuickSelect" },
 
+        { key = "Z", mods="LEADER", action="TogglePaneZoomState" },
+        { key = "z", mods="LEADER", action="TogglePaneZoomState" },
+
+      {key="UpArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=-1}},
+      {key="DownArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=1}},
+
         { key = "C", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
         -- { key = "C", mods = "CTRL", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
 
         { key = "-", mods = "CTRL", action = "DecreaseFontSize" },
         { key = "=", mods = "CTRL", action = "IncreaseFontSize" },
+
+        {key="X", mods="CTRL", action="ActivateCopyMode"},
 
         -- split
         {

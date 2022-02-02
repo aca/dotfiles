@@ -36,16 +36,15 @@ g.maplocalleader = " "
 
 opt.cursorcolumn = false
 opt.cursorline = true
-opt.timeoutlen = 400
+opt.timeoutlen = 500
 
 -- fold
 opt.foldmethod="syntax"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 -- -- g.foldmethod = "marker"
-g.foldcolumn = 3
+g.foldcolumn = 1
 
-opt.cursorline = true -- Highlight the current line
 opt.ignorecase = true -- Ignore case when searching...
 opt.smartcase = true -- ... unless there is a capital letter in the query
 opt.showmatch = true -- show matching brackets when text indicator is over them

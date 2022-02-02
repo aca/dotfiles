@@ -38,6 +38,7 @@ require("gitsigns").setup({
     -- current_line_blame = false,
     -- current_line_blame_delay = 1000,
     -- current_line_blame_position = "eol",
+    signcolumn = false,  -- Toggle with `:Gitsigns toggle_signs`
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil, -- Use default

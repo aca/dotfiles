@@ -78,7 +78,7 @@ set edit:insert:binding[Ctrl-D] = { edit:location:start }
 set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv) > /dev/tty 2>/dev/null }
 
 set edit:insert:binding[Ctrl-N] = {||
-  cd (vifm --choose-dir -) </dev/tty >/dev/tty 2>&1
+  cd (e:vifm --choose-dir -) </dev/tty >/dev/tty 2>&1
 }
 
 set edit:insert:binding[Ctrl-W] = {||
@@ -88,17 +88,12 @@ set edit:insert:binding[Ctrl-W] = {||
 
 
 set edit:insert:binding[Ctrl-B] = {|| 
-  # edit:replace-input ( printf "pueue add -- elvish -c %q" (bash -c "printf \"%q\" "(printf "%q" $edit:current-command)) )
-  # noti -m (bash -c "printf %q "( printf "elvish -c %q" $edit:current-command ))
-  # set edit:current-command = (bash -c "printf %q '"( printf "elvish -c %q" $edit:current-command )"'")
-  # set edit:current-command = (python -c "import shlex; print(shlex.quote(\""( printf "elvish -c %q" $edit:current-command )"'")
-
-  # NOTE: shell escape not work... 
-  edit:replace-input ( printf "pueue add -- "(printf "%q" $edit:current-command ))
+  # NOTE: elvish -> bash -> elvish
+  # quoting, escaping is sick
+  edit:replace-input ( printf "pueue add -- elvish -c %q" (echo $edit:current-command | sh -c 'x=$(cat -); printf "%q" "$x"'))
 }
 
 set edit:insert:binding[Ctrl-Q] = { exit }
-
 set edit:insert:binding[Ctrl-P] = { edit:history:start }
 set edit:history:binding[Ctrl-P] = { edit:history:up }
 set edit:history:binding[Ctrl-N] = { edit:history:down }

@@ -109,9 +109,14 @@ super + Return
 super + Escape
 	pkill -USR1 -x sxhkd; /home/rok/.bin/key.xmodmap_reset;
 
+# Escape
+#   pkill -USR2 -x sxhkd; bash -c "DISPLAY=:0 /usr/bin/xdotool key Escape"; fcitx5-remote -c 1; bash -c "DISPLAY=:0 /home/rok/bin/noti -m 'escape'"; pkill -USR2 -x sxhkd; 
 # Escape; ~Escape
-#   fcitx5-remote -c 1
+#   bash -c "DISPLAY=:0 /home/rok/bin/noti -m 'escape'"
+  
 
+# @Escape
+#   fcitx5-remote -c 1; xdotool key Escape
 # bspwm hotkeys
 #
 

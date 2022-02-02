@@ -19,4 +19,4 @@ else
   echo ~/src/$d
 fi
 
-sh -c "src.update &"
+# sh -c "src.update &"

@@ -1,4 +1,4 @@
-# vim:foldmethod=marker foldmarker=[[,]]
+# vim:foldmethod=marker foldmarker={{{,}}}
 
 #
 # Reference
@@ -28,74 +28,51 @@ use /utils
 use /bind
 use /completion
 
+stty -ixon # https://github.com/elves/elvish/issues/1488
+
+# prompt {{{
 # vi mode binding https://github.com/elves/elvish/issues/971
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
-set edit:rprompt-persistent = $true
-
-var hostinfo = ''
-if (not-eq $E:SSH_CLIENT "") {
-  set hostinfo = (whoami)@(hostname)' '
+set edit:rprompt-persistent = $false
+set edit:prompt = { 
+  styled [&$true=(whoami)@(hostname)' ' &$false=""][(has-env SSH_CLIENT)]'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'
 }
-set edit:prompt = { styled $hostinfo'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'   }
-set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
-
+set edit:rprompt = { styled 'ᑀ '(tilde-abbr $pwd) yellow }
+# set edit:before-readline = [
+#   {
+#     noti -m "before"
+#   }
+# ]
+set edit:after-readline = [
+  {|args|
+    printf "\033]133;C;\007"
+  }
+]
 set edit:after-command = [
   {|m|
-    try {
-      if (< $m[duration] 2) {
-        return
-      }
-      if (str:has-prefix $m[src][code] "cd (vifm") {
-        return
-      }
-      print (styled (styled (printf "« took: %.3fs / done: "(date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red) italic)
-    } except {
+    printf "\033]133;A;cl=m;aid=%s\007" $pid
+    if (< $m[duration] 5) {
+      nop
+    } else {
+      # if (str:has-prefix $m[src][code] "cd") {
+      #   return
+      # }
 
+      print (styled (styled (printf "« took: %.3fs / done: "(date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red) italic)
     }
   }
 ]
 
-# set edit:prompt = {
-#     var git = (gitstatus:query $pwd)
-#
-#     if (bool $git[is-repository]) {
-#
-#         # show the branch, or current commit if not on a branch
-#         var branch = ''
-#         if (eq $git[local-branch] "") {
-#             set branch = $git[commit][:8]
-#         } else {
-#             set branch = $git[local-branch]
-#         }
-#
-#         put '|'
-#         put (styled $branch red)
-#
-#         # show a state indicator
-#         if (or (> $git[unstaged] 0) (> $git[untracked] 0)) {
-#             put (styled '*' yellow)
-#         } elif (> $git[staged] 0) {
-#             put (styled '*' green)
-#         } elif (> $git[commits-ahead] 0) {
-#             put (styled '^' yellow)
-#         } elif (> $git[commits-behind] 0) {
-#             put (styled '⌄' yellow)
-#         }
-#
-#     }
-# }
-
-# abbr [[
-fn l {|@a| 
-  # e:ls $@a
-  e:exa --icons -1
-}
-fn la {|@a| e:ls -a $@a }
-fn ll {|@a|
-  # e:ls -alt [&darwin=-G &linux=--color=auto][$platform:os] $@a 
-  # https://github.com/fenetikm/falcon/blob/master/exa/EXA_COLORS
-  e:exa -l --icons
-}
+# }}}
+# abbr {{{
+# fn l {|@a| if (has-external exa) { e:exa --icons -1 $@a } else { e:ls -1 $@a } }
+fn l {|@a| e:ls -1U $@a }
+fn la {|@a| e:ls -alU $@a }
+# fn ll {|@a| if (has-external exa) { e:exa -l --icons $@a } else { e:ls -lt [&darwin=-G &linux=--color=auto][$platform:os] $@a }}
+fn ll {|@a| e:ls -lU $@a }
+fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
+fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
+fn f { vifm }
 
 # TODO: https://github.com/elves/elvish/issues/1472
 # set edit:small-word-abbr['k'] = 'kubectl'
@@ -108,39 +85,41 @@ fn ll {|@a|
 # This should be replaced to abbr later
 fn v {|@a| nvim $@a }
 fn k {|@a| kubectl $@a }
-fn s {|| cd (src.dir); sh -c "src.update &" }
+fn s {|| cd (src.dir)}
+fn dc {|@a| cd $@a }
 fn x {|@a| cd (scratch $@a) }
-# ]]
+fn elv { |@a| e:elvish $@a }
+# }}}
 
 # wrapper
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
-fn dc {|@a| cd $@a }
 fn zs {|@a| zsh $@a }
+
+# utils
 fn from-0 { || from-terminated "\x00" }
-
-# set edit:abbr['ci '] = 'pbcopy'
-# set edit:abbr['co '] = 'pbpaste'
-# set edit:abbr['copyq.history '] = 'copyq read (seq 0 100) | nvim - '
-# set edit:abbr['cp '] = 'command cp -vrp '
-# set edit:abbr['v- '] = 'nvim - '
-# set edit:abbr['dc '] = 'cd '
-# set edit:abbr['sp- '] = 'shuf | mpv --playlists=-'
-# set edit:abbr['cp ']  = 'cp -vrp '
-#
-# set edit:abbr['ll']  = 'ls -al'
-#
-
 
 # UNIX comm alternative but keep sorted
 # list all non md files
-# 
-#   λ fd --type f | filterline fd --extension 'md' 
-# 
+#   λ fd --type f | filterline fd --extension 'md'
 fn filterline {
   |@rest|
   var second = [(eval (echo $@rest))]
-  from-lines | each { 
-    |x|  
+  from-lines | each {
+    |x|
+    if (not (has-value $second $x)) {
+      put $x
+    }
+  }
+}
+
+# UNIX comm alternative but keep sorted
+# list all non md files
+#   λ fd --type f | filterline fd --extension 'md'
+fn matchline {
+  |@rest|
+  var second = [(eval (echo $@rest))]
+  from-lines | each {
+    |x|
     if (not (has-value $second $x)) {
       put $x
     }

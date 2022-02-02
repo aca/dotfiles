@@ -1,4 +1,5 @@
 vim.cmd([[
+  packadd plenary.nvim
   packadd git-worktree.nvim
 ]])
 

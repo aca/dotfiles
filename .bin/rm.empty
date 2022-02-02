@@ -1,9 +1,0 @@
-#!/bin/sh
-
-set -e
-
-while true; do
-  fd --type empty -x rm -vrf
-  # TODO: fix
-  sleep 0.5
-done

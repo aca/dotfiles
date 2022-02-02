@@ -1,0 +1,5 @@
+#!/bin/sh
+
+x=$(cat -); printf "%q" "$x"
+
+# sh -c 'x=$(cat -); printf "%q" "$x"'
