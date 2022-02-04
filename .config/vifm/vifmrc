@@ -260,31 +260,32 @@ highlight clear
 " highlight ErrorMsg cterm=none ctermfg=red ctermbg=black
 " highlight Border cterm=none ctermfg=none ctermbg=none
 
-
-
 " Reset all styles first
 highlight clear
 
-highlight Border	cterm=none	ctermfg=237	ctermbg=237
+highlight Border	cterm=none	ctermfg=237	ctermbg=0
 
-highlight TopLine	cterm=none	ctermfg=188	ctermbg=237
-highlight TopLineSel	cterm=underline	ctermfg=188	ctermbg=237
+" highlight TopLine	cterm=underline	ctermfg=188	ctermbg=0
+" highlight TopLineSel cterm=underline gui=italic ctermfg=255 ctermbg=0
 
-highlight Win		cterm=none	ctermfg=188	ctermbg=237
-highlight Directory	cterm=none	ctermfg=188	ctermbg=237
+highlight TopLine cterm=italic gui=italic ctermfg=0 ctermbg=255
+highlight TopLineSel cterm=italic gui=italic ctermfg=0 ctermbg=255
+
+highlight Win		cterm=none	ctermfg=188	
+highlight Directory	cterm=none	ctermfg=188	
 highlight CurrLine	cterm=none	ctermfg=188	ctermbg=236
 highlight OtherLine	cterm=none	ctermfg=247	ctermbg=237
 highlight Selected	cterm=none	ctermfg=188	ctermbg=238
 
 highlight JobLine	cterm=bold	ctermfg=188	ctermbg=238
-highlight StatusLine	cterm=none	ctermfg=188	ctermbg=235
-highlight WildMenu	cterm=none	ctermfg=188	ctermbg=238
-highlight CmdLine	cterm=none	ctermfg=188	ctermbg=237
+highlight StatusLine	cterm=none	ctermfg=188	ctermbg=0
+highlight WildMenu	cterm=none	ctermfg=188	
+highlight CmdLine	cterm=none	ctermfg=188	ctermbg=0
 highlight ErrorMsg	cterm=none	ctermfg=188	ctermbg=237
 
-highlight Executable	cterm=none	ctermfg=188	ctermbg=237
-highlight Link		cterm=none	ctermfg=188	ctermbg=237
-highlight BrokenLink	cterm=none	ctermfg=188	ctermbg=237
-highlight Device	cterm=none	ctermfg=188	ctermbg=237
-highlight Fifo		cterm=none	ctermfg=188	ctermbg=237
-highlight Socket	cterm=none	ctermfg=188	ctermbg=237
+highlight Executable	cterm=none	ctermfg=188
+highlight Link		cterm=none	ctermfg=188	
+highlight BrokenLink	cterm=none	ctermfg=188	
+highlight Device	cterm=none	ctermfg=188	
+highlight Fifo		cterm=none	ctermfg=188	
+highlight Socket	cterm=none	ctermfg=188	

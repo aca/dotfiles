@@ -1,6 +1,6 @@
 #!/bin/sh
 
-fd --base-directory ~/src --strip-cwd-prefix --hidden --type d --follow --max-depth 5 > ~/src/.src
+fd --base-directory ~/src --strip-cwd-prefix --type d --follow --max-depth 5 > ~/src/.src
 
 # additional source directory
 echo "git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next" >> ~/src/.src

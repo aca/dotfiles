@@ -23,6 +23,7 @@ font:
   normal:
     # family: Operator Mono Book
     # style: Oblique
+    style: Regular
     # family: Hasklug Nerd Font Mono
     # family: 
     # family: MesloLGL Nerd Font Mono
@@ -33,8 +34,11 @@ font:
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
     # family: .
-    # family: SauceCodePro Nerd Font Mono
-    family: Iosevka Nerd Font Mono
+    family: SauceCodePro Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
+    # family: Iosevka Curly Slab
+    # family: Iosevka Nerd Font
+    # family: Iosevka Term Curly Slab
     # family: Iosevka Curly Slab
 
   # bold:
@@ -57,8 +61,8 @@ font:
 
   size: 28
   offset:
-    x: -2
-    y: 1
+    x: -3
+    y: 0
 
   glyph_offset:
     x: 0 
@@ -88,7 +92,7 @@ live_config_reload: true
 #     - --login 
 
 shell:
-  program: /home/rok/bin/elvish
+  program: /usr/local/bin/elvish
 
 
 working_directory: None

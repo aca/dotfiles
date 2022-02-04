@@ -454,3 +454,9 @@
 [submodule ".zsh/zsh-completions"]
 	path = .zsh/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
+[submodule ".config/elvish/lib/elvish-completions"]
+	path = .config/elvish/lib/elvish-completions
+	url = https://github.com/zzamboni/elvish-completions.git
+[submodule ".config/elvish/lib/completions/bash-completion"]
+	path = .config/elvish/lib/completions/bash-completion
+	url = https://github.com/scop/bash-completion.git

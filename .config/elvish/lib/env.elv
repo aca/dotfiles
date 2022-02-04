@@ -5,12 +5,11 @@ if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
 }
 
 if (eq $E:_ELVISH_ENV "") {
-
-    set E:XDG_CONFIG_HOME = ~/.config
-
-
     set E:_ELVISH_ENV = 1
 
+    set E:LIBVIRT_DEFAULT_URI = "qemu:///system"
+    set E:VIRSH_DEFAULT_CONNECT_URI = "qemu:///system"
+    set E:XDG_CONFIG_HOME = $E:HOME/.config
 
     set E:EXA_COLORS = "uu=38;5;249:un=38;5;241:gu=38;5;245:gn=38;5;241:da=38;5;245:sn=38;5;7:sb=38;5;7:ur=38;5;3;1:uw=38;5;5;1:ux=38;5;1;1:ue=38;5;1;1:gr=38;5;249:gw=38;5;249:gx=38;5;249:tr=38;5;249:tw=38;5;249:tx=38;5;249:fi=38;5;248:di=38;5;253:ex=38;5;1:xa=38;5;12:*.png=38;5;4:*.jpg=38;5;4:*.gif=38;5;4"
     set E:EXA_ICON_SPACING = 2
@@ -70,6 +69,7 @@ if (eq $E:_ELVISH_ENV "") {
       ~/.nix-profile/bin
       ~/.krew/bin
       ~/.raku/bin
+      /usr/local/bin
 
       $@paths
     ]

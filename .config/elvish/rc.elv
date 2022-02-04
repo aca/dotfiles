@@ -12,9 +12,11 @@
 use str
 use zoxide
 
-use carapace
+# use carapace
 use elvish-bash-completion/git
+use completions/bash-completion
 use elvish-bash-completion/kubectl
+# use elvish-completions/ssh
 
 use edit.elv/smart-matcher
 smart-matcher:apply
@@ -35,29 +37,27 @@ stty -ixon # https://github.com/elves/elvish/issues/1488
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 set edit:rprompt-persistent = $false
 set edit:prompt = { 
-  styled [&$true=(whoami)@(hostname)' ' &$false=""][(has-env SSH_CLIENT)]'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'
+  styled [&$true=(whoami)@(hostname)' ' &$false=""][(has-env SSH_CLIENT)] yellow; styled 'E|'(date "+%H:%M")' ' '#7c7c7c'; styled '| ' 'red'
 }
-set edit:rprompt = { styled 'ᑀ '(tilde-abbr $pwd) yellow }
+# set edit:rprompt = { styled 'ᑀ '(tilde-abbr $pwd) yellow }
+set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
 # set edit:before-readline = [
-#   {
-#     noti -m "before"
-#   }
 # ]
+
 set edit:after-readline = [
   {|args|
+    # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
     printf "\033]133;C;\007"
   }
 ]
+
 set edit:after-command = [
   {|m|
+    # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
     printf "\033]133;A;cl=m;aid=%s\007" $pid
     if (< $m[duration] 5) {
       nop
     } else {
-      # if (str:has-prefix $m[src][code] "cd") {
-      #   return
-      # }
-
       print (styled (styled (printf "« took: %.3fs / done: "(date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red) italic)
     }
   }
@@ -102,20 +102,6 @@ fn from-0 { || from-terminated "\x00" }
 # list all non md files
 #   λ fd --type f | filterline fd --extension 'md'
 fn filterline {
-  |@rest|
-  var second = [(eval (echo $@rest))]
-  from-lines | each {
-    |x|
-    if (not (has-value $second $x)) {
-      put $x
-    }
-  }
-}
-
-# UNIX comm alternative but keep sorted
-# list all non md files
-#   λ fd --type f | filterline fd --extension 'md'
-fn matchline {
   |@rest|
   var second = [(eval (echo $@rest))]
   from-lines | each {
