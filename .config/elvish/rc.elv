@@ -13,10 +13,19 @@ use str
 use zoxide
 
 # use carapace
-use elvish-bash-completion/git
-use completions/bash-completion
-use elvish-bash-completion/kubectl
+# use elvish-bash-completion/git
+# use completions/bash-completion
+# use elvish-bash-completion/kubectl
 # use elvish-completions/ssh
+use github.com/aca/elvish-bash-completion/bash-completer
+set edit:completion:arg-completer[ssh] = (bash-completer:new "ssh")
+set edit:completion:arg-completer[scp] = (bash-completer:new "scp")
+set edit:completion:arg-completer[rg] = (bash-completer:new "rg")
+set edit:completion:arg-completer[curl] = (bash-completer:new "curl")
+set edit:completion:arg-completer[man] = (bash-completer:new "man")
+set edit:completion:arg-completer[killall] = (bash-completer:new "man")
+set edit:completion:arg-completer[kubectl] = (bash-completer:new "kubectl" &bash_function="__start_kubectl")
+set edit:completion:arg-completer[k] = $edit:completion:arg-completer[kubectl]
 
 use edit.elv/smart-matcher
 smart-matcher:apply

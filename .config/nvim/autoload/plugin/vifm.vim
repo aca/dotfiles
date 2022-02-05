@@ -4,8 +4,8 @@ if exists('g:_minimal') && g:_minimal == v:true | finish | end
 packadd vifm.vim
 
 function s:vifm()
-  let g:vifm_exec_args = "--select " . fnameescape(expand('%:p'))
-  Vifm
+  " let g:vifm_exec_args = "--select " . fnameescape(expand('%:p'))
+  EditVifm
 
   " let g:floaterm_opener="edit"
   " packadd vim-floaterm

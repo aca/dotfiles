@@ -32,7 +32,8 @@ if executable('wezterm')
         \ wezterm.imgcat %c:p %pw %ph %pd
 endif
 
-let $SHELL="/bin/sh"
+let $SHELL='/bin/sh'
+set shell='/bin/sh'
 
 nnoremap mv :move<cr>
 nnoremap rn :!vidir<cr>
