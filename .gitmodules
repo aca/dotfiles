@@ -457,3 +457,6 @@
 [submodule ".config/elvish/lib/completions/bash-completion"]
 	path = .config/elvish/lib/completions/bash-completion
 	url = https://github.com/scop/bash-completion.git
+[submodule ".config/elvish/lib/elvish-bash-completion"]
+	path = .config/elvish/lib/elvish-bash-completion
+	url = https://github.com/aca/elvish-bash-completion.git
