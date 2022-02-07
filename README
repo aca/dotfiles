@@ -3,13 +3,13 @@ dotfiles
 
 Setup
 -----
-# VPN: Tailscale
-
 # stow
 git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
 
 # install ssh keys
 curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+
+# VPN: Tailscale
 
 Setup machine
 -------------

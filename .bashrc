@@ -71,18 +71,17 @@ if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-binding
 if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
 # . "$HOME/.cargo/env"
 
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-    . /usr/share/bash-completion/bash_completion
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion ]] && . /usr/local/share/bash-completion/bash_completion
 
-
-_dothis_completions()
-{
-  COMP_WORDBREAKS="'><;|&(:"
-  # echo "COMP_WORDS: ${COMP_WORDS[@]}" | noti -m -
-  declare -p COMP_WORDS | noti -m -
-  COMPREPLY+=("now")
-  COMPREPLY+=("tomorrow")
-  COMPREPLY+=("never")
-}
-
-complete -F _dothis_completions dothis
+# _dothis_completions()
+# {
+#   declare -p COMP_WORDS >> /tmp/elvisherr
+#   echo "COMP_CWORD: $COMP_CWORD" >> /tmp/elvisherr
+#   COMPREPLY=()
+#   COMPREPLY+=("now")
+#   COMPREPLY+=("tomorrow")
+#   COMPREPLY+=("never")
+# }
+#
+# complete -F _dothis_completions dothis
