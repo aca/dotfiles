@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 
-# if ! tmux has-sessions -t bg 2>/dev/null ; then
-# fi
-
 tmux new -s bg -d
 tmux new -s main || tmux attach -t main

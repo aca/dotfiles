@@ -98,16 +98,14 @@ mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/bin
 mkdir -p $HOME/.kube
 emptyDir ~/.local/share/nvim/site/pack/paqs
-
 ensureDir $HOME/.config/autostart
-
 ensureDir $HOME/.ssh
 rmf $HOME/.ssh/config
-
 # }}}
 
 # plugins {{{
 commandExists zoxide && zoxide init fish > dotfiles/.config/fish/zoxide.fish
+commandExists zoxide && zoxide init elvish > dotfiles/.config/elvish/lib/zoxide.elv
 # }}}
 
 # stow {{{
@@ -119,4 +117,3 @@ if [[ -d "dotfiles.$(hostname)" ]]; then
   sudo stow -v --target / "dotfiles.$(hostname)"
 fi
 # }}}
-

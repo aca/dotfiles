@@ -76,7 +76,7 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
-opt.number = false
+opt.number = true
 if g._minimal then
     opt.number = false
 end
