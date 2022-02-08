@@ -13,16 +13,14 @@ local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
 local r = ls.restore_node
--- local l = require("luasnip.extras").lambda
--- local rep = require("luasnip.extras").rep
--- local p = require("luasnip.extras").partial
--- local m = require("luasnip.extras").match
--- local n = require("luasnip.extras").nonempty
--- local dl = require("luasnip.extras").dynamic_lambda
--- local fmt = require("luasnip.extras.fmt").fmt
--- local fmta = require("luasnip.extras.fmt").fmta
--- local types = require("luasnip.util.types")
--- local conds = require("luasnip.extras.expand_conditions")
+local p = require("luasnip.extras").partial
+local m = require("luasnip.extras").match
+local n = require("luasnip.extras").nonempty
+local dl = require("luasnip.extras").dynamic_lambda
+local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
+local types = require("luasnip.util.types")
+local conds = require("luasnip.extras.expand_conditions")
 
 local function shebang(_, _)
     local cstring = vim.split(vim.bo.commentstring, "%s", true)[1]
@@ -45,4 +43,37 @@ ls.snippets.all = {
     s({ trig = "bang", dscr = "Add SheBang" }, {
         d(1, shebang, {}),
     }),
+}
+
+local function get_file_name() 
+  return vim.fn.fnamemodify(vim.fn.bufname(),":r") 
+end
+
+ls.snippets.markdown = {
+    s(
+        "header",
+        fmt(
+            [[
+---
+title: {1}
+date: {2}
+tags: 
+---
+]],
+{
+            p(get_file_name),
+            p(os.date, "%Y-%m-%dT%H:%M")
+}
+        )
+    ),
+    -- s("header", {
+    --   fmt(
+    --   [[
+    --   {}
+    --   hello
+    --   world
+    --   ]], {
+    --     i(1, "kyung"),
+    --   })
+    -- }),
 }

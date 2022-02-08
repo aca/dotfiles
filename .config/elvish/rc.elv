@@ -26,6 +26,7 @@ fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
 fn f { vifm }
 
+
 # TODO: https://github.com/elves/elvish/issues/1472
 # set edit:small-word-abbr['k'] = 'kubectl'
 # set edit:small-word-abbr['v'] = 'nvim'

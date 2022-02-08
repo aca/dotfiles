@@ -4,7 +4,6 @@ packadd gina.vim
 cnoreabbrev Git Gina
 
 command! Glog :Gina log -- %:p
-command! Agit :packadd agit.vim | :Agit
 
 " gina show always in vsplit
 " call gina#custom#command#option(
@@ -13,11 +12,11 @@ command! Agit :packadd agit.vim | :Agit
 "         \)
 
 " gina show close with q
-call gina#custom#mapping#nmap(
-        \ 'show', 'q',
-        \ ':q<CR>',
-        \ {'noremap': 1, 'silent': 1},
-        \)
+" call gina#custom#mapping#nmap(
+"         \ 'show', 'q',
+"         \ ':q<CR>',
+"         \ {'noremap': 1, 'silent': 1},
+"         \)
 
 call gina#custom#mapping#nmap(
         \ 'log', 'd',
@@ -25,11 +24,11 @@ call gina#custom#mapping#nmap(
         \ {'noremap': 1, 'silent': 1},
         \)
 
-call gina#custom#mapping#nmap(
-        \ 'log', 'q',
-        \ ':bd<CR>',
-        \ {'noremap': 1, 'silent': 1},
-        \)
+" call gina#custom#mapping#nmap(
+"         \ 'log', 'q',
+"         \ ':bd<CR>',
+"         \ {'noremap': 1, 'silent': 1},
+"         \)
 
 " %domain in the acceptable url pattern list will be substituted into
 " 'gitlab.hashnote.net'

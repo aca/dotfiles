@@ -8,8 +8,8 @@ let g:fzf_action = {
 \ }
 
 " Rg without filename
-command! -bang -nargs=* Rgg call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4.. '}), 0)
-command! -bang -nargs=* RggWithFile call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
+command! -bang -nargs=* Rg          call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4.. '}), 0)
+command! -bang -nargs=* RgWithFile call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
 
 " https://github.com/junegunn/fzf/issues/1143
 autocmd! FileType fzf
@@ -30,8 +30,8 @@ function! s:fzfmarks() abort
 endfunction
 command! -bar -bang FZFMarks call fzf#vim#marks(s:fzfmarks(), 0)
 
-nnoremap <silent><c-f>        :Rgg<cr>
-nnoremap <silent><m-f>        :RggWithFile<cr>
+nnoremap <silent><c-f>        :Rg<cr>
+nnoremap <silent><m-f>        :RgWithFile<cr>
 vnoremap <silent><c-f>        y:Rg <C-R>"<CR>
 nnoremap <silent><Leader>fw   :Rg <C-R><C-W><CR>
 nnoremap <silent><Leader>fW   :Rg <C-R><C-A><CR>

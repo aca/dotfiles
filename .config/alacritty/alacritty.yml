@@ -370,40 +370,40 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Circus - alacritty color config
-# Stephan Boyer (https://github.com/stepchowfun) and Esther Wang (https://github.com/ewang12)
+# Base16 Windows High Contrast - alacritty color config
+# Fergus Collins (https://github.com/C-Fergus)
 colors:
   # Default colors
   primary:
-    background: '0x191919'
-    foreground: '0xa7a7a7'
+    background: '0x000000'
+    foreground: '0xc0c0c0'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x191919'
-    cursor: '0xa7a7a7'
+    text: '0x000000'
+    cursor: '0xc0c0c0'
 
   # Normal colors
   normal:
-    black:   '0x191919'
-    red:     '0xdc657d'
-    green:   '0x84b97c'
-    yellow:  '0xc3ba63'
-    blue:    '0x639ee4'
-    magenta: '0xb888e2'
-    cyan:    '0x4bb1a7'
-    white:   '0xa7a7a7'
+    black:   '0x000000'
+    red:     '0xfc5454'
+    green:   '0x54fc54'
+    yellow:  '0xfcfc54'
+    blue:    '0x5454fc'
+    magenta: '0xfc54fc'
+    cyan:    '0x54fcfc'
+    white:   '0xc0c0c0'
 
   # Bright colors
   bright:
-    black:   '0x5f5a60'
-    red:     '0x4bb1a7'
-    green:   '0x202020'
-    yellow:  '0x303030'
-    blue:    '0x505050'
-    magenta: '0x808080'
-    cyan:    '0xb888e2'
-    white:   '0xffffff'
+    black:   '0x545454'
+    red:     '0x808000'
+    green:   '0x1c1c1c'
+    yellow:  '0x383838'
+    blue:    '0xa2a2a2'
+    magenta: '0xdedede'
+    cyan:    '0x008000'
+    white:   '0xfcfcfc'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

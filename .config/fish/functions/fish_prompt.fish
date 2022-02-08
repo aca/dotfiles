@@ -52,6 +52,6 @@ function fish_prompt
     prompt_login
     echo -n ' '
   end
-  set_color '7c7c7c'; echo -n 'F|'$(date "+%H:%M"); set_color red;echo -n " | ";  set_color normal
+  set_color red; echo -n '» ';  set_color normal
 
   end

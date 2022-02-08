@@ -32,7 +32,7 @@ if not g._minimal then
 end
 
 vim.loop.new_timer():start(
-    200,
+    50,
     0,
     vim.schedule_wrap(function()
         require("plugins.tmux")
@@ -46,8 +46,8 @@ vim.loop.new_timer():start(
               set foldexpr=nvim_treesitter#foldexpr()
             ]])
 
-            require("plugins.autopairs")
             require("plugins.luasnip")
+            require("plugins.autopairs")
             require("plugins.cmp")
             require("plugins.buftabline")
             require("plugins.oscyank")

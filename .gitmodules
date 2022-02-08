@@ -91,9 +91,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-sandwich"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/tcomment_vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/tcomment_vim
-	url = https://github.com/tomtom/tcomment_vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-move"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-move
 	url = https://github.com/matze/vim-move.git
@@ -136,9 +133,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/gina.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gina.vim
 	url = https://github.com/lambdalisue/gina.vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/agit.vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/agit.vim
-	url = https://github.com/cohama/agit.vim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-signify"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
@@ -394,12 +388,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nextfile.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/nextfile.vim
 	url = https://github.com/tyru/nextfile.vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/denops.vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/denops.vim
-	url = https://github.com/vim-denops/denops.vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/denops-signature_help"]
-	path = .local/share/nvim/site/pack/bundle/opt/denops-signature_help
-	url = https://github.com/matsui54/denops-signature_help.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/nrepl.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/nrepl.nvim
 	url = https://github.com/ii14/nrepl.nvim.git
@@ -457,3 +445,15 @@
 [submodule ".config/elvish/lib/elvish-bash-completion"]
 	path = .config/elvish/lib/elvish-bash-completion
 	url = https://github.com/aca/elvish-bash-completion.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/fugitive"]
+	path = .local/share/nvim/site/pack/bundle/opt/fugitive
+	url = https://tpope.io/vim/fugitive.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/gv.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/gv.vim
+	url = https://github.com/junegunn/gv.vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vista.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/vista.vim
+	url = https://github.com/liuchengxu/vista.vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/aerial.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/aerial.nvim
+	url = https://github.com/stevearc/aerial.nvim.git

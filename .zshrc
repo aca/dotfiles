@@ -24,9 +24,10 @@ local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?
 )%{$reset_color%}"
 local hostinfo=""
 if [[ "$SSH_TTY" != '' ]]; then hostinfo="%n@%m "; fi
-PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}Z|%D{%H:%I} %{$fg[yellow]%}|%{$reset_color%} '
+# PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}Z|%D{%H:%I} %{$fg[yellow]%}|%{$reset_color%} '
+PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}%{$fg[yellow]%}»%{$reset_color%} '
 ZLE_RPROMPT_INDENT=0
-RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
+RPROMPT='%{$fg[#7c7c7c]%}zsh %{$fg[yellow]%}%~%{$reset_color%}'
 
 typeset -F SECONDS
 function -record-start-time() {

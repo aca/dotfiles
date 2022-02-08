@@ -1,7 +1,8 @@
 " /usr/local/share/nvim/runtime/filetype.vim
+
+" TODO: this will break `:Gina log`, cannot set syntax off for buffer only
 " use treesitter highlight(disable others)
-autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim,markdown syntax off
-" autocmd FileType markdown syntax off
+" autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim,markdown syntax clear
 
 " au BufNewFile,BufFilePre,BufRead *.md,*.markdown set filetype=markdown.pandoc
 

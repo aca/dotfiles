@@ -52,6 +52,7 @@ imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luas
 "
 nnoremap <expr>   ;o &foldlevel ? 'zM' :'zR'
 nnoremap <silent> ;w :set wrap!<CR>
+nnoremap <silent> ;t :AerialToggle left<CR><c-w><c-w>
 nnoremap <silent> ;n :set relativenumber!<CR>
 nnoremap <silent> ;m :Messages<cr><c-w><c-w>
 nnoremap <silent> ;g :Gitsigns toggle_signs<cr>
