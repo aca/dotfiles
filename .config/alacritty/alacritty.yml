@@ -369,41 +369,41 @@ colors:
 #     - { index: 20, color: '0xb8b8b8' }
 #     - { index: 21, color: '0xe8e8e8' }
 
-# # ColorStart
-# # Base16 Black Metal (Gorgoroth) - alacritty color config
-# # metalelf0 (https://github.com/metalelf0)
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x000000'
-#     foreground: '0xc1c1c1'
-#
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: '0x000000'
-#     cursor: '0xc1c1c1'
-#
-#   # Normal colors
-#   normal:
-#     black:   '0x000000'
-#     red:     '0x5f8787'
-#     green:   '0x9b8d7f'
-#     yellow:  '0x8c7f70'
-#     blue:    '0x888888'
-#     magenta: '0x999999'
-#     cyan:    '0xaaaaaa'
-#     white:   '0xc1c1c1'
-#
-#   # Bright colors
-#   bright:
-#     black:   '0x333333'
-#     red:     '0xaaaaaa'
-#     green:   '0x121212'
-#     yellow:  '0x222222'
-#     blue:    '0x999999'
-#     magenta: '0x999999'
-#     cyan:    '0x444444'
-#     white:   '0xc1c1c1'
-#
-# draw_bold_text_with_bright_colors: false
-# # ColorEnd
+# ColorStart
+# Base16 Circus - alacritty color config
+# Stephan Boyer (https://github.com/stepchowfun) and Esther Wang (https://github.com/ewang12)
+colors:
+  # Default colors
+  primary:
+    background: '0x191919'
+    foreground: '0xa7a7a7'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x191919'
+    cursor: '0xa7a7a7'
+
+  # Normal colors
+  normal:
+    black:   '0x191919'
+    red:     '0xdc657d'
+    green:   '0x84b97c'
+    yellow:  '0xc3ba63'
+    blue:    '0x639ee4'
+    magenta: '0xb888e2'
+    cyan:    '0x4bb1a7'
+    white:   '0xa7a7a7'
+
+  # Bright colors
+  bright:
+    black:   '0x5f5a60'
+    red:     '0x4bb1a7'
+    green:   '0x202020'
+    yellow:  '0x303030'
+    blue:    '0x505050'
+    magenta: '0x808080'
+    cyan:    '0xb888e2'
+    white:   '0xffffff'
+
+draw_bold_text_with_bright_colors: false
+# ColorEnd
