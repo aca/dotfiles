@@ -10,6 +10,19 @@ command! Glog :Gina log -- %:p
 "         \ '/\%(show\)',
 "         \ '--opener', 'vsplit'
 "         \)
+"
+call gina#custom#mapping#nmap(
+      \ 'blame', 'j',
+      \ 'j<Plug>(gina-blame-echo)'
+      \)
+call gina#custom#mapping#nmap(
+      \ 'blame', 'k',
+      \ 'k<Plug>(gina-blame-echo)'
+      \)
+call gina#custom#mapping#nmap(
+      \ 'blame', '<c-o>',
+      \ '<Plug>(gina-blame-back)'
+      \)
 
 " gina show close with q
 " call gina#custom#mapping#nmap(
@@ -17,6 +30,16 @@ command! Glog :Gina log -- %:p
 "         \ ':q<CR>',
 "         \ {'noremap': 1, 'silent': 1},
 "         \)
+"
+" call gina#custom#command#option(
+"       \ 'log', '--group', 'log-viewer', '--ext-diff'
+"       \)
+
+call gina#custom#command#alias('branch', 'br')
+call gina#custom#command#option(
+      \ '/\%(branch\|changes\|grep\|log\)',
+      \ '--opener', 'vsplit'
+      \)
 
 call gina#custom#mapping#nmap(
         \ 'log', 'd',
@@ -29,24 +52,3 @@ call gina#custom#mapping#nmap(
 "         \ ':bd<CR>',
 "         \ {'noremap': 1, 'silent': 1},
 "         \)
-
-" %domain in the acceptable url pattern list will be substituted into
-" 'gitlab.hashnote.net'
-" '_' of a url translation scheme dictionary is used as a default
-" scheme
-" '^' of a url translation scheme dictionary is used as a repository
-" scheme
-" call extend(g:gina#command#browse#translation_patterns, {
-"     \ 'k8s.io': [
-"     \   [
-"     \     '\vhttps?://(%domain)/(.{-})/(.{-})%(\.git)?$',
-"     \     '\vgit://(%domain)/(.{-})/(.{-})%(\.git)?$',
-"     \     '\vgit\@(%domain):(.{-})/(.{-})%(\.git)?$',
-"     \     '\vssh://git\@(%domain)/(.{-})/(.{-})%(\.git)?$',
-"     \   ], {
-"     \     'root':  'https://\1/\2/\3/tree/%r1/',
-"     \     '_':     'https://\1/\2/\3/blob/%r1/%pt%{#L|}ls%{-}le',
-"     \     'exact': 'https://\1/\2/\3/blob/%h1/%pt%{#L|}ls%{-}le',
-"     \   },
-"     \ ],
-"     \})

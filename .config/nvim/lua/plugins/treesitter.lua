@@ -30,13 +30,14 @@ require("nvim-treesitter.configs").setup({
         keymaps = {
             -- init_selection = "<CR>",
             -- scope_incremental = "<CR>",
-            init_selection = "<CR>",
+            init_selection = "<tab>",
             -- scope_incremental = "<TAB>",
-            node_incremental = "<CR>",
-            node_decremental = "<BS>",
+            node_incremental = "<tab>",
+            node_decremental = "<s-tab>",
         },
     },
     -- enable = "all",
+    -- NOTE: elixir TS returns error, remove this later
     disable = { "dot", "elixir" },
     autopairs = {
         enable = true,

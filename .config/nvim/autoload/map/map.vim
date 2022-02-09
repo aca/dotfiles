@@ -55,7 +55,16 @@ nnoremap <silent> ;w :set wrap!<CR>
 nnoremap <silent> ;t :AerialToggle left<CR><c-w><c-w>
 nnoremap <silent> ;n :set relativenumber!<CR>
 nnoremap <silent> ;m :Messages<cr><c-w><c-w>
-nnoremap <silent> ;g :Gitsigns toggle_signs<cr>
+
+function! Togglesigncolumn()
+  if &signcolumn == 'yes'
+    let &signcolumn='no'
+  else
+    let &signcolumn='yes'
+  endif
+endfunction
+nnoremap ;g :call Togglesigncolumn()\|Gitsigns toggle_signs<cr>
+
 nnoremap <silent> ;s
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>

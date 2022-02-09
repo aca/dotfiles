@@ -7,7 +7,7 @@ window:
   opacity: 1
   padding:
     x: 10
-    y: 5
+    y: 0
 
   # dynamic_padding: true
   decorations: none
@@ -21,24 +21,24 @@ scrolling:
 
 font:
   normal:
-    # family: Operator Mono Book
-    # style: Oblique
     style: Regular
+    family: Iosevka Curly Slab
+    # style: Text
+    # family: BlexMono Nerd Font Mono
+    
+    # family: Operator Mono Book
+    # family: Iosevka Term Curly Slab
     # family: Hasklug Nerd Font Mono
-    # family: 
     # family: MesloLGL Nerd Font Mono
     # family: Noto Sans Condensed Medium Nerd Font
     # family: VictorMono Nerd Font Mono
-    # family: Lotion
+    # family: Lotion Nerd Font
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
-    # family: .
     # family: SauceCodePro Nerd Font Mono
     # family: Iosevka Nerd Font Mono
-    family: Iosevka Curly Slab
     # family: Iosevka Nerd Font
-    # family: Iosevka Term Curly Slab
     # family: Iosevka Curly Slab
 
   # bold:
@@ -49,15 +49,6 @@ font:
 
   # italic:
   #   family: BlexMono Nerd Font Mono
-    # family: DankMono Nerd Font
-    # family: DankMono Nerd Font Mono
-    # family: OperatorMono Nerd Font
-    # family: FuraCode Nerd Font Mono
-    # family: Iosevka Nerd Font Mono
-    # style: Heavy Italic
-    # family: Dina
-    # style: Italic
-    # style: Regular
 
   size: 28
   offset:
@@ -376,40 +367,46 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Material Darker - alacritty color config
-# Nate Peterson
+# Base16 Black Metal (Bathory) 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x212121'
-    foreground: '0xeeffff'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x212121'
-    cursor: '0xeeffff'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x212121'
-    red:     '0xf07178'
-    green:   '0xc3e88d'
-    yellow:  '0xffcb6b'
-    blue:    '0x82aaff'
-    magenta: '0xc792ea'
-    cyan:    '0x89ddff'
-    white:   '0xeeffff'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xfbcb97'
+    yellow:  '0xe78a53'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x4a4a4a'
-    red:     '0xf78c6c'
-    green:   '0x303030'
-    yellow:  '0x353535'
-    blue:    '0xb2ccd6'
-    magenta: '0xeeffff'
-    cyan:    '0xff5370'
-    white:   '0xffffff'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0xfbcb97'
+    yellow:  '0xe78a53'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd

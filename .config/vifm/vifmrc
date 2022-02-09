@@ -25,11 +25,14 @@ set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 nnoremap - <C-w>5<
 nnoremap _ <C-w>5>
 
+" if $VIM == '' 
+"   nmap e <cr>
+" else
+"   " nnoremap e :!nvim %f<cr>
+" endif
+
 if executable('wezterm')
-"     fileviewer *.png,*.jpeg,*.jpg
-"       \ wezterm imgcat --width %pw --height %ph %c:p %pd
-      fileviewer *.png,*.jpeg,*.jpg,*.gif
-        \ wezterm.imgcat %c:p %pw %ph %pd
+      fileviewer *.png,*.jpeg,*.jpg,*.gif wezterm.imgcat %c:p %pw %ph %pd
 endif
 
 let $SHELL='/bin/sh'
@@ -154,7 +157,6 @@ vnoremap w :view<cr>gv
 
 " Open file in new MacVim tab
 " nnoremap o :!mvim --remote-tab-silent %f<cr>
-nnoremap e :!nvim %f<cr>
 " Open file in new MacVim window
 nnoremap O :!mvim %f<cr>
 

@@ -5,11 +5,14 @@
     show = delta
 
 [delta]
-    side-by-side = true
+    side-by-side = false
+    navigate = true
+    file-decoration-style = none
+    diff-highlight = true
+    ; file-style = omit
 
-
-[interactive]
-    diffFilter = delta --color-only --features=interactive
+; [interactive]
+;     diffFilter = delta --color-only
 
 [github]
   user = aca
@@ -32,6 +35,7 @@
   sparseCheckout = true
   quotepath = false
 	hooksPath = .githooks
+  pager = delta
         
 [alias]
   co = checkout

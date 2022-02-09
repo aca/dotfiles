@@ -8,9 +8,9 @@ o.wildignore = "/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*"
 o.conceallevel = 2
 o.shortmess = "aItcF"
 o.clipboard = "unnamed,unnamedplus"
-opt.signcolumn = "yes"
 o.virtualedit = "block"
 o.nrformats = "bin,hex,alpha,octal"
+opt.signcolumn = "no"
 
 opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
 
