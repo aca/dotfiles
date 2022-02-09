@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo fail $1
+echo "fail with $1" > x
 
 exit $1

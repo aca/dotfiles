@@ -5,7 +5,7 @@ stty -ixon # https://github.com/elves/elvish/issues/1488
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 set edit:rprompt-persistent = $false
 set edit:prompt = { 
-  styled [&$true=(whoami)@(hostname)' ' &$false=""][(has-env SSH_CLIENT)] yellow; styled '» ' red;
+  styled [&$true=(whoami)@(hostname)' ' &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' green;
 }
 # set edit:rprompt = { styled 'ᑀ '(tilde-abbr $pwd) yellow }
 set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }

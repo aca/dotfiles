@@ -37,6 +37,7 @@ fn f { vifm }
 
 # This should be replaced to abbr later
 fn v {|@a| nvim $@a }
+# fn e {|@a| edit:clear; tmux clear-history; }
 fn k {|@a| kubectl $@a }
 fn elv { |@a| e:elvish $@a }
 

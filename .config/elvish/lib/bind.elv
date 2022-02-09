@@ -40,8 +40,6 @@ fn paste_command {||
 }
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 
-# https://elv.sh/ref/edit.html#keybindings
-set edit:insert:binding[Ctrl-E] = { edit:clear > /dev/tty; edit:redraw &full=$true; }
 
 set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
 
@@ -97,3 +95,8 @@ set edit:insert:binding[Ctrl-Q] = { exit }
 set edit:insert:binding[Ctrl-P] = { edit:history:start }
 set edit:history:binding[Ctrl-P] = { edit:history:up }
 set edit:history:binding[Ctrl-N] = { edit:history:down }
+
+set edit:insert:binding[Ctrl-U] = { edit:lastcmd:start }
+
+# https://elv.sh/ref/edit.html#keybindings
+set edit:insert:binding[Ctrl-E] = { edit:clear; try { tmux clear 2>/dev/null } except { } }

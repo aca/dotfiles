@@ -68,8 +68,9 @@ if (eq $E:_ELVISH_ENV "") {
       ~/xxx/bin
       ~/.bin
       ~/.bin/lib
-      ~/.bin/$platform:os
       ~/.bin/v
+      ~/.bin/install
+      ~/.bin/$platform:os
       ~/.cargo/bin
       ~/.local/bin
       ~/bin

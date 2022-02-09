@@ -34,9 +34,9 @@ font:
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
     # family: .
-    family: SauceCodePro Nerd Font Mono
+    # family: SauceCodePro Nerd Font Mono
     # family: Iosevka Nerd Font Mono
-    # family: Iosevka Curly Slab
+    family: Iosevka Curly Slab
     # family: Iosevka Nerd Font
     # family: Iosevka Term Curly Slab
     # family: Iosevka Curly Slab
@@ -61,7 +61,7 @@ font:
 
   size: 28
   offset:
-    x: -3
+    x: 0
     y: 0
 
   glyph_offset:
@@ -167,10 +167,13 @@ key_bindings:
   - { key: F10,      mods: Shift,   chars: "\x1b[21;2~"                      }
   - { key: F11,      mods: Shift,   chars: "\x1b[23;2~"                      }
   - { key: F12,      mods: Shift,   chars: "\x1b[24;2~"                      }
+
   - { key: F1,       mods: Control, chars: "\x1b[1;5P"                       }
   - { key: F2,       mods: Control, chars: "\x1b[1;5Q"                       }
   - { key: F3,       mods: Control, chars: "\x1b[1;5R"                       }
   - { key: F4,       mods: Control, chars: "\x1b[1;5S"                       }
+
+
   - { key: F5,       mods: Control, chars: "\x1b[15;5~"                      }
   - { key: F6,       mods: Control, chars: "\x1b[17;5~"                      }
   - { key: F7,       mods: Control, chars: "\x1b[18;5~"                      }
@@ -178,7 +181,7 @@ key_bindings:
   - { key: F9,       mods: Control, chars: "\x1b[20;5~"                      }
   - { key: F10,      mods: Control, chars: "\x1b[21;5~"                      }
   - { key: F11,      mods: Control, chars: "\x1b[23;5~"                      }
-  - { key: F12,      mods: Control, chars: "\x1b[24;5~"                      }
+
   - { key: F1,       mods: Alt,     chars: "\x1b[1;6P"                       }
   - { key: F2,       mods: Alt,     chars: "\x1b[1;6Q"                       }
   - { key: F3,       mods: Alt,     chars: "\x1b[1;6R"                       }
@@ -206,6 +209,9 @@ key_bindings:
   - { key: NumpadEnter,             chars: "\n"                              }
 
   # custom
+  #
+  # e e
+  #
   - { key: Equals,    mods: Control,             action: IncreaseFontSize }
   - { key: Plus,    mods: Control,             action: IncreaseFontSize }
   - { key: Plus,    mods: Control|Shift,             action: IncreaseFontSize }
@@ -370,40 +376,40 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Windows High Contrast - alacritty color config
-# Fergus Collins (https://github.com/C-Fergus)
+# Base16 Material Darker - alacritty color config
+# Nate Peterson
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xc0c0c0'
+    background: '0x212121'
+    foreground: '0xeeffff'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xc0c0c0'
+    text: '0x212121'
+    cursor: '0xeeffff'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xfc5454'
-    green:   '0x54fc54'
-    yellow:  '0xfcfc54'
-    blue:    '0x5454fc'
-    magenta: '0xfc54fc'
-    cyan:    '0x54fcfc'
-    white:   '0xc0c0c0'
+    black:   '0x212121'
+    red:     '0xf07178'
+    green:   '0xc3e88d'
+    yellow:  '0xffcb6b'
+    blue:    '0x82aaff'
+    magenta: '0xc792ea'
+    cyan:    '0x89ddff'
+    white:   '0xeeffff'
 
   # Bright colors
   bright:
-    black:   '0x545454'
-    red:     '0x808000'
-    green:   '0x1c1c1c'
-    yellow:  '0x383838'
-    blue:    '0xa2a2a2'
-    magenta: '0xdedede'
-    cyan:    '0x008000'
-    white:   '0xfcfcfc'
+    black:   '0x4a4a4a'
+    red:     '0xf78c6c'
+    green:   '0x303030'
+    yellow:  '0x353535'
+    blue:    '0xb2ccd6'
+    magenta: '0xeeffff'
+    cyan:    '0xff5370'
+    white:   '0xffffff'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

@@ -23,3 +23,7 @@ autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.conf
 
 " turn syntax off for long yaml
 autocmd FileType yaml if line('$') > 500 | setlocal syntax=OFF | endif
+
+" :autocmd BufEnter *.png,*.jpg,*gif exec "! wezterm imgcat ". fnameescape(expand("%"))
+" :autocmd BufEnter *.png,*.jpg,*gif exec "! imgcat ". fnameescape(expand("%"))
+" :autocmd BufEnter *.png,*.jpg,*gif exec "! imgcat ".expand("%") | :bw

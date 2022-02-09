@@ -127,16 +127,18 @@ local config = {
     -- window_background_opacity = 1,
     tab_max_width = 100,
 
-    scrollback_lines = 50000,
+    -- performance issue, use tmux instead....
+    -- scrollback_lines = 5000,
 
     -- font = wezterm.font('SauceCodePro Nerd Font', {stretch="UltraCondensed"}),
     font = wezterm.font("Iosevka Curly Slab"),
     -- font = wezterm.font("Iosevka"),
-    -- font = wezterm.font("VictorMono Nerd Font"),
+    -- font = wezterm.font("VictorMono Nerd Font", {weight="Regular"}),
 
     adjust_window_size_when_changing_font_size = false,
-    default_prog = { homedir .. "/bin/elvish" },
+    -- default_prog = { homedir .. "/bin/elvish" },
     -- default_prog = { "/usr/bin/elvish" },
+    default_prog = { "/usr/local/bin/elvish" },
     -- default_prog = { "/usr/local/bin/fish", "--login"},
     enable_kitty_graphics = true,
     -- debug_key_events = true,
@@ -146,7 +148,7 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    color_scheme = 'Teerb',
+    color_scheme = 'Tomorrow Night Burns',
 
     -- colors = {
     --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
