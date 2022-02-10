@@ -116,12 +116,13 @@ cmp.setup({
         -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
         ["<Tab>"] = function(fallback)
             local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
-            if next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
+            if cmp.visible() then
+                cmp.select_next_item()
+                require('luasnip').unlink_current()
             elseif luasnip.jumpable(1) then
                 luasnip.jump(1)
-            elseif cmp.visible() then
-                cmp.select_next_item()
+            elseif next_char == '"' or next_char == ")" or next_char == "'" or next_char == "]" or next_char == "}" then
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
             else
                 fallback()
             end

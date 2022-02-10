@@ -39,7 +39,6 @@ vim.loop.new_timer():start(
     vim.schedule_wrap(function()
         require("plugins.tmux")
         require("plugins.hop")
-        -- TODO: init load?
 
         if not g._minimal then
             require("plugins.luasnip")

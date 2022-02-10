@@ -6,5 +6,5 @@ packadd gitlinker.nvim
 ]])
 
 require("gitlinker").setup({
-    mappings = "gy",
+    mappings = "yl",
 })
