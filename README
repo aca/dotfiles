@@ -35,7 +35,7 @@ git submodule deinit -f .
 Brew 
 ----
 # Update
-command rm ~/.Brewfile* && brew bundle dump --describe --global && command mv ~/.Brewfile ~/src/configs/dotfiles && setup.stow
+sh -c "command rm ~/.Brewfile* && brew bundle dump --describe --global && command mv ~/.Brewfile ~/src/configs/dotfiles && setup.stow"
 
 # Install  
 brew bundle install --global
