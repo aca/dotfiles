@@ -5,7 +5,7 @@
     show = delta
 
 [delta]
-    side-by-side = false
+    side-by-side = true
     navigate = true
     file-decoration-style = none
     diff-highlight = true

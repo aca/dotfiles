@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-# iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 -j NFQUEUE --queue-num 200 --queue-bypass
-# iptables -t raw -I PREROUTING -p tcp --sport 80 --tcp-flags SYN,ACK SYN,ACK -j NFQUEUE --queue-num 200 --queue-bypass
+sudo iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 -j NFQUEUE --queue-num 200 --queue-bypass
+sudo iptables -t raw -I PREROUTING -p tcp --sport 80 --tcp-flags SYN,ACK SYN,ACK -j NFQUEUE --queue-num 200 --queue-bypass
 
 # sudo nft list table ip filter
 
 
-tmpfile=$(mktemp)
-echo $tmpfile
-cat >> $tmpfile << EOF
-add rule ip filter INPUT tcp sport 80 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
-add rule ip filter INPUT tcp sport 443 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
-EOF
-
-sudo nft -f $tmpfile
+# tmpfile=$(mktemp)
+# echo $tmpfile
+# cat >> $tmpfile << EOF
+# add rule ip filter INPUT tcp sport 80 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
+# add rule ip filter INPUT tcp sport 443 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
+# EOF
+#
+# sudo nft -f $tmpfile

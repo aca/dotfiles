@@ -30,6 +30,23 @@ fn fzf_history {||
 }
 set edit:insert:binding[Ctrl-R] = {|| fzf_history >/dev/tty 2>&1 }
 
+fn fzf_file { ||
+  use str
+  edit:replace-input (str:join '' [ $edit:current-command (str:trim-space (fzf </dev/tty)) ] )
+  # try {
+  #   edit:replace-input (str:join '' $edit:current-command (str:trim-space (fzf </dev/tty)) )
+  #   # edit:replace-input (str:trim-space (fzf </dev/tty ))
+  # } except {
+  # }
+  # str:split $edit:current-command | put [ (all) ][-1] | noti -m -
+  # str:split ' ' $edit:current-command | put [ (all) ][-1]
+  # set edit:current-command = $new-cmd
+}
+set edit:insert:binding[Ctrl-T] = {|| 
+  fzf_file >/dev/tty 2>&1 
+  edit:redraw &full=$true
+}
+
 fn copy_current_command {||
   echo $edit:current-command | pbcopy
 }
@@ -99,4 +116,4 @@ set edit:history:binding[Ctrl-N] = { edit:history:down }
 set edit:insert:binding[Ctrl-U] = { edit:lastcmd:start }
 
 # https://elv.sh/ref/edit.html#keybindings
-set edit:insert:binding[Ctrl-E] = { edit:clear; try { tmux clear 2>/dev/null } except { } }
+set edit:insert:binding[Ctrl-E] = { try { tmux clear 2>/dev/null } except { }; edit:clear;  }

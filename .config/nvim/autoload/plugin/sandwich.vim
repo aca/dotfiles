@@ -18,7 +18,7 @@ let g:sandwich#recipes += [
       \     'input'   : ['p', 'P'],
       \   },
       \   {
-      \     'buns'    : ['log.Print(', ')'],
+      \     'buns'    : ['log.Printf("%#+v\n", ', ')'],
       \     'filetype': ['go'],
       \     'nesting' : 0,
       \     'input'   : ['l', 'L'],

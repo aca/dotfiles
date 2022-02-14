@@ -18,12 +18,13 @@ use edit.elv/smart-matcher; smart-matcher:apply
 # }}}
 # abbr {{{
 # fn l {|@a| if (has-external exa) { e:exa --icons -1 $@a } else { e:ls -1 $@a } }
-fn l {|@a| e:ls -1U $@a }
-fn la {|@a| e:ls -alU $@a }
+fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 # fn ll {|@a| if (has-external exa) { e:exa -l --icons $@a } else { e:ls -lt [&darwin=-G &linux=--color=auto][$platform:os] $@a }}
-fn ll {|@a| e:ls -lU $@a }
+fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
+fn dc {|@a| cd $@a }
 fn f { vifm }
 
 
@@ -43,9 +44,9 @@ fn elv { |@a| e:elvish $@a }
 
 # cd
 fn s {|| cd (src.dir)}
-fn dc {|@a| cd $@a }
 fn x {|@a| cd (scratch $@a) }
 fn grt { cd (or (git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
+fn cdf { |p| try { isDir $p; cd $p } except { cd (dirname $p) }  }
 
 # }}}
 

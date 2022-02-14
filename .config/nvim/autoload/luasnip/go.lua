@@ -18,17 +18,33 @@ local conds = require("luasnip.extras.expand_conditions")
 
 ls.snippets.go = {
     s(
-    "dff",
-    fmt(
-    [[
+        "dff",
+        fmt(
+            [[
 defer func() {{
   {1}
 }}()
-]]
-     ,{
-      i(1),
-    }
-    )
-    )
+]],
+            {
+                i(1),
+            }
+        )
+    ),
+    s(
+        "errl",
+        fmt(
+            [[
+if err != nil {{
+  log.Fatal(err)
+}}
+]],
+            {}
+        )
+    ),
+    s(
+        "logflag",
+        fmt([[
+log.SetFlags(log.Lshortfile | log.Lmicroseconds | log.Lmsgprefix); log.SetPrefix("\033[31m")
+    ]],{})
+    ),
 }
-

@@ -1,7 +1,7 @@
 -- vim:foldmethod=marker foldmarker=[[,]]
 
 -- DEBUG [[
--- vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 -- ]]
 -- lspcontainers.nvim [[
@@ -15,7 +15,7 @@ packadd nvim-lsp-installer
 
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
--- local configs = require("lspconfig/configs")
+local configs = require("lspconfig/configs")
 -- ]]
 -- capabilities [[
 -- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
@@ -89,6 +89,15 @@ lspconfig.gopls.setup({
     },
 })
 -- ]]
+--
+
+lspconfig.emmet_ls.setup({
+    -- capabilities = capabilities,
+    -- on_attach = on_attach,
+    filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
+})
+
+--
 -- server: pylance [[
 local ok, pylance = pcall(require, "pylance")
 if ok then
@@ -130,6 +139,14 @@ lsp_installer.on_server_ready(function(server)
         },
         on_attach = on_attach,
     }
+
+    if server.name == "tailwindcss" then
+      return
+    end
+
+    if server.name == "tsserver" then
+      return
+    end
 
     if server.name == "tailwindcss" then
         opts.filetypes = {
@@ -224,17 +241,20 @@ end)
 -- }
 -- nvim_lsp.neuron_ls.setup{}
 
+-- lspconfig.
+
 -- if not lspconfig.emmet_ls then
---   configs.emmet_ls = {
---     default_config = {
---       cmd = {'emmet-ls', '--stdio'};
---       filetypes = {'html', 'css'};
---       root_dir = function(fname)
---         return vim.loop.cwd()
---       end;
---       settings = {};
---     };
---   }
+-- configs.emmet_ls = {
+--   filetypes = { "html", "css", "typescriptreact" }
+--   -- default_config = {
+--   --   cmd = {'emmet-ls', '--stdio'};
+--   --   filetypes = {'html', 'css', 'typescriptreact'};
+--   --   root_dir = function(fname)
+--   --     return vim.loop.cwd()
+--   --   end;
+--   --   settings = {};
+--   -- };
+-- }
 -- end
 
 -- configs.zk = {

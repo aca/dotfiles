@@ -86,7 +86,7 @@ opt.autoindent = true
 opt.cindent = true
 -- https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
 opt.cinkeys = opt.cinkeys - "0#"
-opt.wrap = true
+opt.wrap = false
 opt.wrapscan = false
 
 opt.tabstop = 2

@@ -27,4 +27,4 @@ func! NvimGps() abort
 endf
 
 set laststatus=2
-set statusline=%1*\ %{NvimGps()}\ %2*\ %<%f%m%r%h%w%=%p%%\ %l:%v
+set statusline=%1*\ %{NvimGps()}\ %2*\ %<%f%m%r%h%w%=%{mode()}\ %p%%\ %l:%v

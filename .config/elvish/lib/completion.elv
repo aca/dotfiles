@@ -7,6 +7,8 @@ set edit:completion:arg-completer[cd] = {|@args|
 use platform
 
 use elvish-bash-completion/bash-completer
+set edit:completion:arg-completer[sudo] = $edit:complete-sudo~
+set edit:completion:arg-completer[time] = $edit:complete-sudo~
 set edit:completion:arg-completer[ssh] = (bash-completer:new "ssh")
 set edit:completion:arg-completer[scp] = (bash-completer:new "scp")
 set edit:completion:arg-completer[man] = (bash-completer:new "man")
@@ -29,6 +31,7 @@ if (eq $platform:os "darwin") {
   set edit:completion:arg-completer[rg] = (bash-completer:new "rg" &bash_function="_rg rg")
   set edit:completion:arg-completer[fd] = (bash-completer:new "fd" &bash_function="_fd fd")
   set edit:completion:arg-completer[journalctl] = (bash-completer:new "journalctl" &bash_function="_journalctl journalctl")
+  set edit:completion:arg-completer[systemctl] = (bash-completer:new "systemctl" &bash_function="_systemctl systemctl")
   set edit:completion:arg-completer[iptables] = (bash-completer:new "iptables" &bash_function="_iptables iptables")
   set edit:completion:arg-completer[tcpdump] = (bash-completer:new "tcpdump" &bash_function="_tcpdump tcpdump")
 }

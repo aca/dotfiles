@@ -1,3 +1,4 @@
 #!/bin/sh
 
 fd --type f -x mv -v -n -- {} .
+fd --type empty -x trash-put -v -- {}

@@ -40,7 +40,6 @@ nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
 nnoremap <silent> ;ff           <cmd>Neoformat<cr>
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
-" imap <expr><C-j>                  lua  require('luasnip').lsp_expand(args.body)
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 
 " imap <expr><Tab>                v:lua.tab_complete()
 " smap <expr><Tab>                v:lua.tab_complete()

@@ -36,10 +36,10 @@ call gina#custom#mapping#nmap(
 "       \)
 
 call gina#custom#command#alias('branch', 'br')
-call gina#custom#command#option(
-      \ '/\%(branch\|changes\|grep\|log\)',
-      \ '--opener', 'vsplit'
-      \)
+" call gina#custom#command#option(
+"       \ '/\%(branch\|changes\|grep\|log\)',
+"       \ '--opener', 'vsplit'
+"       \)
 
 call gina#custom#mapping#nmap(
         \ 'log', 'd',

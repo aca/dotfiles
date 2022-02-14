@@ -1,2 +1,4 @@
 set vertical-split = yes
+bind diff       D       >git difftool --trust-exit-code --no-prompt %(commit)^! -- %(file)
+bind stage      D       >sh -c "git difftool --trust-exit-code --no-prompt `expr '%(status)' : 'Staged changes' >/dev/null && echo --cached` -- '%(file)'"
 

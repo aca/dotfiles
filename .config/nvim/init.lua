@@ -41,7 +41,7 @@ vim.loop.new_timer():start(
         require("plugins.hop")
 
         if not g._minimal then
-            require("plugins.luasnip")
+            -- require("plugins.luasnip")
             require("plugins.autopairs")
             require("plugins.cmp")
             require("plugins.buftabline")
