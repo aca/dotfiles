@@ -11,6 +11,7 @@ use /env
 use /utils
 use /bind
 use /zoxide
+use /pueue
 use /completion
 use /prompt
 use edit.elv/smart-matcher; smart-matcher:apply
