@@ -15,7 +15,7 @@
 ;     diffFilter = delta --color-only
 
 [github]
-  user = aca
+	user = aca
 
 [color]
   ui = auto

@@ -35,3 +35,12 @@ if (eq $platform:os "darwin") {
   set edit:completion:arg-completer[iptables] = (bash-completer:new "iptables" &bash_function="_iptables iptables")
   set edit:completion:arg-completer[tcpdump] = (bash-completer:new "tcpdump" &bash_function="_tcpdump tcpdump")
 }
+
+set edit:completion:arg-completer[lcache] = { |@cmd|
+    var cmdlen = (count $cmd)
+    if (eq $cmdlen 1) {
+      put 'get' 'set'
+    } else {
+      nop ?(ls ~/.cache/lcache)
+    }
+}

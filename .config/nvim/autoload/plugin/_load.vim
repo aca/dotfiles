@@ -15,5 +15,7 @@ packadd bufferize.vim
 packadd vim-diagon
 packadd vim-scriptease 
 " packadd todo-comments.nvim 
-packadd vim-gist
 packadd nvim-colorizer.lua
+
+packadd webapi-vim
+packadd vim-gist

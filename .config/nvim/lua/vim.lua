@@ -77,9 +77,9 @@ opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
 opt.number = false
-if g._minimal then
-    opt.number = false
-end
+-- if g._minimal then
+--     opt.number = false
+-- end
 
 -- Tabs
 opt.autoindent = true
@@ -138,7 +138,7 @@ g.loaded_matchit = 1
 g.loaded_matchparen = 1
 
 g.do_filetype_lua = 1
-g.did_load_filetypes = 0
+-- g.did_load_filetypes = 0
 
 -- g.loaded_netrw = 1
 -- g.loaded_netrwSettings = 1

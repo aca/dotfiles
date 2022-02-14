@@ -51,7 +51,14 @@ imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luas
 "
 nnoremap <expr>   ;o &foldlevel ? 'zM' :'zR'
 nnoremap <silent> ;w :set wrap!<CR>
-nnoremap <silent> ;t :AerialToggle left<CR><c-w><c-w>
+
+
+function AerialToggle()
+      AerialToggle
+      wincmd p
+endfunction
+nnoremap <silent> ;t :call AerialToggle()<cr>
+" nnoremap <silent> ;t :AerialToggle <bar> wincmd p<cr>
 nnoremap <silent> ;n :set relativenumber!<CR>
 nnoremap <silent> ;m :Messages<cr><c-w><c-w>
 

@@ -47,7 +47,7 @@ fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
 fn grt { cd (or (git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
 fn cdf { |p| try { isDir $p; cd $p } except { cd (dirname $p) }  }
-
+fn ffc { || $cdf~ (ff)  }
 # }}}
 
 # wrapper

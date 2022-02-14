@@ -457,3 +457,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/aerial.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/aerial.nvim
 	url = https://github.com/stevearc/aerial.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/webapi-vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/webapi-vim
+	url = https://github.com/mattn/webapi-vim.git

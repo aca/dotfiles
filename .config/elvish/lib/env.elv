@@ -68,7 +68,7 @@ if (eq $E:_ELVISH_ENV "") {
 
     set paths = [
       # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
-      ~/.gem/ruby/*/bin
+      ~/.gem/ruby/*[nomatch-ok]/bin
 
       ~/.asdf/bin
       ~/.asdf/shims

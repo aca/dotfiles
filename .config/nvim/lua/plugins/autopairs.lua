@@ -1,5 +1,5 @@
 vim.cmd([[ 
-packadd nvim-autopairs 
+  packadd nvim-autopairs 
 ]])
 
 -- require("nvim-autopairs.completion.cmp").setup({
