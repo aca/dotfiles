@@ -51,7 +51,7 @@ if (eq $E:_ELVISH_ENV "") {
     set E:GOPROXY = direct
 
     # node
-    set E:NODE_OPTIONS = "--experimental-fetch --experimental-top-level-await --experimental-modules"
+    set E:NODE_OPTIONS = "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
     set E:NPM_CONFIG_GLOBALCONFIG = $E:HOME/.npmrc.global
 
     set E:LANG = en_US.UTF-8

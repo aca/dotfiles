@@ -1,0 +1,3 @@
+#!/bin/sh
+
+realpath "$1" | pbcopy

@@ -10,13 +10,15 @@ set foldexpr=NestedMarkdownFolds()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+packadd due.nvim
+lua << EOF
+require('due_nvim').setup {}
+EOF
 
 " set syntax=off
 
 " packadd sniprun
 " nmap <leader>R :RunCodeBlock<CR>
-
-lua require('plugins.due')
 
 " TODO: configure
 " let g:bullets_enabled_file_types = [

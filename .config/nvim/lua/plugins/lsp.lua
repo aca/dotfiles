@@ -6,7 +6,7 @@ vim.lsp.set_log_level("debug")
 -- ]]
 -- lspcontainers.nvim [[
 -- { "docker", "container", "run", "--interactive", "--rm", "--network=none", "--workdir=//(pwd)", "--volume=//(pwd)://(pwd):ro", "lspcontainers/lua-language-server:2.4.2" }
--- ]
+-- ]]
 -- init [[
 vim.cmd([[ 
 packadd nvim-lspconfig
@@ -89,7 +89,6 @@ lspconfig.gopls.setup({
     },
 })
 -- ]]
---
 
 lspconfig.emmet_ls.setup({
     -- capabilities = capabilities,
@@ -144,9 +143,9 @@ lsp_installer.on_server_ready(function(server)
       return
     end
 
-    if server.name == "tsserver" then
-      return
-    end
+    -- if server.name == "tsserver" then
+    --   return
+    -- end
 
     if server.name == "tailwindcss" then
         opts.filetypes = {
