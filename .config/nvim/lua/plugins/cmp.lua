@@ -2,6 +2,7 @@
 
 vim.cmd([[ 
 packadd nvim-cmp
+packadd cmp-under-comparator
 packadd cmp-buffer
 packadd cmp-nvim-lsp
 packadd cmp-path
@@ -91,31 +92,31 @@ local has_words_before = function()
 end
 
 local cmp_kinds = {
-  Text = '  ',
-  Method = '  ',
-  Function = '  ',
-  Constructor = '  ',
-  Field = '  ',
-  Variable = '  ',
-  Class = '  ',
-  Interface = '  ',
-  Module = '  ',
-  Property = '  ',
-  Unit = '  ',
-  Value = '  ',
-  Enum = '  ',
-  Keyword = '  ',
-  Snippet = '  ',
-  Color = '  ',
-  File = '  ',
-  Reference = '  ',
-  Folder = '  ',
-  EnumMember = '  ',
-  Constant = '  ',
-  Struct = '  ',
-  Event = '  ',
-  Operator = '  ',
-  TypeParameter = '  ',
+    Text = "  ",
+    Method = "  ",
+    Function = "  ",
+    Constructor = "  ",
+    Field = "  ",
+    Variable = "  ",
+    Class = "  ",
+    Interface = "  ",
+    Module = "  ",
+    Property = "  ",
+    Unit = "  ",
+    Value = "  ",
+    Enum = "  ",
+    Keyword = "  ",
+    Snippet = "  ",
+    Color = "  ",
+    File = "  ",
+    Reference = "  ",
+    Folder = "  ",
+    EnumMember = "  ",
+    Constant = "  ",
+    Struct = "  ",
+    Event = "  ",
+    Operator = "  ",
+    TypeParameter = "  ",
 }
 
 -- local lspkind_comparator = function(conf)
@@ -141,7 +142,7 @@ local cmp_kinds = {
 -- end
 
 local label_comparator = function(entry1, entry2)
-  return entry1.completion_item.label < entry2.completion_item.label
+    return entry1.completion_item.label < entry2.completion_item.label
 end
 
 local luasnip = require("luasnip")
@@ -157,6 +158,18 @@ cmp.setup({
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
+    },
+    sorting = {
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            require("cmp-under-comparator").under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
     },
     -- comparators = {
     --   lspkind_comparator({
@@ -191,10 +204,10 @@ cmp.setup({
     --   label_comparator,
     -- },
     formatting = {
-      format = function(_, vim_item)
-        vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
-        return vim_item
-      end,
+        format = function(_, vim_item)
+            vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+            return vim_item
+        end,
     },
     -- preselect = cmp.PreselectMode.None,
     preselect = "none",
@@ -244,15 +257,6 @@ cmp.setup({
                 or next_char == "("
             then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
-            elseif
-                next_char == '"'
-                or next_char == ")"
-                or next_char == "'"
-                or next_char == "]"
-                or next_char == "}"
-                or next_char == "("
-            then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
             else
                 fallback()
             end
@@ -264,7 +268,7 @@ cmp.setup({
             if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             elseif cmp.visible() then
-                cmp.select_next_item()
+                cmp.select_prev_item()
             else
                 fallback()
             end

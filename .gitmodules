@@ -418,9 +418,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/vim-markdown"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown
-	url = https://github.com/preservim/vim-markdown.git
 [submodule ".tmux/plugins/tmux-thumbs"]
 	path = .tmux/plugins/tmux-thumbs
 	url = https://github.com/fcsonline/tmux-thumbs.git
@@ -460,3 +457,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/webapi-vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/webapi-vim
 	url = https://github.com/mattn/webapi-vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/cmp-under-comparator"]
+	path = .local/share/nvim/site/pack/bundle/opt/cmp-under-comparator
+	url = https://github.com/lukas-reineke/cmp-under-comparator.git

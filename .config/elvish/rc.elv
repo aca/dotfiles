@@ -11,7 +11,7 @@ use /env
 use /utils
 use /bind
 use /zoxide
-use /pueue
+# use /pueue
 use /completion
 use /prompt
 use edit.elv/smart-matcher; smart-matcher:apply
@@ -27,6 +27,7 @@ fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
 fn dc {|@a| cd $@a }
 fn f { vifm }
+fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
 
 
 # TODO: https://github.com/elves/elvish/issues/1472

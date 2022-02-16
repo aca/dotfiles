@@ -70,9 +70,6 @@ lcmd + lctrl + lalt + shift - 0x29 : fish -c "yabai.circular prev move";
 # lcmd + lctrl + lalt - w : yabai -m window --focus last
 lcmd + lctrl + lalt - 0x30 : yabai -m window --focus recent
 
-# toggle window fullscreen
-# lcmd + lctrl + lalt - f : yabai -m window --toggle native-fullscreen
-lcmd + lctrl + lalt - f : yabai -m window --toggle zoom-fullscreen
 
 # space, float / unfloat window and center on screen
 # lcmd + lctrl + lalt - 0x31 : yabai -m window --toggle float; yabai -m window --grid 50:50:1:2:48:47
@@ -121,10 +118,13 @@ resizeMode < l : yabai -m window --resize right:200:0; yabai -m window --resize 
 lcmd + lctrl + lalt - escape : open '/Applications/Mission Control.app';
 
 # rotate tree
-lcmd + lctrl + lalt + shift - r : yabai -m space --rotate 90;
+lcmd + lctrl + lalt - r : yabai -m space --rotate 90;
+
+# lcmd + lctrl + lalt - f : yabai -m window --toggle native-fullscreen
+lcmd + lctrl + lalt - f : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-lcmd + lctrl + lalt + shift - f : yabai -m window --toggle native-fullscreen;
+# lcmd + lctrl + lalt + shift - f : yabai -m window --toggle native-fullscreen;
 
 # # make floating window fill screen
 # shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
