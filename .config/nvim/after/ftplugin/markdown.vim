@@ -211,13 +211,12 @@ function s:markdown_preview()
   " let g:mkdp_browser = 'min -F'
   " let $NODE_NO_WARNINGS=1
   let g:mkdp_echo_preview_url = 1
-  let g:mkdp_browser = 'safari'
-  let g:mkdp_browser = 'Google Chrome'
+  " let g:mkdp_browser = 'Google Chrome'
 
   " let g:mkdp_theme = 'light'
   " let g:mkdp_refresh_slow = 1
   " let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
-  " let g:mkdp_markdown_css = expand('~/.config/nvim/tufte.css')
+  let g:mkdp_markdown_css = expand('~/.config/nvim/tufte.css')
   let g:mkdp_auto_close = 0
   let g:mkdp_command_for_global = 1
   let g:mkdp_preview_options = {

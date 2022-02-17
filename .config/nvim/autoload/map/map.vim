@@ -18,6 +18,7 @@ nnoremap <silent>mp <cmd>lua require("harpoon.ui").nav_prev()<cr>
 inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
 nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gi            <cmd>vsplit<bar>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gt            <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
 " this makes p slow

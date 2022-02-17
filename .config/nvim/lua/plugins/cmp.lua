@@ -94,7 +94,7 @@ end
 local cmp_kinds = {
     Text = "  ",
     Method = "  ",
-    Function = "  ",
+    Function = "λ  ",
     Constructor = "  ",
     Field = "  ",
     Variable = "  ",

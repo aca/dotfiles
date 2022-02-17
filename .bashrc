@@ -1,5 +1,8 @@
 # vim: foldmethod=marker foldlevel=0:
 
+export PATH=$HOME/.bin:$PATH
+export PATH=$HOME/bin:$PATH
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 

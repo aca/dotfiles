@@ -20,10 +20,6 @@ local vim = vim
 local g = vim.g
 local cmd = vim.cmd
 
-cmd [[
-packadd markdown-preview.nvim
-]]
-
 -- https://github.com/lewis6991/impatient.nvim
 require("impatient")
 -- require("impatient").enable_profile()

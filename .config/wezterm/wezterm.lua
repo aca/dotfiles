@@ -128,20 +128,23 @@ local config = {
     tab_max_width = 100,
 
     -- performance issue, use tmux instead....
-    scrollback_lines = 100,
+    scrollback_lines = 0,
     enable_scroll_bar = false,
 
     -- font = wezterm.font('SauceCodePro Nerd Font', {stretch="UltraCondensed"}),
     -- font = wezterm.font("JetBrains Mono", {bold=false, stretch="UltraCondensed"}),
     -- font = wezterm.font('Iosevka Term', {stretch="Expanded", weight="Regular"}),
-    font = wezterm.font("Iosevka Curly Slab", {stretch="Expanded"}),
+    -- font = wezterm.font("Iosevka Curly Slab", {stretch="Expanded"}),
     -- font = wezterm.font("Iosevka Curly Slab"),
-    -- font = wezterm.font('Source Code Pro', {stretch="Condensed", weight="Medium"}),
+    -- font = wezterm.font("Iosevka Term", {weight="Regular"}),
+    font = wezterm.font('Source Code Pro', {weight="Medium"}),
     -- font = wezterm.font('Office Code Pro', {stretch="Condensed", weight="Regular"}),
     -- font = wezterm.font("Iosevka Nerd Font Mono"),
     -- font = wezterm.font("Iosevka Slab"),
     -- font = wezterm.font("Iosevka"),
-    -- font = wezterm.font("DankMono Nerd Font", {stretch="Expanded"}),
+    -- font = wezterm.font("Noto Sans Mono", {stretch="SemiCondensed"}),
+    -- font = wezterm.font("Noto Sans Mono"),
+    -- font = wezterm.font("NotoSansMono Nerd Font Mono"),
 
     adjust_window_size_when_changing_font_size = false,
     -- default_prog = { homedir .. "/bin/elvish" },
@@ -156,7 +159,7 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    color_scheme = 'Wez',
+    color_scheme = 'Wombat',
 
     -- colors = {
     --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },

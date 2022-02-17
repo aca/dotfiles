@@ -418,18 +418,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
-[submodule ".tmux/plugins/tmux-thumbs"]
-	path = .tmux/plugins/tmux-thumbs
-	url = https://github.com/fcsonline/tmux-thumbs.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/fcitx.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/fcitx.nvim
 	url = https://github.com/h-hg/fcitx.nvim.git
-[submodule ".tmux/plugins/tmux-fingers"]
-	path = .tmux/plugins/tmux-fingers
-	url = https://github.com/Morantron/tmux-fingers.git
-[submodule ".tmux/plugins/tmux-jump"]
-	path = .tmux/plugins/tmux-jump
-	url = https://github.com/schasse/tmux-jump.git
 [submodule ".zsh/zsh-completions"]
 	path = .zsh/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
