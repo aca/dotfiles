@@ -295,7 +295,7 @@ hints:
     foreground: '0x000000'
     background: '0xffffff'
   enabled:
-    - regex: '[A-Za-z0-9-_.]{6,100}'
+    - regex: '[A-Za-z0-9-_./]{6,100}'
       action: Copy
       post_processing: false
       binding:
@@ -401,40 +401,46 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Synth Midnight Terminal Dark - alacritty color config
-# Michaël Ball (http://github.com/michael-ball/)
+# Base16 Atelier Forest 256 - alacritty color config
+# Bram de Haan (http://atelierbramdehaan.nl)
 colors:
   # Default colors
   primary:
-    background: '0x050608'
-    foreground: '0xc1c3c4'
+    background: '0x1b1918'
+    foreground: '0xa8a19f'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x050608'
-    cursor: '0xc1c3c4'
+    text: '0x1b1918'
+    cursor: '0xa8a19f'
 
   # Normal colors
   normal:
-    black:   '0x050608'
-    red:     '0xb53b50'
-    green:   '0x06ea61'
-    yellow:  '0xc9d364'
-    blue:    '0x03aeff'
-    magenta: '0xea5ce2'
-    cyan:    '0x42fff9'
-    white:   '0xc1c3c4'
+    black:   '0x1b1918'
+    red:     '0xf22c40'
+    green:   '0x7b9726'
+    yellow:  '0xc38418'
+    blue:    '0x407ee7'
+    magenta: '0x6666ea'
+    cyan:    '0x3d97b8'
+    white:   '0xa8a19f'
 
   # Bright colors
   bright:
-    black:   '0x474849'
-    red:     '0xea770d'
-    green:   '0x1a1b1c'
-    yellow:  '0x28292a'
-    blue:    '0xa3a5a6'
-    magenta: '0xcfd1d2'
-    cyan:    '0xcd6320'
-    white:   '0xdddfe0'
+    black:   '0x766e6b'
+    red:     '0xf22c40'
+    green:   '0x7b9726'
+    yellow:  '0xc38418'
+    blue:    '0x407ee7'
+    magenta: '0x6666ea'
+    cyan:    '0x3d97b8'
+    white:   '0xf1efee'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xdf5320' }
+    - { index: 17, color: '0xc33ff3' }
+    - { index: 18, color: '0x2c2421' }
+    - { index: 19, color: '0x68615e' }
+    - { index: 20, color: '0x9c9491' }
+    - { index: 21, color: '0xe6e2e0' }
 # ColorEnd

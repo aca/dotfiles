@@ -1,5 +1,4 @@
 python 3.10.0
-deno 1.13.2
 lua 5.1.5
 ruby 3.0.2
 zig 0.7.1

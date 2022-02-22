@@ -10,6 +10,11 @@ local function log(msg)
     wezterm.log_info(msg)
 end
 
+-- local inTmux = true
+-- if os.getenv("TMUX") ~= "" then
+--   inTmux = false
+-- end
+ 
 -- wezterm.on("update-right-status", function(window, pane)
 --   local status = ""
 --   if window:dead_key_is_active() then
@@ -18,6 +23,56 @@ end
 --   end
 --   window:set_right_status(status)
 -- end);
+
+
+-- Equivalent to POSIX basename(3)
+-- Given "/foo/bar" returns "bar"
+-- Given "c:\\foo\\bar" returns "bar"
+local function basename(s)
+    return string.gsub(s, "(.*[/\\])(.*)", "%2")
+end
+
+wezterm.on("update-right-status", function(window, pane)
+    -- window:set_right_status(basename(pane:get_foreground_process_name()))
+    -- window:set_right_status(pane:get_foreground_process_name())
+    -- window:toast_notification("wezterm", pane:get_foreground_process_name(), nil, 4000)
+    -- window:toast_notification("wezterm", pane:get_current_working_dir(), nil, 4000)
+
+    local date = wezterm.strftime("%Y-%m-%d %H:%M")
+    local cmd = string.format(
+        "cd '%s' && git rev-parse --abbrev-ref HEAD",
+        string.sub(pane:get_current_working_dir(), 8)
+    )
+    local handle = io.popen(cmd)
+    local result = handle:read("*a")
+    handle:close()
+    result = string.gsub(result, "\n", "")
+    window:set_right_status(wezterm.format({
+        -- {Attribute={Underline="Single"}},
+        { Attribute = { Italic = true } },
+        { Text = result .. " | " .. date .. " " },
+    }))
+end)
+
+-- The filled in variant of the < symbol
+local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+
+-- The filled in variant of the > symbol
+local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
+
+-- TODO
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+    local cwd = tab.active_pane.current_working_dir:sub(8,-1):gsub(homedir, "~")
+    if tab.is_active then
+      return {
+        {Background={Color="black"}},
+        { Text = " " .. cwd .. " " },
+      }
+    end
+    return {
+        { Text = " " .. tab.tab_index + 1 .. ':' .. cwd .. " " },
+    }
+end)
 
 wezterm.on("open_in_vim", function(window, pane)
     local file = io.open("/tmp/wezterm_buf", "w")
@@ -127,8 +182,6 @@ local config = {
     -- window_background_opacity = 1,
     tab_max_width = 100,
 
-    -- performance issue, use tmux instead....
-    scrollback_lines = 0,
     enable_scroll_bar = false,
 
     -- font = wezterm.font('SauceCodePro Nerd Font', {stretch="UltraCondensed"}),
@@ -207,6 +260,9 @@ local config = {
         bottom = "0cell",
     },
 
+    -- performance issue, use tmux instead....
+    scrollback_lines = 0,
+
     -- timeout_milliseconds defaults to 1000 and can be omitted
     -- leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
     leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
@@ -273,18 +329,6 @@ local config = {
         { key = "k", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
         { key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 
-        -- -- pane move(vim aware)
-        -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
-        -- { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
-        -- { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
-        -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
-
-        -- resize(vim aware)
-        -- { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
-        -- { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
-        -- { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
-        -- { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
-
         -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
         -- { key = "q", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x0r" }) },
         { key = "q", mods = "CTRL", action = wezterm.action({ SendString = "\x11" }) },
@@ -292,13 +336,6 @@ local config = {
         { key = ";", mods = "CTRL", action = wezterm.action({ ScrollByLine = -3 }) },
         { key = "'", mods = "CTRL", action = wezterm.action({ ScrollByLine = 3 }) },
 
-        -- alt key
-        --
-        { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },
-        { key = "j", mods = "ALT", action = wezterm.action({ SendString = "\x1bj" }) },
-        { key = "k", mods = "ALT", action = wezterm.action({ SendString = "\x1bk" }) },
-        { key = "l", mods = "ALT", action = wezterm.action({ SendString = "\x1bl" }) },
-        --
         { key = "a", mods = "ALT", action = wezterm.action({ SendString = "\x1ba" }) },
         { key = "b", mods = "ALT", action = wezterm.action({ SendString = "\x1bb" }) },
         { key = "c", mods = "ALT", action = wezterm.action({ SendString = "\x1bc" }) },
@@ -321,6 +358,27 @@ local config = {
         { key = "x", mods = "ALT", action = wezterm.action({ SendString = "\x1bx" }) },
         { key = "y", mods = "ALT", action = wezterm.action({ SendString = "\x1by" }) },
         { key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
+
+
+
+
+        -- -- pane move(vim aware)
+        -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
+        -- { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
+        -- { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
+        -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
+
+        -- resize(vim aware)
+        -- { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
+        -- { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
+        -- { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
+        -- { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
+
+        -- alt key
+        { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },
+        { key = "j", mods = "ALT", action = wezterm.action({ SendString = "\x1bj" }) },
+        { key = "k", mods = "ALT", action = wezterm.action({ SendString = "\x1bk" }) },
+        { key = "l", mods = "ALT", action = wezterm.action({ SendString = "\x1bl" }) },
     },
 }
 
@@ -332,54 +390,5 @@ if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 else
     -- table.insert(config.keys, { key = "V", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) })
 end
-
--- Equivalent to POSIX basename(3)
--- Given "/foo/bar" returns "bar"
--- Given "c:\\foo\\bar" returns "bar"
-local function basename(s)
-    return string.gsub(s, "(.*[/\\])(.*)", "%2")
-end
-
-wezterm.on("update-right-status", function(window, pane)
-    -- window:set_right_status(basename(pane:get_foreground_process_name()))
-    -- window:set_right_status(pane:get_foreground_process_name())
-    -- window:toast_notification("wezterm", pane:get_foreground_process_name(), nil, 4000)
-    -- window:toast_notification("wezterm", pane:get_current_working_dir(), nil, 4000)
-
-    local date = wezterm.strftime("%Y-%m-%d %H:%M")
-    local cmd = string.format(
-        "cd '%s' && git rev-parse --abbrev-ref HEAD",
-        string.sub(pane:get_current_working_dir(), 8)
-    )
-    local handle = io.popen(cmd)
-    local result = handle:read("*a")
-    handle:close()
-    result = string.gsub(result, "\n", "")
-    window:set_right_status(wezterm.format({
-        -- {Attribute={Underline="Single"}},
-        { Attribute = { Italic = true } },
-        { Text = result .. " | " .. date .. " " },
-    }))
-end)
-
--- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-
--- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
-
--- TODO
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-    local cwd = tab.active_pane.current_working_dir:sub(8,-1):gsub(homedir, "~")
-    if tab.is_active then
-      return {
-        {Background={Color="black"}},
-        { Text = " " .. cwd .. " " },
-      }
-    end
-    return {
-        { Text = " " .. tab.tab_index + 1 .. ':' .. cwd .. " " },
-    }
-end)
 
 return config
