@@ -51,6 +51,7 @@
   br = branch
   unstage = reset HEAD --
 
+
 [merge]
   tool = vimdiff
 
@@ -71,3 +72,4 @@
 	helper = cache --timeout 604800
 [status]
 	submoduleSummary = false
+

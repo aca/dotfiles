@@ -1,0 +1,5 @@
+#!/usr/bin/env elvish
+use str
+
+git add -A
+git status --porcelain | awk '{$1=""; print substr($0,2)}' | str:join ', ' | echo Update (one) | git commit -F -

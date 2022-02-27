@@ -4,6 +4,7 @@ if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
   set E:NVIM_LISTEN_ADDRESS = "/tmp/nvim"$E:WEZTERM_PANE
 }
 
+set E:PYTHONSTARTUP = ~/.bin/pythonstartup
 
 if (eq $E:_ELVISH_ENV "") {
     set E:_ELVISH_ENV = 1

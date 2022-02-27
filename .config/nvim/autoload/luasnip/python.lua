@@ -16,25 +16,14 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
-local function get_file_name()
-    return vim.fn.fnamemodify(vim.fn.bufname(), ":r")
-end
-
-ls.snippets.markdown = {
+ls.snippets.python = {
     s(
-        "header",
+        "ptpython",
         fmt(
             [[
----
-title: {1}
-date: {2}
-tags: 
----
+from ptpython.repl import embed; embed(globals(), locals())
 ]],
-            {
-                p(get_file_name),
-                p(os.date, "%Y-%m-%dT%H:%M"),
-            }
+            {}
         )
     ),
 }

@@ -48,11 +48,8 @@ bspc rule -a mpv follow=off
 # bspc rule -a KakaoTalkShadowWnd border=off follow=off follow=off manage=on state=pseudo_tiled
 # bspc rule -a KakaoTalk.exe border=off focus=off state=floating follow=off manage=on
 
-bspc rule -a xdg-desktop-portal-gtk state=floating
-
-
-
 bspc rule -a kakaotalk.exe border=off follow=off manage=on
 bspc rule -a KakaoTalk.exe border=off follow=off manage=on
 bspc rule -a explorer.exe border=off focus=off hidden=on
 bspc rule -a motion_recorder border=off hidden=on focus=off
+bspc rule -a xdg-desktop-portal-gtk state=floating manage=off hidden=on

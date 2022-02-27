@@ -178,6 +178,11 @@ Description="Keyboard - English (UK) - Polish (British keyboard)"
 Language=pl
 Label=pl
 
+[keyboard-gb-gla]
+Description="Keyboard - English (UK) - Scottish Gaelic"
+Language=en
+Label=gd
+
 [keyboard-gb-sun_type6]
 Description="Keyboard - English (UK) - English (UK, Sun Type 6/7)"
 Language=en
@@ -186,7 +191,7 @@ Label=gb
 [keyboard-ua]
 Description="Keyboard - Ukrainian"
 Language=uk
-Label=k
+Label=uk
 
 [keyboard-ua-phonetic]
 Description="Keyboard - Ukrainian - Ukrainian (phonetic)"
@@ -200,6 +205,11 @@ Label=ua
 
 [keyboard-ua-winkeys]
 Description="Keyboard - Ukrainian - Ukrainian (Windows)"
+Language=uk
+Label=ua
+
+[keyboard-ua-macOS]
+Description="Keyboard - Ukrainian - Ukrainian (macOS)"
 Language=uk
 Label=ua
 
@@ -222,6 +232,21 @@ Label=ua
 Description="Keyboard - Ukrainian - Ukrainian (homophonic)"
 Language=uk
 Label=ua
+
+[keyboard-ua-crh]
+Description="Keyboard - Ukrainian - Crimean Tatar (Turkish Q)"
+Language=crh
+Label=crh
+
+[keyboard-ua-crh_f]
+Description="Keyboard - Ukrainian - Crimean Tatar (Turkish F)"
+Language=crh
+Label=crh
+
+[keyboard-ua-crh_alt]
+Description="Keyboard - Ukrainian - Crimean Tatar (Turkish Alt-Q)"
+Language=crh
+Label=crh
 
 [keyboard-ua-sun_type6]
 Description="Keyboard - Ukrainian - Ukrainian (Sun Type 6/7)"
@@ -247,11 +272,6 @@ Label=th
 Description="Keyboard - Dhivehi"
 Language=dv
 Label=dv
-
-[keyboard-nec_vndr/jp]
-Description="Keyboard - Japanese (PC-98)"
-Language=ja
-Label=ja
 
 [keyboard-tj]
 Description="Keyboard - Tajik"
@@ -444,7 +464,7 @@ Language=ru
 Label=ru
 
 [keyboard-ru-gost-6431-75-48]
-Description="Keyboard - Russian - Russian (GOST 6431-75, 48-key)"
+Description="Keyboard - Russian - Russian (GOST 6431-75)"
 Language=ru
 Label=ru
 
@@ -461,7 +481,7 @@ Label=ru
 [keyboard-trans]
 Description="Keyboard - International Phonetic Alphabet"
 Language=
-Label=trans
+Label=ipa
 
 [keyboard-trans-qwerty]
 Description="Keyboard - International Phonetic Alphabet - International Phonetic Alphabet (QWERTY)"
@@ -1029,7 +1049,7 @@ Language=en
 Label=us
 
 [keyboard-us-3l-cros]
-Description="Keyboard - English (US) - mebook)"
+Description="Keyboard - English (US) - English (3l, Chromebook)"
 Language=en
 Label=us
 
@@ -1040,6 +1060,11 @@ Label=us
 
 [keyboard-us-scn]
 Description="Keyboard - English (US) - Sicilian (US keyboard)"
+Language=en
+Label=us
+
+[keyboard-us-altgr-weur]
+Description="Keyboard - English (US) - English (Western European AltGr dead keys)"
 Language=en
 Label=us
 
@@ -1125,7 +1150,7 @@ Label=ku
 
 [keyboard-ma]
 Description="Keyboard - Arabic (Morocco)"
-Language=
+Language=ary
 Label=ar
 
 [keyboard-ma-french]
@@ -1163,39 +1188,44 @@ Description="Keyboard - Arabic (Morocco) - Berber (Morocco, Tifinagh extended ph
 Language=
 Label=ber
 
+[keyboard-ma-rif]
+Description="Keyboard - Arabic (Morocco) - Tarifit"
+Language=rif
+Label=rif
+
 [keyboard-af]
-Description="Keyboard - Afghani"
-Language=
+Description="Keyboard - Dari"
+Language=drs
 Label=fa
 
 [keyboard-af-ps]
-Description="Keyboard - Afghani - Pashto"
+Description="Keyboard - Dari - Pashto"
 Language=ps
 Label=ps
 
 [keyboard-af-uz]
-Description="Keyboard - Afghani - Uzbek (Afghanistan)"
+Description="Keyboard - Dari - Uzbek (Afghanistan)"
 Language=uz
 Label=uz
 
-[keyboard-af-olpc-ps]
-Description="Keyboard - Afghani - Pashto (Afghanistan, OLPC)"
+[keyboard-af-ps-olpc]
+Description="Keyboard - Dari - Pashto (Afghanistan, OLPC)"
 Language=ps
 Label=ps
 
 [keyboard-af-fa-olpc]
-Description="Keyboard - Afghani - Persian (Afghanistan, Dari OLPC)"
-Language=
+Description="Keyboard - Dari - Dari (Afghanistan, OLPC)"
+Language=drs
 Label=fa
 
 [keyboard-af-uz-olpc]
-Description="Keyboard - Afghani - Uzbek (Afghanistan, OLPC)"
+Description="Keyboard - Dari - Uzbek (Afghanistan, OLPC)"
 Language=uz
 Label=uz
 
 [keyboard-dz]
 Description="Keyboard - Berber (Algeria, Latin)"
-Language=
+Language=tzm
 Label=kab
 
 [keyboard-dz-azerty-deadkeys]
@@ -1254,7 +1284,7 @@ Language=sd
 Label=sd
 
 [keyboard-pk-urd-navees]
-Description="Keyboard - Urdu (Pakistan) - Urdu (Navees, Pakistan)"
+Description="Keyboard - Urdu (Pakistan) - Urdu (Pakistan, Navees)"
 Language=ur
 Label=pk
 
@@ -1319,7 +1349,7 @@ Language=ar
 Label=ara
 
 [keyboard-ara-azerty_digits]
-Description="Keyboard - Arabic - s)"
+Description="Keyboard - Arabic - Arabic (AZERTY, Eastern Arabic numerals)"
 Language=ar
 Label=ara
 
@@ -1374,7 +1404,7 @@ Language=ar
 Label=ara
 
 [keyboard-ara-ergoarabic]
-Description="Keyboard - Arabic - Arabic (Ergoarabic)"
+Description="Keyboard - Arabic - Arabic (ErgoArabic)"
 Language=ar
 Label=ara
 
@@ -1663,6 +1693,26 @@ Description="Keyboard - Burmese - Burmese Zawgyi"
 Language=my
 Label=zg
 
+[keyboard-mm-shn]
+Description="Keyboard - Burmese - Shan"
+Language=shn
+Label=shn
+
+[keyboard-mm-zgt]
+Description="Keyboard - Burmese - Shan (Zawgyi Tai)"
+Language=shn
+Label=zgt
+
+[keyboard-mm-mnw]
+Description="Keyboard - Burmese - Mon"
+Language=mnw
+Label=mon
+
+[keyboard-mm-mnw-a1]
+Description="Keyboard - Burmese - Mon (A1)"
+Language=mnw
+Label=mon-a1
+
 [keyboard-si]
 Description="Keyboard - Slovenian"
 Language=sl
@@ -1780,7 +1830,7 @@ Label=br
 
 [keyboard-in]
 Description="Keyboard - Indian"
-Language=
+Language=hi
 Label=in
 
 [keyboard-in-ben]
@@ -2026,7 +2076,7 @@ Label=be
 [keyboard-eg]
 Description="Keyboard - Coptic"
 Language=cop
-Label=eg
+Label=cop
 
 [keyboard-cd]
 Description="Keyboard - French (Democratic Republic of the Congo)"
@@ -2355,7 +2405,7 @@ Label=cn
 
 [keyboard-cn-tib]
 Description="Keyboard - Chinese - Tibetan"
-Language=
+Language=bo
 Label=cn
 
 [keyboard-cn-tib_asciinum]
@@ -2369,7 +2419,7 @@ Language=ug
 Label=ug
 
 [keyboard-cn-altgr-pinyin]
-Description="Keyboard - Chinese - Hanyu Pinyin (with AltGr dead keys)"
+Description="Keyboard - Chinese - Hanyu Pinyin Letters (with AltGr dead keys)"
 Language=zh
 Label=cn
 
@@ -2581,7 +2631,7 @@ Label=fr
 [keyboard-gn]
 Description="Keyboard - N'Ko (AZERTY)"
 Language=nqo
-Label=gn
+Label=nqo
 
 [keyboard-uz]
 Description="Keyboard - Uzbek"
@@ -2745,6 +2795,11 @@ Label=pt
 
 [keyboard-id]
 Description="Keyboard - Indonesian (Latin)"
+Language=id
+Label=id
+
+[keyboard-id-phonetic]
+Description="Keyboard - Indonesian (Latin) - Indonesian (Arab Pegon, phonetic)"
 Language=id
 Label=id
 
@@ -3123,23 +3178,8 @@ Description="Keyboard - Turkish - Turkish (intl., with dead keys)"
 Language=tr
 Label=tr
 
-[keyboard-tr-crh]
-Description="Keyboard - Turkish - Crimean Tatar (Turkish Q)"
-Language=crh
-Label=crh
-
-[keyboard-tr-crh_f]
-Description="Keyboard - Turkish - Crimean Tatar (Turkish F)"
-Language=crh
-Label=crh
-
-[keyboard-tr-crh_alt]
-Description="Keyboard - Turkish - Crimean Tatar (Turkish Alt-Q)"
-Language=crh
-Label=crh
-
 [keyboard-tr-ot]
-Description="Keyboard - Turkish - Ottoman"
+Description="Keyboard - Turkish - Ottoman (Q)"
 Language=tr
 Label=tr
 
@@ -3160,6 +3200,11 @@ Label=tr
 
 [keyboard-tr-sun_type6]
 Description="Keyboard - Turkish - Turkish (Sun Type 6/7)"
+Language=tr
+Label=tr
+
+[keyboard-tr-us]
+Description="Keyboard - Turkish - Turkish (Turkey, Latin Q, Swap i and ı)"
 Language=tr
 Label=tr
 
@@ -3304,7 +3349,7 @@ Language=es
 Label=es
 
 [keyboard-latam-nodeadkeys]
-Description="Keyboard - Spanish (Latin American) - erican, no dead keys)"
+Description="Keyboard - Spanish (Latin American) - Spanish (Latin American, no dead keys)"
 Language=es
 Label=latam
 

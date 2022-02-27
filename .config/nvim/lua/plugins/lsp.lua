@@ -72,7 +72,9 @@ local on_attach = function(client, bufnr)
     end
     -- print("loaded")
 
-    require("lsp_signature").on_attach()
+    -- TODO!!!
+    -- https://github.com/ray-x/lsp_signature.nvim/issues/165
+    -- require("lsp_signature").on_attach()
 end
 -- ]]
 -- server: gopls [[
@@ -101,6 +103,7 @@ lspconfig.emmet_ls.setup({
 local ok, pylance = pcall(require, "pylance")
 if ok then
     lspconfig.pyright.setup({
+        cmd = pylance,
         capabilities = capabilities,
         on_attach = on_attach,
         settings = {
@@ -114,7 +117,6 @@ if ok then
     })
 else
     lspconfig.pyright.setup({
-        cmd = pylance,
         capabilities = capabilities,
         on_attach = on_attach,
         settings = {
