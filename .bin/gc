@@ -2,4 +2,5 @@
 use str
 
 git add -A
-git status --porcelain | awk '{$1=""; print substr($0,2)}' | str:join ', ' | echo Update (one) | git commit -F -
+var msg = (git status --porcelain | awk '{$1=""; print substr($0,2)}' | str:join ', ' | echo Update (one))
+echo $msg | git commit -F -

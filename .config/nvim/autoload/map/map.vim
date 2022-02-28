@@ -32,8 +32,8 @@ nnoremap <silent> [d            <cmd>lua vim.diagnostic.goto_prev({wrap = false}
 
 nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
-nnoremap <silent> ;r            <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ;n            <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> ;rf            <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> ;rn            <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>

@@ -93,8 +93,8 @@ lspconfig.gopls.setup({
 -- ]]
 
 lspconfig.emmet_ls.setup({
-    -- capabilities = capabilities,
-    -- on_attach = on_attach,
+    capabilities = capabilities,
+    on_attach = on_attach,
     filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
 })
 
@@ -140,34 +140,6 @@ lsp_installer.on_server_ready(function(server)
         },
         on_attach = on_attach,
     }
-
-    if server.name == "tailwindcss" then
-      return
-    end
-
-    -- if server.name == "tsserver" then
-    --   return
-    -- end
-
-    if server.name == "tailwindcss" then
-        opts.filetypes = {
-            "haml",
-            "html",
-            "css",
-            "less",
-            "postcss",
-            "sass",
-            "scss",
-            "stylus",
-            "sugarss",
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact",
-            "vue",
-            "svelte",
-        }
-    end
 
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
     if server.name == "sumneko_lua" then
