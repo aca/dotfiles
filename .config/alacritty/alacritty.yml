@@ -401,46 +401,46 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Atelier Forest 256 - alacritty color config
-# Bram de Haan (http://atelierbramdehaan.nl)
+# Base16 Black Metal 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x1b1918'
-    foreground: '0xa8a19f'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1b1918'
-    cursor: '0xa8a19f'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x1b1918'
-    red:     '0xf22c40'
-    green:   '0x7b9726'
-    yellow:  '0xc38418'
-    blue:    '0x407ee7'
-    magenta: '0x6666ea'
-    cyan:    '0x3d97b8'
-    white:   '0xa8a19f'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x766e6b'
-    red:     '0xf22c40'
-    green:   '0x7b9726'
-    yellow:  '0xc38418'
-    blue:    '0x407ee7'
-    magenta: '0x6666ea'
-    cyan:    '0x3d97b8'
-    white:   '0xf1efee'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   indexed_colors:
-    - { index: 16, color: '0xdf5320' }
-    - { index: 17, color: '0xc33ff3' }
-    - { index: 18, color: '0x2c2421' }
-    - { index: 19, color: '0x68615e' }
-    - { index: 20, color: '0x9c9491' }
-    - { index: 21, color: '0xe6e2e0' }
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd
