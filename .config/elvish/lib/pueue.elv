@@ -2,11 +2,11 @@
 use builtin;
 use str;
 
-set edit:completion:arg-completer[pueue] = [@words]{
-    fn spaces [n]{
+set edit:completion:arg-completer[pueue] = {|@words|
+    fn spaces {|n|
         builtin:repeat $n ' ' | str:join ''
     }
-    fn cand [text desc]{
+    fn cand {|text desc|
         edit:complex-candidate $text &display=$text' '(spaces (- 14 (wcswidth $text)))$desc
     }
     var command = 'pueue'
@@ -20,6 +20,8 @@ set edit:completion:arg-completer[pueue] = [@words]{
         &'pueue'= {
             cand -c 'Path to a specific pueue config file to use. This ignores all other config files'
             cand --config 'Path to a specific pueue config file to use. This ignores all other config files'
+            cand -p 'The name of the profile that should be loaded from your config file'
+            cand --profile 'The name of the profile that should be loaded from your config file'
             cand -h 'Print help information'
             cand --help 'Print help information'
             cand -V 'Print version information'
@@ -44,7 +46,8 @@ A paused queue (group) won''t start any new tasks.'
 The command is edited by default.'
             cand group 'Use this to add or remove groups. By default, this will simply display all known groups'
             cand status 'Display the current status of all tasks'
-            cand log 'Display the log output of finished tasks. Prints either all logs or only the logs of specified tasks'
+            cand format-status 'Accept a list or map of JSON pueue tasks via stdin and display it just like "status". A simple example might look like this: pueue status --json | jq -c ''.tasks'' | pueue format-status'
+            cand log 'Display the log output of finished tasks. When looking at multiple logs, only the last few lines will be shown. If you want to "follow" the output of a task, please use the "follow" subcommand'
             cand follow 'Follow the output of a currently running task. This command works like tail -f'
             cand wait 'Wait until tasks are finished. This can be quite useful for scripting. By default, this will wait for all tasks in the default group to finish. Note: This will also wait for all tasks that aren''t somehow ''Done''. Includes: [Paused, Stashed, Locked, Queued, ...]'
             cand clean 'Remove all finished tasks from the list'
@@ -158,34 +161,56 @@ The command is edited by default.'
             cand --help 'Print help information'
         }
         &'pueue;group'= {
-            cand -a 'Add a group by name'
-            cand --add 'Add a group by name'
-            cand -r 'Remove a group by name. This will move all tasks in this group to the default group!'
-            cand --remove 'Remove a group by name. This will move all tasks in this group to the default group!'
+            cand -h 'Print help information'
+            cand --help 'Print help information'
+            cand add 'Add a group by name'
+            cand remove 'Remove a group by name. This will move all tasks in this group to the default group!'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'pueue;group;add'= {
+            cand -p 'Set the amount of parallel tasks this group can have'
+            cand --parallel 'Set the amount of parallel tasks this group can have'
+            cand --version 'Print version information'
+            cand -h 'Print help information'
+            cand --help 'Print help information'
+        }
+        &'pueue;group;remove'= {
+            cand --version 'Print version information'
+            cand -h 'Print help information'
+            cand --help 'Print help information'
+        }
+        &'pueue;group;help'= {
+            cand --version 'Print version information'
             cand -h 'Print help information'
             cand --help 'Print help information'
         }
         &'pueue;status'= {
             cand -g 'Only show tasks of a specific group'
             cand --group 'Only show tasks of a specific group'
-            cand -j 'Print the current state as json to stdout. This does not include stdout/stderr of tasks. Use `log -j` if you want everything'
-            cand --json 'Print the current state as json to stdout. This does not include stdout/stderr of tasks. Use `log -j` if you want everything'
+            cand -j 'Print the current state as json to stdout. This does not include the output of tasks. Use `log -j` if you want everything'
+            cand --json 'Print the current state as json to stdout. This does not include the output of tasks. Use `log -j` if you want everything'
+            cand -h 'Print help information'
+            cand --help 'Print help information'
+        }
+        &'pueue;format-status'= {
+            cand -g 'Only show tasks of a specific group'
+            cand --group 'Only show tasks of a specific group'
             cand -h 'Print help information'
             cand --help 'Print help information'
         }
         &'pueue;log'= {
             cand -l 'Only print the last X lines of each task''s output. This is done by default if you''re looking at multiple tasks'
             cand --lines 'Only print the last X lines of each task''s output. This is done by default if you''re looking at multiple tasks'
-            cand -j 'Print the resulting tasks and output as json. By default only the last stdout/-err lines will be returned unless --full is provided. Take care, as the json cannot be streamed! If your logs are really huge, using --full can use all of your machine''s RAM'
-            cand --json 'Print the resulting tasks and output as json. By default only the last stdout/-err lines will be returned unless --full is provided. Take care, as the json cannot be streamed! If your logs are really huge, using --full can use all of your machine''s RAM'
-            cand -f 'Show the whole stdout and stderr output. This is the default if only a single task is being looked at'
-            cand --full 'Show the whole stdout and stderr output. This is the default if only a single task is being looked at'
+            cand -j 'Print the resulting tasks and output as json. By default only the last lines will be returned unless --full is provided. Take care, as the json cannot be streamed! If your logs are really huge, using --full can use all of your machine''s RAM'
+            cand --json 'Print the resulting tasks and output as json. By default only the last lines will be returned unless --full is provided. Take care, as the json cannot be streamed! If your logs are really huge, using --full can use all of your machine''s RAM'
+            cand -f 'Show the whole output. This is the default if only a single task is being looked at'
+            cand --full 'Show the whole output. This is the default if only a single task is being looked at'
             cand -h 'Print help information'
             cand --help 'Print help information'
         }
         &'pueue;follow'= {
-            cand -e 'Show stderr instead of stdout'
-            cand --err 'Show stderr instead of stdout'
+            cand -l 'Only print the last X lines of the output before following'
+            cand --lines 'Only print the last X lines of the output before following'
             cand -h 'Print help information'
             cand --help 'Print help information'
         }
@@ -200,6 +225,8 @@ The command is edited by default.'
             cand --help 'Print help information'
         }
         &'pueue;clean'= {
+            cand -g 'Only clean tasks of a specific group'
+            cand --group 'Only clean tasks of a specific group'
             cand -s 'Only clean tasks that finished successfully'
             cand --successful-only 'Only clean tasks that finished successfully'
             cand -h 'Print help information'

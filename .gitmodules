@@ -451,3 +451,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-under-comparator"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-under-comparator
 	url = https://github.com/lukas-reineke/cmp-under-comparator.git
+[submodule ".submodules/tmux-xpanes"]
+	path = .submodules/tmux-xpanes
+	url = https://github.com/greymd/tmux-xpanes.git
