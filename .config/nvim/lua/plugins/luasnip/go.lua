@@ -18,6 +18,19 @@ local conds = require("luasnip.extras.expand_conditions")
 
 ls.snippets.go = {
     s(
+        "funch",
+        fmt(
+            [[
+func {1}(w http.ResponseWriter, r *http.Request) {{
+    {2}
+}}
+]],
+            {
+                i(1), i(0)
+            }
+        )
+    ),
+    s(
         "dff",
         fmt(
             [[
@@ -26,7 +39,7 @@ defer func() {{
 }}()
 ]],
             {
-                i(1),
+                i(0),
             }
         )
     ),
