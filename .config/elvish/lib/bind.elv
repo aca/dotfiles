@@ -53,7 +53,7 @@ fn copy_current_command {||
 set edit:insert:binding[Ctrl-X] = {|| copy_current_command >/dev/tty 2>&1 }
 
 fn paste_command {||
-  set edit:current-command = (echo $edit:current-command(pbpaste))
+  edit:insert-at-dot (pbpaste | slurp)
 }
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 

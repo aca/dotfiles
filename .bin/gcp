@@ -2,4 +2,4 @@
 set -e
 
 gc
-git push
+git push "$@"

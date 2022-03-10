@@ -51,7 +51,7 @@ font:
   # italic:
   #   family: BlexMono Nerd Font Mono
 
-  size: 28
+  size: 20
   offset:
     x: -2
     y: 0
@@ -401,7 +401,7 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Black Metal 256 - alacritty color config
+# Base16 Black Metal (Mayhem) 256 - alacritty color config
 # metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
@@ -418,8 +418,8 @@ colors:
   normal:
     black:   '0x000000'
     red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
+    green:   '0xf3ecd4'
+    yellow:  '0xeecc6c'
     blue:    '0x888888'
     magenta: '0x999999'
     cyan:    '0xaaaaaa'
@@ -429,8 +429,8 @@ colors:
   bright:
     black:   '0x333333'
     red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
+    green:   '0xf3ecd4'
+    yellow:  '0xeecc6c'
     blue:    '0x888888'
     magenta: '0x999999'
     cyan:    '0xaaaaaa'
