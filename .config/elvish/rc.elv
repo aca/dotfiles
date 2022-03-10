@@ -37,6 +37,7 @@ fn v {|@a| nvim $@a }
 # fn e {|@a| edit:clear; tmux clear-history; }
 fn k {|@a| kubectl $@a }
 fn elv { |@a| e:elvish $@a }
+fn mkdir { |@a| e:mkdir -p $@a }
 
 # cd
 fn s {|| cd (src.dir)}
