@@ -31,18 +31,18 @@ fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 # fn ll {|@a| if (has-external exa) { e:exa -l --icons $@a } else { e:ls -lt [&darwin=-G &linux=--color=auto][$platform:os] $@a }}
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn dc {|@a| cd $@a }
-fn f { vifm }
+fn f { e:vifm }
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
-fn v {|@a| nvim $@a }
+fn v {|@a| e:nvim $@a }
 # fn e {|@a| edit:clear; tmux clear-history; }
-fn k {|@a| kubectl $@a }
+fn k {|@a| e:kubectl $@a }
 fn elv { |@a| e:elvish $@a }
 fn mkdir { |@a| e:mkdir -p $@a }
 
 # cd
 fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
-fn grt { cd (or (git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
+fn grt { cd (or (e:git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
 fn cdf { |p| try { isDir $p; cd $p } except { cd (dirname $p) }  }
 fn ffc { || $cdf~ (ff)  }
 # }}}
@@ -51,6 +51,8 @@ fn ffc { || $cdf~ (ff)  }
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn zs {|@a| zsh $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
+fn mv {|@a| e:mv -v -n $@a }
+fn cp {|@a| e:cp -v -n $@a }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
 
 # utils

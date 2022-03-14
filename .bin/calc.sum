@@ -1,7 +1,3 @@
-#!/usr/bin/env fish
+#!/usr/bin/env bash
 
-# $ echo '1
-#    2' | calc.sum
-# 3
-
-awk '{s+=$1} END {print s}'
+sed 's/,//g'| awk '{s+=$1} END {print s}'

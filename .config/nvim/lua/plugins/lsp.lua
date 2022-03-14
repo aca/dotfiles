@@ -107,11 +107,15 @@ if ok then
         capabilities = capabilities,
         on_attach = on_attach,
         settings = {
-            gopls = {
-                analyses = {
-                    unusedparams = false,
+            python = {
+                analysis = {
+                    diagnosticSeverityOverrides = {
+                        reportUnusedClass = "none",
+                        reportUnusedImport = "none",
+                        reportUnusedVariable = "none",
+                        reportDuplicateImport = "none",
+                    },
                 },
-                staticcheck = true,
             },
         },
     })
@@ -119,14 +123,6 @@ else
     lspconfig.pyright.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        settings = {
-            gopls = {
-                analyses = {
-                    unusedparams = false,
-                },
-                staticcheck = true,
-            },
-        },
     })
 end
 
