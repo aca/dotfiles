@@ -26,7 +26,6 @@ require("impatient")
 
 require("globals")
 require("vim")
-require("plugins.lsp")
 require("plugins.treesitter")
 vim.loop.new_timer():start(
     0,
@@ -34,6 +33,7 @@ vim.loop.new_timer():start(
     vim.schedule_wrap(function()
         require("plugins.autopairs")
         require("plugins.luasnip")
+        require("plugins.lsp")
         require("plugins.cmp")
         -- require("plugins.dap")
 
@@ -45,7 +45,7 @@ vim.loop.new_timer():start(
       runtime! autoload/map/*
       runtime! autoload/lib/*
       runtime! autoload/local/*
-      helptags ALL
+      " helptags ALL
       ]])
     end)
 )

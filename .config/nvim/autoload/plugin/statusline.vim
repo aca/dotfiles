@@ -1,7 +1,7 @@
 if exists('g:_minimal') && g:_minimal == v:true | finish | end
 
 packadd nvim-gps
-packadd nvim-web-devicons
+" packadd nvim-web-devicons
 " packadd vim-devicons
 
 lua <<EOF
@@ -16,10 +16,10 @@ require("nvim-gps").setup({
 })
 EOF
 
-func! Fticon() abort
-  let icon = luaeval("require'nvim-web-devicons'.get_icon( vim.bo.filetype)")
-  return icon != v:null? icon: ''
-endf
+" func! Fticon() abort
+"   let icon = luaeval("require'nvim-web-devicons'.get_icon( vim.bo.filetype)")
+"   return icon != v:null? icon: ''
+" endf
 
 func! NvimGps() abort
   let loc = luaeval("require'nvim-gps'.is_available()") ?  luaeval("require'nvim-gps'.get_location()") : ''

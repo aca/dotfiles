@@ -1,8 +1,9 @@
 # required for true color support
 # https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
-# env:
+env:
   # TERM: xterm-256color
   # TERM: tmux-256color
+  TERM: alacritty
 
 window:
   opacity: 1
@@ -21,12 +22,12 @@ scrolling:
   # auto_scroll: false
 
 font:
-  # normal:
+  normal:
   #   # family: Iosevka Curly Slab
   #   family: JetBrainsMono Nerd Font
   #   style: Italic
     # style: Text
-    # family: BlexMono Nerd Font Mono
+    family: BlexMono Nerd Font Mono
     
     # family: Operator Mono Book
     # family: Iosevka Term Curly Slab
@@ -51,8 +52,7 @@ font:
     # style: Bold
 
   italic:
-    family: BlexMono Nerd Font Mono
-    style: Italic
+    family: VictorMono Nerd Font Mono
 
   size: 20
   offset:
@@ -81,13 +81,13 @@ live_config_reload: true
 #     - -c
 #     - "tmux attach || tmux"
 
-# shell:
-#   program: /usr/local/bin/fish
-#   args:
-#     - --login 
-
 shell:
-  program: /usr/local/bin/elvish
+  program: /usr/local/bin/fish
+  args:
+    - --login
+
+# shell:
+#   program: /usr/local/bin/elvish
 
 
 working_directory: None

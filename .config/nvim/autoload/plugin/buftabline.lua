@@ -29,6 +29,6 @@ vim.g.bufferline = {
 }
 
 vim.cmd([[
-  packadd nvim-web-devicons
+  " packadd nvim-web-devicons
   packadd barbar.nvim
 ]])

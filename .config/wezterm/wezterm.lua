@@ -14,7 +14,7 @@ end
 -- if os.getenv("TMUX") ~= "" then
 --   inTmux = false
 -- end
- 
+
 -- wezterm.on("update-right-status", function(window, pane)
 --   local status = ""
 --   if window:dead_key_is_active() then
@@ -23,7 +23,6 @@ end
 --   end
 --   window:set_right_status(status)
 -- end);
-
 
 -- Equivalent to POSIX basename(3)
 -- Given "/foo/bar" returns "bar"
@@ -62,15 +61,15 @@ local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
 
 -- TODO
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-    local cwd = tab.active_pane.current_working_dir:sub(8,-1):gsub(homedir, "~")
+    local cwd = tab.active_pane.current_working_dir:sub(8, -1):gsub(homedir, "~")
     if tab.is_active then
-      return {
-        {Background={Color="black"}},
-        { Text = " " .. cwd .. " " },
-      }
+        return {
+            { Background = { Color = "black" } },
+            { Text = " " .. cwd .. " " },
+        }
     end
     return {
-        { Text = " " .. tab.tab_index + 1 .. ':' .. cwd .. " " },
+        { Text = " " .. tab.tab_index + 1 .. ":" .. cwd .. " " },
     }
 end)
 
@@ -184,7 +183,46 @@ local config = {
 
     enable_scroll_bar = false,
 
-    font = wezterm.font('Source Code Pro'),
+    -- performance issue, use tmux instead....
+    scrollback_lines = 5000,
+
+    -- font_rules = {
+    --   intensity = "Half",
+    --   font = wezterm.font("SauceCodePro Nerd Font", { weight = "Regular" }),
+    -- },
+
+    font_rules = {
+      -- Define a rule that matches when italic text is shown
+      {
+        -- If specified, this rule matches when a cell's italic value exactly
+        -- matches this.  If unspecified, the attribute value is irrelevant
+        -- with respect to matching.
+        -- italic = true,
+
+        -- Match based on intensity: "Bold", "Normal" and "Half" are supported
+        -- intensity = "Half",
+
+        -- Match based on underline: "None", "Single", and "Double" are supported
+        -- underline = "None",
+
+        -- Match based on the blink attribute: "None", "Slow", "Rapid"
+        -- blink = "None",
+
+        -- Match based on reverse video
+        -- reverse = false,
+
+        -- Match based on strikethrough
+        -- strikethrough = false,
+
+        -- Match based on the invisible attribute
+        -- invisible = false,
+
+        -- When the above attributes match, apply this font styling
+        font = wezterm.font("SauceCodePro Nerd Font"),
+      }
+    },
+
+    line_height = 0.9,
 
     adjust_window_size_when_changing_font_size = false,
     -- default_prog = { homedir .. "/bin/elvish" },
@@ -247,12 +285,9 @@ local config = {
         bottom = "0cell",
     },
 
-    -- performance issue, use tmux instead....
-    scrollback_lines = 0,
-
     -- timeout_milliseconds defaults to 1000 and can be omitted
-    -- leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
-    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
+    leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+    -- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
     send_composed_key_when_left_alt_is_pressed = false,
     keys = {
         { key = "w", mods = "CTRL", action = "QuickSelect" },
@@ -262,8 +297,8 @@ local config = {
 
         { key = "w", mods = "LEADER", action = "QuickSelect" },
 
-        { key = "Z", mods="LEADER", action="TogglePaneZoomState" },
-        { key = "z", mods="LEADER", action="TogglePaneZoomState" },
+        { key = "Z", mods = "LEADER", action = "TogglePaneZoomState" },
+        { key = "z", mods = "LEADER", action = "TogglePaneZoomState" },
 
         -- {key="UpArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=-1}},
         -- {key="DownArrow", mods="SHIFT", action=wezterm.action{ScrollToPrompt=1}},
@@ -277,10 +312,26 @@ local config = {
         -- {key="X", mods="CTRL", action="ActivateCopyMode"},
 
         -- split
-        { key = "%", mods = "LEADER|SHIFT", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
-        { key = "%", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), },
-        { key = '"', mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }), },
-        { key = '"', mods = "LEADER|SHIFT", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }), },
+        {
+            key = "%",
+            mods = "LEADER|SHIFT",
+            action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+        },
+        {
+            key = "%",
+            mods = "LEADER",
+            action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+        },
+        {
+            key = '"',
+            mods = "LEADER",
+            action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+        },
+        {
+            key = '"',
+            mods = "LEADER|SHIFT",
+            action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+        },
         {
             key = "v",
             mods = "LEADER",
@@ -345,9 +396,6 @@ local config = {
         { key = "x", mods = "ALT", action = wezterm.action({ SendString = "\x1bx" }) },
         { key = "y", mods = "ALT", action = wezterm.action({ SendString = "\x1by" }) },
         { key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
-
-
-
 
         -- -- pane move(vim aware)
         -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
