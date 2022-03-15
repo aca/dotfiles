@@ -49,3 +49,10 @@ vim.loop.new_timer():start(
       ]])
     end)
 )
+
+vim.cmd [[
+if executable('ugrep')
+    set grepprg=ugrep\ -RInk\ -j\ -u\ --tabs=1\ --ignore-files
+    set grepformat=%f:%l:%c:%m,%f+%l+%c+%m,%-G%f\\\|%l\\\|%c\\\|%m
+endif
+]]
