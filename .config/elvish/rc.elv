@@ -54,6 +54,7 @@ fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $
 fn mv {|@a| e:mv -v -n $@a }
 fn cp {|@a| e:cp -v -n $@a }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
+fn jq { |@a| e:jq -R 'fromjson?' $@a }
 
 # utils
 fn from-0 { || from-terminated "\x00" }

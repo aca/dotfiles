@@ -184,20 +184,7 @@ local config = {
 
     enable_scroll_bar = false,
 
-    -- font = wezterm.font('SauceCodePro Nerd Font', {stretch="UltraCondensed"}),
-    -- font = wezterm.font("JetBrains Mono", {bold=false, stretch="UltraCondensed"}),
-    -- font = wezterm.font('Iosevka Term', {stretch="Expanded", weight="Regular"}),
-    -- font = wezterm.font("Iosevka Curly Slab", {stretch="Expanded"}),
-    -- font = wezterm.font("Iosevka Curly Slab"),
-    -- font = wezterm.font("Iosevka Term", {weight="Regular"}),
-    font = wezterm.font('Source Code Pro', {weight="Medium"}),
-    -- font = wezterm.font('Office Code Pro', {stretch="Condensed", weight="Regular"}),
-    -- font = wezterm.font("Iosevka Nerd Font Mono"),
-    -- font = wezterm.font("Iosevka Slab"),
-    -- font = wezterm.font("Iosevka"),
-    -- font = wezterm.font("Noto Sans Mono", {stretch="SemiCondensed"}),
-    -- font = wezterm.font("Noto Sans Mono"),
-    -- font = wezterm.font("NotoSansMono Nerd Font Mono"),
+    font = wezterm.font('Source Code Pro'),
 
     adjust_window_size_when_changing_font_size = false,
     -- default_prog = { homedir .. "/bin/elvish" },
@@ -212,20 +199,20 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    color_scheme = 'primary',
+    -- color_scheme = 'synthwave',
 
-    -- colors = {
-    --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
-    --     -- background = "#1c1c1c",
-    --     background = "#000000",
-    --     brights = { "#4a4845", "#d78787", "#afbea2", "#e4c9af", "#a1bdce", "#d7beda", "#b1e7dd", "#efefef" },
-    --     cursor_bg = "#e4c9af",
-    --     cursor_border = "#e4c9af",
-    --     cursor_fg = "#000000",
-    --     foreground = "#d0d0d0",
-    --     selection_bg = "#4d4d4d",
-    --     selection_fg = "#ffffff",
-    -- },
+    colors = {
+        ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
+        -- background = "#1c1c1c",
+        background = "#000000",
+        brights = { "#4a4845", "#d78787", "#afbea2", "#e4c9af", "#a1bdce", "#d7beda", "#b1e7dd", "#efefef" },
+        cursor_bg = "#e4c9af",
+        cursor_border = "#e4c9af",
+        cursor_fg = "#000000",
+        foreground = "#d0d0d0",
+        selection_bg = "#4d4d4d",
+        selection_fg = "#ffffff",
+    },
 
     status_update_interval = 10000,
 

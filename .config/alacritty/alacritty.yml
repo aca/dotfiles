@@ -1,7 +1,8 @@
 # required for true color support
 # https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
-env:
-  TERM: xterm-256color
+# env:
+  # TERM: xterm-256color
+  # TERM: tmux-256color
 
 window:
   opacity: 1
@@ -20,11 +21,12 @@ scrolling:
   # auto_scroll: false
 
 font:
-  normal:
-    # family: Iosevka Curly Slab
-    # family: SauceCodePro Nerd Font Mono
+  # normal:
+  #   # family: Iosevka Curly Slab
+  #   family: JetBrainsMono Nerd Font
+  #   style: Italic
     # style: Text
-    family: BlexMono Nerd Font Mono
+    # family: BlexMono Nerd Font Mono
     
     # family: Operator Mono Book
     # family: Iosevka Term Curly Slab
@@ -48,8 +50,9 @@ font:
     # family: Dina
     # style: Bold
 
-  # italic:
-  #   family: BlexMono Nerd Font Mono
+  italic:
+    family: BlexMono Nerd Font Mono
+    style: Italic
 
   size: 20
   offset:
