@@ -454,3 +454,6 @@
 [submodule ".submodules/tmux-xpanes"]
 	path = .submodules/tmux-xpanes
 	url = https://github.com/greymd/tmux-xpanes.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/lualine.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim.git

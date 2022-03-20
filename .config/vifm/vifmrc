@@ -138,18 +138,13 @@ command! reload :write | restart
 set vifminfo=dhistory,chistory,state,tui,shistory,
     \phistory,fhistory,dirstack,registers,bookmarks,bmarks
 
-nnoremap s :shell<cr>
+
+" Start shell in current directory
+nnoremap s :q<cr>
 nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
 
-
-
-" Start shell in current directory
-nnoremap s :!elvish<cr>
-
-" Display sorting dialog
-nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
 nnoremap w :view<cr>

@@ -31,7 +31,6 @@ fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 # fn ll {|@a| if (has-external exa) { e:exa -l --icons $@a } else { e:ls -lt [&darwin=-G &linux=--color=auto][$platform:os] $@a }}
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn dc {|@a| cd $@a }
-fn f { e:vifm }
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
 fn v {|@a| e:nvim $@a }
 # fn e {|@a| edit:clear; tmux clear-history; }
@@ -53,8 +52,8 @@ fn zs {|@a| zsh $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn mv {|@a| e:mv -v -n $@a }
 fn cp {|@a| e:cp -v -n $@a }
-fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }
 fn jq { |@a| e:jq -R 'fromjson?' $@a }
+fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {|@a| vifm $@a}
 
 # utils
 fn from-0 { || from-terminated "\x00" }

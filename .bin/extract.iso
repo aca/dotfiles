@@ -5,8 +5,8 @@ for f in "$@"; do
   tmpdir=$(mktemp -d)
   mkdir -p "extracted/$f" || true
   sudo mount -o loop "$f" $tmpdir
-  sudo cp -rpv "$tmpdir"/* extracted/$f
-  sudo chown -R $USER:$(id -gn $USER) extracted/$f
-  sudo chmod -R 777 extracted/$f
-  sudo umount $tmpdir
+  # sudo cp -rpv "$tmpdir"/* extracted/$f
+  # sudo chown -R $USER:$(id -gn $USER) extracted/$f
+  # sudo chmod -R 777 extracted/$f
+  # sudo umount $tmpdir
 done
