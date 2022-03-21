@@ -81,13 +81,13 @@ live_config_reload: true
 #     - -c
 #     - "tmux attach || tmux"
 
-shell:
-  program: /usr/local/bin/fish
-  args:
-    - --login
-
 # shell:
-#   program: /usr/local/bin/elvish
+#   program: /usr/local/bin/fish
+#   args:
+#     - --login
+
+shell:
+  program: /usr/local/bin/elvish
 
 
 working_directory: None

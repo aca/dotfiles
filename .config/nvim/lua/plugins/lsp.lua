@@ -1,7 +1,7 @@
 -- vim:foldmethod=marker foldmarker=[[,]]
 
 -- DEBUG [[
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 -- ]]
 -- lspcontainers.nvim [[
