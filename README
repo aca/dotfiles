@@ -59,3 +59,4 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 # ghq
 asdf plugin add ghq
 asdf install ghq latest
+
