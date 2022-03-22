@@ -28,7 +28,7 @@ require("vim")
 require("plugins.treesitter")
 require("plugins.lsp")
 vim.loop.new_timer():start(
-    0,
+    1000,
     0,
     vim.schedule_wrap(function()
         -- require("plugins.dap")
