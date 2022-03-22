@@ -3,4 +3,4 @@ use str
 
 git add -A
 var msg = (git status --porcelain | awk '{$1=""; print substr($0,2)}' | str:join ', ' | echo Update (one))
-echo $msg | git commit -F -
+echo $msg | git commit --allow-empty-message -F -

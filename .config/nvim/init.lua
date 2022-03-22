@@ -1,5 +1,6 @@
 --
 -- TODO: https://github.com/shaunsingh/nyoom.nvim
+-- TODO: https://github.com/akinsho/git-conflict.nvim
 --
 -- DEBUG [[
 -- vim.lsp.set_log_level("debug")
