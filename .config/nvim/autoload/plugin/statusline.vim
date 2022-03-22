@@ -22,8 +22,9 @@ EOF
 " endf
 
 func! NvimGps() abort
-  let loc = luaeval("require'nvim-gps'.is_available()") ?  luaeval("require'nvim-gps'.get_location()") : ''
-  return loc != "" ? loc : ' '
+  return luaeval("require'nvim-gps'.is_available()") ?  luaeval("require'nvim-gps'.get_location()") : ''
 endf
 
-set statusline=%1*\ %{NvimGps()}\ %2*\ %<%f%m%r%h%w%=%{mode()}\ %p%%\ %l:%v
+" comp.separator = left and { right = '' } or { left = '' }
+
+set statusline=%1*\ %{NvimGps()}\ %2*\ %<%f%m%r%h%w%=%{mode()}\ %p%%\ %1*\ %l:%v\ 

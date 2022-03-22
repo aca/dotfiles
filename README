@@ -24,7 +24,9 @@ cd ~/src/configs/dotfiles && git pull --rebase && git submodule update --init
 
 Update
 ------
+git submodule update --init --force
 git submodule update --init --remote --force
+
 
 # set branch for submodules
 git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'

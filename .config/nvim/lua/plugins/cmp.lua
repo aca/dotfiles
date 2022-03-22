@@ -1,17 +1,16 @@
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 
+local api = vim.api
+
 vim.cmd([[ 
 packadd nvim-cmp
 packadd cmp-under-comparator
 packadd cmp-buffer
 packadd cmp-nvim-lsp
 packadd cmp-path
-packadd cmp-copilot
-
-" packadd cmp-tmux
+packadd cmp_luasnip
 
 packadd friendly-snippets
-packadd cmp_luasnip
 
 highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
 highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
@@ -28,46 +27,32 @@ highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
 local cmp = require("cmp")
 require("cmp_nvim_lsp").setup()
+
 cmp.register_source("path", require("cmp_path").new())
+
 cmp.register_source("buffer", require("cmp_buffer"))
 
--- Luasnip [[
--- ~/.local/share/nvim/site/pack/paqs/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua
+-- ~/.local/share/nvim/site/pack/bundle/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua
 cmp.register_source("luasnip", require("cmp_luasnip").new())
-vim.api.nvim_exec(
-    [[
-  augroup cmp_luasnip
-    au!
-    autocmd User LuasnipCleanup lua require'cmp_luasnip'.clear_cache()
-    autocmd User LuasnipSnippetsAdded lua require'cmp_luasnip'.refresh()
-  augroup END
-]],
-    false
-)
--- ]]
+local augroup_cmp_luasnip = api.nvim_create_augroup("cmp_luasnip", {})
+api.nvim_create_autocmd("User", {
+    group = augroup_cmp_luasnip,
+    pattern = "LuasnipCleanup",
+    callback = function()
+        require("cmp_luasnip").clear_cache()
+    end,
+})
+api.nvim_create_autocmd("User", {
+    group = augroup_cmp_luasnip,
+    pattern = "LuasnipSnippetsAdded",
+    callback = function()
+        require("cmp_luasnip").refresh()
+    end,
+})
 
--- vim.g.vsnip_filetypes = {
--- 	javascriptreact = { "javascript" },
--- 	sh = { "bash" },
--- 	typescriptreact = { "typescript", "javascript" },
--- 	vimspec = { "vim" },
--- }
---
--- vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
-
-local remap = vim.api.nvim_set_keymap
-local npairs = require("nvim-autopairs")
-
--- local tabnine = require('cmp_tabnine.config')
--- tabnine:setup({
---         max_lines = 500;
---         max_num_results = 4;
---         sort = true;
---         run_on_every_keystroke = true;
--- })
-
+local remap = api.nvim_set_keymap
 local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+    return api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local cmp_sources = {
@@ -239,7 +224,6 @@ cmp.setup({
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
             if false then

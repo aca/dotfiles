@@ -23,10 +23,9 @@ scrolling:
 
 font:
   normal:
-  #   # family: Iosevka Curly Slab
-  #   family: JetBrainsMono Nerd Font
-  #   style: Italic
-    # style: Text
+    # family: Iosevka Curly Slab
+    # family: JetBrainsMono Nerd Font
+    style: Light
     family: BlexMono Nerd Font Mono
     
     # family: Operator Mono Book
@@ -44,6 +43,7 @@ font:
     # family: Iosevka Nerd Font Mono
     # family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
+    # family: SauceCodePro Nerd Font
 
   # bold:
     # family: FuraCode Nerd Font Mono
@@ -51,13 +51,13 @@ font:
     # family: Dina
     # style: Bold
 
-  italic:
-    family: VictorMono Nerd Font Mono
+  # italic:
+  #   family: VictorMono Nerd Font Mono
 
   size: 20
   offset:
     x: -2
-    y: 0
+    y: -2
 
   glyph_offset:
     x: 0 
@@ -404,46 +404,46 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Black Metal (Mayhem) 256 - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Chalk 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xc1c1c1'
+    background: '0x151515'
+    foreground: '0xd0d0d0'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xc1c1c1'
+    text: '0x151515'
+    cursor: '0xd0d0d0'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xf3ecd4'
-    yellow:  '0xeecc6c'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    black:   '0x151515'
+    red:     '0xfb9fb1'
+    green:   '0xacc267'
+    yellow:  '0xddb26f'
+    blue:    '0x6fc2ef'
+    magenta: '0xe1a3ee'
+    cyan:    '0x12cfc0'
+    white:   '0xd0d0d0'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0x5f8787'
-    green:   '0xf3ecd4'
-    yellow:  '0xeecc6c'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    black:   '0x505050'
+    red:     '0xfb9fb1'
+    green:   '0xacc267'
+    yellow:  '0xddb26f'
+    blue:    '0x6fc2ef'
+    magenta: '0xe1a3ee'
+    cyan:    '0x12cfc0'
+    white:   '0xf5f5f5'
 
   indexed_colors:
-    - { index: 16, color: '0xaaaaaa' }
-    - { index: 17, color: '0x444444' }
-    - { index: 18, color: '0x121212' }
-    - { index: 19, color: '0x222222' }
-    - { index: 20, color: '0x999999' }
-    - { index: 21, color: '0x999999' }
+    - { index: 16, color: '0xeda987' }
+    - { index: 17, color: '0xdeaf8f' }
+    - { index: 18, color: '0x202020' }
+    - { index: 19, color: '0x303030' }
+    - { index: 20, color: '0xb0b0b0' }
+    - { index: 21, color: '0xe0e0e0' }
 # ColorEnd

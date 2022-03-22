@@ -3,8 +3,8 @@
 " colorscheme substrata
 " colorscheme raider
 " colorscheme monotone
-" colorscheme tomorrow-night
-colorscheme falcon
+colorscheme tomorrow-night
+" colorscheme falcon
 " colorscheme seoul256
 
 " hi! link LspDiagnosticsDefaultInformation Comment
@@ -56,6 +56,7 @@ hi! DiagnosticSignHint gui=italic
 
 hi! User1 guifg=#131A1C guibg=#928374
 hi! User2 guifg=#928374 guibg=#131A1C gui=none
-set statusline=%1*\ \ \ %2*\ %<%f%m%r%h%w%=%p%%\ %l:%v
+" set statusline=%1*\ \ \ %2*\ %<%f%m%r%h%w%=%p%%\ %l:%v
+set statusline=%1*\ \ %2*\ %<%f%m%r%h%w%=%{mode()}\ %p%%\ %1*\ %l:%v\ 
 
 

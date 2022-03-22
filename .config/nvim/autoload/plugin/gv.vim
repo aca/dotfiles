@@ -1,3 +1,3 @@
-packadd fugitive
-packadd gv.vim
+" packadd fugitive
+" packadd gv.vim
 

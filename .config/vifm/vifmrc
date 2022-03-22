@@ -233,9 +233,6 @@ endif
 
 " crown vifm color scheme for 256 and 24-bit colors
 
-" Reset all styles first
-
-highlight clear
 " highlight Win cterm=none ctermfg=245 ctermbg=234
 " highlight Directory cterm=bold ctermfg=166 ctermbg=234
 " highlight Link cterm=bold ctermfg=yellow ctermbg=234
@@ -259,12 +256,8 @@ highlight clear
 " highlight Border cterm=none ctermfg=none ctermbg=none
 
 " Reset all styles first
-highlight clear
-
+" highlight clear
 highlight Border	cterm=none	ctermfg=237	ctermbg=0
-
-" highlight TopLine	cterm=underline	ctermfg=188	ctermbg=0
-" highlight TopLineSel cterm=underline gui=italic ctermfg=255 ctermbg=0
 
 highlight TopLine cterm=italic gui=italic ctermfg=0 ctermbg=255
 highlight TopLineSel cterm=italic gui=italic ctermfg=0 ctermbg=255
