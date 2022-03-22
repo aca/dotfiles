@@ -302,7 +302,7 @@ hints:
       action: Copy
       post_processing: false
       binding:
-        key: W
+        key: S
         mods: Control
 
     # - regex: "(magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\

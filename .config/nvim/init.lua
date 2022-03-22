@@ -1,3 +1,6 @@
+--
+-- TODO: https://github.com/shaunsingh/nyoom.nvim
+--
 -- DEBUG [[
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
@@ -21,14 +24,14 @@ local g = vim.g
 local cmd = vim.cmd
 
 -- https://github.com/lewis6991/impatient.nvim
-require("impatient")
--- require("impatient").enable_profile()
+-- require("impatient")
+require("impatient").enable_profile()
 require("globals")
 require("vim")
 require("plugins.treesitter")
 require("plugins.lsp")
 vim.loop.new_timer():start(
-    1000,
+    100,
     0,
     vim.schedule_wrap(function()
         -- require("plugins.dap")
