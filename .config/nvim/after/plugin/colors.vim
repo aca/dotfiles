@@ -59,4 +59,5 @@ hi! User2 guifg=#928374 guibg=#131A1C gui=none
 " set statusline=%1*\ \ \ %2*\ %<%f%m%r%h%w%=%p%%\ %l:%v
 set statusline=%1*\ \ %2*\ %<%f%m%r%h%w%=%{mode()}\ %p%%\ %1*\ %l:%v\ 
 
+hi! MsgArea gui=italic guibg=#000000 guifg=#ffffff
 

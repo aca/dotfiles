@@ -54,7 +54,7 @@ opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
 if g._minimal then
     opt.laststatus = 0
 else
-    opt.laststatus = 3
+    opt.laststatus = 0
 end
 
 opt.formatoptions = opt.formatoptions

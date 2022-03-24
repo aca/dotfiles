@@ -1,6 +1,7 @@
 --
 -- TODO: https://github.com/shaunsingh/nyoom.nvim
 -- TODO: https://github.com/akinsho/git-conflict.nvim
+-- TODO: https://github.com/stevearc/stickybuf.nvim
 --
 -- DEBUG [[
 -- vim.lsp.set_log_level("debug")
@@ -63,3 +64,9 @@ vim.api.nvim_create_autocmd("InsertEnter", {
         require("plugins.autopairs")
     end,
 })
+
+--
+-- vim.cmd [[packadd orgmode]]
+-- require("orgmode").setup{}
+-- require('orgmode').setup_ts_grammar()
+--
