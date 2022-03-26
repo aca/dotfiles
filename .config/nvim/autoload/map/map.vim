@@ -145,8 +145,8 @@ nnoremap ]j g,
 
 " Split
 nnoremap <leader>o :only<cr>
-noremap  <Leader>h :<C-u>split<CR>
-noremap  <Leader>v :<C-u>vsplit<CR>
+" noremap  <Leader>h :<C-u>split<CR>
+" noremap  <Leader>v :<C-u>vsplit<CR>
 command! Fish terminal fish
 " nnoremap <leader>s :botright 10sp<bar>  :Fish<cr>i
 " noremap <Leader>h :vs<bar>:terminal fish<CR>i

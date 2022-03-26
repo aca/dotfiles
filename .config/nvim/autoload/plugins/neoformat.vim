@@ -11,4 +11,3 @@ let g:neoformat_lua_stylua = {
 \ }
 
 packadd neoformat
-

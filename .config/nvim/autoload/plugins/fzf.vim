@@ -1,5 +1,10 @@
 packadd fzf
 packadd fzf.vim
+packadd fugutive.vim
+
+" let g:fzf_preview_git_status_preview_command =
+"     \ "[[ $(git diff --cached -- {-1}) != \"\" ]] && git diff --cached --color=always -- {-1} | delta || " .
+"     \ "[[ $(git diff -- {-1}) != \"\" ]] && git diff --color=always -- {-1} | delta || " 
 
 let g:fzf_action = {
 \ 'ctrl-t': 'tab split',
@@ -9,11 +14,12 @@ let g:fzf_action = {
 
 " Rg without filename
 command! -bang -nargs=* Rg          call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4.. '}), 0)
-command! -bang -nargs=* RgWithFile call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
+command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
 
-" https://github.com/junegunn/fzf/issues/1143
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md#hide-statusline
 autocmd! FileType fzf
-autocmd  FileType fzf setlocal laststatus=1 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
 
 " TODO: reset
 " au FileType fzf tnoremap <buffer> <Esc> <c-c>

@@ -10,7 +10,7 @@ o.shortmess = "aItcF"
 o.clipboard = "unnamed,unnamedplus"
 o.virtualedit = "block"
 o.nrformats = "bin,hex,alpha,octal"
-opt.signcolumn = "no"
+opt.signcolumn = "yes"
 
 opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
 

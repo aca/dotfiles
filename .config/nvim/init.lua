@@ -26,8 +26,8 @@ local g = vim.g
 local cmd = vim.cmd
 
 -- https://github.com/lewis6991/impatient.nvim
--- require("impatient")
 require("impatient").enable_profile()
+-- require("impatient")
 require("globals")
 require("vim")
 require("plugins.treesitter")
@@ -41,7 +41,7 @@ vim.loop.new_timer():start(
         require("plugins.cmp")
 
         cmd([[
-      runtime! autoload/plugin/*
+      runtime! autoload/plugins/*
       runtime! autoload/func/*
       runtime! autoload/autocmd/*
       runtime! autoload/command/*
@@ -65,8 +65,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     end,
 })
 
---
--- vim.cmd [[packadd orgmode]]
--- require("orgmode").setup{}
--- require('orgmode').setup_ts_grammar()
---
+-- vim.cmd [[ runtime autoload/plugins/gitsigns.lua ]]
+vim.cmd [[
+]]

@@ -33,6 +33,7 @@ emptyDir $HOME/.config/fcitx
 emptyDir $HOME/.config/pulse
 emptyDir $HOME/.config/nvim
 emptyDir $HOME/.config/nvim/autoload
+emptyDir $HOME/.config/elvish
 
 rmf $HOME/.hammerspoon
 rmf $HOME/.scripts
@@ -104,9 +105,9 @@ rmf $HOME/.ssh/config
 # }}}
 
 # plugins {{{
-commandExists zoxide && zoxide init fish > dotfiles/.config/fish/zoxide.fish
-commandExists zoxide && zoxide init elvish > dotfiles/.config/elvish/lib/zoxide.elv
-commandExists pueue && pueue completions elvish dotfiles/.config/elvish/lib
+# commandExists zoxide && zoxide init fish > dotfiles/.config/fish/zoxide.fish
+# commandExists zoxide && zoxide init elvish > dotfiles/.config/elvish/lib/zoxide.elv
+# commandExists pueue && pueue completions elvish dotfiles/.config/elvish/lib
 # }}}
 
 # stow {{{
