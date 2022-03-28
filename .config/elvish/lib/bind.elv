@@ -48,7 +48,7 @@ set edit:insert:binding[Ctrl-T] = {||
 }
 
 fn copy_current_command {||
-  echo $edit:current-command | pbcopy
+  echo $edit:current-command | yank
 }
 set edit:insert:binding[Ctrl-X] = {|| copy_current_command >/dev/tty 2>&1 }
 
