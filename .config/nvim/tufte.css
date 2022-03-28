@@ -24,11 +24,6 @@ html {
     overflow-x: hidden;
 }
 
-.markdown-body {
-  border: none !important;
-  font-family: 'Crimson Pro', serif !important;
-}
-
 .code {
   /* font-family: 'Crimson Pro', serif !important; */
   margin: 7px !important;
@@ -48,7 +43,7 @@ html {
     --color-text-link: #58a6ff !important;
     --color-bg-primary: #000000 !important;
     --color-bg-secondary: #000000 !important;
-    --color-bg-tertiary: #161b22 !important;
+    --color-bg-tertiary: #121212 !important;
     --color-border-primary: #30363d !important;
     --color-border-secondary: #21262d !important;
     --color-border-tertiary: #6e7681 !important;
@@ -65,7 +60,7 @@ html {
     --color-text-link: #58a6ff !important;
     --color-bg-primary: #000000 !important;
     --color-bg-secondary: #000000 !important;
-    --color-bg-tertiary: #161b22 !important;
+    --color-bg-tertiary: #121212 !important;
     --color-border-primary: #30363d !important;
     --color-border-secondary: #21262d !important;
     --color-border-tertiary: #6e7681 !important;
@@ -97,7 +92,8 @@ html {
   word-wrap: break-word;
   padding: 45px;
   background: var(--color-bg-primary);
-  border: 1px solid var(--color-border-primary);
+  /* border: 1px solid var(--color-border-primary); */
+  border: none !important;
   -webkit-border-radius: 0 0 3px 3px;
   border-radius: 0 0 3px 3px;
 }
@@ -295,6 +291,7 @@ html {
 }
 .markdown-body code {
   /* font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace; */
+  font-family: "Iosevka", monospace;
   padding: 0;
   padding-top: 0.2em;
   padding-bottom: 0.2em;

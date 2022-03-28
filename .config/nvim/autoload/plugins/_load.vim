@@ -12,10 +12,14 @@ packadd bufferize.vim
 " packadd vim-diagon
 packadd vim-scriptease 
 packadd diffview.nvim 
+packadd nvim-web-devicons
 " packadd todo-comments.nvim 
 packadd nvim-colorizer.lua
 " packadd webapi-vim
 " packadd vim-gist
+
+packadd stabilize.nvim
+lua require("stabilize").setup()
 
 " packadd fugitive
 " packadd gv.vim
@@ -34,9 +38,9 @@ let g:nf_map_previous='[f'
 packadd nextfile.vim
 
 " plugin: vim-oscyank
-packadd vim-oscyank
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''  | silent OSCYankReg " | endif
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
+" packadd vim-oscyank
+" autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''  | silent OSCYankReg " | endif
+" autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
 
 " plugin: suda.vim
 packadd suda.vim
@@ -91,11 +95,4 @@ command! Codi :packadd codi.vim | :Codi
 " plugin: luapad
 command! Luapad packadd nvim-luapad | :Luapad
 
-
-" let g:lens#height_resize_min = 5
-" let g:lens#width_resize_min = 10
-" let g:lens#width_resize_max = 30
-
-let g:lens#disabled_filetypes = ['nerdtree', 'fzf', 'DiffviewFiles']
-" packadd animate.vim
-packadd lens.vim
+packadd vim-boxdraw

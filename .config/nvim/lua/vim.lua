@@ -16,7 +16,7 @@ opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
 
 o.termguicolors = true
 
-o.diffopt = "filler,vertical,internal,algorithm:histogram,context:1000000" -- https://jdhao.github.io/2021/10/24/diff_in_vim/
+opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 o.completeopt = "menu,menuone,noselect"
 
 opt.fillchars = opt.fillchars + {
@@ -54,7 +54,7 @@ opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
 if g._minimal then
     opt.laststatus = 0
 else
-    opt.laststatus = 0
+    opt.laststatus = 3
 end
 
 opt.formatoptions = opt.formatoptions

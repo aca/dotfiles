@@ -26,8 +26,8 @@ local g = vim.g
 local cmd = vim.cmd
 
 -- https://github.com/lewis6991/impatient.nvim
-require("impatient").enable_profile()
--- require("impatient")
+-- require("impatient").enable_profile()
+require("impatient")
 require("globals")
 require("vim")
 require("plugins.treesitter")
@@ -39,6 +39,7 @@ vim.loop.new_timer():start(
         -- require("plugins.dap")
         require("plugins.luasnip")
         require("plugins.cmp")
+        require("plugins.autopairs")
 
         cmd([[
       runtime! autoload/plugins/*
@@ -53,18 +54,14 @@ vim.loop.new_timer():start(
     end)
 )
 
-local augroup_init = vim.api.nvim_create_augroup("init", {
-    clear = false,
-})
-
-vim.api.nvim_create_autocmd("InsertEnter", {
-    group = augroup_init,
-    pattern = "*",
-    callback = function()
-        require("plugins.autopairs")
-    end,
-})
-
--- vim.cmd [[ runtime autoload/plugins/gitsigns.lua ]]
-vim.cmd [[
-]]
+-- local augroup_init = vim.api.nvim_create_augroup("init", {
+--     clear = false,
+-- })
+--
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+--     group = augroup_init,
+--     pattern = "*",
+--     callback = function()
+--         require("plugins.autopairs")
+--     end,
+-- })

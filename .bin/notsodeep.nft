@@ -3,8 +3,11 @@
 sudo iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 -j NFQUEUE --queue-num 200 --queue-bypass
 sudo iptables -t raw -I PREROUTING -p tcp --sport 80 --tcp-flags SYN,ACK SYN,ACK -j NFQUEUE --queue-num 200 --queue-bypass
 
-# sudo nft list table ip filter
-
+# https://github.com/farukuzun/notsodeep
+# https://wiki.nftables.org/wiki-nftables/index.php/Queueing_to_userspace
+# https://home.regit.org/netfilter-en/using-nfqueue-and-libnetfilter_queue/
+# https://wiki.nftables.org/wiki-nftables/index.php/Moving_from_iptables_to_nftables
+# sudo iptables-translate -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 -j NFQUEUE --queue-num 200 --queue-bypass
 
 # tmpfile=$(mktemp)
 # echo $tmpfile
