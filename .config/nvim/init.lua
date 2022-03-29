@@ -37,6 +37,7 @@ vim.loop.new_timer():start(
     0,
     vim.schedule_wrap(function()
         -- require("plugins.dap")
+        require("luasnip")
         require("plugins.luasnip")
         require("plugins.cmp")
         require("plugins.autopairs")

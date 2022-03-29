@@ -16,14 +16,14 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
-ls.snippets.python = {
-    s(
-        "ptpython",
-        fmt(
-            [[
-from ptpython.repl import embed; embed(globals(), locals())
-]],
-            {}
-        )
-    ),
-}
+-- ls.snippets.python = {
+--     s(
+--         "ptpython",
+--         fmt(
+--             [[
+-- from ptpython.repl import embed; embed(globals(), locals())
+-- ]],
+--             {}
+--         )
+--     ),
+-- }

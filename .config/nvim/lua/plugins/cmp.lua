@@ -10,7 +10,7 @@ packadd cmp-nvim-lsp
 packadd cmp-path
 packadd cmp_luasnip
 
-packadd friendly-snippets
+" packadd friendly-snippets
 
 highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
 highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6

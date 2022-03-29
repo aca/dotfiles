@@ -16,48 +16,48 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
-ls.snippets.go = {
-    s(
-        "funch",
-        fmt(
-            [[
-func {1}(w http.ResponseWriter, r *http.Request) {{
-    {2}
-}}
-]],
-            {
-                i(1), i(0)
-            }
-        )
-    ),
-    s(
-        "dff",
-        fmt(
-            [[
-defer func() {{
-  {1}
-}}()
-]],
-            {
-                i(0),
-            }
-        )
-    ),
-    s(
-        "errl",
-        fmt(
-            [[
-if err != nil {{
-  log.Fatal(err)
-}}
-]],
-            {}
-        )
-    ),
-    s(
-        "logflag",
-        fmt([[
-log.SetFlags(log.Lshortfile | log.Lmicroseconds | log.Lmsgprefix); log.SetPrefix("\033[31m")
-    ]],{})
-    ),
-}
+-- ls.snippets.go = {
+--     s(
+--         "funch",
+--         fmt(
+--             [[
+-- func {1}(w http.ResponseWriter, r *http.Request) {{
+--     {2}
+-- }}
+-- ]],
+--             {
+--                 i(1), i(0)
+--             }
+--         )
+--     ),
+--     s(
+--         "dff",
+--         fmt(
+--             [[
+-- defer func() {{
+--   {1}
+-- }}()
+-- ]],
+--             {
+--                 i(0),
+--             }
+--         )
+--     ),
+--     s(
+--         "errl",
+--         fmt(
+--             [[
+-- if err != nil {{
+--   log.Fatal(err)
+-- }}
+-- ]],
+--             {}
+--         )
+--     ),
+--     s(
+--         "logflag",
+--         fmt([[
+-- log.SetFlags(log.Lshortfile | log.Lmicroseconds | log.Lmsgprefix); log.SetPrefix("\033[31m")
+--     ]],{})
+--     ),
+-- }

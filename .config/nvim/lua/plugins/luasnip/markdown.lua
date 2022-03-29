@@ -20,7 +20,7 @@ local function get_file_name()
     return vim.fn.fnamemodify(vim.fn.bufname(), ":r")
 end
 
-ls.snippets.markdown = {
+ls.add_snippets("markdown", {
     s(
         "header",
         fmt(
@@ -28,7 +28,7 @@ ls.snippets.markdown = {
 ---
 title: {1}
 date: {2}
-tags: 
+tags:
 ---
 ]],
             {
@@ -37,4 +37,6 @@ tags:
             }
         )
     ),
-}
+})
+-- ls.snippets.markdown = {
+-- }

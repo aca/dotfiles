@@ -33,8 +33,8 @@ local function shebang(_, _)
     })
 end
 
-ls.snippets.all = {
-    s({ trig = "bang", dscr = "Add SheBang" }, {
-        d(1, shebang, {}),
-    }),
-}
+-- ls.snippets.all = {
+--     s({ trig = "bang", dscr = "Add SheBang" }, {
+--         d(1, shebang, {}),
+--     }),
+-- }
