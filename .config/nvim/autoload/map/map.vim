@@ -2,6 +2,7 @@
 " https://vim.fandom.com/wiki/Unused_keys
 " 
 
+map <a-v> <c-v>
 inoremap <c-c> <esc>
 vnoremap <c-c> <esc>
 vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'

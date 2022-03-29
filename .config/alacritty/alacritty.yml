@@ -211,8 +211,9 @@ key_bindings:
   - { key: Plus,    mods: Control|Shift,             action: IncreaseFontSize }
   - { key: Minus,     mods: Control,             action: DecreaseFontSize }
   # - { key: C,         mods: Control,             action: Copy             }
-  - { key: V,         mods: Control,       action: Paste            }
-  - { key: V,         mods: Control|Shift,   chars: "\x16"                        } # Ctrl + Space
+  # - { key: V,         mods: Control,       action: Paste            }
+  # - { key: V,         mods: Control|Shift,   chars: "\x16"                        }
+  - { key: V,         mods: Control|Shift,     action: Paste                }
   - { key: N,         mods: Command,           action: SpawnNewInstance }
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
   - { key: B,         mods: Alt,       chars: "\x1bb"                       }
