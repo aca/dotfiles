@@ -3,8 +3,8 @@
 " colorscheme substrata
 " colorscheme raider
 " colorscheme monotone
-colorscheme tomorrow-night
-" colorscheme falcon
+" colorscheme tomorrow-night
+colorscheme falcon
 " colorscheme seoul256
 
 " hi! link LspDiagnosticsDefaultInformation Comment

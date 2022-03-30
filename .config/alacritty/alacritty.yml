@@ -25,8 +25,8 @@ font:
   normal:
     # family: Iosevka Curly Slab
     # family: JetBrainsMono Nerd Font
-    # style: Light
-    family: BlexMono Nerd Font Mono
+    style: Light
+    family: BlexMono Nerd Font
     # family: SauceCodePro Nerd Font
     
     # family: Operator Mono Book
@@ -37,8 +37,6 @@ font:
     # family: VictorMono Nerd Font Mono
     # family: Lotion Nerd Font
     # family: DankMono Nerd Font
-    # style: SemiCondensed
-    # family: NotoSerif Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
     # family: Iosevka Nerd Font Mono
@@ -51,8 +49,8 @@ font:
     # family: Dina
     # style: Bold
 
-  # italic:
-  #   family: VictorMono Nerd Font Mono
+  italic:
+    family: BlexMono Nerd Font
 
   size: 28
   offset:
@@ -427,7 +425,7 @@ colors:
     blue:    '0x5454fc'
     magenta: '0xfc54fc'
     cyan:    '0x54fcfc'
-    white:   '0xc0c0c0'
+    white:   '0x000000'
 
   # Bright colors
   bright:

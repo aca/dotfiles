@@ -43,7 +43,7 @@ opt.foldmethod="syntax"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 -- -- g.foldmethod = "marker"
-g.foldcolumn = 1
+g.foldcolumn = 0
 
 opt.ignorecase = true -- Ignore case when searching...
 opt.smartcase = true -- ... unless there is a capital letter in the query
@@ -51,11 +51,7 @@ opt.showmatch = true -- show matching brackets when text indicator is over them
 opt.updatetime = 1000 -- Make updates happen faster
 opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
 opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
-if g._minimal then
-    opt.laststatus = 0
-else
-    opt.laststatus = 3
-end
+opt.laststatus = 3
 
 opt.formatoptions = opt.formatoptions
     - "a" -- Auto formatting is BAD.
@@ -76,10 +72,8 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
-opt.number = false
--- if g._minimal then
---     opt.number = false
--- end
+opt.number = true
+opt.relativenumber = true
 
 -- Tabs
 opt.autoindent = true

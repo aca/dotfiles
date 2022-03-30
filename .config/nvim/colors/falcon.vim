@@ -1,3 +1,7 @@
+hi! GitSignsAdd    guibg=NONE guifg=#109868
+hi! GitSignsDelete guibg=NONE guifg=#9A353D
+hi! GitSignsChange guibg=NONE guifg=#e0af68
+
 hi! link AspVBSVariableSimple Identifier
 hi! link AspVBSStatement Keyword
 hi! ColorColumn guifg=NONE ctermfg=NONE guibg=#151521 ctermbg=234 gui=NONE cterm=NONE

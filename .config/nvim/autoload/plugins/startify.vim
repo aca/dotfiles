@@ -1,5 +1,3 @@
-if exists('g:_minimal') && g:_minimal == v:true | finish | end
-
 packadd vim-startify
 
 function! s:gitModified()
@@ -33,4 +31,3 @@ nnoremap <silent><leader>x :Startify<cr>
 "     \ { 'type': 'bookmarks', 'header': startify#center(['Bookmarks']) },
 "     \ { 'type': 'commands',  'header': startify#center(['Commands']) },
 "     \ ]
-

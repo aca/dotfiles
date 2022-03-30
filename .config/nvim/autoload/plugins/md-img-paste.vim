@@ -1,5 +1,3 @@
-if exists('g:_minimal') && g:_minimal == v:true | finish | end
-
 let g:mdip_imgdir_absolute = expand("~/src/zettels/archive")
 
 function s:img_paste()

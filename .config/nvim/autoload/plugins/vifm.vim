@@ -1,5 +1,3 @@
-if exists('g:_minimal') && g:_minimal == v:true | finish | end
-
 function s:vifm()
   let g:floaterm_opener="edit"
   packadd vim-floaterm

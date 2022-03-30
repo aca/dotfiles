@@ -1,5 +1,3 @@
-if exists('g:_minimal') && g:_minimal == v:true | finish | end
-
 packadd gina.vim
 cnoreabbrev Git Gina
 

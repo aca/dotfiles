@@ -1,4 +1,4 @@
---
+-- TODO: lazy loading tricks https://github.com/ray-x/nvim/blob/master/lua/core/lazy.lua
 -- TODO: https://github.com/shaunsingh/nyoom.nvim
 -- TODO: https://github.com/akinsho/git-conflict.nvim
 -- TODO: https://github.com/stevearc/stickybuf.nvim
@@ -24,25 +24,22 @@
 local vim = vim
 local g = vim.g
 local cmd = vim.cmd
+local defer_fn = vim.defer_fn
 
 -- https://github.com/lewis6991/impatient.nvim
 -- require("impatient").enable_profile()
 require("impatient")
-require("globals")
 require("vim")
 require("plugins.treesitter")
 require("plugins.lsp")
-vim.loop.new_timer():start(
-    100,
-    0,
-    vim.schedule_wrap(function()
-        -- require("plugins.dap")
-        require("luasnip")
-        require("plugins.luasnip")
-        require("plugins.cmp")
-        require("plugins.autopairs")
 
-        cmd([[
+defer_fn(function()
+    -- require("plugins.dap")
+    require("plugins.luasnip")
+    require("plugins.cmp")
+    require("plugins.autopairs")
+
+    cmd([[
       runtime! autoload/plugins/*
       runtime! autoload/func/*
       runtime! autoload/autocmd/*
@@ -50,19 +47,11 @@ vim.loop.new_timer():start(
       runtime! autoload/map/*
       runtime! autoload/lib/*
       runtime! autoload/local/*
-      " helptags ALL
-      ]])
-    end)
-)
+    ]])
+end, 30)
 
--- local augroup_init = vim.api.nvim_create_augroup("init", {
---     clear = false,
--- })
---
--- vim.api.nvim_create_autocmd("InsertEnter", {
---     group = augroup_init,
---     pattern = "*",
---     callback = function()
---         require("plugins.autopairs")
---     end,
--- })
+defer_fn(function()
+    cmd([[ 
+    silent! helptags ALL 
+  ]])
+end, 300)

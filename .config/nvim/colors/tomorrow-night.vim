@@ -36,8 +36,10 @@ hi! Title          ctermfg=4 guifg=#81a2be
 hi! Conceal        ctermfg=4 ctermbg=0 guifg=#81a2be guibg=#1d1f21
 hi! Cursor         ctermfg=0 ctermbg=7 guifg=#1d1f21 guibg=#c5c8c6
 hi! NonText        ctermfg=8 gui=bold guifg=#969896
-hi! LineNr         guibg=NONE ctermbg=NONE gui=italic guifg=#900000 ctermfg=8
-hi! CursorLineNr   guibg=NONE ctermbg=NONE gui=italic guifg=#968000 ctermfg=8
+" hi! LineNr         guibg=NONE ctermbg=NONE gui=italic guifg=#900000 ctermfg=8
+" hi! CursorLineNr   guibg=NONE ctermbg=NONE gui=italic guifg=#968000 ctermfg=8
+hi link LineNr Comment
+hi link CursorLineNr Comment
 
 hi! GitSignsAdd    guibg=NONE guifg=#109868
 hi! GitSignsDelete guibg=NONE guifg=#9A353D
