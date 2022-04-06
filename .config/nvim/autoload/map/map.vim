@@ -61,7 +61,7 @@ function AerialToggle()
 endfunction
 nnoremap <silent> ;t :call AerialToggle()<cr>
 " nnoremap <silent> ;t :AerialToggle <bar> wincmd p<cr>
-nnoremap <silent> ;n :set relativenumber!<CR>
+nnoremap <silent> ;n :set relativenumber! \| set number!<CR>
 nnoremap <silent> ;m :Messages<cr><c-w><c-w>
 
 function! Togglesigncolumn()
@@ -71,9 +71,10 @@ function! Togglesigncolumn()
     let &signcolumn='yes'
   endif
 endfunction
-nnoremap ;g :call Togglesigncolumn()\|Gitsigns toggle_signs<cr>
+" nnoremap <silent>;g :call Togglesigncolumn()\|Gitsigns toggle_signs<cr>
+nnoremap <silent>;g :call Togglesigncolumn()<cr>
 
-nnoremap <silent> ;s
+nnoremap <silent>;s
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>
              \ else <BAR>
