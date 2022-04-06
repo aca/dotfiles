@@ -1,7 +1,11 @@
--- TODO: lazy loading tricks https://github.com/ray-x/nvim/blob/master/lua/core/lazy.lua
--- TODO: https://github.com/shaunsingh/nyoom.nvim
--- TODO: https://github.com/akinsho/git-conflict.nvim
--- TODO: https://github.com/stevearc/stickybuf.nvim
+-- https://peppe.rs/posts/self-hosting_git/
+-- #TODO
+-- lazy loading tricks https://github.com/ray-x/nvim/blob/master/lua/core/lazy.lua
+-- https://github.com/shaunsingh/nyoom.nvim
+-- https://github.com/akinsho/git-conflict.nvim
+-- https://github.com/stevearc/stickybuf.nvim
+-- https://www.reddit.com/r/neovim/comments/ts8app/what_are_the_must_have_git_plugs_in_your_opinion/
+-- https://github.com/willchao612/vim-diagon
 --
 -- DEBUG [[
 -- vim.lsp.set_log_level("debug")
@@ -48,7 +52,7 @@ defer_fn(function()
       runtime! autoload/lib/*
       runtime! autoload/local/*
     ]])
-end, 30)
+end, 50)
 
 defer_fn(function()
     cmd([[ 
