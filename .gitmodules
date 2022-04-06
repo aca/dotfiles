@@ -478,3 +478,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-boxdraw"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-boxdraw
 	url = https://github.com/gyim/vim-boxdraw.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/cmp-nvim-lsp-signature-help"]
+	path = .local/share/nvim/site/pack/bundle/opt/cmp-nvim-lsp-signature-help
+	url = https://github.com/hrsh7th/cmp-nvim-lsp-signature-help.git

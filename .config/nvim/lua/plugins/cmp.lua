@@ -9,6 +9,7 @@ packadd cmp-buffer
 packadd cmp-nvim-lsp
 packadd cmp-path
 packadd cmp_luasnip
+packadd cmp-nvim-lsp-signature-help
 
 " packadd friendly-snippets
 
@@ -29,7 +30,7 @@ local cmp = require("cmp")
 require("cmp_nvim_lsp").setup()
 
 cmp.register_source("path", require("cmp_path").new())
-
+cmp.register_source('nvim_lsp_signature_help', require('cmp_nvim_lsp_signature_help').new())
 cmp.register_source("buffer", require("cmp_buffer"))
 
 -- ~/.local/share/nvim/site/pack/bundle/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua
@@ -61,6 +62,7 @@ local cmp_sources = {
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
     { name = "copilot" },
+    { name = 'nvim_lsp_signature_help' }
     -- { name = 'cmp_tabnine'},
     -- { name = "vsnip" },
     -- {
