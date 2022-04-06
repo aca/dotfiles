@@ -1,7 +1,0 @@
-#!/bin/sh
-
-mkdir -p ~/src/zettels/log 2>/dev/null || true
-cd ~/src/zettels/log
-
-suffix=${1:-$(hostname)}
-$EDITOR "$HOME/src/zettels/log/"$(date '+%Y-%m-%d')_$suffix.md

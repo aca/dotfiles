@@ -6,6 +6,7 @@
 -- https://github.com/stevearc/stickybuf.nvim
 -- https://www.reddit.com/r/neovim/comments/ts8app/what_are_the_must_have_git_plugs_in_your_opinion/
 -- https://github.com/willchao612/vim-diagon
+-- lua highlight
 --
 -- DEBUG [[
 -- vim.lsp.set_log_level("debug")
