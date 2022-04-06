@@ -1,5 +1,5 @@
 #!/bin/sh
 set -e
 
-gc
+gc || true
 git push "$@"
