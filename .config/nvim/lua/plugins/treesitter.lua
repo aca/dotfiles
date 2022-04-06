@@ -1,7 +1,7 @@
 vim.cmd([[
         packadd nvim-treesitter
         " packadd nvim-ts-rainbow
-        " packadd playground
+        packadd playground
 ]])
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()

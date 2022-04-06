@@ -31,3 +31,7 @@ require("Comment").setup({
           end
     end,
 })
+
+local ft = require('Comment.ft')
+ft.set('javascript', {'//%s', '/*%s*/'}).set('conf', '#%s')
+ft.set('typescript', {'//%s', '/*%s*/'}).set('conf', '#%s')

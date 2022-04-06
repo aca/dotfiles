@@ -1,16 +1,6 @@
-" /usr/local/share/nvim/runtime/filetype.vim
-
 " TODO: this will break `:Gina log`, cannot set syntax off for buffer only
 " use treesitter highlight(disable others)
 " autocmd FileType bash,c,c_sharp,clojure,cmake,comment,commonlisp,cpp,css,dockerfile,fennel,fish,go,gomod,graphql,hcl,html,java,javascript,jsdoc,json,jsonc,lua,vim,markdown syntax clear
-
-" au BufNewFile,BufFilePre,BufRead *.md,*.markdown set filetype=markdown.pandoc
-
-" au BufRead,BufNewFile *.rkt,*.rktl  setf scheme
-" au BufRead,BufNewFile *.fish        setf fish
-" au BufRead,BufNewFile *.tf,*.tfvars setf terraform
-" au BufRead,BufNewFile *.hcl         setf hcl
-" au BufRead,BufNewFile *.h           setf c
 
 " restore cursor position on start
 autocmd BufReadPost * silent! exe "normal! g`\"" 
@@ -19,17 +9,7 @@ autocmd BufReadPost * silent! exe "normal! g`\""
 autocmd BufWinEnter,BufAdd * if (&ft =="") | setlocal commentstring=#\ %s | endif
 
 " zettels
-autocmd BufNewFile ~/src/zettels/**.md execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
+autocmd BufNewFile ~/src/zk/**.md execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
 
 " turn syntax off for long yaml
 autocmd FileType yaml if line('$') > 500 | setlocal syntax=OFF | endif
-
-
-
-" :autocmd BufEnter *.png,*.jpg,*gif exec "! wezterm imgcat ". fnameescape(expand("%"))
-" :autocmd BufEnter *.png,*.jpg,*gif exec "! imgcat ". fnameescape(expand("%"))
-" :autocmd BufEnter *.png,*.jpg,*gif exec "! imgcat ".expand("%") | :bw
-
-" https://stackoverflow.com/questions/1095708/disable-warning-in-vim
-" autocmd FileChangedRO * echohl WarningMsg | echo "File changed RO." | echohl None
-" autocmd FileChangedShell * echohl WarningMsg | echo "File changed shell." | echohl None

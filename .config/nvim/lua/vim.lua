@@ -51,7 +51,7 @@ opt.showmatch = true -- show matching brackets when text indicator is over them
 opt.updatetime = 1000 -- Make updates happen faster
 opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
 opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
-opt.laststatus = 3
+opt.laststatus = 2
 
 opt.formatoptions = opt.formatoptions
     - "a" -- Auto formatting is BAD.
@@ -72,8 +72,8 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false -- Two spaces and grade school, we're done
 opt.belloff = "all" -- Just turn the dang bell off
 
-opt.number = true
-opt.relativenumber = true
+opt.number = false
+opt.relativenumber = false
 
 -- Tabs
 opt.autoindent = true
