@@ -138,3 +138,7 @@ g.do_filetype_lua = 1
 -- g.loaded_netrwSettings = 1
 -- g.loaded_netrwFileHandlers = 1
 g.loaded_netrwPlugin = 1
+
+vim.cmd [[
+set statusline=%<%f%m%r%h%w%=%-8(%l\ :\ %c%V%)\ %P 
+]]

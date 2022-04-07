@@ -4,6 +4,7 @@ env:
   # TERM: xterm-256color
   # TERM: tmux-256color
   TERM: alacritty
+  LC_CTYPE: UTF-8
 
 window:
   opacity: 1
@@ -25,15 +26,16 @@ font:
   normal:
     # family: Iosevka Curly Slab
     # family: JetBrainsMono Nerd Font
-    # style: Light
-    # family: BlexMono Nerd Font
-    family: SauceCodePro Nerd Font
+    style: Light
+    family: BlexMono Nerd Font
+    # # family: SauceCodePro Nerd Font
+    # family: SpaceMono Nerd Font
     
     # family: Operator Mono Book
-    # # family: Iosevka Term Curly Slab
+    # family: Iosevka Term Curly Slab
     # family: Hasklug Nerd Font Mono
-    # family: MesloLGL Nerd Font Mono
-    # family: Noto Sans Condensed Medium Nerd Font
+    # family: JetBrains Mono
+    # family: Noto Sans
     # family: VictorMono Nerd Font Mono
     # family: Lotion Nerd Font
     # family: DankMono Nerd Font
@@ -54,7 +56,7 @@ font:
 
   size: 28
   offset:
-    x: -4
+    x: -3
     y: 0
 
   glyph_offset:
@@ -403,7 +405,7 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Black Metal (Bathory) - alacritty color config
+# Base16 Black Metal (Mayhem) - alacritty color config
 # metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
@@ -420,8 +422,8 @@ colors:
   normal:
     black:   '0x000000'
     red:     '0x5f8787'
-    green:   '0xfbcb97'
-    yellow:  '0xe78a53'
+    green:   '0xf3ecd4'
+    yellow:  '0xeecc6c'
     blue:    '0x888888'
     magenta: '0x999999'
     cyan:    '0xaaaaaa'

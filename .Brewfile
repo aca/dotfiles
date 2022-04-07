@@ -14,6 +14,7 @@ tap "homebrew/services"
 tap "jesseduffield/lazygit"
 tap "jez/formulae"
 tap "johanhaleby/kubetail"
+tap "k1low/tap"
 tap "koekeishiya/formulae"
 tap "sachaos/tap"
 tap "tilt-dev/tap"
@@ -41,10 +42,10 @@ brew "openexr"
 brew "webp"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
-# GitOps Continuous Delivery for Kubernetes
-brew "argocd"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@1.1"
+# GitOps Continuous Delivery for Kubernetes
+brew "argocd"
 # C library implementing the SSH2 protocol
 brew "libssh2"
 # Download with resuming and segmented downloading
@@ -125,6 +126,12 @@ brew "cairo"
 brew "zstd"
 # Object-file caching compiler wrapper
 brew "ccache"
+# Multi-platform support library with a focus on asynchronous I/O
+brew "libuv"
+# Platform built on V8 to build network applications
+brew "node"
+# Define k8s native apps and abstractions using object-oriented programming
+brew "cdk8s"
 # Generic library support script
 brew "libtool"
 # CloudFlare's PKI toolkit
@@ -179,14 +186,14 @@ brew "cpanminus"
 brew "croc"
 # YAML Parser
 brew "libyaml"
-# Next-gen compiler infrastructure
-brew "llvm"
 # Fast and statically typed, compiled language with Ruby-like syntax
 brew "crystal"
 # Open source suite of directory software
 brew "openldap"
 # Tool for downloading RTMP streaming media
 brew "rtmpdump"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
 # AV1 decoder targeted to be small and fast
 brew "dav1d"
 # Secure runtime for JavaScript and TypeScript
@@ -209,10 +216,14 @@ brew "docker"
 brew "dog"
 # Select default apps for documents and URL schemes on macOS
 brew "duti"
+# GNU Emacs text editor
+brew "emacs"
 # Run arbitrary commands when files change
 brew "entr"
 # Cloud-native high-performance edge/middle/service proxy
 brew "envoy"
+# Key value store for shared configuration and service discovery
+brew "etcd"
 # Modern replacement for 'ls'
 brew "exa"
 # XML 1.0 parser
@@ -231,8 +242,6 @@ brew "fribidi"
 brew "gobject-introspection"
 # Smart font renderer for non-Roman scripts
 brew "graphite2"
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c"
 # OpenType text shaping engine
 brew "harfbuzz"
 # High quality MPEG Audio Layer III (MP3) encoder
@@ -243,6 +252,12 @@ brew "little-cms2"
 brew "openjpeg"
 # Image processing and image analysis library
 brew "leptonica"
+# Secure hashing function
+brew "libb2"
+# Extremely Fast Compression algorithm
+brew "lz4"
+# Multi-format archive and compression library
+brew "libarchive"
 # Subtitle renderer for the ASS/SSA subtitle format
 brew "libass"
 # Blu-Ray disc playback library for media players like VLC
@@ -275,12 +290,6 @@ brew "sdl2"
 brew "speex"
 # Secure Reliable Transport
 brew "srt"
-# Secure hashing function
-brew "libb2"
-# Extremely Fast Compression algorithm
-brew "lz4"
-# Multi-format archive and compression library
-brew "libarchive"
 # OCR (Optical Character Recognition) engine
 brew "tesseract"
 # Open video compression format
@@ -306,7 +315,7 @@ brew "fluent-bit"
 # Framework for layout and rendering of i18n text
 brew "pango"
 # Command-line outline and bitmap font editor/converter
-brew "fontforge"
+brew "fontforge", link: false
 # Command-line fuzzy finder written in Go
 brew "fzf", args: ["HEAD"], link: false
 # Fast, simple fuzzy text selector with an advanced scoring algorithm
@@ -363,6 +372,8 @@ brew "gnuplot"
 brew "go"
 # Deliver Go binaries as fast and easily as possible
 brew "goreleaser"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
 # Make JSON greppable
 brew "gron"
 # Kubernetes package manager
@@ -445,8 +456,6 @@ brew "libpq"
 brew "unibilium"
 # Library for processing keyboard entry from the terminal
 brew "libtermkey"
-# Multi-platform support library with a focus on asynchronous I/O
-brew "libuv"
 # C virtualization API
 brew "libvirt"
 # C99 library which implements a VT220 or xterm terminal emulator
@@ -465,6 +474,8 @@ brew "luarocks"
 brew "luv"
 # Create modern online books from Markdown files
 brew "mdbook"
+# Plain text Zettelkasten based on mdBook
+brew "mdzk"
 # Run a Kubernetes cluster locally
 brew "minikube"
 # Intercept, modify, replay, save HTTP/S traffic
@@ -499,14 +510,14 @@ brew "ninja"
 brew "nmap"
 # Tiny, lightning fast, feature-packed file manager
 brew "nnn"
-# Platform built on V8 to build network applications
-brew "node"
 # Prometheus exporter for machine metrics
 brew "node_exporter"
 # Trigger notifications when a process completes
 brew "noti"
 # Libraries for security-enabled client and server applications
 brew "nss"
+# Generate clients, server & docs from an OpenAPI spec (v2, v3)
+brew "openapi-generator"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
 # Swiss-army knife of markup format conversion
@@ -529,10 +540,14 @@ brew "prometheus"
 brew "pstree"
 # Command-line tool for managing long-running shell commands
 brew "pueue", restart_service: true
+# Cloud native development platform
+brew "pulumi"
 # Perl 6 compiler targeting MoarVM
 brew "rakudo"
 # Unified tool to manage your Rancher server
 brew "rancher-cli"
+# Persistent key-value database, with built-in net interface
+brew "redis"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Powerful, clean, object-oriented scripting language
@@ -567,6 +582,8 @@ brew "sponge", link: false
 brew "stern"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Version control system designed to be a better CVS
+brew "subversion"
 # Open source continuous file synchronization application
 brew "syncthing"
 # Tool Command Language
@@ -587,6 +604,8 @@ brew "tree-sitter"
 brew "ttyd"
 # Encoding detector library
 brew "uchardet"
+# Ultra fast grep with query UI, fuzzy search, archive search, and more
+brew "ugrep"
 # ODBC 3 connectivity for UNIX
 brew "unixodbc"
 # Video processing framework with simplicity in mind
@@ -603,6 +622,12 @@ brew "watch"
 brew "wget"
 # Homebrew, but with Docker images
 brew "whalebrew"
+# Access X11 clipboards from the command-line
+brew "xclip"
+# Python-powered, cross-platform, Unix-gazing shell language and command prompt
+brew "xonsh"
+# Command-line program for getting and setting the contents of the X selection
+brew "xsel"
 # Download YouTube videos from the command-line
 brew "youtube-dl"
 # Programming language designed for robustness, optimality, and clarity
@@ -613,7 +638,7 @@ brew "zlib"
 brew "blacknon/hwatch/hwatch"
 # A new way of working with Protocol Buffers.
 brew "bufbuild/buf/buf"
-# A personal key value store
+# A personal key value store 🛼
 brew "charmbracelet/tap/skate"
 # Cloudflare Tunnel
 brew "cloudflare/cloudflare/cloudflared"
@@ -625,6 +650,8 @@ brew "jesseduffield/lazygit/lazygit"
 brew "jez/formulae/pandoc-sidenote"
 # Tail logs from multiple Kubernetes pods at the same time
 brew "johanhaleby/kubetail/kubetail"
+# evry split STDIN stream and execute specified command every N lines/seconds.
+brew "k1low/tap/evry"
 # Simple hotkey-daemon for macOS.
 brew "koekeishiya/formulae/skhd"
 # A tiling window manager for macOS based on binary space partitioning.
@@ -637,6 +664,8 @@ brew "tilt-dev/tap/ctlptl"
 brew "tilt-dev/tap/tilt"
 # Standalone tree view file explorer, inspired by fzf
 brew "wvanlint/twf/twf", args: ["HEAD"]
+# GPU-accelerated terminal emulator
+cask "alacritty"
 # Application launcher and productivity software
 cask "alfred"
 # Android SDK component
@@ -647,6 +676,8 @@ cask "brave-browser"
 cask "chromium"
 # Clipboard manager with advanced features
 cask "copyq"
+cask "font-noto-sans-cjk"
+cask "font-source-code-pro"
 # Font editor and converter for outline and bitmap fonts
 cask "fontforge"
 # Web browser
