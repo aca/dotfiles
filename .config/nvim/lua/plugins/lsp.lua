@@ -7,7 +7,7 @@
 -- lspcontainers.nvim [[
 -- { "docker", "container", "run", "--interactive", "--rm", "--network=none", "--workdir=//(pwd)", "--volume=//(pwd)://(pwd):ro", "lspcontainers/lua-language-server:2.4.2" }
 -- ]]
--- init [[
+
 vim.cmd([[ 
 packadd nvim-lspconfig
 packadd nvim-lsp-installer

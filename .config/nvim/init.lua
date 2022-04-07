@@ -1,28 +1,11 @@
--- #TODO
+-- # TODO
 -- lazy loading tricks https://github.com/ray-x/nvim/blob/master/lua/core/lazy.lua
 -- https://github.com/shaunsingh/nyoom.nvim
--- https://github.com/akinsho/git-conflict.nvim
 -- https://github.com/stevearc/stickybuf.nvim
 -- https://www.reddit.com/r/neovim/comments/ts8app/what_are_the_must_have_git_plugs_in_your_opinion/
 -- https://github.com/willchao612/vim-diagon
 -- https://www.reddit.com/r/neovim/comments/sihuq7/psa_now_you_can_set_global_highlight_groups_ie/
--- https://github.com/mhartington/oceanic-next
--- lua highlight
--- hi Normal guifg=#ffffff guibg=#333333
--- hi Comment guifg=#111111 gui=bold
--- hi Error guifg=#ff0000 gui=undercurl
--- hi Cursor gui=reverse
--- lua
---
--- vim.api.nvim_set_hl(0, 'Normal', { fg = "#ffffff", bg = "#333333" })
--- vim.api.nvim_set_hl(0, 'Comment', { fg = "#111111", bold = true })
--- vim.api.nvim_set_hl(0, 'Error', { fg = "#ffffff", undercurl = true })
--- vim.api.nvim_set_hl(0, 'Cursor', { reverse = true })
---
--- DEBUG [[
--- vim.lsp.set_log_level("debug")
--- require("vim.lsp.log").set_format_func(vim.inspect)
--- ]]
+
 
 -- UPDATE [[
 -- :TSInstall all
