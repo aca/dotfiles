@@ -117,4 +117,4 @@ set edit:history:binding[Ctrl-N] = { edit:history:down }
 set edit:insert:binding[Ctrl-U] = { edit:lastcmd:start }
 
 # https://elv.sh/ref/edit.html#keybindings
-set edit:insert:binding[Ctrl-E] = { try { tmux clear 2>/dev/null } except { }; edit:clear;  }
+set edit:insert:binding[Ctrl-E] = { try { tmux clear-history 2>/dev/null } except { }; edit:clear;  }

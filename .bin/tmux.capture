@@ -16,4 +16,4 @@ lines=${1:-100}
 # output=$(tmux capture-pane -J -p -S - -E -)
 # echo "$output" | tail -n $lines
 # echo "$output" | tail -n $lines | pbcopy
-tmux capture-pane -J -p -S - -E -
+tmux capture-pane -C -J -p -S - -E -

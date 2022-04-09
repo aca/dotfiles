@@ -21,6 +21,7 @@ set edit:completion:arg-completer[kubectl] = (bash-completer:new "kubectl" &bash
 set edit:completion:arg-completer[k] = $edit:completion:arg-completer[kubectl]
 set edit:completion:arg-completer[virsh] = (bash-completer:new "virsh" &bash_function="_virsh_complete virsh")
 set edit:completion:arg-completer[umount] = (bash-completer:new "umount" &bash_function="_umount_module")
+set edit:completion:arg-completer[tmux] = (bash-completer:new "tmux" &bash_function="_tmux")
 if (eq $platform:os "darwin") {
   set edit:completion:arg-completer[limactl] = (bash-completer:new "limactl" &bash_function="__start_limactl limactl")
   set edit:completion:arg-completer[colima] = (bash-completer:new "colima" &bash_function="__start_colima colima")
