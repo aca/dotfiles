@@ -7,6 +7,8 @@
 use platform
 
 use elvish-bash-completion/bash-completer
+# use github.com/aca/elvish-bash-completion/bash-completer
+set edit:completion:arg-completer[which] = (bash-completer:new "which"  &bash_function="_complete type" &completion_filename="complete")
 set edit:completion:arg-completer[sudo] = $edit:complete-sudo~
 set edit:completion:arg-completer[time] = $edit:complete-sudo~
 set edit:completion:arg-completer[ssh] = (bash-completer:new "ssh")
@@ -21,7 +23,9 @@ set edit:completion:arg-completer[kubectl] = (bash-completer:new "kubectl" &bash
 set edit:completion:arg-completer[k] = $edit:completion:arg-completer[kubectl]
 set edit:completion:arg-completer[virsh] = (bash-completer:new "virsh" &bash_function="_virsh_complete virsh")
 set edit:completion:arg-completer[umount] = (bash-completer:new "umount" &bash_function="_umount_module")
-set edit:completion:arg-completer[tmux] = (bash-completer:new "tmux" &bash_function="_tmux")
+set edit:completion:arg-completer[pueue] = (bash-completer:new "pueue" )
+set edit:completion:arg-completer[tmux] = (bash-completer:new "tmux")
+set edit:completion:arg-completer[gh] = (bash-completer:new "gh" &bash_function="__start_gh gh")
 if (eq $platform:os "darwin") {
   set edit:completion:arg-completer[limactl] = (bash-completer:new "limactl" &bash_function="__start_limactl limactl")
   set edit:completion:arg-completer[colima] = (bash-completer:new "colima" &bash_function="__start_colima colima")
