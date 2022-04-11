@@ -9,22 +9,22 @@ local function replace(str, what, with)
     return v
 end
 
-vim.api.nvim_add_user_command("Makelink", function()
-    local line = api.nvim_get_current_line()
-    local url = string.match(line, "[http://][https://][%w|%p]*")
-
-    -- http://www.pixelbeat.org/cmdline.html
-    -- sed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q'
-    -- TODO: fix not working on mac, need to test on linux
-    local cmd = 'curl -s --fail "' .. url .. '"' .. "|" .. "sed -n 's/.*<title>\\(.*\\)<\\/title>.*/\\1/ip;T;q'"
-    -- print(cmd)
-    local err = vim.api.nvim_get_vvar("shell_error")
-    if 0 ~= err then
-        print("failed to update link")
-        return
-    end
-
-    local title = vim.fn.systemlist(cmd)[1]
-    local replaced = string.format("[%s](%s)", title, url)
-    api.nvim_set_current_line(replace(line, url, replaced))
-end, {})
+-- vim.api.nvim_create_user_command("Makelink", function()
+--     local line = api.nvim_get_current_line()
+--     local url = string.match(line, "[http://][https://][%w|%p]*")
+--
+--     -- http://www.pixelbeat.org/cmdline.html
+--     -- sed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q'
+--     -- TODO: fix not working on mac, need to test on linux
+--     local cmd = 'curl -s --fail "' .. url .. '"' .. "|" .. "sed -n 's/.*<title>\\(.*\\)<\\/title>.*/\\1/ip;T;q'"
+--     -- print(cmd)
+--     local err = vim.api.nvim_get_vvar("shell_error")
+--     if 0 ~= err then
+--         print("failed to update link")
+--         return
+--     end
+--
+--     local title = vim.fn.systemlist(cmd)[1]
+--     local replaced = string.format("[%s](%s)", title, url)
+--     api.nvim_set_current_line(replace(line, url, replaced))
+-- end, {})
