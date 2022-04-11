@@ -10,9 +10,18 @@ set foldexpr=NestedMarkdownFolds()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_folding_disabled = 1
+packadd vim-markdown
+
 packadd due.nvim
 lua << EOF
-require('due_nvim').setup {}
+require('due_nvim').setup {
+  pattern_start = '-> ',
+  pattern_end = '',               -- end for a date string pattern
+  fulldate_pattern = '(%d%d%d%d)%-(%d%d)%-(%d%d)'
+}
 EOF
 
 " set syntax=off
@@ -29,8 +38,8 @@ EOF
 "     \]
 " packadd bullets.vim
 
-packadd vim-table-mode
-packadd vim-pandoc-syntax
+" packadd vim-table-mode
+" packadd vim-pandoc-syntax
 hi link pandocCodeblock pandocDelimitedCodeblock
 
 " source ~/.config/nvim/vim/md-img-paste.vim
@@ -64,25 +73,28 @@ command FormatLink lua require('scripts.md_format_links').format_link()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-echom "loaded"
-syn region NeorgConcealURLValue matchgroup=mkdDelimiter start="(" end=")" contained oneline conceal
-syn region NeorgConcealURL matchgroup=mkdDelimiter start="[^\\]\@=\[" skip="\\\]" end="\]\ze(" nextgroup=NeorgConcealURLValue oneline skipwhite concealends
-
+" syn region NeorgConcealURLValue matchgroup=mkdDelimiter start="(" end=")" contained oneline conceal
+" syn region NeorgConcealURL matchgroup=mkdDelimiter start="[^\\]\@=\[" skip="\\\]" end="\]\ze(" nextgroup=NeorgConcealURLValue oneline skipwhite concealends
+" syn region NeorgConcealURLValue matchgroup=mkdDelimiter start=/(/ end=/)/  contained oneline conceal
+" syn region NeorgConcealURL matchgroup=mkdDelimiter start=/\([^\\]\|\_^\)\@<=\[\%\(\%\(\\\=[^\]]\)\+\](\)\@=/ end=/[^\\]\@<=\]/  oneline concealends nextgroup=NeorgConcealURLValue skipwhite
+"
+" function! s:customSyntax() abort
+"   " todo syntax , https://gist.github.com/huytd/668fc018b019fbc49fa1c09101363397
+"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
+"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[X\]'hs=e-4 conceal cchar=
+"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[-\]'hs=e-4 conceal cchar=☒
+"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
+"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
 
 function! s:customSyntax() abort
-  " todo syntax , https://gist.github.com/huytd/668fc018b019fbc49fa1c09101363397
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[X\]'hs=e-4 conceal cchar=
-  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[-\]'hs=e-4 conceal cchar=☒
-  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
-  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
-
-  syn region NeorgConcealURLValue matchgroup=mkdDelimiter start=/(/ end=/)/  contained oneline conceal
-  syn region NeorgConcealURL matchgroup=mkdDelimiter start=/\([^\\]\|\_^\)\@<=\[\%\(\%\(\\\=[^\]]\)\+\](\)\@=/ end=/[^\\]\@<=\]/  oneline concealends nextgroup=NeorgConcealURLValue skipwhite
+  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\@\]'hs=e-4 conceal cchar=➪
+  " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
+  " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
 endfunction
-
 autocmd Syntax * call s:customSyntax()
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " update date for neuron
@@ -208,15 +220,12 @@ let &l:foldexpr = 'NestedMarkdownFolds()'
 
 " " let $NODE_OPTIONS = "--no-warnings"
 function s:markdown_preview()
-  " let g:mkdp_browser = 'min -F'
-  " let $NODE_NO_WARNINGS=1
+  let $NODE_NO_WARNINGS=1
   let g:mkdp_echo_preview_url = 1
   " let g:mkdp_browser = 'Google Chrome'
-
-  " let g:mkdp_theme = 'light'
   " let g:mkdp_refresh_slow = 1
-  " let g:mkdp_markdown_css = expand('~/src/github.com/edwardtufte/tufte-css/tufte.css')
-  let g:mkdp_markdown_css = expand('~/.config/nvim/tufte.css')
+  let g:mkdp_theme = 'dark'
+  let g:mkdp_markdown_css = expand('~/.config/nvim/mkdp.css')
   let g:mkdp_auto_close = 0
   let g:mkdp_command_for_global = 1
   let g:mkdp_preview_options = {

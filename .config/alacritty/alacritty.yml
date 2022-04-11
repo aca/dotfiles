@@ -27,7 +27,7 @@ font:
     # family: Iosevka Curly Slab
     # family: JetBrainsMono Nerd Font
     style: Light
-    family: BlexMono Nerd Font
+    # family: BlexMono Nerd Font
     # # family: SauceCodePro Nerd Font
     # family: SpaceMono Nerd Font
     
@@ -42,7 +42,7 @@ font:
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
     # family: Iosevka Nerd Font Mono
-    # family: Iosevka Nerd Font
+    family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
 
   # bold:
@@ -56,7 +56,7 @@ font:
 
   size: 28
   offset:
-    x: -3
+    x: -1
     y: 0
 
   glyph_offset:
@@ -405,40 +405,40 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Black Metal (Mayhem) - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Pop - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
     background: '0x000000'
-    foreground: '0xc1c1c1'
+    foreground: '0xd0d0d0'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text: '0x000000'
-    cursor: '0xc1c1c1'
+    cursor: '0xd0d0d0'
 
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xf3ecd4'
-    yellow:  '0xeecc6c'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    red:     '0xeb008a'
+    green:   '0x37b349'
+    yellow:  '0xf8ca12'
+    blue:    '0x0e5a94'
+    magenta: '0xb31e8d'
+    cyan:    '0x00aabb'
+    white:   '0xd0d0d0'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0xaaaaaa'
-    green:   '0x121212'
-    yellow:  '0x222222'
-    blue:    '0x999999'
-    magenta: '0x999999'
-    cyan:    '0x444444'
-    white:   '0xc1c1c1'
+    black:   '0x505050'
+    red:     '0xf29333'
+    green:   '0x202020'
+    yellow:  '0x303030'
+    blue:    '0xb0b0b0'
+    magenta: '0xe0e0e0'
+    cyan:    '0x7a2d00'
+    white:   '0xffffff'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

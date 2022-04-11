@@ -3,6 +3,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
 
+h1 {
+    font-weight: 400;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+    font-size: 3.2rem;
+    line-height: 1;
+}
+
+h2 {
+    font-style: italic;
+    font-weight: 400;
+    margin-top: 2.1rem;
+    margin-bottom: 1.4rem;
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+h3 {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.7rem;
+    margin-top: 2rem;
+    margin-bottom: 1.4rem;
+    line-height: 1;
+}
+
 @font-face {
   font-family: 'Source Serif Pro';
   font-style: bold;
@@ -114,24 +140,24 @@ html {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  margin-top: 1em;
-  margin-bottom: 16px;
-  font-weight: 500;
-  line-height: 1.4;
-}
+/* .markdown-body h1, */
+/* .markdown-body h2, */
+/* .markdown-body h3, */
+/* .markdown-body h4, */
+/* .markdown-body h5, */
+/* .markdown-body h6 { */
+/*   margin-top: 0.5em; */
+/*   margin-bottom: 0.5em; */
+/*   font-weight: 500; */
+/*   line-height: 1.4; */
+/* } */
 .markdown-body h1 .anchor,
 .markdown-body h2 .anchor,
 .markdown-body h3 .anchor,
 .markdown-body h4 .anchor,
 .markdown-body h5 .anchor,
 .markdown-body h6 .anchor {
-  margin-left: -24px;
+  margin-left: -26px;
   visibility: hidden;
 }
 .markdown-body h1:hover .anchor,
@@ -152,33 +178,36 @@ html {
   margin-top: 0;
   margin-bottom: 16px;
 }
-.markdown-body h1 {
-  margin: 0.67em 0;
-  padding-bottom: 0.3em;
-  font-size: 2.25em;
-  line-height: 1.2;
-  border-bottom: 1px solid var(--color-border-secondary);
-}
-.markdown-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.75em;
-  line-height: 1.225;
-  border-bottom: 1px solid var(--color-border-secondary);
-}
-.markdown-body h3 {
-  font-size: 1.5em;
-  line-height: 1.43;
-}
-.markdown-body h4 {
-  font-size: 1.25em;
-}
-.markdown-body h5 {
-  font-size: 1em;
-}
-.markdown-body h6 {
-  font-size: 1em;
-  color: var(--color-text-tertiary);
-}
+/* .markdown-body h1 { */
+/*   margin: 0.5em 0; */
+/*   padding-bottom: 0.2em; */
+/*   font-size: 2em; */
+/*   line-height: 1; */
+/*   text-align: right; */
+/*   border-bottom: 1px solid var(--color-border-secondary); */
+/* } */
+/* .markdown-body h2 { */
+/*   padding-bottom: 0.2em; */
+/*   font-size: 1.8em; */
+/*   line-height: 1; */
+/* } */
+/* .markdown-body h3 { */
+/*   font-size: 1.6em; */
+/*   line-height: 1; */
+/* } */
+/* .markdown-body h4 { */
+/*   font-size: 1.4em; */
+/*   line-height: 1; */
+/* } */
+/* .markdown-body h5 { */
+/*   font-size: 1.2em; */
+/*   line-height: 1; */
+/* } */
+/* .markdown-body h6 { */
+/*   font-size: 1em; */
+/*   line-height: 1; */
+/*   color: var(--color-text-tertiary); */
+/* } */
 .markdown-body hr {
   margin-top: 20px;
   margin-bottom: 20px;

@@ -18,7 +18,7 @@ func! NvimGps() abort
   if luaeval("require'nvim-gps'.is_available()")
     let msg = luaeval("require'nvim-gps'.get_location()")
     if msg != "" 
-      return msg . ' '
+      return '  ' . msg
     else
       return ""
     endif
@@ -27,4 +27,4 @@ func! NvimGps() abort
   endif
 endf
 
-set statusline=%{NvimGps()}%<%f%m%r%h%w%=%-8(%l\ :\ %c%V%)\ %P 
+set statusline=%<%f%m%r%h%w%#String#%{NvimGps()}%#StatusLine#%=%-8(%l\ :\ %c%V%)\ %P 

@@ -7,29 +7,16 @@ inoremap <c-c> <esc>
 vnoremap <c-c> <esc>
 vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
 
-nnoremap ;; :
-vnoremap ;; :
-
-nnoremap <silent>ma <cmd>lua require("harpoon.mark").add_file()<cr>
-nnoremap <silent>mm <cmd>Telescope harpoon marks<cr>
-nnoremap <silent>mn <cmd>lua require("harpoon.ui").nav_next()<cr>
-nnoremap <silent>mp <cmd>lua require("harpoon.ui").nav_prev()<cr>
+" nnoremap ;; :
+" vnoremap ;; :
 
 " LSP
 inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
-nnoremap <silent> gd            <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD            <cmd>vsplit<bar>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gi            <cmd>vsplit<bar>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gt            <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
 " this makes p slow
 " nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
 
 nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-nnoremap <silent> ]d            <cmd>lua vim.diagnostic.goto_next({wrap = false})<CR>
-nnoremap <silent> [d            <cmd>lua vim.diagnostic.goto_prev({wrap = false})<CR>
 
 nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
@@ -43,17 +30,6 @@ nnoremap <silent> ;ff           <cmd>Neoformat<cr>
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 
-" imap <expr><Tab>                v:lua.tab_complete()
-" smap <expr><Tab>                v:lua.tab_complete()
-" imap <expr><S-Tab>              v:lua.s_tab_complete()
-" smap <expr><S-Tab>              v:lua.s_tab_complete()
-
-"
-" Toggle
-"
-nnoremap <expr>   ;o &foldlevel ? 'zM' :'zR'
-nnoremap <silent> ;w :set wrap!<CR>
-
 
 function AerialToggle()
       AerialToggle
@@ -61,8 +37,6 @@ function AerialToggle()
 endfunction
 nnoremap <silent> ;t :call AerialToggle()<cr>
 " nnoremap <silent> ;t :AerialToggle <bar> wincmd p<cr>
-nnoremap <silent> ;n :set relativenumber! \| set number!<CR>
-nnoremap <silent> ;m :Messages<cr><c-w><c-w>
 
 function! Togglesigncolumn()
   if &signcolumn == 'yes'
@@ -127,29 +101,11 @@ cnoreabbrev l lua
 nnoremap Q @q
 vnoremap Q :norm @q<cr>
 
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
-nnoremap ]l :lnext<cr>zz
-nnoremap [l :lprev<cr>zz
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
-nnoremap ]w <c-w>w
-nnoremap [w <c-w>W
-" nnoremap ]f :NextFile<cr>
-" nnoremap [f :PrevFile<cr>
-nnoremap [j g;
-nnoremap ]j g,
-" diff change
-" nnoremap [C :packadd vim-misc \| packadd vim-colorscheme-switcher \| :NextColorScheme<cr>
-" nnoremap ]C :packadd vim-misc \| packadd vim-colorscheme-switcher \| :PrevColorScheme<cr>
 
 " Split
 nnoremap <leader>o :only<cr>
 " noremap  <Leader>h :<C-u>split<CR>
 " noremap  <Leader>v :<C-u>vsplit<CR>
-command! Fish terminal fish
 " nnoremap <leader>s :botright 10sp<bar>  :Fish<cr>i
 " noremap <Leader>h :vs<bar>:terminal fish<CR>i
 " noremap <Leader>v :sp<bar>:terminal fish<CR>i

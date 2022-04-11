@@ -1,7 +1,8 @@
 vim.cmd([[
         packadd nvim-treesitter
         " packadd nvim-ts-rainbow
-        packadd playground
+        " packadd playground
+        " packadd vim-matchup
 ]])
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -17,9 +18,9 @@ require("nvim-treesitter.configs").setup({
     playground = {
         enable = true,
     },
-    matchup = {
-        enable = true,
-    },
+    -- matchup = {
+    --     enable = true,
+    -- },
     rainbow = {
         enable = true,
         extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean

@@ -28,9 +28,11 @@ lua require("stabilize").setup()
 unlet g:loaded_netrwPlugin
 silent source /usr/local/share/nvim/runtime/plugin/netrwPlugin.vim
 
-" " plugin: matchit
-" unlet g:loaded_matchit
-" silent source /usr/local/share/nvim/runtime/plugin/matchit.vim
+" plugin: matchit
+unlet g:loaded_matchit
+silent source /usr/local/share/nvim/runtime/plugin/matchit.vim
+unlet g:loaded_matchparen
+silent source /usr/local/share/nvim/runtime/plugin/matchparen.vim
 
 " plugin: nextfile
 let g:nf_map_next=']f'

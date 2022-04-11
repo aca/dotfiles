@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd ~/src/zk
+
+if [ -z "$1" ]; then
+  # fd --type f --exclude '/log' | fzf 
+  files=$(fd --type f . | fzf --preview 'bat {}' --preview-window='right,70%')
+  if [ "$files" = "" ]; then
+    exit 0
+  fi
+  nvim -o $files
+else
+  nvim $1.md
+fi
+

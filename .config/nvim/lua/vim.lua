@@ -127,12 +127,11 @@ g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 
 g.loaded_matchit = 1
-
--- https://github.com/monkoose/matchparen.nvim
 g.loaded_matchparen = 1
 
+-- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806#how-do-i-use-it-2
 g.do_filetype_lua = 1
--- g.did_load_filetypes = 0
+g.did_load_filetypes = 0
 
 -- g.loaded_netrw = 1
 -- g.loaded_netrwSettings = 1
