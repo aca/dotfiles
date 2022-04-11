@@ -12,12 +12,13 @@ RUN yay -Sy --noconfirm neovim-git
 
 RUN sudo pacman -Sy --noconfirm fd fzf vifm ripgrep
 RUN sudo pacman -Sy --noconfirm stow
+RUN yay -S --noconfirm ghq-bin ttyd
 
-RUN sudo pacman -Scc
+# RUN git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles 
+RUN mkdir ~/src/config/dotfiles
+COPY . ~/src/config/dotfiles
 
-RUN git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles 
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
-RUN sudo pacman -Sy --noconfirm ghq
 
 # RUN sudo pacman -Scc
