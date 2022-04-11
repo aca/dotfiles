@@ -1,16 +1,10 @@
--- vim:foldmethod=marker foldmarker=[[,]]
-
--- DEBUG [[
+-- DEBUG
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
--- ]]
--- lspcontainers.nvim [[
--- { "docker", "container", "run", "--interactive", "--rm", "--network=none", "--workdir=//(pwd)", "--volume=//(pwd)://(pwd):ro", "lspcontainers/lua-language-server:2.4.2" }
--- ]]
 
 vim.cmd([[ 
-packadd nvim-lspconfig
-packadd nvim-lsp-installer
+  packadd nvim-lspconfig
+  packadd nvim-lsp-installer
 ]])
 
 local lspconfig = require("lspconfig")
@@ -37,19 +31,14 @@ completionItem.resolveSupport = {
     },
 }
 
--- ]]
--- handlers [[
-
 -- TODO: slow diagnostic update on mac
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
--- 	virtual_text = true,
--- 	signs = true,
--- 	underline = true,
--- 	update_in_insert = true,
--- })
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+})
 
--- ]]
--- on_attach [[
 local on_attach = function(client, bufnr)
     local resolved_capabilities = client.resolved_capabilities
     local api = vim.api
@@ -67,67 +56,50 @@ local on_attach = function(client, bufnr)
 
     if resolved_capabilities.document_formatting == true then
         api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-        -- Add this <leader> bound mapping so formatting the entire document is easier.
-        -- map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     end
-    -- print("loaded")
-
-    -- TODO!!!
-    -- https://github.com/ray-x/lsp_signature.nvim/issues/165
-    -- require("lsp_signature").on_attach()
 end
--- ]]
--- server: gopls [[
-lspconfig.gopls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    settings = {
-        gopls = {
-            analyses = {
-                unusedparams = false,
-            },
-            staticcheck = true,
-        },
-    },
-})
--- ]]
 
-lspconfig.emmet_ls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
-})
-
---
--- server: pylance [[
-local ok, pylance = pcall(require, "pylance")
-if ok then
-    lspconfig.pyright.setup({
-        cmd = pylance,
+if vim.fn.executable("gopls") == 1 then
+    lspconfig.gopls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         settings = {
-            python = {
-                analysis = {
-                    diagnosticSeverityOverrides = {
-                        reportUnusedClass = "none",
-                        reportUnusedImport = "none",
-                        reportUnusedVariable = "none",
-                        reportDuplicateImport = "none",
-                    },
+            gopls = {
+                analyses = {
+                    unusedparams = false,
                 },
+                staticcheck = true,
             },
         },
     })
-else
-    lspconfig.pyright.setup({
+end
+
+if vim.fn.executable("emmet-ls") == 1 then
+    lspconfig.emmet_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
+        filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
     })
 end
 
--- ]]
--- server: servers with installer [[
+lspconfig.pyright.setup({
+    cmd = require("pylance"),
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        python = {
+            analysis = {
+                diagnosticSeverityOverrides = {
+                    reportUnusedClass = "none",
+                    reportUnusedImport = "none",
+                    reportUnusedVariable = "none",
+                    reportDuplicateImport = "none",
+                },
+            },
+        },
+    },
+})
+
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {
@@ -156,7 +128,6 @@ lsp_installer.on_server_ready(function(server)
     end
     server:setup(opts)
 end)
--- ]]
 
 -- configs.lsp_dev = {
 -- default_config = {
@@ -169,72 +140,3 @@ end)
 --   }
 -- }
 -- lspconfig.lsp_dev.setup {}
-
--- configs.korean_ls = {
--- default_config = {
---     cmd = {"korean-ls", "--stdio"},
---     filetypes = {"text", "markdown"},
---     root_dir = function()
---         return vim.loop.cwd()
---     end,
---     settings = {}
---   }
--- }
--- lspconfig.korean_ls.setup {}
-
--- if os.getenv("LS_KOREAN") == "on" then
---     configs.korean_ls = {
---         default_config = {
---             cmd = {"korean-ls", "--stdio"},
---             filetypes = {"text"},
---             root_dir = function()
---                 return vim.loop.cwd()
---             end,
---             settings = {}
---         }
---     }
---     lspconfig.korean_ls.setup {}
--- end
-
--- neuron language server
--- nvim_lsp.configs.neuron_ls = {
--- default_config = {
---     -- cmd = {'neuron', 'lsp'};
---     cmd = {'neuron-language-server'};
---     filetypes = {'markdown'};
---     root_dir = function()
---       return vim.loop.cwd()
---     end;
---     settings = {};
---   };
--- }
--- nvim_lsp.neuron_ls.setup{}
-
--- lspconfig.
-
--- if not lspconfig.emmet_ls then
--- configs.emmet_ls = {
---   filetypes = { "html", "css", "typescriptreact" }
---   -- default_config = {
---   --   cmd = {'emmet-ls', '--stdio'};
---   --   filetypes = {'html', 'css', 'typescriptreact'};
---   --   root_dir = function(fname)
---   --     return vim.loop.cwd()
---   --   end;
---   --   settings = {};
---   -- };
--- }
--- end
-
--- configs.zk = {
---   default_config = {
---     cmd = {'zk', 'lsp'},
---     filetypes = {'markdown'},
---     root_dir = function()
---       return vim.loop.cwd()
---     end,
---     settings = {}
---   };
--- }
-
--- lspconfig.zk.setup({ on_attach = function(client, buffer) end })

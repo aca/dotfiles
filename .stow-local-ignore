@@ -3,3 +3,4 @@
 /.githooks
 /Library
 /Dockerfile
+/.dockerignore
