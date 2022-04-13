@@ -20,7 +20,7 @@ fn fzf_history {||
       # var height = (math:max (- (tput lines) (term.pos.row)) 6)
       # str:trim-space (fzy -0 --lines $height --query=$edit:current-command | slurp)
       str:trim-space (fzf --no-multi --height=30% --min-height 10 --no-sort --read0 --info=hidden --exact --query=$edit:current-command | slurp)
-    } except {
+    } catch {
       edit:redraw &full=$true
       return
     }
@@ -36,7 +36,7 @@ fn fzf_file { ||
   # try {
   #   edit:replace-input (str:join '' $edit:current-command (str:trim-space (fzf </dev/tty)) )
   #   # edit:replace-input (str:trim-space (fzf </dev/tty ))
-  # } except {
+  # } catch {
   # }
   # str:split $edit:current-command | put [ (all) ][-1] | noti -m -
   # str:split ' ' $edit:current-command | put [ (all) ][-1]
@@ -68,7 +68,7 @@ fn fzf_cd {||
   try {
     cd (fd --hidden --type d  --max-depth 6 --no-ignore -0 | fzf --read0 --height=30% --min-height 10)
     edit:redraw &full=$true
-  } except {
+  } catch {
     edit:redraw &full=$true
     return
   }
@@ -81,7 +81,7 @@ fn fzf_cd_src {||
   try {
     cd (src.dir)
     edit:redraw &full=$true
-  } except e {
+  } catch e {
     edit:redraw &full=$true
     return
   }
@@ -117,4 +117,4 @@ set edit:history:binding[Ctrl-N] = { edit:history:down }
 set edit:insert:binding[Ctrl-U] = { edit:lastcmd:start }
 
 # https://elv.sh/ref/edit.html#keybindings
-set edit:insert:binding[Ctrl-E] = { try { tmux clear-history 2>/dev/null } except { }; edit:clear;  }
+set edit:insert:binding[Ctrl-E] = { try { tmux clear-history 2>/dev/null } catch { }; edit:clear;  }

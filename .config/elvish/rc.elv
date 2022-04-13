@@ -10,9 +10,8 @@ use platform
 use /env
 use /utils
 use /bind
-use /zoxide
+# use /zoxide
 # use /lib/local/local
-# use /pueue
 use /completion
 use /prompt
 use edit.elv/smart-matcher; smart-matcher:apply
@@ -43,7 +42,7 @@ fn mkdir { |@a| e:mkdir -p $@a }
 fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
 fn grt { cd (or (e:git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
-fn cdf { |p| try { isDir $p; cd $p } except { cd (dirname $p) }  }
+fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) }  }
 fn ffc { || $cdf~ (ff)  }
 # }}}
 
