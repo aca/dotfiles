@@ -14,4 +14,4 @@ nnoremap <silent> ge :<C-u>silent call go#expr#complete()<CR>
 
 set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
 
-autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+" autocmd BufWritePre *.go lua vim.lsp.buf.formatting()

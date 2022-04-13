@@ -1,5 +1,5 @@
 FROM archlinux:base-devel
-RUN sudo pacman -Sy --noconfirm --needed base-devel git fd fzf vifm ripgrep stow go nodejs python tmux zsh fish elvish
+RUN sudo pacman -Sy --noconfirm --needed base-devel git fd fzf vifm ripgrep stow go nodejs python tmux zsh fish elvish gopls
 
 RUN groupadd -r rok && useradd --create-home --no-log-init -r -g rok rok
 RUN echo 'rok ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/rok
