@@ -52,7 +52,7 @@ fn zs {|@a| zsh $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn mv {|@a| e:mv -v -n $@a }
 fn cp {|@a| e:cp -v -n $@a }
-fn jq { |@a| e:jq -R 'fromjson?' | e:jq $@a }
+# fn jq { |@a| e:jq -R 'fromjson?' | e:jq $@a }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {|@a| vifm $@a}
 
 # utils
