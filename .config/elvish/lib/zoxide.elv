@@ -44,7 +44,7 @@ fn __zoxide_z {|@rest|
         var path
         try {
             set path = (zoxide query --exclude $pwd -- $@rest)
-        } except {
+        } catch {
         } else {
             __zoxide_cd $path
         }
@@ -57,7 +57,7 @@ fn __zoxide_zi {|@rest|
     var path
     try {
         set path = (zoxide query -i -- $@rest)
-    } except {
+    } catch {
     } else {
         __zoxide_cd $path
     }

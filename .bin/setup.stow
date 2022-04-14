@@ -106,7 +106,7 @@ rmf $HOME/.ssh/config
 
 # plugins {{{
 # commandExists zoxide && zoxide init fish > dotfiles/.config/fish/zoxide.fish
-# commandExists zoxide && zoxide init elvish > dotfiles/.config/elvish/lib/zoxide.elv
+commandExists zoxide && zoxide init elvish > dotfiles/.config/elvish/lib/zoxide.elv
 # commandExists pueue && pueue completions elvish dotfiles/.config/elvish/lib
 # }}}
 

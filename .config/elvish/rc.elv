@@ -10,7 +10,7 @@ use platform
 use /env
 use /utils
 use /bind
-# use /zoxide
+use /zoxide
 # use /lib/local/local
 use /completion
 use /prompt
