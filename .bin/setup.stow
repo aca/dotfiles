@@ -114,7 +114,7 @@ commandExists zoxide && zoxide init elvish > dotfiles/.config/elvish/lib/zoxide.
 stow -v --target $HOME "dotfiles"
 
 # stow host specific dotfiles
-if [[ -d "dotfiles.$(hostname)" ]]; then 
+if [[ -d "dotfiles.$HOSTNAME" ]]; then 
   rmf ~/.config/gcloud
   sudo stow -v --target / "dotfiles.$(hostname)"
 fi
