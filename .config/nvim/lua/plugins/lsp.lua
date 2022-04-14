@@ -2,6 +2,19 @@
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
+local nvim_add_user_command = vim.api.nvim_add_user_command
+nvim_add_user_command("LspSetup", function()
+    vim.cmd([[
+  LspInstall
+   \ vimls
+   \ html
+   \ rust_analyzer@nightly
+   \ tailwindcss
+   \ bashls
+   \ sumneko_lua
+  ]])
+end, {})
+
 vim.cmd([[ 
   packadd nvim-lspconfig
   packadd nvim-lsp-installer
