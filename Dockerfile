@@ -21,7 +21,7 @@ RUN rm -rf ~/yay-bin
 RUN yay -Sc --noconfirm
 
 # stow
-RUN git clone --recurse-submodules -j32 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+RUN git clone --recurse-submodules -j31 https://github.com/aca/dotfiles ~/src/configs/dotfiles
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
 # nvim
