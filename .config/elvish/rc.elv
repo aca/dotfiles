@@ -10,13 +10,12 @@ use platform
 use /env
 use /utils
 use /bind
-if (has-external zoxide) {
-  use /zoxide
-}
 # use /lib/local/local
 use /completion
 use /prompt
 use edit.elv/smart-matcher; smart-matcher:apply
+
+if (has-external zoxide) { use /zoxide }
 
 # }}}
 # abbr {{{

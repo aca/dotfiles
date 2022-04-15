@@ -3,7 +3,7 @@ FROM archlinux:base-devel
 # pacman
 RUN pacman -Sy reflector --noconfirm
 RUN reflector --country "South Korea" --country Japan  --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
-RUN pacman -Sy --noconfirm --needed git stow archlinux-keyring fd fzf vifm ripgrep stow go nodejs python tmux zsh fish elvish moreutils
+RUN pacman -Sy --noconfirm --needed git stow archlinux-keyring fd fzf vifm ripgrep stow go nodejs npm python python-pip tmux zsh fish elvish moreutils jq zoxide xclip tig traceroute tcpdump socat tree xsel kubectl
 
 # setup yay
 RUN groupadd -r rok && useradd --create-home --no-log-init -r -g rok rok
@@ -19,7 +19,7 @@ RUN yay -Sy --noconfirm neovim-git ghq-bin ttyd
 RUN sudo pacman -Scc
 
 # Dotfiles
-RUN git clone --recurse-submodules -j12 https://github.com/aca/dotfiles.git ~/src/configs/dotfiles
+RUN git clone --recurse-submodules -j14 https://github.com/aca/dotfiles.git ~/src/configs/dotfiles
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 RUN nvim --headless -c ':TSInstallSync all' -c ':q'
 RUN nvim --headless -c ':LspInstall --sync gopls bashls tsserver yamlls html jsonls' -c ':q'

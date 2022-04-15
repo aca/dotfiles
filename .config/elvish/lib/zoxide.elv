@@ -28,7 +28,7 @@ if (builtin:not (builtin:eq $E:__zoxide_shlvl $E:SHLVL)) {
 
 # =============================================================================
 #
-# When using zoxide with --no-aliases, alias these internal functions as
+# When using zoxide with --no-cmd, alias these internal functions as
 # desired.
 #
 
@@ -66,7 +66,7 @@ edit:add-var __zoxide_zi~ $__zoxide_zi~
 
 # =============================================================================
 #
-# Convenient aliases for zoxide. Disable these using --no-aliases.
+# Commands for zoxide. Disable these using --no-cmd.
 #
 
 edit:add-var z~ $__zoxide_z~
@@ -94,4 +94,4 @@ set edit:completion:arg-completer[z] = $__zoxide_z_complete~
 #
 #   eval (zoxide init elvish | slurp)
 #
-# Note: zoxide only supports elvish v0.17.0 and above.
+# Note: zoxide only supports elvish v0.18.0 and above.
