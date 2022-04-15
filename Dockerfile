@@ -19,6 +19,6 @@ RUN yay -Sy --noconfirm neovim-git ghq-bin ttyd
 RUN sudo pacman -Scc
 
 # dotfiles
-RUN git clone --recurse-submodules -j16 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+RUN git clone --recurse-submodules -j32 https://github.com/aca/dotfiles ~/src/configs/dotfiles
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
-RUN nvim --headless -c ':TSInstallSync go' -c ':q'
+RUN nvim --headless -c ':TSInstallSync all' -c ':q'
