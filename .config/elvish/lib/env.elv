@@ -9,7 +9,7 @@ set E:PYTHONSTARTUP = ~/.bin/pythonstartup
 if (eq $E:_ELVISH_ENV "") {
     set E:_ELVISH_ENV = 1
 
-    if (eq (hostname) "rok-te3") {
+    if (eq $E:HOSTNAME "rok-te3") {
       set E:LIBVIRT_DEFAULT_URI = "qemu:///system"
       set E:VIRSH_DEFAULT_CONNECT_URI = "qemu:///system"
     } else {
