@@ -10,7 +10,9 @@ use platform
 use /env
 use /utils
 use /bind
-use /zoxide
+if (has-external zoxide) {
+  use /zoxide
+}
 # use /lib/local/local
 use /completion
 use /prompt
