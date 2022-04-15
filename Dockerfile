@@ -16,9 +16,9 @@ RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 RUN yay -Sy --noconfirm neovim-git ghq-bin ttyd
 
 # clean
-RUN sudo pacman -Scc --no-confirm
+RUN sudo pacman -Scc --noconfirm
 RUN rm -rf ~/yay-bin
-RUN yay -Sc --aur --no-confirm
+RUN yay -Sc --noconfirm
 
 # stow
 RUN git clone --recurse-submodules -j32 https://github.com/aca/dotfiles ~/src/configs/dotfiles
