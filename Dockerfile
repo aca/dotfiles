@@ -3,7 +3,7 @@ FROM archlinux:base-devel
 # pacman
 RUN pacman -Sy reflector --noconfirm
 RUN reflector --country "South Korea" --country Japan  --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
-RUN pacman -Sy --noconfirm --needed git stow archlinux-keyring fd fzf vifm ripgrep stow go nodejs npm python python-pip tmux zsh fish elvish moreutils jq zoxide xclip tig traceroute tcpdump socat tree xsel kubectl
+RUN pacman -Sy --noconfirm --needed git stow archlinux-keyring fd openssh fzf vifm ripgrep stow go nodejs npm python python-pip tmux zsh fish elvish moreutils jq zoxide xclip tig traceroute tcpdump socat tree xsel kubectl
 
 # setup yay
 RUN groupadd -r rok && useradd --create-home --no-log-init -r -g rok rok
@@ -16,10 +16,14 @@ RUN git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 RUN yay -Sy --noconfirm neovim-git ghq-bin ttyd
 
 # clean
-RUN sudo pacman -Scc
+RUN sudo pacman -Scc --no-confirm
+RUN rm -rf ~/yay-bin
+RUN yay -Sc --aur --no-confirm
 
-# dotfiles
-RUN git clone --recurse-submodules -j16 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+# stow
+RUN git clone --recurse-submodules -j32 https://github.com/aca/dotfiles ~/src/configs/dotfiles
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
+
+# nvim
 RUN nvim --headless -c ':TSInstallSync all' -c ':q'
 RUN nvim --headless -c ':LspInstall --sync gopls bashls tsserver yamlls html jsonls' -c ':q'
