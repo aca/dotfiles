@@ -19,6 +19,7 @@ RUN yay -Sy --noconfirm neovim-git ghq-bin ttyd
 RUN sudo pacman -Scc
 
 # Dotfiles
-RUN git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+RUN git clone --recurse-submodules -j8 https://github.com/aca/dotfiles.git ~/src/configs/dotfiles
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 RUN nvim --headless -c ':TSInstallSync all' -c ':q'
+RUN timeout 30s nvim --headless -c ':LspInstall gopls' || true
