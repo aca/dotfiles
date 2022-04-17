@@ -21,9 +21,13 @@ RUN rm -rf ~/yay-bin
 RUN yay -Sc --noconfirm
 
 # stow
-RUN git clone --recurse-submodules -j11 https://github.com/aca/dotfiles ~/src/configs/dotfiles
+RUN git clone --recurse-submodules -j11 https://github.com/aca/dotfiles ~/src/configs/dotfiles --depth 1
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
 # nvim
 RUN nvim --headless -c ':TSInstallSync all' -c ':q'
 RUN nvim --headless -c ':LspInstall --sync gopls bashls tsserver yamlls html jsonls' -c ':q'
+
+RUN sudo rm -rf ~/go
+RUN sudo rm -rf ~/.cache
+RUN sudo rm -rf ~/.npm

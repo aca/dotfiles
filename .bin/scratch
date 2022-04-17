@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mkdir ~/src/scratch || true
+mkdir ~/src/scratch 2>/dev/null || true
 
 d=""
 if [ "$#" -eq 0 ]; then
