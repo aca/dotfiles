@@ -2,7 +2,6 @@ FROM alpine
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 RUN apk add --no-cache \
-      elvish@testing \
       build-base \
       ca-certificates \
       curl \
@@ -10,11 +9,11 @@ RUN apk add --no-cache \
       xz \
       git \
       sudo \
+      tmux \
       stow \
       moreutils \
+      ttyd@community \
       jq \
-      xclip \
-      xsel \
       fd \
       openssh \
       openssl \
@@ -35,6 +34,7 @@ RUN apk add --no-cache \
       socat \
       tree \
       kubectl@testing \
+      kubectx@community \
       tree-sitter@community \
       go \
       unzip \
@@ -54,14 +54,17 @@ RUN cd ~/src/configs/github.com/neovim/neovim && make CMAKE_BUILD_TYPE=RelWithDe
 RUN git clone --recurse-submodules -j11 https://github.com/aca/dotfiles ~/src/configs/dotfiles --depth 1 && rm -rf ~/src/configs/dotfiles/.git
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
-RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python rust tsx typescript yaml' -c ':q'
+# RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 RUN nvim --headless -c ':LspInstall --sync gopls tsserver yamlls' -c ':q'
 
 ENV GOPATH /home/rok
 RUN go install github.com/x-motemen/ghq@latest
+RUN go install src.elv.sh/cmd/elvish@latest
+RUN sudo mv /home/rok/bin/* /usr/local/bin
 
 RUN sudo rm -rf ~/go || true
 RUN sudo rm -rf ~/pkg || true
 RUN sudo rm -rf ~/.cache || true
 RUN sudo rm -rf ~/.npm || true
 
+CMD ["/usr/local/bin/elvish"]

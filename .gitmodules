@@ -331,9 +331,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/fzf-lua"]
 	path = .local/share/nvim/site/pack/bundle/opt/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/sniprun"]
-	path = .local/share/nvim/site/pack/bundle/opt/sniprun
-	url = https://github.com/michaelb/sniprun.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/LuaSnip"]
 	path = .local/share/nvim/site/pack/bundle/opt/LuaSnip
 	url = https://github.com/L3MON4D3/LuaSnip.git
@@ -370,9 +367,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nextfile.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/nextfile.vim
 	url = https://github.com/tyru/nextfile.vim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/nrepl.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/nrepl.nvim
-	url = https://github.com/ii14/nrepl.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim
 	url = https://github.com/anuvyklack/pretty-fold.nvim.git
