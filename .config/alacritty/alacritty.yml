@@ -405,40 +405,40 @@ colors:
 #     - { index: 21, color: '0xe8e8e8' }
 
 # ColorStart
-# Base16 Pop - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Base16 IR Black - alacritty color config
+# Timothée Poisot (http://timotheepoisot.fr)
 colors:
   # Default colors
   primary:
     background: '0x000000'
-    foreground: '0xd0d0d0'
+    foreground: '0xb5b3aa'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text: '0x000000'
-    cursor: '0xd0d0d0'
+    cursor: '0xb5b3aa'
 
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0xeb008a'
-    green:   '0x37b349'
-    yellow:  '0xf8ca12'
-    blue:    '0x0e5a94'
-    magenta: '0xb31e8d'
-    cyan:    '0x00aabb'
-    white:   '0xd0d0d0'
+    red:     '0xff6c60'
+    green:   '0xa8ff60'
+    yellow:  '0xffffb6'
+    blue:    '0x96cbfe'
+    magenta: '0xff73fd'
+    cyan:    '0xc6c5fe'
+    white:   '0xb5b3aa'
 
   # Bright colors
   bright:
-    black:   '0x505050'
-    red:     '0xf29333'
-    green:   '0x202020'
-    yellow:  '0x303030'
-    blue:    '0xb0b0b0'
-    magenta: '0xe0e0e0'
-    cyan:    '0x7a2d00'
-    white:   '0xffffff'
+    black:   '0x6c6c66'
+    red:     '0xe9c062'
+    green:   '0x242422'
+    yellow:  '0x484844'
+    blue:    '0x918f88'
+    magenta: '0xd9d7cc'
+    cyan:    '0xb18a3d'
+    white:   '0xfdfbee'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

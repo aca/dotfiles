@@ -1,13 +1,18 @@
 use platform
 
-if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
-  set E:NVIM_LISTEN_ADDRESS = "/tmp/nvim"$E:WEZTERM_PANE
-}
-
-set E:PYTHONSTARTUP = ~/.bin/pythonstartup
+# if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
+#   set E:NVIM_LISTEN_ADDRESS = "/tmp/nvim"$E:WEZTERM_PANE
+# }
 
 if (eq $E:_ELVISH_ENV "") {
     set E:_ELVISH_ENV = 1
+
+    # this should be set by terminal emulator(e.g. alacritty) or tmux
+    if (not (has-env TERM )) {
+      set-env TERM xterm-color
+    }
+
+    set E:PYTHONSTARTUP = ~/.bin/pythonstartup
 
     if (eq $E:HOSTNAME "rok-te3") {
       set E:LIBVIRT_DEFAULT_URI = "qemu:///system"
