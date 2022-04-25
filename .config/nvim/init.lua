@@ -5,6 +5,7 @@
 -- https://www.reddit.com/r/neovim/comments/ts8app/what_are_the_must_have_git_plugs_in_your_opinion/
 -- https://github.com/willchao612/vim-diagon
 -- https://www.reddit.com/r/neovim/comments/sihuq7/psa_now_you_can_set_global_highlight_groups_ie/
+-- https://github.com/frabjous/knap
 
 -- UPDATE [[
 -- :TSInstall all
