@@ -51,6 +51,7 @@ fn ffc { || $cdf~ (ff)  }
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn zs {|@a| zsh $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
+fn trash-empty { |@a| yes | e:trash-empty }
 fn mv {|@a| e:mv -v -n $@a }
 fn cp {|@a| e:cp -v -n $@a }
 # fn jq { |@a| e:jq -R 'fromjson?' | e:jq $@a }

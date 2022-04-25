@@ -4,3 +4,4 @@
 /Library
 /Dockerfile
 /.dockerignore
+/Makefile

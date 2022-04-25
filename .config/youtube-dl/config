@@ -1,9 +1,9 @@
 --ignore-errors
 --geo-bypass
 --write-sub
---output "%(extractor_key)s/%(uploader)s/%(upload_date)s_%(title)s_%(id)s.%(ext)s"
+--output "%(extractor_key)s/%(uploader)s/%(upload_date)s_%(title).50s_%(id)s.%(ext)s"
 --download-archive ".youtube-dl"
 --rm-cache-dir
 --yes-playlist
---paths temp:/tmp/yt_downloads
+--paths temp:/tmp/yt
 --netrc
