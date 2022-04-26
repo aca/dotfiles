@@ -18,9 +18,6 @@ packadd nvim-colorizer.lua
 " packadd webapi-vim
 " packadd vim-gist
 
-packadd stabilize.nvim
-lua require("stabilize").setup()
-
 " packadd fugitive
 " packadd gv.vim
 

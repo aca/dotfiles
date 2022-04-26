@@ -18,7 +18,6 @@ inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cm
 nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
-nnoremap <silent> ;d            <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
 nnoremap <silent> ;rf            <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> ;rn            <cmd>lua vim.lsp.buf.rename()<CR>

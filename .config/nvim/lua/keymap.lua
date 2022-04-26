@@ -28,6 +28,7 @@ nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next({wrap = false})<cr
 nvim_set_keymap("n", ";w", ":set wrap!<CR>", { silent = true, noremap = true })
 nvim_set_keymap("n", ";n", ":set relativenumber! | set number!<CR>", { silent = true, noremap = true })
 nvim_set_keymap("n", ";m", ":Messages<cr><c-w><c-w>", { silent = true, noremap = true })
+nvim_set_keymap("n", ";d", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", { silent = true, noremap = true })
 
 -- LSP
 nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
@@ -36,3 +37,4 @@ nvim_set_keymap("n", "gi", "<cmd>vsplit<bar>lua vim.lsp.buf.implementation()<CR>
 nvim_set_keymap("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = true })
 
 nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+

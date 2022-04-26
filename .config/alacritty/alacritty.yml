@@ -87,7 +87,7 @@ live_config_reload: true
 #     - --login
 
 shell:
-  program: /usr/bin/elvish
+  program: /usr/local/bin/elvish
 
 
 working_directory: None

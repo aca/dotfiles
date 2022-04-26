@@ -439,15 +439,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/orgmode"]
 	path = .local/share/nvim/site/pack/bundle/opt/orgmode
 	url = https://github.com/nvim-orgmode/orgmode.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/lens.vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/lens.vim
-	url = https://github.com/camspiers/lens.vim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/animate.vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/animate.vim
-	url = https://github.com/camspiers/animate.vim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/stabilize.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/stabilize.nvim
-	url = https://github.com/luukvbaal/stabilize.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-boxdraw"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-boxdraw
 	url = https://github.com/gyim/vim-boxdraw.git

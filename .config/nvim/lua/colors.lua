@@ -32,13 +32,15 @@ nvim_set_hl(0, "CursorLine", { bg = "#2A2A2A", fg = "NONE" })
 nvim_set_hl(0, "ColorColumn", { bg = "#1A1A1A", fg = "NONE" })
 nvim_set_hl(0, "SignColumn", { bg = "NONE", fg = "#666967" })
 
--- gitsigns.nvim
-nvim_set_hl(0, "GitSignsAdd", { bg = "NONE", fg = "green" })
-nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "blue" })
-nvim_set_hl(0, "GitSignsDelete", { bg = "NONE", fg = "red" })
-nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "yellow" })
 
 vim.defer_fn(function()
+
+    -- gitsigns.nvim
+    nvim_set_hl(0, "GitSignsAdd", { bg = "NONE", fg = "green" })
+    nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "blue" })
+    nvim_set_hl(0, "GitSignsDelete", { bg = "NONE", fg = "red" })
+    nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "yellow" })
+
     nvim_set_hl(0, "Conceal", { bg = "NONE", fg = "#C9C9C9" })
     nvim_set_hl(0, "VertSplit", { bg = "NONE", fg = "#2e2e2e" })
     nvim_set_hl(0, "WildMenu", { bg = "#2A2A2A", fg = "#EAB56B", italic = true })
@@ -85,4 +87,17 @@ vim.defer_fn(function()
     nvim_set_hl(0, "DiagnosticSignInfo", { italic = true })
     nvim_set_hl(0, "DiagnosticSignHint", { italic = true })
     nvim_set_hl(0, "MsgArea", { italic = true })
+
+    -- nvim-cmp
+    nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg="NONE" , strikethrough = true, fg="#808080"})
+    nvim_set_hl(0, "CmpItemAbbrMatch"     , { bg="NONE" , fg="#569CD6"})
+    nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { bg="NONE" , fg="#569CD6"})
+    nvim_set_hl(0, "CmpItemKindVariable"  , { bg="NONE" , fg="#9CDCFE"})
+    nvim_set_hl(0, "CmpItemKindInterface" , { bg="NONE" , fg="#9CDCFE"})
+    nvim_set_hl(0, "CmpItemKindText"      , { bg="NONE" , fg="#9CDCFE"})
+    nvim_set_hl(0, "CmpItemKindFunction"  , { bg="NONE" , fg="#C586C0"})
+    nvim_set_hl(0, "CmpItemKindMethod"    , { bg="NONE" , fg="#C586C0"})
+    nvim_set_hl(0, "CmpItemKindKeyword"   , { bg="NONE" , fg="#D4D4D4"})
+    nvim_set_hl(0, "CmpItemKindProperty"  , { bg="NONE" , fg="#D4D4D4"})
+    nvim_set_hl(0, "CmpItemKindUnit"      , { bg="NONE" , fg="#D4D4D4"})
 end, 10)
