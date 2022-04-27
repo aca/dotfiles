@@ -37,6 +37,7 @@ RUN apk add --no-cache \
       tree-sitter@community \
       go \
       unzip \
+      gron@testing \
       make git cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
 
 # RUN addgroup -S rok
