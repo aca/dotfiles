@@ -1,13 +1,20 @@
 vim.cmd([[ 
   packadd Comment.nvim 
+  runtime after/plugin/Comment.lua
+
   packadd nvim-ts-context-commentstring
 ]])
 
 require("Comment").setup({
-    ---@param ctx Ctx
+    mappings = {
+        basic = true,
+        extra = false,
+        extended = false,
+    },
     pre_hook = function(ctx)
-        -- Only calculate commentstring for tsx filetypes
         local ft = vim.bo.filetype
+
+        -- tsx
         if ft == "typescriptreact" then
             local U = require("Comment.utils")
 
@@ -26,12 +33,14 @@ require("Comment").setup({
                 key = type,
                 location = location,
             })
-          elseif ft == "text" then
-            vim.bo.commentstring = '# %s'
-          end
+
+        -- plain text
+        elseif ft == "text" then
+            vim.bo.commentstring = "# %s"
+        end
     end,
 })
 
-local ft = require('Comment.ft')
-ft.set('javascript', {'//%s', '/*%s*/'}).set('conf', '#%s')
-ft.set('typescript', {'//%s', '/*%s*/'}).set('conf', '#%s')
+-- local ft = require('Comment.ft')
+-- ft.set('javascript', {'//%s', '/*%s*/'}).set('conf', '#%s')
+-- ft.set('typescript', {'//%s', '/*%s*/'}).set('conf', '#%s')

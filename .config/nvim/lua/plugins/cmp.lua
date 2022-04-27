@@ -5,60 +5,34 @@ local api = vim.api
 vim.cmd([[ 
 packadd nvim-cmp
 packadd cmp-under-comparator
+
 packadd cmp-buffer
+runtime after/plugin/cmp_buffer.lua
+
 packadd cmp-nvim-lsp
+runtime after/plugin/cmp_nvim_lsp.lua
+
 packadd cmp-path
+runtime after/plugin/cmp_path.lua
+
 packadd cmp_luasnip
+runtime /after/plugin/cmp_luasnip.lua
+
 packadd cmp-nvim-lsp-signature-help
+runtime after/plugin/cmp_nvim_lsp_signature_help.lua
+
 " packadd friendly-snippets
 
 ]])
 
 local cmp = require("cmp")
-require("cmp_nvim_lsp").setup()
-
-cmp.register_source("path", require("cmp_path").new())
-cmp.register_source('nvim_lsp_signature_help', require('cmp_nvim_lsp_signature_help').new())
-cmp.register_source("buffer", require("cmp_buffer"))
-
--- ~/.local/share/nvim/site/pack/bundle/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua
-cmp.register_source("luasnip", require("cmp_luasnip").new())
-local augroup_cmp_luasnip = api.nvim_create_augroup("cmp_luasnip", {})
-api.nvim_create_autocmd("User", {
-    group = augroup_cmp_luasnip,
-    pattern = "LuasnipCleanup",
-    callback = function()
-        require("cmp_luasnip").clear_cache()
-    end,
-})
-api.nvim_create_autocmd("User", {
-    group = augroup_cmp_luasnip,
-    pattern = "LuasnipSnippetsAdded",
-    callback = function()
-        require("cmp_luasnip").refresh()
-    end,
-})
-
-local remap = api.nvim_set_keymap
-local t = function(str)
-    return api.nvim_replace_termcodes(str, true, true, true)
-end
 
 local cmp_sources = {
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
-    { name = "copilot" },
-    { name = 'nvim_lsp_signature_help' }
-    -- { name = 'cmp_tabnine'},
-    -- { name = "vsnip" },
-    -- {
-    -- 	name = "tmux",
-    -- 	-- option = {
-    -- 	-- 	all_panes = false,
-    -- 	-- },
-    -- },
+    { name = "nvim_lsp_signature_help" },
 }
 
 local has_words_before = function()
@@ -67,68 +41,35 @@ local has_words_before = function()
 end
 
 local cmp_kinds = {
-  Text = "",
-  Method = "",
-  Function = "",
-  Constructor = "",
-  Field = "",
-  Variable = "",
-  Class = "ﴯ",
-  Interface = "",
-  Module = "",
-  Property = "ﰠ",
-  Unit = "",
-  Value = "",
-  Enum = "",
-  Keyword = "",
-  Snippet = "",
-  Color = "",
-  File = "",
-  Reference = "",
-  Folder = "",
-  EnumMember = "",
-  Constant = "",
-  Struct = "",
-  Event = "",
-  Operator = "",
-  TypeParameter = ""
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
 }
-
--- local lspkind_comparator = function(conf)
---   local lsp_types = require('cmp.types').lsp
---   return function(entry1, entry2)
---     if entry1.source.name ~= 'nvim_lsp' then
---       if entry2.source.name == 'nvim_lsp' then
---         return false
---       else
---         return nil
---       end
---     end
---     local kind1 = lsp_types.CompletionItemKind[entry1:get_kind()]
---     local kind2 = lsp_types.CompletionItemKind[entry2:get_kind()]
---
---     local priority1 = conf.kind_priority[kind1] or 0
---     local priority2 = conf.kind_priority[kind2] or 0
---     if priority1 == priority2 then
---       return nil
---     end
---     return priority2 < priority1
---   end
--- end
-
-local label_comparator = function(entry1, entry2)
-    return entry1.completion_item.label < entry2.completion_item.label
-end
 
 local luasnip = require("luasnip")
 cmp.setup({
-    -- You should change this example to your chosen snippet engine.
-    -- snippet = {
-    -- 	expand = function(args)
-    -- 		-- You must install `vim-vsnip` if you set up as same as the following.
-    -- 		vim.fn["vsnip#anonymous"](args.body)
-    -- 	end,
-    -- },
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -146,47 +87,13 @@ cmp.setup({
             cmp.config.compare.order,
         },
     },
-    -- comparators = {
-    --   lspkind_comparator({
-    --     kind_priority = {
-    --       Field = 11,
-    --       Property = 11,
-    --       Constant = 10,
-    --       Enum = 10,
-    --       EnumMember = 10,
-    --       Event = 10,
-    --       Function = 10,
-    --       Method = 10,
-    --       Operator = 10,
-    --       Reference = 10,
-    --       Struct = 10,
-    --       Variable = 9,
-    --       File = 8,
-    --       Folder = 8,
-    --       Class = 5,
-    --       Color = 5,
-    --       Module = 5,
-    --       Keyword = 2,
-    --       Constructor = 1,
-    --       Interface = 1,
-    --       Snippet = 0,
-    --       Text = 1,
-    --       TypeParameter = 1,
-    --       Unit = 1,
-    --       Value = 1,
-    --     },
-    --   }),
-    --   label_comparator,
-    -- },
     formatting = {
         format = function(_, vim_item)
             vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
             return vim_item
         end,
     },
-    -- preselect = cmp.PreselectMode.None,
     preselect = "none",
-    -- You must set mapping.
     mapping = {
         ["<CR>"] = cmp.mapping(function(fallback)
             if cmp.core.view:get_selected_entry() then
