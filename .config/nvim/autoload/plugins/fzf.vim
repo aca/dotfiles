@@ -26,7 +26,7 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 au FileType fzf tnoremap <buffer> <c-j> <c-j>
 au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
-let g:fzf_preview_window = ['right:65%:hidden','ctrl-p']
+let g:fzf_preview_window = ['right:65%','ctrl-p']
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 

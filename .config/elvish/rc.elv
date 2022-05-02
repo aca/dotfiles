@@ -10,12 +10,12 @@ use platform
 use /env
 use /utils
 use /bind
-# use /lib/local/local
 use /completion
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
-
 if (has-external zoxide) { use /zoxide }
+
+use local
 
 # }}}
 # abbr {{{
@@ -59,6 +59,7 @@ fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {
 
 # utils
 fn from-0 { || from-terminated "\x00" }
+fn export { |v| set-env (echo $v | cut -d '=' -f 1) (echo $v | cut -d '=' -f 2-) }
 
 # UNIX comm alternative but keep sorted
 # list all non md files

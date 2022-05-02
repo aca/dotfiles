@@ -1,7 +1,7 @@
 vim.cmd([[
         packadd nvim-treesitter
         " packadd nvim-ts-rainbow
-        " packadd playground
+        packadd playground
         " packadd vim-matchup
 ]])
 

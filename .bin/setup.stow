@@ -101,6 +101,7 @@ mkdir -p $HOME/.kube
 emptyDir ~/.local/share/nvim/site/pack/paqs
 ensureDir $HOME/.config/autostart
 ensureDir $HOME/.ssh
+ensureDir $HOME/.local/share/elvish/lib
 rmf $HOME/.ssh/config
 # }}}
 

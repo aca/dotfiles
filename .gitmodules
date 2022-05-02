@@ -448,3 +448,9 @@
 [submodule ".config/elvish/lib/plugins/edit.elv"]
 	path = .config/elvish/lib/plugins/edit.elv
 	url = https://github.com/xiaq/edit.elv.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/monotone.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/monotone.nvim
+	url = https://github.com/Lokaltog/monotone.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/lush.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/lush.nvim
+	url = https://github.com/rktjmp/lush.nvim.git

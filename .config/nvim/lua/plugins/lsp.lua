@@ -20,6 +20,19 @@ vim.cmd([[
   packadd nvim-lsp-installer
 ]])
 
+
+local rightAlignFormatFunction = function(diagnostic) -- luacheck: ignore
+	local line = diagnostic.lnum
+	local line_length = #(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+	local lwidth = vim.api.nvim_get_option("columns")
+        -- calculate the space needed to right align 
+	local splen = string.rep(" ", lwidth - line_length - string.len(diagnostic.message) - 4)
+	return string.format("%s» %s", splen, diagnostic.message)
+end
+
+vim.diagnostic.config({virtual_text = {spacing = 10, prefix="»"}})
+-- vim.diagnostic.config({ virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0 }, })
+
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")
