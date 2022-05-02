@@ -76,19 +76,3 @@ if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
 
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 [[ $PS1 && -f /usr/local/share/bash-completion/bash_completion ]] && . /usr/local/share/bash-completion/bash_completion
-
-# _dothis_completions()
-# {
-#   declare -p COMP_WORDS >> /tmp/elvisherr
-#   echo "COMP_CWORD: $COMP_CWORD" >> /tmp/elvisherr
-#   COMPREPLY=()
-#   COMPREPLY+=("now")
-#   COMPREPLY+=("tomorrow")
-#   COMPREPLY+=("never")
-# }
-#
-# complete -F _dothis_completions dothis
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-

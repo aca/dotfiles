@@ -13,7 +13,7 @@ use /bind
 # use /lib/local/local
 use /completion
 use /prompt
-use edit.elv/smart-matcher; smart-matcher:apply
+use plugins/edit.elv/smart-matcher; smart-matcher:apply
 
 if (has-external zoxide) { use /zoxide }
 

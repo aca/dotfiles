@@ -37,9 +37,9 @@ let g:nf_map_previous='[f'
 packadd nextfile.vim
 
 " plugin: vim-oscyank
-packadd vim-oscyank
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''  | silent OSCYankReg " | endif
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
+" packadd vim-oscyank
+" autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''  | silent OSCYankReg " | endif
+" autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
 
 " plugin: suda.vim
 packadd suda.vim

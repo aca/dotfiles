@@ -1,5 +1,7 @@
-# Bindings...
-# pprint $edit:insert:binding
+# Key bindings
+#
+# print current binding
+#   pprint $edit:insert:binding
 
 use math
 use str
@@ -14,12 +16,7 @@ fn fzf_history {||
     edit:command-history &dedup &newest-first &cmd-only |
     to-terminated "\x00" |
     try {
-      use math
-      # requires latest fzy for `-0` options
-      # tput lines doesn't work
-      # var height = (math:max (- (tput lines) (term.pos.row)) 6)
-      # str:trim-space (fzy -0 --lines $height --query=$edit:current-command | slurp)
-      str:trim-space (fzf --no-multi --height=30% --min-height 10 --no-sort --read0 --info=hidden --exact --query=$edit:current-command | slurp)
+      str:trim-space (fzf --no-multi --height=75% --min-height 10 --no-sort --read0 --info=hidden --exact --query=$edit:current-command | slurp)
     } catch {
       edit:redraw &full=$true
       return
@@ -32,22 +29,28 @@ set edit:insert:binding[Ctrl-R] = {|| fzf_history >/dev/tty 2>&1 }
 
 fn fzf_file { ||
   use str
-  edit:replace-input (str:join '' [ $edit:current-command (str:trim-space (fzf </dev/tty)) ] )
-  # try {
-  #   edit:replace-input (str:join '' $edit:current-command (str:trim-space (fzf </dev/tty)) )
-  #   # edit:replace-input (str:trim-space (fzf </dev/tty ))
-  # } catch {
-  # }
-  # str:split $edit:current-command | put [ (all) ][-1] | noti -m -
-  # str:split ' ' $edit:current-command | put [ (all) ][-1]
-  # set edit:current-command = $new-cmd
+  var last = (str:split ' ' $edit:current-command | put [ (all) ][-1])
+
+  if (not-eq $last '') {
+    var s = (str:trim-suffix $edit:current-command $last)
+    var s2 = (str:join ' ' [$s (printf "%q" (fzf --height 75% --query $last --min-height 10 --info=hidden --no-sort </dev/tty) )])
+    edit:replace-input $s2
+  } else {
+    edit:replace-input (str:join ' ' [$edit:current-command (printf "%q" (fzf --height 75% --min-height 10 --info=hidden --no-sort </dev/tty) )])
+  }
 }
+
 set edit:insert:binding[Ctrl-T] = {|| 
-  fzf_file >/dev/tty 2>&1 
-  edit:redraw &full=$true
+  try {
+    fzf_file >/dev/tty 2>&1
+    edit:redraw &full=$true
+  } catch {
+    edit:redraw &full=$true
+  }
 }
 
 fn copy_current_command {||
+  # ~/.bin/yank
   echo $edit:current-command | yank
 }
 set edit:insert:binding[Ctrl-X] = {|| copy_current_command >/dev/tty 2>&1 }
@@ -57,7 +60,6 @@ fn paste_command {||
 }
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 set edit:command:binding[p] = {|| paste_command >/dev/tty 2>&1 }
-
 
 set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
 
@@ -92,29 +94,42 @@ set edit:insert:binding[Ctrl-S] = {||
 
 set edit:insert:binding[Ctrl-D] = { edit:location:start }
 set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv) > /dev/tty 2>/dev/null }
-
-set edit:insert:binding[Ctrl-N] = {||
-  cd (e:vifm --choose-dir -) </dev/tty >/dev/tty 2>&1
-}
-
 set edit:insert:binding[Ctrl-W] = {||
   cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0) >/dev/tty 2>&1
   edit:redraw &full=$true
 }
 
 
+# queue command to pueue
+# I don't like pueue interface, maybe just use tmux
+# elvish -> bash -> elvish
+# echo 1\necho 2 -> elvish -c $'echo 1\necho 2'
+set edit:insert:binding[Ctrl-P] = {|| 
+  if (not-eq $edit:current-command "") {
+    edit:replace-input ( printf "pueue add -- elvish -c %q" (put $edit:current-command | to-lines | sh -c 'x=$(cat -); printf "%q" "$x"'))
+    edit:smart-enter
+  }
+}
+
+# execute command in bash
 set edit:insert:binding[Ctrl-B] = {|| 
-  # NOTE: elvish -> bash -> elvish
-  # quoting, escaping is sick
-  edit:replace-input ( printf "pueue add -- elvish -c %q" (echo $edit:current-command | sh -c 'x=$(cat -); printf "%q" "$x"'))
+  if (not-eq $edit:current-command "") {
+    edit:replace-input ( printf "echo %q | bash" (put $edit:current-command))
+    edit:smart-enter
+  }
 }
 
 set edit:insert:binding[Ctrl-Q] = { exit }
-set edit:insert:binding[Ctrl-P] = { edit:history:start }
-set edit:history:binding[Ctrl-P] = { edit:history:up }
-set edit:history:binding[Ctrl-N] = { edit:history:down }
+set edit:insert:binding[Ctrl-E] = { nop ?(tmux clear-history 2>/dev/null); clear >/dev/tty; edit:redraw &full=$true }
+# set edit:insert:binding[Ctrl-I] = { edit:lastcmd:start }
 
-set edit:insert:binding[Ctrl-U] = { edit:lastcmd:start }
+# navigate history like vim
+# set edit:insert:binding[Ctrl-H] = { edit:history:start }
+# set edit:history:binding['Ctrl-N'] = { edit:history:up }
+# set edit:history:binding['Ctrl-P'] = { edit:history:down }
 
-# https://elv.sh/ref/edit.html#keybindings
-set edit:insert:binding[Ctrl-E] = { try { tmux clear-history 2>/dev/null } catch { }; edit:clear;  }
+# navigate
+set edit:insert:binding[Ctrl-N] = {|| cd (e:vifm --choose-dir -) </dev/tty >/dev/tty 2>&1 }
+
+# fish like ctrl-a 
+set edit:insert:binding[Ctrl-A] = { edit:completion:smart-start }

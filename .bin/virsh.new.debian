@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Creates debian based vm named $1
+#
+#   $ virsh.new.debian sentry
+# 
+set -euxo pipefail
+VM=$1
+sudo cp -v /var/lib/libvirt/images/debian-11-genericcloud-amd64-20220328-962.qcow2 /var/lib/libvirt/images/$VM.qcow2
+sudo qemu-img resize /var/lib/libvirt/images/$VM.qcow2 30G
+sudo virt-customize -a /var/lib/libvirt/images/$VM.qcow2 --hostname $VM --root-password password:toor --run-command 'ssh-keygen -A' --ssh-inject root:file:$HOME/.ssh/id_rsa.pub
+sudo virt-install --name $VM --virt-type kvm --memory 8192 --vcpus 4 --boot hd,menu=on --disk path=/var/lib/libvirt/images/$VM.qcow2,device=disk --graphics none --os-variant debian11 --network default,model=virtio --console pty,target_type=serial --noautoconsole

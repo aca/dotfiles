@@ -1,0 +1,18 @@
+#!/bin/bash
+# sync contents of two directory
+set -euo pipefail
+
+src="$1"; shift
+dest="$1"; shift
+
+# if [[ ! -d "$src"  ]]; then
+#   printf "invalid directory: %q\n" "$1"
+#   exit 1
+# fi
+#
+# if [[ ! -d "$2"  ]]; then
+#   printf "invalid directory: %q\n" "$2"
+#   exit 1
+# fi
+
+rsync --progress -avh --delete "${src}/" "${dest}/" "$@"

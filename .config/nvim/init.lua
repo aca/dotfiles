@@ -44,7 +44,7 @@ defer_fn(function()
 
     cmd([[
       runtime! autoload/plugins/*
-      runtime! autoload/func/*
+      runtime! autoload/utils/*
       runtime! autoload/autocmd/*
       runtime! autoload/command/*
       runtime! autoload/map/* 
