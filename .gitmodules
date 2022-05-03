@@ -307,9 +307,6 @@
 [submodule ".config/nvim/lua/rocks/lua-gumbo"]
 	path = .config/nvim/lua/rocks/lua-gumbo
 	url = https://github.com/craigbarnes/lua-gumbo.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/orgmode.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/orgmode.nvim
-	url = https://github.com/kristijanhusak/orgmode.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/elvish.vim"]
 	path = .local/share/nvim/site/pack/bundle/start/elvish.vim
 	url = https://github.com/dmix/elvish.vim.git
@@ -370,9 +367,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/pretty-fold.nvim
 	url = https://github.com/anuvyklack/pretty-fold.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-scrollbar"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-scrollbar
-	url = https://github.com/petertriho/nvim-scrollbar.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/barbar.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/barbar.nvim
 	url = https://github.com/romgrk/barbar.nvim.git
@@ -424,18 +418,12 @@
 [submodule ".submodules/tmux-xpanes"]
 	path = .submodules/tmux-xpanes
 	url = https://github.com/greymd/tmux-xpanes.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/lualine.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/lualine.nvim
-	url = https://github.com/nvim-lualine/lualine.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-floaterm"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-floaterm
 	url = https://github.com/voldikss/vim-floaterm.git
 [submodule ".submodules/fff"]
 	path = .submodules/fff
 	url = https://github.com/dylanaraps/fff.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/orgmode"]
-	path = .local/share/nvim/site/pack/bundle/opt/orgmode
-	url = https://github.com/nvim-orgmode/orgmode.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-boxdraw"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-boxdraw
 	url = https://github.com/gyim/vim-boxdraw.git

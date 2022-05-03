@@ -67,4 +67,5 @@ RUN sudo rm -rf ~/pkg || true
 RUN sudo rm -rf ~/.cache || true
 RUN sudo rm -rf ~/.npm || true
 
+WORKDIR /root
 CMD ["/usr/local/bin/elvish"]
