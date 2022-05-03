@@ -68,7 +68,7 @@ set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --
 
 fn fzf_cd {||
   try {
-    cd (fd --hidden --type d  --max-depth 6 --no-ignore -0 | fzf --read0 --height=30% --min-height 10)
+    cd (fd --hidden --type d  --max-depth 9 --no-ignore -0 | fzf --read0 --height=30% --min-height 10)
     edit:redraw &full=$true
   } catch {
     edit:redraw &full=$true
