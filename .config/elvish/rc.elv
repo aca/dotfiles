@@ -15,7 +15,7 @@ use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
 if (has-external zoxide) { use /zoxide }
 
-use local
+# use local
 
 # }}}
 # abbr {{{
