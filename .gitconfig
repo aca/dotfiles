@@ -11,8 +11,8 @@
     diff-highlight = true
     ; file-style = omit
 
-; [interactive]
-;     diffFilter = delta --color-only
+[interactive]
+    diffFilter = delta --color-only
 
 [github]
 	user = aca
@@ -28,6 +28,9 @@
 
 [include]
   path = ~/.gitconfig.local
+
+[includeIf "gitdir:~/src/github.com/tossinvest/"]
+  path = ~/.gitconfig.tossinvest
 
 [core]
   editor = nvim
@@ -51,7 +54,6 @@
   br = branch
   unstage = reset HEAD --
 
-
 [merge]
   tool = vimdiff
 
@@ -70,6 +72,6 @@
 
 [credential]
 	helper = cache --timeout 604800
+
 [status]
 	submoduleSummary = false
-
