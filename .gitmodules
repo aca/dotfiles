@@ -7,9 +7,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-dirvish"]
 	path = .local/share/nvim/site/pack/bundle/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
-[submodule ".local/share/nvim/site/pack/paqs/start/lsp_signature.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/lsp_signature.nvim
-	url = https://github.com/ray-x/lsp_signature.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-lspconfig"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
