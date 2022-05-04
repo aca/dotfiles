@@ -10,9 +10,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-lspconfig"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vim-fish"]
-	path = .local/share/nvim/site/pack/bundle/start/vim-fish
-	url = https://github.com/aca/vim-fish.git
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-dap"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-dap
 	url = https://github.com/mfussenegger/nvim-dap.git
@@ -304,9 +301,6 @@
 [submodule ".config/nvim/lua/rocks/lua-gumbo"]
 	path = .config/nvim/lua/rocks/lua-gumbo
 	url = https://github.com/craigbarnes/lua-gumbo.git
-[submodule ".local/share/nvim/site/pack/paqs/start/elvish.vim"]
-	path = .local/share/nvim/site/pack/bundle/start/elvish.vim
-	url = https://github.com/dmix/elvish.vim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-tmux"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-tmux
 	url = https://github.com/andersevenrud/cmp-tmux.git
