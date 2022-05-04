@@ -33,6 +33,7 @@ RUN apk add --no-cache \
       socat \
       tree \
       kubectl@testing \
+      delta@community \
       helm@testing \
       tree-sitter@community \
       go \
