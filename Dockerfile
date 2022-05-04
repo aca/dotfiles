@@ -37,6 +37,9 @@ RUN apk add --no-cache \
       helm@testing \
       tree-sitter@community \
       go \
+      github-cli@community \
+      docker-cli \
+      kubectx \
       unzip \
       gron@testing \
       make git cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
