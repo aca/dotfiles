@@ -156,7 +156,7 @@
 	url = https://github.com/ThePrimeagen/git-worktree.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitsigns.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gitsigns.nvim
-	url = https://github.com/lewis6991/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/pylance"]
 	path = .local/share/nvim/site/pack/bundle/start/pylance
 	url = https://git.sr.ht/~acadx0/pylance
@@ -240,7 +240,7 @@
 	url = https://github.com/nvim-telescope/telescope.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/markdown-preview.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/markdown-preview.nvim
-	url = https://github.com/iamcco/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim.git
 [submodule ".submodules/mpv-playlistmanager"]
 	path = .submodules/mpv-playlistmanager
 	url = https://github.com/jonniek/mpv-playlistmanager.git
@@ -252,7 +252,7 @@
 	url = https://github.com/vim-pandoc/vim-pandoc-syntax.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-gps"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-gps
-	url = https://github.com/SmiteshP/nvim-gps
+	url = https://github.com/SmiteshP/nvim-gps.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/lualine.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/lualine.nvim
 	url = https://github.com/hoob3rt/lualine.nvim.git
