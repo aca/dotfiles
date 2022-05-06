@@ -75,3 +75,5 @@
 
 [status]
 	submoduleSummary = false
+[diff]
+	ignoreSubmodules = dirty
