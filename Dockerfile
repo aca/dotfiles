@@ -54,7 +54,7 @@ RUN git clone -j8 https://github.com/neovim/neovim.git ~/src/configs/github.com/
 RUN cd ~/src/configs/github.com/neovim/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install && rm -rf ~/src/configs/github.com/neovim/neovim
 
 # stow
-RUN git clone --recurse-submodules -j11 https://github.com/aca/dotfiles ~/src/configs/dotfiles --depth 1 && rm -rf ~/src/configs/dotfiles/.git
+RUN git clone --recurse-submodules -j12 https://github.com/aca/dotfiles ~/src/configs/dotfiles --depth 1 && rm -rf ~/src/configs/dotfiles/.git
 RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
 # RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
