@@ -6,6 +6,7 @@
 -- https://github.com/willchao612/vim-diagon
 -- https://www.reddit.com/r/neovim/comments/sihuq7/psa_now_you_can_set_global_highlight_groups_ie/
 -- https://github.com/frabjous/knap
+-- https://github.com/michaelb/sniprun
 
 -- UPDATE [[
 -- :TSInstall all
