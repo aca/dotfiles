@@ -139,5 +139,5 @@ g.did_load_filetypes = 0
 g.loaded_netrwPlugin = 1
 
 vim.cmd [[
-set statusline=%<%f%m%r%h%w%=%-8(%l\ :\ %c%V%)\ %P 
+set statusline=%<%f\ %m%r%h%w%=%-8(%l\ :\ %c%V%)\ %P 
 ]]

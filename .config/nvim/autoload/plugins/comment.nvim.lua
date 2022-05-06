@@ -15,7 +15,7 @@ require("Comment").setup({
         local ft = vim.bo.filetype
 
         -- tsx
-        if ft == "typescriptreact" then
+        if ft == "typescriptreact" or ft == "javascriptreact" then
             local U = require("Comment.utils")
 
             -- Detemine whether to use linewise or blockwise commentstring
