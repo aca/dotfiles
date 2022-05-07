@@ -19,6 +19,8 @@ set edit:completion:arg-completer[ip] = (bash-completer:new "ip")
 set edit:completion:arg-completer[aria2c] = (bash-completer:new "aria2c")
 set edit:completion:arg-completer[git] = (bash-completer:new "git" &bash_function="__git_wrap__git_main")
 set edit:completion:arg-completer[killall] = (bash-completer:new "killall")
+set edit:completion:arg-completer[kill] = (bash-completer:new "kill")
+set edit:completion:arg-completer[pkill] = (bash-completer:new "pgrep")
 set edit:completion:arg-completer[kubectl] = (bash-completer:new "kubectl" &bash_function="__start_kubectl")
 set edit:completion:arg-completer[k] = $edit:completion:arg-completer[kubectl]
 set edit:completion:arg-completer[virsh] = (bash-completer:new "virsh" &bash_function="_virsh_complete virsh")
