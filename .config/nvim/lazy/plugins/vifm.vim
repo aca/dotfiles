@@ -10,4 +10,3 @@ function s:vifm()
   end
 endfunction
 nnoremap <silent><c-e> <cmd>call <sid>vifm()<cr>
-

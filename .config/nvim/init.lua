@@ -21,7 +21,7 @@
 -- https://github.com/lewis6991/impatient.nvim
 -- require("impatient").enable_profile()
 require("impatient")
-require("vim")
+require("settings")
 require("colors")
 require("plugins.lsp")
 require("plugins.treesitter")
@@ -38,12 +38,12 @@ vim.defer_fn(function()
     -- require("zettels")
 
     vim.cmd([[
-      runtime! autoload/plugins/*
-      runtime! autoload/utils/*
-      runtime! autoload/autocmd/*
-      runtime! autoload/command/*
-      runtime! autoload/map/* 
-      runtime! autoload/local/*
+      runtime! lazy/plugins/*
+      runtime! lazy/utils/*
+      runtime! lazy/autocmd/*
+      runtime! lazy/command/*
+      runtime! lazy/map/* 
+      runtime! lazy/local/*
       silent! helptags ALL 
     ]])
 end, 100)

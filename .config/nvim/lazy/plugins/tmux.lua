@@ -1,5 +1,4 @@
 vim.cmd([[
-
   packadd zen-mode.nvim
 
   packadd vim-tmux-navigator

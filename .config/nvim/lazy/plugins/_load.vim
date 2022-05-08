@@ -8,13 +8,14 @@ packadd vim-characterize
 packadd fcitx.nvim
 " packadd vim-rfc 
 " packadd symbols-outline.nvim
-packadd bufferize.vim
 " packadd vim-diagon
+packadd bufferize.vim
 packadd vim-scriptease 
 packadd diffview.nvim 
 packadd nvim-web-devicons
 " packadd todo-comments.nvim 
 packadd nvim-colorizer.lua
+
 " packadd webapi-vim
 " packadd vim-gist
 
@@ -23,13 +24,13 @@ packadd fugitive
 
 " plugin: netrw
 unlet g:loaded_netrwPlugin
-silent source /usr/local/share/nvim/runtime/plugin/netrwPlugin.vim
+runtime plugin/netrwPlugin.vim
 
 " plugin: matchit
 unlet g:loaded_matchit
-silent source /usr/local/share/nvim/runtime/plugin/matchit.vim
+runtime plugin/matchit.vim
 unlet g:loaded_matchparen
-silent source /usr/local/share/nvim/runtime/plugin/matchparen.vim
+runtime plugin/matchparen.vim
 
 " plugin: nextfile
 let g:nf_map_next=']f'
@@ -89,7 +90,7 @@ nmap <M-a> <Plug>MoveCharLeft
 nmap <M-d> <Plug>MoveCharRight
 
 " plugin: codi.vim
-command! Codi :packadd codi.vim | :Codi
+command! Codi packadd codi.vim | :Codi
 
 " plugin: luapad
 command! Luapad packadd nvim-luapad | :Luapad

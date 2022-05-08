@@ -93,17 +93,8 @@ cnoreabbrev l lua
 nnoremap Q @q
 vnoremap Q :norm @q<cr>
 
-
 " Split
 nnoremap <leader>o :only<cr>
-" noremap  <Leader>h :<C-u>split<CR>
-" noremap  <Leader>v :<C-u>vsplit<CR>
-" nnoremap <leader>s :botright 10sp<bar>  :Fish<cr>i
-" noremap <Leader>h :vs<bar>:terminal fish<CR>i
-" noremap <Leader>v :sp<bar>:terminal fish<CR>i
-
-" Set working directory(pwd) to location where current file is located
-" nnoremap <leader>. :lcd %:p:h<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -147,5 +138,3 @@ lua vim.api.nvim_set_keymap('n', '0', "getline('.')[0 : col('.') - 2] =~# '^\\s\
 
 " copy current path in form of filename:linenr
 nnoremap yp :YankPath<cr>
-
-nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>

@@ -172,9 +172,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
 	path = .local/share/nvim/site/pack/bundle/opt/playground
 	url = https://github.com/nvim-treesitter/playground.git
-[submodule ".local/share/nvim/site/pack/paqs/start/vidir.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/vidir.nvim
-	url = https://github.com/aca/vidir.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dadbod-ui"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-dadbod-ui
 	url = https://github.com/kristijanhusak/vim-dadbod-ui.git
@@ -205,9 +202,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-rfc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-rfc
 	url = https://github.com/mhinz/vim-rfc.git
-[submodule ".local/share/nvim/site/pack/paqs/start/popup.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/popup.nvim
-	url = https://github.com/nvim-lua/popup.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dirdiff"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-dirdiff
 	url = https://github.com/will133/vim-dirdiff.git
@@ -262,9 +256,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-devicons"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule ".local/share/nvim/site/pack/paqs/start/lspcontainers.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/lspcontainers.nvim
-	url = https://github.com/lspcontainers/lspcontainers.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/goerr-nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/goerr-nvim
 	url = https://github.com/Snyssfx/goerr-nvim.git
@@ -328,9 +319,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/friendly-snippets"]
 	path = .local/share/nvim/site/pack/bundle/opt/friendly-snippets
 	url = https://github.com/rafamadriz/friendly-snippets.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-notify"]
-	path = .local/share/nvim/site/pack/bundle/start/nvim-notify
-	url = https://github.com/rcarriga/nvim-notify.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/octo.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/octo.nvim
 	url = https://github.com/pwntester/octo.nvim.git
@@ -364,9 +352,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/neoscroll.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/neoscroll.nvim
 	url = https://github.com/karb94/neoscroll.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/vim-gist"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-gist
-	url = https://github.com/mattn/vim-gist.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-copilot"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-copilot
 	url = https://github.com/hrsh7th/cmp-copilot.git
@@ -400,9 +385,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/aerial.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/aerial.nvim
 	url = https://github.com/stevearc/aerial.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/webapi-vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/webapi-vim
-	url = https://github.com/mattn/webapi-vim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-under-comparator"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-under-comparator
 	url = https://github.com/lukas-reineke/cmp-under-comparator.git
