@@ -10,19 +10,14 @@
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
 
--- UPDATE [[
--- :TSInstall all
--- :TSUpdate all
--- :LspUpdateAll
--- ]]
 
--- TODO: zettels related
 
 -- https://github.com/lewis6991/impatient.nvim
 -- require("impatient").enable_profile()
 require("impatient")
 require("settings")
 require("colors")
+require("autocmds")
 require("plugins.lsp")
 require("plugins.treesitter")
 

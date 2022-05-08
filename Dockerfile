@@ -14,7 +14,7 @@ RUN apk add --no-cache \
       moreutils \
       ttyd@community \
       jq \
-      fd \
+      fd@community \
       openssh \
       autoconf \
       m4 \
@@ -42,7 +42,9 @@ RUN apk add --no-cache \
       kubectx \
       unzip \
       gron@testing \
-      make git cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
+      bash-completion \
+      make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
+
 
 # RUN addgroup -S rok
 # RUN adduser -S -D -G rok -h /home/rok -s /bin/bash rok

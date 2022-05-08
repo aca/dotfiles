@@ -12,4 +12,6 @@ docker:
 		@docker build -f Dockerfile . -t acadx0/vim
 		@docker push acadx0/vim
 
-
+.PHONY: dev
+dev:
+		@go install mvdan.cc/gofumpt@latest

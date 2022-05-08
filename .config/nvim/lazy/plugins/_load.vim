@@ -1,4 +1,6 @@
 packadd plenary.nvim
+packadd nvim-web-devicons
+
 packadd vim-ReplaceWithRegister
 packadd vim-fold-cycle
 " packadd clever-f.vim 
@@ -12,7 +14,6 @@ packadd fcitx.nvim
 packadd bufferize.vim
 packadd vim-scriptease 
 packadd diffview.nvim 
-packadd nvim-web-devicons
 " packadd todo-comments.nvim 
 packadd nvim-colorizer.lua
 

@@ -67,33 +67,33 @@ local cmp_sources = {
 -- }
 
 
-local cmp_kinds = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "⌘",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "塞",
-    Value = "",
-    Enum = "",
-    Keyword = "廓",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-}
+-- local cmp_kinds = {
+--     Text = "",
+--     Method = "",
+--     Function = "",
+--     Constructor = "⌘",
+--     Field = "ﰠ",
+--     Variable = "",
+--     Class = "ﴯ",
+--     Interface = "",
+--     Module = "",
+--     Property = "ﰠ",
+--     Unit = "塞",
+--     Value = "",
+--     Enum = "",
+--     Keyword = "廓",
+--     Snippet = "",
+--     Color = "",
+--     File = "",
+--     Reference = "",
+--     Folder = "",
+--     EnumMember = "",
+--     Constant = "",
+--     Struct = "פּ",
+--     Event = "",
+--     Operator = "",
+--     TypeParameter = "",
+-- }
 
 local luasnip = require("luasnip")
 cmp.setup({
@@ -123,6 +123,7 @@ cmp.setup({
             cmp.config.compare.order,
         },
     },
+
     -- formatting = {
     --     -- format = function(_, vim_item)
     --     --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
@@ -136,6 +137,7 @@ cmp.setup({
     --         return vim_item
     --     end,
     -- },
+    --
     preselect = "none",
     mapping = {
         ["<CR>"] = cmp.mapping(function(fallback)
@@ -167,11 +169,11 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(function(fallback)
             local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
             if false then
-            elseif cmp.visible() then
-                cmp.select_next_item()
-                luasnip.unlink_current()
             elseif luasnip.jumpable(1) then
                 luasnip.jump(1)
+            elseif cmp.visible() then
+                cmp.select_next_item()
+                -- luasnip.unlink_current()
             elseif
                 next_char == '"'
                 or next_char == ")"
@@ -187,6 +189,7 @@ cmp.setup({
         end, {
             "i",
             "s",
+            "n",
         }),
         ["<S-Tab>"] = function(fallback)
             if luasnip.jumpable(-1) then

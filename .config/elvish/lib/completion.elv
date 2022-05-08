@@ -26,6 +26,7 @@ set edit:completion:arg-completer[k] = $edit:completion:arg-completer[kubectl]
 set edit:completion:arg-completer[virsh] = (bash-completer:new "virsh" &bash_function="_virsh_complete virsh")
 set edit:completion:arg-completer[umount] = (bash-completer:new "umount" &bash_function="_umount_module")
 set edit:completion:arg-completer[pueue] = (bash-completer:new "pueue" )
+set edit:completion:arg-completer[make] = (bash-completer:new "make" )
 set edit:completion:arg-completer[tmux] = (bash-completer:new "tmux")
 set edit:completion:arg-completer[gh] = (bash-completer:new "gh" &bash_function="__start_gh gh")
 if (eq $platform:os "darwin") {
