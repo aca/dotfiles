@@ -9,7 +9,7 @@ sync:
 
 .PHONY: docker
 docker:
-		@docker build -f Dockerfile . -t acadx0/vim
+		@docker build --no-cache -f Dockerfile . -t acadx0/vim
 		@docker push acadx0/vim
 
 .PHONY: dev
