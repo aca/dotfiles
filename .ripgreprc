@@ -10,15 +10,14 @@
 --colors=match:bg:yellow
 --colors=match:style:nobold
 
---glob=!.stfolder/**
---glob=!.DocumentRevisions-V100/**
---glob=!.git/**
---glob=!vendor/**
---glob=!**/vendor/**
---glob=!node_modules/**
---glob=!.parcel-cache/**
---glob=!yarn.lock
---glob=!package.json
---glob=!dist/**
---glob=!fish_history
---glob=!.neuron/**
+# --glob=!.stfolder/**
+# --glob=!.DocumentRevisions-V100/**
+# --glob=!.git/**
+# --glob=!vendor/**
+# --glob=!**/vendor/**
+# --glob=!node_modules/**
+# --glob=!.parcel-cache/**
+# --glob=!yarn.lock
+# --glob=!package.json
+# --glob=!dist/**
+# --glob=!fish_history

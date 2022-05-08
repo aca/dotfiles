@@ -2,45 +2,31 @@
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
--- local nvim_add_user_command = vim.api.nvim_add_user_command
--- nvim_add_user_command("LspSetup", function()
---     vim.cmd([[
---   LspInstall
---    \ vimls
---    \ html
---    \ rust_analyzer@nightly
---    \ tailwindcss
---    \ bashls
---    \ sumneko_lua
---   ]])
--- end, {})
-
 vim.cmd([[ 
   packadd nvim-lspconfig
   packadd nvim-lsp-installer
 ]])
 
-
-local rightAlignFormatFunction = function(diagnostic) -- luacheck: ignore
-	local line = diagnostic.lnum
-	local line_length = #(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
-	local lwidth = vim.api.nvim_get_option("columns")
-        -- calculate the space needed to right align 
-	local splen = string.rep(" ", lwidth - line_length - string.len(diagnostic.message) - 4)
-	return string.format("%s» %s", splen, diagnostic.message)
-end
-
-vim.diagnostic.config({virtual_text = {spacing = 10, prefix="»"}})
--- vim.diagnostic.config({ virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0 }, })
-
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
-local configs = require("lspconfig/configs")
--- ]]
+-- local configs = require("lspconfig/configs")
+local lsp_installer = require("nvim-lsp-installer"); lsp_installer.setup({})
+
+local rightAlignFormatFunction = function(diagnostic)
+	local line = diagnostic.lnum
+	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+	local lwidth = vim.api.nvim_get_option("columns")
+  local msg_length = vim.api.nvim_strwidth(diagnostic.message)
+  local splen = lwidth - line_length - msg_length - 7
+	local sp = string.rep(" ", splen )
+	return string.format("%s» %s", sp, diagnostic.message)
+end
+
+vim.diagnostic.config({ virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true }, })
+
 -- capabilities [[
 -- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 local completionItem = capabilities.textDocument.completion.completionItem
 completionItem.snippetSupport = true
 completionItem.preselectSupport = true
@@ -57,20 +43,10 @@ completionItem.resolveSupport = {
     },
 }
 
--- TODO: slow diagnostic update on mac
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    underline = true,
-    update_in_insert = true,
-})
-
 local on_attach = function(client, bufnr)
-    local resolved_capabilities = client.resolved_capabilities
+    local resolved_capabilities = client.server_capabilities
     local api = vim.api
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
+
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
@@ -83,21 +59,6 @@ local on_attach = function(client, bufnr)
     if resolved_capabilities.document_formatting == true then
         api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
     end
-end
-
-if vim.fn.executable("gopls") == 1 then
-    lspconfig.gopls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-            gopls = {
-                analyses = {
-                    unusedparams = false,
-                },
-                staticcheck = true,
-            },
-        },
-    })
 end
 
 if vim.fn.executable("emmet-ls") == 1 then
@@ -126,35 +87,6 @@ lspconfig.pyright.setup({
     },
 })
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-    local opts = {
-        lspconfig = {
-            capabilities = capabilities,
-        },
-        on_attach = on_attach,
-    }
-
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
-    if server.name == "sumneko_lua" then
-        local runtime_path = vim.split(package.path, ";")
-        table.insert(runtime_path, "lua/?.lua")
-        table.insert(runtime_path, "lua/?/init.lua")
-        opts = require("lua-dev").setup({
-            lspconfig = {
-                capabilities = capabilities,
-            },
-            on_attach = on_attach,
-        })
-        opts.settings.Lua.diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim", "wezterm" },
-            disable = { "unused-function", "unused-label", "unused-vararg", "unused-local" },
-        }
-    end
-    server:setup(opts)
-end)
-
 -- configs.lsp_dev = {
 -- default_config = {
 --     cmd = {"ts-node", "/Users/rok/src/github.com/aca/lsp-dev/server.ts", "--stdio"},
@@ -166,3 +98,30 @@ end)
 --   }
 -- }
 -- lspconfig.lsp_dev.setup {}
+
+for _, server in ipairs(lsp_installer.get_installed_servers()) do
+    if server.name == "sumneko_lua" then
+        local luadev = require("lua-dev").setup({})
+        lspconfig.sumneko_lua.setup(luadev)
+    elseif server.name == "gopls" then
+        lspconfig.gopls.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = {
+                gopls = {
+                    allExperiments = true,
+                    ["formatting.gofumpt"] = true,
+                    analyses = {
+                        unusedparams = false,
+                    },
+                    staticcheck = true,
+                },
+            },
+        })
+    else
+        lspconfig[server.name].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+    end
+end

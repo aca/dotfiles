@@ -21,6 +21,9 @@ runtime /after/plugin/cmp_luasnip.lua
 packadd cmp-nvim-lsp-signature-help
 runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 
+packadd cmp-cmdline
+runtime after/plugin/cmp_cmdline.lua
+
 " packadd friendly-snippets
 
 ]])
@@ -35,36 +38,74 @@ local cmp_sources = {
     { name = "nvim_lsp_signature_help" },
 }
 
+-- local cmp_kinds = {
+--     Text = "",
+--     Method = "",
+--     Function = "",
+--     Constructor = "",
+--     Field = "",
+--     Variable = "",
+--     Class = "ﴯ",
+--     Interface = "",
+--     Module = "",
+--     Property = "ﰠ",
+--     Unit = "",
+--     Value = "",
+--     Enum = "",
+--     Keyword = "",
+--     Snippet = "",
+--     Color = "",
+--     File = "",
+--     Reference = "",
+--     Folder = "",
+--     EnumMember = "",
+--     Constant = "",
+--     Struct = "",
+--     Event = "",
+--     Operator = "",
+--     TypeParameter = "",
+-- }
+
+
 local cmp_kinds = {
-    Text = "",
+    Text = "",
     Method = "",
     Function = "",
-    Constructor = "",
-    Field = "",
-    Variable = "",
+    Constructor = "⌘",
+    Field = "ﰠ",
+    Variable = "",
     Class = "ﴯ",
     Interface = "",
-    Module = "",
+    Module = "",
     Property = "ﰠ",
-    Unit = "",
+    Unit = "塞",
     Value = "",
     Enum = "",
-    Keyword = "",
-    Snippet = "",
+    Keyword = "廓",
+    Snippet = "",
     Color = "",
     File = "",
-    Reference = "",
-    Folder = "",
+    Reference = "",
+    Folder = "",
     EnumMember = "",
-    Constant = "",
-    Struct = "",
+    Constant = "",
+    Struct = "פּ",
     Event = "",
     Operator = "",
-    TypeParameter = "",
+    TypeParameter = "",
 }
 
 local luasnip = require("luasnip")
 cmp.setup({
+    experimental = {
+        native_menu = false,
+        ghost_text = false,
+    },
+    -- confirmation = {
+    --     get_commit_characters = function()
+    --         return {}
+    --     end,
+    -- },
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -82,12 +123,19 @@ cmp.setup({
             cmp.config.compare.order,
         },
     },
-    formatting = {
-        format = function(_, vim_item)
-            vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
-            return vim_item
-        end,
-    },
+    -- formatting = {
+    --     -- format = function(_, vim_item)
+    --     --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+    --     --     return vim_item
+    --     -- end,
+    --     fields = { "kind", "abbr", "menu" },
+    --     format = function(_, vim_item)
+    --         vim_item.menu = vim_item.kind
+    --         vim_item.kind = cmp_kinds[vim_item.kind]
+    --
+    --         return vim_item
+    --     end,
+    -- },
     preselect = "none",
     mapping = {
         ["<CR>"] = cmp.mapping(function(fallback)
@@ -119,11 +167,11 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(function(fallback)
             local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
             if false then
-            elseif luasnip.jumpable(1) then
-                luasnip.jump(1)
             elseif cmp.visible() then
                 cmp.select_next_item()
-                -- require("luasnip").unlink_current()
+                luasnip.unlink_current()
+            elseif luasnip.jumpable(1) then
+                luasnip.jump(1)
             elseif
                 next_char == '"'
                 or next_char == ")"
@@ -152,3 +200,15 @@ cmp.setup({
     },
     sources = cmp_sources,
 })
+
+-- require'cmp'.setup.cmdline(':', {
+--   sources = {
+--     { name = 'cmdline' }
+--   }
+-- })
+--
+-- require'cmp'.setup.cmdline('/', {
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })

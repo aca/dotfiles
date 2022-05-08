@@ -18,7 +18,7 @@ packadd nvim-colorizer.lua
 " packadd webapi-vim
 " packadd vim-gist
 
-" packadd fugitive
+packadd fugitive
 " packadd gv.vim
 
 " plugin: netrw

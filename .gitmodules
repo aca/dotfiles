@@ -433,3 +433,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/lush.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/lush.nvim
 	url = https://github.com/rktjmp/lush.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/cmp-cmdline"]
+	path = .local/share/nvim/site/pack/bundle/opt/cmp-cmdline
+	url = https://github.com/hrsh7th/cmp-cmdline.git

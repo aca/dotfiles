@@ -1,8 +1,6 @@
 "
 " https://vim.fandom.com/wiki/Unused_keys
-" 
-
-map <a-v> <c-v>
+ 
 inoremap <c-c> <esc>
 vnoremap <c-c> <esc>
 vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
@@ -19,13 +17,8 @@ nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
-nnoremap <silent> ;rf            <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ;rn            <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
 vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
-nnoremap <silent> ;i            <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> ;f            <cmd>lua vim.lsp.buf.formatting()<cr>
-nnoremap <silent> ;ff           <cmd>Neoformat<cr>
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 

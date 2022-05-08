@@ -51,7 +51,7 @@ opt.showmatch = true -- show matching brackets when text indicator is over them
 opt.updatetime = 1000 -- Make updates happen faster
 opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
 opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
-opt.laststatus = 2
+opt.laststatus = 3
 
 opt.formatoptions = opt.formatoptions
     - "a" -- Auto formatting is BAD.
@@ -138,6 +138,4 @@ g.did_load_filetypes = 0
 -- g.loaded_netrwFileHandlers = 1
 g.loaded_netrwPlugin = 1
 
-vim.cmd [[
-set statusline=%<%f\ %m%r%h%w%=%-8(%l\ :\ %c%V%)\ %P 
-]]
+vim.o.statusline = "%f %= %m%r%h%w %-8(%l : %c%) %P"

@@ -77,3 +77,6 @@
 	submoduleSummary = false
 [diff]
 	ignoreSubmodules = dirty
+
+[url "ssh://git@git.sr.ht/"]
+        insteadOf = git@git.sr.ht/

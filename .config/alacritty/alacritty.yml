@@ -26,11 +26,12 @@ font:
   normal:
     # family: Iosevka Curly Slab
     # family: JetBrainsMono Nerd Font
-    style: Light
-    # family: BlexMono Nerd Font
-    # # family: SauceCodePro Nerd Font
+    # style: Light
+    family: BlexMono Nerd Font
+    # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
     
+    # famly: Cascadia Code
     # family: Operator Mono Book
     # family: Iosevka Term Curly Slab
     # family: Hasklug Nerd Font Mono
@@ -41,7 +42,7 @@ font:
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
     # family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
 
@@ -56,11 +57,11 @@ font:
 
   size: 28
   offset:
-    x: -1
+    x: -2
     y: 0
 
   glyph_offset:
-    x: 0 
+    x: 0
     y: 0
 
 # draw_bold_text_with_bright_colors: true
@@ -331,7 +332,7 @@ colors:
       background: '0xffffff'
   primary:
     background: '0x000000'
-    foreground: '0x8a8986'
+    # foreground: '0x8a8986'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
@@ -347,7 +348,7 @@ colors:
     blue:    '0x5ea6ea'
     magenta: '0x9b859d'
     cyan:    '0xafc4db'
-    white:   '0x8a8986'
+    white:   '0xffffff'
 
   # Bright colors
   bright:
@@ -358,7 +359,7 @@ colors:
     blue:    '0x797977'
     magenta: '0x9d9b97'
     cyan:    '0x937121'
-    white:   '0xbaae9e'
+    # white:   '0xbaae9e'
 
 
 # # Base16 Default Dark 256 - alacritty color config
