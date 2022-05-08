@@ -10,9 +10,6 @@
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
 
-
-
--- https://github.com/lewis6991/impatient.nvim
 -- require("impatient").enable_profile()
 require("impatient")
 require("settings")
@@ -34,10 +31,9 @@ vim.defer_fn(function()
 
     vim.cmd([[
       runtime! lazy/plugins/*
-      runtime! lazy/utils/*
+      runtime! lazy/funcs/*
       runtime! lazy/autocmd/*
       runtime! lazy/command/*
-      runtime! lazy/map/* 
       runtime! lazy/local/*
       silent! helptags ALL 
     ]])

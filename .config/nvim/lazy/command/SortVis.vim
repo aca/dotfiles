@@ -1,8 +1,8 @@
 " Sort by selected(visual) column, by Gavin Freeborn
 "
 " | rr  |  Cool |
-" | rgf |     1 |
 " | ref |  1100 |
+" | rgf |     1 |
 " | efw |  1200 |
 " | efa |  1600 |
 " VisualBlock [1, 1200, 1000, 1600] and :'<,'>SortVis

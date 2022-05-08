@@ -1,17 +1,13 @@
 vim.cmd([[
         packadd nvim-treesitter
         " packadd nvim-ts-rainbow
-        packadd playground
+        " packadd playground
         " packadd vim-matchup
 ]])
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")
-
--- NOTES: https://github.com/tree-sitter/tree-sitter-haskell#building-on-macos
--- if vim.g._uname == "macOS" then
--- end
 install.compilers = { "gcc" }
 
 require("nvim-treesitter.configs").setup({
@@ -39,7 +35,42 @@ require("nvim-treesitter.configs").setup({
     -- },
     -- enable = "all",
     -- NOTE: elixir TS returns error, remove this later
-    disable = { "dot", "elixir" },
+    disable = {
+        "elixir",
+        "dockerfile",
+        "cooklang",
+        "glimmer",
+        "foam",
+        "m68k",
+        "pioasm",
+        "pug",
+        "norg",
+        "sparql",
+        "surface",
+        "supercollider",
+        "swift",
+        "tlaplus",
+        "todotxt",
+        "yang",
+        "ocaml",
+        "ninja",
+        "ocamllex",
+        "ocaml_interface",
+        "ql",
+        "eex",
+        "devicetree",
+        "fortran",
+        "fusion",
+        "gdscript",
+        "godot_resource",
+        "hack",
+        "hjson",
+        "heex",
+        "glsl",
+        "gleam",
+        "d",
+        "lalrpop",
+    },
     autopairs = {
         enable = true,
     },

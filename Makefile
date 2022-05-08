@@ -15,3 +15,4 @@ docker:
 .PHONY: dev
 dev:
 		@go install mvdan.cc/gofumpt@latest
+		@go install github.com/ericchiang/pup@latest
