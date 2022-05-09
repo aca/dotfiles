@@ -30,19 +30,16 @@ set edit:completion:arg-completer[pueue] = (bash-completer:new "pueue" )
 set edit:completion:arg-completer[make] = (bash-completer:new "make" )
 set edit:completion:arg-completer[tmux] = (bash-completer:new "tmux")
 set edit:completion:arg-completer[gh] = (bash-completer:new "gh" &bash_function="__start_gh gh")
+set edit:completion:arg-completer[ip] = (bash-completer:new "ip" &bash_function="_ip ip")
+set edit:completion:arg-completer[rg] = (bash-completer:new "rg")
+set edit:completion:arg-completer[fd] = (bash-completer:new "fd")
+set edit:completion:arg-completer[journalctl] = (bash-completer:new "journalctl" &bash_function="_journalctl journalctl")
+set edit:completion:arg-completer[systemctl] = (bash-completer:new "systemctl" &bash_function="_systemctl systemctl")
+set edit:completion:arg-completer[iptables] = (bash-completer:new "iptables" &bash_function="_iptables iptables")
+set edit:completion:arg-completer[tcpdump] = (bash-completer:new "tcpdump" &bash_function="_tcpdump tcpdump")
 if (eq $platform:os "darwin") {
   set edit:completion:arg-completer[limactl] = (bash-completer:new "limactl" &bash_function="__start_limactl limactl")
   set edit:completion:arg-completer[colima] = (bash-completer:new "colima" &bash_function="__start_colima colima")
-  set edit:completion:arg-completer[rg] = (bash-completer:new "rg" &bash_function="_rg rg" &completion_filename="rg.bash" )
-  set edit:completion:arg-completer[fd] = (bash-completer:new "fd" &bash_function="_fd fd" &completion_filename="fd.bash" )
-} else {
-  set edit:completion:arg-completer[ip] = (bash-completer:new "ip" &bash_function="_ip ip")
-  set edit:completion:arg-completer[rg] = (bash-completer:new "rg" &bash_function="_rg rg")
-  set edit:completion:arg-completer[fd] = (bash-completer:new "fd" &bash_function="_fd fd")
-  set edit:completion:arg-completer[journalctl] = (bash-completer:new "journalctl" &bash_function="_journalctl journalctl")
-  set edit:completion:arg-completer[systemctl] = (bash-completer:new "systemctl" &bash_function="_systemctl systemctl")
-  set edit:completion:arg-completer[iptables] = (bash-completer:new "iptables" &bash_function="_iptables iptables")
-  set edit:completion:arg-completer[tcpdump] = (bash-completer:new "tcpdump" &bash_function="_tcpdump tcpdump")
 }
 
 set edit:completion:arg-completer[lcache] = { |@cmd|
