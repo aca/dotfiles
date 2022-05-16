@@ -44,6 +44,7 @@ autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''  | si
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
 
 " plugin: suda.vim
+" replace with https://gist.github.com/oessessnex/d63ebe89380abff5a3ee70d6e76e4ec8
 packadd suda.vim
 command! SudoWrite :SudaWrite
 command! SudoRead  :SudaRead

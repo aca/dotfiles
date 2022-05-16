@@ -424,3 +424,9 @@
 [submodule ".local/share/elvish/lib/github.com/zzamboni/elvish-modules"]
 	path = .local/share/elvish/lib/github.com/zzamboni/elvish-modules
 	url = https://github.com/zzamboni/elvish-modules.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-goaddtags"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-goaddtags
+	url = https://github.com/mattn/vim-goaddtags.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/typescript.nvim"]
+	path = .local/share/nvim/site/pack/bundle/start/typescript.nvim
+	url = https://github.com/jose-elias-alvarez/typescript.nvim.git

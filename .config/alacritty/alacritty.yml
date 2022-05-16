@@ -21,12 +21,14 @@ scrolling:
   # multiplier: 3
   # faux_multiplier: 3
   # auto_scroll: false
+  #
 
 font:
+  builtin_box_drawing: true
   normal:
     # family: Iosevka Curly Slab
     # family: JetBrainsMono Nerd Font
-    # style: Light
+    style: Light
     family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
@@ -57,8 +59,8 @@ font:
 
   size: 28
   offset:
-    x: -2
-    y: 0
+    x: -3
+    y: -1
 
   glyph_offset:
     x: 0
@@ -359,7 +361,7 @@ colors:
     blue:    '0x797977'
     magenta: '0x9d9b97'
     cyan:    '0x937121'
-    # white:   '0xbaae9e'
+    white:   '0xbaae9e'
 
 
 # # Base16 Default Dark 256 - alacritty color config

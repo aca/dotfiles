@@ -9,6 +9,7 @@
 -- https://github.com/michaelb/sniprun
 -- https://www.reddit.com/r/neovim/comments/p206ju/magmanvim_interact_with_jupyter_from_neovim/
 -- https://github.com/dccsillag/magma-nvim
+-- https://www.reddit.com/r/neovim/comments/um3epn/what_are_your_prizedfavorite_lua_functions/
 
 -- require("impatient").enable_profile()
 --

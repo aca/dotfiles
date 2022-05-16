@@ -218,6 +218,7 @@ let &l:foldtext = s:SID() . 'FoldText()'
 let &l:foldexpr = 'NestedMarkdownFolds()'
 
 
+packadd markdown-preview.nvim
 " " let $NODE_OPTIONS = "--no-warnings"
 function s:markdown_preview()
   let $NODE_NO_WARNINGS=1

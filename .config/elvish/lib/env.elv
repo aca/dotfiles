@@ -74,6 +74,10 @@ if (eq $E:_ELVISH_ENV "") {
 
     set paths = [
       # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
+
+      ~/.asdf/bin
+      ~/.asdf/shims
+
       ~/.gem/ruby/*[nomatch-ok]/bin
       ~/.xxx/*[nomatch-ok]/bin
       ~/.xxx/bin
@@ -92,8 +96,6 @@ if (eq $E:_ELVISH_ENV "") {
       ~/.raku/bin
       /usr/local/bin
 
-      ~/.asdf/bin
-      ~/.asdf/shims
 
       $@paths
     ]

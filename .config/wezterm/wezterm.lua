@@ -218,7 +218,9 @@ local config = {
         -- invisible = false,
 
         -- When the above attributes match, apply this font styling
-        font = wezterm.font("SauceCodePro Nerd Font"),
+        -- font = wezterm.font("BlexMono Nerd Font"),
+        -- font = wezterm.font("Monoid Nerd Font",{ stretch = "SemiCondensed"}) ,
+        font = wezterm.font("IBM Plex Mono", {weight="Regular", stretch="Condensed", style="Normal"}),
       }
     },
 

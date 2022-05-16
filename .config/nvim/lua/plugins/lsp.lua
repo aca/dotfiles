@@ -10,19 +10,22 @@ vim.cmd([[
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 -- local configs = require("lspconfig/configs")
-local lsp_installer = require("nvim-lsp-installer"); lsp_installer.setup({})
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({})
 
 local rightAlignFormatFunction = function(diagnostic)
-	local line = diagnostic.lnum
-	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
-	local lwidth = vim.api.nvim_get_option("columns")
-  local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-  local splen = lwidth - line_length - msg_length - 7
-	local sp = string.rep(" ", splen )
-	return string.format("%s» %s", sp, diagnostic.message)
+    local line = diagnostic.lnum
+    local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+    local lwidth = vim.api.nvim_get_option("columns")
+    local msg_length = vim.api.nvim_strwidth(diagnostic.message)
+    local splen = lwidth - line_length - msg_length - 7
+    local sp = string.rep(" ", splen)
+    return string.format("%s» %s", sp, diagnostic.message)
 end
 
-vim.diagnostic.config({ virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true }, })
+vim.diagnostic.config({
+    virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+})
 
 -- capabilities [[
 -- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
@@ -99,6 +102,25 @@ lspconfig.pyright.setup({
 -- }
 -- lspconfig.lsp_dev.setup {}
 
+local gopls_settings = {
+    gopls = {
+        allExperiments = true,
+        ["formatting.gofumpt"] = true,
+        analyses = {
+            unusedparams = false,
+        },
+        staticcheck = true,
+    },
+}
+
+if vim.fn.executable("gopls") == 1 then
+    lspconfig.gopls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = gopls_settings,
+    })
+end
+
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
     if server.name == "sumneko_lua" then
         local luadev = require("lua-dev").setup({})
@@ -107,16 +129,17 @@ for _, server in ipairs(lsp_installer.get_installed_servers()) do
         lspconfig.gopls.setup({
             capabilities = capabilities,
             on_attach = on_attach,
-            settings = {
-                gopls = {
-                    allExperiments = true,
-                    ["formatting.gofumpt"] = true,
-                    analyses = {
-                        unusedparams = false,
-                    },
-                    staticcheck = true,
-                },
-            },
+            settings = gopls_settings,
+        })
+    elseif server.name == "tsserver" then
+        require("typescript").setup({
+            server = vim.tbl_deep_extend("force", server:get_default_options(), {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = gopls_settings,
+
+            }
+          )
         })
     else
         lspconfig[server.name].setup({
