@@ -11,6 +11,11 @@
 -- https://github.com/dccsillag/magma-nvim
 
 -- require("impatient").enable_profile()
+--
+--
+-- :lua= sth_to_print
+-- :lua print(vim.inspect(sth_to_print))
+
 require("impatient")
 require("settings")
 require("colors")

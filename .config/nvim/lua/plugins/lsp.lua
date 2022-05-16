@@ -65,7 +65,7 @@ if vim.fn.executable("emmet-ls") == 1 then
     lspconfig.emmet_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
+        filetypes = { "html", "css", "typescriptreact", "javascriptreact", "heex" },
     })
 end
 

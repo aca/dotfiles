@@ -1,4 +1,3 @@
-_G.P = function(v)
-    print(vim.inspect(v))
-    return v
+function _G.P(...)
+  vim.pretty_print(...)
 end
