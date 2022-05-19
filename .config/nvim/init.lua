@@ -24,6 +24,17 @@ require("autocmds")
 require("plugins.lsp")
 require("plugins.treesitter")
 
+vim.cmd [[
+
+function! g:OpenNewWindow(url)
+    exe 'open -na "Google Chrome" ' . a:url
+endfunction
+let g:mkdp_browserfunc = 'g:OpenNewWindow'
+
+" let g:mkdp_browser = '/Applications/Firefox.app/Contents/MacOS/firefox-bin'
+packadd markdown-preview.nvim
+]]
+
 vim.defer_fn(function()
     -- require("plugins.dap")
     require("statusline")
@@ -44,3 +55,14 @@ vim.defer_fn(function()
       silent! helptags ALL 
     ]])
 end, 100)
+
+
+local diagnostics_active = true
+vim.keymap.set('n', '<leader>d', function()
+  diagnostics_active = not diagnostics_active
+  if diagnostics_active then
+    vim.diagnostic.show()
+  else
+    vim.diagnostic.hide()
+  end
+end)

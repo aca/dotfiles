@@ -221,9 +221,9 @@ let &l:foldexpr = 'NestedMarkdownFolds()'
 packadd markdown-preview.nvim
 " " let $NODE_OPTIONS = "--no-warnings"
 function s:markdown_preview()
-  let $NODE_NO_WARNINGS=1
+  " let $NODE_NO_WARNINGS=1
   let g:mkdp_echo_preview_url = 1
-  " let g:mkdp_browser = 'Google Chrome'
+  "
   " let g:mkdp_refresh_slow = 1
   let g:mkdp_theme = 'dark'
   let g:mkdp_markdown_css = expand('~/.config/nvim/mkdp.css')
