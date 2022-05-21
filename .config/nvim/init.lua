@@ -25,14 +25,8 @@ require("plugins.lsp")
 require("plugins.treesitter")
 
 vim.cmd [[
-
-function! g:OpenNewWindow(url)
-    exe 'open -na "Google Chrome" ' . a:url
-endfunction
-let g:mkdp_browserfunc = 'g:OpenNewWindow'
-
-" let g:mkdp_browser = '/Applications/Firefox.app/Contents/MacOS/firefox-bin'
 packadd markdown-preview.nvim
+packadd vim-markdown-toc
 ]]
 
 vim.defer_fn(function()

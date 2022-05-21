@@ -68,7 +68,7 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 
 
  " convert http://*  [title](http://*)
-command FormatLink lua require('scripts.md_format_links').format_link()
+" command FormatLink lua require('scripts.md_format_links').format_link()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom syntax
