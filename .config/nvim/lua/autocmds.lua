@@ -10,16 +10,25 @@ silent! exe "normal! g`\""
 nvim_create_autocmd({"BufWinEnter", "BufAdd"}, { group = group , callback = function()
   if vim.bo.filetype == "" then
     vim.bo.commentstring = "# %s"
+  elseif vim.bo.filetype == "elvish" then
+    vim.bo.commentstring = "# %s"
   end
 end})
 
+-- templates, zk
 nvim_create_autocmd("BufNewFile", {
   group = group,
-  -- pattern = { "~/src/zk/**.md"},
   pattern = { "**/src/zk/**.md"},
   command = [[
     execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
   ]]
 })
---
---
+
+-- templates, gh actions
+nvim_create_autocmd("BufNewFile", {
+  group = group,
+  pattern = { "**/.github/workflows/**.y*ml" },
+  command = [[
+    execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
+  ]]
+})

@@ -1,7 +1,11 @@
 # Key bindings
 #
+# Alt-*: maps to commands that sends command to other programs. e.g. watch / put into bg queue
+# Ctrl-*: basic moving commands
+#
 # print current binding
 #   pprint $edit:insert:binding
+# 
 
 use math
 use str
@@ -61,7 +65,6 @@ fn paste_command {||
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 set edit:command:binding[p] = {|| paste_command >/dev/tty 2>&1 }
 
-set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
 
 # It doesn't work..
 # set edit:insert:binding[Ctrl-G] = {|| cd (src.dir >/dev/tty) }
@@ -93,18 +96,31 @@ set edit:insert:binding[Ctrl-S] = {||
 }
 
 set edit:insert:binding[Ctrl-D] = { edit:location:start }
-set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv) > /dev/tty 2>/dev/null }
 set edit:insert:binding[Ctrl-W] = {||
   cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0) >/dev/tty 2>&1
   edit:redraw &full=$true
 }
 
 
+set edit:insert:binding[Ctrl-Q] = { exit }
+set edit:insert:binding[Ctrl-E] = { nop ?(tmux clear-history 2>/dev/null); clear >/dev/tty; edit:redraw &full=$true }
+
+# navigate
+# set edit:insert:binding[Ctrl-N] = {|| cd (e:vifm --choose-dir -) </dev/tty >/dev/tty 2>&1 }
+
+# fish like ctrl-a 
+set edit:insert:binding[Ctrl-A] = { edit:completion:smart-start }
+
+
+set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
+
+set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv) > /dev/tty 2>/dev/null }
+
 # queue command to pueue
 # I don't like pueue interface, maybe just use tmux
 # elvish -> bash -> elvish
 # echo 1\necho 2 -> elvish -c $'echo 1\necho 2'
-set edit:insert:binding[Ctrl-P] = {|| 
+set edit:insert:binding[Alt-q] = {|| 
   if (not-eq $edit:current-command "") {
     edit:replace-input ( printf "pueue add -- elvish -c %q" (put $edit:current-command | to-lines | sh -c 'x=$(cat -); printf "%q" "$x"'))
     edit:smart-enter
@@ -112,24 +128,19 @@ set edit:insert:binding[Ctrl-P] = {||
 }
 
 # execute command in bash
-set edit:insert:binding[Ctrl-B] = {|| 
+set edit:insert:binding[Alt-b] = {|| 
   if (not-eq $edit:current-command "") {
     edit:replace-input ( printf "echo %q | bash" (put $edit:current-command))
     edit:smart-enter
   }
 }
 
-set edit:insert:binding[Ctrl-Q] = { exit }
-set edit:insert:binding[Ctrl-E] = { nop ?(tmux clear-history 2>/dev/null); clear >/dev/tty; edit:redraw &full=$true }
-# set edit:insert:binding[Ctrl-I] = { edit:lastcmd:start }
-
 # navigate history like vim
-# set edit:insert:binding[Ctrl-H] = { edit:history:start }
-# set edit:history:binding['Ctrl-N'] = { edit:history:up }
-# set edit:history:binding['Ctrl-P'] = { edit:history:down }
+# set edit:insert:binding[Ctrl-p] = { edit:histlist:start }
+# set edit:history:binding[Ctrl-N] = { noti -m "324"; edit:history:up }
+# set edit:history:binding[Ctrl-P] = { noti -m "435345"; edit:history:down }
+set edit:insert:binding[Ctrl-P] =  { edit:history:start }
+set edit:history:binding[Ctrl-P] = { edit:history:up }
 
-# navigate
-set edit:insert:binding[Ctrl-N] = {|| cd (e:vifm --choose-dir -) </dev/tty >/dev/tty 2>&1 }
-
-# fish like ctrl-a 
-set edit:insert:binding[Ctrl-A] = { edit:completion:smart-start }
+set edit:insert:binding[Ctrl-N] =  { edit:history:down }
+set edit:history:binding[Ctrl-N] =  { edit:history:down }
