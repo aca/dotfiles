@@ -1,6 +1,8 @@
 dotfiles
 ========
 
+git clone aca:~/src/configs/dotfiles.shared
+
 my systems for sync.
 
 Setup

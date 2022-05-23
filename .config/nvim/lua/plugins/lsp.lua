@@ -108,13 +108,13 @@ local gopls_settings = {
     },
 }
 
--- if vim.fn.executable("gopls") == 1 then
---     lspconfig.gopls.setup({
---         capabilities = capabilities,
---         on_attach = on_attach,
---         settings = gopls_settings,
---     })
--- end
+if vim.fn.executable("gopls") == 1 then
+    lspconfig.gopls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = gopls_settings,
+    })
+end
 
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
     if server.name == "sumneko_lua" then

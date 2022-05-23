@@ -114,7 +114,7 @@ firefox() {
   commandExists fd || return 0
   for d in "${HOME}/Library/Application Support/Firefox/Profiles/" "${HOME}/.mozilla/firefox"; do
     [[ -d "$d" ]] || continue
-    for profileDir in $(fd --base-directory "$d" --absolute-path --max-depth 1 --type d | grep default-release); do
+    for profileDir in "$(fd --base-directory "$d" --absolute-path --max-depth 1 --type d | grep default-release | head -n 1)"; do
       rm -rfv "$profileDir/chrome" || true
       mkdir "$profileDir/chrome" || true
       (cd dotfiles/.config/firefox && stow -v --target "$profileDir/chrome" chrome) || return 1
