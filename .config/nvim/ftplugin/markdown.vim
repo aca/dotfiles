@@ -1,4 +1,5 @@
 " vim:ft=vim et sw=2 foldmethod=marker
+let g:markdown_syntax_conceal = 1
 "
 " set textwidth=40
 set nowrap
@@ -11,9 +12,11 @@ set foldexpr=NestedMarkdownFolds()
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_folding_disabled = 1
-packadd vim-markdown
+" let g:vim_markdown_no_default_key_mappings = 1
+" let g:vim_markdown_folding_disabled = 1
+" packadd vim-markdown
+
+packadd vim-markdown-toc
 
 packadd due.nvim
 lua << EOF
@@ -40,7 +43,7 @@ EOF
 
 " packadd vim-table-mode
 " packadd vim-pandoc-syntax
-hi link pandocCodeblock pandocDelimitedCodeblock
+" hi link pandocCodeblock pandocDelimitedCodeblock
 
 " source ~/.config/nvim/vim/md-img-paste.vim
 " source ~/.config/nvim/vim/markdown-preview.vim
@@ -50,7 +53,7 @@ hi link pandocCodeblock pandocDelimitedCodeblock
 " etc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-hi link markdownCodeBlock markdownCode
+" hi link markdownCodeBlock markdownCode
 
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 

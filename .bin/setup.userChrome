@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if is_darwin; then
+  d="${HOME}/Library/Application Support/Firefox/Profiles/"
+else
+  d="${HOME}/.mozilla/firefox"
+fi
+
+
+for profileDir in $(fd --base-directory $d --absolute-path --max-depth 1 --type d | grep default-release); do
+  mkdir "$profileDir/chrome" || true
+done
+
+
+#
+# MacOS: ~/Library/Application Support/Firefox/Profiles/

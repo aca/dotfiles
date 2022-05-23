@@ -1,10 +1,3 @@
-vim.cmd([[
-        packadd nvim-treesitter
-        " packadd nvim-ts-rainbow
-        " packadd playground
-        " packadd vim-matchup
-]])
-
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")

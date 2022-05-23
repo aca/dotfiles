@@ -418,12 +418,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-cmdline"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline.git
-[submodule ".config/elvish/lib/plugins/elvish-modules"]
-	path = .config/elvish/lib/plugins/elvish-modules
-	url = https://github.com/zzamboni/elvish-modules.git
-[submodule ".local/share/elvish/lib/github.com/zzamboni/elvish-modules"]
-	path = .local/share/elvish/lib/github.com/zzamboni/elvish-modules
-	url = https://github.com/zzamboni/elvish-modules.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-goaddtags"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-goaddtags
 	url = https://github.com/mattn/vim-goaddtags.git

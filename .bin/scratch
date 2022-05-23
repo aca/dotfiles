@@ -1,17 +1,17 @@
 #!/bin/sh
 
-mkdir ~/src/scratch 2>/dev/null || true
+SCRATCH_DIR=${SCRATCH_DIR:-$HOME/src/scratch}
+mkdir $SCRATCH_DIR 2>/dev/null || true
 
-d=""
 if [ "$#" -eq 0 ]; then
-  d=~/src/scratch/$(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)
+  project_dir=$SCRATCH_DIR/$(fd --base-directory "$SCRATCH_DIR" --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)
 else
-  d=~/src/scratch/$(date "+%Y-%m-%d")_$1
-  mkdir $d
+  project_dir=$SCRATCH_DIR/$(date "+%Y-%m-%d")_$1
+  mkdir $project_dir || true
 fi
 
 # git init
 # git remote add origin https://git.aca.us.to/scratch/(basename (pwd)).git
 
-echo $d
+echo $project_dir
 

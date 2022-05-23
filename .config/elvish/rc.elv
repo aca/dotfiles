@@ -6,6 +6,7 @@
 
 use str
 use platform
+# use xxx/...
 
 use /env
 use /utils
@@ -14,9 +15,11 @@ use /completion
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
 if (has-external zoxide) { use /zoxide }
-# use github.com/zzamboni/elvish-modules/nix; nix:single-user-setup
-
 nop ?(use local)
+# TODO: host specific
+
+
+# use github.com/zzamboni/elvish-modules/nix; nix:single-user-setup
 
 # }}}
 # abbr {{{

@@ -31,33 +31,33 @@ local function basename(s)
     return string.gsub(s, "(.*[/\\])(.*)", "%2")
 end
 
-wezterm.on("update-right-status", function(window, pane)
-    -- window:set_right_status(basename(pane:get_foreground_process_name()))
-    -- window:set_right_status(pane:get_foreground_process_name())
-    -- window:toast_notification("wezterm", pane:get_foreground_process_name(), nil, 4000)
-    -- window:toast_notification("wezterm", pane:get_current_working_dir(), nil, 4000)
-
-    local date = wezterm.strftime("%Y-%m-%d %H:%M")
-    local cmd = string.format(
-        "cd '%s' && git rev-parse --abbrev-ref HEAD",
-        string.sub(pane:get_current_working_dir(), 8)
-    )
-    local handle = io.popen(cmd)
-    local result = handle:read("*a")
-    handle:close()
-    result = string.gsub(result, "\n", "")
-    window:set_right_status(wezterm.format({
-        -- {Attribute={Underline="Single"}},
-        { Attribute = { Italic = true } },
-        { Text = result .. " | " .. date .. " " },
-    }))
-end)
+-- wezterm.on("update-right-status", function(window, pane)
+--     -- window:set_right_status(basename(pane:get_foreground_process_name()))
+--     -- window:set_right_status(pane:get_foreground_process_name())
+--     -- window:toast_notification("wezterm", pane:get_foreground_process_name(), nil, 4000)
+--     -- window:toast_notification("wezterm", pane:get_current_working_dir(), nil, 4000)
+--
+--     local date = wezterm.strftime("%Y-%m-%d %H:%M")
+--     local cmd = string.format(
+--         "cd '%s' && git rev-parse --abbrev-ref HEAD",
+--         string.sub(pane:get_current_working_dir(), 8)
+--     )
+--     local handle = io.popen(cmd)
+--     local result = handle:read("*a")
+--     handle:close()
+--     result = string.gsub(result, "\n", "")
+--     window:set_right_status(wezterm.format({
+--         -- {Attribute={Underline="Single"}},
+--         { Attribute = { Italic = true } },
+--         { Text = result .. " | " .. date .. " " },
+--     }))
+-- end)
 
 -- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-
--- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
+-- local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+--
+-- -- The filled in variant of the > symbol
+-- local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
 
 -- TODO
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
@@ -175,6 +175,7 @@ end)
 
 local config = {
     window_decorations = "RESIZE",
+    cell_width = 0.8,
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
@@ -232,7 +233,7 @@ local config = {
     default_prog = { "/usr/local/bin/elvish" },
     -- default_prog = { "/usr/local/bin/fish", "--login"},
     enable_kitty_graphics = true,
-    -- debug_key_events = true,
+    debug_key_events = true,
     set_environment_variables = {
         -- This fails to find wezterm.nvim.navigator
         PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",
@@ -406,10 +407,10 @@ local config = {
         -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
 
         -- resize(vim aware)
-        -- { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
-        -- { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
-        -- { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
-        -- { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
+        { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
+        { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
+        { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
+        { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
 
         -- alt key
         { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },

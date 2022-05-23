@@ -2,11 +2,6 @@
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
-vim.cmd([[ 
-  packadd nvim-lspconfig
-  packadd nvim-lsp-installer
-]])
-
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 -- local configs = require("lspconfig/configs")
@@ -68,7 +63,7 @@ if vim.fn.executable("emmet-ls") == 1 then
     lspconfig.emmet_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        filetypes = { "html", "css", "typescriptreact", "javascriptreact", "heex" },
+        filetypes = { "html", "css" },
     })
 end
 
@@ -131,16 +126,16 @@ for _, server in ipairs(lsp_installer.get_installed_servers()) do
             on_attach = on_attach,
             settings = gopls_settings,
         })
-    elseif server.name == "tsserver" then
-        require("typescript").setup({
-            server = vim.tbl_deep_extend("force", server:get_default_options(), {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = gopls_settings,
-
-            }
-          )
-        })
+    -- elseif server.name == "tsserver" then
+    --     require("typescript").setup({
+    --         server = vim.tbl_deep_extend("force", server:get_default_options(), {
+    --         capabilities = capabilities,
+    --         on_attach = on_attach,
+    --         settings = gopls_settings,
+    --
+    --         }
+    --       )
+    --     })
     else
         lspconfig[server.name].setup({
             capabilities = capabilities,
@@ -148,3 +143,13 @@ for _, server in ipairs(lsp_installer.get_installed_servers()) do
         })
     end
 end
+
+local diagnostics_active = true
+vim.api.nvim_create_user_command("ToggleDiagnostic", function()
+  diagnostics_active = not diagnostics_active
+  if diagnostics_active then
+    vim.diagnostic.show()
+  else
+    vim.diagnostic.hide()
+  end
+end, {})

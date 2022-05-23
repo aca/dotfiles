@@ -302,7 +302,7 @@ hints:
     foreground: '0x000000'
     background: '0xffffff'
   enabled:
-    - regex: '[A-Za-z0-9-_./]{6,100}'
+    - regex: '[A-Za-z0-9~-_./]{6,100}'
       action: Copy
       post_processing: false
       binding:
