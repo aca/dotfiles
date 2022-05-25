@@ -1,7 +1,3 @@
-vim.cmd([[
-packadd aerial.nvim
-]])
-
 local aerial = require("aerial")
 aerial.setup({
     backends = {

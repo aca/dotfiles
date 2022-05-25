@@ -1,10 +1,3 @@
-vim.cmd([[ 
-  packadd Comment.nvim 
-  runtime after/plugin/Comment.lua
-
-  packadd nvim-ts-context-commentstring
-]])
-
 require("Comment").setup({
     mappings = {
         basic = true,

@@ -111,7 +111,12 @@ opt.pumblend = 17
 -- opt.listchars:append("space:⋅")
 -- opt.listchars:append("eol:↴")
 
+-- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806#how-do-i-use-it-2
+g.do_filetype_lua = 1
+g.did_load_filetypes = 0
+
 -- disable default vim stuffs for faster startuptime
+
 g.loaded_tutor_mode_plugin = 1
 g.loaded_logiPat = 1
 g.loaded_rrhelper = 1
@@ -129,13 +134,7 @@ g.loaded_getscriptPlugin = 1
 g.loaded_matchit = 1
 g.loaded_matchparen = 1
 
--- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806#how-do-i-use-it-2
-g.do_filetype_lua = 1
-g.did_load_filetypes = 0
-
--- g.loaded_netrw = 1
--- g.loaded_netrwSettings = 1
--- g.loaded_netrwFileHandlers = 1
+-- netrw (lazy load)
 g.loaded_netrwPlugin = 1
 
 o.statusline = "%=%m%r%h%w %-8(%l : %c%) %P"

@@ -1,8 +1,3 @@
-vim.cmd [[
-packadd plenary.nvim
-packadd gitlinker.nvim
-]]
-
 require"gitlinker".setup({
   opts = {
     remote = nil, -- force the use of a specific remote

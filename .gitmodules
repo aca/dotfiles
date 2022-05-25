@@ -433,3 +433,12 @@
 [submodule ".config/elvish/lib/git-subrepo-elvish"]
 	path = .config/elvish/lib/git-subrepo-elvish
 	url = https://github.com/aca/git-subrepo-elvish.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-visual-star-search"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-visual-star-search
+	url = https://github.com/bronson/vim-visual-star-search.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/telescope-fzf-native.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/telescope-fzf-native.nvim
+	url = https://github.com/nvim-telescope/telescope-fzf-native.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/stabilize.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/stabilize.nvim
+	url = https://github.com/luukvbaal/stabilize.nvim.git

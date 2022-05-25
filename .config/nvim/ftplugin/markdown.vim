@@ -12,12 +12,6 @@ set foldexpr=NestedMarkdownFolds()
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" let g:vim_markdown_no_default_key_mappings = 1
-" let g:vim_markdown_folding_disabled = 1
-" packadd vim-markdown
-
-packadd vim-markdown-toc
-
 packadd due.nvim
 lua << EOF
 require('due_nvim').setup {
@@ -54,10 +48,8 @@ EOF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " hi link markdownCodeBlock markdownCode
-
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 
-setlocal laststatus=0
 setlocal signcolumn=no
 " setlocal cole=1
 setlocal nonu
@@ -69,10 +61,6 @@ setlocal shiftwidth=4
 " setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
 
-
- " convert http://*  [title](http://*)
-" command FormatLink lua require('scripts.md_format_links').format_link()
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -80,14 +68,6 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 " syn region NeorgConcealURL matchgroup=mkdDelimiter start="[^\\]\@=\[" skip="\\\]" end="\]\ze(" nextgroup=NeorgConcealURLValue oneline skipwhite concealends
 " syn region NeorgConcealURLValue matchgroup=mkdDelimiter start=/(/ end=/)/  contained oneline conceal
 " syn region NeorgConcealURL matchgroup=mkdDelimiter start=/\([^\\]\|\_^\)\@<=\[\%\(\%\(\\\=[^\]]\)\+\](\)\@=/ end=/[^\\]\@<=\]/  oneline concealends nextgroup=NeorgConcealURLValue skipwhite
-"
-" function! s:customSyntax() abort
-"   " todo syntax , https://gist.github.com/huytd/668fc018b019fbc49fa1c09101363397
-"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
-"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[X\]'hs=e-4 conceal cchar=
-"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[-\]'hs=e-4 conceal cchar=☒
-"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
-"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
 
 function! s:customSyntax() abort
   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
@@ -109,14 +89,8 @@ autocmd Syntax * call s:customSyntax()
 " endfunction
 " autocmd BufWritePost ~/src/zettels/**.md  call UpdateMarkdownDate()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" sort todo
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd BufWritePre ~/src/zettels/todo.md %!sort
-
 
 " Fold expressions {{{1
-
 function! NestedMarkdownFolds()
   let thisline = getline(v:lnum)
   let prevline = getline(v:lnum - 1)
