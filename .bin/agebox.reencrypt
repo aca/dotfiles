@@ -1,0 +1,4 @@
+#!/usr/bin/env elvish
+
+cd (or (e:git rev-parse --show-toplevel 2>/dev/null) (echo "."))
+cat .ageboxreg.yml  | y2j | jq '.file_ids[]' -r | from-lines | each { |x| nop ?(ls $x 2>/dev/null) } | from-lines | each { |x| agebox encrypt $x }

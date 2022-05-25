@@ -2,7 +2,7 @@
 .stfolder
 .obsidian
 
-terraform.tfstate*
+.terraform
 .DS_store
 node_modules/
 

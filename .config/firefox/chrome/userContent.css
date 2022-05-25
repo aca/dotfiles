@@ -1,42 +1,6 @@
-span.TridactylHint > * {
-    font-size: 10px !important;
+/* Example file */
 
-}
-
-span.TridactylHint  {
-    font-size: 10px !important;
-}
-
-:root {
-  --tridactyl-cmdl-font-size: 1rem;
-  --tridactyl-cmdl-line-height: 1;
-  --tridactyl-font-size: 12pt;
-  --tridactyl-small-font-size: 10px;
-
-  --tridactyl-hint-active-fg: none;
-  --tridactyl-hint-active-bg: none;
-  --tridactyl-hint-active-outline: none;
-  --tridactyl-hint-bg: none;
-  --tridactyl-hint-outline: none;
-}
-
-.TridactylHintElem { 
-  background-color: unset !important;
-  color: black; !important 
-} 
-
-.TridactylHintActive { 
-  background-color: unset !important;
-  color: black !important;
-}
-
-.TridactylHintElem {
-    background-color: [insert color] !important;
-    outline: [insert color] !important;
-}
-
-.TridactylHintActive {
-	background-color: [insert color] !important;
-}
-
-
+@import url(content/css_scrollbar_width_color.css);
+/* @import url(content/limit_css_data_leak.css); */ /* Could induce site problems */
+@import url(content/newtab_background_color.css);
+@import url(content/transparent_reader_toolbar.css);

@@ -37,7 +37,7 @@
   excludesFile = ~/.gitignore_global
   sparseCheckout = true
   quotepath = false
-	hooksPath = .githooks
+	; hooksPath = .githooks
   pager = delta
         
 [alias]

@@ -9,6 +9,8 @@ use platform
 use elvish-bash-completion/bash-completer
 # use github.com/aca/elvish-bash-completion/bash-completer
 set edit:completion:arg-completer[aria2c] = (bash-completer:new "aria2c")
+set edit:completion:arg-completer[terraform] = (bash-completer:new "terraform" &bash_function="_terraform_completion")
+set edit:completion:arg-completer[pip3] = (bash-completer:new "pip3")
 set edit:completion:arg-completer[curl] = (bash-completer:new "curl")
 set edit:completion:arg-completer[docker] = (bash-completer:new "docker")
 set edit:completion:arg-completer[fd] = (bash-completer:new "fd")

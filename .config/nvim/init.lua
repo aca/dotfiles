@@ -1,11 +1,10 @@
-
 -- require("impatient").enable_profile()
 --
 --
 -- :lua= sth_to_print
 -- :lua print(vim.inspect(sth_to_print))
 
-vim.cmd [[
+vim.cmd([[
   " lsp
   packadd nvim-lspconfig
   packadd nvim-lsp-installer
@@ -15,7 +14,7 @@ vim.cmd [[
   " packadd playground
   " packadd nvim-ts-rainbow
   " packadd vim-matchup
-]]
+]])
 
 require("impatient")
 require("settings")
@@ -44,4 +43,3 @@ vim.defer_fn(function()
       silent! helptags ALL
     ]])
 end, 200)
-

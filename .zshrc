@@ -167,3 +167,6 @@ function __prompt_preexec() {
 }
 preexec_functions+=(__prompt_preexec)
 precmd_functions+=(__prompt_precmd)
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform

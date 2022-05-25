@@ -1,3 +1,6 @@
 bind d scrollline 15
 bind u scrollline -15
+bind W tabdetach
+bind [t tabprev
+bind ]t tabnext
 unbind D

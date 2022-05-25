@@ -1,0 +1,3 @@
+#!/bin/sh
+
+agebox decrypt --all --force

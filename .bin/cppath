@@ -1,3 +1,9 @@
 #!/bin/sh
 
-realpath "$1" | pbcopy
+if [ "$1" = "" ]; then 
+  pwd | pbcopy
+  pbpaste
+else
+  realpath "$1" | pbcopy
+  pbpaste
+fi
