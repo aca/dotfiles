@@ -430,3 +430,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-markdown-toc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc.git
+[submodule ".config/elvish/lib/git-subrepo-elvish"]
+	path = .config/elvish/lib/git-subrepo-elvish
+	url = https://github.com/aca/git-subrepo-elvish.git

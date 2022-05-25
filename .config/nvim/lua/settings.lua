@@ -138,4 +138,5 @@ g.did_load_filetypes = 0
 -- g.loaded_netrwFileHandlers = 1
 g.loaded_netrwPlugin = 1
 
-vim.o.statusline = "%f %= %m%r%h%w %-8(%l : %c%) %P"
+o.statusline = "%=%m%r%h%w %-8(%l : %c%) %P"
+o.winbar = "%=%m%f"

@@ -26,9 +26,9 @@ command! -bang -nargs=* Rg          call fzf#vim#grep('rg --column --line-number
 command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
 
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#hide-statusline
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
+" autocmd! FileType fzf
+" autocmd  FileType fzf set laststatus=0 noshowmode noruler
+"   \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
 
 " TODO: reset
 " au FileType fzf tnoremap <buffer> <Esc> <c-c>

@@ -42,4 +42,5 @@ vim.defer_fn(function()
       runtime! lazy/local/*
       silent! helptags ALL
     ]])
-end, 200)
+end, 150)
+

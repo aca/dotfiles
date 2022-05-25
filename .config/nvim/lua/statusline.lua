@@ -20,4 +20,6 @@ _statusline.nvim_gps = function()
   end
 end
 
-vim.o.statusline = "%f %{%v:lua._statusline.nvim_gps()%}%= %m%r%h%w %-8(%l : %c%) %P"
+-- vim.o.statusline = "%f %{%v:lua._statusline.nvim_gps()%}%= %m%r%h%w %-8(%l : %c%) %P"
+vim.o.statusline = "%=%m%r%h%w %-8(%l : %c%) %P"
+vim.o.winbar = "%=%m%f %{%v:lua._statusline.nvim_gps()%}"
