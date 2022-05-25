@@ -1,8 +1,21 @@
--- require("impatient").enable_profile()
---
 --
 -- :lua= sth_to_print
 -- :lua print(vim.inspect(sth_to_print))
+
+-- require("impatient").enable_profile()
+require("impatient")
+
+-- 22:51 λ vim-startuptime --vimpath nvim | head -n 10
+-- Extra options: []
+-- Measured: 10 times
+--
+-- Total Average: 23.523000 msec
+-- Total Max:     25.588000 msec
+-- Total Min:     22.778000 msec
+--
+--   AVERAGE       MAX       MIN
+-- ------------------------------
+-- 17.173100 19.155000 16.498000: /home/rok/.config/nvim/init.lua
 
 vim.cmd([[
   " lsp
@@ -16,7 +29,6 @@ vim.cmd([[
   " packadd vim-matchup
 ]])
 
-require("impatient")
 require("settings")
 require("colors")
 require("autocmds")
