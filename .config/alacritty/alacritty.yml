@@ -14,7 +14,7 @@ window:
 
   # dynamic_padding: true
   decorations: none
-  startup_mode: Windowed
+  # startup_mode: SimpleFullscreen
 
 scrolling:
   history: 0
@@ -209,10 +209,11 @@ key_bindings:
   # custom
   #
   #
-  - { key: Equals,    mods: Control,             action: IncreaseFontSize }
-  - { key: Plus,    mods: Control,             action: IncreaseFontSize }
-  - { key: Plus,    mods: Control|Shift,             action: IncreaseFontSize }
-  - { key: Minus,     mods: Control,             action: DecreaseFontSize }
+  - { key: W,        mods: Command,  action: Quit }
+  - { key: Equals,   mods: Control,              action: IncreaseFontSize }
+  - { key: Plus,     mods: Control,              action: IncreaseFontSize }
+  - { key: Plus,     mods: Control|Shift,        action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,              action: DecreaseFontSize }
   # - { key: C,         mods: Control,             action: Copy             }
   # - { key: V,         mods: Control,       action: Paste            }
   # - { key: V,         mods: Control|Shift,   chars: "\x16"                        }
@@ -445,3 +446,22 @@ colors:
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd
+
+debug:
+ # Display the time it takes to redraw each frame.
+ #render_timer: false
+
+ # Keep the log file after quitting Alacritty.
+ #persistent_logging: false
+
+ # Log level
+ #
+ # Values for `log_level`:
+ #   - None
+ #   - Error
+ #   - Warn
+ #   - Info
+ #   - Debug
+ #   - Trace
+ log_level: Trace
+ print_events: true

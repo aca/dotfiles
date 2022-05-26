@@ -78,8 +78,8 @@ lcmd + lctrl + lalt - 0x30 : yabai -m window --focus recent
 lcmd + lctrl + lalt - w : yabai -m window --focus last;
 lcmd + lctrl + lalt - 0x30 : yabai -m window --focus last;
 # lcmd + lctrl + lalt - q : fish -c "yabai.circular next"; yabai -m window --focus last;
-lcmd + lctrl + lalt - q : yabai -m window --close;
-lcmd + lctrl + lalt - i : yabai -m window --close;
+lcmd + lctrl + lalt - q : yabai -m window --close || kill $(yabai -m query --windows --window | jq -r .pid)
+lcmd + lctrl + lalt - i : yabai -m window --close; 
 
 # balance size of windows, '='
 lcmd + lctrl + lalt - 0x18 : yabai -m space --balance;
