@@ -2,7 +2,10 @@
 --
 vim.cmd [[ highlight clear ]]
 
+
 local nvim_set_hl = vim.api.nvim_set_hl
+
+nvim_set_hl(0, "TelescopeNormal", {bg="#1c1c1e"})
 nvim_set_hl(0, "Normal", {})
 nvim_set_hl(0, "Comment", { foreground = 6708828, italic = true })
 nvim_set_hl(0, "ColorColumn", { background = 6708828 })

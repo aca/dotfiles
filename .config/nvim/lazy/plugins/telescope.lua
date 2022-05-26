@@ -7,14 +7,17 @@ end
 -- https://github.com/thanhvule0310/dotfiles/blob/main/nvim/lua/plugins/configs/telescope.lua
 
 telescope.setup {
-    picker = {
-        hidden = false,
+    pickers = {
+      find_files = {
+        find_command = { "fd", "--type", "f", "--hidden", "--strip-cwd-prefix" },
+        results_title = "",
+        preview_title = "",
+        prompt_title = "";
+      },
     },
+
     defaults = {
-        prompt_title = "werewr";
         dynamic_preview_title = false,
-        results_title = "";
-        preview_title = "";
         vimgrep_arguments = {
             "rg",
             "--color=never",
@@ -42,8 +45,8 @@ telescope.setup {
             vertical = {
                 mirror = false,
             },
-            width = 0.8,
-            height = 0.8,
+            width = 0.95,
+            height = 0.9,
             preview_cutoff = 120,
         },
         file_sorter = require("telescope.sorters").get_fuzzy_file,
@@ -51,18 +54,18 @@ telescope.setup {
         generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         path_display = { "absolute" },
         winblend = 20,
-        -- borderchars = {""},
+        borderchars = {""},
         -- borderchars = {
         --   prompt = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
         --   results = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
         --   preview = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
         -- };
-        border = {},
+        -- border = {},
         -- borderchars = {
-        --   { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-        --   prompt = {"─", "│", " ", "│", '┌', '┐', "│", "│"},
-        --   results = {"─", "│", "─", "│", "├", "┤", "┘", "└"},
-        --   preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+        --   { '', '', '', '', '', '', '', ''},
+        --   prompt = false,
+        --   results = false,
+        --   preview = false,
         -- },
         color_devicons = true,
         -- use_less = true,
