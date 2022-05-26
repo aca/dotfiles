@@ -1,5 +1,6 @@
 .PHONY: update
 update: 
+		@git pull --rebase
 		@git submodule update --init --remote --force
 
 .PHONY: sync
