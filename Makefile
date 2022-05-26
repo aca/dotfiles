@@ -10,8 +10,9 @@ sync:
 
 .PHONY: docker
 docker:
-		@docker build --no-cache -f Dockerfile . -t acadx0/vim
-		@docker push acadx0/vim
+		@agebox decrypt --all --force || true
+		@docker build -f Dockerfile . -t acadx0/work
+		@docker push acadx0/work
 
 .PHONY: dev
 dev:

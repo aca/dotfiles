@@ -56,4 +56,3 @@ vim.defer_fn(function()
       silent! helptags ALL
     ]])
 end, 150)
-

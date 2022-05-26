@@ -62,18 +62,21 @@ RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
 # RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 # RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
-RUN make -C .local/share/nvim/site/pack/bundle/opt/telescope-fzf-native.nvim
+RUN make -C ~/.local/share/nvim/site/pack/bundle/opt/telescope-fzf-native.nvim
 
 ENV GOPATH /root
 RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@latest
+RUN go install github.com/stern/stern@latest
+
 RUN sudo mv /root/bin/* /usr/local/bin
 RUN sudo rm -rf ~/go || true
 RUN sudo rm -rf ~/pkg || true
 RUN sudo rm -rf ~/.cache || true
 RUN sudo rm -rf ~/.npm || true
 
-RUN apk del go
+RUN apk del go --force-broken-world
+
 
 WORKDIR /root
 CMD ["/usr/local/bin/elvish"]
