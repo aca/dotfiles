@@ -9,7 +9,7 @@ end
 telescope.setup {
     pickers = {
       find_files = {
-        find_command = { "fd", "--type", "f", "--hidden", "--strip-cwd-prefix" },
+        find_command = { "fd", "--type", "f", "--hidden", "--strip-cwd-prefix" , "--follow"},
         results_title = "",
         preview_title = "",
         prompt_title = "";

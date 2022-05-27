@@ -94,7 +94,7 @@ vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
 " vnoremap ;; :
 
 " LSP
-inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
+" inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
 " this makes p slow
 " nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
 

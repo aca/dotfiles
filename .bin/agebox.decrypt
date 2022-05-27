@@ -1,3 +1,4 @@
 #!/bin/sh
-
+cd $(git.root)
+agebox reencrypt
 agebox decrypt --all --force
