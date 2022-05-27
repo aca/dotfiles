@@ -37,10 +37,9 @@ fn fzf_file { ||
 
   if (not-eq $last '') {
     var s = (str:trim-suffix $edit:current-command $last)
-    var s2 = (str:join ' ' [$s (printf "%q" (fzf --height 75% --query $last --min-height 10 --info=hidden --no-sort </dev/tty) )])
-    edit:replace-input $s2
+    edit:replace-input $s''(printf "%s" (str:join ' ' [ ( put (fzf --query $last --height 75% --min-height 10 --info=hidden --no-sort </dev/tty | from-lines ) | each { |x| printf "%q " $x } ) ])) 
   } else {
-    edit:replace-input (str:join ' ' [$edit:current-command (printf "%q" (fzf --height 75% --min-height 10 --info=hidden --no-sort </dev/tty) )])
+    edit:replace-input $edit:current-command''(printf "%s" (str:join ' ' [ ( put (fzf --height 75% --min-height 10 --info=hidden --no-sort </dev/tty | from-lines ) | each { |x| printf "%q " $x } ) ])) 
   }
 }
 
@@ -64,10 +63,6 @@ fn paste_command {||
 }
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 set edit:command:binding[p] = {|| paste_command >/dev/tty 2>&1 }
-
-
-# It doesn't work..
-# set edit:insert:binding[Ctrl-G] = {|| cd (src.dir >/dev/tty) }
 
 fn fzf_cd {||
   try {
