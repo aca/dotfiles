@@ -45,10 +45,14 @@ function! s:fzfmarks() abort
 endfunction
 command! -bar -bang FZFMarks call fzf#vim#marks(s:fzfmarks(), 0)
 
-nnoremap <silent><c-f>        :Rg<cr>
 nnoremap <silent><m-f>        :RgWithFile<cr>
 vnoremap <silent><c-f>        y:Rg <C-R>"<CR>
-nnoremap <silent><Leader>fw   :Rg <C-R><C-W><CR>
+" nnoremap <silent><c-f>        :Rg<cr>
+" nnoremap <silent><Leader>fw   :Rg <C-R><C-W><CR>
+"
+nnoremap <silent><c-f>        :lua require('telescope.builtin').live_grep({layout_config={width=0.9}})<cr>
+nnoremap <silent><Leader>fw   :lua require('telescope.builtin').live_grep({layout_config={width=0.9}})<cr>
+
 nnoremap <silent><Leader>fW   :Rg <C-R><C-A><CR>
 vnoremap <silent><Leader>fw   y:Rg <C-R>"<CR>
 nnoremap <silent><Leader>fm   :FZFMarks<cr>

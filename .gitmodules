@@ -442,3 +442,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/stabilize.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/stabilize.nvim
 	url = https://github.com/luukvbaal/stabilize.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/telescope-hop.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/telescope-hop.nvim
+	url = https://github.com/nvim-telescope/telescope-hop.nvim.git

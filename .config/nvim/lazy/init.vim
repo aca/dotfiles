@@ -1,6 +1,7 @@
 packadd plenary.nvim
 packadd telescope.nvim
 packadd telescope-fzf-native.nvim
+packadd telescope-hop.nvim
 
 packadd nvim-web-devicons
 packadd vim-visual-star-search
