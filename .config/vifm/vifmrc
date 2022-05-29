@@ -105,8 +105,7 @@ endif
 " set statusline="%= %A %10u:%-7g %15s %20d  "
 
 " Total size of selected files
-" To get the total size of selected files change %s to %E in ~/.vifm/vifmrc, like so:
-set statusline="  %t%= %A %10u:%-7g %15E %20d  "
+set statusline="%= %A %10u:%-7g %15E %20d  "
 
 mark h ~/
 mark r /
@@ -257,10 +256,14 @@ endif
 
 " Reset all styles first
 " highlight clear
-highlight Border	cterm=none	ctermfg=237	ctermbg=0
+" highlight Border	cterm=none	ctermfg=237	ctermbg=0
+" set fillchars='vborder:│'
+hi  Border      cterm=none     ctermfg=-1  ctermbg=-1
 
 highlight TopLine cterm=italic gui=italic ctermfg=0 ctermbg=255
 highlight TopLineSel cterm=italic gui=italic ctermfg=0 ctermbg=255
+set tuioptions-=sp
+set dotdirs=
 
 highlight Win		cterm=none	ctermfg=188	
 highlight Directory	cterm=none	ctermfg=188	
@@ -269,7 +272,8 @@ highlight OtherLine	cterm=none	ctermfg=247	ctermbg=237
 highlight Selected	cterm=none	ctermfg=188	ctermbg=238
 
 highlight JobLine	cterm=bold	ctermfg=188	ctermbg=238
-highlight StatusLine	cterm=none	ctermfg=188	ctermbg=0
+" highlight StatusLine	cterm=none	ctermfg=188	ctermbg=0
+hi  StatusLine  cterm=reverse  ctermfg=-1  ctermbg=-1
 highlight WildMenu	cterm=none	ctermfg=188	
 highlight CmdLine	cterm=none	ctermfg=188	ctermbg=0
 highlight ErrorMsg	cterm=none	ctermfg=188	ctermbg=237
