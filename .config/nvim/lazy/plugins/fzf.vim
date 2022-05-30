@@ -22,8 +22,8 @@ let g:fzf_action = {
 \ }
 
 " Rg without filename
-command! -bang -nargs=* Rg          call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4.. '}), 0)
-command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
+command! -bang -nargs=* Rg          call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': ['--delimiter=--nth 4..', '--prompt=» ']}), 0)
+command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': ['--delimiter=--nth 1..', '--prompt=» ']}), 0)
 
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#hide-statusline
 " autocmd! FileType fzf
@@ -54,7 +54,7 @@ command! -bar -bang FZFMarks call fzf#vim#marks(s:fzfmarks(), 0)
 nnoremap <silent><m-f>        :RgWithFile<cr>
 vnoremap <silent><c-f>        y:Rg <C-R>"<CR>
 nnoremap <silent><c-f>        :Rg<cr>
-nnoremap <silent><Leader>fw   :Rg<C-R><C-W><CR>
+nnoremap <silent><Leader>fw   :Rg <C-R><C-W><CR>
 
 " nnoremap <silent><c-f>        :lua require'telescope.builtin'.grep_string{ only_sort_text = true, search = '', {layout_config={width=0.95} }}<cr>
 " nnoremap <silent><Leader>fw   :lua require('telescope.builtin').grep_string({layout_config={width=0.95}, search=''})<cr>

@@ -42,9 +42,11 @@ set("n", "]d", function()
     vim.diagnostic.goto_next({ wrap = false })
 end, { silent = true })
 set("n", "K", vim.lsp.buf.hover, { silent = true })
-
-nvim_set_keymap("n", "gD", "<cmd>vsplit<bar>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true }) -- NOTES: rarely implemented
-nvim_set_keymap("n", "gi", "<cmd>vsplit<bar>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = true })
+set("n", "<leader>gd", function()
+    vim.cmd([[ vsplit ]])
+    vim.lsp.buf.definition()
+end, { silent = true })
+set("n", "gi", vim.lsp.buf.implementation, { silent = true })
 
 nvim_set_keymap("n", ";ff", "<cmd>Neoformat<CR>", { noremap = true, silent = true })
 set("n", ";rn", vim.lsp.buf.rename, { silent = true })
@@ -156,7 +158,7 @@ cnoreabbrev Q1 q!
 cnoreabbrev q1 q!
 cnoreabbrev qq q!
 cnoreabbrev ww w!
-" cnoreabbrev E e
+cnoreabbrev E e
 cnoreabbrev Wq wq
 cnoreabbrev Echo echo
 cnoreabbrev Wa wa
@@ -170,9 +172,6 @@ cnoreabbrev QA qa
 cnoreabbrev Vs vs
 cnoreabbrev VS vs
 cnoreabbrev l lua
-
-" repeat last command
-" noremap <leader>re @:<CR>
 
 " qq to record, Q to replay
 nnoremap Q @q
@@ -193,7 +192,6 @@ nnoremap vv g^vg_"+ygv
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
-
 
 " Save
 inoremap <C-s>     <esc>:update<cr>

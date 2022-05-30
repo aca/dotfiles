@@ -1,68 +1,9 @@
 dotfiles
 ========
 
+# requires GNU stow, make
+git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
+curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 git clone aca:~/src/configs/dotfiles.shared
 
 my systems for sync.
-
-Setup
------
-# stow
-git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
-
-# install ssh keys
-curl -L github.com/aca.keys > ~/.ssh/authorized_keys
-
-# VPN: Tailscale
-
-Setup machine
--------------
-sudo apt install stow
-
-rm -rf ~/src/configs/dotfiles
-git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
-
-Sync
-----
-cd ~/src/configs/dotfiles && git pull --rebase && git submodule update --init
-
-Update
-------
-git submodule update --init --force
-git submodule update --init --remote --force
-
-
-# set branch for submodules
-git submodule foreach -q --recursive 'git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) || git switch main'
-
-# clean submodules (remove all submodule files)
-git submodule deinit -f .
-
-Brew 
-----
-# Update
-sh -c "command rm ~/.Brewfile* && brew bundle dump --describe --global && command mv ~/.Brewfile ~/src/configs/dotfiles && setup.stow"
-
-# Install  
-brew bundle install --global
-
-Neovim
-------
-sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl -y
-git clone -j8 https://github.com/neovim/neovim ~/tmp/neovim
-cd ~/tmp/neovim && sudo make distclean && sudo make -j4 CMAKE_BUILD_TYPE=Release install
-
-Fish
-----
-sudo apt-add-repository ppa:fish-shell/release-3
-sudo apt-get update -y
-sudo apt-get install fish -y
-
-ASDF
-----
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-
-# ghq
-asdf plugin add ghq
-asdf install ghq latest
-
