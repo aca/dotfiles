@@ -36,8 +36,6 @@ au FileType fzf tnoremap <buffer> <c-j> <c-j>
 au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
 let g:fzf_preview_window = ['up:50%:border-bottom','ctrl-p']
-" let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 0.8 , 'border' : 'horizontal'}  }
-" let g:fzf_layout = { 'tmux': '-p90%,60%' }
 if exists('$TMUX')
   let g:fzf_layout = { 'tmux': '-p80%,90%' }
 else
@@ -56,9 +54,6 @@ vnoremap <silent><c-f>        y:Rg <C-R>"<CR>
 nnoremap <silent><c-f>        :Rg<cr>
 nnoremap <silent><Leader>fw   :Rg <C-R><C-W><CR>
 
-" nnoremap <silent><c-f>        :lua require'telescope.builtin'.grep_string{ only_sort_text = true, search = '', {layout_config={width=0.95} }}<cr>
-" nnoremap <silent><Leader>fw   :lua require('telescope.builtin').grep_string({layout_config={width=0.95}, search=''})<cr>
-
 nnoremap <silent><Leader>fW   :Rg <C-R><C-A><CR>
 vnoremap <silent><Leader>fw   y:Rg <C-R>"<CR>
 nnoremap <silent><Leader>fm   :FZFMarks<cr>
@@ -66,9 +61,12 @@ nnoremap <silent><leader>fl   :BLines<cr>
 nnoremap <silent><leader>ff   :Files<cr>
 " nnoremap <silent><leader>ff   :lua require('telescope.builtin').find_files({layout_config={width=0.95}})<cr>
 " nnoremap <silent><Leader>ff   :lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy())<cr>
+" nnoremap <silent><c-f>        :lua require'telescope.builtin'.grep_string{ only_sort_text = true, search = '', {layout_config={width=0.95} }}<cr>
+" nnoremap <silent><Leader>fw   :lua require('telescope.builtin').grep_string({layout_config={width=0.95}, search=''})<cr>
+
 
 nnoremap <silent><leader>fh   :History<CR>
-" nnoremap <silent><leader>'    :FZFMarks<cr>
+nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
 nnoremap <silent><leader>fC   :Colors<cr>
 nnoremap <silent><leader>fc   :Commits<cr>

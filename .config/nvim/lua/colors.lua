@@ -4,7 +4,6 @@ vim.cmd([[ highlight clear ]])
 
 local nvim_set_hl = vim.api.nvim_set_hl
 
-
 nvim_set_hl(0, "TelescopeNormal", { bg = "#1c1c1e" })
 nvim_set_hl(0, "Normal", {})
 nvim_set_hl(0, "Comment", { foreground = 6708828, italic = true })
@@ -24,17 +23,12 @@ nvim_set_hl(0, "VertSplit", { foreground = 6708828 })
 nvim_set_hl(0, "Folded", { background = 2630948, foreground = 9603463, italic = true })
 nvim_set_hl(0, "FoldColumn", {})
 nvim_set_hl(0, "SignColumn", {})
-nvim_set_hl(0, "Substitute", { background = 14985831, foreground = 0 })
 nvim_set_hl(0, "LineNr", { foreground = "#333333" })
 nvim_set_hl(0, "CursorLineNr", { foreground = "#606060" })
-nvim_set_hl(0, "MoreMsg", { bold = true, foreground = 7712471 })
 nvim_set_hl(0, "NonText", { foreground = 11293568 })
 nvim_set_hl(0, "NormalFloat", { background = 2630948, foreground = 10393236 })
 nvim_set_hl(0, "NormalNC", {})
-nvim_set_hl(0, "Question", {})
 nvim_set_hl(0, "QuickFixLine", {})
-nvim_set_hl(0, "Search", { background = 14985831, foreground = 0 })
-nvim_set_hl(0, "SpecialKey", { bold = true })
 nvim_set_hl(0, "StatusLine", { background = "#141414", foreground = 12762812, italic = true })
 nvim_set_hl(0, "StatusLineNC", { background = "#141414", foreground = 9603463, italic = true })
 nvim_set_hl(0, "WinBar", { background = "#141414", foreground = 12762812, italic = true })
@@ -45,7 +39,6 @@ nvim_set_hl(0, "TabLineSel", { bold = true, foreground = 12762812 })
 nvim_set_hl(0, "Title", { bold = true })
 nvim_set_hl(0, "Visual", { background = 16777215, foreground = 0 })
 nvim_set_hl(0, "Whitespace", { foreground = 4933188 })
-nvim_set_hl(0, "WildMenu", { foreground = 16777215 })
 nvim_set_hl(0, "Constant", { special = 16777215 })
 nvim_set_hl(0, "String", { foreground = 10393236 })
 nvim_set_hl(0, "Boolean", { italic = true })
@@ -70,7 +63,6 @@ nvim_set_hl(0, "Typedef", {})
 nvim_set_hl(0, "Special", {})
 
 nvim_set_hl(0, "Character", {})
-nvim_set_hl(0, "VisualNOS", {})
 nvim_set_hl(0, "Number", {})
 nvim_set_hl(0, "Float", {})
 
@@ -87,12 +79,31 @@ nvim_set_hl(0, "PreCondit", {})
 nvim_set_hl(0, "Tag", {})
 nvim_set_hl(0, "Debug", {})
 
+
+
+
+
 vim.defer_fn(function()
+
+    nvim_set_hl(0, "ModeMsg", {})
+    nvim_set_hl(0, "MsgArea", {})
+    nvim_set_hl(0, "MsgSeparator", {})
+    nvim_set_hl(0, "SpecialChar", {})
+
+    nvim_set_hl(0, "Search", { background = 14985831, foreground = 0 })
+    nvim_set_hl(0, "Question", {})
+    nvim_set_hl(0, "Substitute", { background = 14985831, foreground = 0 })
+    nvim_set_hl(0, "MoreMsg", { bold = true, foreground = 7712471 })
+    nvim_set_hl(0, "WildMenu", { foreground = 16777215 })
+    nvim_set_hl(0, "VisualNOS", {})
+    nvim_set_hl(0, "SpecialKey", { bold = true })
+    
     -- gitsigns.nvim
     nvim_set_hl(0, "GitSignsAdd", { bg = "NONE", fg = "green" })
     nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "blue" })
     nvim_set_hl(0, "GitSignsDelete", { bg = "NONE", fg = "red" })
     nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "yellow" })
+
 
     -- nvim-cmp
     -- nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
@@ -106,12 +117,6 @@ vim.defer_fn(function()
     -- nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
     -- nvim_set_hl(0, "CmpItemKindProperty", { bg = "NONE", fg = "#D4D4D4" })
     -- nvim_set_hl(0, "CmpItemKindUnit", { bg = "NONE", fg = "#D4D4D4" })
-
-    nvim_set_hl(0, "ModeMsg", {})
-    nvim_set_hl(0, "MsgArea", {})
-    nvim_set_hl(0, "MsgSeparator", {})
-    nvim_set_hl(0, "SpecialChar", {})
-
     nvim_set_hl(0, "SpecialComment", {})
     nvim_set_hl(0, "IncSearch", { background = 7712471, foreground = 0 })
     -- nvim_set_hl(0, "CurSearch", { background = "red", foreground = 0 })
@@ -161,4 +166,4 @@ vim.defer_fn(function()
     nvim_set_hl(0, "DiagnosticVirtualTextWarn", { italic = true, fg = "#65737e" })
     nvim_set_hl(0, "DiagnosticVirtualTextInfo", { italic = true, fg = "#65737e" })
     nvim_set_hl(0, "DiagnosticVirtualTextHint", { italic = true, fg = "#65737e" })
-end, 50)
+end, 100)

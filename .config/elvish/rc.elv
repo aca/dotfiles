@@ -39,6 +39,7 @@ fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn dc {|@a| cd $@a }
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
 fn v {|@a| e:nvim $@a }
+fn vim {|@a| e:nvim $@a }
 # fn e {|@a| edit:clear; tmux clear-history; }
 fn k {|@a| e:kubectl $@a }
 fn elv { |@a| e:elvish $@a }

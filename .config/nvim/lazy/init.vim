@@ -26,6 +26,8 @@ packadd nvim-colorizer.lua
 packadd fugitive
 " packadd gv.vim
 
+unlet g:loaded_clipboard_provider
+runtime plugin/clipboard.vim
 unlet g:loaded_netrwPlugin
 runtime plugin/netrwPlugin.vim
 unlet g:loaded_matchit
@@ -122,3 +124,5 @@ nnoremap <silent> <m-k> <cmd>TmuxResizeUp<cr>
 nnoremap <silent> <m-l> <cmd>TmuxResizeRight<cr>
 
 packadd stabilize.nvim
+
+packadd vim-dirvish

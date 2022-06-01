@@ -2,7 +2,7 @@ local g = vim.g
 local opt = vim.opt
 local o = vim.o
 
-opt.mmp = 20000
+-- opt.mmp = 20000
 opt.shell = "/bin/sh"
 o.wildignore = "/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.git/*"
 o.conceallevel = 2
@@ -133,6 +133,7 @@ g.loaded_rrhelper = 1
 g.loaded_tarPlugin = 1
 g.loaded_remote_plugins = 1
 g.loaded_gzip = 1
+g.loaded_clipboard_provider = 1
 g.loaded_zipPlugin = 1
 g.loaded_2html_plugin = 1
 g.loaded_shada_plugin = 1
@@ -147,5 +148,5 @@ g.loaded_matchparen = 1
 -- netrw (lazy load)
 g.loaded_netrwPlugin = 1
 
-o.statusline = "%=%m%r%h%w %-8(%l : %c%) %P"
+o.statusline = "%= %m%r%h%w %l:%c %P "
 o.winbar = "%=%m%f"

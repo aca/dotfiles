@@ -5,7 +5,7 @@
 	path = .local/share/nvim/site/pack/bundle/start/lua-dev.nvim
 	url = https://github.com/folke/lua-dev.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-dirvish"]
-	path = .local/share/nvim/site/pack/bundle/start/vim-dirvish
+	path = .local/share/nvim/site/pack/bundle/opt/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-lspconfig"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-lspconfig
@@ -193,9 +193,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-ts-rainbow"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-ts-rainbow
 	url = https://github.com/p00f/nvim-ts-rainbow.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-dirvish-dovish"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-dirvish-dovish
-	url = https://github.com/roginfarrer/vim-dirvish-dovish.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-rfc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-rfc
 	url = https://github.com/mhinz/vim-rfc.git

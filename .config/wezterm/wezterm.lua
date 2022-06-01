@@ -175,7 +175,7 @@ end)
 
 local config = {
     window_decorations = "RESIZE",
-    cell_width = 0.8,
+    -- cell_width = 0.8,
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
@@ -233,7 +233,7 @@ local config = {
     default_prog = { "/usr/local/bin/elvish" },
     -- default_prog = { "/usr/local/bin/fish", "--login"},
     enable_kitty_graphics = true,
-    debug_key_events = true,
+    -- debug_key_events = true,
     set_environment_variables = {
         -- This fails to find wezterm.nvim.navigator
         PATH = os.getenv("PATH") .. ":/usr/local/bin" .. ":" .. homedir .. "/.bin" .. ":" .. homedir .. "/bin",

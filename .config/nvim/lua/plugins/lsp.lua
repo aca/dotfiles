@@ -5,6 +5,7 @@ local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 -- local configs = require("lspconfig/configs")
 local lsp_installer = require("nvim-lsp-installer")
+
 lsp_installer.setup({})
 
 local rightAlignFormatFunction = function(diagnostic)
@@ -147,3 +148,5 @@ vim.api.nvim_create_user_command("ToggleDiagnostic", function()
     vim.diagnostic.hide()
   end
 end, {})
+
+vim.cmd [[ :LspStart ]]
