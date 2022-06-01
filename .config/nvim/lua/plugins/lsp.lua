@@ -1,7 +1,6 @@
 -- DEBUG
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
-
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 -- local configs = require("lspconfig/configs")
@@ -43,19 +42,14 @@ completionItem.resolveSupport = {
 
 local on_attach = function(client, bufnr)
     local resolved_capabilities = client.server_capabilities
-    local api = vim.api
 
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
-
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     if resolved_capabilities.goto_definition == true then
-        api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+        vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
     end
 
     if resolved_capabilities.document_formatting == true then
-        api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+        vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
     end
 end
 
