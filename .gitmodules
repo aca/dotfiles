@@ -139,9 +139,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/venn.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/venn.nvim
 	url = https://github.com/jbyuki/venn.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-go"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-go
-	url = https://github.com/aca/nvim-go.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-goaddtags"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-goaddtags
 	url = https://github.com/mattn/vim-goaddtags.git
