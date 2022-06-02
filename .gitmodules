@@ -418,9 +418,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/typescript.nvim"]
 	path = .local/share/nvim/site/pack/bundle/start/typescript.nvim
 	url = https://github.com/jose-elias-alvarez/typescript.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/start/knap"]
-	path = .local/share/nvim/site/pack/bundle/start/knap
-	url = https://github.com/frabjous/knap.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-markdown-toc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc.git

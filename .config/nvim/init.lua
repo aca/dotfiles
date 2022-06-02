@@ -9,9 +9,18 @@
 --  AVERAGE      MAX      MIN
 -- ---------------------------
 -- 2.086300 2.133000 2.025000: /home/rok/.config/nvim/init.lua
+local xdg_config = vim.fn.stdpath('config') .. '/lua'
+
+package.path = string.format(
+   '%s/?.ljbc;%s',
+   xdg_config,
+   package.path
+)
+-- print(package.path)
 
 require("settings")
-require("colors")
+-- require("colors")
+dofile(xdg_config .. "/colors.ljbc")
 require("autocmds")
 
 vim.defer_fn(function()
@@ -46,4 +55,4 @@ vim.defer_fn(function()
       runtime! lazy/local/*
       silent! helptags ALL
     ]])
-end, 40)
+end, 200)
