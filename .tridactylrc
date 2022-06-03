@@ -5,3 +5,4 @@ bind [t tabprev
 bind ]t tabnext
 unbind <c-a>
 unbind D
+set newtab about:blank

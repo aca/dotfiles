@@ -2,17 +2,6 @@ packadd fzf
 packadd fzf.vim
 packadd fugutive.vim
 
-" let g:fzf_preview_git_status_preview_command =
-"     \ "[[ $(git diff --cached -- {-1}) != \"\" ]] && git diff --cached --color=always -- {-1} | delta || " .
-"     \ "[[ $(git diff -- {-1}) != \"\" ]] && git diff --color=always -- {-1} | delta || " 
-
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
 let g:fzf_action = {
 \ 'ctrl-h': 'abort',
 \ 'ctrl-l': 'abort',
@@ -20,10 +9,6 @@ let g:fzf_action = {
 \ 'ctrl-s': 'split',
 \ 'ctrl-v': 'vsplit'
 \ }
-
-" Rg without filename
-command! -bang -nargs=* Rg          call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': ['--delimiter=--nth 4..', '--prompt=» ']}), 0)
-command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg --column --line-number --color=always --no-heading --line-number --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': ['--delimiter=--nth 1..', '--prompt=» ']}), 0)
 
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#hide-statusline
 " autocmd! FileType fzf
@@ -37,7 +22,7 @@ au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
 let g:fzf_preview_window = ['up:50%:border-bottom','ctrl-p']
 if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p80%,90%' }
+  let g:fzf_layout = { 'tmux': '-p90%,90%' }
 else
   let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.7 } }
 endif
@@ -70,3 +55,6 @@ nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
 nnoremap <silent><leader>fC   :Colors<cr>
 nnoremap <silent><leader>fc   :Commits<cr>
+
+command! -bang -nargs=* Rg          call fzf#vim#grep('rg --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 3.. '}), 0)
+command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
