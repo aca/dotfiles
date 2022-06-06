@@ -96,6 +96,7 @@ local gopls_settings = {
     gopls = {
         allExperiments = true,
         ["formatting.gofumpt"] = true,
+        -- ["ui.documentation.hoverKind"] = "Structured",
         analyses = {
             unusedparams = false,
         },

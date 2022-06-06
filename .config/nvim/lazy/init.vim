@@ -84,8 +84,8 @@ packadd nvim-ts-context-commentstring
 packadd vim-dadbod
 packadd vim-dadbod-ui
 
-nnoremap gm :GitMessenger<cr>
-packadd git-messenger.vim
+" nnoremap gm :GitMessenger<cr>
+" packadd git-messenger.vim
 
 packadd hop.nvim
 nmap <silent><leader>w :HopWord<cr>
@@ -126,3 +126,5 @@ nnoremap <silent> <m-l> <cmd>TmuxResizeRight<cr>
 packadd stabilize.nvim
 
 packadd vim-dirvish
+
+" packadd indent-blankline.nvim

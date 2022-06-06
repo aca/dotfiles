@@ -202,9 +202,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/cmp-nvim-lsp"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/indentLine"]
-	path = .local/share/nvim/site/pack/bundle/opt/indentLine
-	url = https://github.com/Yggdroot/indentLine.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/indent-blankline.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
@@ -364,9 +361,6 @@
 [submodule ".config/elvish/lib/completions/bash-completion"]
 	path = .config/elvish/lib/completions/bash-completion
 	url = https://github.com/scop/bash-completion.git
-[submodule ".config/elvish/lib/elvish-bash-completion"]
-	path = .config/elvish/lib/elvish-bash-completion
-	url = https://github.com/aca/elvish-bash-completion.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/fugitive"]
 	path = .local/share/nvim/site/pack/bundle/opt/fugitive
 	url = https://tpope.io/vim/fugitive.git
@@ -436,3 +430,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/telescope-hop.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/telescope-hop.nvim
 	url = https://github.com/nvim-telescope/telescope-hop.nvim.git
+[submodule ".config/elvish/lib/elvish-bash-completion"]
+	path = .config/elvish/lib/elvish-bash-completion
+	url = https://github.com/aca/elvish-bash-completion.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/godbolt.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/godbolt.nvim
+	url = https://github.com/p00f/godbolt.nvim.git

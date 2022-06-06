@@ -8,8 +8,7 @@
 /* @import url(chrome/blank_page_background.css); */
 /* @import url(chrome/autohide_menubar.css); */
 /* @import url(chrome/autohide_toolbox.css); */
-@import url(chrome/autohide_bookmarks_and_main_toolbars.css);
-@import url(chrome/tabs_below_content.css);
+/* @import url(chrome/autohide_bookmarks_and_main_toolbars.css); */
 /* @import url(chrome/hide_toolbox_top_bottom_borders.css); */
 /* @import url(chrome/vertical_context_navigation.css); */
 /* @import url(chrome/minimal_popup_scrollbars.css); */
@@ -20,6 +19,8 @@
 /* @import url(chrome/minimal_text_fields.css); */
 /* @import url(chrome/minimal_toolbarbuttons.css); */
 /* @import url(chrome/urlbar_centered_text.css); */
+@import url(chrome/tabs_below_content.css);
+@import url(chrome/numbered_tabs.css);
 
 /* Apply your custom modifications after imports */
 

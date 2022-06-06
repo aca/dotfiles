@@ -28,7 +28,6 @@ opt.fillchars = opt.fillchars + {
 }
 
 o.wrapmargin = 0
-
 o.lazyredraw = true
 
 g.mapleader = " "
@@ -65,11 +64,11 @@ opt.formatoptions = opt.formatoptions
     - "2" -- I'm not in gradeschool anymore
 
 opt.inccommand = "split"
-opt.swapfile = false -- Living on the edge
+opt.swapfile = false
 opt.shada = { "!", "'1000", "<50", "s10", "h" }
 opt.hidden = true -- zepl.vim
 
-opt.joinspaces = false -- Two spaces and grade school, we're done
+opt.joinspaces = false
 opt.belloff = "all" -- Just turn the dang bell off
 
 opt.number = false
@@ -83,9 +82,9 @@ opt.cinkeys = opt.cinkeys - "0#"
 opt.wrap = false
 opt.wrapscan = false
 
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 4
 opt.expandtab = true
 
 opt.incsearch = true -- Makes search act like search in modern browsers
@@ -127,26 +126,21 @@ vim.filetype.add({
 
 -- disable default vim stuffs for faster startuptime
 
-g.loaded_tutor_mode_plugin = 1
-g.loaded_logiPat = 1
-g.loaded_rrhelper = 1
-g.loaded_tarPlugin = 1
-g.loaded_remote_plugins = 1
-g.loaded_gzip = 1
-g.loaded_clipboard_provider = 1
-g.loaded_zipPlugin = 1
 g.loaded_2html_plugin = 1
-g.loaded_shada_plugin = 1
-g.loaded_spellfile_plugin = 1
-g.loaded_remote_plugins = 1
+g.loaded_clipboard_provider = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
-
+g.loaded_gzip = 1
+g.loaded_logiPat = 1
+g.loaded_remote_plugins = 1
+g.loaded_rrhelper = 1
+g.loaded_spellfile_plugin = 1
+g.loaded_tarPlugin = 1
+g.loaded_tutor_mode_plugin = 1
+g.loaded_zipPlugin = 1
+g.loaded_netrwPlugin = 1
 g.loaded_matchit = 1
 g.loaded_matchparen = 1
 
--- netrw (lazy load)
-g.loaded_netrwPlugin = 1
-
 o.statusline = "%= %m%r%h%w %l:%c %P "
-o.winbar = "%=%m%f"
+o.winbar = "%=%l:%c %P %m%f"

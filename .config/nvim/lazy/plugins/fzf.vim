@@ -20,7 +20,7 @@ let g:fzf_action = {
 au FileType fzf tnoremap <buffer> <c-j> <c-j>
 au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
-let g:fzf_preview_window = ['up:50%:border-bottom','ctrl-p']
+let g:fzf_preview_window = ['up:50%:border-bottom','ctrl-w']
 if exists('$TMUX')
   let g:fzf_layout = { 'tmux': '-p90%,90%' }
 else

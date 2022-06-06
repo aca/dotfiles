@@ -109,7 +109,7 @@ set edit:insert:binding[Ctrl-A] = { edit:completion:smart-start }
 
 set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
 
-set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv) > /dev/tty 2>/dev/null }
+set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv | slurp)}
 
 # queue command to pueue
 # I don't like pueue interface, maybe just use tmux

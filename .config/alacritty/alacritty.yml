@@ -29,7 +29,7 @@ font:
     # family: Iosevka Curly Slab
     # family: JetBrainsMono Nerd Font
     style: Light
-    # family: BlexMono Nerd Font
+    family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
     
@@ -44,7 +44,7 @@ font:
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
-    family: Iosevka Nerd Font Mono
+    # family: Iosevka Nerd Font Mono
     # family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
 
@@ -57,10 +57,10 @@ font:
   # italic:
   #   family: BlexMono Nerd Font
 
-  size: 28
+  size: 18
   offset:
-    x: -2
-    y: -1
+    x: -3
+    y: -2
 
   glyph_offset:
     x: 0

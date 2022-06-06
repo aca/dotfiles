@@ -6,3 +6,12 @@ bind ]t tabnext
 unbind <c-a>
 unbind D
 set newtab about:blank
+bind <c-1> tab 1
+bind <c-2> tab 2
+bind <c-3> tab 3
+bind <c-4> tab 4
+bind <c-5> tab 5
+bind <c-6> tab 6
+bind <c-7> tab 7
+bind <c-8> tab 8
+bind <c-9> tab 9

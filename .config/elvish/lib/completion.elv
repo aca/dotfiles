@@ -16,6 +16,7 @@ set edit:completion:arg-completer[docker] = (bash-completer:new "docker")
 set edit:completion:arg-completer[fd] = (bash-completer:new "fd")
 set edit:completion:arg-completer[gh] = (bash-completer:new "gh" &bash_function="__start_gh gh")
 set edit:completion:arg-completer[git] = (bash-completer:new "git" &bash_function="__git_wrap__git_main")
+# use elvish-completions/git
 set edit:completion:arg-completer[ip] = (bash-completer:new "ip" &bash_function="_ip ip")
 set edit:completion:arg-completer[kill] = (bash-completer:new "kill")
 set edit:completion:arg-completer[killall] = (bash-completer:new "killall")
@@ -30,6 +31,8 @@ set edit:completion:arg-completer[ssh] = (bash-completer:new "ssh")
 set edit:completion:arg-completer[sudo] = $edit:complete-sudo~
 set edit:completion:arg-completer[time] = $edit:complete-sudo~
 set edit:completion:arg-completer[tmux] = (bash-completer:new "tmux")
+set edit:completion:arg-completer[hexdump] = (bash-completer:new "hexdump")
+set edit:completion:arg-completer[agebox] = (bash-completer:new "agebox")
 set edit:completion:arg-completer[umount] = (bash-completer:new "umount" &bash_function="_umount_module")
 set edit:completion:arg-completer[virsh] = (bash-completer:new "virsh" &bash_function="_virsh_complete virsh")
 set edit:completion:arg-completer[which] = (bash-completer:new "which"  &bash_function="_complete type" &completion_filename="complete")

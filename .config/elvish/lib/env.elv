@@ -49,7 +49,7 @@ if (eq $E:_ELVISH_ENV "") {
     set E:MANWIDTH = '88'
 
     set E:RIPGREP_CONFIG_PATH = $E:HOME/.ripgreprc
-    set E:BROWSER = google-chrome
+    set E:BROWSER = firefox
     set E:COLORTERM = truecolor
     set E:EDITOR = nvim
     set E:VISUAL = nvim

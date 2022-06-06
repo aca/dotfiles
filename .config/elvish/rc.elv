@@ -1,5 +1,13 @@
 # vim:foldmethod=marker foldmarker={{{,}}}
 
+# try {
+#   set edit:command-abbr[gco] = 'git checkout'
+#   set edit:command-abbr[k] = 'kubectl'
+# } catch {
+#
+# }
+
+
 #
 # Reference
 # https://github.com/xiaq/etc/blob/master/rc.elv

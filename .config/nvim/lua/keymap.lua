@@ -79,7 +79,8 @@ function s:close()
   elseif getwininfo(win_getid())[0]['loclist'] == 1
     lclose
   elseif len(getbufinfo({'buflisted':1})) > 1
-    BufferClose!
+    " BufferClose!
+    q!
   else
     q!
   end
