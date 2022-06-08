@@ -1,14 +1,13 @@
 # vim:foldmethod=marker foldmarker={{{,}}}
 
-# try {
-#   set edit:command-abbr[gco] = 'git checkout'
-#   set edit:command-abbr[k] = 'kubectl'
-# } catch {
-#
-# }
+set edit:command-abbr[gco] = 'git checkout'
+set edit:command-abbr[k] = 'kubectl'
+set edit:command-abbr['k'] = 'kubectl'
+set edit:command-abbr['v'] = 'nvim'
+# set edit:command-abbr['os'] = 'openstack '
+set edit:command-abbr['ta'] = 'tmux attach -t '
+set edit:command-abbr['elv'] = 'elvish'
 
-
-#
 # Reference
 # https://github.com/xiaq/etc/blob/master/rc.elv
 
@@ -27,17 +26,16 @@ if (has-external zoxide) { use /zoxide }
 nop ?(use local)
 # TODO: host specific
 
-
 # use github.com/zzamboni/elvish-modules/nix; nix:single-user-setup
 
 # }}}
 # abbr {{{
 # TODO: https://github.com/elves/elvish/issues/1472
-# set edit:small-word-abbr['k'] = 'kubectl'
-# set edit:small-word-abbr['v'] = 'nvim'
-# set edit:small-word-abbr['os'] = 'openstack '
-# set edit:small-word-abbr['ta'] = 'tmux attach -t '
-# set edit:small-word-abbr['elv'] = 'elvish'
+# set edit:command-abbr['k'] = 'kubectl'
+# set edit:command-abbr['v'] = 'nvim'
+# set edit:command-abbr['os'] = 'openstack '
+# set edit:command-abbr['ta'] = 'tmux attach -t '
+# set edit:command-abbr['elv'] = 'elvish'
 # set edit:abbr['l '] = 'less '
 
 fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }

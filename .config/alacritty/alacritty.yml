@@ -77,20 +77,12 @@ selection:
 
 live_config_reload: true
 
-# shell:
-#   program: /bin/dash
-#   args:
-#     - -l
-#     - -c
-#     - "tmux attach || tmux"
-
-# shell:
-#   program: /usr/local/bin/fish
-#   args:
-#     - --login
-
 shell:
-  program: /usr/local/bin/elvish
+  program: /bin/sh
+  args:
+    - -c
+    - $HOME/bin/elvish  
+
 
 
 working_directory: None
