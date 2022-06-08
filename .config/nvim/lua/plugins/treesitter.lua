@@ -68,7 +68,7 @@ require("nvim-treesitter.configs").setup({
         enable = true,
     },
     highlight = {
-        enable = true,
+        enable = false,
         additional_vim_regex_highlighting = false,
         -- NOTE: elixir TS returns error, remove this later
         disable = {
@@ -76,3 +76,5 @@ require("nvim-treesitter.configs").setup({
         },
     },
 })
+
+-- require'treesitter-context'.setup()

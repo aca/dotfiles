@@ -14,7 +14,7 @@ _statusline.nvim_gps = function()
         location = nvim_gps.get_location()
     end
     if location ~= "" then
-        return "> " .. location
+        return location
     else
         return ""
     end
@@ -49,10 +49,22 @@ _statusline.getCurrentDiagnosticString = function()
     end
 
     local message = vim.split(diagnostic.message, "\n")[1]
-    local max_width = vim.api.nvim_win_get_width(0) - 35
+    if message == vim.NIL then
+        return ""
+    end
     return message
 end
 
+_statusline.msg = function()
+    local diag = _statusline.getCurrentDiagnosticString()
+    if diag ~= "" then
+        return diag
+    else
+        return _statusline.nvim_gps()
+    end
+end
+
 -- vim.o.statusline = "%=%m%r%h%w %-8(%l : %c%) %P"
-vim.o.statusline = "%{%v:lua._statusline.getCurrentDiagnosticString()%}%= %m%r%h%w %l:%c %P "
+-- vim.o.statusline = "%{%v:lua._statusline.getCurrentDiagnosticString()%}%= %m%r%h%w %l:%c %P "
+vim.o.statusline = "%{%v:lua._statusline.msg()%}%= %m%r%h%w %l:%c %P "
 vim.o.winbar = "%=%l:%c %P %m%f %{%v:lua._statusline.nvim_gps()%}"
