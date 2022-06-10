@@ -24,6 +24,9 @@ runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 packadd cmp-cmdline
 runtime after/plugin/cmp_cmdline.lua
 
+packadd cmp-tmux
+runtime after/plugin/cmp_tmux.vim
+
 " packadd friendly-snippets
 
 ]])

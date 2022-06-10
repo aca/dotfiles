@@ -126,5 +126,7 @@ nnoremap <silent> <m-l> <cmd>TmuxResizeRight<cr>
 packadd stabilize.nvim
 
 packadd vim-dirvish
+packadd onedark.nvim
+packadd zenburn.nvim
 
 " packadd indent-blankline.nvim

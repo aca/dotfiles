@@ -397,9 +397,6 @@
 [submodule ".config/elvish/lib/plugins/edit.elv"]
 	path = .config/elvish/lib/plugins/edit.elv
 	url = https://github.com/xiaq/edit.elv.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/monotone.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/monotone.nvim
-	url = https://github.com/Lokaltog/monotone.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/lush.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/lush.nvim
 	url = https://github.com/rktjmp/lush.nvim.git
@@ -439,3 +436,12 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/onedark.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/onedark.nvim
+	url = https://github.com/ful1e5/onedark.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/zenburn.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/zenburn.nvim
+	url = https://github.com/phha/zenburn.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/cmp-tmux"]
+	path = .local/share/nvim/site/pack/bundle/opt/cmp-tmux
+	url = https://github.com/andersevenrud/cmp-tmux.git

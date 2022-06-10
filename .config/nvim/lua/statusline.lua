@@ -55,7 +55,9 @@ _statusline.getCurrentDiagnosticString = function()
     return message
 end
 
+
 _statusline.msg = function()
+
     local diag = _statusline.getCurrentDiagnosticString()
     if diag ~= "" then
         return diag
