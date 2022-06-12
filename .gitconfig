@@ -84,3 +84,5 @@
 ; https://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time
 [push]
 	default = current
+[receive]
+	denyCurrentBranch = updateInstead

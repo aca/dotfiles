@@ -128,5 +128,6 @@ packadd stabilize.nvim
 packadd vim-dirvish
 packadd onedark.nvim
 packadd zenburn.nvim
+packadd FixCursorHold.nvim
 
 " packadd indent-blankline.nvim

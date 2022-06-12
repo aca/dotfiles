@@ -3,6 +3,7 @@ vim.defer_fn(function()
     require("impatient")
     vim.cmd([[
     	packadd nvim-treesitter
+    	packadd playground
     ]])
     require("plugins.treesitter")
     vim.cmd([[
