@@ -10,7 +10,6 @@ sync:
 
 .PHONY: docker
 docker:
-		@agebox decrypt --all --force || true
 		@docker build -f Dockerfile . -t acadx0/work
 		@docker push acadx0/work
 

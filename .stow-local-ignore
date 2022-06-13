@@ -1,5 +1,3 @@
-/keys
-/.ageboxreg.yml
 /README
 /.git
 /.githooks
@@ -7,3 +5,4 @@
 /Dockerfile
 /.dockerignore
 /Makefile
+/oauth2-proxy.sh

@@ -63,6 +63,7 @@ RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@latest
 RUN go install github.com/stern/stern@latest
 RUN go install github.com/slok/agebox/cmd/agebox@latest
+RUN go get github.com/oauth2-proxy/oauth2-proxy/v7
 
 RUN sudo mv /root/bin/* /usr/local/bin
 RUN sudo rm -rf ~/go || true
