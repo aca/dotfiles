@@ -1,0 +1,7 @@
+#!/usr/bin/env elvish
+
+fn virsh.snapshot { |domain|
+    virsh snapshot-create-as --domain $domain --name (date '+%Y%m%dT%H%M%S')
+}
+
+virsh.snapshot $args[0]

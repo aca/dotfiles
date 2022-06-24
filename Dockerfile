@@ -22,6 +22,7 @@ RUN apk add --no-cache \
       zsh \
       fish \
       npm \
+      ansible \
       nodejs \
       coreutils \
       tcpdump \

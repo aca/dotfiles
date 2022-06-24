@@ -16,7 +16,7 @@ use platform
 # use xxx/...
 
 use /env
-use /utils
+use /funcs
 use /bind
 use /completion
 use /git-subrepo-elvish/.elvish

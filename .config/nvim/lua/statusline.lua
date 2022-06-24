@@ -57,7 +57,6 @@ end
 
 
 _statusline.msg = function()
-
     local diag = _statusline.getCurrentDiagnosticString()
     if diag ~= "" then
         return diag
@@ -68,5 +67,5 @@ end
 
 -- vim.o.statusline = "%=%m%r%h%w %-8(%l : %c%) %P"
 -- vim.o.statusline = "%{%v:lua._statusline.getCurrentDiagnosticString()%}%= %m%r%h%w %l:%c %P "
-vim.o.statusline = "%{%v:lua._statusline.msg()%}%= %m%r%h%w %l:%c %P "
-vim.o.winbar = "%=%l:%c %P %m%f %{%v:lua._statusline.nvim_gps()%}"
+vim.o.statusline = "%m%f%="
+-- vim.o.winbar = "%=%P %{%v:lua._statusline.nvim_gps()%} %m%f"

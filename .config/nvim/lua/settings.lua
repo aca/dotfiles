@@ -24,6 +24,7 @@ opt.fillchars = opt.fillchars + {
     foldclose = "▸",
     foldopen = "▾",
     fold = " ",
+    stl = " "
     -- vert =  " ",
 }
 
@@ -38,10 +39,10 @@ opt.cursorline = true
 opt.timeoutlen = 500
 
 -- fold
-opt.foldmethod="syntax"
+-- opt.foldmethod="syntax"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
--- -- g.foldmethod = "marker"
+-- g.foldmethod = "marker"
 g.foldcolumn = 0
 
 opt.ignorecase = true -- Ignore case when searching...
@@ -50,7 +51,7 @@ opt.showmatch = true -- show matching brackets when text indicator is over them
 opt.updatetime = 1000 -- Make updates happen faster
 opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
 opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
-opt.laststatus = 3
+opt.laststatus = 0
 
 opt.formatoptions = opt.formatoptions
     - "a" -- Auto formatting is BAD.
@@ -97,6 +98,8 @@ opt.modelineexpr = true
 opt.showcmd = false
 opt.showmode = false
 
+-- opt.cmdheight = 1
+
 -- opt.wildmenu = true
 -- opt.wildmode = "longest:full"
 -- opt.wildoptions = "pum"
@@ -113,16 +116,16 @@ opt.pumblend = 17
 -- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806#how-do-i-use-it-2
 g.do_filetype_lua = 1
 g.did_load_filetypes = 0
-vim.filetype.add({
-  pattern = {
-    ['.*'] = function(path, bufnr)
-      local firstline = vim.api.nvim_buf_get_lines(bufnr, 0, 1, 0)[1]
-      if firstline:match("#!/usr/bin/env") then
-        return string.gsub(firstline, "#!/usr/bin/env ", "")
-      end
-    end
-  }
-})
+-- vim.filetype.add({
+--   pattern = {
+--     ['.*'] = function(path, bufnr)
+--       local firstline = vim.api.nvim_buf_get_lines(bufnr, 0, 1, 0)[1]
+--       if firstline:match("#!/usr/bin/env") then
+--         return string.gsub(firstline, "#!/usr/bin/env ", "")
+--       end
+--     end
+--   }
+-- })
 
 -- disable default vim stuffs for faster startuptime
 
@@ -143,4 +146,4 @@ g.loaded_matchit = 1
 g.loaded_matchparen = 1
 
 o.statusline = "%= %m%r%h%w %l:%c %P "
-o.winbar = "%=%l:%c %P %m%f"
+-- o.winbar = "%=%l:%c %P %m%f"

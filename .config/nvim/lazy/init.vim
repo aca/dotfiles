@@ -4,7 +4,7 @@ packadd telescope-fzf-native.nvim
 packadd telescope-hop.nvim
 
 packadd nvim-web-devicons
-packadd vim-visual-star-search
+" packadd vim-visual-star-search
 packadd vim-ReplaceWithRegister
 packadd vim-fold-cycle
 packadd zen-mode.nvim
@@ -129,5 +129,7 @@ packadd vim-dirvish
 packadd onedark.nvim
 packadd zenburn.nvim
 packadd FixCursorHold.nvim
-
 " packadd indent-blankline.nvim
+
+packadd go.nvim
+lua require('go').setup()

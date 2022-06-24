@@ -112,6 +112,12 @@ if vim.fn.executable("gopls") == 1 then
     })
 end
 
+lspconfig.elvish.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = gopls_settings,
+})
+
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
     if server.name == "sumneko_lua" then
         local luadev = require("lua-dev").setup({})

@@ -10,6 +10,8 @@ local set = vim.keymap.set
 nvim_set_keymap("n", ";;", ":", { noremap = true })
 nvim_set_keymap("v", ";;", ":", { noremap = true })
 
+set("n", "<c-z>", ":cclose | :lclose<cr>", {})
+
 -- switcher
 set("n", "]q", ":cnext<cr>zz", {})
 set("n", "[q", ":cprev<cr>zz", {})

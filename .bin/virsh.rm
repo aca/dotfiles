@@ -1,0 +1,8 @@
+#!/usr/bin/env elvish
+
+fn virsh.rm { |domain| 
+    sudo virsh snapshot-list --domain $domain --name | xargs virsh snapshot-delete --domain $domain
+    sudo virsh undefine --remove-all-storage $domain
+}
+
+virsh.rm $args[0]

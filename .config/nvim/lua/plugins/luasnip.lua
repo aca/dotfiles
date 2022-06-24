@@ -96,6 +96,23 @@ func {1}(w http.ResponseWriter, r *http.Request) {{
             }
         )
     ),
+
+    s(
+        "main",
+        fmt(
+            [[package main
+
+func main(){{
+	log.SetFlags(log.Llongfile | log.LstdFlags)
+    {1} 
+}}
+]],
+            {
+                i(0),
+            }
+        )
+    ),
+
     s(
         "dff",
         fmt(
@@ -109,6 +126,7 @@ defer func() {{
             }
         )
     ),
+
     s(
         "errl",
         fmt(
@@ -120,12 +138,13 @@ if err != nil {{
             {}
         )
     ),
+
     s(
-        "iferr",
+        "ierr",
         fmt(
             [[
 if err != nil {{
-  return {1}
+    return {1}
 }}
 ]],
             {
@@ -133,6 +152,7 @@ if err != nil {{
             }
         )
     ),
+
     s(
         "logflag",
         fmt(
