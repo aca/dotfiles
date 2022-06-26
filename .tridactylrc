@@ -4,6 +4,7 @@ bind W tabdetach
 bind [t tabprev
 bind ]t tabnext
 unbind <c-a>
+unbind <c-f>
 unbind D
 set newtab about:blank
 bind <c-1> tab 1

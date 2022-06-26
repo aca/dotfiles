@@ -43,7 +43,6 @@ completionItem.resolveSupport = {
 
 local on_attach = function(client, bufnr)
     local resolved_capabilities = client.server_capabilities
-
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     if resolved_capabilities.goto_definition == true then
         vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")

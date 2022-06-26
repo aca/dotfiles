@@ -8,11 +8,11 @@ packadd nvim-web-devicons
 packadd vim-ReplaceWithRegister
 packadd vim-fold-cycle
 packadd zen-mode.nvim
-packadd clever-f.vim 
+" packadd clever-f.vim 
 packadd vim-fetch " TODO: replace or mv to start
 packadd vim-eunuch 
 packadd vim-characterize 
-packadd fcitx.nvim
+" packadd fcitx.nvim
 " packadd vim-rfc 
 " packadd symbols-outline.nvim
 " packadd vim-diagon
@@ -88,8 +88,6 @@ packadd vim-dadbod-ui
 " packadd git-messenger.vim
 
 packadd hop.nvim
-nmap <silent><leader>w :HopWord<cr>
-nmap <silent>s :HopChar1<cr>
 
 " neoformat
 let g:neoformat_enabled_typescript = ['prettier']
@@ -97,7 +95,7 @@ let g:neoformat_enabled_typescriptreact = ['prettier']
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_html = ['prettier']
 let g:neoformat_enabled_lua = ['stylua']
-let g:neoformat_enabled_go = ['gofumports']
+let g:neoformat_enabled_go = ['gofumpt']
 let g:neoformat_lua_stylua = {
         \ 'exe': 'stylua',
         \ 'args': ['--indent-type=Spaces', '--indent-width=4' , '--search-parent-directories', '--stdin-filepath', '"%:p"', '--', '-'],

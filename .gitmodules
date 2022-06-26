@@ -109,9 +109,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/gotests-vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gotests-vim
 	url = https://github.com/buoto/gotests-vim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-go-expr-completion"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-go-expr-completion
-	url = https://github.com/110y/vim-go-expr-completion.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/zen-mode.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/zen-mode.nvim
 	url = https://github.com/folke/zen-mode.nvim.git
@@ -247,9 +244,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-devicons"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/goerr-nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/goerr-nvim
-	url = https://github.com/Snyssfx/goerr-nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-dap-go"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-dap-go
 	url = https://github.com/leoluz/nvim-dap-go.git

@@ -12,3 +12,5 @@ au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == 
 autocmd TermOpen * setlocal nonumber norelativenumber
 autocmd TermOpen * startinsert
 tnoremap <Esc> <C-\><C-n>
+
+au BufWritePre *.go lua vim.lsp.buf.code_action({apply=true, filter=function(action) return action.title == 'Organize Imports' end})

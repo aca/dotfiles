@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir -p ~/src/zk/log 2>/dev/null || true
 cd ~/src/zk/log
 
 suffix=${1:-$(hostname)}
-if [ $suffix = "rok-te3" ]; then
+if [ "$suffix" = "rok-te3" ]; then
   $EDITOR "$HOME/src/zk/log/"$(date '+%Y-%m-%d').md
 else
   $EDITOR "$HOME/src/zk/log/"$(date '+%Y-%m-%d')_$suffix.md

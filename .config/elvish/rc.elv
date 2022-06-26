@@ -69,6 +69,11 @@ fn cp {|@a| e:cp -rp -v -n $@a }
 # fn jq { |@a| e:jq -R 'fromjson?' | e:jq $@a }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {|@a| vifm $@a}
 
+# fn virsh { |@a| sudo virsh $@a }
+# fn virt-customize { |@a| sudo virt-customize $@a }
+# fn virt-clone { |@a| sudo virt-clone $@a }
+# fn virt-install { |@a| sudo virt-install $@a }
+
 # utils
 fn from-0 { || from-terminated "\x00" }
 fn export { |v| set-env (echo $v | cut -d '=' -f 1) (echo $v | cut -d '=' -f 2-) }

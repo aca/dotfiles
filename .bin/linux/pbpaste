@@ -1,3 +1,8 @@
 #!/bin/sh
 
-xsel --clipboard --output 2>/dev/null
+
+if [ $WAYLAND_DISPLAY = "" ]; then
+    xsel --clipboard --output 2>/dev/null
+else
+    wl-paste
+fi

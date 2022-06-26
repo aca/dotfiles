@@ -1,1 +1,1 @@
-../../../../../github.com/jonniek/mpv-playlistmanager/playlistmanager.lua
+../../../.submodules/mpv-playlistmanager/playlistmanager.lua

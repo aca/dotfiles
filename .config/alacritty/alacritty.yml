@@ -59,7 +59,7 @@ font:
 
   size: 18
   offset:
-    x: -1
+    x: -2
     y: -2
 
   glyph_offset:
@@ -300,7 +300,7 @@ hints:
       post_processing: false
       binding:
         key: S
-        mods: Control
+        mods: Alt
 
     # - regex: "(magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
     #           [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"

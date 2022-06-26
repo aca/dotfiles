@@ -1,5 +1,3 @@
--- NOTES
--- https://vim.fandom.com/wiki/Unused_keys
 -- https://github.com/neovim/neovim/pull/16591
 -- nvim_set_keymap('n', ' <NL>', '', {'nowait': v:true})
 
@@ -197,8 +195,8 @@ vmap < <gv
 vmap > >gv
 
 " Save
-inoremap <C-s>     <esc>:update<cr>
-nnoremap <C-s>     :update<cr>
+inoremap <C-s>     <esc>:write<cr>
+nnoremap <C-s>     :write<cr>
 
 " https://github.com/mhinz/vim-galore/blob/master/README.md#saner-command-line-history
 cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
