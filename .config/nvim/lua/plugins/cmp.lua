@@ -27,6 +27,8 @@ runtime after/plugin/cmp_cmdline.lua
 packadd cmp-tmux
 runtime after/plugin/cmp_tmux.vim
 
+packadd cmp-copilot
+
 " packadd friendly-snippets
 
 ]])
@@ -35,6 +37,7 @@ local cmp = require("cmp")
 
 local cmp_sources = {
     { name = "nvim_lsp" },
+    { name = "copilot" },
     { name = "path" },
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },

@@ -5,5 +5,5 @@ zig 0.7.1
 java openjdk-17
 rust 1.54.0
 kotlin 1.5.21
-nodejs system
+nodejs 17.5.0
 haskell 9.2.2

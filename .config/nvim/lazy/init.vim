@@ -127,6 +127,7 @@ packadd vim-dirvish
 packadd onedark.nvim
 packadd zenburn.nvim
 packadd FixCursorHold.nvim
+" packadd copilot.vim
 " packadd indent-blankline.nvim
 
 packadd go.nvim
