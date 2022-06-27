@@ -445,3 +445,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-scrollview"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-scrollview
 	url = https://github.com/dstein64/nvim-scrollview.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/copilot.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/copilot.vim
+	url = https://github.com/github/copilot.vim.git
