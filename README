@@ -1,9 +1,9 @@
 dotfiles
 ========
 
-# requires GNU stow, make
-git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
-curl -L github.com/aca.keys > ~/.ssh/authorized_keys
-git clone aca:~/src/configs/dotfiles.shared
+make init
 
-my systems for sync.
+curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+
+git clone root:~/src/config/dotfiles.shared
+

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -euxo pipefail
-cd ~/src/configs
+cd ~/src/config
 
 # funcs
 rmf() { rm -vrf "$@" || true; }
@@ -33,16 +33,26 @@ cleanup() {
   emptyDir $HOME/.config/nvim
   emptyDir $HOME/.config/nvim/autoload
   emptyDir $HOME/.config/elvish/lib
+  emptyDir $HOME/.ssh
   ensureDir $HOME/.local/share/elvish/lib/github.com
 
+  rmf $HOME/.gitmodules
+  rmf $HOME/.fzf
+  rmf $HOME/.duti
+  rmf $HOME/.images
+  rmf $HOME/.local/share/nvim/site/pack
   rmf $HOME/.hammerspoon
   rmf $HOME/.scripts
   rmf $HOME/.oh-my-zsh
   rmf $HOME/.config/gh
   rmf $HOME/.config/gtk-3.0
+  rmf $HOME/.config/caddy
+  rmf $HOME/.config/gcloud
+  rmf $HOME/.rok-te3
   rmf $HOME/.scim
   rmf $HOME/.bin
   rmf $HOME/.config/sxhkd
+  rmf $HOME/.Brewfile*
   rmf $HOME/.config/fd
   rmf $HOME/.config/zathura
   rmf $HOME/.config/fcitx5
@@ -50,6 +60,21 @@ cleanup() {
   rmf $HOME/.config/karabiner
   rmf $HOME/.config/dunst
   rmf $HOME/.config/bspwm
+  rmf $HOME/.config/brew
+  rmf $HOME/.config/picom
+  rmf $HOME/.config/yt-dlp
+  rmf $HOME/.config/libvirt
+  rmf $HOME/.config/firefox
+  rmf $HOME/.config/elvish/rc.elv
+  rmf $HOME/.config/chrome-flags.conf
+  rmf $HOME/.dir_colors
+  rmf $HOME/.local/share/elvish/lib
+  rmf $HOME/.npmrc.global
+  rmf $HOME/.submodules
+  rmf $HOME/.tigrc
+  rmf $HOME/.zsh
+  rmf $HOME/.zshenv
+  rmf $HOME/.config/.jira
   rmf $HOME/.config/mimeapps.list
   rmf $HOME/.config/hub
   rmf $HOME/.config/kitty
@@ -60,6 +85,7 @@ cleanup() {
   rmf ~/.asoundrc
   rmf ~/.bcrc
   rmf ~/.xprofile
+  rmf ~/.aws
   rmf ~/.moprc
   rmf ~/.zshrc
   rmf ~/.Xresources
