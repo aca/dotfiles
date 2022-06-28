@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-cd ~/src/configs
+cd ~/src/config
 $EDITOR

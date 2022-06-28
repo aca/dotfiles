@@ -14,4 +14,4 @@ var color = (
   }
 )
 put $color
-sed_i "s/wezterm.font.*/wezterm.font('"$color"'),/" ~/src/configs/dotfiles/.config/wezterm/wezterm.lua
+sed_i "s/wezterm.font.*/wezterm.font('"$color"'),/" ~/src/config/dotfiles/.config/wezterm/wezterm.lua

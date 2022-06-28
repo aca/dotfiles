@@ -20,7 +20,7 @@ nvim_create_autocmd("BufNewFile", {
   group = group,
   pattern = { "**/src/zk/**.md"},
   command = [[
-    execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
+    execute "0r! ~/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
   ]]
 })
 
@@ -29,7 +29,7 @@ nvim_create_autocmd("BufNewFile", {
   group = group,
   pattern = { "**/.github/workflows/**.y*ml" },
   command = [[
-    execute "0r! ~/src/configs/dotfiles/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
+    execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
   ]]
 })
 

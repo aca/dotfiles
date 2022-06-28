@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# x
+
 SCRATCH_DIR=${SCRATCH_DIR:-$HOME/src/scratch}
 mkdir $SCRATCH_DIR 2>/dev/null || true
 

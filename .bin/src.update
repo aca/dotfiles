@@ -4,5 +4,5 @@ fd --base-directory ~/src --strip-cwd-prefix --type d --follow --max-depth 5 > ~
 
 # additional source directory
 echo "git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next" >> ~/src/.src
-fd . $HOME/src/configs/dotfiles/.local/share/nvim/site/pack/bundle/start --type d --max-depth 1 | sed "s|^$HOME/src/||" >> ~/src/.src
-fd . $HOME/src/configs/dotfiles/.local/share/nvim/site/pack/bundle/opt --type d --max-depth 1 | sed "s|^$HOME/src/||" >> ~/src/.src
+fd . $HOME/src/config/dotfiles/.local/share/nvim/site/pack/bundle/start --type d --max-depth 1 | sed "s|^$HOME/src/||" >> ~/src/.src
+fd . $HOME/src/config/dotfiles/.local/share/nvim/site/pack/bundle/opt --type d --max-depth 1 | sed "s|^$HOME/src/||" >> ~/src/.src

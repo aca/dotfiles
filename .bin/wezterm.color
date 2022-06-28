@@ -271,4 +271,4 @@ var colors = [
 
 var color = $colors[(+ (put $colors | list:index (perl -ne 'print "$1" if /color_scheme = ''(.*)''/' ~/.config/wezterm/wezterm.lua)) 1)]
 put $color
-sed_i "s/color_scheme = .*/color_scheme = '"$color"',/" ~/src/configs/dotfiles/.config/wezterm/wezterm.lua
+sed_i "s/color_scheme = .*/color_scheme = '"$color"',/" ~/src/config/dotfiles/.config/wezterm/wezterm.lua

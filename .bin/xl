@@ -1,0 +1,7 @@
+#!/bin/bash
+
+mkdir -p ~/src/log 2>/dev/null || true
+cd ~/src/log
+
+suffix=${1:-$(hostname)}
+$EDITOR "$HOME/src/log/"$(date '+%Y-%m-%d')_$suffix.md
