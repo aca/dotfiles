@@ -34,7 +34,8 @@ cleanup() {
   emptyDir $HOME/.config/nvim/autoload
   emptyDir $HOME/.config/elvish/lib
   emptyDir $HOME/.ssh
-  ensureDir $HOME/.local/share/elvish/lib/github.com
+  rmf $HOME/.local/share/elvish/lib
+  ensureDir $HOME/.local/share/elvish/lib
 
   rmf $HOME/.gitmodules
   rmf $HOME/.fzf
@@ -68,7 +69,6 @@ cleanup() {
   rmf $HOME/.config/elvish/rc.elv
   rmf $HOME/.config/chrome-flags.conf
   rmf $HOME/.dir_colors
-  rmf $HOME/.local/share/elvish/lib
   rmf $HOME/.npmrc.global
   rmf $HOME/.submodules
   rmf $HOME/.tigrc
