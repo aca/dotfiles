@@ -16,3 +16,7 @@ bind <c-6> tab 6
 bind <c-7> tab 7
 bind <c-8> tab 8
 bind <c-9> tab 9
+
+autocontain -s sukebei\.nyaa\.eu
+
+set proxy warp
