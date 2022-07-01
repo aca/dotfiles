@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# execute ptpython if available
 
 import sys
 try:

@@ -17,6 +17,7 @@ rsync \
     --checksum \
     --archive \
     --human-readable \
+    --backup \
     -P \
     -i \
     -z \

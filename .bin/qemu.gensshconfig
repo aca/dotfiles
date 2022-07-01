@@ -11,7 +11,7 @@ for h in (sudo virsh list --state-running | sed '1,2d' | sed '/^$/d' | awk '{pri
   echo "  Hostname $ip" >> $sshconfig
   echo '  User root' >> $sshconfig
 
-  if [ (hostname) != "root" ]
+  if [ (hostname) != "root" ] # TODO: test if kvm process is running
     echo '  ProxyJump root' >> $sshconfig
   end
 

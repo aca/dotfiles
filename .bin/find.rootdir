@@ -2,11 +2,11 @@
 #
 # find rootdir where $args[0] is located
 #
-# find.rootdir .ageboxreg.yml
+# find.rootdir .git
 
 var target = $args[0]
 
-for i [(seq 10)] {
+for i [(seq 20)] {
     if ?(test -e $target) {
       pwd
       exit 0

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# TODO: find command related zettels from markdown with command tag
 cd ~/src/zettels/dev/commands
 
 $EDITOR $(fzf --preview 'cat {}' '--preview-window=right:75%')

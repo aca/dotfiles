@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# export MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{
-# if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF;
-# else if (NF>3) print $1 "/" $2 "/.../" $NF;
-# else print $1 "/.../" $NF; }
-# else print $0;}'"'"')'
-# eval "echo -n ${MYPS}"
+# 11:53 λ pwd
+# /Users/kyungrok.chung/src/config/dotfiles/.bin
+# 11:53 λ _prompt_pwd
+# ~/s/c/d/.bin
+
 sed "s:\([^/\.]\)[^/]*/:\1/:g" <<< ${PWD/#$HOME/\~}
