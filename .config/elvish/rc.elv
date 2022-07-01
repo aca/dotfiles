@@ -1,7 +1,6 @@
 set edit:command-abbr[gco] = 'git checkout'
 set edit:command-abbr[k] = 'kubectl'
 set edit:command-abbr['k'] = 'kubectl'
-set edit:command-abbr['v'] = 'nvim'
 set edit:command-abbr['os'] = 'openstack '
 set edit:command-abbr['ta'] = 'tmux attach -t '
 set edit:command-abbr['elv'] = 'elvish'
@@ -9,6 +8,7 @@ set edit:command-abbr['mkdir'] = 'mkdir -p'
 set edit:command-abbr['dc'] = 'cd'
 set edit:command-abbr['cp'] = 'cp -rpvn'
 set edit:command-abbr['mv'] = 'mv -vn'
+set edit:command-abbr['v'] = 'vim'
 
 set edit:command-abbr['virsh'] = 'sudo virsh'
 set edit:command-abbr['virt-customize'] = 'sudo virt-customize'
@@ -39,7 +39,7 @@ fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 # fn ll {|@a| if (has-external exa) { e:exa -l --icons $@a } else { e:ls -lt [&darwin=-G &linux=--color=auto][$platform:os] $@a }}
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
-fn vim {|@a| e:nvim $@a }
+fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 # fn e {|@a| edit:clear; tmux clear-history; }
 fn k {|@a| e:kubectl $@a }
 
