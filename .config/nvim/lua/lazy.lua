@@ -23,12 +23,12 @@ vim.defer_fn(function()
     -- require("zettels")
 
     vim.cmd([[
-         source ~/.config/nvim/lazy/init.vim
-         runtime! lazy/plugins/*
-         runtime! lazy/funcs/*
-         runtime! lazy/autocmd/*
-         runtime! lazy/command/*
-         runtime! lazy/local/*
+         source ~/.config/nvim/lua/lazy/init.vim
+         runtime! lua/lazy/plugins/*
+         runtime! lua/lazy/funcs/*
+         runtime! lua/lazy/command/*
+         runtime! lua/lazy/local/*
+         runtime! lua/lazy/autocmd/*
          silent! helptags ALL
     ]])
 end, 100)

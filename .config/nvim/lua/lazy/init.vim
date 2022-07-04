@@ -167,3 +167,5 @@ endif
 if maparg('<leader>*', 'v') == ''
   vnoremap <leader>* :<C-u>call VisualStarSearchSet('/')<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 endif
+
+tnoremap <Esc> <C-\><C-n>

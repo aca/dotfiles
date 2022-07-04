@@ -1,3 +1,6 @@
+set-env GTK_IM_MODULE fcitx5
+set-env QT_IM_MODULE fcitx5
+
 set edit:command-abbr[gco] = 'git checkout'
 set edit:command-abbr[k] = 'kubectl'
 set edit:command-abbr['k'] = 'kubectl'
@@ -9,6 +12,8 @@ set edit:command-abbr['dc'] = 'cd'
 set edit:command-abbr['cp'] = 'cp -rpvn'
 set edit:command-abbr['mv'] = 'mv -vn'
 set edit:command-abbr['v'] = 'vim'
+set edit:command-abbr['svc'] = 'sudo systemctl'
+set edit:command-abbr['svcs'] = 'sudo systemctl start'
 
 set edit:command-abbr['virsh'] = 'sudo virsh'
 set edit:command-abbr['virt-customize'] = 'sudo virt-customize'

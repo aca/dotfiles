@@ -19,4 +19,8 @@ bind <c-9> tab 9
 
 autocontain -s sukebei\.nyaa\.eu
 
-set proxy warp
+bind o current_url open
+colorscheme quake
+
+unset proxy
+# set proxy warp

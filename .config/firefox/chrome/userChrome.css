@@ -18,9 +18,9 @@
 /* @import url(chrome/dark_checkboxes_and_radios.css); */
 /* @import url(chrome/minimal_text_fields.css); */
 /* @import url(chrome/minimal_toolbarbuttons.css); */
-/* @import url(chrome/urlbar_centered_text.css); */
+/* /* @import url(chrome/urlbar_centered_text.css); */ */
 @import url(chrome/tabs_below_content.css);
-/* @import url(chrome/numbered_tabs.css); */
+@import url(chrome/numbered_tabs.css);
 
 /* Apply your custom modifications after imports */
 
