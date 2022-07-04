@@ -1,4 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env elvish
+
+use math
+
 ARG1=${1:-100}
 sudo sh -c "echo $ARG1 > /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/brightness"
+
+cat /sys/class/backlight/intel_backlight/max_brightness
+cat /sys/class/backlight/intel_backlight/brightness
+
+math:round (/ 10 3)
 # xbacklight -set $ARG1
