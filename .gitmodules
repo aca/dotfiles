@@ -451,3 +451,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cinnamon.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/cinnamon.nvim
 	url = https://github.com/declancm/cinnamon.nvim.git
+[submodule ".tmux/plugins/tmux-ssh-split"]
+	path = .tmux/plugins/tmux-ssh-split
+	url = https://github.com/pschmitt/tmux-ssh-split.git
