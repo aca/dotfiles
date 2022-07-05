@@ -77,6 +77,7 @@
 	submoduleSummary = false
 [diff]
 	ignoreSubmodules = dirty
+    colorMoved = default
 
 [url "ssh://git@git.sr.ht/"]
         insteadOf = git@git.sr.ht/

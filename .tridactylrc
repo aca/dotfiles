@@ -22,5 +22,5 @@ autocontain -s sukebei\.nyaa\.eu
 bind o current_url open
 colorscheme quake
 
-unset proxy
-# set proxy warp
+# unset proxy
+set proxy warp
