@@ -34,13 +34,14 @@ RUN apk add --no-cache \
       tree-sitter@community \
       go \
       github-cli@community \
-      docker-cli \
       kubectx \
       unzip \
       gron@testing \
       bash-completion \
       neovim@community
+      # docker-cli \ -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker:ro 
       # make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
+
 
 # RUN addgroup -S rok
 # RUN adduser -S -D -G rok -h /home/rok -s /bin/bash rok
@@ -67,7 +68,6 @@ RUN bash ~/src/configs/dotfiles/.bin/setup.stow
 
 # RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 # RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
-
 
 RUN sudo mv /root/bin/* /usr/local/bin
 RUN sudo rm -rf ~/go || true

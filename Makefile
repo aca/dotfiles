@@ -2,6 +2,10 @@
 init:
 		@git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/config/dotfiles && bash ~/src/configs/dotfiles/.bin/setup.stow
 
+.PHONY: stow
+stow:
+		bash .bin/setup.stow
+
 .PHONY: update
 update: 
 		@git pull --rebase
