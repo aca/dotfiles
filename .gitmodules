@@ -454,3 +454,6 @@
 [submodule ".tmux/plugins/tmux-ssh-split"]
 	path = .tmux/plugins/tmux-ssh-split
 	url = https://github.com/pschmitt/tmux-ssh-split.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/seoul256.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/seoul256.vim
+	url = https://github.com/junegunn/seoul256.vim.git

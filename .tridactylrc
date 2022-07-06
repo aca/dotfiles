@@ -23,4 +23,4 @@ bind o current_url open
 colorscheme quake
 
 # unset proxy
-set proxy warp
+# set proxy warp

@@ -14,7 +14,6 @@ set edit:command-abbr['mv'] = 'mv -vn'
 set edit:command-abbr['v'] = 'vim'
 set edit:command-abbr['svc'] = 'sudo systemctl'
 set edit:command-abbr['svcs'] = 'sudo systemctl start'
-
 set edit:command-abbr['virsh'] = 'sudo virsh'
 set edit:command-abbr['virt-customize'] = 'sudo virt-customize'
 set edit:command-abbr['virt-clone'] = 'sudo virt-clone'

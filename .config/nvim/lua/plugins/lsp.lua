@@ -13,10 +13,19 @@ local rightAlignFormatFunction = function(diagnostic)
     local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
     local lwidth = vim.api.nvim_get_option("columns")
     local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-    local splen = lwidth - line_length - msg_length - 7
+    local splen = lwidth - line_length - msg_length - 9
+    -- print("lwidth: ".. lwidth .. " line_length: " .. line_length .. " msg_length: ".. msg_length, " splen:", splen )
     local sp = string.rep(" ", splen)
     return string.format("%s» %s", sp, diagnostic.message)
 end
+
+-- this fix rightalign
+vim.api.nvim_create_autocmd("VimResized", {
+  callback = function()
+    vim.diagnostic.hide()
+    vim.diagnostic.show()
+  end
+})
 
 vim.diagnostic.config({
     virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
@@ -154,5 +163,6 @@ vim.api.nvim_create_user_command("ToggleDiagnostic", function()
     vim.diagnostic.hide()
   end
 end, {})
+
 
 vim.cmd [[ :LspStart ]]
