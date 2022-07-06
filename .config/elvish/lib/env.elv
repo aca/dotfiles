@@ -9,7 +9,7 @@ if (eq $E:_ELVISH_ENV "") {
         
     if (eq $platform:os "linux") {
         if (and (not (has-env WAYLAND_DISPLAY)) (not (has-env DISPLAY))) {
-            if ?(pgrep sway) { set-env WAYLAND_DISPLAY "wayland-1" }
+            if ?(pgrep sway >/dev/null) { set-env WAYLAND_DISPLAY "wayland-1" }
         }
     }
 
