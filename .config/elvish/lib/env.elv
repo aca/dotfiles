@@ -6,6 +6,12 @@ use platform
 
 if (eq $E:_ELVISH_ENV "") {
     set E:_ELVISH_ENV = 1
+        
+    if (eq $platform:os "linux") {
+        if (and (not (has-env) WAYLAND_DISPLAY) (not (has-env) DISPLAY)) {
+            if ?(pgrep sway) { set-env WAYLAND_DISPLAY "wayland-1" }
+        }
+    }
 
     # this should be set by terminal emulator(e.g. alacritty) or tmux
     if (not (has-env TERM )) {
