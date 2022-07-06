@@ -63,8 +63,10 @@ ENV GOPATH /root
 RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@latest
 RUN go install github.com/stern/stern@latest
-RUN go install github.com/slok/agebox/cmd/agebox@latest
+RUN go install github.com/aca/agec@latest
 RUN go get github.com/oauth2-proxy/oauth2-proxy/v7
+RUN curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+RUN chmod +x /usr/local/bin/argocd
 
 RUN sudo mv /root/bin/* /usr/local/bin
 RUN sudo rm -rf ~/go || true
