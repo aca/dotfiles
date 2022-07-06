@@ -18,8 +18,8 @@ sync:
 
 .PHONY: docker
 docker:
-		@docker build -f Dockerfile . -t acadx0/work
-		@docker push acadx0/work
+		@docker build -f Dockerfile . -t acadx0/tools:devcontainer
+		@docker push acadx0/tools:devcontainer
 
 .PHONY: dev
 dev:

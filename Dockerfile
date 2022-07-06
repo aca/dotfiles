@@ -53,18 +53,19 @@ RUN apk add --no-cache \
 # RUN git clone -j8 https://github.com/neovim/neovim.git ~/src/configs/github.com/neovim/neovim
 # RUN cd ~/src/configs/github.com/neovim/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install && rm -rf ~/src/configs/github.com/neovim/neovim
 
+# stow
+RUN git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/config/dotfiles --depth 1 && rm -rf ~/src/config/dotfiles/.git
+RUN bash ~/src/config/dotfiles/.bin/setup.stow
+
+# RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
+# RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
+
 ENV GOPATH /root
 RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@latest
 RUN go install github.com/stern/stern@latest
 RUN go install github.com/aca/agec@latest
-RUN go get github.com/oauth2-proxy/oauth2-proxy/v7
-RUN curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-RUN chmod +x /usr/local/bin/argocd
-
-# stow
-RUN git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/configs/dotfiles --depth 1 && rm -rf ~/src/configs/dotfiles/.git
-RUN bash ~/src/configs/dotfiles/.bin/setup.stow
+RUN curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && chmod +x /usr/local/bin/argocd
 
 # RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 # RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
