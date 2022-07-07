@@ -10,6 +10,9 @@ nvim_set_keymap("v", ";;", ":", { noremap = true })
 
 set("n", "<c-z>", ":cclose | :lclose<cr>", {})
 
+-- refresh when fold
+-- set("n", "zc", "zxzc", {})
+
 -- switcher
 set("n", "]q", ":cnext<cr>zz", {})
 set("n", "[q", ":cprev<cr>zz", {})

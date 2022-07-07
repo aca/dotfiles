@@ -4,8 +4,3 @@ dofile(xdg_config .. "/settings.lua")
 dofile(xdg_config .. "/colors/seoul256.lua")
 dofile(xdg_config .. "/autocmds.lua")
 dofile(xdg_config .. "/lazy.lua")
-
-function _G.P(...)
-  vim.pretty_print(...)
-end
-

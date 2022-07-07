@@ -1,0 +1,3 @@
+#!/bin/bash
+
+swaymsg output eDP-1 "$@"

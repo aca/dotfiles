@@ -1,3 +1,7 @@
+function _G.P(...)
+  vim.pretty_print(...)
+end
+
 local g = vim.g
 local opt = vim.opt
 local o = vim.o
@@ -42,8 +46,7 @@ opt.timeoutlen = 500
 -- opt.foldmethod="syntax"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
--- g.foldmethod = "marker"
-g.foldcolumn = 0
+opt.foldnestmax = 3
 
 opt.ignorecase = true -- Ignore case when searching...
 opt.smartcase = true -- ... unless there is a capital letter in the query

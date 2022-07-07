@@ -1,0 +1,9 @@
+profile {
+    output "LG TV SSCR2" mode 3840x2160 position 1440,0 
+    output "LG HDR 4K" mode 2560x1440 position 0,0  transform 270
+    output eDP-1 disable
+}
+
+profile {
+    output eDP-1 enable
+}

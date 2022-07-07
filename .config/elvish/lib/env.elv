@@ -85,23 +85,24 @@ if (eq $E:_ELVISH_ENV "") {
       ~/.asdf/shims
 
       ~/.gem/ruby/*[nomatch-ok]/bin
-      ~/.xxx/*[nomatch-ok]/bin
-      ~/.xxx/bin
+
+      ~/.bun/bin
+
+      ~/bin
 
       ~/xxx/bin
+
       ~/.bin
       ~/.bin/lib
       ~/.bin/v
-      ~/.bin/install
       ~/.bin/$platform:os
+
       ~/.cargo/bin
       ~/.local/bin
-      ~/bin
-      ~/.nix-profile/bin
+      # ~/.nix-profile/bin
       ~/.krew/bin
       ~/.raku/bin
       /usr/local/bin
-
 
       $@paths
     ]

@@ -136,6 +136,13 @@ for _, server in ipairs(lsp_installer.get_installed_servers()) do
             on_attach = on_attach,
             settings = gopls_settings,
         })
+    elseif server.name == "emmet_ls" then
+        lspconfig.emmet_ls.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { "html", "css", "javascriptreact", "typescriptreact" },
+        })
+
     -- elseif server.name == "tsserver" then
     --     require("typescript").setup({
     --         server = vim.tbl_deep_extend("force", server:get_default_options(), {
