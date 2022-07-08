@@ -4,9 +4,13 @@ vim.defer_fn(function()
     vim.cmd([[
     	packadd nvim-treesitter
     	packadd nvim-treesitter-context
-    	packadd playground
     ]])
     require("plugins.treesitter")
+
+    vim.cmd ( [[
+    	packadd playground
+    ]])
+
     vim.cmd([[
         packadd nvim-lspconfig
         packadd nvim-lsp-installer

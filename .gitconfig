@@ -87,3 +87,5 @@
 	default = current
 [receive]
 	denyCurrentBranch = updateInstead
+[advice]
+    setUpstreamFailure = false

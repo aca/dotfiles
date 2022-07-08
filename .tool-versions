@@ -1,7 +1,7 @@
 python 3.10.0
 lua 5.1.5
 ruby 3.0.2
-zig 0.7.1
+zig 0.9.1
 java openjdk-17
 rust 1.62.0
 kotlin 1.5.21

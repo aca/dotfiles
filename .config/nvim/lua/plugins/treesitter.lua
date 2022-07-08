@@ -71,11 +71,12 @@ require("nvim-treesitter.configs").setup({
         enable = true,
     },
     highlight = {
-        enable = false,
+        enable = true,
         additional_vim_regex_highlighting = false,
         -- NOTE: elixir TS returns error, remove this later
         disable = {
-            -- "elixir",
+            -- "go",
+            -- "markdown",
         },
     },
 })

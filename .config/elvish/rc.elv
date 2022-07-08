@@ -58,6 +58,7 @@ fn ffc { || $cdf~ (ff)  }
 
 # wrapper
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
+fn ghqbare { |@a| e:ghq clone --bare $@a;  ;sh -c "src.update &" }
 fn zs {|@a| zsh $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn trash-empty { |@a| yes | e:trash-empty }

@@ -1,4 +1,4 @@
--- vim.cmd([[
---   let test#strategy = "neovim"
---   packadd vim-test
--- ]])
+vim.cmd([[
+  let test#strategy = "neovim"
+  packadd vim-test
+]])
