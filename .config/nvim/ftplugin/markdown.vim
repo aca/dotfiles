@@ -1,3 +1,10 @@
+function! MyFoldText()
+  let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
+  return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
+endfunction
+
+setlocal foldtext=MyFoldText()
+
 " vim:ft=vim et sw=2 foldmethod=marker
 " let g:markdown_syntax_conceal = 1
 "
@@ -110,30 +117,30 @@ autocmd Syntax * call s:customSyntax()
 "   return matchstr(expand('<sfile>'), '\zs<SNR>\d\+_\zeSID$')
 " endfunction
 "
-" function! HeadingDepth(lnum)
-"   let level=0
-"   let thisline = getline(a:lnum)
-"   if thisline =~ '^#\+\s\+'
-"     let hashCount = len(matchstr(thisline, '^#\{1,6}'))
-"     if hashCount > 0
-"       let level = hashCount
-"     endif
-"   else
-"     if thisline != ''
-"       let nextline = getline(a:lnum + 1)
-"       if nextline =~ '^=\+\s*$'
-"         let level = 1
-"       elseif nextline =~ '^-\+\s*$'
-"         let level = 2
-"       endif
-"     endif
-"   endif
-"   if level > 0 && LineIsFenced(a:lnum)
-"     " Ignore # or === if they appear within fenced code blocks
-"     let level = 0
-"   endif
-"   return level
-" endfunction
+function! HeadingDepth(lnum)
+  let level=0
+  let thisline = getline(a:lnum)
+  if thisline =~ '^#\+\s\+'
+    let hashCount = len(matchstr(thisline, '^#\{1,6}'))
+    if hashCount > 0
+      let level = hashCount
+    endif
+  else
+    if thisline != ''
+      let nextline = getline(a:lnum + 1)
+      if nextline =~ '^=\+\s*$'
+        let level = 1
+      elseif nextline =~ '^-\+\s*$'
+        let level = 2
+      endif
+    endif
+  endif
+  if level > 0 && LineIsFenced(a:lnum)
+    " Ignore # or === if they appear within fenced code blocks
+    let level = 0
+  endif
+  return level
+endfunction
 "
 " function! LineIsFenced(lnum)
 "   if exists("b:current_syntax") && b:current_syntax ==# 'markdown'
@@ -166,27 +173,27 @@ autocmd Syntax * call s:customSyntax()
 " endfunction
 "
 " function! s:FoldText()
-"   let level = HeadingDepth(v:foldstart)
-"   let indent = repeat('»', level)
-"   let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
-"   let foldsize = (v:foldend - v:foldstart)
-"
-"   " if level < 6
-"   "   let spaces_1 = repeat(' ', 6 - level)
+"   return "folded"
+"   " let level = HeadingDepth(v:foldstart)
+"   " let indent = repeat('»', level)
+"   " let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
+"   " let foldsize = (v:foldend - v:foldstart)
+"   "
+"   " " if level < 6
+"   " "   let spaces_1 = repeat(' ', 6 - level)
+"   " " else
+"   " "   let spaces_1 = ' '
+"   " " endif
+"   "
+"   " if exists('*strdisplaywidth')
+"   "     let title_width = strdisplaywidth(title)
 "   " else
-"   "   let spaces_1 = ' '
+"   "     let title_width = len(title)
 "   " endif
-"
-"   if exists('*strdisplaywidth')
-"       let title_width = strdisplaywidth(title)
-"   else
-"       let title_width = len(title)
-"   endif
-"
-"   return indent.' '.title
+"   "
+"   " return indent.' '.title
 " endfunction
 "
-" setlocal foldmethod=expr
 " let &l:foldtext = s:SID() . 'FoldText()'
 " let &l:foldexpr = 'NestedMarkdownFolds()'
 

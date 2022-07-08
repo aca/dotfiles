@@ -2,6 +2,7 @@
 # bindsym $mod+Control+Shift+Left move workspace to output left
 # bindsym $mod+Control+Shift+Down move workspace to output down
 # bindsym $mod+Control+Shift+Up move workspace to output up
+exec wl-paste -t text --watch clipman store
 
 # swaymsg move workspace to output "DP-3"
 workspace 1 output "LG TV SSCR2"
@@ -187,8 +188,8 @@ input "type:keyboard" {
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+v splith
-    bindsym $mod+s splitv
+    # bindsym $mod+v splith
+    # bindsym $mod+s splitv
 
     # Switch the current container between different layout styles
     # bindsym $mod+s layout stacking

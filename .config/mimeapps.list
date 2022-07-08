@@ -1,8 +1,8 @@
 [Default Applications]
 # /usr/share/applications/mimeinfo.cache:124
-text/html=firefox.desktop
-x-scheme-handler/http=firefox.desktop
-x-scheme-handler/https=firefox.desktop
-x-scheme-handler/about=firefox.desktop
-x-scheme-handler/unknown=firefox.desktop
+# text/html=google-chrome-stable.desktop
+# x-scheme-handler/http=google-chrome-stable.desktop
+# x-scheme-handler/https=google-chrome-stable.desktop
+# x-scheme-handler/about=google-chrome-stable.desktop
+# x-scheme-handler/unknown=google-chrome-stable.desktop
 x-scheme-handler/jetbrains=jetbrains-toolbox.desktop

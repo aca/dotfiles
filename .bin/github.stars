@@ -12,5 +12,7 @@ get() {
   done
 }
 
-lcache.get github.stars
-get | lcache.set github.stars
+get
+
+# lcache.get github.stars
+# get | lcache.set github.stars
