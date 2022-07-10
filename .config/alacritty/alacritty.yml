@@ -10,7 +10,7 @@ window:
   opacity: 1
   padding:
     x: 10
-    y: 0
+    y: 5
 
   # dynamic_padding: true
   decorations: none
@@ -26,14 +26,11 @@ scrolling:
 font:
   builtin_box_drawing: true
   normal:
-    # family: Iosevka Curly Slab
-    # family: JetBrainsMono Nerd Font
     style: Light
+    # family: JetBrainsMono Nerd Font
     family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
-    
-    # famly: Cascadia Code
     # family: Operator Mono Book
     # family: Iosevka Term Curly Slab
     # family: Hasklug Nerd Font Mono
@@ -45,6 +42,7 @@ font:
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
     # family: Iosevka Nerd Font Mono
+    # family: Iosevka Curly Slab
     # family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
 
@@ -59,8 +57,8 @@ font:
 
   size: 18
   offset:
-    x: -2
-    y: -2
+    x: -3
+    y: 0
 
   glyph_offset:
     x: 0

@@ -6,7 +6,8 @@ packadd telescope-hop.nvim
 packadd nvim-web-devicons
 " packadd vim-visual-star-search
 packadd vim-ReplaceWithRegister
-packadd vim-fold-cycle
+" packadd vim-fold-cycle
+packadd fold-cycle.nvim
 packadd zen-mode.nvim
 " packadd clever-f.vim 
 packadd vim-fetch " TODO: replace or mv to start

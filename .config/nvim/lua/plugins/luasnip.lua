@@ -122,6 +122,7 @@ defer func() {{
 if err != nil {{
   log.Fatal(err)
 }}
+
 ]],
             {}
         )

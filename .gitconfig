@@ -5,11 +5,11 @@
     show = delta
 
 [delta]
-    side-by-side = true
+    ; side-by-side = true
     navigate = true
     file-decoration-style = none
     diff-highlight = true
-    ; file-style = omit
+  ; file-style = omit
 
 [interactive]
     diffFilter = delta --color-only
@@ -38,7 +38,7 @@
   sparseCheckout = true
   quotepath = false
 	; hooksPath = .githooks
-  pager = delta
+  pager = git-split-diffs --color | less -RFX
         
 [alias]
   co = checkout

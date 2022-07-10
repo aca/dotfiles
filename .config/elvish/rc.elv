@@ -1,8 +1,4 @@
-set-env GTK_IM_MODULE fcitx5
-set-env QT_IM_MODULE fcitx5
-
-set edit:command-abbr[gco] = 'git checkout'
-set edit:command-abbr[k] = 'kubectl'
+set edit:command-abbr['gco'] = 'git checkout'
 set edit:command-abbr['k'] = 'kubectl'
 set edit:command-abbr['os'] = 'openstack '
 set edit:command-abbr['ta'] = 'tmux attach -t '
@@ -34,6 +30,7 @@ use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
 if (has-external zoxide) { use /zoxide }
 nop ?(use local)
+nop ?(use local)
 
 # }}}
 # abbr {{{
@@ -47,6 +44,17 @@ fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 fn v {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 # fn e {|@a| edit:clear; tmux clear-history; }
 fn k {|@a| e:kubectl $@a }
+
+fn proxyon { 
+    set-env http_proxy "http://localhost:40000/"
+    set-env https_proxy "http://localhost:40000/"
+    set-env no_proxy "127.0.0.1,localhost,192.168.0.0/16"
+}
+fn proxyoff {
+    unset-env http_proxy
+    unset-env https_proxy
+    unset-env no_proxy 
+}
 
 # cd
 fn s {|| cd (src.dir)}
@@ -78,7 +86,7 @@ fn filterline {
   from-lines | each {
     |x|
     if (not (has-value $second $x)) {
-      put $x
+      echo $x
     }
   }
 }

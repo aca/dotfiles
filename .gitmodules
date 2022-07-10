@@ -457,3 +457,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/seoul256.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/seoul256.vim
 	url = https://github.com/junegunn/seoul256.vim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/fold-cycle.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/fold-cycle.nvim
+	url = https://github.com/jghauser/fold-cycle.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-illuminate"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-illuminate
+	url = https://github.com/RRethy/vim-illuminate.git

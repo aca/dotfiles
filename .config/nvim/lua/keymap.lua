@@ -37,7 +37,10 @@ nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent 
 -- nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 set("n", "gd", vim.lsp.buf.definition, { silent = true })
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
-set("n", ";f", vim.lsp.buf.format, { silent = true })
+set("n", ";f", function()
+    vim.lsp.buf.format()
+    vim.cmd [[ normal! zx ]]
+end , { silent = true })
 set("n", "[d", function()
     vim.diagnostic.goto_prev({ wrap = false })
 end, { silent = true })
@@ -198,8 +201,8 @@ vmap < <gv
 vmap > >gv
 
 " Save
-inoremap <C-s>     <esc>:write<cr>
-nnoremap <C-s>     :write<cr>
+inoremap <silent><C-s>     <c-r>:write!<cr><cr>
+nnoremap <silent><C-s>     :write!<cr><cr>
 
 " https://github.com/mhinz/vim-galore/blob/master/README.md#saner-command-line-history
 cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"

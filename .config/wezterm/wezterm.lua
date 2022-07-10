@@ -69,7 +69,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
         }
     end
     return {
-        { Text = " " .. tab.tab_index + 1 .. ":" .. cwd .. " " },
+        { Background = { Color = "black" }},
+        { Text = " " .. tab.tab_index + 1 .. " " .. cwd .. "  " },
     }
 end)
 
@@ -175,7 +176,7 @@ end)
 
 local config = {
     window_decorations = "RESIZE",
-    -- cell_width = 0.8,
+    cell_width = 0.85,
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
@@ -185,7 +186,7 @@ local config = {
     enable_scroll_bar = false,
 
     -- performance issue, use tmux instead....
-    scrollback_lines = 5000,
+    scrollback_lines = 10000,
 
     -- font_rules = {
     --   intensity = "Half",
@@ -219,18 +220,18 @@ local config = {
         -- invisible = false,
 
         -- When the above attributes match, apply this font styling
-        -- font = wezterm.font("BlexMono Nerd Font"),
+        font = wezterm.font("BlexMono Nerd Font", {weight="Light"}),
         -- font = wezterm.font("Monoid Nerd Font",{ stretch = "SemiCondensed"}) ,
-        font = wezterm.font("IBM Plex Mono", {weight="Regular", stretch="Condensed", style="Normal"}),
+        -- font = wezterm.font("IBM Plex Mono", {weight="Regular", stretch="Condensed", style="Normal"}),
       }
     },
 
     line_height = 0.9,
 
     adjust_window_size_when_changing_font_size = false,
-    -- default_prog = { homedir .. "/bin/elvish" },
+    default_prog = { homedir .. "/bin/elvish" },
     -- default_prog = { "/usr/bin/elvish" },
-    default_prog = { "/usr/local/bin/elvish" },
+    -- default_prog = { "/usr/local/bin/elvish" },
     -- default_prog = { "/usr/local/bin/fish", "--login"},
     enable_kitty_graphics = true,
     -- debug_key_events = true,
@@ -240,20 +241,34 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    -- color_scheme = 'synthwave',
+    color_scheme = 'Wez',
 
-    colors = {
-        ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
-        -- background = "#1c1c1c",
-        background = "#000000",
-        brights = { "#4a4845", "#d78787", "#afbea2", "#e4c9af", "#a1bdce", "#d7beda", "#b1e7dd", "#efefef" },
-        cursor_bg = "#e4c9af",
-        cursor_border = "#e4c9af",
-        cursor_fg = "#000000",
-        foreground = "#d0d0d0",
-        selection_bg = "#4d4d4d",
-        selection_fg = "#ffffff",
+    -- colors = {
+    --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
+    --     -- background = "#1c1c1c",
+    --     background = "#000000",
+    --     brights = { "#4a4845", "#d78787", "#afbea2", "#e4c9af", "#a1bdce", "#d7beda", "#b1e7dd", "#efefef" },
+    --     cursor_bg = "#e4c9af",
+    --     cursor_border = "#e4c9af",
+    --     cursor_fg = "#000000",
+    --     foreground = "#d0d0d0",
+    --     selection_bg = "#4d4d4d",
+    --     selection_fg = "#ffffff",
+    -- },
+  colors = {
+    tab_bar = {
+      -- The color of the inactive tab bar edge/divider
+      inactive_tab_edge = "#575757",
+      background = "#000000",
+      new_tab = {
+        bg_color = "#000000",
+        fg_color = "#808080",
+
+        -- The same options that were listed under the `active_tab` section above
+        -- can also be used for `new_tab`.
+      },
     },
+  },
 
     status_update_interval = 10000,
 

@@ -20,7 +20,8 @@ fn fzf_history {||
     edit:command-history &dedup &newest-first &cmd-only |
     to-terminated "\x00" |
     try {
-      str:trim-space (fzf --no-multi --height=75% --min-height 10 --no-sort --read0 --info=hidden --exact --query=$edit:current-command | slurp)
+      # --exact
+      str:trim-space (fzf --height=75% --min-height 16 --no-sort --read0 --info=hidden --query=$edit:current-command | slurp)
     } catch {
       edit:redraw &full=$true
       return
@@ -37,9 +38,9 @@ fn fzf_file { ||
 
   if (not-eq $last '') {
     var s = (str:trim-suffix $edit:current-command $last)
-    edit:replace-input $s''(printf "%s" (str:join ' ' [ ( put (fzf --query $last --height 75% --min-height 10 --info=hidden --no-sort </dev/tty | from-lines ) | each { |x| printf "%q " $x } ) ])) 
+    edit:replace-input $s''(printf "%s" (str:join ' ' [ ( put (fzf --query $last --height 50% --min-height 16 --info=hidden --no-sort </dev/tty | from-lines ) | each { |x| printf "%q " $x } ) ])) 
   } else {
-    edit:replace-input $edit:current-command''(printf "%s" (str:join ' ' [ ( put (fzf --height 75% --min-height 10 --info=hidden --no-sort </dev/tty | from-lines ) | each { |x| printf "%q " $x } ) ])) 
+    edit:replace-input $edit:current-command''(printf "%s" (str:join ' ' [ ( put (fzf --height 50% --min-height 16 --info=hidden --no-sort </dev/tty | from-lines ) | each { |x| printf "%q " $x } ) ])) 
   }
 }
 
@@ -65,7 +66,7 @@ set edit:command:binding[p] = {|| paste_command >/dev/tty 2>&1 }
 
 fn fzf_cd {||
   try {
-    cd (fd --hidden --type d  --max-depth 9 --no-ignore -0 | fzf --read0 --height=30% --min-height 10)
+    cd (fd --hidden --type d  --max-depth 9 --no-ignore -0 | fzf --read0 --height=50% --min-height 14)
     edit:redraw &full=$true
   } catch {
     edit:redraw &full=$true
@@ -95,7 +96,6 @@ set edit:insert:binding[Ctrl-W] = {||
   edit:redraw &full=$true
 }
 
-
 set edit:insert:binding[Ctrl-Q] = { exit }
 set edit:insert:binding[Ctrl-E] = { nop ?(tmux clear-history 2>/dev/null); clear >/dev/tty; edit:redraw &full=$true }
 
@@ -105,9 +105,7 @@ set edit:insert:binding[Ctrl-E] = { nop ?(tmux clear-history 2>/dev/null); clear
 # fish like ctrl-a 
 set edit:insert:binding[Ctrl-A] = { edit:completion:smart-start }
 
-
 set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
-
 set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv | slurp)}
 
 # queue command to pueue

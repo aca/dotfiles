@@ -1,15 +1,8 @@
-function! MyFoldText()
-  let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
-  return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
-endfunction
-
-setlocal foldtext=MyFoldText()
-
-" vim:ft=vim et sw=2 foldmethod=marker
-" let g:markdown_syntax_conceal = 1
-"
-" set textwidth=40
-set nowrap
+" setlocal foldtext=<sid>myFoldText()
+" function! s:myFoldText()
+"   let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
+"   return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
+" endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins

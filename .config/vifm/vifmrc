@@ -106,7 +106,7 @@ endif
 " set statusline="%= %A %10u:%-7g %15s %20d  "
 
 " Total size of selected files
-set statusline="%= %A %10u:%-7g %15E %20d  "
+set statusline="%= %A %10u:%-7g %15E %20d"
 
 mark h ~/
 mark r /

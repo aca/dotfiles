@@ -3,7 +3,7 @@
 set -euxo pipefail
 cd ~/src/config
 
-# funcs
+# utils
 rmf() { rm -vrf "$@" || true; }
 emptyDir() { rmf "$1" && mkdir -p "$1"; }
 ensureDir() { mkdir -p "$1" || true; }
@@ -11,7 +11,6 @@ commandExists() { command -v "$@" >/dev/null 2>&1; }
 isLinux() { if [[ "$OSTYPE" == "linux-gnu"* ]]; then return 0; else return 1; fi; }
 isDarwin() { if [[ "$OSTYPE" == "darwin"* ]]; then return 0; else return 1; fi; }
 
-# precheck
 precheck() {
   commandExists stow
 }
@@ -34,8 +33,7 @@ cleanup() {
   emptyDir $HOME/.config/nvim/autoload
   emptyDir $HOME/.config/elvish/lib
   emptyDir $HOME/.ssh
-  rmf $HOME/.local/share/elvish/lib
-  ensureDir $HOME/.local/share/elvish/lib
+  emptyDir $HOME/.local/share/elvish/lib
 
   rmf $HOME/.gitmodules
   rmf $HOME/.fzf
