@@ -172,3 +172,6 @@ vim.api.nvim_create_user_command("ToggleDiagnostic", function()
 		vim.diagnostic.hide()
 	end
 end, {})
+
+-- this is required, as lsp is lazy loaded
+vim.cmd [[ :LspStart ]]

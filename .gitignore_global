@@ -1,6 +1,7 @@
 .stfolder
 .obsidian
 .DS_store
+.git
 node_modules/
 
 # vendor/

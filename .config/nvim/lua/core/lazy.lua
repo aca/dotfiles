@@ -3,6 +3,9 @@ packadd plenary.nvim
 
 packadd fugitive
 packadd gitlinker.nvim
+" nnoremap gm :GitMessenger<cr>
+" packadd git-messenger.vim
+
 " packadd gv.vim
 
 packadd telescope.nvim
@@ -48,9 +51,6 @@ packadd aerial.nvim
 
 packadd vim-dadbod
 packadd vim-dadbod-ui
-
-" nnoremap gm :GitMessenger<cr>
-" packadd git-messenger.vim
 
 
 packadd FixCursorHold.nvim

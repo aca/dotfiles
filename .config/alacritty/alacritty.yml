@@ -41,9 +41,9 @@ font:
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
-    # family: Iosevka Nerd Font Mono
+    family: Iosevka Nerd Font Mono
     # family: Iosevka Curly Slab
-    family: Iosevka Nerd Font
+    # family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
 
   # bold:
