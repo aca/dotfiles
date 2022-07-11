@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 if is_linux; then
-    exec /opt/sublime_merge/sublime_merge
+    exec /opt/sublime_merge/sublime_merge "$@"
 else
-    exec "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge"
+    exec "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge" "$@"
 fi
