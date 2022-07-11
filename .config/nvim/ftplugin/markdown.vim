@@ -1,8 +1,8 @@
-" setlocal foldtext=<sid>myFoldText()
-" function! s:myFoldText()
-"   let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
-"   return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
-" endfunction
+setlocal foldtext=FoldTextMarkdown()
+function! FoldTextMarkdown()
+  let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
+  return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
@@ -51,8 +51,6 @@ setlocal signcolumn=no
 setlocal nonu
 setlocal norelativenumber
 setlocal autoindent 
-setlocal tabstop=4 
-setlocal shiftwidth=4
 " setlocal textwidth=80 
 " setlocal formatoptions-=t
 setlocal comments=fb:>,fb:*,fb:+,fb:-
@@ -110,30 +108,30 @@ autocmd Syntax * call s:customSyntax()
 "   return matchstr(expand('<sfile>'), '\zs<SNR>\d\+_\zeSID$')
 " endfunction
 "
-function! HeadingDepth(lnum)
-  let level=0
-  let thisline = getline(a:lnum)
-  if thisline =~ '^#\+\s\+'
-    let hashCount = len(matchstr(thisline, '^#\{1,6}'))
-    if hashCount > 0
-      let level = hashCount
-    endif
-  else
-    if thisline != ''
-      let nextline = getline(a:lnum + 1)
-      if nextline =~ '^=\+\s*$'
-        let level = 1
-      elseif nextline =~ '^-\+\s*$'
-        let level = 2
-      endif
-    endif
-  endif
-  if level > 0 && LineIsFenced(a:lnum)
-    " Ignore # or === if they appear within fenced code blocks
-    let level = 0
-  endif
-  return level
-endfunction
+" function! HeadingDepth(lnum)
+"   let level=0
+"   let thisline = getline(a:lnum)
+"   if thisline =~ '^#\+\s\+'
+"     let hashCount = len(matchstr(thisline, '^#\{1,6}'))
+"     if hashCount > 0
+"       let level = hashCount
+"     endif
+"   else
+"     if thisline != ''
+"       let nextline = getline(a:lnum + 1)
+"       if nextline =~ '^=\+\s*$'
+"         let level = 1
+"       elseif nextline =~ '^-\+\s*$'
+"         let level = 2
+"       endif
+"     endif
+"   endif
+"   if level > 0 && LineIsFenced(a:lnum)
+"     " Ignore # or === if they appear within fenced code blocks
+"     let level = 0
+"   endif
+"   return level
+" endfunction
 "
 " function! LineIsFenced(lnum)
 "   if exists("b:current_syntax") && b:current_syntax ==# 'markdown'
@@ -190,38 +188,37 @@ endfunction
 " let &l:foldtext = s:SID() . 'FoldText()'
 " let &l:foldexpr = 'NestedMarkdownFolds()'
 
-
-packadd markdown-preview.nvim
-" " let $NODE_OPTIONS = "--no-warnings"
-function s:markdown_preview()
-  " let $NODE_NO_WARNINGS=1
-  let g:mkdp_echo_preview_url = 1
-  "
-  " let g:mkdp_refresh_slow = 1
-  let g:mkdp_theme = 'dark'
-  let g:mkdp_markdown_css = expand('~/.config/nvim/mkdp.css')
-  let g:mkdp_auto_close = 0
-  let g:mkdp_command_for_global = 1
-  let g:mkdp_preview_options = {
-      \ 'mkit': {},
-      \ 'katex': {},
-      \ 'uml': {},
-      \ 'maid': {},
-      \ 'disable_sync_scroll': 0,
-      \ 'sync_scroll_type': 'middle',
-      \ 'hide_yaml_meta': 1,
-      \ 'sequence_diagrams': {},
-      \ 'flowchart_diagrams': {},
-      \ 'prefers-color-scheme': 'dark',                                          
-      \ 'theme': 'dark',                                          
-      \ 'disable_filename': 1
-      \ }
-  packadd markdown-preview.nvim
-
-  if !isdirectory(stdpath('data') . '/site/pack/paqs/opt/markdown-preview.nvim/app/bin')
-    silent call mkdp#util#install()
-  end
-  call mkdp#util#open_preview_page()
-endfunction
-
-nnoremap <leader>md :call <sid>markdown_preview()<cr>
+" packadd markdown-preview.nvim
+" " " let $NODE_OPTIONS = "--no-warnings"
+" function s:markdown_preview()
+"   " let $NODE_NO_WARNINGS=1
+"   let g:mkdp_echo_preview_url = 1
+"  
+"   " let g:mkdp_refresh_slow = 1
+"   let g:mkdp_theme = 'dark'
+"   let g:mkdp_markdown_css = expand('~/.config/nvim/mkdp.css')
+"   let g:mkdp_auto_close = 0
+"   let g:mkdp_command_for_global = 1
+"   let g:mkdp_preview_options = {
+"       \ 'mkit': {},
+"       \ 'katex': {},
+"       \ 'uml': {},
+"       \ 'maid': {},
+"       \ 'disable_sync_scroll': 0,
+"       \ 'sync_scroll_type': 'middle',
+"       \ 'hide_yaml_meta': 1,
+"       \ 'sequence_diagrams': {},
+"       \ 'flowchart_diagrams': {},
+"       \ 'prefers-color-scheme': 'dark',                                          
+"       \ 'theme': 'dark',                                          
+"       \ 'disable_filename': 1
+"       \ }
+"   packadd markdown-preview.nvim
+"
+"   if !isdirectory(stdpath('data') . '/site/pack/paqs/opt/markdown-preview.nvim/app/bin')
+"     silent call mkdp#util#install()
+"   end
+"   call mkdp#util#open_preview_page()
+" endfunction
+"
+" nnoremap <leader>md :call <sid>markdown_preview()<cr>

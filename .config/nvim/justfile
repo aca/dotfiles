@@ -1,0 +1,5 @@
+build:
+    luajit -b lua/init.lua lua/init.ljbc
+
+format:
+    stylua init.lua lua/

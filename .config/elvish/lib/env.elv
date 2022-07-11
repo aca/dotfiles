@@ -66,7 +66,7 @@ if (eq $E:_ELVISH_ENV "") {
     set-env GOPROXY direct
 
     # node
-    set-env NODE_OPTIONS "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
+    # set-env NODE_OPTIONS "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
     set-env NPM_CONFIG_GLOBALCONFIG $E:HOME/.npmrc.global
 
     set-env MAN_DISABLE_SECCOMP 1 # man page issues

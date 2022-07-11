@@ -28,7 +28,7 @@ font:
   normal:
     style: Light
     # family: JetBrainsMono Nerd Font
-    family: BlexMono Nerd Font
+    # family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
     # family: Operator Mono Book
@@ -43,7 +43,7 @@ font:
     # family: Input Mono Narrow
     # family: Iosevka Nerd Font Mono
     # family: Iosevka Curly Slab
-    # family: Iosevka Nerd Font
+    family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
 
   # bold:
@@ -57,8 +57,8 @@ font:
 
   size: 18
   offset:
-    x: -3
-    y: 0
+    x: -1
+    y: -2
 
   glyph_offset:
     x: 0
@@ -398,6 +398,25 @@ colors:
 #     - { index: 20, color: '0xb8b8b8' }
 #     - { index: 21, color: '0xe8e8e8' }
 
+
+debug:
+ # Display the time it takes to redraw each frame.
+ #render_timer: false
+
+ # Keep the log file after quitting Alacritty.
+ #persistent_logging: false
+
+ # Log level
+ #
+ # Values for `log_level`:
+ #   - None
+ #   - Error
+ #   - Warn
+ #   - Info
+ #   - Debug
+ #   - Trace
+ log_level: Trace
+ print_events: true
 # ColorStart
 # Base16 IR Black - alacritty color config
 # Timothée Poisot (http://timotheepoisot.fr)
@@ -436,22 +455,3 @@ colors:
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd
-
-debug:
- # Display the time it takes to redraw each frame.
- #render_timer: false
-
- # Keep the log file after quitting Alacritty.
- #persistent_logging: false
-
- # Log level
- #
- # Values for `log_level`:
- #   - None
- #   - Error
- #   - Warn
- #   - Info
- #   - Debug
- #   - Trace
- log_level: Trace
- print_events: true

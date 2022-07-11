@@ -77,7 +77,7 @@ fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {
 fn from-0 { || from-terminated "\x00" }
 fn export { |v| set-env (echo $v | cut -d '=' -f 1) (echo $v | cut -d '=' -f 2-) }
 
-# UNIX comm alternative but keep sorted
+# UNIX comm alternative but keep original output sorted
 # list all non md files
 #   λ fd --type f | filterline fd --extension 'md'
 fn filterline {

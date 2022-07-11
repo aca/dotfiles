@@ -292,9 +292,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/matchparen.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/matchparen.nvim
 	url = https://github.com/monkoose/matchparen.nvim.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/fzf-lua"]
-	path = .local/share/nvim/site/pack/bundle/opt/fzf-lua
-	url = https://github.com/ibhagwan/fzf-lua.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/LuaSnip"]
 	path = .local/share/nvim/site/pack/bundle/opt/LuaSnip
 	url = https://github.com/L3MON4D3/LuaSnip.git
@@ -421,9 +418,6 @@
 [submodule ".config/elvish/lib/elvish-bash-completion"]
 	path = .config/elvish/lib/elvish-bash-completion
 	url = https://github.com/aca/elvish-bash-completion.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/godbolt.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/godbolt.nvim
-	url = https://github.com/p00f/godbolt.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context.git
@@ -445,9 +439,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-scrollview"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-scrollview
 	url = https://github.com/dstein64/nvim-scrollview.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/copilot.vim"]
-	path = .local/share/nvim/site/pack/bundle/opt/copilot.vim
-	url = https://github.com/github/copilot.vim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/cinnamon.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/cinnamon.nvim
 	url = https://github.com/declancm/cinnamon.nvim.git
