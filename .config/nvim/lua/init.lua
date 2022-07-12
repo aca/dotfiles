@@ -1,7 +1,6 @@
 local function settings()
     local g = vim.g
     local opt = vim.opt
-
     opt.cmdheight = 1
     opt.laststatus = 0
 
@@ -117,6 +116,7 @@ local function settings()
 
     -- disable default vim stuffs for faster startuptime
     g.loaded_2html_plugin = 1
+    g.loaded_syntax = 1
     g.loaded_clipboard_provider = 1
     g.loaded_getscript = 1
     g.loaded_getscriptPlugin = 1
@@ -128,6 +128,7 @@ local function settings()
     g.loaded_tarPlugin = 1
     g.loaded_tutor_mode_plugin = 1
     g.loaded_zipPlugin = 1
+    g.loaded_ftplugin = 1
     g.loaded_netrwPlugin = 1
     g.loaded_matchit = 1
     g.loaded_matchparen = 1
@@ -214,9 +215,14 @@ local function colors_seoul256()
     -- nvim_set_hl(0,  "StatusLineNC", {   background = 14671549,   foreground = 3355187,   reverse = true } )
     nvim_set_hl(0, "StatusLine", { background = "#141414", foreground = "#4c5265", italic = true })
     nvim_set_hl(0, "StatusLineNC", { background = "#141414", foreground = "#4c5265", italic = true })
-    nvim_set_hl(0, "TabLine", { background = 4934475, underline = true })
-    nvim_set_hl(0, "TabLineFill", { foreground = 3355187, reverse = true })
-    nvim_set_hl(0, "TabLineSel", { background = 29043, bold = true, foreground = 14671549 })
+
+    -- nvim_set_hl(0, "TabLine", { background = 4934475, underline = true })
+    -- nvim_set_hl(0, "TabLineFill", { foreground = 3355187, reverse = true })
+    -- nvim_set_hl(0, "TabLineSel", { background = 29043, bold = true, foreground = 14671549 })
+    nvim_set_hl(0, "TabLine", { foreground = 9603463 })
+    nvim_set_hl(0, "TabLineFill", { foreground = 9603463 })
+    nvim_set_hl(0, "TabLineSel", { bold = true, foreground = 12762812 })
+
     nvim_set_hl(0, "Title", { bold = true, foreground = 14728892 })
     nvim_set_hl(0, "Visual", { background = 29043 })
     nvim_set_hl(0, "VisualNOS", {})
@@ -493,8 +499,8 @@ execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
 end
 
 local function lazy()
-    -- require("impatient").enable_profile()
-    require("impatient")
+    require("impatient").enable_profile()
+    -- require("impatient")
 
     vim.cmd([[
         packadd nvim-treesitter
@@ -502,7 +508,7 @@ local function lazy()
         packadd playground
 
         packadd nvim-lspconfig
-        let g:Illuminate_delay = 1000
+        let g:Illuminate_delay = 300
 
         packadd vim-illuminate
         packadd nvim-lsp-installer
@@ -513,15 +519,22 @@ local function lazy()
     require("core.luasnip")
     require("core.cmp")
     require("core.keymap")
-    require("core.lazy")
-    -- require("core.zettels")
 
-    vim.cmd([[
-        runtime! lua/plugins/*
-        runtime! lua/command/*
-        runtime! lua/autocmd/*
-        silent! helptags ALL
-    ]])
+    vim.defer_fn(function() 
+        require("core.lazy")
+        -- require("core.zettels")
+
+        vim.cmd([[
+            runtime! lua/plugins/*
+            runtime! lua/command/*
+            runtime! lua/autocmd/*
+        ]])
+
+        vim.defer_fn(function()
+            -- prevent delay on startup
+            vim.cmd [[ silent! helptags ALL ]]
+        end, 100)
+    end, 50)
 end
 
 settings()
@@ -529,4 +542,4 @@ filetype()
 utils()
 colors_seoul256()
 autocmds()
-vim.defer_fn(lazy, 50)
+vim.defer_fn(lazy, 30)

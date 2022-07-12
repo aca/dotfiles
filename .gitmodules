@@ -145,9 +145,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-misc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-misc
 	url = https://github.com/xolox/vim-misc.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/git-worktree.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/git-worktree.nvim
-	url = https://github.com/ThePrimeagen/git-worktree.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitsigns.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git

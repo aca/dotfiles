@@ -14,7 +14,6 @@ local rightAlignFormatFunction = function(diagnostic)
 	local lwidth = vim.api.nvim_get_option("columns")
 	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
 	local splen = lwidth - line_length - msg_length - 9
-	-- print("lwidth: ".. lwidth .. " line_length: " .. line_length .. " msg_length: ".. msg_length, " splen:", splen )
 	local sp = string.rep(" ", splen)
 	return string.format("%s» %s", sp, diagnostic.message)
 end

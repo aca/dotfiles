@@ -35,3 +35,7 @@ require("Comment").setup({
 		end
 	end,
 })
+
+local ft = require('Comment.ft')
+ft.set('elvish', '# %s')
+ft.set('json', '// %s')

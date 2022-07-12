@@ -27,3 +27,4 @@ set edit:after-command = [
     }
   }
 ]
+

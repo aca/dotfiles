@@ -185,8 +185,8 @@ local config = {
 
     enable_scroll_bar = false,
 
-    -- performance issue, use tmux instead....
-    scrollback_lines = 10000,
+    -- TODO !!!: performance issue, use tmux instead for now
+    scrollback_lines = 0,
 
     -- font_rules = {
     --   intensity = "Half",
@@ -241,7 +241,7 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    color_scheme = 'Wez',
+    color_scheme = 'iceberg-dark',
 
     -- colors = {
     --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
@@ -304,7 +304,7 @@ local config = {
     },
 
     -- timeout_milliseconds defaults to 1000 and can be omitted
-    leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
     -- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
     send_composed_key_when_left_alt_is_pressed = false,
     keys = {
@@ -416,16 +416,16 @@ local config = {
         { key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
 
         -- -- pane move(vim aware)
-        { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
-        { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
-        { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
-        { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
-
-        -- resize(vim aware)
-        { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
-        { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
-        { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
-        { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
+        -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
+        -- { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
+        -- { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
+        -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
+        --
+        -- -- resize(vim aware)
+        -- { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
+        -- { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
+        -- { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
+        -- { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
 
         -- alt key
         { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },

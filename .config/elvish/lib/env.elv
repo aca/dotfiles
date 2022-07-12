@@ -70,15 +70,13 @@ set-env MAN_DISABLE_SECCOMP 1 # man page issues
 set-env FZF_DEFAULT_COMMAND 'fd -L --hidden --type f'
 set-env FZF_DEFAULT_OPTS '--min-height 15 --reverse --color "gutter:-1" --inline-info --cycle -m --bind ctrl-a:toggle-all --bind ctrl-n:down --bind ctrl-p:up --bind ctrl-w:toggle-preview --prompt "» " --preview "bat {}" --preview-window "hidden"'
 set-env FZF_CTRL_T_COMMAND 'fd -L --hidden'
-set-env FZF2_CTRL_T_COMMAND 'fd -L --hidden'
-set-env FZF3_CTRL_T_COMMAND 'fd -L --hidden'
 set-env FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10 --no-ignore'
 
 set paths = [
   # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
 
-  ~/.asdf/bin
-  ~/.asdf/shims
+  # ~/.asdf/bin
+  # ~/.asdf/shims
 
   ~/.gem/ruby/*[nomatch-ok]/bin
 
@@ -97,7 +95,7 @@ set paths = [
   ~/.local/bin
   # ~/.nix-profile/bin
   ~/.krew/bin
-  ~/.raku/bin
+  # ~/.raku/bin
   /usr/local/bin
 
   $@paths

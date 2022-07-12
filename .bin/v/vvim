@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd ~/src/config/dotfiles/.config/nvim
-nvim ~/src/config/dotfiles/.config/nvim/init.lua
+nvim lua/init.lua
