@@ -1,3 +1,6 @@
+# Reference
+# https://github.com/xiaq/etc/blob/master/rc.elv
+
 set edit:command-abbr['gco'] = 'git checkout'
 set edit:command-abbr['k'] = 'kubectl'
 set edit:command-abbr['os'] = 'openstack '
@@ -15,9 +18,6 @@ set edit:command-abbr['virt-customize'] = 'sudo virt-customize'
 set edit:command-abbr['virt-clone'] = 'sudo virt-clone'
 set edit:command-abbr['virt-install'] = 'sudo virt-install'
 
-# Reference
-# https://github.com/xiaq/etc/blob/master/rc.elv
-
 use str
 use platform
 
@@ -28,35 +28,16 @@ use /completion
 use /git-subrepo-elvish/.elvish
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
-if (has-external zoxide) { use /zoxide }
-nop ?(use local)
-nop ?(use local)
+# if (has-external zoxide) { use /zoxide }
 
-# }}}
-# abbr {{{
+nop ?(use /zoxide)
+nop ?(use local)
 
 fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
-# fn ll {|@a| if (has-external exa) { e:exa -l --icons $@a } else { e:ls -lt [&darwin=-G &linux=--color=auto][$platform:os] $@a }}
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
-fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
-fn v {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
-# fn e {|@a| edit:clear; tmux clear-history; }
-fn k {|@a| e:kubectl $@a }
-
-fn proxyon { 
-    set-env http_proxy "http://localhost:40000/"
-    set-env https_proxy "http://localhost:40000/"
-    set-env no_proxy "127.0.0.1,localhost,192.168.0.0/16"
-}
-fn proxyoff {
-    unset-env http_proxy
-    unset-env https_proxy
-    unset-env no_proxy 
-}
-
-# cd
+# directory
 fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
 fn grt { cd (or (e:git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
@@ -72,9 +53,12 @@ fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $
 fn trash-empty { |@a| yes | e:trash-empty }
 # fn jq { |@a| e:jq -R 'fromjson?' | e:jq $@a }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {|@a| vifm $@a}
+fn v {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
+fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 
 # utils
 fn from-0 { || from-terminated "\x00" }
+
 fn export { |v| set-env (echo $v | cut -d '=' -f 1) (echo $v | cut -d '=' -f 2-) }
 
 # UNIX comm alternative but keep original output sorted
@@ -90,3 +74,17 @@ fn filterline {
     }
   }
 }
+
+# warp proxy
+fn proxyon { 
+    set-env http_proxy "http://localhost:40000/"
+    set-env https_proxy "http://localhost:40000/"
+    set-env no_proxy "127.0.0.1,localhost,192.168.0.0/16"
+}
+
+fn proxyoff {
+    unset-env http_proxy
+    unset-env https_proxy
+    unset-env no_proxy 
+}
+
