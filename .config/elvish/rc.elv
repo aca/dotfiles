@@ -21,7 +21,11 @@ set edit:command-abbr['virt-install'] = 'sudo virt-install'
 use str
 use platform
 
-use /env
+if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
+  set-env NVIM_LISTEN_ADDRESS "/tmp/nvim"$E:WEZTERM_PANE
+}
+
+if (not (has-env _ELVISH_ENV)) { use /env }
 use /funcs
 use /bind
 use /completion
@@ -87,4 +91,3 @@ fn proxyoff {
     unset-env https_proxy
     unset-env no_proxy 
 }
-

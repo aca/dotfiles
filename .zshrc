@@ -107,7 +107,7 @@ alias ta='tmux attach -t'
 alias td='tmux detach'
 # }}}
 # Bind {{{
-source ~/.fzf/shell/key-bindings.zsh
+# source ~/.fzf/shell/key-bindings.zsh
 bindkey '^e' clear-screen
 
 _exit() { exit }; zle -N _exit

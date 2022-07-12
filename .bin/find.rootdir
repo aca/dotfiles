@@ -6,7 +6,7 @@
 
 var target = $args[0]
 
-for i [(seq 20)] {
+for i [(range 20)] {
     if ?(test -e $target) {
       pwd
       exit 0

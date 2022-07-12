@@ -1,0 +1,19 @@
+#!/bin/sh
+i=0
+while [ $i -le 6 ]; do
+    if [ -f .tool-versions ]; then
+        exit 0
+    fi
+
+    if [ -f .git ]; then
+        exit 1
+    fi
+
+    cd ..
+
+    if [ "$PWD" = "$HOME" ]; then
+        exit 1
+    fi
+
+    i=$(( i + 1 ))
+done

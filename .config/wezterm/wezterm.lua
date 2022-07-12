@@ -230,7 +230,7 @@ local config = {
 
     adjust_window_size_when_changing_font_size = false,
     default_prog = { homedir .. "/bin/elvish" },
-    -- default_prog = { "/usr/bin/elvish" },
+    -- default_prog = { "/bin/sh" },
     -- default_prog = { "/usr/local/bin/elvish" },
     -- default_prog = { "/usr/local/bin/fish", "--login"},
     enable_kitty_graphics = true,
@@ -416,10 +416,10 @@ local config = {
         { key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
 
         -- -- pane move(vim aware)
-        -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
-        -- { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
-        -- { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
-        -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
+        { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
+        { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
+        { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
+        { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
 
         -- resize(vim aware)
         { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },

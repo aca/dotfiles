@@ -1,7 +1,7 @@
 # vim: foldmethod=marker foldlevel=0:
 
-export PATH=$HOME/.bin:$PATH
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.bin:$PATH:$HOME/.asdf/bin:$HOME/.asdf/shims
+# export PATH=$HOME/bin:$PATH
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -62,17 +62,17 @@ alias l='ls -CF'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+# if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#     . /etc/bash_completion
+# fi
 
 set -o vi
-
-if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
-
-if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi
-if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
-# . "$HOME/.cargo/env"
-
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
-[[ $PS1 && -f /usr/local/share/bash-completion/bash_completion ]] && . /usr/local/share/bash-completion/bash_completion
+#
+# if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
+#
+# if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi
+# # if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
+# export ASDF_DIR=$HOME/.asdf
+#
+# [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+# [[ $PS1 && -f /usr/local/share/bash-completion/bash_completion ]] && . /usr/local/share/bash-completion/bash_completion
