@@ -27,7 +27,6 @@ RUN apk add --no-cache \
       coreutils \
       tcpdump \
       socat \
-      tree \
       kubectl@testing \
       delta@community \
       helm@testing \

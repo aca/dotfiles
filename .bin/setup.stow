@@ -84,6 +84,7 @@ cleanup() {
   rmf ~/.bcrc
   rmf ~/.xprofile
   rmf ~/.aws
+  emptyDir ~/.aws
   rmf ~/.moprc
   rmf ~/.zshrc
   rmf ~/.Xresources
