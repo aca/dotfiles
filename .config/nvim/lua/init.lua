@@ -508,9 +508,9 @@ local function lazy()
         packadd playground
 
         packadd nvim-lspconfig
-        let g:Illuminate_delay = 300
-
-        packadd vim-illuminate
+        " let g:Illuminate_delay = 1
+        "
+        " packadd vim-illuminate
         packadd nvim-lsp-installer
     ]])
 

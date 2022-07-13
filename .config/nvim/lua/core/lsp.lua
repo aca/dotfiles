@@ -60,7 +60,7 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 	end
 
-	require("illuminate").on_attach(client)
+	-- require("illuminate").on_attach(client)
 end
 
 if vim.fn.executable("emmet-ls") == 1 then
