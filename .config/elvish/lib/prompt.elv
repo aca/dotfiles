@@ -9,6 +9,15 @@ set edit:prompt = {
 }
 set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }
 
+
+set edit:before-readline = [
+    {
+        use platform
+        printf "\e]7;file://"(platform:hostname)$pwd"\e\\"
+    }
+
+]
+
 set edit:after-readline = [
   {|args|
     # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
