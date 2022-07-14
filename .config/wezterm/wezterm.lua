@@ -241,7 +241,7 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    color_scheme = 'iceberg-dark',
+    color_scheme = 'judi',
 
     -- colors = {
     --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },

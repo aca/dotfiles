@@ -1,6 +1,5 @@
 # Reference
 # https://github.com/xiaq/etc/blob/master/rc.elv
-use edit
 
 set edit:command-abbr['gco'] = 'git checkout'
 set edit:command-abbr['k'] = 'kubectl'

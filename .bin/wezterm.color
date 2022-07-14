@@ -264,9 +264,9 @@ var colors = [
 "primary"
 "purplepeter"
 "rebecca"
-"shades-of-purple"
-"synthwave-everything"
 "synthwave"
+"synthwave-everything"
+"shades-of-purple"
 ]
 
 var color = $colors[(+ (put $colors | list:index (perl -ne 'print "$1" if /color_scheme = ''(.*)''/' ~/.config/wezterm/wezterm.lua)) 1)]
