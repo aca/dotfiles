@@ -76,10 +76,11 @@ selection:
 live_config_reload: true
 
 shell:
-  program: /Users/kyungrok.chung/bin/elvish
-  # args:
-  #   - -c
-  #   - $HOME/bin/elvish  
+  program: /bin/sh
+  # program: /Users/kyungrok.chung/bin/elvish
+  args:
+    - -c
+    - $HOME/bin/elvish 
 
 
 

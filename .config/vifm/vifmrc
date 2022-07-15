@@ -266,11 +266,11 @@ highlight TopLineSel cterm=italic gui=italic ctermfg=0 ctermbg=255
 set tuioptions-=sp
 set dotdirs=
 
-highlight Win		cterm=none	ctermfg=188	
-highlight Directory	cterm=none	ctermfg=188	
-highlight CurrLine	cterm=none	ctermfg=188	ctermbg=236
-highlight OtherLine	cterm=none	ctermfg=247	ctermbg=237
-highlight Selected	cterm=none	ctermfg=188	ctermbg=238
+highlight Win		ctermbg=none	ctermfg=199	
+highlight Directory	ctermbg=none	ctermfg=188	
+highlight CurrLine	ctermbg=none	ctermfg=188	ctermbg=236
+highlight OtherLine	ctermbg=none	ctermfg=247	ctermbg=237
+highlight Selected	ctermbg=none	ctermfg=188	ctermbg=238
 
 highlight JobLine	cterm=bold	ctermfg=188	ctermbg=238
 " highlight StatusLine	cterm=none	ctermfg=188	ctermbg=0

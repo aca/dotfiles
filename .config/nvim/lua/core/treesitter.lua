@@ -78,7 +78,6 @@ require("nvim-treesitter.configs").setup({
 			"vim",
 			"lua",
 			"go",
-			"markdown",
 		},
 	},
 })

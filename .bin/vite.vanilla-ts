@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pnpm create vite --template vanilla-ts $1 

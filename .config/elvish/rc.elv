@@ -93,6 +93,7 @@ fn proxyoff {
 }
 
 if (not (has-env _ELVISH_ENV)) { use /env }
+
 set edit:before-readline = [
     {
         set paths = [(
@@ -112,7 +113,7 @@ set edit:before-readline = [
                             put $x
                         } 
                     }; 
-                    put ~/.asdf/bin /.asdf/shims
+                    put ~/.asdf/bin ~/.asdf/shims
                 }
             }
         )]

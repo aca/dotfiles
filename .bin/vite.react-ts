@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pnpm create vite --template react-ts $1 
+cd $1
+pnpm install &

@@ -264,23 +264,6 @@ local function colors_seoul256()
     nvim_set_hl(0, "Bold", {})
     nvim_set_hl(0, "Italic", {})
     nvim_set_hl(0, "Todo", { foreground = 14755442 })
-    nvim_set_hl(0, "LspReferenceText", { special = 7712471, underline = true })
-    nvim_set_hl(0, "LspReferenceRead", { special = 16777215, underline = true })
-    nvim_set_hl(0, "LspReferenceWrite", { special = 10929543, underline = true })
-    nvim_set_hl(0, "IndentBlanklineChar", { foreground = 3551792 })
-    nvim_set_hl(0, "IndentBlanklineContextChar", { foreground = 11293568 })
-    nvim_set_hl(0, "DiagnosticError", { foreground = 16711680 })
-    nvim_set_hl(0, "DiagnosticWarn", { foreground = 14985831 })
-    nvim_set_hl(0, "DiagnosticInfo", { foreground = 7712471 })
-    nvim_set_hl(0, "DiagnosticHint", { foreground = 10929543 })
-    nvim_set_hl(0, "DiagnosticUnderlineError", { special = 16145237, undercurl = true })
-    nvim_set_hl(0, "DiagnosticUnderlineWarn", { special = 14985831, undercurl = true })
-    nvim_set_hl(0, "DiagnosticUnderlineInfo", { special = 7712471, undercurl = true })
-    nvim_set_hl(0, "DiagnosticUnderlineHint", { special = 10929543, undercurl = true })
-    nvim_set_hl(0, "DiagnosticSignError", { foreground = 16145237 })
-    nvim_set_hl(0, "DiagnosticSignWarning", { foreground = 14985831 })
-    nvim_set_hl(0, "DiagnosticSignInformation", { foreground = 7712471 })
-    nvim_set_hl(0, "DiagnosticSignHint", { foreground = 10929543 })
     nvim_set_hl(0, "TSConstant", { foreground = 7322813 })
     nvim_set_hl(0, "TSProperty", { foreground = 16760765 })
     nvim_set_hl(0, "TSStringRegex", { foreground = 10009789 })
@@ -292,6 +275,24 @@ local function colors_seoul256()
         nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "blue" })
         nvim_set_hl(0, "GitSignsDelete", { bg = "NONE", fg = "red" })
         nvim_set_hl(0, "GitSignsChange", { bg = "NONE", fg = "yellow" })
+
+        nvim_set_hl(0, "LspReferenceText", { special = 7712471, underline = true })
+        nvim_set_hl(0, "LspReferenceRead", { special = 16777215, underline = true })
+        nvim_set_hl(0, "LspReferenceWrite", { special = 10929543, underline = true })
+        nvim_set_hl(0, "IndentBlanklineChar", { foreground = 3551792 })
+        nvim_set_hl(0, "IndentBlanklineContextChar", { foreground = 11293568 })
+        nvim_set_hl(0, "DiagnosticError", { foreground = 16711680 })
+        nvim_set_hl(0, "DiagnosticWarn", { foreground = 14985831 })
+        nvim_set_hl(0, "DiagnosticInfo", { foreground = 7712471 })
+        nvim_set_hl(0, "DiagnosticHint", { foreground = 10929543 })
+        nvim_set_hl(0, "DiagnosticUnderlineError", { special = 16145237, undercurl = true })
+        nvim_set_hl(0, "DiagnosticUnderlineWarn", { special = 14985831, undercurl = true })
+        nvim_set_hl(0, "DiagnosticUnderlineInfo", { special = 7712471, undercurl = true })
+        nvim_set_hl(0, "DiagnosticUnderlineHint", { special = 10929543, undercurl = true })
+        nvim_set_hl(0, "DiagnosticSignError", { foreground = 16145237 })
+        nvim_set_hl(0, "DiagnosticSignWarning", { foreground = 14985831 })
+        nvim_set_hl(0, "DiagnosticSignInformation", { foreground = 7712471 })
+        nvim_set_hl(0, "DiagnosticSignHint", { foreground = 10929543 })
     end, 100)
 end
 
@@ -508,9 +509,9 @@ local function lazy()
         packadd playground
 
         packadd nvim-lspconfig
-        " let g:Illuminate_delay = 1
-        "
-        " packadd vim-illuminate
+        let g:Illuminate_delay = 500
+       
+        packadd vim-illuminate
         packadd nvim-lsp-installer
     ]])
 
@@ -542,4 +543,4 @@ filetype()
 utils()
 colors_seoul256()
 autocmds()
-vim.defer_fn(lazy, 30)
+vim.defer_fn(lazy, 10)
