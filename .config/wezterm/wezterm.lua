@@ -175,6 +175,15 @@ wezterm.on("resize-down", function(window, pane)
 end)
 
 local config = {
+    
+    -- unix_domains = {
+    --     {
+    --         name = "unix"
+    --     }
+    -- },
+    --
+    -- default_gui_startup_args = {"connect", "unix"},
+
     window_decorations = "RESIZE",
     cell_width = 0.85,
     tab_bar_at_bottom = true,
@@ -186,7 +195,7 @@ local config = {
     enable_scroll_bar = false,
 
     -- TODO !!!: performance issue, use tmux instead for now
-    scrollback_lines = 0,
+    -- scrollback_lines = 1000,
 
     -- font_rules = {
     --   intensity = "Half",
@@ -304,8 +313,9 @@ local config = {
     },
 
     -- timeout_milliseconds defaults to 1000 and can be omitted
-    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
     -- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
+    leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+
     send_composed_key_when_left_alt_is_pressed = false,
     keys = {
         { key = "w", mods = "CTRL", action = "QuickSelect" },
@@ -379,12 +389,6 @@ local config = {
         { key = ";", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = -1 }) },
         { key = "'", mods = "LEADER", action = wezterm.action({ ActivateTabRelative = 1 }) },
 
-        -- pane move
-        { key = "h", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
-        { key = "j", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
-        { key = "k", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
-        { key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
-
         -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
         -- { key = "q", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x0r" }) },
         { key = "q", mods = "CTRL", action = wezterm.action({ SendString = "\x11" }) },
@@ -415,23 +419,29 @@ local config = {
         { key = "y", mods = "ALT", action = wezterm.action({ SendString = "\x1by" }) },
         { key = "z", mods = "ALT", action = wezterm.action({ SendString = "\x1bz" }) },
 
-        -- -- pane move(vim aware)
-        -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
-        -- { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
-        -- { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
-        -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
+        -- -- alt key
+        -- { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },
+        -- { key = "j", mods = "ALT", action = wezterm.action({ SendString = "\x1bj" }) },
+        -- { key = "k", mods = "ALT", action = wezterm.action({ SendString = "\x1bk" }) },
+        -- { key = "l", mods = "ALT", action = wezterm.action({ SendString = "\x1bl" }) },
         --
-        -- -- resize(vim aware)
-        -- { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
-        -- { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
-        -- { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
-        -- { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
+        -- -- pane move
+        -- { key = "h", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
+        -- { key = "j", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+        -- { key = "k", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
+        -- { key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 
-        -- alt key
-        { key = "h", mods = "ALT", action = wezterm.action({ SendString = "\x1bh" }) },
-        { key = "j", mods = "ALT", action = wezterm.action({ SendString = "\x1bj" }) },
-        { key = "k", mods = "ALT", action = wezterm.action({ SendString = "\x1bk" }) },
-        { key = "l", mods = "ALT", action = wezterm.action({ SendString = "\x1bl" }) },
+        -- pane move(vim aware)
+        { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
+        { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
+        { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
+        { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
+
+        -- resize(vim aware)
+        { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
+        { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
+        { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
+        { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
     },
 }
 

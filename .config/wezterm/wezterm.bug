@@ -1,0 +1,211 @@
+local wezterm = require("wezterm")
+local os = require("os")
+local homedir = os.getenv("HOME")
+
+-- wezterm.on("window-config-reloaded", function(window, pane)
+--   window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
+-- end)
+
+local function log(msg)
+    wezterm.log_info(msg)
+end
+
+-- local inTmux = true
+-- if os.getenv("TMUX") ~= "" then
+--   inTmux = false
+-- end
+
+-- wezterm.on("update-right-status", function(window, pane)
+--   local status = ""
+--   if window:dead_key_is_active() then
+-- if window:dead_key_is_active() then
+--     status = "COMPOSE"
+--   end
+--   window:set_right_status(status)
+-- end);
+
+-- Equivalent to POSIX basename(3)
+-- Given "/foo/bar" returns "bar"
+-- Given "c:\\foo\\bar" returns "bar"
+local function basename(s)
+    return string.gsub(s, "(.*[/\\])(.*)", "%2")
+end
+
+-- wezterm.on("update-right-status", function(window, pane)
+--     -- window:set_right_status(basename(pane:get_foreground_process_name()))
+--     -- window:set_right_status(pane:get_foreground_process_name())
+--     -- window:toast_notification("wezterm", pane:get_foreground_process_name(), nil, 4000)
+--     -- window:toast_notification("wezterm", pane:get_current_working_dir(), nil, 4000)
+--
+--     local date = wezterm.strftime("%Y-%m-%d %H:%M")
+--     local cmd = string.format(
+--         "cd '%s' && git rev-parse --abbrev-ref HEAD",
+--         string.sub(pane:get_current_working_dir(), 8)
+--     )
+--     local handle = io.popen(cmd)
+--     local result = handle:read("*a")
+--     handle:close()
+--     result = string.gsub(result, "\n", "")
+--     window:set_right_status(wezterm.format({
+--         -- {Attribute={Underline="Single"}},
+--         { Attribute = { Italic = true } },
+--         { Text = result .. " | " .. date .. " " },
+--     }))
+-- end)
+
+-- The filled in variant of the < symbol
+-- local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+--
+-- -- The filled in variant of the > symbol
+-- local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
+
+-- TODO
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+    local cwd = tab.active_pane.current_working_dir:sub(8, -1):gsub(homedir, "~")
+    if tab.is_active then
+        return {
+            { Background = { Color = "black" } },
+            { Text = " " .. cwd .. " " },
+        }
+    end
+    return {
+        { Background = { Color = "black" }},
+        { Text = " " .. tab.tab_index + 1 .. " " .. cwd .. "  " },
+    }
+end)
+
+wezterm.on("open_in_vim", function(window, pane)
+    local file = io.open("/tmp/wezterm_buf", "w")
+    file:write(pane:get_logical_lines_as_text(5000))
+    file:flush()
+    file:close()
+
+    window:perform_action(
+        wezterm.action({
+            SpawnCommandInNewTab = {
+                args = { "nvim.wez", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
+            },
+        }),
+        pane
+    )
+
+    -- window:perform_action(
+    -- 	wezterm.action({
+    -- 		SplitVertical = {
+    -- 			domain = "CurrentPaneDomain",
+    -- 			args = { "nvim.minimal", "/tmp/wezterm_buf", "-c", "call cursor(line('$')-1,0)" },
+    -- 		},
+    -- 	}),
+    -- 	pane
+    -- )
+end)
+
+local move_around = function(window, pane, direction_wez, direction_nvim)
+    local result = os.execute(
+        "env NVIM_LISTEN_ADDRESS=/tmp/nvim"
+            .. pane:pane_id()
+            .. " "
+            .. homedir
+            .. "/bin/"
+            .. "wezterm.nvim.navigator "
+            .. direction_nvim
+    )
+    if result then
+        window:perform_action(wezterm.action({ SendString = "\x17" .. direction_nvim }), pane)
+    else
+        window:perform_action(wezterm.action({ ActivatePaneDirection = direction_wez }), pane)
+    end
+end
+
+wezterm.on("move-left", function(window, pane)
+    move_around(window, pane, "Left", "h")
+end)
+
+wezterm.on("move-right", function(window, pane)
+    move_around(window, pane, "Right", "l")
+end)
+
+wezterm.on("move-up", function(window, pane)
+    move_around(window, pane, "Up", "k")
+end)
+
+wezterm.on("move-down", function(window, pane)
+    move_around(window, pane, "Down", "j")
+end)
+
+local function file_exists(name)
+    if os.execute("stat " .. name) then
+        return true
+    else
+        return false
+    end
+end
+
+local vim_resize = function(window, pane, direction_wez, direction_nvim)
+    local result = os.execute(
+        "env NVIM_LISTEN_ADDRESS=/tmp/nvim"
+            .. pane:pane_id()
+            .. " "
+            .. homedir
+            .. "/bin/"
+            .. "wezterm.nvim.navigator "
+            .. direction_nvim
+    )
+    if result then
+        window:perform_action(wezterm.action({ SendString = "\x1b" .. direction_nvim }), pane)
+    else
+        window:perform_action(wezterm.action({ AdjustPaneSize = { direction_wez, 5 } }), pane)
+    end
+end
+
+wezterm.on("resize-left", function(window, pane)
+    vim_resize(window, pane, "Left", "h")
+end)
+
+wezterm.on("resize-right", function(window, pane)
+    vim_resize(window, pane, "Right", "l")
+end)
+
+wezterm.on("resize-up", function(window, pane)
+    vim_resize(window, pane, "Up", "k")
+end)
+
+wezterm.on("resize-down", function(window, pane)
+    vim_resize(window, pane, "Down", "j")
+end)
+
+local config = {
+    unix_domains = {
+        {
+            name = "unix"
+        }
+    },
+
+    default_gui_startup_args = {"connect", "unix"},
+
+    leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+
+    send_composed_key_when_left_alt_is_pressed = false,
+    keys = {
+        { key = "w", mods = "CTRL", action = "QuickSelect" },
+
+        {
+            key = '"',
+            mods = "LEADER",
+            action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+        },
+        {
+            key = '"',
+            mods = "LEADER|SHIFT",
+            action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+        },
+
+        -- close
+        { key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = false } }) },
+        { key = "x", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
+        -- { key = "X", mods = "LEADER", action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
+       }
+
+}
+
+return config

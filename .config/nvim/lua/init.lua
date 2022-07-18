@@ -10,7 +10,7 @@ local function settings()
     opt.mmp = 5000
     opt.shell = "/bin/sh"
     opt.wildignore = { "/tmp/*", "*.so", "*.swp", "*.zip", "*.pyc", "*.db", "*.sqlite", "*.git/*" }
-    opt.conceallevel = 2
+    opt.conceallevel = 0
     opt.shortmess = "aItcF"
     opt.clipboard = { "unnamed", "unnamedplus" }
     -- o.virtualedit = "block"
@@ -257,7 +257,8 @@ local function colors_seoul256()
     nvim_set_hl(0, "Special", { foreground = 16760216 })
     nvim_set_hl(0, "SpecialChar", {})
     nvim_set_hl(0, "Tag", { foreground = 16760216 })
-    nvim_set_hl(0, "Delimiter", { foreground = 12490867 })
+    -- nvim_set_hl(0, "Delimiter", { foreground = 12490867 })
+    nvim_set_hl(0, "Delimiter", { foreground = 12762812 })
     nvim_set_hl(0, "SpecialComment", {})
     nvim_set_hl(0, "Debug", { foreground = 16760216 })
     nvim_set_hl(0, "Underlined", { foreground = 14728892, underline = true })
@@ -521,7 +522,7 @@ local function lazy()
     require("core.cmp")
     require("core.keymap")
 
-    vim.defer_fn(function() 
+    vim.defer_fn(function()
         require("core.lazy")
         -- require("core.zettels")
 

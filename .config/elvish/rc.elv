@@ -25,7 +25,7 @@ use platform
 #   set-env NVIM_LISTEN_ADDRESS "/tmp/nvim"$E:WEZTERM_PANE
 # }
 
-
+if (not (has-env _ELVISH_ENV)) { use /env }
 use /funcs
 use /bind
 use /completion
@@ -92,9 +92,12 @@ fn proxyoff {
     unset-env no_proxy 
 }
 
-if (not (has-env _ELVISH_ENV)) { use /env }
+# OSC52
+# set edit:after-readline = [ $@edit:after-readline { |args| printf "\033]133;C;\007" } ]
+# set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;aid=%s\007" $pid } ]
 
 set edit:before-readline = [
+    { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
     {
         set paths = [(
             if ?(asdf.use) {
