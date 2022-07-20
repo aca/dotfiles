@@ -15,8 +15,17 @@ local rightAlignFormatFunction = function(diagnostic)
 	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
 	local splen = lwidth - line_length - msg_length - 9
 	local sp = string.rep(" ", splen)
+
+    if string.find(diagnostic.message, "declared but its value is never read") then
+        return ""
+    end
+
 	return string.format("%s» %s", sp, diagnostic.message)
 end
+
+vim.diagnostic.config({
+	virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+})
 
 -- this fix rightalign
 vim.api.nvim_create_autocmd("VimResized", {
@@ -24,10 +33,6 @@ vim.api.nvim_create_autocmd("VimResized", {
 		vim.diagnostic.hide()
 		vim.diagnostic.show()
 	end,
-})
-
-vim.diagnostic.config({
-	virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
 })
 
 -- capabilities [[

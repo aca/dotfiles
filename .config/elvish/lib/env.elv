@@ -58,7 +58,7 @@ set-env COLORTERM truecolor
 set-env EDITOR nvim
 set-env VISUAL nvim
 set-env GOPATH $E:HOME
-set-env GOPROXY direct
+# set-env GOPROXY direct
 
 # node
 # set-env NODE_OPTIONS "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
