@@ -15,4 +15,4 @@ dest="$1"; shift
 #   exit 1
 # fi
 
-rsync --no-compress --progress -avvh --backup "${src}/" "${dest}/" "$@"
+rsync --progress -avvh --backup "${src}/" "${dest}/" "$@"
