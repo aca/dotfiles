@@ -58,4 +58,4 @@ nnoremap <silent><leader>fC   :Colors<cr>
 nnoremap <silent><leader>fc   :Commits<cr>
 
 command! -bang -nargs=* Rg          call fzf#vim#grep('rg -L --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 3.. '}), 0)
-command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg -L --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1.. '}), 0)
+command! -bang -nargs=* RgWithFile  call fzf#vim#grep('rg -L --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1,3.. '}), 0)

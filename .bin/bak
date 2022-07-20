@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cp -v -n "$1" "$1.bak"
+cp -v -n "$1" "$1.bak" || sudo cp -v -n "$1" "$1.bak"
 
 

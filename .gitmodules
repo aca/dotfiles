@@ -451,3 +451,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-illuminate"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-illuminate
 	url = https://github.com/RRethy/vim-illuminate.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-rhubarb"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git

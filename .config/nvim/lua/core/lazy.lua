@@ -2,7 +2,8 @@ vim.cmd([[
 packadd plenary.nvim
 
 packadd fugitive
-packadd gitlinker.nvim
+packadd vim-rhubarb
+" packadd gitlinker.nvim
 " nnoremap gm :GitMessenger<cr>
 " packadd git-messenger.vim
 

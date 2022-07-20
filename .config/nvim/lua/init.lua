@@ -1,3 +1,9 @@
+-- $ vim-startuptime -vimpath nvim | grep '^Total' 
+--
+-- Total Average: 5.900700 msec
+-- Total Max:     6.221000 msec
+-- Total Min:     5.663000 msec
+
 local function settings()
     local g = vim.g
     local opt = vim.opt
@@ -544,4 +550,4 @@ filetype()
 utils()
 colors_seoul256()
 autocmds()
-vim.defer_fn(lazy, 10)
+vim.defer_fn(lazy, 35)

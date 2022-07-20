@@ -1,3 +1,4 @@
+set $mod Mod4
 # bindsym $mod+Control+Shift+Right move workspace to output right
 # bindsym $mod+Control+Shift+Left move workspace to output left
 # bindsym $mod+Control+Shift+Down move workspace to output down
@@ -5,12 +6,17 @@
 exec wl-paste -t text --watch clipman store
 
 # swaymsg move workspace to output "DP-3"
-workspace 1 output "LG TV SSCR2"
-workspace 2 output "LG TV SSCR2"
-workspace 3 output "LG TV SSCR2"
-workspace 4 output "LG HDR 4K"
-workspace 5 output "LG HDR 4K"
-workspace 6 output "LG HDR 4K"
+# workspace 1 output "LG TV SSCR2"
+# workspace 2 output "LG TV SSCR2"
+# workspace 3 output "LG TV SSCR2"
+# workspace 4 output "LG HDR 4K"
+# workspace 5 output "LG HDR 4K"
+# workspace 6 output "LG HDR 4K"
+
+# bindsym $mod+']' move workspace to output right
+# bindsym $mod+'[' move workspace to output left
+# bindsym $mod+Control+Shift+Down move workspace to output down
+# bindsym $mod+Control+Shift+Up move workspace to output up
 
 # splay output names
 #     set $disp1 "eDP-1"
@@ -45,7 +51,6 @@ exec --no-startup-id kanshi
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
