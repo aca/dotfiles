@@ -90,7 +90,7 @@ set paths = [
   ~/.bin/_lib
   ~/.bin/_install
   ~/.bin/_v
-  ~/.bin/$platform:os
+  ~/.bin/_$platform:os
 
   ~/.cargo/bin
   ~/.local/bin
