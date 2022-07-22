@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$WAYLAND_DISPLAY" = "" ]; then
+elif [ "$WAYLAND_DISPLAY" = "" ]; then
     xsel --clipboard --input
 else
     wl-copy
