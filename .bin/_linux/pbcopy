@@ -1,5 +1,7 @@
 #!/bin/sh
 
+if [ "$SSH_TTY" != "" ]; then
+    yank
 elif [ "$WAYLAND_DISPLAY" = "" ]; then
     xsel --clipboard --input
 else
