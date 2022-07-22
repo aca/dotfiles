@@ -1,8 +1,6 @@
 #!/bin/sh
 
-if pgrep copyq 1>/dev/null 2>/dev/null; then
-    copyq read 0
-elif [ $WAYLAND_DISPLAY = "" ]; then
+if [ "$WAYLAND_DISPLAY" = "" ]; then
     xsel --clipboard --output 2>/dev/null
 else
     wl-paste
