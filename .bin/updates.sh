@@ -20,6 +20,7 @@ update_src "git@github.com:alacritty/alacritty.git"
 if isDarwin; then
 bash << EOF
 set -euo pipefail
+git pull --rebase
 cd ~/src/github.com/alacritty/alacritty
 make app
 cp -r target/release/osx/Alacritty.app /Applications/
