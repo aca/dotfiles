@@ -454,3 +454,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-rhubarb"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-oscyank"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-oscyank
+	url = https://github.com/ojroques/vim-oscyank.git
