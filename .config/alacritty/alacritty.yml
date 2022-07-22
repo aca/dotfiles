@@ -2,8 +2,8 @@
 # https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
 env:
   # TERM: xterm-256color
-  # TERM: tmux-256color
-  TERM: alacritty
+  TERM: tmux-256color
+  # TERM: alacritty
   LC_CTYPE: UTF-8
 
 window:

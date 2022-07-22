@@ -44,8 +44,6 @@ if isDarwin; then
     brew cleanup
     #brew list > brew/brew.list
     #brew cask list > brew/brew.cask.list
-
-    brew reinstall neovim
     brew reinstall tmux
 fi
 

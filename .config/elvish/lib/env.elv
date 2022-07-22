@@ -87,8 +87,9 @@ set paths = [
   ~/xxx/bin
 
   ~/.bin
-  ~/.bin/lib
-  ~/.bin/v
+  ~/.bin/_lib
+  ~/.bin/_install
+  ~/.bin/_v
   ~/.bin/$platform:os
 
   ~/.cargo/bin

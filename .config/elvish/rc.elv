@@ -99,6 +99,8 @@ fn proxyoff {
 
 set edit:before-readline = [
     { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
+
+    # this is fix for asdf performance issue
     {
         set paths = [(
             if ?(asdf.use) {
