@@ -4,11 +4,10 @@ use platform
 use math
 
 if (eq $platform:os "linux") {
-  pactl set-sink-volume @DEFAULT_SINK@ $args[0]"%"
-  # for i (pactl list sinks short | grep -i running | awk '{print $1}' | from-lines) {
-  #   # echo $i
-  #   pactl set-sink-volume $i $args[0]
-  # }
+  # pactl set-sink-volume @DEFAULT_SINK@ $args[0]"%"
+  for i [(pactl list sinks short | awk '{print $1}' | from-lines)] {
+    pactl set-sink-volume $i $args[0]'%'
+  }
 } elif (eq $platform:os "darwin") {
-    sudo osascript -e "set Volume "(math:round (/ $args[0] 10))
+  sudo osascript -e "set Volume "(math:round (/ $args[0] 10))
 }

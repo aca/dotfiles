@@ -507,8 +507,8 @@ execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
 end
 
 local function lazy()
-    require("impatient").enable_profile()
-    -- require("impatient")
+    -- require("impatient").enable_profile()
+    require("impatient")
 
     vim.cmd([[
         packadd nvim-treesitter
@@ -541,7 +541,7 @@ local function lazy()
         vim.defer_fn(function()
             -- prevent delay on startup
             vim.cmd [[ silent! helptags ALL ]]
-        end, 100)
+        end, 200)
     end, 50)
 end
 
@@ -550,4 +550,4 @@ filetype()
 utils()
 colors_seoul256()
 autocmds()
-vim.defer_fn(lazy, 100)
+vim.defer_fn(lazy, 50)
