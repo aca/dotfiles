@@ -472,19 +472,19 @@ local function autocmds()
     local group = vim.api.nvim_create_augroup("_init", { clear = true })
     local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
-    -- restore cursor position on start
-    nvim_create_autocmd("BufReadPost", { command = [[ 
-    silent! exe "normal! g`\"" 
-]], group = group })
+--     -- restore cursor position on start
+--     nvim_create_autocmd("BufReadPost", { command = [[ 
+--     silent! exe "normal! g`\"" 
+-- ]], group = group })
 
     -- templates, zk
-    nvim_create_autocmd("BufNewFile", {
-        group = group,
-        pattern = { "**/src/zk/**.md" },
-        command = [[
-execute "0r! ~/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
-    ]],
-    })
+--     nvim_create_autocmd("BufNewFile", {
+--         group = group,
+--         pattern = { "**/src/zk/**.md" },
+--         command = [[
+-- execute "0r! ~/.config/nvim/templates/zettels.sh" . ' ' . expand('%:t:r')
+--     ]],
+--     })
 
     -- templates, gh actions
     nvim_create_autocmd("BufNewFile", {

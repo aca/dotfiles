@@ -32,7 +32,6 @@ require("nvim-treesitter.configs").setup({
 	-- enable = "all",
 	-- NOTE: elixir TS returns error, remove this later
 	disable = {
-		"markdown",
 		"dockerfile",
 		"cooklang",
 		"glimmer",
@@ -129,85 +128,85 @@ local folds_levels = ts_utils.memoize_by_buf_tick(function(bufnr)
 	return levels
 end)
 
-_G._markdown_foldexpr = function()
-	local levels = folds_levels(vim.api.nvim_get_current_buf()) or {}
-	return levels[vim.v.lnum - 1] or "="
-end
+-- _G._markdown_foldexpr = function()
+-- 	local levels = folds_levels(vim.api.nvim_get_current_buf()) or {}
+-- 	return levels[vim.v.lnum - 1] or "="
+-- end
 
 vim.cmd([[
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
 ]])
 
--- for lazyload
-if vim.bo.filetype == "markdown" then
-	vim.cmd([[
-        setlocal foldexpr=v:lua._markdown_foldexpr()
-        normal! zx
-    ]])
-end
+-- -- for lazyload
+-- if vim.bo.filetype == "markdown" then
+-- 	vim.cmd([[
+--         setlocal foldexpr=v:lua._markdown_foldexpr()
+--         normal! zx
+--     ]])
+-- end
+--
+-- -- add autocmd
+-- vim.api.nvim_create_autocmd("Filetype", {
+-- 	pattern = { "markdown" },
+-- 	command = "setlocal foldexpr=v:lua._markdown_foldexpr()",
+-- })
 
--- add autocmd
-vim.api.nvim_create_autocmd("Filetype", {
-	pattern = { "markdown" },
-	command = "setlocal foldexpr=v:lua._markdown_foldexpr()",
-})
-
-require("vim.treesitter.query").set_query("markdown", "highlights", [[
-(atx_heading (inline) @text.title)
-(setext_heading (paragraph) @text.title)
-
-[
-  (atx_h1_marker)
-  (atx_h2_marker)
-  (atx_h3_marker)
-  (atx_h4_marker)
-  (atx_h5_marker)
-  (atx_h6_marker)
-  (setext_h1_underline)
-  (setext_h2_underline)
-] @punctuation.special
-
-[
-  (link_title)
-  (indented_code_block)
-  (fenced_code_block)
-] @text.literal
-
-[
-  (fenced_code_block_delimiter)
-] @punctuation.delimiter
-
-(code_fence_content) @none
-
-[
-  (link_destination)
-] @text.uri
-
-[
-  (link_label)
-] @text.reference
-
-[
-  (list_marker_plus)
-  (list_marker_minus)
-  (list_marker_star)
-  (list_marker_dot)
-  (list_marker_parenthesis)
-  (thematic_break)
-] @punctuation.special
-
-[
-  (block_continuation)
-  (block_quote_marker)
-] @punctuation.special
-
-[
-  (backslash_escape)
-] @string.escape
-
-([
-  (info_string)
-] @conceal
-(#set! conceal ""))
-]])
+-- require("vim.treesitter.query").set_query("markdown", "highlights", [[
+-- (atx_heading (inline) @text.title)
+-- (setext_heading (paragraph) @text.title)
+--
+-- [
+--   (atx_h1_marker)
+--   (atx_h2_marker)
+--   (atx_h3_marker)
+--   (atx_h4_marker)
+--   (atx_h5_marker)
+--   (atx_h6_marker)
+--   (setext_h1_underline)
+--   (setext_h2_underline)
+-- ] @punctuation.special
+--
+-- [
+--   (link_title)
+--   (indented_code_block)
+--   (fenced_code_block)
+-- ] @text.literal
+--
+-- [
+--   (fenced_code_block_delimiter)
+-- ] @punctuation.delimiter
+--
+-- (code_fence_content) @none
+--
+-- [
+--   (link_destination)
+-- ] @text.uri
+--
+-- [
+--   (link_label)
+-- ] @text.reference
+--
+-- [
+--   (list_marker_plus)
+--   (list_marker_minus)
+--   (list_marker_star)
+--   (list_marker_dot)
+--   (list_marker_parenthesis)
+--   (thematic_break)
+-- ] @punctuation.special
+--
+-- [
+--   (block_continuation)
+--   (block_quote_marker)
+-- ] @punctuation.special
+--
+-- [
+--   (backslash_escape)
+-- ] @string.escape
+--
+-- ([
+--   (info_string)
+-- ] @conceal
+-- (#set! conceal ""))
+-- ]])
