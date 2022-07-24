@@ -89,3 +89,5 @@
 	denyCurrentBranch = updateInstead
 [advice]
     setUpstreamFailure = false
+[init]
+	defaultBranch = main

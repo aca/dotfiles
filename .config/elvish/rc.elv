@@ -4,7 +4,7 @@
 set edit:command-abbr['gco'] = 'git checkout'
 set edit:command-abbr['k'] = 'kubectl'
 set edit:command-abbr['os'] = 'openstack '
-set edit:command-abbr['ta'] = 'tmux attach -t '
+set edit:command-abbr['ta'] = 'tmux attach -t'
 set edit:command-abbr['elv'] = 'elvish'
 set edit:command-abbr['mkdir'] = 'mkdir -p'
 set edit:command-abbr['dc'] = 'cd'
