@@ -17,7 +17,7 @@ endfunction
 " }
 " EOF
 
-" set syntax=off
+set syntax=off
 
 " packadd sniprun
 " nmap <leader>R :RunCodeBlock<CR>
@@ -63,14 +63,14 @@ setlocal comments=fb:>,fb:*,fb:+,fb:-
 " syn region NeorgConcealURLValue matchgroup=mkdDelimiter start=/(/ end=/)/  contained oneline conceal
 " syn region NeorgConcealURL matchgroup=mkdDelimiter start=/\([^\\]\|\_^\)\@<=\[\%\(\%\(\\\=[^\]]\)\+\](\)\@=/ end=/[^\\]\@<=\]/  oneline concealends nextgroup=NeorgConcealURLValue skipwhite
 
-function! s:customSyntax() abort
-  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
-  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[X\]'hs=e-4 conceal cchar=
-  syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\@\]'hs=e-4 conceal cchar=➪
-  " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
-  " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
-endfunction
-autocmd Syntax * call s:customSyntax()
+" function! s:customSyntax() abort
+"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\s\]'hs=e-4 conceal cchar=
+"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[X\]'hs=e-4 conceal cchar=
+"   syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\@\]'hs=e-4 conceal cchar=➪
+"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[\.\]'hs=e-4 conceal cchar=⊡
+"   " syntax match VimwikiListTodo '\v(\s+)?(-|\*)\s\[o\]'hs=e-4 conceal cchar=⬕
+" endfunction
+" autocmd Syntax * call s:customSyntax()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

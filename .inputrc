@@ -1,3 +1,5 @@
+set enable-bracketed-paste Off
+
 set bell-style visible
 
 # By default, if filename completion is performed on a symbolic link pointing

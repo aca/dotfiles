@@ -1,8 +1,12 @@
--- $ vim-startuptime -vimpath nvim | grep '^Total' 
+-- $ vim-startuptime -vimpath nvim | grep '^Total'
 --
 -- Total Average: 5.900700 msec
 -- Total Max:     6.221000 msec
 -- Total Min:     5.663000 msec
+
+-- vim.cmd [[
+-- syntax=off
+-- ]]
 
 local function settings()
     local g = vim.g
@@ -16,7 +20,7 @@ local function settings()
     opt.mmp = 5000
     opt.shell = "/bin/sh"
     opt.wildignore = { "/tmp/*", "*.so", "*.swp", "*.zip", "*.pyc", "*.db", "*.sqlite", "*.git/*" }
-    opt.conceallevel = 0
+    opt.conceallevel = 2
     opt.shortmess = "aItcF"
     opt.clipboard = { "unnamed", "unnamedplus" }
     -- o.virtualedit = "block"
@@ -540,7 +544,7 @@ local function lazy()
 
         vim.defer_fn(function()
             -- prevent delay on startup
-            vim.cmd [[ silent! helptags ALL ]]
+            vim.cmd([[ silent! helptags ALL ]])
         end, 200)
     end, 50)
 end
