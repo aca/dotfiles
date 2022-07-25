@@ -33,14 +33,6 @@ packadd nvim-colorizer.lua
 " packadd webapi-vim
 " packadd vim-gist
 
-packadd vim-oscyank
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''  | silent OSCYankReg " | endif
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | silent OSCYankReg + | endif
-
-packadd suda.vim
-command! SudoWrite :SudaWrite
-command! SudoRead  :SudaRead
-
 
 command! Codi packadd codi.vim | :Codi
 command! Luapad packadd nvim-luapad | :Luapad
@@ -108,6 +100,9 @@ packadd zenburn.nvim
 vim.cmd([[
 packadd quickfix-reflector.vim
 
+packadd suda.vim
+command! SudoWrite :SudaWrite
+command! SudoRead  :SudaRead
 
 let g:move_map_keys = 0
 packadd vim-move
@@ -124,16 +119,17 @@ nmap <M-w> <Plug>MoveLineUp
 nmap <M-a> <Plug>MoveCharLeft
 nmap <M-d> <Plug>MoveCharRight
 
-
 let g:swap_no_default_key_mappings = 1
 packadd vim-swap
 nmap g< <Plug>(swap-prev)
 nmap g> <Plug>(swap-next)
 
-
 packadd Comment.nvim 
 runtime after/plugin/Comment.lua
 packadd nvim-ts-context-commentstring
+
+
+
 ]])
 
 -- navigate

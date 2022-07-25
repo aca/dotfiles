@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-yank
+# yank
 /usr/bin/pbcopy

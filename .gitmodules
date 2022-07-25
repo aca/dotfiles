@@ -463,3 +463,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/mason-lspconfig.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/mason-lspconfig.nvim
 	url = https://github.com/williamboman/mason-lspconfig.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-osc52"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-osc52
+	url = https://github.com/ojroques/nvim-osc52.git
