@@ -523,7 +523,10 @@ local function lazy()
         let g:Illuminate_delay = 500
        
         packadd vim-illuminate
-        packadd nvim-lsp-installer
+        " packadd nvim-lsp-installer
+
+        packadd mason.nvim
+        packadd mason-lspconfig.nvim
     ]])
 
     require("core.treesitter")

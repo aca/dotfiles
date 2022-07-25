@@ -104,6 +104,8 @@ set edit:insert:binding[Ctrl-E] = { nop ?(tmux clear-history 2>/dev/null); clear
 
 # fish like ctrl-a 
 set edit:insert:binding[Ctrl-A] = { edit:completion:smart-start }
+# https://github.com/elves/elvish/pull/1587
+# set edit:command:binding[a] = { edit:move-dot-right; edit:close-mode }
 
 set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 2 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
 set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv | slurp)}

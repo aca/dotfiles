@@ -1,8 +1,6 @@
 [Default Applications]
-# /usr/share/applications/mimeinfo.cache:124
-# text/html=google-chrome-stable.desktop
-# x-scheme-handler/http=google-chrome-stable.desktop
-# x-scheme-handler/https=google-chrome-stable.desktop
-# x-scheme-handler/about=google-chrome-stable.desktop
-# x-scheme-handler/unknown=google-chrome-stable.desktop
-x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+text/html=google-chrome.desktop;
+application/xhtml+xml=google-chrome.desktop;
+application/xml=google-chrome.desktop;
+x-scheme-handler/http=google-chrome.desktop;
+x-scheme-handler/https=google-chrome.desktop;

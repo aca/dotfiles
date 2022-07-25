@@ -6,6 +6,11 @@ set $mod Mod4
 
 exec copyq
 
+exec --no-startup-id fcitx5 -d
+exec --no-startup-id kanshi
+
+for_window [app_id="com.github.hulk.copyq"] floating enable, resize set 800px 800px
+
 # exec wl-paste -t text --watch clipman store
 # exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
 # clipman pick -t wofi
@@ -40,9 +45,6 @@ exec copyq
 #     workspace 8 output $disp2 $disp1
 #     workspace 9 output $disp1
 #     workspace 10 output $disp1
-
-exec --no-startup-id fcitx5 -d
-exec --no-startup-id kanshi
 
 # output DP-4 pos 1440 0 res 3840x2160
 # output DP-3 pos 0 0 res 2560x1440 transform 90
@@ -128,7 +130,7 @@ input "type:keyboard" {
     # bindsym $mod+Return exec fuzzel
     bindsym $mod+Return exec rofi -combi-modi "sway:~/.config/rofi/sway_window_switch.sh#drun#ssh" -font 'hack 14' -show combi
 
-    bindsym $mod+v exec copyq show
+    bindsym $mod+v exec copyq toggle
 
     # Kill focused window
     bindsym $mod+q kill
@@ -214,7 +216,7 @@ input "type:keyboard" {
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    # bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+t focus mode_toggle

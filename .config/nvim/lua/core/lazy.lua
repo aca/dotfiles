@@ -21,7 +21,7 @@ packadd zen-mode.nvim
 packadd vim-fetch " TODO: replace or mv to start
 packadd vim-eunuch 
 packadd vim-characterize 
-" packadd fcitx.nvim
+packadd fcitx.nvim
 " packadd vim-rfc 
 " packadd symbols-outline.nvim
 " packadd vim-diagon

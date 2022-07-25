@@ -5,6 +5,8 @@
 # }
 
 use platform
+use github.com/zzamboni/elvish-completions/builtins
+use github.com/zzamboni/elvish-completions/cd
 
 use elvish-bash-completion/bash-completer
 # use github.com/aca/elvish-bash-completion/bash-completer

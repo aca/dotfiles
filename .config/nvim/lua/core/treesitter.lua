@@ -104,7 +104,7 @@ local folds_levels = ts_utils.memoize_by_buf_tick(function(bufnr)
 		local node = m.node
 		local s_row, _, e_row, _ = node:range()
 		local node_is_heading = node:type() == "atx_heading" or node:type() == "setext_heading"
-		local node_is_code = node:type() == "fenced_code_block"
+		-- local node_is_code = node:type() == "fenced_code_block"
 
 		-- Process heading. Start fold at start line of heading with fold level
 		-- equal to header level.
@@ -119,10 +119,10 @@ local folds_levels = ts_utils.memoize_by_buf_tick(function(bufnr)
 		end
 
 		-- Process code block. Add fold level at start line and subtract at end.
-		if node_is_code then
-			levels[s_row] = "a1"
-			levels[e_row - 1] = "s1"
-		end
+		-- if node_is_code then
+		-- 	levels[s_row] = "a1"
+		-- 	levels[e_row - 1] = "s1"
+		-- end
 	end
 
 	return levels
@@ -210,3 +210,10 @@ require("vim.treesitter.query").set_query("markdown", "highlights", [[
 ] @conceal
 (#set! conceal ""))
 ]])
+
+-- require("vim.treesitter.query").set_query("markdown", "folds", [[
+-- [
+--   (atx_heading)
+--   (setext_heading)
+-- ] @fold
+-- ]])
