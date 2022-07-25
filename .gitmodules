@@ -310,9 +310,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-diagon"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-diagon
 	url = https://github.com/willchao612/vim-diagon.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-lsp-installer"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-lsp-installer
-	url = https://github.com/williamboman/nvim-lsp-installer.git
 [submodule ".submodules/vifmimg"]
 	path = .submodules/vifmimg
 	url = https://github.com/cirala/vifmimg.git
