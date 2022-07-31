@@ -22,7 +22,8 @@ local function settings()
     opt.wildignore = { "/tmp/*", "*.so", "*.swp", "*.zip", "*.pyc", "*.db", "*.sqlite", "*.git/*" }
     opt.conceallevel = 2
     opt.shortmess = "aItcF"
-    opt.clipboard = { "unnamed", "unnamedplus" }
+    -- opt.clipboard = { "unnamed", "unnamedplus" }
+    opt.clipboard = { "unnamedplus" }
     -- o.virtualedit = "block"
     opt.nrformats = { "bin", "hex", "alpha", "octal" }
     opt.signcolumn = "no"

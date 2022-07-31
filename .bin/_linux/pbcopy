@@ -1,11 +1,12 @@
 #!/bin/sh
 
-if [ "$SSH_TTY" != "" ]; then
-    yank
-fi
+# if [ "$SSH_TTY" != "" ]; then
+#     yank
+# fi
+
 
 if pgrep copyq 1>/dev/null 2>/dev/null; then 
-    copyq add -
+    copyq copy -
 elif [ "$WAYLAND_DISPLAY" = "" ]; then
     xsel --clipboard --input
 else
