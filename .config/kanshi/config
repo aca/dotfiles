@@ -3,17 +3,17 @@ profile {
     output "LG HDR 4K" mode 2560x1440 position 0,0  transform 270
     output eDP-1 disable
 
-
     # output_1_name=$(swaymsg -t get_outputs --raw | jq '.[0].name' -r)
     # output_2_name=$(swaymsg -t get_outputs --raw | jq '.[1].name' -r)
-    exec swaymsg workspace 1, move workspace to output DP-4
-    exec swaymsg workspace 2, move workspace to output DP-4
-    exec swaymsg workspace 3, move workspace to output DP-4
-    exec swaymsg workspace 4, move workspace to output DP-3
-    exec swaymsg workspace 5, move workspace to output DP-3
-    exec swaymsg workspace 6, move workspace to output DP-3
+    # exec swaymsg workspace 1, move workspace to output '"LG TV SSCR2"'
+    # exec swaymsg workspace 2, move workspace to output '"LG TV SSCR2"'
+    # exec swaymsg workspace 3, move workspace to output '"LG TV SSCR2"'
+    # exec swaymsg workspace 4, move workspace to output DP-3
+    # exec swaymsg workspace 5, move workspace to output DP-3
+    # exec swaymsg workspace 6, move workspace to output DP-3
 }
 
 profile {
     output eDP-1 enable
 }
+
