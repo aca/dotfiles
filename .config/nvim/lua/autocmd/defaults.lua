@@ -14,7 +14,7 @@ nvim_create_autocmd({ "BufWinEnter", "BufAdd" }, {
 })
 
 -- mkdir on save
-nvim_create_autocmd("BufWritePre", {
+nvim_create_autocmd({"BufWritePre"}, {
 	group = group,
 	callback = function()
 		local dir = vim.fn.expand("%:p:h", _, _)
@@ -66,3 +66,4 @@ nvim_create_autocmd("BufWritePost", {
 --   group = group,
 --   command = "cgetexpr setlocal ft=qf"
 -- })
+

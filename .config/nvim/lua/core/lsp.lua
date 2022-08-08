@@ -15,7 +15,7 @@ local rightAlignFormatFunction = function(diagnostic)
     local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
     local lwidth = vim.api.nvim_get_option("columns")
     local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-    local splen = lwidth - line_length - msg_length - 9
+    local splen = lwidth - line_length - msg_length - 4
     local sp = string.rep(" ", splen)
 
     if string.find(diagnostic.message, "declared but its value is never read") then

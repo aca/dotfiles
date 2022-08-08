@@ -5,4 +5,4 @@
 # b
 # c
 
-bash -c "echo {$1..$2}" | tr ' ' '\n'
+bash -c "echo {a..z}" | tr ' ' '\n'

@@ -4,6 +4,8 @@ set $mod Mod4
 # bindsym $mod+Control+Shift+Down move workspace to output down
 # bindsym $mod+Control+Shift+Up move workspace to output up
 
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 exec --no-startup-id fcitx5 -d
 exec --no-startup-id kanshi

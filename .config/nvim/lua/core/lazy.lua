@@ -146,3 +146,7 @@ packadd fold-cycle.nvim
 
 packadd hop.nvim
 ]])
+
+vim.cmd [[
+imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
+]]

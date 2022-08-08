@@ -9,7 +9,8 @@ set edit:prompt = {
   styled (date "+%H:%M ") '#4e4e4e'; styled [&$true=(whoami)@(platform:hostname)' ' &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' #5e5e5e;
 }
 
-set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }
+# set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }
+set edit:rprompt = { styled (basename $pwd) yellow }
 
 
 set edit:after-readline = [
