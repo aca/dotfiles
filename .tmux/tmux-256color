@@ -1,4 +1,5 @@
-#	Reconstructed via infocmp from file: /usr/share/terminfo/t/tmux-256color
+# Reconstructed via infocmp from file: /usr/share/terminfo/t/tmux-256color
+# sudo /usr/bin/tic -x tmux-256color
 tmux-256color|tmux with 256 colors,
 	OTbs, OTpt, am, hs, km, mir, msgr, xenl, AX, G0,
 	colors#256, cols#80, it#8, lines#24, pairs#32767, U8#1,

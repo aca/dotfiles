@@ -1,9 +1,19 @@
+
+-- Toggle using count
+-- vim.keymap.set('n', 'gcc', "v:count == 0 ? '<Plug>(comment_toggle_current_linewise)' : '<Plug>(comment_toggle_linewise_count)'", opt)
+-- vim.keymap.set('n', 'gbc', "v:count == 0 ? '<Plug>(comment_toggle_current_blockwise)' : '<Plug>(comment_toggle_blockwise_count)'", opt)
 require("Comment").setup({
 	mappings = {
 		basic = true,
 		extra = false,
 		extended = false,
 	},
+    toggler = {
+        ---Line-comment toggle keymap
+        line = 'gcc',
+        ---Block-comment toggle keymap
+        block = 'gbc',
+    },
 	pre_hook = function(ctx)
 		-- TODO: https://github.com/numToStr/Comment.nvim/pull/133 remove nvim-ts-context-commentstring?
 		-- require('Comment.jsx').calculate(ctx)
