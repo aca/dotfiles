@@ -123,7 +123,6 @@ cleanup() {
   mkdir -p $HOME/.config/systemd/user
   mkdir -p $HOME/bin
   mkdir -p $HOME/.kube
-  emptyDir ~/.local/share/nvim/site/pack/paqs
   ensureDir $HOME/.config/autostart
   ensureDir $HOME/.ssh
   ensureDir $HOME/.local/state

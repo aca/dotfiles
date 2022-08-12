@@ -1,5 +1,13 @@
 # vim: set filetype=zsh foldmethod=marker foldlevel=0:
 
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+
+
 fpath=($HOME/.zsh/zsh-completions/src $fpath)
 
 # oh-my-zsh {{{
@@ -90,10 +98,9 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# export PATH=$HOME/.bin:$PATH
 # export PATH=$HOME/.krew/bin:$PATH
-# export PATH=$HOME/bin:$PATH
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export PATH=$HOME/bin:$HOME/.bin:$PATH
 typeset -U path # clean path
 # }}}
 # aliases {{{
@@ -170,3 +177,5 @@ precmd_functions+=(__prompt_precmd)
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+
+

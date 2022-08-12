@@ -80,6 +80,9 @@ set paths = [
 
   ~/.gem/ruby/*[nomatch-ok]/bin
 
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+
   ~/.bun/bin
 
   ~/bin
