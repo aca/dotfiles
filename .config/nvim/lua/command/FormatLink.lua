@@ -3,29 +3,30 @@ local api = vim.api
 
 -- https://stackoverflow.com/questions/29072601/lua-string-gsub-with-a-hyphen
 local function replace(str, what, with)
-	what = string.gsub(what, "[%(%)%.%+%-%*%?%[%]%^%$%%]", "%%%1") -- escape pattern
-	with = string.gsub(with, "[%%]", "%%%%") -- escape replacement
-	local v, _ = string.gsub(str, what, with)
-	return v
+    what = string.gsub(what, "[%(%)%.%+%-%*%?%[%]%^%$%%]", "%%%1") -- escape pattern
+    with = string.gsub(with, "[%%]", "%%%%") -- escape replacement
+    local v, _ = string.gsub(str, what, with)
+    return v
 end
 
 vim.api.nvim_create_user_command("FormatLink", function()
-	local line = api.nvim_get_current_line()
-	local url = string.match(line, "[http://][https://][%w|%p]*")
+    local line = api.nvim_get_current_line()
+    local linenumber = vim.api.nvim_win_get_cursor(0)[1]
+    local url = string.match(line, "[http://][https://][%w|%p]*")
+    if url == nil or url == "" then
+        return
+    end
 
-	-- http://www.pixelbeat.org/cmdline.html
-	-- sed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q'
-	-- TODO: fix not working on mac, need to test on linux
-	-- local cmd = 'curl -s --fail "' .. url .. '"' .. "|" .. "sed -n 's/.*<title>\\(.*\\)<\\/title>.*/\\1/ip;T;q'"
-	local cmd = 'curl -s --fail "' .. url .. '" | pup "title text{}"'
-	-- print(cmd)
-	local err = vim.api.nvim_get_vvar("shell_error")
-	if 0 ~= err then
-		print("failed to update link")
-		return
-	end
+    -- local cmd = 'curl -s --fail "' .. url .. '" | pup "head > title text{}"'
+    local cmd = { "xtitle", url }
 
-	local title = vim.fn.systemlist(cmd)[1]
-	local replaced = string.format("[%s](%s)", title, url)
-	api.nvim_set_current_line(replace(line, url, replaced))
+    vim.fn.jobstart(cmd, {
+        on_stdout = function(_, data, _)
+            local linktext = string.format("[%s](%s)", data[1], url)
+            local patchedline = replace(line, url, linktext)
+            api.nvim_buf_set_lines(0, linenumber - 1, linenumber, false, { patchedline })
+        end,
+        stdout_buffered = true,
+        stderr_buffered = true,
+    })
 end, {})
