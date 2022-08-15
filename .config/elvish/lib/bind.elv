@@ -54,7 +54,7 @@ set edit:insert:binding[Ctrl-T] = {||
 }
 
 fn copy_current_command {||
-  echo $edit:current-command | pbcopy
+  print (str:trim-space $edit:current-command) | pbcopy
 }
 set edit:insert:binding[Ctrl-X] = {|| copy_current_command >/dev/tty 2>&1 }
 

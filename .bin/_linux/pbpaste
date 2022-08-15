@@ -5,5 +5,5 @@
 if [ "$WAYLAND_DISPLAY" = "" ]; then
     xsel --clipboard --output 2>/dev/null
 else
-    wl-paste
+    wl-paste 2>/dev/null
 fi

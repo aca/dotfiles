@@ -6,7 +6,7 @@
 
 
 if pgrep copyq 1>/dev/null 2>/dev/null; then 
-    copyq copy -
+    copyq copy - 1>/dev/null 2>/dev/null
 elif [ "$WAYLAND_DISPLAY" = "" ]; then
     xsel --clipboard --input
 else
