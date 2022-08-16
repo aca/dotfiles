@@ -47,7 +47,6 @@ packadd vim-dadbod-ui
 
 
 packadd FixCursorHold.nvim
-" packadd copilot.vim
 " packadd indent-blankline.nvim
 
 " NOTES(aca): neovim visual block does not work as expected, override with this.

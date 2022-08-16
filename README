@@ -6,4 +6,3 @@ make init
 curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 
 git clone root:~/src/config/dotfiles.shared
-
