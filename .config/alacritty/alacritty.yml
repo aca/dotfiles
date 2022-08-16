@@ -28,6 +28,7 @@ font:
   normal:
     style: Light
     # family: JetBrainsMono Nerd Font
+    # family: SauceCodePro Nerd Font
     family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
@@ -57,8 +58,8 @@ font:
 
   size: 18
   offset:
-    x: -2
-    y: 0
+    x: -3
+    y: -2
 
   glyph_offset:
     x: 0
@@ -419,40 +420,46 @@ debug:
  log_level: Trace
  print_events: true
 # ColorStart
-# Base16 IR Black - alacritty color config
-# Timothée Poisot (http://timotheepoisot.fr)
+# Base16 Black Metal (Mayhem) 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
     background: '0x000000'
-    foreground: '0xb5b3aa'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text: '0x000000'
-    cursor: '0xb5b3aa'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0xff6c60'
-    green:   '0xa8ff60'
-    yellow:  '0xffffb6'
-    blue:    '0x96cbfe'
-    magenta: '0xff73fd'
-    cyan:    '0xc6c5fe'
-    white:   '0xb5b3aa'
+    red:     '0x5f8787'
+    green:   '0xf3ecd4'
+    yellow:  '0xeecc6c'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x6c6c66'
-    red:     '0xe9c062'
-    green:   '0x242422'
-    yellow:  '0x484844'
-    blue:    '0x918f88'
-    magenta: '0xd9d7cc'
-    cyan:    '0xb18a3d'
-    white:   '0xfdfbee'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0xf3ecd4'
+    yellow:  '0xeecc6c'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd

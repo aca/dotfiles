@@ -35,6 +35,12 @@ nvim_create_autocmd("WinEnter", {
 	command = 'au WinEnter * if winnr(\'$\') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif',
 })
 
+-- nvim_create_autocmd("CursorHold", {
+-- 	group = group,
+-- 	pattern = { "*.md" },
+-- 	command = "startinsert",
+-- })
+
 nvim_create_autocmd("TermOpen", {
 	group = group,
 	pattern = { "*" },

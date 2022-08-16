@@ -466,3 +466,15 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-tabnine"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-tabnine
 	url = https://github.com/tzachar/cmp-tabnine.git
+[submodule ".submodules/kubectl-node-shell"]
+	path = .submodules/kubectl-node-shell
+	url = https://github.com/kvaps/kubectl-node-shell.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-ufo"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-ufo
+	url = https://github.com/kevinhwang91/nvim-ufo.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/promise-async"]
+	path = .local/share/nvim/site/pack/bundle/opt/promise-async
+	url = https://github.com/kevinhwang91/promise-async.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-fold-cycle"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-fold-cycle
+	url = https://github.com/arecarn/vim-fold-cycle.git

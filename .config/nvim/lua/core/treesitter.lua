@@ -134,15 +134,14 @@ _G._markdown_foldexpr = function()
 end
 
 vim.cmd([[
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
+  set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
 ]])
 
 -- for lazyload
 if vim.bo.filetype == "markdown" then
 	vim.cmd([[
         setlocal foldexpr=v:lua._markdown_foldexpr()
-        normal! zx
+        " normal! zx
     ]])
 end
 

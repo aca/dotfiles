@@ -1,8 +1,8 @@
-setlocal foldtext=FoldTextMarkdown()
-function! FoldTextMarkdown()
-  let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
-  return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
-endfunction
+" setlocal foldtext=FoldTextMarkdown()
+" function! FoldTextMarkdown()
+"   let title = substitute(getline(v:foldstart), '^#\+\s\+', '', '')
+"   return repeat('    ', v:foldlevel - 1) .'⊞ ' . title
+" endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
