@@ -80,9 +80,6 @@ set paths = [
 
   ~/.gem/ruby/*[nomatch-ok]/bin
 
-  /opt/homebrew/bin
-  /opt/homebrew/sbin
-
   ~/.bun/bin
 
   ~/bin
@@ -101,6 +98,9 @@ set paths = [
   ~/.krew/bin
   # ~/.raku/bin
   /usr/local/bin
+
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
 
   $@paths
 ]

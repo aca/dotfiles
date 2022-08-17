@@ -38,7 +38,7 @@
   sparseCheckout = true
   quotepath = false
 	; hooksPath = .githooks
-  pager = git-split-diffs --color | less -RFX
+  ; pager = git-split-diffs --color | less -RFX
         
 [alias]
   co = checkout
