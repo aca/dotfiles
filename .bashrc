@@ -1,6 +1,5 @@
 # vim: foldmethod=marker foldlevel=0:
 
-export PATH=$HOME/.bin:$PATH:$HOME/.asdf/bin:$HOME/.asdf/shims
 # export PATH=$HOME/bin:$PATH
 
 # If not running interactively, don't do anything
@@ -92,5 +91,3 @@ osc7_cwd() {
     printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
 }
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
-
-
