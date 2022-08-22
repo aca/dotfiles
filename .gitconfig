@@ -79,8 +79,8 @@
 	ignoreSubmodules = dirty
     colorMoved = default
 
-[url "ssh://git@git.sr.ht/"]
-    insteadOf = https://git.sr.ht/
+# [url "ssh://git@git.sr.ht/"]
+#     insteadOf = https://git.sr.ht/
 
 ; https://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time
 [push]
