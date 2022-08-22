@@ -138,16 +138,15 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
     function(server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup({
+        lspconfig[server_name].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
     end,
-    -- TODO!!!!: FIX
-    --   ["sumneko_lua"] = function()
-    --       require("lua-dev").setup({})
-          -- lspconfig.sumneko_lua.setup(luadev)
-    --   end,
+    ["sumneko_lua"] = function()
+        local luadev = require("lua-dev")
+        lspconfig.sumneko_lua.setup(luadev.setup({}))
+    end,
 })
 
 -- for _, server in ipairs(lsp_installer.get_installed_servers()) do

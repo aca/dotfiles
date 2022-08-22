@@ -8,9 +8,9 @@
 -- syntax=off
 -- ]]
 
+local g = vim.g
+local opt = vim.opt
 local function settings()
-    local g = vim.g
-    local opt = vim.opt
     opt.cmdheight = 1
     opt.laststatus = 0
 

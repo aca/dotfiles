@@ -4,7 +4,6 @@
 #
 #   $ ls asd.jpg | path.suffix  // .jpg
 #   $ path.stem /home/x/asd.jpg // .jpg
-#
 
 import pathlib
 import sys
