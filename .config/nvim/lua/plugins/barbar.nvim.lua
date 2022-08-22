@@ -1,4 +1,5 @@
 local nvim_set_keymap = vim.api.nvim_set_keymap
+
 nvim_set_keymap("n", "<leader>1", "<cmd>BufferGoto 1<cr>", { noremap = true })
 nvim_set_keymap("n", "<leader>2", "<cmd>BufferGoto 2<cr>", { noremap = true })
 nvim_set_keymap("n", "<leader>3", "<cmd>BufferGoto 3<cr>", { noremap = true })

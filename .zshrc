@@ -7,7 +7,6 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 
-
 fpath=($HOME/.zsh/zsh-completions/src $fpath)
 
 # oh-my-zsh {{{
@@ -26,6 +25,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # }}}
+
 # prompt {{{
 
 local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?
@@ -145,8 +145,6 @@ bindkey '^x' _copy # copy
 # }}}
 
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-# [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
-
 
 # https://gitlab.freedesktop.org/Per_Bothner/specifications/-/blob/master/proposals/prompts-data/shell-integration.zsh
 _prompt_executing=""
@@ -174,8 +172,3 @@ function __prompt_preexec() {
 }
 preexec_functions+=(__prompt_preexec)
 precmd_functions+=(__prompt_precmd)
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
-
-
