@@ -4,7 +4,7 @@
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
 -- local configs = require("lspconfig/configs")
---
+require("lsp-format").setup {}
 
 -- TODO: https://github.com/williamboman/mason-lspconfig.nvim
 -- local lsp_installer = require("nvim-lsp-installer")
@@ -15,7 +15,7 @@ local rightAlignFormatFunction = function(diagnostic)
     local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
     local lwidth = vim.api.nvim_get_option("columns")
     local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-    local splen = lwidth - line_length - msg_length - 4
+    local splen = lwidth - line_length - msg_length - 7
     local sp = string.rep(" ", splen)
 
     if string.find(diagnostic.message, "declared but its value is never read") then
@@ -120,13 +120,16 @@ local gopls_settings = {
     },
 }
 
-if vim.fn.executable("gopls") == 1 then
-    lspconfig.gopls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = gopls_settings,
-    })
-end
+-- if vim.fn.executable("gopls") == 1 then
+--     lspconfig.gopls.setup({
+--         capabilities = capabilities,
+--         on_attach = function(client, bufnr)
+--             require "lsp-format".on_attach(client)
+--             on_attach(client, bufnr)
+--         end,
+--         settings = gopls_settings,
+--     })
+-- end
 
 -- lspconfig.elvish.setup({
 --     capabilities = capabilities,
@@ -146,6 +149,19 @@ require("mason-lspconfig").setup_handlers({
     ["sumneko_lua"] = function()
         local luadev = require("lua-dev")
         lspconfig.sumneko_lua.setup(luadev.setup({}))
+    end,
+
+    ["gopls"] = function()
+        lspconfig.gopls.setup(
+            {
+                capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    -- require "lsp-format".on_attach(client)
+                    on_attach(client, bufnr)
+                end,
+                settings = gopls_settings,
+            }
+        )
     end,
 })
 

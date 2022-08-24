@@ -1,5 +1,6 @@
 stty -ixon # https://github.com/elves/elvish/issues/1488
 
+use str
 use platform
 # prompt {{{
 # vi mode binding https://github.com/elves/elvish/issues/971
@@ -7,12 +8,12 @@ set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 set edit:rprompt-persistent = $false
 set edit:prompt = {
   # styled (e:date "+%H:%M ") '#4e4e4e'; styled [&$true=(whoami)@(platform:hostname)' ' &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' #5e5e5e;
-  styled [&$true=(whoami)@(platform:hostname) &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' #5e5e5e;
+  styled [&$true=$E:USER@(platform:hostname)" " &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' #5e5e5e;
 }
 
 # set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }
-set edit:rprompt = { styled (basename $pwd) yellow }
-
+# set edit:rprompt = { styled (basename $pwd) yellow }
+set edit:rprompt = { styled [(str:split '/' $pwd)][-1] yellow }
 
 set edit:after-readline = [
   {|args|

@@ -175,14 +175,13 @@ wezterm.on("resize-down", function(window, pane)
 end)
 
 local config = {
-    
-    -- unix_domains = {
-    --     {
-    --         name = "unix"
-    --     }
-    -- },
-    --
-    -- default_gui_startup_args = {"connect", "unix"},
+    unix_domains = {
+        {
+            name = "unix"
+        }
+    },
+
+    default_gui_startup_args = {"connect", "unix"},
 
     window_decorations = "RESIZE",
     cell_width = 0.85,

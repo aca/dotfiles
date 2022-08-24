@@ -169,7 +169,8 @@ end
 
 local function colors_seoul256()
     local nvim_set_hl = vim.api.nvim_set_hl
-    nvim_set_hl(0, "Normal", { background = 0, foreground = 14277081 })
+    -- nvim_set_hl(0, "Normal", { background = 0, foreground = 14277081 })
+    nvim_set_hl(0, "Normal", { foreground = 14277081 })
     nvim_set_hl(0, "SyntaxError", { special = 16145237, undercurl = true })
     nvim_set_hl(0, "SyntaxWarning", { special = 14985831, undercurl = true })
     nvim_set_hl(0, "SyntaxInfo", { special = 7712471, undercurl = true })
@@ -195,12 +196,15 @@ local function colors_seoul256()
     -- nvim_set_hl(0,  "FoldColumn", {   background = 2434341,   foreground = 12434584 } )
     nvim_set_hl(0, "Folded", { background = "#050505", foreground = "#ffffff", italic = true })
     nvim_set_hl(0, "FoldColumn", {})
-    nvim_set_hl(0, "SignColumn", { background = 0, foreground = 14277081 })
+    -- nvim_set_hl(0, "SignColumn", { background = 0, foreground = 14277081 })
+    nvim_set_hl(0, "SignColumn", { foreground = 14277081 })
 
     nvim_set_hl(0, "IncSearch", { background = 7712471, foreground = 0 })
     nvim_set_hl(0, "Substitute", { background = 14985831, foreground = 0 })
-    nvim_set_hl(0, "LineNr", { background = 0, foreground = 10066034 })
-    nvim_set_hl(0, "CursorLineNr", { background = 0, bold = true, foreground = 12481906 })
+    -- nvim_set_hl(0, "LineNr", { background = 0, foreground = 10066034 })
+    -- nvim_set_hl(0, "CursorLineNr", { background = 0, bold = true, foreground = 12481906 })
+    nvim_set_hl(0, "LineNr", { foreground = 10066034 })
+    nvim_set_hl(0, "CursorLineNr", { bold = true, foreground = 12481906 })
     nvim_set_hl(0, "MatchParen", { background = 4457988, bold = true, foreground = 16145237, italic = true })
     nvim_set_hl(0, "ParenMatch", { background = 4457988, bold = true, foreground = 16145237, italic = true })
     nvim_set_hl(0, "ModeMsg", {})
@@ -521,13 +525,13 @@ local function lazy()
         packadd playground
 
         packadd nvim-lspconfig
-        let g:Illuminate_delay = 500
        
+        let g:Illuminate_delay = 500
         packadd vim-illuminate
-        " packadd nvim-lsp-installer
 
         packadd mason.nvim
         packadd mason-lspconfig.nvim
+        packadd lsp-format.nvim
     ]])
 
     require("core.treesitter")

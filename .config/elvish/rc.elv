@@ -100,28 +100,28 @@ fn proxyoff {
 set edit:before-readline = [
     { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
 
-    # this is fix for asdf performance issue
-    {
-        set paths = [(
-            if ?(asdf.use) {
-                put $@paths | { 
-                    put ~/.asdf/bin ~/.asdf/shims
-                    each { |x|
-                        if (not (str:contains $x "/.asdf")) { 
-                            put $x
-                        } 
-                    }; 
-                }
-            } else {
-                put $@paths | { 
-                    each { |x| 
-                        if (not (str:contains $x "/.asdf")) { 
-                            put $x
-                        } 
-                    }; 
-                    put ~/.asdf/bin ~/.asdf/shims
-                }
-            }
-        )]
-    }
+    # # this is fix for asdf performance issue
+    # {
+    #     set paths = [(
+    #         if ?(asdf.use) {
+    #             put $@paths | { 
+    #                 put ~/.asdf/bin ~/.asdf/shims
+    #                 each { |x|
+    #                     if (not (str:contains $x "/.asdf")) { 
+    #                         put $x
+    #                     } 
+    #                 }; 
+    #             }
+    #         } else {
+    #             put $@paths | { 
+    #                 each { |x| 
+    #                     if (not (str:contains $x "/.asdf")) { 
+    #                         put $x
+    #                     } 
+    #                 }; 
+    #                 put ~/.asdf/bin ~/.asdf/shims
+    #             }
+    #         }
+    #     )]
+    # }
 ]
