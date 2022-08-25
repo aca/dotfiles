@@ -5,7 +5,7 @@ install.compilers = { "gcc" }
 
 require("nvim-treesitter.configs").setup({
     indent = {
-        enable = true,
+        enable = false,
     },
     playground = {
         enable = true,
@@ -47,7 +47,7 @@ require("nvim-treesitter.configs").setup({
         "sql",
         -- "javascript",
         "typescript",
-        "css", "scss",
+        "html", "css", "scss",
         "svelte",
 
         "elvish",
