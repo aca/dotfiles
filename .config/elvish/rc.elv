@@ -97,31 +97,60 @@ fn proxyoff {
 # set edit:after-readline = [ $@edit:after-readline { |args| printf "\033]133;C;\007" } ]
 # set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;aid=%s\007" $pid } ]
 
+fn asdf-available {
+    # if (eq $pwd $E:HOME) { fail 1 }
+    if ?(test -d $pwd/.asdf) {
+        return
+    } 
+
+    var tmppath = $pwd
+    {
+        for i [0 0 0 0] {
+            {
+                if ?(test -f $tmppath/.tool-versions) {
+                    return
+                } 
+
+                if ?(test -d $tmppath/.git) {
+                    fail 1
+                } 
+
+                if ?(test -d $tmppath/.asdf) {
+                    fail 1
+                } 
+            }
+            set tmppath = $tmppath/../
+        }
+    }
+
+    fail 1
+}
+
 set edit:before-readline = [
     { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
 
-    # # this is fix for asdf performance issue
-    # {
-    #     set paths = [(
-    #         if ?(asdf.use) {
-    #             put $@paths | { 
-    #                 put ~/.asdf/bin ~/.asdf/shims
-    #                 each { |x|
-    #                     if (not (str:contains $x "/.asdf")) { 
-    #                         put $x
-    #                     } 
-    #                 }; 
-    #             }
-    #         } else {
-    #             put $@paths | { 
-    #                 each { |x| 
-    #                     if (not (str:contains $x "/.asdf")) { 
-    #                         put $x
-    #                     } 
-    #                 }; 
-    #                 put ~/.asdf/bin ~/.asdf/shims
-    #             }
-    #         }
-    #     )]
-    # }
+    # this is fix for asdf performance issue
+    {
+        set paths = [(
+            if ?(asdf-available) {
+                put $@paths | { 
+                    put ~/.asdf/bin ~/.asdf/shims
+                    each { |x|
+                        if (not (str:contains $x "/.asdf")) { 
+                            put $x
+                        } 
+                    }; 
+                }
+            } else {
+                put $@paths | { 
+                    each { |x| 
+                        if (not (str:contains $x "/.asdf")) { 
+                            put $x
+                        } 
+                    }; 
+                    put ~/.asdf/bin ~/.asdf/shims
+                }
+            }
+        )]
+    }
 ]

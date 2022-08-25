@@ -50,11 +50,9 @@ nnoremap <silent><leader>ff   :Files<cr>
 " nnoremap <silent><c-f>        :lua require'telescope.builtin'.grep_string{ only_sort_text = true, search = '', {layout_config={width=0.95} }}<cr>
 " nnoremap <silent><Leader>fw   :lua require('telescope.builtin').grep_string({layout_config={width=0.95}, search=''})<cr>
 
-
 nnoremap <silent><leader>fh   :History<CR>
 nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
-nnoremap <silent><leader>fC   :Colors<cr>
 nnoremap <silent><leader>fc   :Commits<cr>
 
 command! -bang -nargs=* Rg          call fzf#vim#grep('rg -L --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 3.. '}), 0)

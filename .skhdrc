@@ -115,7 +115,7 @@ resizeMode < l : yabai -m window --resize right:200:0; yabai -m window --resize 
 # lcmd + lctrl + lalt + shift - 0x2A : pmset displaysleepnow
 
 # esc, mission control
-lcmd + lctrl + lalt - escape : open '/Applications/Mission Control.app';
+lcmd + lctrl + lalt - escape : open -a '/System/Applications/Mission Control.app';
 
 # rotate tree
 lcmd + lctrl + lalt - r : yabai -m space --rotate 90;
