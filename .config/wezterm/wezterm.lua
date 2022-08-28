@@ -194,7 +194,7 @@ local config = {
     enable_scroll_bar = false,
 
     -- TODO !!!: performance issue, use tmux instead for now
-    -- scrollback_lines = 1000,
+    scrollback_lines = 1000,
 
     -- font_rules = {
     --   intensity = "Half",
@@ -291,7 +291,8 @@ local config = {
     --   ansi = {"#2e2e2e","#fc6d26","#3eb383","#fca121","#db3b21","#380d75","#6e49cb","#ffffff"},
     --   brights = {"#464646","#ff6517","#53eaa8","#fca013","#db501f","#441090","#7d53e7","#ffffff"},
     -- },
-    use_ime = true,
+    -- use_ime = true,
+    use_ime = false,
 
     -- TODO
     quick_select_patterns = {
@@ -312,8 +313,8 @@ local config = {
     },
 
     -- timeout_milliseconds defaults to 1000 and can be omitted
-    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
-    -- leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+    -- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
+    leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
 
     send_composed_key_when_left_alt_is_pressed = false,
     keys = {

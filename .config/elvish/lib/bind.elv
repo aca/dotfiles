@@ -59,7 +59,9 @@ fn copy_current_command {||
 set edit:insert:binding[Ctrl-X] = {|| copy_current_command >/dev/tty 2>&1 }
 
 fn paste_command {||
-  edit:insert-at-dot (pbpaste | slurp)
+  use re
+  edit:insert-at-dot (re:replace '\\\n' '^
+' (pbpaste | slurp))
 }
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 set edit:command:binding[p] = {|| paste_command >/dev/tty 2>&1 }

@@ -101,6 +101,7 @@ set paths = [
 
   /opt/homebrew/bin
   /opt/homebrew/sbin
+  ~/.local/share/JetBrains/Toolbox/scripts
 
   $@paths
 ]
