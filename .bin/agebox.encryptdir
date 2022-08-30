@@ -1,8 +1,0 @@
-#!/bin/bash
-
-age_root=$(git rev-parse --show-toplevel 2>/dev/null)
-relative_path=$(realpath --relative-to="$age_root" "$(pwd)")
-
-cd $age_root
-cat $age_root/.ageboxreg.yml | y2j | jq -r '.file_ids[]' | grep '^'"$relative_path" | xargs -I{} agebox encrypt "{}"
-

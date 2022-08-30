@@ -7,6 +7,8 @@
 -- vim.cmd [[
 -- syntax=off
 -- ]]
+--
+-- TODO: https://github.com/gaoDean/autolist.nvim
 
 local g = vim.g
 local opt = vim.opt
