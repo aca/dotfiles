@@ -11,6 +11,7 @@ RUN apk add --no-cache \
       sudo \
       tmux \
       stow \
+      yaml@edge \
       moreutils \
       ttyd@community \
       jq \
@@ -25,6 +26,7 @@ RUN apk add --no-cache \
       npm \
       ansible \
       nodejs \
+      python3 \
       coreutils \
       tcpdump \
       socat \
