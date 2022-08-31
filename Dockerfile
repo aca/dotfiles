@@ -7,11 +7,11 @@ RUN apk add --no-cache \
       curl \
       tar \
       git \
-      telnet \
+      busybox-extras \
       sudo \
       tmux \
       stow \
-      yaml@edge \
+      yaml \
       moreutils \
       ttyd@community \
       jq \
