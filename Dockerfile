@@ -40,6 +40,7 @@ RUN apk add --no-cache \
       unzip \
       gron@testing \
       bash-completion \
+      docker-cli \
       neovim@community
       # docker-cli \ -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker:ro 
       # make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
