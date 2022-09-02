@@ -481,3 +481,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/lsp-format.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/lsp-format.nvim
 	url = https://github.com/lukas-reineke/lsp-format.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-ts-rainbow"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-ts-rainbow
+	url = https://github.com/p00f/nvim-ts-rainbow.git
