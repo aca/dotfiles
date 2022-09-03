@@ -484,3 +484,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-ts-rainbow"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-ts-rainbow
 	url = https://github.com/p00f/nvim-ts-rainbow.git
+[submodule ".submodules/sway-alternating-layout"]
+	path = .submodules/sway-alternating-layout
+	url = https://github.com/greole/sway-alternating-layout.git

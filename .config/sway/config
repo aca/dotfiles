@@ -19,17 +19,16 @@ exec wl-paste -t -text --watch clipman store
 # clipman pick -t wofi
 # To query the history and select items, run the binary as clipman pick -t wofi. You can assign it to a keybinding: bindsym $mod+h exec clipman pick -t wofi. You can pass additional arguments to the selector like this: clipman pick --tool wofi -T'--prompt=my-prompt -i' (both --prompt and -i are flags of wofi). You can use a custom selector like this: clipman pick --print0 --tool=CUSTOM --tool-args="fzf --prompt 'pick > ' --bind 'tab:up' --cycle --read0".
 
-
 # swaymsg move workspace to output "DP-3"
-# workspace 1 output "LG TV SSCR2"
+# workspace 1 output "Goldstar Company Ltd LG TV SSCR2 0x00000101"
+# workspace 2 output "Goldstar Company Ltd LG TV SSCR2 0x00000101"
+# workspace 3 output "Goldstar Company Ltd LG TV SSCR2 0x00000101"
 # workspace 2 output "LG TV SSCR2"
 # workspace 3 output "LG TV SSCR2"
 # workspace 4 output "LG HDR 4K"
 # workspace 5 output "LG HDR 4K"
 # workspace 6 output "LG HDR 4K"
 
-# bindsym $mod+']' move workspace to output right
-# bindsym $mod+'[' move workspace to output left
 # bindsym $mod+Control+Shift+Down move workspace to output down
 # bindsym $mod+Control+Shift+Up move workspace to output up
 
@@ -174,6 +173,10 @@ input "type:keyboard" {
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+    bindsym $mod+bracketright workspace next_on_output
+    bindsym $mod+bracketleft workspace prev_on_output
+
 #
 # Workspaces:
 #
@@ -285,11 +288,14 @@ bar {
     }
 }
 
+# bar swaybar_command waybar
+
 include /etc/sway/config.d/*
 
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
+# for_window [class=".*"] split toggle
+# for_window [app_id=".*"] split toggle
 
-for_window [class=".*"] split toggle
-for_window [app_id=".*"] split toggle
+exec --no-startup-id /home/rok/src/config/dotfiles/.submodules/sway-alternating-layout/alternating_layouts.py

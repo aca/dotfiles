@@ -523,6 +523,7 @@ local function lazy()
 
     vim.cmd([[
         packadd nvim-treesitter
+        packadd nvim-ts-rainbow
         packadd nvim-treesitter-context
         packadd playground
 

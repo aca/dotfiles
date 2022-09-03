@@ -45,7 +45,7 @@ require("nvim-treesitter.configs").setup({
         "ruby",
         "lua",
         "sql",
-        -- "javascript",
+        "javascript",
         "typescript",
         "html", "css", "scss",
         "svelte",
