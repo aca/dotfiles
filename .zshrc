@@ -16,8 +16,8 @@ DISABLE_AUTO_UPDATE="true"
 
 plugins=(
   # tmux
-  # kubectl
-  # fzf
+  kubectl
+  fzf
   # zsh-vi-mode
   # aws
 )
