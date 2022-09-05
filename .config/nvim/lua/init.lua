@@ -8,7 +8,9 @@
 -- syntax=off
 -- ]]
 --
--- TODO: https://github.com/gaoDean/autolist.nvim
+-- TODO
+-- https://github.com/gaoDean/autolist.nvim
+-- https://github.com/NvChad/nvim-colorizer.lua
 
 local g = vim.g
 local opt = vim.opt
