@@ -14,48 +14,48 @@ fpath=($HOME/.zsh/zsh-completions/src $fpath)
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 
-plugins=(
-  # tmux
-  kubectl
-  fzf
-  # zsh-vi-mode
-  # aws
-)
+# plugins=(
+#   # tmux
+#   kubectl
+#   fzf
+#   # zsh-vi-mode
+#   # aws
+# )
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # }}}
 
 # prompt {{{
 
-local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?
-)%{$reset_color%}"
-local hostinfo=""
-if [[ "$SSH_TTY" != '' ]]; then hostinfo="%n@%m "; fi
-# PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}Z|%D{%H:%I} %{$fg[yellow]%}|%{$reset_color%} '
-PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}%{$fg[yellow]%}»%{$reset_color%} '
-ZLE_RPROMPT_INDENT=0
-RPROMPT='%{$fg[#7c7c7c]%}zsh %{$fg[yellow]%}%~%{$reset_color%}'
+# local ret_status="%(?::%{$fg[red]%})%(?..« exit: %?
+# )%{$reset_color%}"
+# local hostinfo=""
+# if [[ "$SSH_TTY" != '' ]]; then hostinfo="%n@%m "; fi
+# # PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}Z|%D{%H:%I} %{$fg[yellow]%}|%{$reset_color%} '
+# PROMPT='${ret_status}%{$fg[#7c7c7c]%}${hostinfo}%{$fg[yellow]%}»%{$reset_color%} '
+# ZLE_RPROMPT_INDENT=0
+# RPROMPT='%{$fg[#7c7c7c]%}zsh %{$fg[yellow]%}%~%{$reset_color%}'
 
-typeset -F SECONDS
-function -record-start-time() {
-  emulate -L zsh
-  ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
-}
-add-zsh-hook preexec -record-start-time
-
-function -report-start-time() {
-  emulate -L zsh
-  if [ $ZSH_START_TIME ]; then
-    local DELTA=$(($SECONDS - $ZSH_START_TIME))
-    if (( $DELTA > 1 )); then
-      SECS="$(print -f "%.2f" $DELTA)s"
-      echo $fg[italic]$fg[red]"« took: "$SECS" / done: "$(date "+%Y-%m-%d %H:%M:%S")
-    fi
-    unset ZSH_START_TIME
-  fi
-}
-add-zsh-hook precmd -report-start-time
+# typeset -F SECONDS
+# function -record-start-time() {
+#   emulate -L zsh
+#   ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
+# }
+# add-zsh-hook preexec -record-start-time
+#
+# function -report-start-time() {
+#   emulate -L zsh
+#   if [ $ZSH_START_TIME ]; then
+#     local DELTA=$(($SECONDS - $ZSH_START_TIME))
+#     if (( $DELTA > 1 )); then
+#       SECS="$(print -f "%.2f" $DELTA)s"
+#       echo $fg[italic]$fg[red]"« took: "$SECS" / done: "$(date "+%Y-%m-%d %H:%M:%S")
+#     fi
+#     unset ZSH_START_TIME
+#   fi
+# }
+# add-zsh-hook precmd -report-start-time
 
 # }}}
 # options {{{ 
