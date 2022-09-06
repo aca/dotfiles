@@ -35,9 +35,7 @@ use /completion
 use /git-subrepo-elvish/.elvish
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
-# if (has-external zoxide) { use /zoxide }
-
-nop ?(use /zoxide)
+if (has-external zoxide) { use /zoxide }
 nop ?(use local)
 
 fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
