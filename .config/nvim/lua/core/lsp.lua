@@ -1,10 +1,12 @@
 -- DEBUG
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
+
 local lspconfig = require("lspconfig")
--- local util = require("lspconfig/util")
--- local configs = require("lspconfig/configs")
-require("lsp-format").setup {}
+local util = require("lspconfig/util")
+local configs = require("lspconfig.configs")
+
+-- require("lsp-format").setup {}
 
 local rightAlignFormatFunction = function(diagnostic)
     local line = diagnostic.lnum
@@ -92,6 +94,24 @@ lspconfig.pyright.setup({
     },
 })
 
+configs.mdpls = {
+    default_config = {
+        cmd = {"mdpls"},
+        filetypes = {"markdown"},
+        root_dir = function()
+            return vim.loop.cwd()
+        end,
+        settings = {},
+      }
+}
+lspconfig.mdpls.setup{}
+
+-- lspconfig.mdpls.setup({
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     settings = gopls_settings,
+-- })
+
 -- configs.lsp_dev = {
 -- default_config = {
 --     cmd = {"ts-node", "/Users/rok/src/github.com/aca/lsp-dev/server.ts", "--stdio"},
@@ -132,7 +152,7 @@ local gopls_settings = {
 --     on_attach = on_attach,
 --     settings = gopls_settings,
 -- })
-
+--
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
@@ -142,9 +162,36 @@ require("mason-lspconfig").setup_handlers({
             on_attach = on_attach,
         })
     end,
+
     ["sumneko_lua"] = function()
         local luadev = require("lua-dev")
         lspconfig.sumneko_lua.setup(luadev.setup({}))
+    end,
+
+    ["tsserver"] = function()
+        lspconfig.tsserver.setup({
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = {
+                codeActionsOnSave = {
+                    ["source.organizeImports.ts"] = true,
+                },
+          },
+          commands = {
+            OrganizeImports = {
+              function()
+                local params = {
+                  command = "_typescript.organizeImports",
+                  arguments = {
+                      vim.api.nvim_buf_get_name(0)
+                  },
+                  title = ""
+                }
+                vim.lsp.buf.execute_command(params)
+              end
+            }
+          }
+      })
     end,
 
     ["gopls"] = function()

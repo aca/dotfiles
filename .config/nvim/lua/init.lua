@@ -4,10 +4,6 @@
 -- Total Max:     6.221000 msec
 -- Total Min:     5.663000 msec
 
--- vim.cmd [[
--- syntax=off
--- ]]
---
 -- TODO
 -- https://github.com/gaoDean/autolist.nvim
 -- https://github.com/NvChad/nvim-colorizer.lua
@@ -509,6 +505,7 @@ execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
         group = group,
         callback = function()
             -- if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then
+            ---@diagnostic disable-next-line: missing-parameter
             if vim.fn.isdirectory(vim.api.nvim_buf_get_name(0)) == 1 then
                 vim.cmd([[ 
       packadd vim-dirvish
