@@ -69,7 +69,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
         }
     end
     return {
-        { Background = { Color = "black" }},
+        { Background = { Color = "black" } },
         { Text = " " .. tab.tab_index + 1 .. " " .. cwd .. "  " },
     }
 end)
@@ -177,14 +177,15 @@ end)
 local config = {
     unix_domains = {
         {
-            name = "unix"
-        }
+            name = "unix",
+        },
     },
 
-    default_gui_startup_args = {"connect", "unix"},
+    default_gui_startup_args = { "connect", "unix" },
 
     window_decorations = "RESIZE",
-    cell_width = 0.85,
+    -- cell_width = 0.8,
+    cell_width = 1,
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
@@ -202,39 +203,39 @@ local config = {
     -- },
 
     font_rules = {
-      -- Define a rule that matches when italic text is shown
-      {
-        -- If specified, this rule matches when a cell's italic value exactly
-        -- matches this.  If unspecified, the attribute value is irrelevant
-        -- with respect to matching.
-        -- italic = true,
+        -- Define a rule that matches when italic text is shown
+        {
+            -- If specified, this rule matches when a cell's italic value exactly
+            -- matches this.  If unspecified, the attribute value is irrelevant
+            -- with respect to matching.
+            -- italic = true,
 
-        -- Match based on intensity: "Bold", "Normal" and "Half" are supported
-        -- intensity = "Half",
+            -- Match based on intensity: "Bold", "Normal" and "Half" are supported
+            -- intensity = "Half",
 
-        -- Match based on underline: "None", "Single", and "Double" are supported
-        -- underline = "None",
+            -- Match based on underline: "None", "Single", and "Double" are supported
+            -- underline = "None",
 
-        -- Match based on the blink attribute: "None", "Slow", "Rapid"
-        -- blink = "None",
+            -- Match based on the blink attribute: "None", "Slow", "Rapid"
+            -- blink = "None",
 
-        -- Match based on reverse video
-        -- reverse = false,
+            -- Match based on reverse video
+            -- reverse = false,
 
-        -- Match based on strikethrough
-        -- strikethrough = false,
+            -- Match based on strikethrough
+            -- strikethrough = false,
 
-        -- Match based on the invisible attribute
-        -- invisible = false,
+            -- Match based on the invisible attribute
+            -- invisible = false,
 
-        -- When the above attributes match, apply this font styling
-        font = wezterm.font("BlexMono Nerd Font", {weight="Light"}),
-        -- font = wezterm.font("Monoid Nerd Font",{ stretch = "SemiCondensed"}) ,
-        -- font = wezterm.font("IBM Plex Mono", {weight="Regular", stretch="Condensed", style="Normal"}),
-      }
+            -- When the above attributes match, apply this font styling
+            font = wezterm.font("BlexMono Nerd Font", { weight = "Light" }),
+            -- font = wezterm.font("Monoid Nerd Font",{ stretch = "SemiCondensed"}) ,
+            -- font = wezterm.font("IBM Plex Mono", {weight="Regular", stretch="Condensed", style="Normal"}),
+        },
     },
 
-    line_height = 0.9,
+    line_height = 1,
 
     adjust_window_size_when_changing_font_size = false,
     default_prog = { homedir .. "/bin/elvish" },
@@ -249,7 +250,7 @@ local config = {
         -- prompt = "$E]7;file://localhost/$P$E\\$E]1;$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m ",
     },
 
-    color_scheme = 'judi',
+    -- color_scheme = 'judi',
 
     -- colors = {
     --     ansi = { "#2f2e2d", "#a36666", "#90a57d", "#d7af87", "#7fa5bd", "#c79ec4", "#8adbb4", "#d0d0d0" },
@@ -263,20 +264,20 @@ local config = {
     --     selection_bg = "#4d4d4d",
     --     selection_fg = "#ffffff",
     -- },
-  colors = {
-    tab_bar = {
-      -- The color of the inactive tab bar edge/divider
-      inactive_tab_edge = "#575757",
-      background = "#000000",
-      new_tab = {
-        bg_color = "#000000",
-        fg_color = "#808080",
+    colors = {
+        tab_bar = {
+            -- The color of the inactive tab bar edge/divider
+            inactive_tab_edge = "#575757",
+            background = "#000000",
+            new_tab = {
+                bg_color = "#000000",
+                fg_color = "#808080",
 
-        -- The same options that were listed under the `active_tab` section above
-        -- can also be used for `new_tab`.
-      },
+                -- The same options that were listed under the `active_tab` section above
+                -- can also be used for `new_tab`.
+            },
+        },
     },
-  },
 
     status_update_interval = 10000,
 
@@ -307,7 +308,7 @@ local config = {
 
     window_padding = {
         left = "1cell",
-        right = "1cell",
+        right = "0cell",
         top = "0cell",
         bottom = "0cell",
     },
@@ -432,16 +433,15 @@ local config = {
         { key = "l", mods = "LEADER", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 
         -- -- pane move(vim aware)
-        -- { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
-        -- { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
-        -- { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
-        -- { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
-        --
-        -- -- resize(vim aware)
-        -- { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
-        -- { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
-        -- { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
-        -- { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
+        { key = "h", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-left" }) },
+        { key = "l", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-right" }) },
+        { key = "k", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-up" }) },
+        { key = "j", mods = "CTRL", action = wezterm.action({ EmitEvent = "move-down" }) },
+        -- resize(vim aware)
+        { key = "h", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-left" }) },
+        { key = "l", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-right" }) },
+        { key = "k", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-up" }) },
+        { key = "j", mods = "ALT", action = wezterm.action({ EmitEvent = "resize-down" }) },
     },
 }
 

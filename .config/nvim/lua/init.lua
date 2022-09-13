@@ -524,6 +524,7 @@ local function lazy()
         packadd nvim-treesitter
         packadd nvim-ts-rainbow
         packadd nvim-treesitter-context
+        packadd nvim-treesitter-textobjects
         packadd playground
 
         packadd nvim-lspconfig

@@ -1,8 +1,13 @@
 # get description `swaymsg -t get_outputs` 
 
 profile {
-    output "LG TV SSCR2" mode 3840x2160 position 1440,0 
-    output "LG HDR 4K" mode 2560x1440 position 0,0  transform 270
+    # Goldstar Company Ltd LG HDR 4K 104NTLE5N480
+    # Goldstar Company Ltd LG TV SSCR2 0x00000101
+    # output "LG TV SSCR2" mode 3840x2160 position 1440,0 
+    # output "LG HDR 4K" mode 2560x1440 position 0,0  transform 270
+
+    output "Goldstar Company Ltd LG TV SSCR2 0x00000101" mode 3840x2160 position 1440,0 
+    output "Goldstar Company Ltd LG HDR 4K 104NTLE5N480" mode 2560x1440 position 0,0  transform 270
     output eDP-1 disable
 
     exec swaymsg workspace 1, move workspace to output '"Goldstar Company Ltd LG TV SSCR2 0x00000101"'
@@ -11,6 +16,11 @@ profile {
     exec swaymsg workspace 4, move workspace to output '"Goldstar Company Ltd LG HDR 4K 104NTLE5N480"'
     exec swaymsg workspace 5, move workspace to output '"Goldstar Company Ltd LG HDR 4K 104NTLE5N480"'
     exec swaymsg workspace 6, move workspace to output '"Goldstar Company Ltd LG HDR 4K 104NTLE5N480"'
+}
+
+profile {
+    output "Goldstar Company Ltd LG TV SSCR2 0x00000101" mode 3840x2160 position 0,0 
+    output eDP-1 disable
 }
 
 profile {
