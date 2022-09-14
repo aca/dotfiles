@@ -184,8 +184,7 @@ local config = {
     default_gui_startup_args = { "connect", "unix" },
 
     window_decorations = "RESIZE",
-    -- cell_width = 0.8,
-    cell_width = 1,
+    cell_width = 0.85,
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
@@ -195,7 +194,7 @@ local config = {
     enable_scroll_bar = false,
 
     -- TODO !!!: performance issue, use tmux instead for now
-    scrollback_lines = 1000,
+    scrollback_lines = 10000,
 
     -- font_rules = {
     --   intensity = "Half",

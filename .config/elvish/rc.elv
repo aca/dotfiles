@@ -23,6 +23,7 @@ set edit:command-abbr['xargsi'] = 'xargs -I@'
 
 use str
 use platform
+use path
 
 # if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
 #   set-env NVIM_LISTEN_ADDRESS "/tmp/nvim"$E:WEZTERM_PANE
@@ -100,28 +101,29 @@ fn proxyoff {
 }
 
 # OSC52
-# set edit:after-readline = [ $@edit:after-readline { |args| printf "\033]133;C;\007" } ]
-# set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;aid=%s\007" $pid } ]
+set edit:after-readline = [ $@edit:after-readline { |args| printf "\033]133;C;\007" } ]
+set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;aid=%s\007" $pid } ]
 
 fn asdf-available {
-    if ?(test -d $pwd/.asdf) {
-        return
+    if (path:is-dir $pwd/.asdf) {
+        fail 1
     } 
 
     var tmppath = $pwd
+
     {
         for i [0 0 0 0] {
             {
                 if (eq $tmppath $E:HOME) {
                     fail 1 
                 }
-                if ?(test -f $tmppath/.tool-versions) {
+                if (path:is-regular $tmppath/.tool-versions) {
                     return
                 } 
-                if ?(test -d $tmppath/.git) {
+                if (path:is-dir $tmppath/.git) {
                     fail 1
                 } 
-                if ?(test -d $tmppath/.asdf) {
+                if (path:is-dir $tmppath/.asdf) {
                     fail 1
                 } 
             }
