@@ -28,7 +28,13 @@ use platform
 #   set-env NVIM_LISTEN_ADDRESS "/tmp/nvim"$E:WEZTERM_PANE
 # }
 
-if (not (has-env _ELVISH_ENV)) { use /env }
+if (not (has-env _ELVISH_INIT)) { 
+    stty -ixon
+    use /env 
+
+    set-env _ELVISH_INIT 1
+}
+
 use /funcs
 use /bind
 use /completion
@@ -98,7 +104,6 @@ fn proxyoff {
 # set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;aid=%s\007" $pid } ]
 
 fn asdf-available {
-    # if (eq $pwd $E:HOME) { fail 1 }
     if ?(test -d $pwd/.asdf) {
         return
     } 
@@ -107,14 +112,15 @@ fn asdf-available {
     {
         for i [0 0 0 0] {
             {
+                if (eq $tmppath $E:HOME) {
+                    fail 1 
+                }
                 if ?(test -f $tmppath/.tool-versions) {
                     return
                 } 
-
                 if ?(test -d $tmppath/.git) {
                     fail 1
                 } 
-
                 if ?(test -d $tmppath/.asdf) {
                     fail 1
                 } 

@@ -1,4 +1,4 @@
-stty -ixon # https://github.com/elves/elvish/issues/1488
+# stty -ixon # https://github.com/elves/elvish/issues/1488
 
 use str
 use platform

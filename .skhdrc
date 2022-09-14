@@ -29,18 +29,18 @@ lcmd + lctrl + lalt + shift - l : yabai -m window --swap east
 
 # focus or send to the given desktop
 # skhd --reload
-lcmd + lctrl + lalt - 1 : yabai -m display --focus 1;
-lcmd + lctrl + lalt - 2 : yabai -m display --focus 2;
-lcmd + lctrl + lalt - 3 : yabai -m display --focus 3;
+lcmd + lctrl + lalt - 1 : yabai -m space --focus 1;
+lcmd + lctrl + lalt - 2 : yabai -m space --focus 2;
+lcmd + lctrl + lalt - 3 : yabai -m space --focus 3;
 lcmd + lctrl + lalt - 4 : yabai -m space --focus 4;
 lcmd + lctrl + lalt - 5 : yabai -m space --focus 5;
 lcmd + lctrl + lalt - 6 : yabai -m space --focus 6;
 lcmd + lctrl + lalt - 7 : yabai -m space --focus 7;
 lcmd + lctrl + lalt - 8 : yabai -m space --focus 8;
 lcmd + lctrl + lalt - 9 : yabai -m space --focus 9;
-lcmd + lctrl + lalt + shift - 1 : yabai -m window --display 1; yabai -m space --focus 1;
-lcmd + lctrl + lalt + shift - 2 : yabai -m window --display 2; yabai -m space --focus 2;
-lcmd + lctrl + lalt + shift - 3 : yabai -m window --display 3; yabai -m space --focus 3;
+lcmd + lctrl + lalt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1;
+lcmd + lctrl + lalt + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2;
+lcmd + lctrl + lalt + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3;
 lcmd + lctrl + lalt + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4;
 lcmd + lctrl + lalt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5;
 lcmd + lctrl + lalt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6;

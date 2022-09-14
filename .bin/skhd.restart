@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-# restart sxhkd
-pkill -USR1 -x sxhkd
-skhd --reload
+skhd -r
