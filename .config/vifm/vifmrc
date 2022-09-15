@@ -72,7 +72,7 @@ nnoremap ;h :set dotfiles!<cr>
 set dotfiles "hidden
 
 nnoremap <space> tj
-nnoremap <C-s> :sync %d<cr>
+nnoremap <C-s> :sync!<cr>
 nnoremap <esc> ZZ
 nnoremap <C-c> ZZ
 
@@ -180,15 +180,6 @@ nnoremap ,C :!mvim --remote-tab-silent $MYVIFMRC &<cr>
 
 " Toggle wrap setting on ,w key
 nnoremap ,w :set wrap!<cr>
-
-" Midnight commander alike mappings
-" Open current directory in the other pane
-nnoremap <c-s> :sync %c<cr>
-" Open directory under cursor in the other pane
-nnoremap <a-o> :sync %c<cr>
-" Swap panes
-" nnoremap <c-u> <c-w>x
-
 
 nnoremap q :q<cr>
 
