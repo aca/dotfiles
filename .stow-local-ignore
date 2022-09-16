@@ -5,4 +5,3 @@
 /Dockerfile
 /.dockerignore
 /Makefile
-/oauth2-proxy.sh

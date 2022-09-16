@@ -1,8 +1,8 @@
 #!/bin/bash
 # https://github.com/koekeishiya/yabai/blob/master/doc/yabai.asciidoc
 
+# Patch for M1
 # https://github.com/koekeishiya/yabai/issues/1158#issuecomment-1060168503
-#
 # sudo nvram boot-args=-arm64e_preview_abi
 # sudo yabai --uninstall-sa
 # sudo yabai --install-sa
