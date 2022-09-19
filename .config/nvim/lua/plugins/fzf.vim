@@ -11,22 +11,26 @@ let g:fzf_action = {
 \ }
 
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#hide-statusline
+" autocmd! FileType fzf
+" autocmd  FileType fzf set laststatus=0 noshowmode noruler
+"   \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
+"
 autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
+autocmd  FileType fzf set noshowmode noruler
+  \| autocmd BufLeave <buffer> set showmode ruler
 
 " TODO: reset
 " au FileType fzf tnoremap <buffer> <Esc> <c-c>
 au FileType fzf tnoremap <buffer> <c-j> <c-j>
 au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
-let g:fzf_preview_window = ['up:50%:border-bottom','ctrl-w']
+let g:fzf_preview_window = ['right:50%:border-bottom','ctrl-w']
 " if exists('$TMUX')
-"   let g:fzf_layout = { 'tmux': '-p90%,90%' }
+"   let g:fzf_layout = { 'tmux': '-p90%,95%' }
 " else
-"   let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.7 } }
+"   let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.8, 'relative': v:true } }
 " endif
-let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.9 } }
+let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.9, 'relative': v:true } }
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 
 " fzf mark with preview
