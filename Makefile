@@ -14,7 +14,7 @@ update:
 .PHONY: sync
 sync:
 		@git pull --rebase
-		@git submodule update --init
+		@git submodule update --init --force
 
 .PHONY: docker
 docker:

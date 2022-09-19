@@ -26,6 +26,7 @@
 " You can also add %CLEAR if you want to clear screen before running FUSE
 " program.
 
+
 " Pdf
 filextype {*.pdf},<application/pdf> zathura %c %i &, apvlv %c, xpdf %c
 fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -

@@ -135,17 +135,17 @@ update() {
   commandExists pueue && pueue completions elvish dotfiles/.config/elvish/lib
 }
 
-firefox() {
-  commandExists fd || return 0
-  for d in "${HOME}/Library/Application Support/Firefox/Profiles/" "${HOME}/.mozilla/firefox"; do
-    [[ -d "$d" ]] || continue
-    for profileDir in "$(fd --base-directory "$d" --absolute-path --max-depth 1 --type d | grep default-release | head -n 1)"; do
-      rm -rfv "$profileDir/chrome" || true
-      mkdir "$profileDir/chrome" || true
-      (cd dotfiles/.config/firefox && stow -v --target "$profileDir/chrome" chrome) || return 1
-    done
-  done
-}
+# firefox() {
+#   commandExists fd || return 0
+#   for d in "${HOME}/Library/Application Support/Firefox/Profiles/" "${HOME}/.mozilla/firefox"; do
+#     [[ -d "$d" ]] || continue
+#     for profileDir in "$(fd --base-directory "$d" --absolute-path --max-depth 1 --type d | grep default-release | head -n 1)"; do
+#       rm -rfv "$profileDir/chrome" || true
+#       mkdir "$profileDir/chrome" || true
+#       (cd dotfiles/.config/firefox && stow -v --target "$profileDir/chrome" chrome) || return 1
+#     done
+#   done
+# }
 
 ##########################################
 
@@ -157,7 +157,5 @@ stow -v --target ${HOME} "dotfiles"
 [[ -d "dotfiles.shared" ]] && sudo stow -v --target ${HOME} "dotfiles.shared"
 [[ -d "dotfiles.root.$HOSTNAME" ]] && sudo stow -v --target / "dotfiles.root.$HOSTNAME"
 
-
-firefox
 
 echo "done"

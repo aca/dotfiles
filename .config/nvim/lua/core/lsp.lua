@@ -94,17 +94,17 @@ lspconfig.pyright.setup({
     },
 })
 
-configs.mdpls = {
-    default_config = {
-        cmd = {"mdpls"},
-        filetypes = {"markdown"},
-        root_dir = function()
-            return vim.loop.cwd()
-        end,
-        settings = {},
-      }
-}
-lspconfig.mdpls.setup{}
+-- configs.mdpls = {
+--     default_config = {
+--         cmd = {"mdpls"},
+--         filetypes = {"markdown"},
+--         root_dir = function()
+--             return vim.loop.cwd()
+--         end,
+--         settings = {},
+--       }
+-- }
+-- lspconfig.mdpls.setup{}
 
 -- lspconfig.mdpls.setup({
 --     capabilities = capabilities,

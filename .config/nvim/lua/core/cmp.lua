@@ -123,10 +123,10 @@ cmp.setup({
     --   scrollbar = '',
     --   -- other options
     -- },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
+    -- window = {
+    --     completion = cmp.config.window.bordered(),
+    --     documentation = cmp.config.window.bordered(),
+    -- },
 
     experimental = {
         native_menu = false,

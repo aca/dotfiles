@@ -14,6 +14,8 @@ set tuioptions=u
 only
 set millerview
 
+filextype {*.ts,*.tsx,*.js,*.jsx} nvim %f
+
 set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"
 command togglepreview : if &milleroptions == "lsize:1,csize:2,rsize:2,rpreview:all"
                         \| execute 'set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"'
