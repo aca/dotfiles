@@ -1,6 +1,5 @@
 use platform
 
-
 set-env SHELL "/bin/sh"
 set-env LANG en_US.UTF-8
 set-env LANGUAGE en_US.UTF-8

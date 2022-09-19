@@ -63,14 +63,12 @@ fn ghqbare { |@a| e:ghq clone --bare $@a;  ;sh -c "src.update &" }
 fn zs {|@a| zsh $@a }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn trash-empty { |@a| yes | e:trash-empty }
-# fn jq { |@a| e:jq -R 'fromjson?' | e:jq $@a }
 fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {|@a| vifm $@a}
 fn v {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 
 # utils
 fn from-0 { || from-terminated "\x00" }
-
 fn export { |v| set-env (echo $v | cut -d '=' -f 1) (echo $v | cut -d '=' -f 2-) }
 
 # UNIX comm alternative but keep original output sorted
@@ -106,7 +104,8 @@ set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;ai
 
 fn asdf-available {
     if (path:is-dir $pwd/.asdf) {
-        fail 1
+        return
+        # fail 1
     } 
 
     var tmppath = $pwd
@@ -135,6 +134,8 @@ fn asdf-available {
 }
 
 set edit:before-readline = [
+
+    # osc7 escape sequence
     { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
 
     # this is fix for asdf performance issue
