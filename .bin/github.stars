@@ -4,7 +4,7 @@ set -euo pipefail
 
 get() {
   USER=${1:-aca}
-  STARS=$(curl -u $USER:$GITHUB_TOKEN -sI "https://api.github.com/users/$USER/starred?per_page=1"|egrep -i '^Link'|egrep -o 'page=[0-9]+'|tail -1|cut -c6-)
+  STARS=$(curl -u $USER:$GITHUB_TOKEN -sI "https://api.github.com/users/$USER/starred?per_page=1"|grep -E -i '^Link'|grep -E -o 'page=[0-9]+'|tail -1|cut -c6-)
   PAGES=$(($STARS/100+1))
 
   for PAGE in `seq $PAGES`; do
