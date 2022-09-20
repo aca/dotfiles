@@ -18,7 +18,6 @@ set edit:command-abbr['virsh'] = 'sudo virsh'
 set edit:command-abbr['virt-customize'] = 'sudo virt-customize'
 set edit:command-abbr['virt-clone'] = 'sudo virt-clone'
 set edit:command-abbr['virt-install'] = 'sudo virt-install'
-
 set edit:command-abbr['xargsi'] = 'xargs -I@'
 
 use str

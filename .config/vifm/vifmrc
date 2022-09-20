@@ -14,7 +14,7 @@ set tuioptions=u
 only
 set millerview
 
-filextype {*.ts,*.tsx,*.js,*.jsx} nvim %f
+filetype *.ts,*.tsx,*.js,*.jsx nvim %f
 
 set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"
 command togglepreview : if &milleroptions == "lsize:1,csize:2,rsize:2,rpreview:all"
@@ -52,8 +52,6 @@ nnoremap b :bmgo<cr>
 delmarks!
 bmark! /mnt/ mount
 mark m /mnt/
-mark p ~/src/play/
-bmark! ~/src/play/ play
 mark a ~/archive/
 bmark! ~/archive/ archive
 mark b ~/archive/books/
