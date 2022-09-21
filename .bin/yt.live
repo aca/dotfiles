@@ -22,8 +22,8 @@ EOF
 
 # https://www.youtube.com/embed/live_stream?channel=UCEAZeUIeJs0IjQiqTCdVSIg
 liveURL=$(curl -s "https://www.youtube.com/embed/live_stream?$channel" | pup 'link[rel="canonical"] attr{href}')
-echo $liveURL
-if [[ ! -z $liveURL ]]; then
+echo "$liveURL"
+if [[ -n $liveURL ]]; then
   command mpv "$liveURL" &
   disown && exit
 fi

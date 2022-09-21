@@ -29,6 +29,7 @@ use path
 # }
 
 if (not (has-env _ELVISH_INIT)) { 
+    # http://www.linusakesson.net/programming/tty/
     stty -ixon
     use /env 
 

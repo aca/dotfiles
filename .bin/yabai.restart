@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# uninstall the scripting addition
-sudo yabai --uninstall-sa
-
-# installing the scripting addition will restart Dock.app
-sudo yabai --install-sa
+# # uninstall the scripting addition
+# sudo yabai --uninstall-sa
+#
+# # installing the scripting addition will restart Dock.app
+# sudo yabai --install-sa
 
 launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
