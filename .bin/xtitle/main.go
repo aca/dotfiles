@@ -43,9 +43,5 @@ func main() {
 
 	title := doc.Find("head > title").Text()
 
-	if strings.HasSuffix(title, " - YouTube") {
-		title = title[0 : len(title)-len(" - YouTube")]
-	}
-
-	fmt.Print(title)
+	fmt.Print(strings.TrimSuffix(title, " - Youtube"))
 }

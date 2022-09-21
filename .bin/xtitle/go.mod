@@ -1,4 +1,4 @@
-module config/dotfiles/.bin/xtitle
+module xtitle
 
 go 1.19
 
