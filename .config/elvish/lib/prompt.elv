@@ -26,10 +26,10 @@ set edit:after-command = [
   {|m|
     # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
     printf "\033]133;A;cl=m;aid=%s\007" $pid
-    if (< $m[duration] 5) {
+    if (< $m[duration] 2) {
       nop
     } else {
-      print (styled (styled (printf "« took: %.3fs / done: "(e:date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red) italic)
+      echo (styled (printf "« took: %.3fs / done: "(e:date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red italic)
     }
   }
 ]
