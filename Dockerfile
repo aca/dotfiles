@@ -24,7 +24,7 @@ RUN apk add --no-cache \
       zsh \
       fish \
       npm \
-      ansible \
+      ansible=5.7.1 \
       nodejs \
       python3 \
       coreutils \
