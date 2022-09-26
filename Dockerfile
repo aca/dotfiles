@@ -26,6 +26,7 @@ RUN apk add --no-cache \
       npm \
       nodejs \
       python3 \
+      py3-netaddr \
       coreutils \
       tcpdump \
       socat \
