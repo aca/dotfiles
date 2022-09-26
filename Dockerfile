@@ -24,7 +24,6 @@ RUN apk add --no-cache \
       zsh \
       fish \
       npm \
-      ansible=5.7.1 \
       nodejs \
       python3 \
       coreutils \
@@ -38,6 +37,7 @@ RUN apk add --no-cache \
       github-cli@community \
       kubectx \
       unzip \
+      py3-pip \
       gron@testing \
       bash-completion \
       docker-cli \
@@ -45,6 +45,7 @@ RUN apk add --no-cache \
       # docker-cli \ -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker:ro 
       # make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
 
+RUN pip3 install ansible==5.7.1
 
 # RUN addgroup -S rok
 # RUN adduser -S -D -G rok -h /home/rok -s /bin/bash rok
