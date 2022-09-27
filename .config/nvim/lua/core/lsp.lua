@@ -172,6 +172,7 @@ require("mason-lspconfig").setup_handlers({
         lspconfig.tsserver.setup({
           capabilities = capabilities,
           on_attach = on_attach,
+          single_file_support=true,
           settings = {
                 codeActionsOnSave = {
                     ["source.organizeImports.ts"] = true,

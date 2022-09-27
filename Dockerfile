@@ -26,6 +26,9 @@ RUN apk add --no-cache \
       npm \
       nodejs \
       python3 \
+      python2 \
+      py2-pip \
+      py2-netaddr \
       py3-netaddr \
       coreutils \
       tcpdump \
