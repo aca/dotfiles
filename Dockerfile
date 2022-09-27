@@ -5,6 +5,17 @@ RUN apk add --no-cache \
       --repository=http://dl-cdn.alpinelinux.org/alpine/v3.15/community
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk add --no-cache ttyd@community
+RUN apk add --no-cache \
+      gron@testing \
+      fd@community \
+      kubectl@testing \
+      delta@community \
+      helm@testing \
+      tree-sitter@community \
+      github-cli@community \
+      neovim@community \
+      bash-completion
 RUN apk add --no-cache \
       build-base \
       ca-certificates \
@@ -17,9 +28,7 @@ RUN apk add --no-cache \
       stow \
       yaml \
       moreutils \
-      ttyd@community \
       jq \
-      fd@community \
       openssh \
       fzf \
       vifm \
@@ -33,19 +42,11 @@ RUN apk add --no-cache \
       coreutils \
       tcpdump \
       socat \
-      kubectl@testing \
-      delta@community \
-      helm@testing \
-      tree-sitter@community \
       go \
-      github-cli@community \
       kubectx \
       unzip \
       py3-pip \
-      gron@testing \
-      bash-completion \
-      docker-cli \
-      neovim@community
+      docker-cli
       # docker-cli \ -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker:ro 
       # make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
 
