@@ -1,0 +1,53 @@
+FROM alpine:edge
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk add --no-cache \
+      fd@community \
+      delta@community \
+      ttyd@community \
+      tree-sitter@community \
+      github-cli@community \
+      neovim@community \
+      build-base \
+      ca-certificates \
+      curl \
+      tar \
+      git \
+      busybox-extras \
+      sudo \
+      tmux \
+      stow \
+      moreutils \
+      jq \
+      openssh \
+      fzf \
+      vifm \
+      ripgrep \
+      bash \
+      zsh \
+      npm \
+      nodejs \
+      coreutils \
+      go
+
+# stow
+RUN git clone --recurse-submodules -j20 https://github.com/aca/dotfiles ~/src/config/dotfiles --depth 1 && rm -rf ~/src/config/dotfiles/.git
+RUN bash ~/src/config/dotfiles/.bin/setup.stow
+
+RUN nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
+# RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
+
+ENV GOPATH /root
+RUN go install github.com/x-motemen/ghq@latest
+RUN go install src.elv.sh/cmd/elvish@master
+
+RUN sudo mv /root/bin/* /usr/local/bin
+RUN sudo rm -rf ~/go || true
+RUN sudo rm -rf ~/pkg || true
+RUN sudo rm -rf ~/.cache || true
+RUN sudo rm -rf ~/.npm || true
+
+RUN apk del go --force-broken-world
+
+WORKDIR /root
+CMD ["/usr/local/bin/elvish"]

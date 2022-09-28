@@ -2,6 +2,13 @@
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
+vim.cmd [[
+    packadd nvim-lspconfig
+    packadd mason.nvim
+    packadd mason-lspconfig.nvim
+    packadd lsp-format.nvim
+]]
+
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig.configs")

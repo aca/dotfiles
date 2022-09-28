@@ -1,5 +1,6 @@
 vim.cmd([[ 
 packadd plenary.nvim
+packadd md-prev.nvim
 
 packadd fugitive
 packadd vim-rhubarb
@@ -45,6 +46,9 @@ packadd aerial.nvim
 
 packadd vim-dadbod
 packadd vim-dadbod-ui
+
+let g:Illuminate_delay = 500
+packadd vim-illuminate
 
 
 packadd FixCursorHold.nvim
@@ -127,8 +131,6 @@ nmap g> <Plug>(swap-next)
 packadd Comment.nvim 
 runtime after/plugin/Comment.lua
 packadd nvim-ts-context-commentstring
-
-
 
 ]])
 

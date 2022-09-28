@@ -1,3 +1,11 @@
+vim.cmd [[ 
+    packadd nvim-treesitter
+    packadd nvim-ts-rainbow
+    packadd nvim-treesitter-context
+    packadd nvim-treesitter-textobjects
+    packadd playground
+]]
+
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")

@@ -487,3 +487,6 @@
 [submodule ".submodules/mpv-bookmark-lua-script"]
 	path = .submodules/mpv-bookmark-lua-script
 	url = https://github.com/koeppl/mpv-bookmark-lua-script.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/md-prev.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/md-prev.nvim
+	url = https://github.com/jbyuki/md-prev.nvim.git
