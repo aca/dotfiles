@@ -214,9 +214,10 @@ _G._markdown_foldexpr = function()
     return levels[vim.v.lnum - 1] or "="
 end
 
-vim.cmd([[
-  set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
-]])
+-- replaced with nvim-ufo
+-- vim.cmd([[
+--   set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
+-- ]])
 
 -- for lazyload
 if vim.bo.filetype == "markdown" then

@@ -377,7 +377,7 @@ local function lazy()
     vim.defer_fn(function()
         -- prevent delay on startup
         vim.cmd([[ silent! helptags ALL ]])
-    end, 200)
+    end, 100)
 end
 
 settings()

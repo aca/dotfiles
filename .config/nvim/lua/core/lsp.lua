@@ -1,12 +1,12 @@
 -- DEBUG
--- vim.lsp.set_log_level("debug")
--- require("vim.lsp.log").set_format_func(vim.inspect)
+vim.lsp.set_log_level("debug")
+require("vim.lsp.log").set_format_func(vim.inspect)
 
 vim.cmd [[
     packadd nvim-lspconfig
     packadd mason.nvim
     packadd mason-lspconfig.nvim
-    packadd lsp-format.nvim
+    " packadd lsp-format.nvim
 ]]
 
 local lspconfig = require("lspconfig")
@@ -45,6 +45,10 @@ vim.diagnostic.config({
 -- capabilities [[
 -- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 local completionItem = capabilities.textDocument.completion.completionItem
 completionItem.snippetSupport = true
 completionItem.preselectSupport = true
@@ -101,23 +105,20 @@ lspconfig.pyright.setup({
     },
 })
 
--- configs.mdpls = {
---     default_config = {
---         cmd = {"mdpls"},
---         filetypes = {"markdown"},
---         root_dir = function()
---             return vim.loop.cwd()
---         end,
---         settings = {},
---       }
--- }
--- lspconfig.mdpls.setup{}
-
--- lspconfig.mdpls.setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
---     settings = gopls_settings,
--- })
+configs.mdpls = {
+    default_config = {
+        cmd = {"ts-node", "/Users/kyungrok.chung/src/github.com/aca/mdpls/server/src/server.ts", "--stdio"},
+        filetypes = {"markdown"},
+        root_dir = function()
+            return vim.loop.cwd()
+        end,
+        settings = {},
+      }
+}
+lspconfig.mdpls.setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+}
 
 -- configs.lsp_dev = {
 -- default_config = {
