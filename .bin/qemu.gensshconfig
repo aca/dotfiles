@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-rm ~/.ssh/hosts_qemu
+sudo rm ~/.ssh/hosts_qemu
 set sshconfig (realpath ~/.ssh/hosts_qemu)
 echo '# vim:set ft=sshconfig:' > $sshconfig
 

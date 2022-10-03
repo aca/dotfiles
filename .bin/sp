@@ -1,3 +1,3 @@
 #!/bin/sh
 
-shuf | mpv --playlist=- "$@" --msg-level=file=no
+sort | uniq | shuf | mpv --playlist=- "$@" --msg-level=file=no

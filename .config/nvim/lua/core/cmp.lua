@@ -54,7 +54,7 @@ local cmp_sources = {
     { name = "nvim_lsp" },
     -- { name = "copilot" },
     -- { name = "tabnine" },
-    { name = "path" },
+    -- { name = "path" },
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
     { name = "nvim_lsp_signature_help" },

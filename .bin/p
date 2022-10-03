@@ -1,3 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env elvish
 
-sort | mpv --playlist=- "$@" --msg-level=file=no
+to-lines | order &less-than={|a b| > 0 (compare (basename $a) (basename $b)) } | mpv --playlist=- --msg-level=file=no $@args
+# to-lines | order &less-than={|a b| > 0 (compare (basename $a) (basename $b)) } | mpv --playlist=- --msg-level=file=no $@args
