@@ -5,7 +5,6 @@ packadd md-prev.nvim
 packadd fugitive
 packadd vim-rhubarb
 let g:github_enterprise_urls = ['https://github.tossinvest.bz']
-" packadd gitlinker.nvim
 " nnoremap gm :GitMessenger<cr>
 " packadd git-messenger.vim
 
