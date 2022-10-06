@@ -36,6 +36,10 @@ if (not (has-env _ELVISH_INIT)) {
     set-env _ELVISH_INIT 1
 }
 
+fn history {
+    edit:command-history &dedup &newest-first &cmd-only | to-lines
+}
+
 use /funcs
 use /bind
 use /completion
