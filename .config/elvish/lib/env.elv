@@ -40,9 +40,11 @@ set-env GKSwstype "iterm"
 set-env MPLBACKEND "module://itermplot"
 
 if (eq $platform:os "linux") {
-  set-env XMODIFIERS "@im=fcitx5"
-  set-env GTK_IM_MODULE fcitx5
-  set-env QT_IM_MODULE fcitx5
+  set-env XMODIFIERS "@im=fcitx"
+  set-env GTK_IM_MODULE fcitx
+  set-env QT_IM_MODULE fcitx
+  set-env SDL_IM_MODULE fcitx
+  set-env GLFW_IM_MODULE fcitx
 }
 
 set-env ASDF_DIR $E:HOME/.asdf

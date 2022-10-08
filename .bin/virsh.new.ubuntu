@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
 VM=$1
-sudo virt-clone --original ubuntu-focal --name $VM --auto-clone
+sudo virt-clone --original ubuntu-kinetic --name $VM --auto-clone
 sudo virt-customize -a /var/lib/libvirt/images/$VM.img --hostname $VM
 
