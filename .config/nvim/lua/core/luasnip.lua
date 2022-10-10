@@ -92,8 +92,10 @@ func {1}(w http.ResponseWriter, r *http.Request) {{
 		fmt(
 			[[package main
 
+import "log"
+
 func main(){{
-	log.SetFlags(log.Llongfile | log.LstdFlags)
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
     {1} 
 }}
 ]],
@@ -102,6 +104,12 @@ func main(){{
 			}
 		)
 	),
+
+    s("trigger", {
+        t({"After expanding, the cursor is here ->"}), i(1),
+        t({"", "After jumping forward once, cursor is here ->"}), i(2),
+        t({"", "After jumping once more, the snippet is exited there ->"}), i(0),
+    }),
 
 	s(
 		"dff",
@@ -112,13 +120,29 @@ defer func() {{
 }}()
 ]],
 			{
-				i(0),
+				i(0)
 			}
 		)
 	),
 
 	s(
-		"errl",
+		"err",
+		fmt(
+			[[
+if err != nil {{
+    return {1}err{2}
+}}
+{}
+
+]],
+			{
+                i(1), i(2), i(0),
+            }
+		)
+	),
+
+	s(
+		"erf",
 		fmt(
 			[[
 if err != nil {{
@@ -131,7 +155,7 @@ if err != nil {{
 	),
 
 	s(
-		"ierr",
+		"ier",
 		fmt(
 			[[
 if err != nil {{
@@ -141,16 +165,6 @@ if err != nil {{
 			{
 				i(0),
 			}
-		)
-	),
-
-	s(
-		"logflag",
-		fmt(
-			[[
-log.SetFlags(log.Lshortfile | log.Lmicroseconds | log.Lmsgprefix); log.SetPrefix("\033[31m")
-    ]],
-			{}
 		)
 	),
 })
@@ -337,3 +351,4 @@ from ptpython.repl import embed; embed(globals(), locals())
 -- ls.add_snippets("go", {
 --   s("f", fmt("func {}({}) {} {{\n\t{}\n}}", { i(1, "name"), i(2), i(3), i(0) })),
 -- })
+-- require("gosnip")

@@ -184,7 +184,7 @@ cmp.setup({
             "i",
             "s",
         }),
-        ["<c-e>"] = cmp.mapping(function(fallback)
+        ["<c-j>"] = cmp.mapping(function(fallback)
             if luasnip.expandable() then
                 require("luasnip").expand()
             else

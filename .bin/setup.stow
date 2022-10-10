@@ -126,6 +126,7 @@ cleanup() {
   ensureDir $HOME/.config/autostart
   ensureDir $HOME/.ssh
   ensureDir $HOME/.local/state
+  ensureDir $HOME/.local/share/nvim
   rmf $HOME/.ssh/config
 }
 

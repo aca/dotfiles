@@ -146,6 +146,8 @@ packadd fold-cycle.nvim
 
 
 packadd hop.nvim
+
+packadd go-patch-unusedvar.nvim
 ]])
 
 vim.cmd [[

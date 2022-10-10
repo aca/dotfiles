@@ -39,19 +39,25 @@ nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent 
 set("n", "gd", vim.lsp.buf.definition, { silent = true })
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
 set("n", ";f", function()
-	vim.lsp.buf.format()
-	vim.cmd([[ normal! zx ]])
+    vim.lsp.buf.format()
+    if string.match(vim.bo.filetype, "typescript") or string.match(vim.bo.filetype, "javascript") then
+        vim.lsp.buf.execute_command({
+            command = "_typescript.organizeImports",
+            arguments = { vim.api.nvim_buf_get_name(0) },
+        })
+    end
+    vim.cmd([[ normal! zx ]])
 end, { silent = true })
 set("n", "[d", function()
-	vim.diagnostic.goto_prev({ wrap = false })
+    vim.diagnostic.goto_prev({ wrap = false })
 end, { silent = true })
 set("n", "]d", function()
-	vim.diagnostic.goto_next({ wrap = false })
+    vim.diagnostic.goto_next({ wrap = false })
 end, { silent = true })
 set("n", "K", vim.lsp.buf.hover, { silent = true })
 set("n", "<leader>gd", function()
-	vim.cmd([[ vsplit ]])
-	vim.lsp.buf.definition()
+    vim.cmd([[ vsplit ]])
+    vim.lsp.buf.definition()
 end, { silent = true })
 set("n", "gi", vim.lsp.buf.implementation, { silent = true })
 
@@ -61,22 +67,22 @@ set("n", ";rf", vim.lsp.buf.references, { silent = true })
 
 -- https://github.com/yuki-yano/zero.nvim/blob/main/lua/zero.lua
 nvim_set_keymap(
-	"n",
-	"0",
-	"getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-	{ silent = true, noremap = true, expr = true }
+    "n",
+    "0",
+    "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+    { silent = true, noremap = true, expr = true }
 )
 nvim_set_keymap(
-	"x",
-	"0",
-	"getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-	{ silent = true, noremap = true, expr = true }
+    "x",
+    "0",
+    "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+    { silent = true, noremap = true, expr = true }
 )
 nvim_set_keymap(
-	"o",
-	"0",
-	"getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-	{ silent = true, noremap = true, expr = true }
+    "o",
+    "0",
+    "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+    { silent = true, noremap = true, expr = true }
 )
 
 vim.cmd([[
