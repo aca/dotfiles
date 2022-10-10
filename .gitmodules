@@ -22,9 +22,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-ReplaceWithRegister"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-ReplaceWithRegister
 	url = https://github.com/inkarkat/vim-ReplaceWithRegister.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-colorizer.lua"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua
-	url = https://github.com/norcalli/nvim-colorizer.lua.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-buftabline"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-buftabline
 	url = https://github.com/ap/vim-buftabline.git
@@ -493,3 +490,15 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/go-patch-unusedvar.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/go-patch-unusedvar.nvim
 	url = https://github.com/aca/go-patch-unusedvar.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua
+	url = https://github.com/NvChad/nvim-colorizer.lua
+[submodule ".local/share/nvim/site/pack/bundle/opt/autolist.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/autolist.nvim
+	url = https://github.com/gaoDean/autolist.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-scrollbar"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-scrollbar
+	url = https://github.com/petertriho/nvim-scrollbar.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-hlslens"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-hlslens
+	url = https://github.com/kevinhwang91/nvim-hlslens.git

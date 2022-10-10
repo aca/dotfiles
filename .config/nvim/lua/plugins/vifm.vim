@@ -9,4 +9,4 @@ function s:vifm()
     FloatermNew --height=0.9 --width=0.9 --title=vifm vifm
   end
 endfunction
-nnoremap <silent><c-e> <cmd>call <sid>vifm()<cr>
+nnoremap <silent><M-e> <cmd>call <sid>vifm()<cr>

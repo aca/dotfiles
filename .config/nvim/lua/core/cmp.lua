@@ -31,8 +31,6 @@ runtime after/plugin/cmp_tmux.vim
 " packadd cmp-copilot
 " packadd cmp-tabnine
 " runtime after/plugin/cmp-tabnine.lua
-
-" packadd friendly-snippets
 ]])
 
 local cmp = require("cmp")
@@ -184,7 +182,7 @@ cmp.setup({
             "i",
             "s",
         }),
-        ["<c-j>"] = cmp.mapping(function(fallback)
+        ["<c-e>"] = cmp.mapping(function(fallback)
             if luasnip.expandable() then
                 require("luasnip").expand()
             else
@@ -198,22 +196,21 @@ cmp.setup({
         ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<Tab>"] = cmp.mapping(function(fallback)
-            local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
-            if false then
+            -- local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
+            if cmp.visible() then
+                cmp.select_next_item()
             elseif luasnip.jumpable(1) then
                 luasnip.jump(1)
-            elseif cmp.visible() then
-                cmp.select_next_item()
                 -- luasnip.unlink_current()
-            elseif
-                next_char == '"'
-                or next_char == ")"
-                or next_char == "'"
-                or next_char == "]"
-                or next_char == "}"
-                or next_char == "("
-            then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
+                -- elseif
+                --     next_char == '"'
+                --     or next_char == ")"
+                --     or next_char == "'"
+                --     or next_char == "]"
+                --     or next_char == "}"
+                --     or next_char == "("
+                -- then
+                --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
             else
                 fallback()
             end
@@ -223,10 +220,10 @@ cmp.setup({
             "n",
         }),
         ["<S-Tab>"] = function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            elseif cmp.visible() then
+            if cmp.visible() then
                 cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end

@@ -4,7 +4,8 @@ packadd LuaSnip
 
 -- slow performance
 require("luasnip/loaders/from_vscode").lazy_load({
-	paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
+    paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
+    exclude = { "go", "all" },
 })
 
 local ls = require("luasnip")
@@ -26,71 +27,71 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
 local function shebang(_, _)
-	local cstring = vim.split(vim.bo.commentstring, "%s", true)[1]
-	if cstring == "/*" then
-		cstring = "//"
-	end
-	cstring = vim.trim(cstring)
-	local ft = vim.bo.filetype
-	if ft == "python" then
-		ft = "python3"
-	end
-	return sn(nil, {
-		t(cstring),
-		t("!/usr/bin/env "),
-		i(1, ft),
-	})
+    local cstring = vim.split(vim.bo.commentstring, "%s", true)[1]
+    if cstring == "/*" then
+        cstring = "//"
+    end
+    cstring = vim.trim(cstring)
+    local ft = vim.bo.filetype
+    if ft == "python" then
+        ft = "python3"
+    end
+    return sn(nil, {
+        t(cstring),
+        t("!/usr/bin/env "),
+        i(1, ft),
+    })
 end
 
 ls.add_snippets("all", {
-	s({ trig = "bang", dscr = "Add SheBang" }, {
-		d(1, shebang, {}),
-	}),
+    s({ trig = "bang", dscr = "Add SheBang" }, {
+        d(1, shebang, {}),
+    }),
 })
 
 local function get_file_name()
-	return vim.fn.fnamemodify(vim.fn.bufname(), ":r")
+    return vim.fn.fnamemodify(vim.fn.bufname(), ":r")
 end
 
 ls.add_snippets("markdown", {
-	s(
-		"header",
-		fmt(
-			[[
+    s(
+        "header",
+        fmt(
+            [[
 ---
 title: {1}
 date: {2}
 tags:
 ---
 ]],
-			{
-				p(get_file_name),
-				p(os.date, "%Y-%m-%dT%H:%M"),
-			}
-		)
-	),
+            {
+                p(get_file_name),
+                p(os.date, "%Y-%m-%dT%H:%M"),
+            }
+        )
+    ),
 })
 
 ls.add_snippets("go", {
-	s(
-		"funch",
-		fmt(
-			[[
+    s(
+        "funch",
+        fmt(
+            [[
 func {1}(w http.ResponseWriter, r *http.Request) {{
     {2}
 }}
 ]],
-			{
-				i(1),
-				i(0),
-			}
-		)
-	),
+            {
+                i(1),
+                i(0),
+            }
+        )
+    ),
 
-	s(
-		"main",
-		fmt(
-			[[package main
+    s(
+        "main",
+        fmt(
+            [[package main
 
 import "log"
 
@@ -99,86 +100,91 @@ func main(){{
     {1} 
 }}
 ]],
-			{
-				i(0),
-			}
-		)
-	),
+            {
+                i(0),
+            }
+        )
+    ),
 
     s("trigger", {
-        t({"After expanding, the cursor is here ->"}), i(1),
-        t({"", "After jumping forward once, cursor is here ->"}), i(2),
-        t({"", "After jumping once more, the snippet is exited there ->"}), i(0),
+        t({ "After expanding, the cursor is here ->" }),
+        i(1),
+        t({ "", "After jumping forward once, cursor is here ->" }),
+        i(2),
+        t({ "", "After jumping once more, the snippet is exited there ->" }),
+        i(0),
     }),
 
-	s(
-		"dff",
-		fmt(
-			[[
+    s(
+        "dff",
+        fmt(
+            [[
 defer func() {{
   {1}
 }}()
 ]],
-			{
-				i(0)
-			}
-		)
-	),
+            {
+                i(0),
+            }
+        )
+    ),
 
-	s(
-		"err",
-		fmt(
-			[[
+    s(
+        "err",
+        fmt(
+            [[
 if err != nil {{
     return {1}err{2}
 }}
 {}
 
 ]],
-			{
-                i(1), i(2), i(0),
+            {
+                i(1),
+                i(2),
+                i(0),
             }
-		)
-	),
+        )
+    ),
 
-	s(
-		"erf",
-		fmt(
-			[[
+    s(
+        "erf",
+        fmt(
+            [[
 if err != nil {{
   log.Fatal(err)
 }}
 
 ]],
-			{}
-		)
-	),
+            {}
+        )
+    ),
 
-	s(
-		"ier",
-		fmt(
-			[[
+    s(
+        "ier",
+        fmt(
+            [[
 if err != nil {{
     return {1}
 }}
 ]],
-			{
-				i(0),
-			}
-		)
-	),
+            {
+                i(0),
+            }
+        )
+    ),
 })
 
 ls.add_snippets("python", {
-	s(
-		"ptpython",
-		fmt(
-			[[
+    s(
+        "ptpython",
+        fmt(
+            [[
 from ptpython.repl import embed; embed(globals(), locals())
 ]],
-			{}
-		)
-	),
+            {}
+        )
+    ),
 })
 
 -- -- require("luasnip.session.snippet_collection").clear_snippets "go"

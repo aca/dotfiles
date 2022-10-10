@@ -4,18 +4,15 @@
 -- Total Max:     6.221000 msec
 -- Total Min:     5.663000 msec
 
--- TODO
--- https://github.com/gaoDean/autolist.nvim
--- https://github.com/NvChad/nvim-colorizer.lua
 local g = vim.g
 local opt = vim.opt
 
 local function settings()
-    opt.cmdheight = 1
+    opt.cmdheight = 0
     opt.laststatus = 0
 
     opt.statusline = "%= %m%r%h%w %l:%c %P "
-    -- o.winbar = "%=%l:%c %P %m%f"
+    -- opt.winbar = "%=%l:%c %P %m%f"
 
     opt.mmp = 5000
     opt.shell = "/bin/sh"
