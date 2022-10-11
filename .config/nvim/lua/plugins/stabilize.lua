@@ -3,5 +3,6 @@
 -- require("stabilize").setup()
 --
 -- https://www.reddit.com/r/neovim/comments/xx3fom/new_option_splitkeep_merged_into_master/https://www.reddit.com/r/neovim/comments/xx3fom/new_option_splitkeep_merged_into_master/
-
-vim.o.splitkeep="screen"
+pcall(function ()
+    vim.o.splitkeep="screen"
+end)
