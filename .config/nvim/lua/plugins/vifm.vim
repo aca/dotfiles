@@ -1,6 +1,6 @@
+packadd vim-floaterm
 function s:vifm()
   let g:floaterm_opener="edit"
-  packadd vim-floaterm
   if expand('%:p') != ""
     let fname = fnameescape(expand('%:p'))
     execute "FloatermNew --height=0.9 --width=0.9 --title=vifm vifm --select " . fname
@@ -9,4 +9,4 @@ function s:vifm()
     FloatermNew --height=0.9 --width=0.9 --title=vifm vifm
   end
 endfunction
-nnoremap <silent><M-e> <cmd>call <sid>vifm()<cr>
+nnoremap <silent><C-e> <cmd>call <sid>vifm()<cr>
