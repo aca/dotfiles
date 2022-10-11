@@ -27,10 +27,10 @@ font:
   builtin_box_drawing: true
   normal:
     style: Light
-    # family: BlexMono Nerd Font Mono
+    family: BlexMono Nerd Font Mono
     # family: JetBrainsMono Nerd Font
     # family: SauceCodePro Nerd Font
-    family: BlexMono Nerd Font
+    # family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
     # family: SpaceMono Nerd Font
@@ -60,8 +60,8 @@ font:
 
   size: 16
   offset:
-    x: -2
-    y: 2
+    x: -4
+    y: -1
 
   glyph_offset:
     x: 0
