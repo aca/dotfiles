@@ -11,7 +11,7 @@ local g = vim.g
 local opt = vim.opt
 
 local function settings()
-    opt.cmdheight = 0
+    -- opt.cmdheight = 0
     opt.laststatus = 0
 
     opt.statusline = "%= %m%r%h%w %l:%c %P "
@@ -91,7 +91,7 @@ local function settings()
     opt.cindent = true
     -- https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
     opt.cinkeys = opt.cinkeys - "0#"
-    opt.wrap = false
+    opt.wrap = true
     opt.wrapscan = false
 
     opt.tabstop = 4

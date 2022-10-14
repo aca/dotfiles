@@ -338,6 +338,16 @@ Description="Keyboard - Russian - Russian (typewriter)"
 Language=ru
 Label=ru
 
+[keyboard-ru-ruchey_ru]
+Description="Keyboard - Russian - Russian (engineering, RU)"
+Language=ru
+Label=ru
+
+[keyboard-ru-ruchey_en]
+Description="Keyboard - Russian - Russian (engineering, EN)"
+Language=ru
+Label=en
+
 [keyboard-ru-legacy]
 Description="Keyboard - Russian - Russian (legacy)"
 Language=ru
@@ -482,16 +492,6 @@ Label=ru
 Description="Keyboard - Russian - Russian (Polyglot and Reactionary)"
 Language=ru
 Label=ru
-
-[keyboard-ru-ruchey_cyrillic]
-Description="Keyboard - Russian - Russian (Engineering, Cyrillic)"
-Language=ru
-Label=ru
-
-[keyboard-ru-ruchey_latin]
-Description="Keyboard - Russian - Russian (Engineering, Latin)"
-Language=ru
-Label=us
 
 [keyboard-ru-winkeys-p]
 Description="Keyboard - Russian - Russian (Programmer)"
@@ -1574,7 +1574,7 @@ Language=si
 Label=si
 
 [keyboard-lk-tam_unicode]
-Description="Keyboard - Sinhala (phonetic) - Tamil (Sri Lanka, TamilNet '99)"
+Description="Keyboard - Sinhala (phonetic) - (Sri Lanka, TamilNet '99)"
 Language=ta
 Label=ta
 
