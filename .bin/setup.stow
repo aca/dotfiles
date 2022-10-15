@@ -39,7 +39,8 @@ cleanup() {
   rmf $HOME/.fzf
   rmf $HOME/.duti
   rmf $HOME/.images
-  rmf $HOME/.local/share/nvim/site/pack
+  ensureDir $HOME/.local/share/nvim
+  emptyDir $HOME/.local/share/nvim/site/pack
   rmf $HOME/.hammerspoon
   rmf $HOME/.scripts
   rmf $HOME/.oh-my-zsh
@@ -126,7 +127,6 @@ cleanup() {
   ensureDir $HOME/.config/autostart
   ensureDir $HOME/.ssh
   ensureDir $HOME/.local/state
-  ensureDir $HOME/.local/share/nvim
   rmf $HOME/.ssh/config
 }
 
