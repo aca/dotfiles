@@ -39,8 +39,8 @@ cleanup() {
   rmf $HOME/.fzf
   rmf $HOME/.duti
   rmf $HOME/.images
-  ensureDir $HOME/.local/share/nvim
-  emptyDir $HOME/.local/share/nvim/site/pack
+  rmf $HOME/$HOME/.local/share/nvim/site
+  ensureDir $HOME/.local/share/nvim/site
   rmf $HOME/.hammerspoon
   rmf $HOME/.scripts
   rmf $HOME/.oh-my-zsh
