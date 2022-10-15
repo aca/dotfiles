@@ -142,3 +142,4 @@ set edit:history:binding[Ctrl-P] = { edit:history:up }
 
 set edit:insert:binding[Ctrl-N] =  { edit:history:down }
 set edit:history:binding[Ctrl-N] =  { edit:history:down }
+
