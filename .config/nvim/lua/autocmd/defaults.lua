@@ -57,7 +57,7 @@ nvim_create_autocmd("TextYankPost", {
 
 nvim_create_autocmd("BufWritePost", {
 	group = group,
-	pattern = { "lua/init.lua" },
+	pattern = { "lua/init/*.lua" },
 	callback = function()
 		vim.api.nvim_command("!just build")
 	end,

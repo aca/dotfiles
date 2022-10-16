@@ -1,6 +1,9 @@
+pcall(function ()
+    vim.o.splitkeep="screen"
+end)
+
 vim.cmd([[ 
 packadd plenary.nvim
-packadd md-prev.nvim
 
 packadd fugitive
 packadd vim-rhubarb
@@ -10,8 +13,8 @@ let g:github_enterprise_urls = ['https://github.tossinvest.bz']
 
 " packadd gv.vim
 
-packadd telescope.nvim
-packadd telescope-fzf-native.nvim
+" packadd telescope.nvim
+" packadd telescope-fzf-native.nvim
 packadd telescope-hop.nvim
 
 packadd nvim-web-devicons
@@ -19,7 +22,6 @@ packadd vim-ReplaceWithRegister
 packadd zen-mode.nvim
 " packadd clever-f.vim 
 
-packadd vim-fetch " TODO: replace or mv to start
 packadd vim-eunuch 
 packadd vim-characterize 
 packadd fcitx.nvim
@@ -29,17 +31,16 @@ packadd fcitx.nvim
 packadd bufferize.vim
 packadd vim-scriptease 
 packadd diffview.nvim 
-" packadd todo-comments.nvim 
 packadd nvim-colorizer.lua
+" packadd todo-comments.nvim 
 " packadd webapi-vim
 " packadd vim-gist
-
 
 command! Codi packadd codi.vim | :Codi
 command! Luapad packadd nvim-luapad | :Luapad
 
-packadd vim-boxdraw
-packadd vim-markdown-toc
+" packadd vim-boxdraw
+" packadd vim-markdown-toc
 
 packadd aerial.nvim
 
@@ -49,8 +50,6 @@ packadd vim-dadbod-ui
 let g:Illuminate_delay = 500
 packadd vim-illuminate
 
-
-packadd FixCursorHold.nvim
 " packadd indent-blankline.nvim
 
 " NOTES(aca): neovim visual block does not work as expected, override with this.
@@ -78,7 +77,6 @@ endfunction
 " replace vim's built-in visual * and # behavior
 xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
-
 ]])
 
 -- defaults
@@ -135,21 +133,29 @@ packadd nvim-ts-context-commentstring
 
 -- navigate
 vim.cmd([[
+packadd vim-fetch " TODO: replace or mv to start
+
 let g:nf_map_next=']f'
 let g:nf_map_previous='[f'
 packadd nextfile.vim
 
 packadd vim-dirvish
 
-
 packadd fold-cycle.nvim
 
-
 packadd hop.nvim
-
-packadd go-patch-unusedvar.nvim
 ]])
 
+-- go 
+vim.cmd [[
+packadd go-patch-unusedvar.nvim
+]]
+
+-- etc plugins
+vim.cmd [[
+]]
+
+-- etc
 vim.cmd [[
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 ]]

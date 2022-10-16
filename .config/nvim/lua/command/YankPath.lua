@@ -6,3 +6,6 @@ vim.api.nvim_create_user_command("YankPath", function(msg)
 	vim.fn.setreg("*", loc)
 	print(loc)
 end, {})
+
+vim.keymap.set("n", "yp", ":YankPath<cr>")
+

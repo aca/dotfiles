@@ -60,7 +60,7 @@ font:
 
   size: 16
   offset:
-    x: -4
+    x: -2
     y: 5
 
   glyph_offset:

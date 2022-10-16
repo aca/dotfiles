@@ -60,6 +60,7 @@ set("n", "<leader>gd", function()
     vim.lsp.buf.definition()
 end, { silent = true })
 set("n", "gi", vim.lsp.buf.implementation, { silent = true })
+set({"n", "v"}, ";a", vim.lsp.buf.code_action, { silent = true })
 
 nvim_set_keymap("n", ";ff", "<cmd>Neoformat<CR>", { noremap = true, silent = true })
 set("n", ";rn", vim.lsp.buf.rename, { silent = true })
@@ -118,8 +119,6 @@ nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
-nnoremap <silent> ;a            <cmd>lua vim.lsp.buf.code_action()<CR>
-vnoremap <silent> ;a            <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 
@@ -148,14 +147,6 @@ nnoremap <silent>;s
              \    syntax enable <BAR>
              \ endif<CR>
 
-"
-" misc
-"
-" " gf that works with vim-fetch
-" - ~/src/ (directory)
-" - ~/src (it sometimes does not open directory properly)
-" ~/.config/nvim/init.vim:9^2 (cursor at ^)
-" nnoremap <silent>gf WBgF
 
 " visual block increment
 vnoremap <C-a> g<C-a>
@@ -163,7 +154,6 @@ vnoremap <C-x> g<C-x>
 vnoremap g<C-a> <C-a>
 vnoremap g<C-x> <C-x>
 nnoremap <c-g> 2<c-g>
-
 
 " mistakes
 cnoreabbrev W! w!
@@ -214,7 +204,4 @@ nnoremap <silent><C-s>     :write!<cr><cr>
 " https://github.com/mhinz/vim-galore/blob/master/README.md#saner-command-line-history
 cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
 cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
-
-" copy current path in form of filename:linenr
-nnoremap yp :YankPath<cr>
 ]])
