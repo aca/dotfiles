@@ -79,14 +79,6 @@ local on_attach = function(client, bufnr)
     require("illuminate").on_attach(client)
 end
 
-if vim.fn.executable("emmet-ls") == 1 then
-    lspconfig.emmet_ls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        filetypes = { "html", "css" },
-    })
-end
-
 lspconfig.pyright.setup({
     cmd = require("pylance"),
     capabilities = capabilities,
@@ -105,9 +97,26 @@ lspconfig.pyright.setup({
     },
 })
 
+configs.emmet = {
+    default_config = {
+        -- cmd = {"ts-node", "/home/rok/src/github.com/aca/emmet-ls/src/server.ts", "--stdio"},
+        cmd = {"node", "~/src/github.com/aca/emmet-ls/out/server.js", "--stdio"},
+        filetypes = {"css", "html"},
+        root_dir = function()
+            return vim.loop.cwd()
+        end,
+        settings = {},
+      }
+}
+
+lspconfig.emmet.setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+}
+
 configs.mdpls = {
     default_config = {
-        cmd = {"ts-node", "/Users/kyungrok.chung/src/github.com/aca/mdpls/server/src/server.ts", "--stdio"},
+        cmd = {"ts-node", "~/src/github.com/aca/mdpls/server/src/server.ts", "--stdio"},
         filetypes = {"markdown"},
         root_dir = function()
             return vim.loop.cwd()
@@ -119,18 +128,6 @@ lspconfig.mdpls.setup{
     capabilities = capabilities,
     on_attach = on_attach,
 }
-
--- configs.lsp_dev = {
--- default_config = {
---     cmd = {"ts-node", "/Users/rok/src/github.com/aca/lsp-dev/server.ts", "--stdio"},
---     filetypes = {"text", "markdown", "go"},
---     root_dir = function()
---         return vim.loop.cwd()
---     end,
---     settings = {}
---   }
--- }
--- lspconfig.lsp_dev.setup {}
 
 local gopls_settings = {
     gopls = {
@@ -216,41 +213,6 @@ require("mason-lspconfig").setup_handlers({
         )
     end,
 })
-
--- for _, server in ipairs(lsp_installer.get_installed_servers()) do
--- 	if server.name == "sumneko_lua" then
--- 		local luadev = require("lua-dev").setup({})
--- 		lspconfig.sumneko_lua.setup(luadev)
--- 	elseif server.name == "gopls" then
--- 		lspconfig.gopls.setup({
--- 			capabilities = capabilities,
--- 			on_attach = on_attach,
--- 			settings = gopls_settings,
--- 		})
--- 	elseif server.name == "emmet_ls" then
--- 		lspconfig.emmet_ls.setup({
--- 			capabilities = capabilities,
--- 			on_attach = on_attach,
--- 			filetypes = { "html", "css", "javascriptreact", "typescriptreact" },
--- 		})
---
--- 		-- elseif server.name == "tsserver" then
--- 		--     require("typescript").setup({
--- 		--         server = vim.tbl_deep_extend("force", server:get_default_options(), {
--- 		--         capabilities = capabilities,
--- 		--         on_attach = on_attach,
--- 		--         settings = gopls_settings,
--- 		--
--- 		--         }
--- 		--       )
--- 		--     })
--- 	else
--- 		lspconfig[server.name].setup({
--- 			capabilities = capabilities,
--- 			on_attach = on_attach,
--- 		})
--- 	end
--- end
 
 local diagnostics_active = true
 vim.api.nvim_create_user_command("ToggleDiagnostic", function()
