@@ -69,4 +69,4 @@
 -- vim.o.statusline = "%{%v:lua._statusline.getCurrentDiagnosticString()%}%= %m%r%h%w %l:%c %P "
 
 -- vim.o.winbar = "%=%P %{%v:lua._statusline.nvim_gps()%} %m%f"
-vim.o.statusline = "%m%f%="
+-- vim.o.statusline = "%m%f%="

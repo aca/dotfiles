@@ -1,5 +1,5 @@
 #!/bin/sh
 
-pbcopy
-
-# TODO: move to osc52
+osc52 
+# pbcopy
+# pbcopy
