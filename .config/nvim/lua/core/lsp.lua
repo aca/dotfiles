@@ -168,10 +168,10 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
 
-    ["sumneko_lua"] = function()
-        local luadev = require("lua-dev")
-        lspconfig.sumneko_lua.setup(luadev.setup({}))
-    end,
+    -- ["sumneko_lua"] = function()
+    --     local luadev = require("lua-dev")
+    --     lspconfig.sumneko_lua.setup(luadev.setup({}))
+    -- end,
 
     ["tsserver"] = function()
         lspconfig.tsserver.setup({
