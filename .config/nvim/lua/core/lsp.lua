@@ -2,6 +2,8 @@
 -- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
+local vim = vim
+
 vim.cmd [[
     packadd nvim-lspconfig
     packadd mason.nvim
@@ -116,7 +118,7 @@ lspconfig.emmet.setup{
 
 configs.mdpls = {
     default_config = {
-        cmd = {"ts-node", "~/src/github.com/aca/mdpls/server/src/server.ts", "--stdio"},
+        cmd = {"ts-node", "/home/rok/src/github.com/aca/mdpls/src/server.ts", "--stdio"},
         filetypes = {"markdown"},
         root_dir = function()
             return vim.loop.cwd()

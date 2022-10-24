@@ -1,4 +1,3 @@
-local group = vim.api.nvim_create_augroup("_init", { clear = true })
 local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 --     -- restore cursor position on start
@@ -17,7 +16,6 @@ local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 -- templates, gh actions
 nvim_create_autocmd("BufNewFile", {
-    group = group,
     pattern = { "**/.github/workflows/**.y*ml" },
     command = [[
 execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
@@ -26,7 +24,6 @@ execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
 
 -- load dirvish on open if it's directory
 nvim_create_autocmd("BufEnter", {
-    group = group,
     callback = function()
         -- if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then
         ---@diagnostic disable-next-line: missing-parameter
@@ -36,5 +33,14 @@ nvim_create_autocmd("BufEnter", {
   execute 'Dirvish %'
   ]])
         end
+    end,
+})
+
+nvim_create_autocmd("BufRead", {
+    pattern = { "**/novelpia/**/**" },
+    callback = function()
+        vim.cmd([[
+%!jq -r '.s[].text' | url.encode | sed 's/&nbsp;/ /g' | sed '/^$/N;/^\n$/D'
+        ]])
     end,
 })

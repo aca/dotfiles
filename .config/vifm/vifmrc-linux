@@ -49,9 +49,8 @@ filextype {*.djvu},<image/vnd.djvu>
 filetype {*.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus},
         \<audio/*>
        \ {Play using ffplay}
-       \ ffplay -nodisp -autoexit %c,
+       \ mpv %f,
        \ {Play using MPlayer}
-       \ mplayer %f,
 fileviewer {*.mp3},<audio/mpeg> mp3info
 fileviewer {*.flac},<audio/flac> soxi
 

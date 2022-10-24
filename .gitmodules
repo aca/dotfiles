@@ -493,3 +493,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-hlslens"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-hlslens
 	url = https://github.com/kevinhwang91/nvim-hlslens.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/peek.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/peek.nvim
+	url = https://github.com/toppair/peek.nvim.git

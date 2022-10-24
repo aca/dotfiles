@@ -6,3 +6,4 @@
 --
 -- TODO
 -- https://github.com/adelarsq/image_preview.nvim
+-- https://www.reddit.com/r/neovim/comments/y9mg1t/smartest_autopair_plugin_nowadays/

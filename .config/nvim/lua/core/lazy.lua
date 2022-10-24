@@ -151,9 +151,6 @@ vim.cmd [[
 packadd go-patch-unusedvar.nvim
 ]]
 
--- etc plugins
-vim.cmd [[
-]]
 
 -- etc
 vim.cmd [[
