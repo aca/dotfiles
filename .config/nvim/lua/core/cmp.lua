@@ -1,10 +1,7 @@
--- https://github.com/hrsh7th/cmp-nvim-lsp
-
-local api = vim.api
-
-vim.cmd.packadd("nvim-cmp")
+local vim = vim
 
 vim.cmd([[ 
+packadd nvim-cmp
 packadd cmp-under-comparator
 
 packadd cmp-buffer
@@ -19,8 +16,9 @@ runtime after/plugin/cmp_path.lua
 packadd cmp_luasnip
 runtime /after/plugin/cmp_luasnip.lua
 
-packadd cmp-nvim-lsp-signature-help
-runtime after/plugin/cmp_nvim_lsp_signature_help.lua
+" MOVED to mini.completion
+" packadd cmp-nvim-lsp-signature-help
+" runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 
 packadd cmp-cmdline
 runtime after/plugin/cmp_cmdline.lua
@@ -28,26 +26,15 @@ runtime after/plugin/cmp_cmdline.lua
 packadd cmp-tmux
 runtime after/plugin/cmp_tmux.vim
 
+" MAYBE(aca): https://github.com/zbirenbaum/copilot-cmp
 " packadd copilot.vim
 " packadd cmp-copilot
+
 " packadd cmp-tabnine
 " runtime after/plugin/cmp-tabnine.lua
 ]])
 
 local cmp = require("cmp")
-
--- local tabnine = require("cmp_tabnine.config")
--- tabnine.setup({
---     max_lines = 1000,
---     max_num_results = 20,
---     sort = true,
---     run_on_every_keystroke = true,
---     snippet_placeholder = "..",
---     ignored_file_types = {
---         lua = true,
---     },
---     show_prediction_strength = false,
--- })
 
 local cmp_sources = {
     { name = "nvim_lsp" },
@@ -56,64 +43,8 @@ local cmp_sources = {
     -- { name = "path" },
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
-    { name = "nvim_lsp_signature_help" },
+    -- { name = "nvim_lsp_signature_help" },
 }
-
--- local cmp_kinds = {
---     Text = "",
---     Method = "",
---     Function = "",
---     Constructor = "",
---     Field = "",
---     Variable = "",
---     Class = "ﴯ",
---     Interface = "",
---     Module = "",
---     Property = "ﰠ",
---     Unit = "",
---     Value = "",
---     Enum = "",
---     Keyword = "",
---     Snippet = "",
---     Color = "",
---     File = "",
---     Reference = "",
---     Folder = "",
---     EnumMember = "",
---     Constant = "",
---     Struct = "",
---     Event = "",
---     Operator = "",
---     TypeParameter = "",
--- }
-
--- local cmp_kinds = {
---     Text = "",
---     Method = "",
---     Function = "",
---     Constructor = "⌘",
---     Field = "ﰠ",
---     Variable = "",
---     Class = "ﴯ",
---     Interface = "",
---     Module = "",
---     Property = "ﰠ",
---     Unit = "塞",
---     Value = "",
---     Enum = "",
---     Keyword = "廓",
---     Snippet = "",
---     Color = "",
---     File = "",
---     Reference = "",
---     Folder = "",
---     EnumMember = "",
---     Constant = "",
---     Struct = "פּ",
---     Event = "",
---     Operator = "",
---     TypeParameter = "",
--- }
 
 local luasnip = require("luasnip")
 cmp.setup({
@@ -136,6 +67,7 @@ cmp.setup({
     --         return {}
     --     end,
     -- },
+
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -167,7 +99,7 @@ cmp.setup({
     --         return vim_item
     --     end,
     -- },
-    --
+
     preselect = "none",
     mapping = {
         ["<CR>"] = cmp.mapping(function(fallback)
@@ -244,3 +176,8 @@ cmp.setup({
 --     { name = 'buffer' }
 --   }
 -- })
+
+vim.cmd([[
+packadd mini.nvim
+]])
+require('mini.completion').setup()

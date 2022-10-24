@@ -1,3 +1,4 @@
+local vim = vim
 vim.defer_fn(function()
     -- require("impatient").enable_profile()
     require("impatient")

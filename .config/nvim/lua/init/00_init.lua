@@ -5,5 +5,11 @@
 -- Total Min:     5.663000 msec
 --
 -- TODO
+-- https://this-week-in-neovim.org/
 -- https://github.com/adelarsq/image_preview.nvim
 -- https://www.reddit.com/r/neovim/comments/y9mg1t/smartest_autopair_plugin_nowadays/
+-- https://github.com/lewis6991/hover.nvim
+--
+-- netrw replace
+-- https://github.com/miversen33/netman.nvim
+-- https://github.com/nvim-neo-tree/neo-tree.nvim

@@ -445,9 +445,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/copilot.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/copilot.vim
 	url = https://github.com/github/copilot.vim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/cmp-copilot"]
-	path = .local/share/nvim/site/pack/bundle/opt/cmp-copilot
-	url = https://github.com/hrsh7th/cmp-copilot.git
 [submodule ".submodules/kubectl-node-shell"]
 	path = .submodules/kubectl-node-shell
 	url = https://github.com/kvaps/kubectl-node-shell.git
@@ -496,3 +493,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/peek.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/peek.nvim
 	url = https://github.com/toppair/peek.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/mini.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/mini.nvim
+	url = https://github.com/echasnovski/mini.nvim.git

@@ -3,6 +3,7 @@
 
 local nvim_set_keymap = vim.api.nvim_set_keymap
 local set = vim.keymap.set
+local vim = vim
 
 -- general
 set("n", ";;", ":")
@@ -36,6 +37,8 @@ nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent 
 
 -- LSP
 -- nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+--
+set("n", ";dd", vim.diagnostic.setloclist)
 set("n", "gd", vim.lsp.buf.definition, { silent = true })
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
 set("n", ";f", function()
@@ -65,6 +68,7 @@ set({"n", "v"}, ";a", vim.lsp.buf.code_action, { silent = true })
 nvim_set_keymap("n", ";ff", "<cmd>Neoformat<CR>", { noremap = true, silent = true })
 set("n", ";rn", vim.lsp.buf.rename, { silent = true })
 set("n", ";rf", vim.lsp.buf.references, { silent = true })
+
 
 -- https://github.com/yuki-yano/zero.nvim/blob/main/lua/zero.lua
 nvim_set_keymap(
@@ -107,18 +111,15 @@ inoremap <c-c> <esc>
 vnoremap <c-c> <esc>
 vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
 
-" nnoremap ;; :
-" vnoremap ;; :
+nnoremap ;; :
+vnoremap ;; :
 
 " LSP
-" inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
+inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
 " this makes p slow
+
 " nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
 
-nnoremap <silent> g0            <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW            <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-nnoremap <silent> ;dd           <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 
