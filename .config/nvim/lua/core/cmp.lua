@@ -2,8 +2,9 @@
 
 local api = vim.api
 
+vim.cmd.packadd("nvim-cmp")
+
 vim.cmd([[ 
-packadd nvim-cmp
 packadd cmp-under-comparator
 
 packadd cmp-buffer

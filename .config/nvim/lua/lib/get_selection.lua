@@ -20,5 +20,3 @@ function M.get_selection()
 end
 
 return M
-
-

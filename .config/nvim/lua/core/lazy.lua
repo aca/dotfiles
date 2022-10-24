@@ -54,8 +54,11 @@ packadd vim-illuminate
 
 " NOTES(aca): neovim visual block does not work as expected, override with this.
 " Need to fix https://github.com/neovim/neovim/pull/18538/files
+
 " visualblocking `Created "$WORK/secret.txt.age` does not work
 " visualblocking `Created "$WORK/secret.txt.age` does not work
+" visualblocking `Created "$WORK/se` does not work
+
 " https://github.com/bronson/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
 " makes * and # work on visual mode too.  global function so user mappings can call it.
 " specifying 'raw' for the second argument prevents escaping the result for vimgrep
@@ -77,7 +80,9 @@ endfunction
 " replace vim's built-in visual * and # behavior
 xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
+" xnoremap * y/\V<C-R>"<CR>
 ]])
+
 
 -- defaults
 vim.cmd([[

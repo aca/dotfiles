@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+cd ~/src/github.com/neovim/neovim 
+sudo make -j8 CMAKE_BUILD_TYPE=Release
+sudo make install
