@@ -1,3 +1,4 @@
+local vim = vim
 local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 --     -- restore cursor position on start

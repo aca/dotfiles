@@ -39,8 +39,9 @@ fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-pre
 fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
 fn grt { cd (or (e:git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
-fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) }  }
+fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) } }
 fn ffc { || $cdf~ (ff)  }
+
 # }}}
 
 # wrapper

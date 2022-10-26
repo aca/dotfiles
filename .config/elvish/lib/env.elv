@@ -73,23 +73,10 @@ set-env FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10 --no-ignore'
 
 set paths = [
   # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
-
-  # ~/.asdf/bin
-  # ~/.asdf/shims
-
-  ~/.gem/ruby/*[nomatch-ok]/bin
-
-  ~/.bun/bin
+  # ~/.gem/ruby/*[nomatch-ok]/bin
+  # ~/.bun/bin
 
   ~/bin
-
-  ~/xxx/bin
-
-  ~/.bin
-  ~/.bin/_lib
-  ~/.bin/_install
-  ~/.bin/_v
-  ~/.bin/_$platform:os
 
   ~/.cargo/bin
   ~/.local/bin
@@ -103,5 +90,14 @@ set paths = [
   ~/.local/share/JetBrains/Toolbox/scripts
 
   $@paths
+
+  ~/xxx/bin
+  ~/.bin
+  ~/.bin/dev
+  ~/.bin/lib
+  ~/.bin/v
+  ~/.bin/installations
+  ~/.bin/abbr
+  ~/.bin/$platform:os
 ]
 

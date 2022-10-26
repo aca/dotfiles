@@ -1,9 +1,13 @@
-#!/usr/bin/env fish
+#!/bin/bash
 
-[ (uname) = "Linux" ] && set font_dir "$HOME/.local/share/fonts"
-[ (uname) = "Darwin" ] && set font_dir "$HOME/Library/Fonts" 
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    font_dir="$HOME/.local/share/fonts"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    font_dir="$HOME/Library/Fonts" 
+fi
+
 [ -d "$font_dir" ] || mkdir -p "$font_dir" || true
 
-rm -vrf $font_dir/fonts
-cp -rvp fonts $font_dir
-fc-cache -vf $font_dir/fonts
+rm -vrf "$font_dir/fonts"
+cp -rvp fonts "$font_dir"
+fc-cache -vf "$font_dir/fonts"

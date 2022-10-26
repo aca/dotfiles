@@ -118,7 +118,7 @@ lspconfig.emmet.setup{
 
 configs.mdpls = {
     default_config = {
-        cmd = {"ts-node", "/home/rok/src/github.com/aca/mdpls/src/server.ts", "--stdio"},
+        cmd = {"ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio"},
         filetypes = {"markdown"},
         root_dir = function()
             return vim.loop.cwd()
@@ -227,4 +227,4 @@ vim.api.nvim_create_user_command("ToggleDiagnostic", function()
 end, {})
 
 -- this is required, as lsp is lazy loaded
-vim.cmd([[ :LspStart ]])
+vim.cmd([[:LspStart]])
