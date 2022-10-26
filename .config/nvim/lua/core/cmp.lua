@@ -16,9 +16,8 @@ runtime after/plugin/cmp_path.lua
 packadd cmp_luasnip
 runtime /after/plugin/cmp_luasnip.lua
 
-" MOVED to mini.completion
-" packadd cmp-nvim-lsp-signature-help
-" runtime after/plugin/cmp_nvim_lsp_signature_help.lua
+packadd cmp-nvim-lsp-signature-help
+runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 
 packadd cmp-cmdline
 runtime after/plugin/cmp_cmdline.lua
@@ -43,7 +42,7 @@ local cmp_sources = {
     -- { name = "path" },
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
-    -- { name = "nvim_lsp_signature_help" },
+    { name = "nvim_lsp_signature_help" },
 }
 
 local luasnip = require("luasnip")
@@ -176,8 +175,3 @@ cmp.setup({
 --     { name = 'buffer' }
 --   }
 -- })
-
-vim.cmd([[
-packadd mini.nvim
-]])
-require('mini.completion').setup()
