@@ -76,6 +76,15 @@ set paths = [
   # ~/.gem/ruby/*[nomatch-ok]/bin
   # ~/.bun/bin
 
+  ~/xxx/bin
+  ~/.bin
+  ~/.bin/dev
+  ~/.bin/lib
+  ~/.bin/v
+  ~/.bin/installations
+  ~/.bin/abbr
+  ~/.bin/$platform:os
+
   ~/bin
 
   ~/.cargo/bin
@@ -90,14 +99,5 @@ set paths = [
   ~/.local/share/JetBrains/Toolbox/scripts
 
   $@paths
-
-  ~/xxx/bin
-  ~/.bin
-  ~/.bin/dev
-  ~/.bin/lib
-  ~/.bin/v
-  ~/.bin/installations
-  ~/.bin/abbr
-  ~/.bin/$platform:os
 ]
 

@@ -49,6 +49,7 @@ packadd vim-dadbod-ui
 
 let g:Illuminate_delay = 500
 packadd vim-illuminate
+packadd vim-dirdiff
 
 " packadd indent-blankline.nvim
 
