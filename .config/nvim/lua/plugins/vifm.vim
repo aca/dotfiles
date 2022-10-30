@@ -2,7 +2,9 @@ packadd vim-floaterm
 function s:vifm()
   let g:floaterm_opener="edit"
   if expand('%:p') != ""
-    let fname = fnameescape(expand('%:p'))
+    " let fname = shellescape(fnameescape(expand('%:p')))
+    let fname = escape(shellescape(expand('%:p')), '#')
+    " let fname = shellescape(expand('%:p'))
     execute "FloatermNew --height=0.9 --width=0.9 --title=vifm vifm --select " . fname
   else
     " FloatermNew --height=0.9 --width=0.9 --title=vifm vifm -c ':vs |:tree! | :view! | set nodotfiles'

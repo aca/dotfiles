@@ -37,11 +37,11 @@ nvim_create_autocmd("BufEnter", {
     end,
 })
 
-nvim_create_autocmd("BufRead", {
-    pattern = { "**/novelpia/**/**" },
-    callback = function()
-        vim.cmd([[
-%!jq -r '.s[].text' | url.encode | sed 's/&nbsp;/ /g' | sed '/^$/N;/^\n$/D'
-        ]])
-    end,
-})
+-- nvim_create_autocmd("BufRead", {
+--     pattern = { "**/x/**/**" },
+--     callback = function()
+--         vim.cmd([[
+-- %!jq -r '.s[].text' | url.encode | sed 's/&nbsp;/ /g' | sed '/^$/N;/^\n$/D'
+--         ]])
+--     end,
+-- })

@@ -205,6 +205,7 @@ require("mason-lspconfig").setup_handlers({
     ["gopls"] = function()
         lspconfig.gopls.setup(
             {
+                single_file_support = true,
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)
                     -- require "lsp-format".on_attach(client)
