@@ -13,3 +13,6 @@
 -- netrw replace
 -- https://github.com/miversen33/netman.nvim
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
+--
+-- https://www.reddit.com/r/neovim/comments/yfbfvu/sympy_luasnip_vimtex/
+-- https://castel.dev/post/lecture-notes-1/
