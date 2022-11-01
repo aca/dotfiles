@@ -18,11 +18,6 @@ set edit:command-abbr['virt-clone'] = 'sudo virt-clone'
 set edit:command-abbr['virt-install'] = 'sudo virt-install'
 set edit:command-abbr['xargsi'] = 'xargs -I@'
 
-
-# OSC52
-set edit:after-readline = [ $@edit:after-readline { |args| printf "\033]133;C;\007" } ]
-set edit:after-command = [ $@edit:after-command { |m| printf "\033]133;A;cl=m;aid=%s\007" $pid } ]
-
 fn asdf-available {
     if (path:is-dir $pwd/.asdf) {
         return
