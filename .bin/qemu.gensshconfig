@@ -1,6 +1,6 @@
 #!/usr/bin/env elvish
 
-sudo rm ~/.ssh/hosts_qemu
+nop ?(sudo rm ~/.ssh/hosts_qemu)
 var sshconfig = (realpath ~/.ssh/hosts_qemu)
 echo '# vim:set ft=sshconfig:' > $sshconfig
 
