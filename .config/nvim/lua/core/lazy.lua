@@ -1,3 +1,4 @@
+local vim = vim
 pcall(function ()
     vim.o.splitkeep="screen"
 end)

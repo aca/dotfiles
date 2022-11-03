@@ -29,4 +29,5 @@ vim.api.nvim_create_user_command("FormatLink", function()
         stdout_buffered = true,
         stderr_buffered = true,
     })
+
 end, {})
