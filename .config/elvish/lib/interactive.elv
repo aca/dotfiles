@@ -1,4 +1,5 @@
 use str
+use path
 set edit:command-abbr['gco'] = 'git checkout'
 set edit:command-abbr['k'] = 'kubectl'
 set edit:command-abbr['os'] = 'openstack '
