@@ -53,17 +53,17 @@ fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
           \<video/*>
          \ ffprobe -pretty %c 2>&1
 
-" Web
-filetype {*.html,*.htm},<text/html>
-       \ {Open in Safari}
-       \ open -a Safari.app,
-       \ {Open in Firefox}
-       \ open -a Firefox.app,
-       \ {Open in Chrome}
-       \ open -a Google\ Chrome.app,
-       \ {Open in vim}
-       \ nvim,
-fileviewer {*.html,*.htm},<text/html> w3m -dump -T text/html
+" " Web
+" filetype {*.html,*.htm},<text/html>
+"        \ {Open in Safari}
+"        \ open -a Safari.app,
+"        \ {Open in Firefox}
+"        \ open -a Firefox.app,
+"        \ {Open in Chrome}
+"        \ open -a Google\ Chrome.app,
+"        \ {Open in vim}
+"        \ nvim,
+" fileviewer {*.html,*.htm},<text/html> w3m -dump -T text/html
 
 " Object
 filetype {*.o},<application/x-object> nm %f | less

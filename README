@@ -1,8 +1,13 @@
 dotfiles
 ========
 
-make init
+init
 
-curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+    git clone --recurse-submodules -j8 https://github.com/aca/dotfiles ~/src/config/dotfiles
+    bash ~/src/configs/dotfiles/.bin/setup.stow
+    curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 
-git clone root:~/src/config/dotfiles.shared
+local configs (tailscale enabled)
+
+    git clone root:~/src/config/dotfiles.shared
+
