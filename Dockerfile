@@ -17,6 +17,7 @@ RUN apk add --no-cache \
 RUN apk add --no-cache --force-overwrite \
       python3 \
       build-base \
+      sshpass \
       ca-certificates \
       curl \
       tar \

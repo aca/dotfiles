@@ -3,7 +3,9 @@
 -- Total Average: 5.900700 msec
 -- Total Max:     6.221000 msec
 -- Total Min:     5.663000 msec
---
+
+-- https://github.com/nullchilly/fsread.nvim
+
 -- TODO
 -- https://this-week-in-neovim.org/
 -- https://github.com/adelarsq/image_preview.nvim
@@ -16,3 +18,4 @@
 --
 -- https://www.reddit.com/r/neovim/comments/yfbfvu/sympy_luasnip_vimtex/
 -- https://castel.dev/post/lecture-notes-1/
+

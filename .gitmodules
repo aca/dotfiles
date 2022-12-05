@@ -496,3 +496,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/mini.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/mini.nvim
 	url = https://github.com/echasnovski/mini.nvim.git
+[submodule ".submodules/sshpass.sh"]
+	path = .submodules/sshpass.sh
+	url = https://github.com/huan/sshpass.sh.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/fsread.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/fsread.nvim
+	url = https://github.com/nullchilly/fsread.nvim.git
