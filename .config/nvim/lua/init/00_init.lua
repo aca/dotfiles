@@ -18,4 +18,3 @@
 --
 -- https://www.reddit.com/r/neovim/comments/yfbfvu/sympy_luasnip_vimtex/
 -- https://castel.dev/post/lecture-notes-1/
-

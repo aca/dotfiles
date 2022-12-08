@@ -502,3 +502,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/fsread.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/fsread.nvim
 	url = https://github.com/nullchilly/fsread.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/asciitree.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/asciitree.nvim
+	url = https://github.com/xorid/asciitree.nvim.git
