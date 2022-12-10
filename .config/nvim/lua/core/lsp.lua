@@ -99,22 +99,22 @@ lspconfig.pyright.setup({
     },
 })
 
-configs.emmet = {
-    default_config = {
-        -- cmd = {"ts-node", "/home/rok/src/github.com/aca/emmet-ls/src/server.ts", "--stdio"},
-        cmd = {"node", "~/src/github.com/aca/emmet-ls/out/server.js", "--stdio"},
-        filetypes = {"css", "html"},
-        root_dir = function()
-            return vim.loop.cwd()
-        end,
-        settings = {},
-      }
-}
+-- configs.emmet = {
+--     default_config = {
+--         -- cmd = {"ts-node", "/home/rok/src/github.com/aca/emmet-ls/src/server.ts", "--stdio"},
+--         cmd = {"node", "~/src/github.com/aca/emmet-ls/out/server.js", "--stdio"},
+--         filetypes = {"css", "html"},
+--         root_dir = function()
+--             return vim.loop.cwd()
+--         end,
+--         settings = {},
+--       }
+-- }
 
-lspconfig.emmet.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
+-- lspconfig.emmet.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+-- }
 
 configs.mdpls = {
     default_config = {

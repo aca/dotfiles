@@ -8,7 +8,7 @@ exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 exec --no-startup-id fcitx5 -d
-exec --no-startup-id kanshi
+#exec --no-startup-id kanshi
 
 # Not working, for_window [app_id="com.github.hulk.copyq"] floating enable, resize set 800px 800px
 exec copyq
