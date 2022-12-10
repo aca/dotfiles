@@ -1,7 +1,4 @@
 -- DEBUG
--- vim.lsp.set_log_level("debug")
--- require("vim.lsp.log").set_format_func(vim.inspect)
-
 local vim = vim
 
 vim.cmd [[
@@ -12,7 +9,7 @@ vim.cmd [[
 ]]
 
 local lspconfig = require("lspconfig")
-local util = require("lspconfig/util")
+-- local util = require("lspconfig/util")
 local configs = require("lspconfig.configs")
 
 -- require("lsp-format").setup {}
@@ -118,15 +115,15 @@ lspconfig.pyright.setup({
 
 configs.mdpls = {
     default_config = {
-        cmd = {"ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio"},
-        filetypes = {"markdown"},
+        cmd = { "ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio" },
+        filetypes = { "markdown" },
         root_dir = function()
             return vim.loop.cwd()
         end,
         settings = {},
-      }
+    }
 }
-lspconfig.mdpls.setup{
+lspconfig.mdpls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
 }
@@ -177,29 +174,50 @@ require("mason-lspconfig").setup_handlers({
 
     ["tsserver"] = function()
         lspconfig.tsserver.setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-          single_file_support=true,
-          settings = {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            single_file_support = true,
+            settings = {
                 codeActionsOnSave = {
                     ["source.organizeImports.ts"] = true,
                 },
-          },
-          commands = {
-            OrganizeImports = {
-              function()
-                local params = {
-                  command = "_typescript.organizeImports",
-                  arguments = {
-                      vim.api.nvim_buf_get_name(0)
-                  },
-                  title = ""
+                -- TODO: not work
+                preferences = {
+                    javascript = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                    typescript = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                    typescriptreact = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
                 }
-                vim.lsp.buf.execute_command(params)
-              end
+            },
+            commands = {
+                OrganizeImports = {
+                    function()
+                        local params = {
+                            command = "_typescript.organizeImports",
+                            arguments = {
+                                vim.api.nvim_buf_get_name(0)
+                            },
+                            title = ""
+                        }
+                        vim.lsp.buf.execute_command(params)
+                    end
+                }
             }
-          }
-      })
+        })
     end,
 
     ["gopls"] = function()

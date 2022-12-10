@@ -9,6 +9,7 @@
 
 use math
 use str
+use re
 
 # https://github.com/elves/elvish/issues/1053#issuecomment-859223554
 fn fzf_history {||
@@ -113,6 +114,15 @@ set edit:insert:binding[Ctrl-G] = { cd (or (e:git rev-parse --show-toplevel 2>/d
 
 set edit:insert:binding[Alt-w] = { set edit:current-command = ( printf "watch --interval 4 --differences=permanent --exec elvish -c %q" $edit:current-command ) }
 set edit:insert:binding[Alt-e] = {|| edit:replace-input (print $edit:current-command | e:vipe --suffix elv | slurp)}
+# re:replace &posix=$false &longest=$false &literal=$false $pattern $repl $source
+set edit:insert:binding[Alt-p] = {|| 
+    use re
+    if (re:match " $$" (print $edit:current-command | slurp)) {
+        edit:replace-input (re:replace &literal=$true " $$" " | " (print $edit:current-command | slurp))
+    } else {
+        edit:replace-input (re:replace &literal=$true "$$" " | " (print $edit:current-command | slurp))
+    }
+}
 
 # queue command to pueue
 # I don't like pueue interface, maybe just use tmux
@@ -134,9 +144,6 @@ set edit:insert:binding[Alt-b] = {||
 }
 
 # navigate history like vim
-# set edit:insert:binding[Ctrl-p] = { edit:histlist:start }
-# set edit:history:binding[Ctrl-N] = { noti -m "324"; edit:history:up }
-# set edit:history:binding[Ctrl-P] = { noti -m "435345"; edit:history:down }
 set edit:insert:binding[Ctrl-P] =  { edit:history:start }
 set edit:history:binding[Ctrl-P] = { edit:history:up }
 

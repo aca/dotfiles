@@ -42,12 +42,14 @@ set("n", ";dd", vim.diagnostic.setloclist)
 set("n", "gd", vim.lsp.buf.definition, { silent = true })
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
 set("n", ";f", function()
-    vim.lsp.buf.format()
     if string.match(vim.bo.filetype, "typescript") or string.match(vim.bo.filetype, "javascript") then
+        vim.lsp.buf.format({ formatting_options = { tabSize = 2 } })
         vim.lsp.buf.execute_command({
             command = "_typescript.organizeImports",
             arguments = { vim.api.nvim_buf_get_name(0) },
         })
+    else
+        vim.lsp.buf.format()
     end
     vim.cmd([[ normal! zx ]])
 end, { silent = true })
@@ -63,7 +65,7 @@ set("n", "<leader>gd", function()
     vim.lsp.buf.definition()
 end, { silent = true })
 set("n", "gi", vim.lsp.buf.implementation, { silent = true })
-set({"n", "v"}, ";a", vim.lsp.buf.code_action, { silent = true })
+set({ "n", "v" }, ";a", vim.lsp.buf.code_action, { silent = true })
 
 nvim_set_keymap("n", ";ff", "<cmd>Neoformat<CR>", { noremap = true, silent = true })
 set("n", ";rn", vim.lsp.buf.rename, { silent = true })

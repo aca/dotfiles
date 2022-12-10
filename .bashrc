@@ -1,3 +1,4 @@
+alias sway="sway > /var/log/sway.log 2>&1"
 export PATH=$HOME/bin:$PATH
 
 # If not running interactively, don't do anything
