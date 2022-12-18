@@ -505,3 +505,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/asciitree.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/asciitree.nvim
 	url = https://github.com/xorid/asciitree.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/tcomment_vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim.git
