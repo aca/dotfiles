@@ -26,10 +26,10 @@ scrolling:
 font:
   builtin_box_drawing: true
   normal:
-    style: Light
-    family: BlexMono Nerd Font Mono
+    # style: Light
+    # family: BlexMono Nerd Font Mono
     # family: JetBrainsMono Nerd Font
-    # family: SauceCodePro Nerd Font
+    family: SauceCodePro Nerd Font
     # family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
@@ -422,7 +422,7 @@ debug:
  log_level: Trace
  print_events: true
 # ColorStart
-# Base16 Black Metal - alacritty color config
+# Base16 Black Metal (Bathory) 256 - alacritty color config
 # metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
@@ -439,8 +439,8 @@ colors:
   normal:
     black:   '0x000000'
     red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
+    green:   '0xfbcb97'
+    yellow:  '0xe78a53'
     blue:    '0x888888'
     magenta: '0x999999'
     cyan:    '0xaaaaaa'
@@ -449,13 +449,19 @@ colors:
   # Bright colors
   bright:
     black:   '0x333333'
-    red:     '0xaaaaaa'
-    green:   '0x121212'
-    yellow:  '0x222222'
-    blue:    '0x999999'
+    red:     '0x5f8787'
+    green:   '0xfbcb97'
+    yellow:  '0xe78a53'
+    blue:    '0x888888'
     magenta: '0x999999'
-    cyan:    '0x444444'
+    cyan:    '0xaaaaaa'
     white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd

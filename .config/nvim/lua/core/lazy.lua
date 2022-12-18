@@ -134,7 +134,6 @@ nmap g> <Plug>(swap-next)
 
 packadd Comment.nvim 
 runtime after/plugin/Comment.lua
-packadd nvim-ts-context-commentstring
 
 ]])
 

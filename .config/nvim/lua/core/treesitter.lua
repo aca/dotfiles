@@ -1,8 +1,10 @@
+local vim = vim
 vim.cmd [[ 
     packadd nvim-treesitter
     packadd nvim-ts-rainbow
     packadd nvim-treesitter-context
     packadd nvim-treesitter-textobjects
+    packadd nvim-ts-context-commentstring
     packadd playground
 ]]
 
@@ -12,6 +14,10 @@ local install = require("nvim-treesitter.install")
 install.compilers = { "gcc" }
 
 require("nvim-treesitter.configs").setup({
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+    },
     textobjects = {
         select = {
             enable = true,
@@ -239,7 +245,7 @@ vim.api.nvim_create_autocmd("Filetype", {
 --     [[
 -- (atx_heading (inline) @text.title)
 -- (setext_heading (paragraph) @text.title)
--- 
+--
 -- [
 --   (atx_h1_marker)
 --   (atx_h2_marker)
@@ -250,27 +256,27 @@ vim.api.nvim_create_autocmd("Filetype", {
 --   (setext_h1_underline)
 --   (setext_h2_underline)
 -- ] @punctuation.special
--- 
+--
 -- [
 --   (link_title)
 --   (indented_code_block)
 --   (fenced_code_block)
 -- ] @text.literal
--- 
+--
 -- [
 --   (fenced_code_block_delimiter)
 -- ] @punctuation.delimiter
--- 
+--
 -- (code_fence_content) @none
--- 
+--
 -- [
 --   (link_destination)
 -- ] @text.uri
--- 
+--
 -- [
 --   (link_label)
 -- ] @text.reference
--- 
+--
 -- [
 --   (list_marker_plus)
 --   (list_marker_minus)
@@ -279,16 +285,16 @@ vim.api.nvim_create_autocmd("Filetype", {
 --   (list_marker_parenthesis)
 --   (thematic_break)
 -- ] @punctuation.special
--- 
+--
 -- [
 --   (block_continuation)
 --   (block_quote_marker)
 -- ] @punctuation.special
--- 
+--
 -- [
 --   (backslash_escape)
 -- ] @string.escape
--- 
+--
 -- ([
 --   (info_string)
 -- ] @conceal

@@ -3,6 +3,14 @@
 use platform
 use math
 
+var maxVol = (num 110)
+
+# for safety
+if ( > $args[0] $maxVol ) {
+    echo "over max volume"
+    exit 1
+}
+
 if (eq $platform:os "linux") {
   # pactl set-sink-volume @DEFAULT_SINK@ $args[0]"%"
   for i [(pactl list sinks short | awk '{print $1}' | from-lines)] {
