@@ -29,7 +29,7 @@
 [include]
   path = ~/.gitconfig.local
 
-[includeIf "gitdir:~/src/github.com/tossinvest/"]
+[includeIf "gitdir:~/src/github.tossinvest.bz/tossinvest/"]
   path = ~/.gitconfig.tossinvest
 
 [core]
