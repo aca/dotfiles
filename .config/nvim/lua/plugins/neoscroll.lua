@@ -11,3 +11,8 @@
 -- 	["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "100" } },
 -- 	["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "100" } },
 -- })
+
+
+
+vim.cmd.packadd'cinnamon.nvim'
+require('cinnamon').setup()

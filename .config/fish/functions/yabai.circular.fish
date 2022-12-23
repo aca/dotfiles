@@ -5,10 +5,10 @@ function yabai.circular
 
   if contains "next" $argv;
     set -g target_space_index (yabai -m query --displays --display | jq -r ".spaces | map(select(. > $space_index )) | .[0]")
-    [ $target_space_index = "null" ] && set -g target_space_index (yabai -m query --displays --display | jq -r ".spaces[0]")
+    [ $target_space_index = "null" ] && echo "end" && set -g target_space_index (yabai -m query --displays --display | jq -r ".spaces[0]")
   else if contains "prev" $argv;
     set -g target_space_index (yabai -m query --displays --display | jq -r ".spaces | map(select(. < $space_index )) | .[-1]")
-    [ $target_space_index = "null" ] && set -g target_space_index (yabai -m query --displays --display | jq -r ".spaces[-1]")
+    [ $target_space_index = "null" ] && echo "end" && set -g target_space_index (yabai -m query --displays --display | jq -r ".spaces[-1]")
   end
 
   echo $target_space_index
