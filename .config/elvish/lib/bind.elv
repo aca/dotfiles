@@ -55,15 +55,27 @@ set edit:insert:binding[Ctrl-T] = {||
 }
 
 fn copy_current_command {||
-  print (str:trim-space $edit:current-command) | pbcopy
+    print (str:trim-space $edit:current-command) | pbcopy
 }
 set edit:insert:binding[Ctrl-X] = {|| copy_current_command >/dev/tty 2>&1 }
 
+
 fn paste_command {||
+  # 1. converts bash multi lines into elvish
+  # from:
+  #      echo a\
+  #         echo b
+  # to:
+  #      echo a^
+  #         echo b
+  # 
+  # 2. trim-space to avoid automatic command execution with \n
   use re
+  use str
   edit:insert-at-dot (re:replace '\\\n' '^
-' (pbpaste | slurp))
+' (pbpaste | slurp | str:trim-space (all)))
 }
+
 set edit:insert:binding[Ctrl-V] = {|| paste_command >/dev/tty 2>&1 }
 set edit:command:binding[p] = {|| paste_command >/dev/tty 2>&1 }
 
@@ -149,4 +161,3 @@ set edit:history:binding[Ctrl-P] = { edit:history:up }
 
 set edit:insert:binding[Ctrl-N] =  { edit:history:down }
 set edit:history:binding[Ctrl-N] =  { edit:history:down }
-

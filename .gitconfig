@@ -4,6 +4,8 @@
     reflog = delta
     show = delta
 
+
+
 [delta]
     ; side-by-side = true
     navigate = true
@@ -98,3 +100,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[annex "security"]
+	allowed-url-schemes = http https file urls
+	allowed-http-addresses = all

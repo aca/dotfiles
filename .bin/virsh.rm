@@ -2,6 +2,8 @@
 
 fn virsh.rm { |domain| 
     echo $domain
+    nop ?(virsh destroy $domain)
+    sleep 3
     nop ?(sudo virsh snapshot-list --domain $domain --name) | xargs --no-run-if-empty -I@ sudo virsh snapshot-delete --domain $domain @
     sudo virsh undefine --remove-all-storage $domain
 }

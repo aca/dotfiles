@@ -1,6 +1,6 @@
 #!/bin/sh
 
-npx degit solidjs/templates/js .
+npx degit solidjs/templates/ts .
 pnpm install
 
 pnpm run dev --open
