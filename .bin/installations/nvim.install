@@ -7,3 +7,4 @@ git pull --rebase
 sudo make -j8 CMAKE_BUILD_TYPE=Release
 sudo make install
 nvim --headless -c ':packadd nvim-treesitter' -c ':TSUpdateSync' -c ':q'
+rm -rf ~/.local/state/nvim/shada
