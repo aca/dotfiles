@@ -16,8 +16,8 @@ window:
   decorations: none
   # startup_mode: SimpleFullscreen
 
-scrolling:
-  history: 0
+# scrolling:
+#   history: 0
   # multiplier: 3
   # faux_multiplier: 3
   # auto_scroll: false
@@ -29,7 +29,7 @@ font:
     # style: Light
     # family: BlexMono Nerd Font Mono
     # family: JetBrainsMono Nerd Font
-    family: SauceCodePro Nerd Font
+    # family: SauceCodePro Nerd Font
     # family: BlexMono Nerd Font
     # family: IBM Plex Mono
     # family: SpaceMono Nerd Font
@@ -40,7 +40,7 @@ font:
     # family: JetBrains Mono
     # family: Noto Sans
     # family: VictorMono Nerd Font Mono
-    # family: Lotion Nerd Font
+    family: Lotion Nerd Font
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
