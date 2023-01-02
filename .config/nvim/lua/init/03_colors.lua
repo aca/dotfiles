@@ -1,4 +1,5 @@
 -- seoul256 based
+local vim = vim
 local nvim_set_hl = vim.api.nvim_set_hl
 -- nvim_set_hl(0, "Normal", { background = 0, foreground = 14277081 })
 nvim_set_hl(0, "Normal", { foreground = 14277081 })
