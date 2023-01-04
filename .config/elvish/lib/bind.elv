@@ -158,6 +158,8 @@ set edit:insert:binding[Alt-b] = {||
 # navigate history like vim
 set edit:insert:binding[Ctrl-P] =  { edit:history:start }
 set edit:history:binding[Ctrl-P] = { edit:history:up }
+# set edit:insert:binding[Ctrl-N] =  { edit:history:down-or-quit }
 
-set edit:insert:binding[Ctrl-N] =  { edit:history:down }
-set edit:history:binding[Ctrl-N] =  { edit:history:down }
+# set edit:insert:binding["Up"] =  { edit:histlist:start }
+set edit:history:binding["Ctrl-["] =  { edit:insert-raw; edit:command:start }
+# set edit:history:binding["Ctrl-["] = { edit:replace-input (print $edit:current-command | slurp); edit:close-mode }
