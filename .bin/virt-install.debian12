@@ -6,12 +6,13 @@ cd /var/lib/libvirt/images
 
 VM_NAME=$1
 
-# sudo qemu-img resize ./debian-12-nocloud-amd64-daily-20221229-1244.qcow2 20G
-sudo cp -rpvn ./debian-12-nocloud-amd64-daily-20221229-1244.qcow2 /var/lib/libvirt/images/$VM_NAME.qcow2
+# sudo qemu-img create -b ./debian-12-nocloud-amd64-daily-20221229-1244.qcow2 -f qcow2 -F qcow2 ./debian-12 20G
+sudo rm -f /var/lib/libvirt/images/$VM_NAME.qcow2 || true
+sudo cp -rpvn ./debian-12-genericcloud-amd64-daily-20230103-1249.qcow2 /var/lib/libvirt/images/$VM_NAME.qcow2
 sudo virt-customize -a ./$VM_NAME.qcow2 --root-password password:toor --ssh-inject root:file:$HOME/.ssh/id_rsa.pub --run-command '/usr/bin/ssh-keygen -A' --hostname $VM_NAME --firstboot-install 'neovim'
-sudo virt-install --name debian-12 \
+sudo virt-install --name $VM_NAME \
          --virt-type kvm --memory 3000 --vcpus 2 \
          --osinfo debian11 --network network=default --boot hd \
-         --disk ./$VM_NAME.qcow2,size=20 \
+         --disk ./$VM_NAME.qcow2,device=disk,size=20 \
          --graphics none \
          --console pty,target_type=serial --import
