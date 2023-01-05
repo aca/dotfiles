@@ -17,7 +17,7 @@ nvim_create_autocmd({ "BufWinEnter", "BufAdd" }, {
 nvim_create_autocmd({"BufWritePre"}, {
 	group = group,
 	callback = function()
-		local dir = vim.fn.expand("%:p:h", _, _)
+		local dir = vim.fn.expand("%:p:h")
 		local match = string.find(dir, "://")
 		if match ~= nil then
 			return

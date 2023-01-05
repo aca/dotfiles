@@ -25,6 +25,9 @@ runtime after/plugin/cmp_cmdline.lua
 packadd cmp-tmux
 runtime after/plugin/cmp_tmux.vim
 
+packadd cmp-luasnip-choice
+runtime after/plugin/cmp_luasnip_choice.lua
+
 " MAYBE(aca): https://github.com/zbirenbaum/copilot-cmp
 " packadd copilot.vim
 " packadd cmp-copilot
@@ -35,6 +38,10 @@ runtime after/plugin/cmp_tmux.vim
 
 local cmp = require("cmp")
 
+require('cmp_luasnip_choice').setup({
+    auto_open = true, -- Automatically open nvim-cmp on choice node (default: true)
+});
+
 local cmp_sources = {
     { name = "nvim_lsp" },
     -- { name = "copilot" },
@@ -43,6 +50,7 @@ local cmp_sources = {
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
     { name = "nvim_lsp_signature_help" },
+    { name = "luasnip_choice" },
 }
 
 local luasnip = require("luasnip")

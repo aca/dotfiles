@@ -5,6 +5,7 @@ vim.cmd [[
     packadd nvim-lspconfig
     packadd mason.nvim
     packadd mason-lspconfig.nvim
+    packadd lsp-inlayhints.nvim
     " packadd lsp-format.nvim
 ]]
 
@@ -76,6 +77,7 @@ local on_attach = function(client, bufnr)
     end
 
     require("illuminate").on_attach(client)
+    require("lsp-inlayhints").on_attach(client, bufnr)
 end
 
 lspconfig.pyright.setup({

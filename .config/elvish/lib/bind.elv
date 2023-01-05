@@ -161,5 +161,5 @@ set edit:history:binding[Ctrl-P] = { edit:history:up }
 # set edit:insert:binding[Ctrl-N] =  { edit:history:down-or-quit }
 
 # set edit:insert:binding["Up"] =  { edit:histlist:start }
-set edit:history:binding["Ctrl-["] =  { edit:insert-raw; edit:command:start }
+set edit:history:binding["Ctrl-["] =  { edit:command:start }
 # set edit:history:binding["Ctrl-["] = { edit:replace-input (print $edit:current-command | slurp); edit:close-mode }
