@@ -45,6 +45,9 @@ if (eq $platform:os "linux") {
   set-env QT_IM_MODULE fcitx
   set-env SDL_IM_MODULE fcitx
   set-env GLFW_IM_MODULE fcitx
+  set-env BROWSER google-chrome-stable
+} else {
+  set-env BROWSER google-chrome
 }
 
 set-env ASDF_DIR $E:HOME/.asdf
@@ -53,7 +56,6 @@ set-env MANPAGER 'nvim +Man!'
 set-env MANWIDTH '88'
 
 set-env RIPGREP_CONFIG_PATH $E:HOME/.ripgreprc
-set-env BROWSER google-chrome-stable
 set-env COLORTERM truecolor
 set-env EDITOR nvim
 set-env VISUAL nvim

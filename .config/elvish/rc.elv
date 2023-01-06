@@ -42,8 +42,6 @@ fn grt { cd (or (e:git rev-parse --show-toplevel 2>/dev/null) (echo ".")) }
 fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) } }
 fn ffc { || $cdf~ (ff)  }
 
-# }}}
-
 # wrapper
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn ghqbare { |@a| e:ghq clone --bare $@a;  ;sh -c "src.update &" }
