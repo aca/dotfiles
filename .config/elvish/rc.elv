@@ -31,6 +31,7 @@ use plugins/edit.elv/smart-matcher; smart-matcher:apply
 if (has-external zoxide) { use /zoxide }
 nop ?(use local)
 
+fn d {|@a| cd ~/src/configs/dotfiles }
 fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
