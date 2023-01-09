@@ -74,6 +74,8 @@ RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@master
 RUN go install github.com/stern/stern@latest
 RUN go install github.com/aca/agec@latest
+RUN go install github.com/aca/agec@latest
+RUN go install github.com/derailed/k9s@latest
 # RUN curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && chmod +x /usr/local/bin/argocd
 
 # RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
