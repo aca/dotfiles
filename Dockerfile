@@ -13,6 +13,7 @@ RUN apk add --no-cache \
       tree-sitter@community \
       github-cli@community \
       neovim@community \
+      k9s@community \
       bash-completion
 RUN apk add --no-cache --force-overwrite \
       python3 \
