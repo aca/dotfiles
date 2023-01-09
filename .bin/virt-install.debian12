@@ -1,18 +1,32 @@
 #!/bin/bash
 
+
+# 
+# sudo virt-install --osinfo list
+
 set -euxo pipefail
+
+# VARS
+
+VM_NAME=$1
+BASE="debian-12-genericcloud-amd64-daily-20230103-1249.qcow2"
+# BASE="lunar-server-cloudimg-amd64.img"
+
 
 cd /var/lib/libvirt/images
 
-VM_NAME=$1
+# sudo cp -rpvn ./$BASE /var/lib/libvirt/images/$VM_NAME.qcow2
+# sudo qemu-img resize /var/lib/libvirt/images/$VM_NAME.qcow2 20G
 
-# sudo qemu-img create -b ./debian-12-nocloud-amd64-daily-20221229-1244.qcow2 -f qcow2 -F qcow2 ./debian-12 20G
-sudo rm -f /var/lib/libvirt/images/$VM_NAME.qcow2 || true
-sudo cp -rpvn ./debian-12-genericcloud-amd64-daily-20230103-1249.qcow2 /var/lib/libvirt/images/$VM_NAME.qcow2
+sudo qemu-img create -b ./$BASE -f qcow2 -F qcow2 ./$VM_NAME.qcow2 20G
 sudo virt-customize -a ./$VM_NAME.qcow2 --root-password password:toor --ssh-inject root:file:$HOME/.ssh/id_rsa.pub --run-command '/usr/bin/ssh-keygen -A' --hostname $VM_NAME --firstboot-install 'neovim'
 sudo virt-install --name $VM_NAME \
          --virt-type kvm --memory 3000 --vcpus 2 \
          --osinfo debian11 --network network=default --boot hd \
-         --disk ./$VM_NAME.qcow2,device=disk,size=20 \
-         --graphics none \
-         --console pty,target_type=serial --import
+         --disk ./$VM_NAME.qcow2,device=disk \
+         --graphics none --console pty,target_type=serial --import
+
+         # --osinfo ubuntu22.10 --network network=default --boot hd \
+
+# sudo growpart /dev/vda 1
+# sudo resize2fs /dev/vda1
