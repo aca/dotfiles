@@ -514,3 +514,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-luasnip-choice"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-luasnip-choice
 	url = https://github.com/doxnit/cmp-luasnip-choice.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/hex.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/hex.nvim
+	url = https://github.com/RaafatTurki/hex.nvim.git
+[submodule ".tmux/plugins/tmux-diff"]
+	path = .tmux/plugins/tmux-diff
+	url = https://github.com/codydiehl/tmux-diff.git

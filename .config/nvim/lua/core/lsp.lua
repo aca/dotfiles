@@ -1,6 +1,8 @@
 -- DEBUG
 local vim = vim
 
+local lume = require('lib/lume')
+
 vim.cmd [[
     packadd nvim-lspconfig
     packadd mason.nvim
@@ -130,17 +132,6 @@ lspconfig.mdpls.setup {
     on_attach = on_attach,
 }
 
-local gopls_settings = {
-    gopls = {
-        allExperiments = true,
-        ["formatting.gofumpt"] = true,
-        -- ["ui.documentation.hoverKind"] = "Structured",
-        analyses = {
-            unusedparams = false,
-        },
-        staticcheck = true,
-    },
-}
 
 -- if vim.fn.executable("gopls") == 1 then
 --     lspconfig.gopls.setup({
@@ -159,8 +150,12 @@ local gopls_settings = {
 --     settings = gopls_settings,
 -- })
 --
+
+-- P(lspconfig.tailwindcss.default_config.filetypes)
 require("mason").setup()
 require("mason-lspconfig").setup()
+
+
 require("mason-lspconfig").setup_handlers({
     function(server_name) -- default handler (optional)
         lspconfig[server_name].setup({
@@ -169,10 +164,14 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
 
-    -- ["sumneko_lua"] = function()
-    --     local luadev = require("lua-dev")
-    --     lspconfig.sumneko_lua.setup(luadev.setup({}))
-    -- end,
+    ["tailwindcss"] = function()
+        lspconfig.tailwindcss.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = lume.filter(lspconfig.tailwindcss.document_config.default_config.filetypes,
+                function(x) return x ~= "markdown" end)
+        })
+    end,
 
     ["tsserver"] = function()
         lspconfig.tsserver.setup({
@@ -223,6 +222,17 @@ require("mason-lspconfig").setup_handlers({
     end,
 
     ["gopls"] = function()
+        local gopls_settings = {
+            gopls = {
+                allExperiments = true,
+                ["formatting.gofumpt"] = true,
+                analyses = {
+                    unusedparams = false,
+                },
+                staticcheck = true,
+            },
+        }
+
         lspconfig.gopls.setup(
             {
                 single_file_support = true,
