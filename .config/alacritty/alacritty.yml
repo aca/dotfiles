@@ -9,21 +9,23 @@ env:
 window:
   opacity: 1
   padding:
-    x: 0
-    y: 0
+   x: 0
+   y: 0
 
-  # dynamic_padding: true
   decorations: none
-  # startup_mode: SimpleFullscreen
 
-# scrolling:
-#   history: 0
-  # multiplier: 3
-  # faux_multiplier: 3
-  # auto_scroll: false
-  #
+scrolling:
+  history: 0
 
 font:
+  size: 16
+  offset:
+    x: -1
+    y: 5
+
+  glyph_offset:
+    x: 0
+    y: 0
   builtin_box_drawing: true
   normal:
     # style: Light
@@ -39,8 +41,8 @@ font:
     # family: Hasklug Nerd Font Mono
     # family: JetBrains Mono
     # family: Noto Sans
-    # family: VictorMono Nerd Font Mono
-    family: Lotion Nerd Font
+    family: VictorMono Nerd Font Mono
+    # family: Lotion Nerd Font
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
@@ -58,14 +60,6 @@ font:
   # italic:
   #   family: BlexMono Nerd Font
 
-  size: 16
-  offset:
-    x: -2
-    y: 5
-
-  glyph_offset:
-    x: 0
-    y: 0
 
 # draw_bold_text_with_bright_colors: true
 
@@ -304,123 +298,20 @@ hints:
         key: G
         mods: Alt
 
-    # - regex: "(magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
-    #           [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
-    #   command: chromium
-    #   post_processing: true
-    #   mouse:
-    #     enabled: true
-
-
-# Base16 Bespin - alacritty color config
-# Jan T. Sott
-colors:
-  # Default colors
-  #
-  search:
-    matches:
-      foreground: '0x000000'
-      background: '0xffffff'
-    focused_matches:
-      foreground: '0x000000'
-      background: '0xffffff'
-    bar:
-      foreground: '0x000000'
-      background: '0xffffff'
-  primary:
-    background: '0x000000'
-    # foreground: '0x8a8986'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x28211c'
-    cursor: '0x8a8986'
-
-  # Normal colors
-  normal:
-    black:   '0x000000'
-    red:     '0xcf6a4c'
-    green:   '0x54be0d'
-    yellow:  '0xf9ee98'
-    blue:    '0x5ea6ea'
-    magenta: '0x9b859d'
-    cyan:    '0xafc4db'
-    white:   '0xffffff'
-
-  # Bright colors
-  bright:
-    black:   '0x000000'
-    red:     '0xcf7d34'
-    green:   '0x36312e'
-    yellow:  '0x5e5d5c'
-    blue:    '0x797977'
-    magenta: '0x9d9b97'
-    cyan:    '0x937121'
-    white:   '0xbaae9e'
-
-
-# # Base16 Default Dark 256 - alacritty color config
-# # Chris Kempson (http://chriskempson.com)
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x000000'
-#     foreground: '0xd8d8d8'
-#
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: '0x000000'
-#     cursor: '0xd8d8d8'
-#
-#   # Normal colors
-#   normal:
-#     black:   '0x000000'
-#     red:     '0xab4642'
-#     green:   '0xa1b56c'
-#     yellow:  '0xf7ca88'
-#     blue:    '0x7cafc2'
-#     magenta: '0xba8baf'
-#     cyan:    '0x86c1b9'
-#     white:   '0xd8d8d8'
-#
-#   # Bright colors
-#   bright:
-#     black:   '0x585858'
-#     red:     '0xab4642'
-#     green:   '0xa1b56c'
-#     yellow:  '0xf7ca88'
-#     blue:    '0x7cafc2'
-#     magenta: '0xba8baf'
-#     cyan:    '0x86c1b9'
-#     white:   '0xf8f8f8'
-#
-#   indexed_colors:
-#     - { index: 16, color: '0xdc9656' }
-#     - { index: 17, color: '0xa16946' }
-#     - { index: 18, color: '0x282828' }
-#     - { index: 19, color: '0x383838' }
-#     - { index: 20, color: '0xb8b8b8' }
-#     - { index: 21, color: '0xe8e8e8' }
-
 
 debug:
- # Display the time it takes to redraw each frame.
- #render_timer: false
+  persistent_logging: false
+  log_level: Off
+  highlight_damage: false
+  print_events: false
+  render_timer: false
+  # log_level: Error
+  # log_level: Warn
+  # log_level: Info
+  # log_level: Debug
+  # log_level: Trace
 
- # Keep the log file after quitting Alacritty.
- #persistent_logging: false
 
- # Log level
- #
- # Values for `log_level`:
- #   - None
- #   - Error
- #   - Warn
- #   - Info
- #   - Debug
- #   - Trace
- log_level: Trace
- print_events: true
 # ColorStart
 # Base16 Synth Midnight Terminal Dark 256 - alacritty color config
 # Michaël Ball (http://github.com/michael-ball/)
