@@ -1,7 +1,15 @@
 use str
 use path
 set edit:command-abbr['gco'] = 'git checkout'
+
 set edit:command-abbr['k'] = 'kubectl'
+set edit:command-abbr['ke'] = 'kubectl edit'
+set edit:command-abbr['kg'] = 'kubectl get'
+set edit:command-abbr['kgd'] = 'kubectl get deploy'
+set edit:command-abbr['kgp'] = 'kubectl get pod'
+
+set edit:command-abbr['gi'] = 'grep -i'
+
 set edit:command-abbr['os'] = 'openstack '
 set edit:command-abbr['ta'] = 'tmux attach -t'
 set edit:command-abbr['elv'] = 'elvish'

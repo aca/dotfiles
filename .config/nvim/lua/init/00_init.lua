@@ -5,6 +5,7 @@
 -- Total Min:     5.663000 msec
 
 -- https://github.com/nullchilly/fsread.nvim
+-- https://github.com/evanpurkhiser/image-paste.nvim
 
 -- TODO
 -- https://this-week-in-neovim.org/

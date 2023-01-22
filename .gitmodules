@@ -520,3 +520,9 @@
 [submodule ".tmux/plugins/tmux-diff"]
 	path = .tmux/plugins/tmux-diff
 	url = https://github.com/codydiehl/tmux-diff.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/image-paste.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/image-paste.nvim
+	url = https://github.com/evanpurkhiser/image-paste.nvim.git
+[submodule ".submodules/crontab-explain"]
+	path = .submodules/crontab-explain
+	url = https://github.com/MeekMark/crontab-explain.git

@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+# This script is just a wrapper around stow. Some configurations require whole
+# directory to be stow-ed, some not. It's not clear how to do it just with
+# stow.
+
+set -euo pipefail
 cd ~/src/config
 
 # utils
-rmf() { rm -vrf "$@" || true; }
-emptyDir() { rmf "$1" && mkdir -p "$1"; }
-ensureDir() { mkdir -p "$1" || true; }
+removeDir() { rm -vrf "$1" || true; }
+ensureDir() { mkdir -vp "$1" || true; }
+emptyDir() { removeDir "$1" && ensureDir "$1"; }
 commandExists() { command -v "$@" >/dev/null 2>&1; }
 isLinux() { if [[ "$OSTYPE" == "linux-gnu"* ]]; then return 0; else return 1; fi; }
 isDarwin() { if [[ "$OSTYPE" == "darwin"* ]]; then return 0; else return 1; fi; }
@@ -16,118 +20,114 @@ precheck() {
 }
 
 cleanup() {
-  emptyDir $HOME/.config/fish
-  emptyDir $HOME/.config/alacritty
-  emptyDir $HOME/.config/youtube-dl
-  emptyDir $HOME/.config/bat
-  emptyDir $HOME/.config/bc
-  emptyDir $HOME/.config/colorls
-  emptyDir $HOME/.config/aria2
-  emptyDir $HOME/.config/fontconfig
-  emptyDir $HOME/.config/mpv
-  emptyDir $HOME/.config/TabNine
-  emptyDir $HOME/.config/vifm
-  emptyDir $HOME/.config/fcitx
-  emptyDir $HOME/.config/pulse
-  emptyDir $HOME/.config/nvim
-  emptyDir $HOME/.config/nvim/autoload
-  emptyDir $HOME/.config/elvish/lib
-  emptyDir $HOME/.ssh
-  emptyDir $HOME/.local/share/elvish/lib
-
-  rmf $HOME/.gitmodules
-  rmf $HOME/.fzf
-  rmf $HOME/.duti
-  rmf $HOME/.images
-  rmf $HOME/$HOME/.local/share/nvim/site
-  ensureDir $HOME/.local/share/nvim/site
-  rmf $HOME/.hammerspoon
-  rmf $HOME/.scripts
-  rmf $HOME/.oh-my-zsh
-  rmf $HOME/.config/gh
-  rmf $HOME/.config/gtk-3.0
-  rmf $HOME/.config/caddy
-  rmf $HOME/.config/gcloud
-  rmf $HOME/.rok-te3
-  rmf $HOME/.scim
-  rmf $HOME/.bin
-  rmf $HOME/.config/sxhkd
-  rmf $HOME/.Brewfile*
-  rmf $HOME/.config/fd
-  rmf $HOME/.config/zathura
-  rmf $HOME/.config/fcitx5
-  rmf $HOME/.config/autorandr
-  rmf $HOME/.config/karabiner
-  rmf $HOME/.config/dunst
-  rmf $HOME/.config/bspwm
-  rmf $HOME/.config/brew
-  rmf $HOME/.config/picom
-  rmf $HOME/.config/yt-dlp
-  rmf $HOME/.config/libvirt
-  rmf $HOME/.config/firefox
-  rmf $HOME/.config/elvish/rc.elv
-  rmf $HOME/.config/chrome-flags.conf
-  rmf $HOME/.dir_colors
-  rmf $HOME/.npmrc.global
-  rmf $HOME/.submodules
-  rmf $HOME/.tigrc
-  rmf $HOME/.zsh
-  rmf $HOME/.zshenv
-  rmf $HOME/.config/.jira
-  rmf $HOME/.config/mimeapps.list
-  rmf $HOME/.config/hub
-  rmf $HOME/.config/kitty
-  rmf ~/.oh-my-zsh
-  rmf ~/.inputrc
-  rmf ~/.bashrc
-  rmf ~/.tool-versions
-  rmf ~/.asoundrc
-  rmf ~/.bcrc
-  rmf ~/.xprofile
-  rmf ~/.aws
+  emptyDir "$HOME/.config/fish"
+  emptyDir "$HOME/.config/alacritty"
+  emptyDir "$HOME/.config/youtube-dl"
+  emptyDir "$HOME/.config/bat"
+  emptyDir "$HOME/.config/bc"
+  emptyDir "$HOME/.config/colorls"
+  emptyDir "$HOME/.config/aria2"
+  emptyDir "$HOME/.config/fontconfig"
+  emptyDir "$HOME/.config/mpv"
+  emptyDir "$HOME/.config/TabNine"
+  emptyDir "$HOME/.config/vifm"
+  emptyDir "$HOME/.config/fcitx"
+  emptyDir "$HOME/.config/pulse"
+  emptyDir "$HOME/.config/nvim"
+  emptyDir "$HOME/.config/nvim/autoload"
+  emptyDir "$HOME/.config/elvish/lib"
+  emptyDir "$HOME/.ssh"
+  emptyDir "$HOME/.local/share/elvish/lib"
+  emptyDir "$HOME/.local/share/nvim/site"
   emptyDir ~/.aws
-  rmf ~/.moprc
-  rmf ~/.zshrc
-  rmf ~/.Xresources
-  rmf ~/.tool-versions
-  rmf ~/.xinitrc
-  rmf ~/.Xmodmap
-  rmf ~/.bash_profile
-  rmf ~/.bash_defaults
-  rmf ~/.tmux.conf
-  rmf ~/.w3m
-  rmf ~/.xsession
-  rmf ~/.yabairc
-  rmf ~/.zshrc
-  rmf ~/.pacman
-  rmf ~/.pam_environment
-  rmf ~/.gitignore
-  rmf ~/.gitignore_global
-  rmf ~/.ripgreprc
-  rmf ~/.ideavimrc
-  rmf ~/.tridactylrc
-  rmf ~/.ansible.cfg
-  rmf ~/.config/.ideavimrc
-  rmf ~/.config/autostart
-  rmf ~/.config/surfingkeys
-  rmf ~/.config/grobi.conf
-  rmf ~/.config/rofi
-  rmf ~/.config/wezterm
-  rmf ~/.skhdrc
-  rmf ~/.gitconfig*
-  rmf ~/.netrc
-  rmf ~/.gnupg
-  rmf ~/.ticker.yaml
-  rmf ~/.slack-term
-  rmf ~/.tmux
-  rmf ~/.config/systemd/user/*.service
-  mkdir -p $HOME/.config/systemd/user
-  mkdir -p $HOME/bin
-  mkdir -p $HOME/.kube
-  ensureDir $HOME/.config/autostart
-  ensureDir $HOME/.ssh
-  ensureDir $HOME/.local/state
-  rmf $HOME/.ssh/config
+
+  removeDir "$HOME/.gitmodules"
+  removeDir "$HOME/.fzf"
+  removeDir "$HOME/.duti"
+  removeDir "$HOME/.images"
+  removeDir "$HOME/.hammerspoon"
+  removeDir "$HOME/.scripts"
+  removeDir "$HOME/.oh-my-zsh"
+  removeDir "$HOME/.config/gh"
+  removeDir "$HOME/.config/gtk-3.0"
+  removeDir "$HOME/.config/caddy"
+  removeDir "$HOME/.config/gcloud"
+  removeDir "$HOME/.scim"
+  removeDir "$HOME/.bin"
+  removeDir "$HOME/.config/sxhkd"
+  removeDir "$HOME/.Brewfile*"
+  removeDir "$HOME/.config/fd"
+  removeDir "$HOME/.config/zathura"
+  removeDir "$HOME/.config/fcitx5"
+  removeDir "$HOME/.config/autorandr"
+  removeDir "$HOME/.config/karabiner" 
+  removeDir "$HOME/.config/dunst"
+  removeDir "$HOME/.config/bspwm"
+  removeDir "$HOME/.config/brew"
+  removeDir "$HOME/.config/picom"
+  removeDir "$HOME/.config/yt-dlp"
+  removeDir "$HOME/.config/libvirt"
+  removeDir "$HOME/.config/elvish/rc.elv"
+  removeDir "$HOME/.config/chrome-flags.conf"
+  removeDir "$HOME/.dir_colors"
+  removeDir "$HOME/.npmrc.global"
+  removeDir "$HOME/.submodules"
+  removeDir "$HOME/.tigrc"
+  removeDir "$HOME/.zsh"
+  removeDir "$HOME/.zshenv"
+  removeDir "$HOME/.config/.jira"
+  removeDir "$HOME/.config/mimeapps.list"
+  removeDir "$HOME/.config/hub"
+  removeDir "$HOME/.config/kitty"
+  removeDir "$HOME/.ssh/config"
+  removeDir "$HOME/.oh-my-zsh"
+  removeDir "$HOME/.inputrc"
+  removeDir "$HOME/.bashrc"
+  removeDir "$HOME/.tool-versions"
+  removeDir "$HOME/.asoundrc"
+  removeDir "$HOME/.bcrc"
+  removeDir "$HOME/.xprofile"
+  removeDir "$HOME/.moprc"
+  removeDir "$HOME/.zshrc"
+  removeDir "$HOME/.Xresources"
+  removeDir "$HOME/.tool-versions"
+  removeDir "$HOME/.xinitrc"
+  removeDir "$HOME/.Xmodmap"
+  removeDir "$HOME/.bash_profile"
+  removeDir "$HOME/.bash_defaults"
+  removeDir "$HOME/.tmux.conf"
+  removeDir "$HOME/.w3m"
+  removeDir "$HOME/.xsession"
+  removeDir "$HOME/.yabairc"
+  removeDir "$HOME/.zshrc"
+  removeDir "$HOME/.pacman"
+  removeDir "$HOME/.pam_environment"
+  removeDir "$HOME/.gitignore"
+  removeDir "$HOME/.gitignore_global"
+  removeDir "$HOME/.ripgreprc"
+  removeDir "$HOME/.ideavimrc"
+  removeDir "$HOME/.tridactylrc"
+  removeDir "$HOME/.ansible.cfg"
+  removeDir "$HOME/.config/.ideavimrc"
+  removeDir "$HOME/.config/autostart"
+  removeDir "$HOME/.config/surfingkeys"
+  removeDir "$HOME/.config/grobi.conf"
+  removeDir "$HOME/.config/rofi"
+  removeDir "$HOME/.config/wezterm"
+  removeDir "$HOME/.skhdrc"
+  removeDir "$HOME/.gitconfig*"
+  removeDir "$HOME/.netrc"
+  removeDir "$HOME/.gnupg"
+  removeDir "$HOME/.ticker.yaml"
+  removeDir "$HOME/.slack-term"
+  removeDir "$HOME/.tmux"
+  removeDir "$HOME/.config/systemd/user/*.service"
+
+  ensureDir "$HOME/.config/systemd/user"
+  ensureDir "$HOME/.kube"
+  ensureDir "$HOME/.config/autostart"
+  ensureDir "$HOME/.ssh"
+  ensureDir "$HOME/.local/state"
 }
 
 update() {
@@ -135,18 +135,6 @@ update() {
   commandExists zoxide && zoxide init elvish >dotfiles/.config/elvish/lib/zoxide.elv
   commandExists pueue && pueue completions elvish dotfiles/.config/elvish/lib
 }
-
-# firefox() {
-#   commandExists fd || return 0
-#   for d in "${HOME}/Library/Application Support/Firefox/Profiles/" "${HOME}/.mozilla/firefox"; do
-#     [[ -d "$d" ]] || continue
-#     for profileDir in "$(fd --base-directory "$d" --absolute-path --max-depth 1 --type d | grep default-release | head -n 1)"; do
-#       rm -rfv "$profileDir/chrome" || true
-#       mkdir "$profileDir/chrome" || true
-#       (cd dotfiles/.config/firefox && stow -v --target "$profileDir/chrome" chrome) || return 1
-#     done
-#   done
-# }
 
 ##########################################
 
@@ -157,6 +145,5 @@ cleanup
 stow -v --target ${HOME} "dotfiles"
 [[ -d "dotfiles.shared" ]] && sudo stow -v --target ${HOME} "dotfiles.shared"
 [[ -d "dotfiles.root.$HOSTNAME" ]] && sudo stow -v --target / "dotfiles.root.$HOSTNAME"
-
 
 echo "done"

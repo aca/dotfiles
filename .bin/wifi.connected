@@ -4,7 +4,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   printf "%s" $(iwgetid -r)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # $ networksetup -getairportnetwork en0
-  # Current Wi-Fi Network: tossinvest
+  # Current Wi-Fi Network: XXX
   networksetup -getairportnetwork en0 | sed 's/^Current Wi-Fi Network: //g'
 fi
 

@@ -16,8 +16,8 @@
 [interactive]
     diffFilter = delta --color-only
 
-[github]
-	user = aca
+; [github]
+; 	user = aca
 
 [color]
   ui = auto
@@ -28,11 +28,7 @@
   added = green
   untracked = cyan
 
-[include]
-  path = ~/.gitconfig.local
 
-[includeIf "gitdir:~/src/github.tossinvest.bz/tossinvest/"]
-  path = ~/.gitconfig.tossinvest
 
 [core]
   editor = nvim
@@ -104,3 +100,15 @@
 [annex "security"]
 	allowed-url-schemes = http https file urls
 	allowed-http-addresses = all
+
+
+[include]
+  path = ~/.gitconfig.local
+
+[includeIf "gitdir:~/src/github.tossinvest.bz/"]
+  path = ~/.gitconfig.tossinvest
+
+;[http "https://github.tossinvest.bz"]
+;  email = "kyungrok.chung@tossinvest.com"
+;  name = "rok"
+;
