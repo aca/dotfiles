@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo mount -v -t nfs 192.168.0.31:/Public /mnt/nas2/ &
-sudo mount -v -t nfs 192.168.0.51:/volume1/root /mnt/nas
+sudo mount -v -t nfs 192.168.0.205:/Public /mnt/nas2/ &
+sudo mount -v -t nfs 192.168.0.203:/volume1/root /mnt/nas
