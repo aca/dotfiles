@@ -10,7 +10,12 @@ vim.cmd [[
     packadd lsp-inlayhints.nvim
     " packadd lsp-format.nvim
     packadd null-ls.nvim
+
+    packadd neodev.nvim
 ]]
+
+require("neodev").setup({})
+
 
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
@@ -21,9 +26,9 @@ local configs = require("lspconfig.configs")
 local null_ls = require("null-ls")
 
 null_ls.setup {
-  sources = {
-    null_ls.builtins.code_actions.gitsigns,
-  }
+    sources = {
+        null_ls.builtins.code_actions.gitsigns,
+    }
 }
 
 local rightAlignFormatFunction = function(diagnostic)
@@ -186,6 +191,18 @@ require("mason-lspconfig").setup_handlers({
         lspconfig[server_name].setup({
             capabilities = capabilities,
             on_attach = on_attach,
+        })
+    end,
+
+    ["sumneko_lua"] = function()
+        lspconfig.sumneko_lua.setup({
+            settings = {
+                Lua = {
+                    completion = {
+                        callSnippet = "Replace"
+                    }
+                }
+            }
         })
     end,
 
