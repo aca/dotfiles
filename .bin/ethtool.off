@@ -1,0 +1,8 @@
+#!/bin/bash
+#sudo ethtool --show-eee enp82s0
+set -x 
+TOE_OPTIONS="rx tx sg tso ufo gso gro lro rxvlan txvlan rxhash"
+for TOE_OPTION in $TOE_OPTIONS; do
+    sudo ethtool --offload enp82s0 "$TOE_OPTION" off
+    # sudo ethtool --offload enp82s0 "$TOE_OPTION" off || true
+done

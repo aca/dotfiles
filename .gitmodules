@@ -526,3 +526,9 @@
 [submodule ".submodules/crontab-explain"]
 	path = .submodules/crontab-explain
 	url = https://github.com/MeekMark/crontab-explain.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/neogit"]
+	path = .local/share/nvim/site/pack/bundle/opt/neogit
+	url = https://github.com/TimUntersberger/neogit.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/null-ls.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/null-ls.nvim
+	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git

@@ -1,2 +1,11 @@
 #!/bin/bash
-pactl set-default-sink "$(pactl list short sinks |awk '{print $2}' | fzf)"
+
+set -euxo pipefail
+
+sink=$(pactl list short sinks |awk '{print $2}' | fzf)
+pactl set-default-sink $sink
+
+for i in $(pactl list short sink-inputs | awk '{print $1}') 
+do
+    pactl move-sink-input $i $sink
+done

@@ -1,14 +1,20 @@
 local vim = vim
-pcall(function ()
-    vim.o.splitkeep="screen"
+pcall(function()
+    vim.o.splitkeep = "screen"
 end)
+
+vim.g.github_enterprise_urls = { 'https://github.t'
+    .. 'os' ..
+    'sinvest.bz' }
 
 vim.cmd([[ 
 packadd plenary.nvim
 
+packadd neogit
 packadd fugitive
 packadd vim-rhubarb
-let g:github_enterprise_urls = ['https://github.tossinvest.bz']
+
+" replaced with gitsigns.nvim
 " nnoremap gm :GitMessenger<cr>
 " packadd git-messenger.vim
 
@@ -152,7 +158,7 @@ packadd fold-cycle.nvim
 packadd hop.nvim
 ]])
 
--- go 
+-- go
 vim.cmd [[
 packadd go-patch-unusedvar.nvim
 ]]

@@ -9,6 +9,7 @@ vim.cmd [[
     packadd mason-lspconfig.nvim
     packadd lsp-inlayhints.nvim
     " packadd lsp-format.nvim
+    packadd null-ls.nvim
 ]]
 
 local lspconfig = require("lspconfig")
@@ -16,6 +17,14 @@ local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
 
 -- require("lsp-format").setup {}
+
+local null_ls = require("null-ls")
+
+null_ls.setup {
+  sources = {
+    null_ls.builtins.code_actions.gitsigns,
+  }
+}
 
 local rightAlignFormatFunction = function(diagnostic)
     local line = diagnostic.lnum
