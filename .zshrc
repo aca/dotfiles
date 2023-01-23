@@ -14,15 +14,15 @@ fpath=($HOME/.zsh/zsh-completions/src $fpath)
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 
-# plugins=(
-#   # tmux
-#   kubectl
-#   fzf
-#   # zsh-vi-mode
-#   # aws
-# )
+plugins=(
+  # tmux
+  # kubectl
+  # fzf
+  # zsh-vi-mode
+  # aws
+)
 
-# source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # }}}
 

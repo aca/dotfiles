@@ -4,6 +4,6 @@ if [ "$1" = "" ]; then
   pwd | pbcopy
   pbpaste
 else
-  realpath "$1" | pbcopy
+  realpath "$1" | tr -d '\n' | pbcopy
   pbpaste
 fi

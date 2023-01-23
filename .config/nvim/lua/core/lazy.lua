@@ -162,6 +162,7 @@ packadd hop.nvim
 vim.cmd [[
 packadd go-patch-unusedvar.nvim
 ]]
+require('go-patch-unusedvar')
 
 
 -- etc

@@ -5,6 +5,9 @@ set-env LANG en_US.UTF-8
 set-env LANGUAGE en_US.UTF-8
 set-env LC_ALL en_US.UTF-8
 
+# https://nixos.wiki/wiki/Locales
+set-env LOCALE_ARCHIVE /usr/lib/locale/locale-archive
+
 # if (not (has-env HOSTNAME)) { set-env HOSTNAME (platform:hostname &strip-domain=$false) }
     
 # if (eq $platform:os "linux") {
@@ -72,6 +75,10 @@ set-env FZF_DEFAULT_COMMAND 'fd -L --hidden --type f'
 set-env FZF_DEFAULT_OPTS '--min-height 15 --reverse --color "gutter:-1" --inline-info --cycle -m --bind ctrl-a:toggle-all --bind ctrl-n:down --bind ctrl-p:up --bind ctrl-w:toggle-preview --prompt "» " --preview "bat {}" --preview-window "hidden"'
 set-env FZF_CTRL_T_COMMAND 'fd -L --hidden'
 set-env FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10 --no-ignore'
+
+
+
+# https://github.com/zzamboni/elvish-modules/blob/master/nix.org
 
 set paths = [
   # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}

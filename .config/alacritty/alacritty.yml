@@ -20,7 +20,7 @@ scrolling:
 font:
   size: 16
   offset:
-    x: -1
+    x: -3
     y: 5
 
   glyph_offset:
@@ -38,10 +38,10 @@ font:
     # family: SpaceMono Nerd Font
     # family: Operator Mono Book
     # family: Iosevka Term Curly Slab
-    # family: Hasklug Nerd Font Mono
+    family: Hasklug Nerd Font Mono
     # family: JetBrains Mono
     # family: Noto Sans
-    family: VictorMono Nerd Font Mono
+    # family: VictorMono Nerd Font Mono
     # family: Lotion Nerd Font
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
@@ -313,46 +313,40 @@ debug:
 
 
 # ColorStart
-# Base16 Synth Midnight Terminal Dark 256 - alacritty color config
-# Michaël Ball (http://github.com/michael-ball/)
+# Base16 Black Metal - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x050608'
-    foreground: '0xc1c3c4'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x050608'
-    cursor: '0xc1c3c4'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x050608'
-    red:     '0xb53b50'
-    green:   '0x06ea61'
-    yellow:  '0xc9d364'
-    blue:    '0x03aeff'
-    magenta: '0xea5ce2'
-    cyan:    '0x42fff9'
-    white:   '0xc1c3c4'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x474849'
-    red:     '0xb53b50'
-    green:   '0x06ea61'
-    yellow:  '0xc9d364'
-    blue:    '0x03aeff'
-    magenta: '0xea5ce2'
-    cyan:    '0x42fff9'
-    white:   '0xdddfe0'
+    black:   '0x333333'
+    red:     '0xaaaaaa'
+    green:   '0x121212'
+    yellow:  '0x222222'
+    blue:    '0x999999'
+    magenta: '0x999999'
+    cyan:    '0x444444'
+    white:   '0xc1c1c1'
 
-  indexed_colors:
-    - { index: 16, color: '0xea770d' }
-    - { index: 17, color: '0xcd6320' }
-    - { index: 18, color: '0x1a1b1c' }
-    - { index: 19, color: '0x28292a' }
-    - { index: 20, color: '0xa3a5a6' }
-    - { index: 21, color: '0xcfd1d2' }
+draw_bold_text_with_bright_colors: false
 # ColorEnd

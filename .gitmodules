@@ -1,9 +1,6 @@
 [submodule ".tmux/plugins/tmux-remote"]
 	path = .tmux/plugins/tmux-remote
 	url = https://github.com/danyim/tmux-remote.git
-[submodule ".local/share/nvim/site/pack/paqs/start/lua-dev.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/lua-dev.nvim
-	url = https://github.com/folke/lua-dev.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/start/vim-dirvish"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
@@ -535,3 +532,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/neodev.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/neodev.nvim
 	url = https://github.com/folke/neodev.nvim.git
+[submodule ".tmux/plugins/tmux-easy-motion"]
+	path = .tmux/plugins/tmux-easy-motion
+	url = https://github.com/IngoMeyer441/tmux-easy-motion.git

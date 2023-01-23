@@ -143,6 +143,7 @@ cleanup
 # update
 
 stow -v --target ${HOME} "dotfiles"
+set -x
 [[ -d "dotfiles.shared" ]] && sudo stow -v --target ${HOME} "dotfiles.shared"
 [[ -d "dotfiles.root.$HOSTNAME" ]] && sudo stow -v --target / "dotfiles.root.$HOSTNAME"
 

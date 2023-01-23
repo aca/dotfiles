@@ -92,6 +92,8 @@ nvim_set_keymap(
     { silent = true, noremap = true, expr = true }
 )
 
+-- https://www.reddit.com/r/neovim/comments/re07pk/close_neovim_if_last_buffer/
+-- TODO: replace with lua
 vim.cmd([[
 function s:close()
   if getwininfo(win_getid())[0]['quickfix'] == 1
@@ -179,6 +181,9 @@ cnoreabbrev QA qa
 cnoreabbrev Vs vs
 cnoreabbrev VS vs
 cnoreabbrev l lua
+
+cnoreabbrev Source source
+cnoreabbrev SOurce source
 
 " qq to record, Q to replay
 nnoremap Q @q

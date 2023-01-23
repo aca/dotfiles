@@ -5,7 +5,15 @@ vim.cmd [[
    packadd nvim-scrollbar
 ]]
 
-require("scrollbar").setup()
+require("scrollbar").setup({
+    -- show_in_active_only = true,
+    handlers = {
+        cursor = false,
+    },
+    handle = {
+        color = '#242124'
+    }
+})
 
 require('hlslens').setup({
     calm_down = true,
