@@ -18,6 +18,11 @@ set edit:completion:arg-completer[curl] = (bash-completer:new "curl")
 set edit:completion:arg-completer[docker] = (bash-completer:new "docker")
 set edit:completion:arg-completer[fd] = (bash-completer:new "fd")
 set edit:completion:arg-completer[gh] = (bash-completer:new "gh" &bash_function="__start_gh gh")
+
+# https://github.com/git/git/blob/5dec958dcf965fc75e0f459f8e8ccf9c9f495b15/contrib/completion/git-completion.bash#L52
+set-env GIT_COMPLETION_SHOW_ALL 1
+set-env GIT_COMPLETION_IGNORE_CASE 1
+set-env GIT_COMPLETION_SHOW_ALL_COMMANDS 1
 set edit:completion:arg-completer[git] = (bash-completer:new "git" &bash_function="__git_wrap__git_main")
 # use elvish-completions/git
 set edit:completion:arg-completer[ip] = (bash-completer:new "ip" &bash_function="_ip ip")
