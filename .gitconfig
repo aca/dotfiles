@@ -1,114 +1,104 @@
+; [url "ssh://git@git.sr.ht/"]
+;     insteadOf = https://git.sr.ht/
+                        
 [pager]
     diff = delta
     log = delta
     reflog = delta
     show = delta
 
-
+[diff]
+    ignoreSubmodules = dirty
+    colorMoved = default
 
 [delta]
-    ; side-by-side = true
+    side-by-side = true
     navigate = true
     file-decoration-style = none
     diff-highlight = true
-  ; file-style = omit
 
 [interactive]
     diffFilter = delta --color-only
 
-; [github]
-; 	user = aca
-
 [color]
-  ui = auto
+    ui = auto
+
 [color "status"]
-  header = cyan
-  branch = white
-  changed = yellow
-  added = green
-  untracked = cyan
-
-
+    header = cyan
+    branch = white
+    changed = yellow
+    added = green
+    untracked = cyan
 
 [core]
-  editor = nvim
-  excludesFile = ~/.gitignore_global
-  sparseCheckout = true
-  quotepath = false
-	; hooksPath = .githooks
-  ; pager = git-split-diffs --color | less -RFX
-  filemode = false
+    editor = nvim
+    excludesFile = ~/.gitignore_global
+    sparseCheckout = true
+    quotepath = false
+    filemode = false
         
 [alias]
-  co = checkout
-  rb = rebase -i
-  st = status
-  cm = commit
-  comit = commit
-  pl = pull
-  ps = push
-  lg = log --graph --abbrev-commit --decorate --format=format:'%C(cyan)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
-  ad = add
-  tg = tag -n
-  df = diff
-  br = branch
-  unstage = reset HEAD --
+    co = checkout
+    rb = rebase -i
+    st = status
+    cm = commit
+    comit = commit
+    pl = pull
+    ps = push
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(cyan)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
+    ad = add
+    tg = tag -n
+    df = diff
+    br = branch
+    unstage = reset HEAD --
 
 [merge]
-  tool = vimdiff
+    tool = vimdiff
 
 [web]
-  browser = chrome
+    browser = chrome
 
 [pull]
-	ff = only
+    ff = only
 
 [mergetool "vimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [sendemail.linux]
     tocmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nol"
     cccmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nom"
 
 [credential]
-	helper = cache --timeout 604800
+    helper = cache --timeout 604800
 
 [status]
-	submoduleSummary = false
-[diff]
-	ignoreSubmodules = dirty
-    colorMoved = default
+    submoduleSummary = false
 
-; [url "ssh://git@git.sr.ht/"]
-;     insteadOf = https://git.sr.ht/
-
-; https://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time
 [push]
-	default = current
+    ; https://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time
+    default = current
+
 [receive]
-	denyCurrentBranch = updateInstead
+    denyCurrentBranch = updateInstead
+
 [advice]
     setUpstreamFailure = false
+
 [init]
-	defaultBranch = main
+    defaultBranch = main
+
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 
 [annex "security"]
-	allowed-url-schemes = http https file urls
-	allowed-http-addresses = all
-
+    allowed-url-schemes = http https file urls
+    allowed-http-addresses = all
 
 [include]
-  path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
 
 [includeIf "gitdir:~/src/github.tossinvest.bz/"]
-  path = ~/.gitconfig.tossinvest
-
-;[http "https://github.tossinvest.bz"]
-;  email = "kyungrok.chung@tossinvest.com"
-;  name = "rok"
-;
+    path = ~/.gitconfig.tossinvest

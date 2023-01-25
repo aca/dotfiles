@@ -20,7 +20,7 @@ scrolling:
 font:
   size: 16
   offset:
-    x: -3
+    x: -2
     y: 5
 
   glyph_offset:
@@ -38,11 +38,11 @@ font:
     # family: SpaceMono Nerd Font
     # family: Operator Mono Book
     # family: Iosevka Term Curly Slab
-    family: Hasklug Nerd Font Mono
+    # family: Hasklug Nerd Font Mono
     # family: JetBrains Mono
     # family: Noto Sans
     # family: VictorMono Nerd Font Mono
-    # family: Lotion Nerd Font
+    family: Lotion Nerd Font
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
