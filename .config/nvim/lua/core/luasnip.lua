@@ -130,6 +130,22 @@ defer func() {{
     ),
 
     s(
+        "terr",
+        fmt(
+            [[
+if err != nil {{
+    t.Fatal(err)
+}}
+{}
+
+]],
+            {
+                i(0),
+            }
+        )
+    ),
+
+    s(
         "err",
         fmt(
             [[

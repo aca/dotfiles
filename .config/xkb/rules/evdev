@@ -1,0 +1,4 @@
+! option = symbols
+  ctrl2caps_caps2esc:ctrl2caps_caps2esc    = +ctrl2caps_caps2esc(ctrl2caps_caps2esc)
+  ctrl2caps_caps2esc:super_esc    = +ctrl2caps_caps2esc(super_esc)
+! include %S/evdev

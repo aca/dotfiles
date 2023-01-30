@@ -1,0 +1,11 @@
+xkb_symbols "ctrl2caps_caps2esc" {
+    key <CAPS> { [ Control_L, Control_L ] };
+    key <LCTRL> { [ Escape ] };
+    modifier_map  Control { <CAPS>, <LCTL> };
+};
+
+xkb_symbols "super_esc" {
+    replace key <CAPS> { [ Control_L, Control_L ] };
+    replace key <LCTL> { [ Escape ] };
+};
+
