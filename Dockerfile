@@ -51,7 +51,17 @@ RUN apk add --no-cache --force-overwrite \
       # docker-cli \ -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker:ro 
       # make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
 
+# https://github.com/kubernetes-sigs/kubespray/blob/master/requirements-2.12.txt
 RUN pip3 install ansible==5.7.1
+RUN pip3 install ansible-core==2.12.5
+RUN pip3 install cryptography==3.4.8
+RUN pip3 install jinja2==2.11.3
+RUN pip3 install netaddr==0.7.19
+RUN pip3 install pbr==5.4.4
+RUN pip3 install jmespath==0.9.5
+RUN pip3 install ruamel.yaml==0.16.10
+RUN pip3 install ruamel.yaml.clib==0.2.7
+RUN pip3 install MarkupSafe==1.1.1
 
 # RUN addgroup -S rok
 # RUN adduser -S -D -G rok -h /home/rok -s /bin/bash rok
