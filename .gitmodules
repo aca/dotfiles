@@ -538,3 +538,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/text-case.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/text-case.nvim
 	url = https://github.com/johmsalas/text-case.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/dashboard-nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/dashboard-nvim
+	url = https://github.com/glepnir/dashboard-nvim.git
