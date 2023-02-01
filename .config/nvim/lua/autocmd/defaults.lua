@@ -1,9 +1,9 @@
-local group = vim.api.nvim_create_augroup("_defaults", { clear = true })
+-- local group = vim.api.nvim_create_augroup("_defaults", { clear = true })
 local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 -- set commentstring to '#' by default
 nvim_create_autocmd({ "BufWinEnter", "BufAdd" }, {
-	group = group,
+	-- group = group,
 	callback = function()
 		if vim.bo.filetype == "" then
 			vim.bo.commentstring = "# %s"
@@ -15,7 +15,7 @@ nvim_create_autocmd({ "BufWinEnter", "BufAdd" }, {
 
 -- mkdir on save
 nvim_create_autocmd({"BufWritePre"}, {
-	group = group,
+	-- group = group,
 	callback = function()
 		local dir = vim.fn.expand("%:p:h")
 		local match = string.find(dir, "://")
@@ -30,7 +30,7 @@ nvim_create_autocmd({"BufWritePre"}, {
 
 -- if there's no other window but quickfix close vim
 nvim_create_autocmd("WinEnter", {
-	group = group,
+	-- group = group,
 	pattern = { "*" },
 	command = 'au WinEnter * if winnr(\'$\') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif',
 })
@@ -42,13 +42,13 @@ nvim_create_autocmd("WinEnter", {
 -- })
 
 nvim_create_autocmd("TermOpen", {
-	group = group,
+	-- group = group,
 	pattern = { "*" },
 	command = "startinsert",
 })
 
 nvim_create_autocmd("TextYankPost", {
-	group = group,
+	-- group = group,
 	pattern = { "*" },
 	callback = function()
 		vim.highlight.on_yank()
@@ -56,7 +56,7 @@ nvim_create_autocmd("TextYankPost", {
 })
 
 nvim_create_autocmd("BufWritePost", {
-	group = group,
+	-- group = group,
 	pattern = { "lua/init/*.lua" },
 	callback = function()
 		vim.api.nvim_command("!just build")

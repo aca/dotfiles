@@ -98,3 +98,6 @@ if [ -n "$GUIX_ENVIRONMENT" ]; then
     fi
 fi
 
+
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+# [[ -r "~/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion" ]] && . "~/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion"

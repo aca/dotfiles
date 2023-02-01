@@ -30,7 +30,7 @@ packadd zen-mode.nvim
 " packadd clever-f.vim 
 
 packadd vim-eunuch 
-packadd vim-characterize 
+" packadd vim-characterize 
 packadd fcitx.nvim
 " packadd vim-rfc 
 " packadd symbols-outline.nvim
