@@ -59,8 +59,6 @@ RUN pip3 install jinja2==2.11.3
 RUN pip3 install netaddr==0.7.19
 RUN pip3 install pbr==5.4.4
 RUN pip3 install jmespath==0.9.5
-RUN pip3 install ruamel.yaml==0.16.10
-RUN pip3 install ruamel.yaml.clib==0.2.7
 RUN pip3 install MarkupSafe==1.1.1
 
 # RUN addgroup -S rok
