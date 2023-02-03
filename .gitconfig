@@ -32,7 +32,7 @@
 
 [core]
     editor = nvim
-    excludesFile = ~/.gitignore_global
+    excludesFile = ~/.gitignore.global
     sparseCheckout = true
     quotepath = false
     filemode = false

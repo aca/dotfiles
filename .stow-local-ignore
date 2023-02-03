@@ -3,5 +3,6 @@
 /.githooks
 /Library
 /Dockerfile*
+/Dockerfile.*
 /.dockerignore
 /Makefile
