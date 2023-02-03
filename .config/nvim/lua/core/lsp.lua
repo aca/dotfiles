@@ -131,37 +131,37 @@ lspconfig.pyright.setup({
 --     on_attach = on_attach,
 -- }
 
-configs.mzk = {
-    default_config = {
-        -- cmd = { "ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio" },
-        cmd = { os.getenv("HOME") .. "/src/github.com/aca/zk/zk" },
-        filetypes = { "markdown" },
-        root_dir = function()
-            return vim.loop.cwd()
-        end,
-        settings = {},
-    }
-}
-lspconfig.mzk.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
-configs.mdpls = {
-    default_config = {
-        cmd = { "ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio" },
-        filetypes = { "markdown" },
-        root_dir = function()
-            return vim.loop.cwd()
-        end,
-        settings = {},
-    }
-}
-lspconfig.mdpls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
+-- configs.mzk = {
+--     default_config = {
+--         -- cmd = { "ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio" },
+--         cmd = { os.getenv("HOME") .. "/src/github.com/aca/zk/zk" },
+--         filetypes = { "markdown" },
+--         root_dir = function()
+--             return vim.loop.cwd()
+--         end,
+--         settings = {},
+--     }
+-- }
+-- lspconfig.mzk.setup {
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+-- }
+--
+-- configs.mdpls = {
+--     default_config = {
+--         cmd = { "ts-node", os.getenv("HOME") .. "/src/github.com/aca/mdpls/src/server.ts", "--stdio" },
+--         filetypes = { "markdown" },
+--         root_dir = function()
+--             return vim.loop.cwd()
+--         end,
+--         settings = {},
+--     }
+-- }
+-- lspconfig.mdpls.setup {
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+-- }
+--
 
 -- if vim.fn.executable("gopls") == 1 then
 --     lspconfig.gopls.setup({
