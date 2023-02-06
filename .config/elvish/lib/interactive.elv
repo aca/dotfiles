@@ -2,6 +2,7 @@ use str
 use path
 set edit:command-abbr['gco'] = 'git checkout'
 
+set edit:command-abbr['c'] = 'cd'
 set edit:command-abbr['k'] = 'kubectl'
 set edit:command-abbr['ke'] = 'kubectl edit'
 set edit:command-abbr['kg'] = 'kubectl get'

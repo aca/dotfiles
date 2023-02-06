@@ -78,4 +78,5 @@ nnoremap <silent> 'b :lua require'dap'.toggle_breakpoint()<CR>
 
 ]])
 
-require("dapui").setup()
+-- NOTE: this makes screen flicker on startup with barbar.nvim plugin
+-- require("dapui").setup()

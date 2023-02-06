@@ -13,15 +13,9 @@
 [submodule ".local/share/nvim/site/pack/paqs/start/nvim-dap-ui"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-dap-ui
 	url = https://github.com/rcarriga/nvim-dap-ui.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/nvim-peekup"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-peekup
-	url = https://github.com/gennaro-tedesco/nvim-peekup.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-ReplaceWithRegister"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-ReplaceWithRegister
 	url = https://github.com/inkarkat/vim-ReplaceWithRegister.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-buftabline"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-buftabline
-	url = https://github.com/ap/vim-buftabline.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/nvim-terminal.lua"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-terminal.lua
 	url = https://github.com/norcalli/nvim-terminal.lua.git
@@ -34,9 +28,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-fetch"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-fetch
 	url = https://github.com/wsdjeg/vim-fetch.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/vim-startify"]
-	path = .local/share/nvim/site/pack/bundle/opt/vim-startify
-	url = https://github.com/mhinz/vim-startify.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-boxdraw"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-boxdraw
 	url = https://github.com/gyim/vim-boxdraw.git
@@ -538,6 +529,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/text-case.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/text-case.nvim
 	url = https://github.com/johmsalas/text-case.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/dashboard-nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/dashboard-nvim
-	url = https://github.com/glepnir/dashboard-nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/alpha-nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/alpha-nvim
+	url = https://github.com/goolord/alpha-nvim.git

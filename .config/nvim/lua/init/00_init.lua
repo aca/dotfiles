@@ -10,7 +10,6 @@
 -- TODO
 -- https://this-week-in-neovim.org/
 -- https://github.com/adelarsq/image_preview.nvim
--- https://www.reddit.com/r/neovim/comments/y9mg1t/smartest_autopair_plugin_nowadays/
 -- https://github.com/lewis6991/hover.nvim
 --
 -- netrw replace
@@ -21,6 +20,3 @@
 -- https://castel.dev/post/lecture-notes-1/
 
 -- https://github.com/jakewvincent/mkdnflow.nvim
-
-
--- TODO: nvim-dashboard

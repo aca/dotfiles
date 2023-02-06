@@ -84,3 +84,14 @@ fn proxyoff {
     unset-env no_proxy 
 }
 
+fn str-to-array { |x|
+    put [ (str:split '' $x) ]
+}
+
+fn short-abbr { 
+    # var p = [(str:split '/' (tilde-abbr $pwd))]
+    # [(str:split '/' (tilde-abbr $pwd))] | each { |x| put $x }
+    put [(str:split '/' (tilde-abbr $pwd))]
+    # put ((str:split '/' (tilde-abbr $pwd)) | each { |x| [(str:split '' $x)][0] })
+    # all $p | each { |x| str:str-to-array $x  }
+}

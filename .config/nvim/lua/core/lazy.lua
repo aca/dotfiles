@@ -3,9 +3,11 @@ pcall(function()
     vim.o.splitkeep = "screen"
 end)
 
-vim.g.github_enterprise_urls = { 'https://github.t'
+vim.g.github_enterprise_urls = {
+    'https://github.t'
     .. 'os' ..
-    'sinvest.bz' }
+    'sinvest.bz'
+}
 
 vim.cmd([[ 
 packadd plenary.nvim
@@ -20,7 +22,7 @@ packadd vim-rhubarb
 
 " packadd gv.vim
 
-" packadd telescope.nvim
+packadd telescope.nvim
 " packadd telescope-fzf-native.nvim
 packadd telescope-hop.nvim
 

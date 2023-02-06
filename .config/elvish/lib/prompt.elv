@@ -12,7 +12,15 @@ set edit:prompt = {
 
 # set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }
 # set edit:rprompt = { styled (basename $pwd) yellow }
-set edit:rprompt = { styled [(str:split '/' $pwd)][-1] yellow }
+# set edit:rprompt = { styled [(str:split '/' (tilde-abbr $pwd))][-1] yellow }
+# set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
+
+var short-addr = {
+    print [(str:split '/' (tilde-abbr $pwd))][-1]
+    # print ((tilde-abbr $pwd) | str:split '/' (all))[-1]
+}
+
+set edit:rprompt = { styled ($short-addr) yellow }
 
 set edit:after-readline = [
   {|args|

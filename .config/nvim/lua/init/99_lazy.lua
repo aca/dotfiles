@@ -9,7 +9,7 @@ vim.defer_fn(function()
     require("core.keymap")
 
     require("core.lazy")
-    -- require("core.zettels")
+    require("core.zettels")
 
     vim.cmd([[
         runtime! lua/plugins/*
