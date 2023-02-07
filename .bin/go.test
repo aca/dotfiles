@@ -1,0 +1,8 @@
+#!/usr/bin/env elvish
+
+go test -list=. | grep '^Test' | fzf -m | each { |x| 
+    var cmd = "go test -v -run '^"$x"$'"
+    echo (styled $cmd red)
+    eval $cmd
+    echo
+}

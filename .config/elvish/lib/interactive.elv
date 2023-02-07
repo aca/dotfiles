@@ -29,10 +29,10 @@ set edit:command-abbr['virt-install'] = 'sudo virt-install'
 set edit:command-abbr['xargsi'] = 'xargs -I@'
 
 fn asdf-available {
-    if (path:is-dir $pwd/.asdf) {
-        return
-        # fail 1
-    } 
+    # if (path:is-dir $pwd/.asdf) {
+    #     return
+    #     # fail 1
+    # } 
 
     var tmppath = $pwd
 
