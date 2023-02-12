@@ -238,40 +238,40 @@ debug:
 
 
 # ColorStart
-# Base16 Black Metal - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
+# Base16 Isotope - alacritty color config
+# Jan T. Sott
 colors:
   # Default colors
   primary:
     background: '0x000000'
-    foreground: '0xc1c1c1'
+    foreground: '0xd0d0d0'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text: '0x000000'
-    cursor: '0xc1c1c1'
+    cursor: '0xd0d0d0'
 
   # Normal colors
   normal:
     black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
+    red:     '0xff0000'
+    green:   '0x33ff00'
+    yellow:  '0xff0099'
+    blue:    '0x0066ff'
+    magenta: '0xcc00ff'
+    cyan:    '0x00ffff'
+    white:   '0xd0d0d0'
 
   # Bright colors
   bright:
-    black:   '0x333333'
-    red:     '0xaaaaaa'
-    green:   '0x121212'
-    yellow:  '0x222222'
-    blue:    '0x999999'
-    magenta: '0x999999'
-    cyan:    '0x444444'
-    white:   '0xc1c1c1'
+    black:   '0x808080'
+    red:     '0xff9900'
+    green:   '0x404040'
+    yellow:  '0x606060'
+    blue:    '0xc0c0c0'
+    magenta: '0xe0e0e0'
+    cyan:    '0x3300ff'
+    white:   '0xffffff'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

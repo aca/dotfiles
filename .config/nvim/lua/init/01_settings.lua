@@ -2,7 +2,7 @@ local vim = vim
 local g = vim.g
 local opt = vim.opt
 
--- opt.cmdheight = 0
+opt.cmdheight = 0
 opt.laststatus = 0
 
 opt.statusline = "%= %m%r%h%w %l:%c %P "
@@ -74,7 +74,7 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false
 opt.belloff = "all"
 
-opt.number = false
+opt.number = true
 opt.relativenumber = false
 
 -- Tabs

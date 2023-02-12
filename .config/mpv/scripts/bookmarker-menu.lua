@@ -1,0 +1,1 @@
+../../../.submodules/mpv-bookmarker/bookmarker-menu.lua

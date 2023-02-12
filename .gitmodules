@@ -538,3 +538,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/local-highlight.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/local-highlight.nvim
 	url = https://github.com/tzachar/local-highlight.nvim
+[submodule ".submodules/mpv-bookmarker"]
+	path = .submodules/mpv-bookmarker
+	url = https://github.com/NurioHin/mpv-bookmarker.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/csv-tools.lua"]
+	path = .local/share/nvim/site/pack/bundle/opt/csv-tools.lua
+	url = https://github.com/Decodetalkers/csv-tools.lua.git

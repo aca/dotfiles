@@ -194,17 +194,17 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
 
-    ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup({
-            settings = {
-                Lua = {
-                    completion = {
-                        callSnippet = "Replace"
-                    }
-                }
-            }
-        })
-    end,
+    -- ["sumneko_lua"] = function()
+    --     lspconfig.sumneko_lua.setup({
+    --         settings = {
+    --             Lua = {
+    --                 completion = {
+    --                     callSnippet = "Replace"
+    --                 }
+    --             }
+    --         }
+    --     })
+    -- end,
 
     ["tailwindcss"] = function()
         lspconfig.tailwindcss.setup({
