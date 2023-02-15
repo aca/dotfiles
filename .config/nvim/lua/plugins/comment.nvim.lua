@@ -1,4 +1,8 @@
--- vim.cmd.packadd("tcomment_vim")
+vim.cmd [[
+    packadd Comment.nvim 
+    runtime after/plugin/Comment.lua
+]]
+
 require("Comment").setup({
     mappings = {
         basic = true,

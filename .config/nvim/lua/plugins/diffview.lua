@@ -1,3 +1,3 @@
-local actions = require("diffview.actions")
-
-require("diffview").setup()
+-- local actions = require("diffview.actions")
+--
+-- require("diffview").setup()

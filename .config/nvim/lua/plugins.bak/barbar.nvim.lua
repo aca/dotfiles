@@ -12,14 +12,12 @@ nvim_set_keymap("n", "<leader>9", "<cmd>BufferGoto 9<cr>", { noremap = true })
 nvim_set_keymap("n", "<leader>0", "<cmd>BufferGotoLast<cr>", { noremap = true })
 
 vim.g.bufferline = {
-	auto_hide = true,
-	closable = false,
-	icons = "numbers",
-	icon_separator_active = "",
-	icon_separator_inactive = "",
-	maximum_padding = 1,
+    auto_hide = true,
+    closable = false,
+    icons = "numbers",
+    icon_separator_active = "",
+    icon_separator_inactive = "",
+    maximum_padding = 1,
 }
 
-vim.cmd([[
-  packadd barbar.nvim
-]])
+vim.cmd.packadd "barbar.nvim"

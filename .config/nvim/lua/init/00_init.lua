@@ -9,7 +9,9 @@
 
 -- TODO
 -- https://this-week-in-neovim.org/
+--
 -- https://github.com/adelarsq/image_preview.nvim
+--
 -- https://github.com/lewis6991/hover.nvim
 --
 -- netrw replace
@@ -20,3 +22,4 @@
 -- https://castel.dev/post/lecture-notes-1/
 
 -- https://github.com/jakewvincent/mkdnflow.nvim
+-- https://github.com/glepnir/easyformat.nvim

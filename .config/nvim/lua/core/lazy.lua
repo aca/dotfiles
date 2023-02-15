@@ -1,8 +1,3 @@
-local vim = vim
-pcall(function()
-    vim.o.splitkeep = "screen"
-end)
-
 vim.g.github_enterprise_urls = {
     'https://github.t'
     .. 'os' ..
@@ -11,7 +6,10 @@ vim.g.github_enterprise_urls = {
 
 vim.cmd([[ 
 packadd plenary.nvim
+packadd nvim-web-devicons
+]])
 
+vim.cmd([[
 packadd neogit
 packadd fugitive
 packadd vim-rhubarb
@@ -26,7 +24,6 @@ packadd telescope.nvim
 " packadd telescope-fzf-native.nvim
 packadd telescope-hop.nvim
 
-packadd nvim-web-devicons
 packadd vim-ReplaceWithRegister
 packadd zen-mode.nvim
 " packadd clever-f.vim 
@@ -57,8 +54,6 @@ packadd vim-dadbod
 packadd vim-dadbod-ui
 
 packadd vim-dirdiff
-
-" packadd indent-blankline.nvim
 
 " NOTES(aca): neovim visual block does not work as expected, override with this.
 " Need to fix https://github.com/neovim/neovim/pull/18538/files
@@ -92,55 +87,14 @@ xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
 ]])
 
 
--- defaults
-vim.cmd([[
-unlet g:loaded_clipboard_provider
-runtime plugin/clipboard.vim
-unlet g:loaded_netrwPlugin
-runtime plugin/netrwPlugin.vim
-unlet g:loaded_matchit
-runtime plugin/matchit.vim
-unlet g:loaded_matchparen
-runtime plugin/matchparen.vim
-]])
-
--- colors
-vim.cmd([[
-packadd onedark.nvim
-packadd zenburn.nvim
-]])
-
 -- edit
 vim.cmd([[
 packadd quickfix-reflector.vim
-
-packadd suda.vim
-command! SudoWrite :SudaWrite
-command! SudoRead  :SudaRead
-
-let g:move_map_keys = 0
-packadd vim-move
-vmap <M-j> <Plug>MoveBlockDown
-vmap <M-k> <Plug>MoveBlockUp
-vmap <M-h> <Plug>MoveBlockLeft
-vmap <M-l> <Plug>MoveBlockRight
-vmap <A-s> <Plug>MoveBlockDown
-vmap <A-w> <Plug>MoveBlockUp
-vmap <A-a> <Plug>MoveBlockLeft
-vmap <A-d> <Plug>MoveBlockRight
-nmap <M-s> <Plug>MoveLineDown
-nmap <M-w> <Plug>MoveLineUp
-nmap <M-a> <Plug>MoveCharLeft
-nmap <M-d> <Plug>MoveCharRight
 
 let g:swap_no_default_key_mappings = 1
 packadd vim-swap
 nmap g< <Plug>(swap-prev)
 nmap g> <Plug>(swap-next)
-
-packadd Comment.nvim 
-runtime after/plugin/Comment.lua
-
 ]])
 
 -- navigate
@@ -150,11 +104,7 @@ packadd vim-fetch " TODO: replace or mv to start
 let g:nf_map_next=']f'
 let g:nf_map_previous='[f'
 packadd nextfile.vim
-
 packadd vim-dirvish
-
-packadd fold-cycle.nvim
-
 packadd hop.nvim
 ]])
 
@@ -163,7 +113,6 @@ vim.cmd [[
 packadd go-patch-unusedvar.nvim
 ]]
 require('go-patch-unusedvar')
-
 
 -- etc
 vim.cmd [[

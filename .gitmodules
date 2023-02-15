@@ -187,9 +187,6 @@
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-scriptease"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease.git
-[submodule ".local/share/nvim/site/pack/paqs/start/impatient.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/impatient.nvim
-	url = https://github.com/lewis6991/impatient.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/gitlinker.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gitlinker.nvim
 	url = https://github.com/ruifm/gitlinker.nvim.git
@@ -367,9 +364,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-goaddtags"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-goaddtags
 	url = https://github.com/mattn/vim-goaddtags.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/typescript.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/typescript.nvim
-	url = https://github.com/jose-elias-alvarez/typescript.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-markdown-toc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc.git
@@ -544,3 +538,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/csv-tools.lua"]
 	path = .local/share/nvim/site/pack/bundle/opt/csv-tools.lua
 	url = https://github.com/Decodetalkers/csv-tools.lua.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/impatient.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/impatient.nvim
+	url = https://github.com/lewis6991/impatient.nvim.git

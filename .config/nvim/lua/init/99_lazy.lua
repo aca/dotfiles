@@ -1,7 +1,10 @@
 local vim = vim
+
 vim.defer_fn(function()
-    -- require("impatient").enable_profile()
+    vim.cmd.packadd("impatient.nvim")
     require("impatient")
+    -- require("impatient").enable_profile()
+
     require("core.treesitter")
     require("core.lsp")
     require("core.luasnip")
