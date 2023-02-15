@@ -101,3 +101,5 @@ fi
 
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 # [[ -r "~/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion" ]] && . "~/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion"
+
+[ -f "/home/rok/.ghcup/env" ] && source "/home/rok/.ghcup/env" # ghcup-env
