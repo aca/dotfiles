@@ -6,6 +6,12 @@ use str
 use platform
 use path
 
+if (has-external zoxide) { 
+    use /zoxide 
+    set notify-bg-job-success = $false
+    set after-chdir = [{|_| zoxide add -- $pwd & }]
+}
+
 # if (and (has-env WEZTERM_PANE) (not (has-env NVIM_LISTEN_ADDRESS))) {
 #   set-env NVIM_LISTEN_ADDRESS "/tmp/nvim"$E:WEZTERM_PANE
 # }
@@ -28,7 +34,7 @@ use /completion
 use /git-subrepo-elvish/.elvish
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
-if (has-external zoxide) { use /zoxide }
+
 nop ?(use local)
 
 fn d {|@a| cd ~/src/configs/dotfiles }
@@ -88,10 +94,3 @@ fn str-to-array { |x|
     put [ (str:split '' $x) ]
 }
 
-fn short-abbr { 
-    # var p = [(str:split '/' (tilde-abbr $pwd))]
-    # [(str:split '/' (tilde-abbr $pwd))] | each { |x| put $x }
-    put [(str:split '/' (tilde-abbr $pwd))]
-    # put ((str:split '/' (tilde-abbr $pwd)) | each { |x| [(str:split '' $x)][0] })
-    # all $p | each { |x| str:str-to-array $x  }
-}

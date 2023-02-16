@@ -10,7 +10,8 @@
 # | space   | desktop |
 # | display | X       |
 
-escape -> :issw com.apple.keylayout.ABC
+# https://github.com/vovkasm/input-source-switcher
+escape -> :issw com.apple.keylayout.US
 # escape -> :xkbswitch -s 0
 lcmd + lctrl + lalt - escape : open '/System/Applications/Mission Control.app';
 # lcmd + lctrl + lalt - d : open '/System/Applications/Dictionary.app'

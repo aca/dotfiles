@@ -21,7 +21,7 @@ scrolling:
 font:
   size: 14
   offset:
-    x: -1
+    x: -3
     y: 10
 
   glyph_offset:
@@ -44,7 +44,8 @@ font:
     # family: Noto Sans
     # family: VictorMono Nerd Font Mono
     # family: Xanh Mono
-    family: Triplicate T4
+    # family: Triplicate T4
+    family: Triplicate T3
     # family: Prestige Elite
     # family: GoMono Nerd Font
     # family: Lotion Nerd Font
@@ -242,46 +243,46 @@ debug:
 
 
 # ColorStart
-# Base16 Woodland 256 - alacritty color config
-# Jay Cornwall (https://jcornwall.com)
+# Base16 Chalk 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x231e18'
-    foreground: '0xcabcb1'
+    background: '0x151515'
+    foreground: '0xd0d0d0'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x231e18'
-    cursor: '0xcabcb1'
+    text: '0x151515'
+    cursor: '0xd0d0d0'
 
   # Normal colors
   normal:
-    black:   '0x231e18'
-    red:     '0xd35c5c'
-    green:   '0xb7ba53'
-    yellow:  '0xe0ac16'
-    blue:    '0x88a4d3'
-    magenta: '0xbb90e2'
-    cyan:    '0x6eb958'
-    white:   '0xcabcb1'
+    black:   '0x151515'
+    red:     '0xfb9fb1'
+    green:   '0xacc267'
+    yellow:  '0xddb26f'
+    blue:    '0x6fc2ef'
+    magenta: '0xe1a3ee'
+    cyan:    '0x12cfc0'
+    white:   '0xd0d0d0'
 
   # Bright colors
   bright:
-    black:   '0x9d8b70'
-    red:     '0xd35c5c'
-    green:   '0xb7ba53'
-    yellow:  '0xe0ac16'
-    blue:    '0x88a4d3'
-    magenta: '0xbb90e2'
-    cyan:    '0x6eb958'
-    white:   '0xe4d4c8'
+    black:   '0x505050'
+    red:     '0xfb9fb1'
+    green:   '0xacc267'
+    yellow:  '0xddb26f'
+    blue:    '0x6fc2ef'
+    magenta: '0xe1a3ee'
+    cyan:    '0x12cfc0'
+    white:   '0xf5f5f5'
 
   indexed_colors:
-    - { index: 16, color: '0xca7f32' }
-    - { index: 17, color: '0xb49368' }
-    - { index: 18, color: '0x302b25' }
-    - { index: 19, color: '0x48413a' }
-    - { index: 20, color: '0xb4a490' }
-    - { index: 21, color: '0xd7c8bc' }
+    - { index: 16, color: '0xeda987' }
+    - { index: 17, color: '0xdeaf8f' }
+    - { index: 18, color: '0x202020' }
+    - { index: 19, color: '0x303030' }
+    - { index: 20, color: '0xb0b0b0' }
+    - { index: 21, color: '0xe0e0e0' }
 # ColorEnd

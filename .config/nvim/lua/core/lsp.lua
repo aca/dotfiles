@@ -185,123 +185,111 @@ lspconfig.gopls.setup({})
 -- P(lspconfig.tailwindcss.default_config.filetypes)
 require("mason").setup()
 require("mason-lspconfig").setup()
-
-require("mason-lspconfig").setup_handlers {
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
-    function (server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup {}
+require("mason-lspconfig").setup_handlers({
+    -- function(server_name) -- default handler (optional)
+    --     lspconfig[server_name].setup({
+    --         capabilities = capabilities,
+    --         on_attach = on_attach,
+    --     })
+    -- end,
+    ["denols"] = function()
+        lspconfig.denols.setup({})
     end,
-    -- -- Next, you can provide a dedicated handler for specific servers.
-    -- -- For example, a handler override for the `rust_analyzer`:
-    -- ["rust_analyzer"] = function ()
-    --     require("rust-tools").setup {}
-    -- end
-}
 
--- require("mason-lspconfig").setup_handlers({
---     function(server_name) -- default handler (optional)
---         lspconfig[server_name].setup({
---             capabilities = capabilities,
---             on_attach = on_attach,
---         })
---     end,
---
---     -- ["sumneko_lua"] = function()
---     --     lspconfig.sumneko_lua.setup({
---     --         settings = {
---     --             Lua = {
---     --                 completion = {
---     --                     callSnippet = "Replace"
---     --                 }
---     --             }
---     --         }
---     --     })
---     -- end,
---
---     ["tailwindcss"] = function()
---         lspconfig.tailwindcss.setup({
---             capabilities = capabilities,
---             on_attach = on_attach,
---             filetypes = lume.filter(lspconfig.tailwindcss.document_config.default_config.filetypes,
---                 function(x) return x ~= "markdown" end)
---         })
---     end,
---
---     ["tsserver"] = function()
---         lspconfig.tsserver.setup({
---             capabilities = capabilities,
---             on_attach = on_attach,
---             single_file_support = true,
---             settings = {
---                 codeActionsOnSave = {
---                     ["source.organizeImports.ts"] = true,
---                 },
---                 -- TODO: not work
---                 preferences = {
---                     javascript = {
---                         format = {
---                             tabSize = 2,
---                             convertTabsToSpaces = true,
---                         },
---                     },
---                     typescript = {
---                         format = {
---                             tabSize = 2,
---                             convertTabsToSpaces = true,
---                         },
---                     },
---                     typescriptreact = {
---                         format = {
---                             tabSize = 2,
---                             convertTabsToSpaces = true,
---                         },
---                     },
---                 }
---             },
---             commands = {
---                 OrganizeImports = {
---                     function()
---                         local params = {
---                             command = "_typescript.organizeImports",
---                             arguments = {
---                                 vim.api.nvim_buf_get_name(0)
---                             },
---                             title = ""
---                         }
---                         vim.lsp.buf.execute_command(params)
---                     end
---                 }
---             }
---         })
---     end,
---
---     ["gopls"] = function()
---         local gopls_settings = {
---             gopls = {
---                 allExperiments = true,
---                 ["formatting.gofumpt"] = true,
---                 analyses = {
---                     unusedparams = false,
---                 },
---                 staticcheck = true,
---             },
---         }
---
---         lspconfig.gopls.setup(
---             {
---                 single_file_support = true,
---                 capabilities = capabilities,
---                 on_attach = function(client, bufnr)
---                     -- require "lsp-format".on_attach(client)
---                     on_attach(client, bufnr)
---                 end,
---                 settings = gopls_settings,
---             }
---         )
---     end,
--- })
+    ["lua_ls"] = function()
+        lspconfig.lua_ls.setup({
+            settings = {
+                Lua = {
+                    completion = {
+                        callSnippet = "Replace"
+                    }
+                }
+            }
+        })
+    end,
+
+    ["tailwindcss"] = function()
+        lspconfig.tailwindcss.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = lume.filter(lspconfig.tailwindcss.document_config.default_config.filetypes,
+                function(x) return x ~= "markdown" end)
+        })
+    end,
+
+    ["tsserver"] = function()
+        lspconfig.tsserver.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            single_file_support = false,
+            settings = {
+                codeActionsOnSave = {
+                    ["source.organizeImports.ts"] = true,
+                },
+                -- TODO: not work
+                preferences = {
+                    javascript = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                    typescript = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                    typescriptreact = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                }
+            },
+            commands = {
+                OrganizeImports = {
+                    function()
+                        local params = {
+                            command = "_typescript.organizeImports",
+                            arguments = {
+                                vim.api.nvim_buf_get_name(0)
+                            },
+                            title = ""
+                        }
+                        vim.lsp.buf.execute_command(params)
+                    end
+                }
+            }
+        })
+    end,
+
+    ["gopls"] = function()
+        local gopls_settings = {
+            gopls = {
+                allExperiments = true,
+                ["formatting.gofumpt"] = true,
+                analyses = {
+                    unusedparams = false,
+                },
+                staticcheck = true,
+            },
+        }
+
+        lspconfig.gopls.setup(
+            {
+                single_file_support = true,
+                capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    -- require "lsp-format".on_attach(client)
+                    on_attach(client, bufnr)
+                end,
+                settings = gopls_settings,
+            }
+        )
+    end,
+})
 
 local diagnostics_active = true
 vim.api.nvim_create_user_command("ToggleDiagnostic", function()

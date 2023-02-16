@@ -16,7 +16,6 @@ set edit:prompt = {
 # set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
 
 var short-addr = {
-    # put [(str:split '/' (tilde-abbr $pwd))]
     var arr = [(str:split '/' (tilde-abbr $pwd))]
     if (eq (count $arr) (num 1)) {
         put $arr[0]
@@ -29,9 +28,6 @@ var short-addr = {
             }
         } | str:join '/' [(all) $arr[-1]]
     }
-    # if (not (eq (count $arr) (num 1))) {
-    # }
-    # print ((tilde-abbr $pwd) | str:split '/' (all))[-1]
 }
 
 set edit:rprompt = { styled ($short-addr) '#636a72' }

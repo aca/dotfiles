@@ -13,6 +13,7 @@ set edit:command-abbr['gi'] = 'grep -i'
 
 set edit:command-abbr['os'] = 'openstack '
 set edit:command-abbr['ta'] = 'tmux attach -t'
+set edit:command-abbr['dr'] = 'deno run -A'
 set edit:command-abbr['elv'] = 'elvish'
 set edit:command-abbr['mkdir'] = 'mkdir -p'
 set edit:command-abbr['dc'] = 'cd'
@@ -59,32 +60,32 @@ fn asdf-available {
     fail 1
 }
 
-set edit:before-readline = [
-    # osc7 escape sequence
-    { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
-
-    # this is fix for asdf performance issue
-    {
-        set paths = [(
-            if ?(asdf-available) {
-                put $@paths | { 
-                    put ~/.asdf/bin ~/.asdf/shims
-                    each { |x|
-                        if (not (str:contains $x "/.asdf")) { 
-                            put $x
-                        } 
-                    }; 
-                }
-            } else {
-                put $@paths | { 
-                    each { |x| 
-                        if (not (str:contains $x "/.asdf")) { 
-                            put $x
-                        } 
-                    }; 
-                    put ~/.asdf/bin ~/.asdf/shims
-                }
-            }
-        )]
-    }
-]
+# set edit:before-readline = [
+#     # osc7 escape sequence
+#     { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
+#
+#     # this is fix for asdf performance issue
+#     {
+#         set paths = [(
+#             if ?(asdf-available) {
+#                 put $@paths | { 
+#                     put ~/.asdf/bin ~/.asdf/shims
+#                     each { |x|
+#                         if (not (str:contains $x "/.asdf")) { 
+#                             put $x
+#                         } 
+#                     }; 
+#                 }
+#             } else {
+#                 put $@paths | { 
+#                     each { |x| 
+#                         if (not (str:contains $x "/.asdf")) { 
+#                             put $x
+#                         } 
+#                     }; 
+#                     put ~/.asdf/bin ~/.asdf/shims
+#                 }
+#             }
+#         )]
+#     }
+# ]

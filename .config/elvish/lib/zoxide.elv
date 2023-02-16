@@ -28,8 +28,7 @@ if (builtin:not (builtin:eq $E:__zoxide_shlvl $E:SHLVL)) {
 
 # =============================================================================
 #
-# When using zoxide with --no-cmd, alias these internal functions as
-# desired.
+# When using zoxide with --no-cmd, alias these internal functions as desired.
 #
 
 # Jump to a directory using only keywords.
