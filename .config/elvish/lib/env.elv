@@ -25,6 +25,8 @@ if (not (has-env TERM)) {
 set-env PYTHONSTARTUP ~/.bin/pythonstartup
 set-env XDG_CONFIG_HOME ~/.config
 
+set-env NCDU_SHELL elvish
+
 # if (eq $E:HOSTNAME "rok-te3") {
 #   set E:LIBVIRT_DEFAULT_URI = "qemu:///system"
 #   set E:VIRSH_DEFAULT_CONNECT_URI = "qemu:///system"
