@@ -20,7 +20,7 @@ scrolling:
 font:
   size: 14
   offset:
-    x: -3
+    x: -1
     y: 10
 
   glyph_offset:
