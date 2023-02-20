@@ -1,5 +1,9 @@
 #!/usr/bin/env fish
 
-set x (random 0 2)
+set x (random 0 1)
 
-fail.code $x
+sleep (random 1 3)
+
+echo "fail with $x"
+
+exit $x
