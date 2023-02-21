@@ -55,14 +55,6 @@ nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-nvim_create_autocmd("BufWritePost", {
-	-- group = group,
-	pattern = { "lua/init/*.lua" },
-	callback = function()
-		vim.api.nvim_command("!just build")
-	end,
-})
-
 -- nvim_create_autocmd("QuickFixCmdPost", {
 --   group = group,
 --   command = "cgetexpr cwindow"

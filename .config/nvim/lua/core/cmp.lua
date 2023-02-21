@@ -60,14 +60,13 @@ cmp.setup({
     --   scrollbar = '',
     --   -- other options
     -- },
-    -- window = {
-    --     completion = cmp.config.window.bordered(),
-    --     documentation = cmp.config.window.bordered(),
-    -- },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
 
     experimental = {
-        native_menu = false,
-        ghost_text = false,
+        ghost_text = true,
     },
     -- confirmation = {
     --     get_commit_characters = function()
@@ -80,6 +79,7 @@ cmp.setup({
             luasnip.lsp_expand(args.body)
         end,
     },
+
     -- sorting = {
     --     comparators = {
     --         cmp.config.compare.offset,

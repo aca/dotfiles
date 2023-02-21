@@ -544,3 +544,6 @@
 [submodule ".submodules/base16-alacritty"]
 	path = .submodules/base16-alacritty
 	url = https://github.com/aarowill/base16-alacritty.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-buftabline"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-buftabline
+	url = https://github.com/ap/vim-buftabline

@@ -28,8 +28,8 @@ font:
     y: 0
   builtin_box_drawing: true
   normal:
-    # style: Bold
-    family: BlexMono Nerd Font Mono
+    # style: Light
+    # family: BlexMono Nerd Font Mono
     # family: JetBrainsMono Nerd Font
     # family: SauceCodePro Nerd Font
     # family: BlexMono Nerd Font
@@ -45,6 +45,7 @@ font:
     # family: Xanh Mono
     # family: Triplicate T4
     # family: Triplicate T4 Nerd Font
+    family: TriplicateT3 Nerd Font
     # family: Prestige Elite
     # family: GoMono Nerd Font
     # family: Lotion Nerd Font

@@ -186,14 +186,14 @@ lspconfig.gopls.setup({})
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
-    -- function(server_name) -- default handler (optional)
-    --     lspconfig[server_name].setup({
-    --         capabilities = capabilities,
-    --         on_attach = on_attach,
-    --     })
-    -- end,
+    function(server_name) -- default handler (optional)
+        lspconfig[server_name].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+    end,
     ["denols"] = function()
-        lspconfig.denols.setup({})
+        -- lspconfig.denols.setup({})
     end,
 
     ["lua_ls"] = function()
