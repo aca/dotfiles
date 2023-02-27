@@ -186,16 +186,12 @@ lspconfig.gopls.setup({})
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
-    function(server_name) -- default handler (optional)
-        lspconfig[server_name].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-    end,
     ["denols"] = function()
-        -- lspconfig.denols.setup({})
+        lspconfig.denols.setup {
+            on_attach = on_attach,
+            root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+        }
     end,
-
     ["lua_ls"] = function()
         lspconfig.lua_ls.setup({
             settings = {
@@ -207,7 +203,6 @@ require("mason-lspconfig").setup_handlers({
             }
         })
     end,
-
     ["tailwindcss"] = function()
         lspconfig.tailwindcss.setup({
             capabilities = capabilities,
@@ -216,11 +211,11 @@ require("mason-lspconfig").setup_handlers({
                 function(x) return x ~= "markdown" end)
         })
     end,
-
     ["tsserver"] = function()
         lspconfig.tsserver.setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            root_dir = lspconfig.util.root_pattern("package.json"),
             single_file_support = false,
             settings = {
                 codeActionsOnSave = {
@@ -264,7 +259,6 @@ require("mason-lspconfig").setup_handlers({
             }
         })
     end,
-
     ["gopls"] = function()
         local gopls_settings = {
             gopls = {
@@ -288,6 +282,12 @@ require("mason-lspconfig").setup_handlers({
                 settings = gopls_settings,
             }
         )
+    end,
+    function(server_name) -- default handler (optional)
+        lspconfig[server_name].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
     end,
 })
 

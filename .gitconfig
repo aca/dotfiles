@@ -97,8 +97,18 @@
     allowed-url-schemes = http https file urls
     allowed-http-addresses = all
 
-[include]
-    path = ~/.gitconfig.local
+; [include]
+;     path = ~/.gitconfig.local
+
+[github]
+  user = aca
+
+[user]
+  email = "acadx0@gmail.com"
+  name = "rok"
 
 [includeIf "gitdir:~/src/github.tossinvest.bz/"]
+    path = ~/.gitconfig.tossinvest
+
+[includeIf "gitdir:~/src/github.toss.bz/"]
     path = ~/.gitconfig.tossinvest
