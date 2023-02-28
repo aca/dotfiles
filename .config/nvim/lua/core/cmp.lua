@@ -16,8 +16,8 @@ runtime after/plugin/cmp_path.lua
 packadd cmp_luasnip
 runtime /after/plugin/cmp_luasnip.lua
 
-packadd cmp-nvim-lsp-signature-help
-runtime after/plugin/cmp_nvim_lsp_signature_help.lua
+" packadd cmp-nvim-lsp-signature-help
+" runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 
 packadd cmp-cmdline
 runtime after/plugin/cmp_cmdline.lua
@@ -34,6 +34,8 @@ runtime after/plugin/cmp_luasnip_choice.lua
 
 " packadd cmp-tabnine
 " runtime after/plugin/cmp-tabnine.lua
+
+packadd mini.nvim
 ]])
 
 local cmp = require("cmp")
@@ -49,7 +51,7 @@ local cmp_sources = {
     -- { name = "path" },
     { name = "buffer", option = { keyword_length = 5 } },
     { name = "luasnip" },
-    { name = "nvim_lsp_signature_help" },
+    -- { name = "nvim_lsp_signature_help" },
     { name = "luasnip_choice" },
 }
 
@@ -183,3 +185,7 @@ cmp.setup({
 --     { name = 'buffer' }
 --   }
 -- })
+
+-- require('mini.completion').setup(
+--     { set_vim_settings = false }
+-- )

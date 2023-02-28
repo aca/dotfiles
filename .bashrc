@@ -1,4 +1,3 @@
-alias sway="sway > /var/log/sway.log 2>&1"
 export PATH=$HOME/bin:$PATH
 
 # If not running interactively, don't do anything
@@ -21,11 +20,6 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -57,23 +51,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-# if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-#     . /etc/bash_completion
-# fi
-
 set -o vi
-#
-# if [[ "$USER" == "ubuntu" ]]; then export TERM=xterm ; fi
-#
-# if [[ -f ~/.fzf/shell/key-bindings.bash ]]; then source ~/.fzf/shell/key-bindings.bash; fi
-# # if [[ -f ~/.asdf/asdf.sh ]]; then source ~/.asdf/asdf.sh; fi
-# export ASDF_DIR=$HOME/.asdf
-#
-# [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
-# [[ $PS1 && -f /usr/local/share/bash-completion/bash_completion ]] && . /usr/local/share/bash-completion/bash_completion
 
 osc7_cwd() {
     local strlen=${#PWD}
@@ -91,15 +69,17 @@ osc7_cwd() {
 }
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
 
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+if [ -f /opt/homebrew/etc/profile.d/bash_completion.sh ]; then 
+    . /opt/homebrew/etc/profile.d/bash_completion.sh
+fi
+
 # Automatically added by the Guix install script.
 if [ -n "$GUIX_ENVIRONMENT" ]; then
     if [[ $PS1 =~ (.*)"\\$" ]]; then
         PS1="${BASH_REMATCH[1]} [env]\\\$ "
     fi
 fi
-
-
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-# [[ -r "~/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion" ]] && . "~/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion"
-
-[ -f "/home/rok/.ghcup/env" ] && source "/home/rok/.ghcup/env" # ghcup-env
