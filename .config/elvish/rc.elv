@@ -61,7 +61,7 @@ fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 
 # utils
 fn from-0 { || from-terminated "\x00" }
-fn export { |v| set-env (echo $v | cut -d '=' -f 1) (echo $v | cut -d '=' -f 2-) }
+fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
 
 # UNIX comm alternative but keep original output sorted
 # list all non md files

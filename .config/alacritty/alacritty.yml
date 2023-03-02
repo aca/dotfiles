@@ -176,40 +176,46 @@ debug:
 
 
 # ColorStart
-# Base16 Brewer - alacritty color config
-# Timothée Poisot (http://github.com/tpoisot)
+# Base16 Black Metal 256 - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
 colors:
   # Default colors
   primary:
-    background: '0x0c0d0e'
-    foreground: '0xb7b8b9'
+    background: '0x000000'
+    foreground: '0xc1c1c1'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x0c0d0e'
-    cursor: '0xb7b8b9'
+    text: '0x000000'
+    cursor: '0xc1c1c1'
 
   # Normal colors
   normal:
-    black:   '0x0c0d0e'
-    red:     '0xe31a1c'
-    green:   '0x31a354'
-    yellow:  '0xdca060'
-    blue:    '0x3182bd'
-    magenta: '0x756bb1'
-    cyan:    '0x80b1d3'
-    white:   '0xb7b8b9'
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
   # Bright colors
   bright:
-    black:   '0x737475'
-    red:     '0xe6550d'
-    green:   '0x2e2f30'
-    yellow:  '0x515253'
-    blue:    '0x959697'
-    magenta: '0xdadbdc'
-    cyan:    '0xb15928'
-    white:   '0xfcfdfe'
+    black:   '0x333333'
+    red:     '0x5f8787'
+    green:   '0xdd9999'
+    yellow:  '0xa06666'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
 
-draw_bold_text_with_bright_colors: false
+  indexed_colors:
+    - { index: 16, color: '0xaaaaaa' }
+    - { index: 17, color: '0x444444' }
+    - { index: 18, color: '0x121212' }
+    - { index: 19, color: '0x222222' }
+    - { index: 20, color: '0x999999' }
+    - { index: 21, color: '0x999999' }
 # ColorEnd

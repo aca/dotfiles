@@ -60,6 +60,24 @@ fn asdf-available {
     fail 1
 }
 
+set @edit:before-readline = $@edit:before-readline {
+        if ?(var rootdir = (e:git rev-parse --show-toplevel 2>/dev/null)) {
+            if (eq $rootdir $pwd) {
+                fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
+                nop ?(cat .envrc.elv .envrc.local.elv 2>/dev/null) | slurp | eval (all)
+            } else {
+                fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
+                nop ?(cat $rootdir/.envrc.elv $rootdir/.envrc.local.elv .envrc.elv .envrc.local.elv) 2>/dev/null | slurp | eval (all)
+            }
+        }
+        #         nop ?(cat .envrc.elv .envrc.local.elv 2>/dev/null | slurp | eval (all))
+        #     } else {
+        #     }
+        # } else {
+        #     nop ?(nop ?(cat .envrc.elv .envrc.local.elv 2>/dev/null) | slurp | eval (all))
+        # }
+}
+
 # set edit:before-readline = [
 #     # osc7 escape sequence
 #     { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }

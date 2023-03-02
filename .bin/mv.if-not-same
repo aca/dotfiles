@@ -1,0 +1,5 @@
+#!/usr/bin/env elvish
+
+ls $args[0] $args[1]
+
+

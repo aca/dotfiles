@@ -1,0 +1,9 @@
+#!/usr/bin/env elvish
+
+if (eq (xxh64sum $args[0] | awk '{print $1}') (xxh64sum $args[1] | awk '{print $1}')) {
+    exit 0
+} else {
+    exit 1
+}
+
+
