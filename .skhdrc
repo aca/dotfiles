@@ -1,10 +1,10 @@
-:: default : yabai -m config active_window_border_color 0xFF696969
+:: default : /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF696969
 
 # mac
 # defaults read com.apple.spaces
 # defaults read com.apple.desktop
 
-# | yabai   | bspwm   |
+# | /opt/homebrew/bin/yabai   | bspwm   |
 # | ---     | ---     |
 # | window  | node    |
 # | space   | desktop |
@@ -19,82 +19,82 @@ lcmd + lctrl + lalt - escape : open '/System/Applications/Mission Control.app';
 lcmd - h : echo
 
 # focus & and swap node in the given direction
-lcmd + lctrl + lalt - h : yabai -m window --focus west
-lcmd + lctrl + lalt - j : yabai -m window --focus south
-lcmd + lctrl + lalt - k : yabai -m window --focus north
-lcmd + lctrl + lalt - l : yabai -m window --focus east
-lcmd + lctrl + lalt + shift - h : yabai -m window --swap west
-lcmd + lctrl + lalt + shift - j : yabai -m window --swap south
-lcmd + lctrl + lalt + shift - k : yabai -m window --swap north
-lcmd + lctrl + lalt + shift - l : yabai -m window --swap east
+lcmd + lctrl + lalt - h : /opt/homebrew/bin/yabai -m window --focus west
+lcmd + lctrl + lalt - j : /opt/homebrew/bin/yabai -m window --focus south
+lcmd + lctrl + lalt - k : /opt/homebrew/bin/yabai -m window --focus north
+lcmd + lctrl + lalt - l : /opt/homebrew/bin/yabai -m window --focus east
+lcmd + lctrl + lalt + shift - h : /opt/homebrew/bin/yabai -m window --swap west
+lcmd + lctrl + lalt + shift - j : /opt/homebrew/bin/yabai -m window --swap south
+lcmd + lctrl + lalt + shift - k : /opt/homebrew/bin/yabai -m window --swap north
+lcmd + lctrl + lalt + shift - l : /opt/homebrew/bin/yabai -m window --swap east
 
 # focus or send to the given desktop
 # skhd --reload
-lcmd + lctrl + lalt - 1 : yabai -m space --focus 1;
-lcmd + lctrl + lalt - 2 : yabai -m space --focus 2;
-lcmd + lctrl + lalt - 3 : yabai -m space --focus 3;
-lcmd + lctrl + lalt - 4 : yabai -m space --focus 4;
-lcmd + lctrl + lalt - 5 : yabai -m space --focus 5;
-lcmd + lctrl + lalt - 6 : yabai -m space --focus 6;
-lcmd + lctrl + lalt - 7 : yabai -m space --focus 7;
-lcmd + lctrl + lalt - 8 : yabai -m space --focus 8;
-lcmd + lctrl + lalt - 9 : yabai -m space --focus 9;
-lcmd + lctrl + lalt + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1;
-lcmd + lctrl + lalt + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2;
-lcmd + lctrl + lalt + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3;
-lcmd + lctrl + lalt + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4;
-lcmd + lctrl + lalt + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5;
-lcmd + lctrl + lalt + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6;
-lcmd + lctrl + lalt + shift - 7 : yabai -m window --space 7; yabai -m space --focus 7;
-lcmd + lctrl + lalt + shift - 8 : yabai -m window --space 8; yabai -m space --focus 8;
-lcmd + lctrl + lalt + shift - 9 : yabai -m window --space 9; yabai -m space --focus 9;
+lcmd + lctrl + lalt - 1 : /opt/homebrew/bin/yabai -m space --focus 1;
+lcmd + lctrl + lalt - 2 : /opt/homebrew/bin/yabai -m space --focus 2;
+lcmd + lctrl + lalt - 3 : /opt/homebrew/bin/yabai -m space --focus 3;
+lcmd + lctrl + lalt - 4 : /opt/homebrew/bin/yabai -m space --focus 4;
+lcmd + lctrl + lalt - 5 : /opt/homebrew/bin/yabai -m space --focus 5;
+lcmd + lctrl + lalt - 6 : /opt/homebrew/bin/yabai -m space --focus 6;
+lcmd + lctrl + lalt - 7 : /opt/homebrew/bin/yabai -m space --focus 7;
+lcmd + lctrl + lalt - 8 : /opt/homebrew/bin/yabai -m space --focus 8;
+lcmd + lctrl + lalt - 9 : /opt/homebrew/bin/yabai -m space --focus 9;
+lcmd + lctrl + lalt + shift - 1 : /opt/homebrew/bin/yabai -m window --space 1; /opt/homebrew/bin/yabai -m space --focus 1;
+lcmd + lctrl + lalt + shift - 2 : /opt/homebrew/bin/yabai -m window --space 2; /opt/homebrew/bin/yabai -m space --focus 2;
+lcmd + lctrl + lalt + shift - 3 : /opt/homebrew/bin/yabai -m window --space 3; /opt/homebrew/bin/yabai -m space --focus 3;
+lcmd + lctrl + lalt + shift - 4 : /opt/homebrew/bin/yabai -m window --space 4; /opt/homebrew/bin/yabai -m space --focus 4;
+lcmd + lctrl + lalt + shift - 5 : /opt/homebrew/bin/yabai -m window --space 5; /opt/homebrew/bin/yabai -m space --focus 5;
+lcmd + lctrl + lalt + shift - 6 : /opt/homebrew/bin/yabai -m window --space 6; /opt/homebrew/bin/yabai -m space --focus 6;
+lcmd + lctrl + lalt + shift - 7 : /opt/homebrew/bin/yabai -m window --space 7; /opt/homebrew/bin/yabai -m space --focus 7;
+lcmd + lctrl + lalt + shift - 8 : /opt/homebrew/bin/yabai -m window --space 8; /opt/homebrew/bin/yabai -m space --focus 8;
+lcmd + lctrl + lalt + shift - 9 : /opt/homebrew/bin/yabai -m window --space 9; /opt/homebrew/bin/yabai -m space --focus 9;
 
 # focus last desktop
 # 0x33: backspace
-lcmd + lctrl + lalt - 0x33 : yabai -m space --focus recent;
+lcmd + lctrl + lalt - 0x33 : /opt/homebrew/bin/yabai -m space --focus recent;
 
 # focus & move next/previous monitor, [ ]
-lcmd + lctrl + lalt - 0x1E : yabai -m display --focus next;
-lcmd + lctrl + lalt - 0x21 : yabai -m display --focus prev;
-lcmd + lctrl + lalt + shift - 0x1E : yabai -m window --display next;
-lcmd + lctrl + lalt + shift - 0x21 : yabai -m window --display prev;
+lcmd + lctrl + lalt - 0x1E : /opt/homebrew/bin/yabai -m display --focus next;
+lcmd + lctrl + lalt - 0x21 : /opt/homebrew/bin/yabai -m display --focus prev;
+lcmd + lctrl + lalt + shift - 0x1E : /opt/homebrew/bin/yabai -m window --display next;
+lcmd + lctrl + lalt + shift - 0x21 : /opt/homebrew/bin/yabai -m window --display prev;
 
 # focus the next/previous desktop in the current monitor, ' "
-# lcmd + lctrl + lalt - 0x27 : yabai -m space --focus next || yabai -m space --focus first;
-# lcmd + lctrl + lalt - 0x29 : yabai -m space --focus prev || yabai -m space --focus last;
-lcmd + lctrl + lalt - 0x27 : fish -c "yabai.circular next";
-lcmd + lctrl + lalt - 0x29 : fish -c "yabai.circular prev";
-lcmd + lctrl + lalt + shift - 0x27 : fish -c "yabai.circular next move";
-lcmd + lctrl + lalt + shift - 0x29 : fish -c "yabai.circular prev move";
+# lcmd + lctrl + lalt - 0x27 : /opt/homebrew/bin/yabai -m space --focus next || /opt/homebrew/bin/yabai -m space --focus first;
+# lcmd + lctrl + lalt - 0x29 : /opt/homebrew/bin/yabai -m space --focus prev || /opt/homebrew/bin/yabai -m space --focus last;
+lcmd + lctrl + lalt - 0x27 : fish -c "/opt/homebrew/bin/yabai.circular next";
+lcmd + lctrl + lalt - 0x29 : fish -c "/opt/homebrew/bin/yabai.circular prev";
+lcmd + lctrl + lalt + shift - 0x27 : fish -c "/opt/homebrew/bin/yabai.circular next move";
+lcmd + lctrl + lalt + shift - 0x29 : fish -c "/opt/homebrew/bin/yabai.circular prev move";
 
 # focus last window (limit to current desktop)
-# lcmd + lctrl + lalt - w : yabai -m window --focus last
-lcmd + lctrl + lalt - 0x30 : yabai -m window --focus recent
+# lcmd + lctrl + lalt - w : /opt/homebrew/bin/yabai -m window --focus last
+lcmd + lctrl + lalt - 0x30 : /opt/homebrew/bin/yabai -m window --focus recent
 
 
 # space, float / unfloat window and center on screen
-# lcmd + lctrl + lalt - 0x31 : yabai -m window --toggle float; yabai -m window --grid 50:50:1:2:48:47
+# lcmd + lctrl + lalt - 0x31 : /opt/homebrew/bin/yabai -m window --toggle float; /opt/homebrew/bin/yabai -m window --grid 50:50:1:2:48:47
 
 # focus last window (limit to current desktop)
-lcmd + lctrl + lalt - w : yabai -m window --focus last;
-lcmd + lctrl + lalt - 0x30 : yabai -m window --focus last;
-# lcmd + lctrl + lalt - q : fish -c "yabai.circular next"; yabai -m window --focus last;
-lcmd + lctrl + lalt - q : yabai -m window --close || kill $(yabai -m query --windows --window | jq -r .pid)
-lcmd + lctrl + lalt - i : yabai -m window --close; 
+lcmd + lctrl + lalt - w : /opt/homebrew/bin/yabai -m window --focus last;
+lcmd + lctrl + lalt - 0x30 : /opt/homebrew/bin/yabai -m window --focus last;
+# lcmd + lctrl + lalt - q : fish -c "/opt/homebrew/bin/yabai.circular next"; /opt/homebrew/bin/yabai -m window --focus last;
+lcmd + lctrl + lalt - q : /opt/homebrew/bin/yabai -m window --close || kill $(/opt/homebrew/bin/yabai -m query --windows --window | jq -r .pid)
+lcmd + lctrl + lalt - i : /opt/homebrew/bin/yabai -m window --close; 
 
 # balance size of windows, '='
-lcmd + lctrl + lalt - 0x18 : yabai -m space --balance;
+lcmd + lctrl + lalt - 0x18 : /opt/homebrew/bin/yabai -m space --balance;
 
 # resize
-:: resizeMode @ : yabai -m config active_window_border_color 0xFF8B0000
+:: resizeMode @ : /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF8B0000
 lcmd + lctrl + lalt - z ; resizeMode
 resizeMode < escape ; default
-resizeMode < h : yabai -m window --resize left:-200:0; yabai -m window --resize right:-200:0
-resizeMode < j : yabai -m window --resize bottom:0:200; yabai -m window --resize top:0:200
-resizeMode < k : yabai -m window --resize top:0:-200; yabai -m window --resize bottom:0:-200
-resizeMode < l : yabai -m window --resize right:200:0; yabai -m window --resize left:200:0
+resizeMode < h : /opt/homebrew/bin/yabai -m window --resize left:-200:0; /opt/homebrew/bin/yabai -m window --resize right:-200:0
+resizeMode < j : /opt/homebrew/bin/yabai -m window --resize bottom:0:200; /opt/homebrew/bin/yabai -m window --resize top:0:200
+resizeMode < k : /opt/homebrew/bin/yabai -m window --resize top:0:-200; /opt/homebrew/bin/yabai -m window --resize bottom:0:-200
+resizeMode < l : /opt/homebrew/bin/yabai -m window --resize right:200:0; /opt/homebrew/bin/yabai -m window --resize left:200:0
 
-# :: appmode @ : yabai -m config active_window_border_color 0xFF000080
+# :: appmode @ : /opt/homebrew/bin/yabai -m config active_window_border_color 0xFF000080
 # lcmd + lctrl + lalt - x ; appmode
 # appmode < escape ; default
 # appmode < c : open /Applications/Google\ Chrome.app; skhd -k "escape"
@@ -106,8 +106,8 @@ resizeMode < l : yabai -m window --resize right:200:0; yabai -m window --resize 
 # lcmd + lctrl + lalt - a : /Users/rok/bin/neovide; skhd -k "escape"
 
 # quit / restart bspwm
-# lcmd + lctrl + lalt + shift - q : brew services stop yabai
-# lcmd + lctrl + lalt + shift - r : brew services restart yabai
+# lcmd + lctrl + lalt + shift - q : brew services stop /opt/homebrew/bin/yabai
+# lcmd + lctrl + lalt + shift - r : brew services restart /opt/homebrew/bin/yabai
 
 
 
@@ -119,42 +119,42 @@ resizeMode < l : yabai -m window --resize right:200:0; yabai -m window --resize 
 lcmd + lctrl + lalt - escape : open -a '/System/Applications/Mission Control.app';
 
 # rotate tree
-lcmd + lctrl + lalt - r : yabai -m space --rotate 90;
+lcmd + lctrl + lalt - r : /opt/homebrew/bin/yabai -m space --rotate 90;
 
-# lcmd + lctrl + lalt - f : yabai -m window --toggle native-fullscreen
-lcmd + lctrl + lalt - f : yabai -m window --toggle zoom-fullscreen
+# lcmd + lctrl + lalt - f : /opt/homebrew/bin/yabai -m window --toggle native-fullscreen
+lcmd + lctrl + lalt - f : /opt/homebrew/bin/yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-# lcmd + lctrl + lalt + shift - f : yabai -m window --toggle native-fullscreen;
+# lcmd + lctrl + lalt + shift - f : /opt/homebrew/bin/yabai -m window --toggle native-fullscreen;
 
 # # make floating window fill screen
-# shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
+# shift + alt - up     : /opt/homebrew/bin/yabai -m window --grid 1:1:0:0:1:1
 
 # # make floating window fill left-half of screen
-# shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
+# shift + alt - left   : /opt/homebrew/bin/yabai -m window --grid 1:2:0:0:1:1
 
 # # make floating window fill right-half of screen
-# shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
+# shift + alt - right  : /opt/homebrew/bin/yabai -m window --grid 1:2:1:0:1:1
 
 # # create desktop, move window and follow focus
-# shift + cmd - n : yabai -m space --create;\
-#                   id=$(yabai -m query --spaces --monitor);\
-#                   yabai -m window --space $(echo ${id##* });\
-#                   yabai -m space --focus $(echo ${id##* })
+# shift + cmd - n : /opt/homebrew/bin/yabai -m space --create;\
+#                   id=$(/opt/homebrew/bin/yabai -m query --spaces --monitor);\
+#                   /opt/homebrew/bin/yabai -m window --space $(echo ${id##* });\
+#                   /opt/homebrew/bin/yabai -m space --focus $(echo ${id##* })
 
 # create desktop # and follow focus
-# lcmd + lctrl + lalt - n : yabai -m space --create;
-                # id=$(yabai -m query --spaces --monitor);\
-                # yabai -m space --focus $(echo ${id##* })
+# lcmd + lctrl + lalt - n : /opt/homebrew/bin/yabai -m space --create;
+                # id=$(/opt/homebrew/bin/yabai -m query --spaces --monitor);\
+                # /opt/homebrew/bin/yabai -m space --focus $(echo ${id##* })
 
 # # destroy desktop
-# lcmd + lctrl + lalt + shift - n : yabai -m space --destroy
+# lcmd + lctrl + lalt + shift - n : /opt/homebrew/bin/yabai -m space --destroy
 
 # # move window
-# shift + ctrl - a : yabai -m window --move -20:0
-# shift + ctrl - s : yabai -m window --move 0:20
-# shift + ctrl - w : yabai -m window --move 0:-20
-# shift + ctrl - d : yabai -m window --move 20:0
+# shift + ctrl - a : /opt/homebrew/bin/yabai -m window --move -20:0
+# shift + ctrl - s : /opt/homebrew/bin/yabai -m window --move 0:20
+# shift + ctrl - w : /opt/homebrew/bin/yabai -m window --move 0:-20
+# shift + ctrl - d : /opt/homebrew/bin/yabai -m window --move 20:0
 
 
 # enum {
