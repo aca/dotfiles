@@ -94,3 +94,11 @@ fn str-to-array { |x|
     put [ (str:split '' $x) ]
 }
 
+fn ign { |@a|
+    try {
+        eval (repr $@a)
+    } catch {
+
+    }
+}
+

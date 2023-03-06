@@ -189,12 +189,12 @@ local config = {
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
     -- window_background_opacity = 1,
-    tab_max_width = 100,
+    -- tab_max_width = 100,
 
     enable_scroll_bar = false,
 
     -- TODO !!!: performance issue, use tmux instead for now
-    scrollback_lines = 10000,
+    -- scrollback_lines = 10000,
 
     -- font_rules = {
     --   intensity = "Half",

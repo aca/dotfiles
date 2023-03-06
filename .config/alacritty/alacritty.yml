@@ -21,7 +21,7 @@ font:
   size: 14
   offset:
     x: -1
-    y: 10
+    y: 0
 
   glyph_offset:
     x: 0
@@ -29,7 +29,9 @@ font:
   builtin_box_drawing: true
   normal:
     # style: Light
-    family: BlexMono Nerd Font Mono
+    style: Book
+    # family: Iosevka Nerd Font Mono
+    # family: BlexMono Nerd Font Mono
     # family: JetBrainsMono Nerd Font
     # family: SauceCodePro Nerd Font
     # family: BlexMono Nerd Font
@@ -47,12 +49,11 @@ font:
     # family: Triplicate T4 Nerd Font
     # family: TriplicateT3 Nerd Font
     # family: Prestige Elite
-    # family: GoMono Nerd Font
+    family: GoMono Nerd Font
     # family: Lotion Nerd Font
     # family: DankMono Nerd Font
     # family: FantasqueSansMono Nerd Font Mono
     # family: Input Mono Narrow
-    # family: Iosevka Nerd Font Mono
     # family: Iosevka Curly Slab
     # family: Iosevka Nerd Font
     # family: Iosevka Curly Slab
