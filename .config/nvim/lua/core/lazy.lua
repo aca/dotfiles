@@ -1,7 +1,7 @@
 vim.g.github_enterprise_urls = {
     'https://github.t'
-    .. 'os' ..
-    'sinvest.bz'
+        .. 'os' ..
+        'sinvest.bz'
 }
 
 vim.cmd([[ 
@@ -9,35 +9,32 @@ packadd plenary.nvim
 packadd nvim-web-devicons
 ]])
 
+-- git
 vim.cmd([[
 packadd neogit
 packadd fugitive
 packadd vim-rhubarb
+]])
 
-" replaced with gitsigns.nvim
-" nnoremap gm :GitMessenger<cr>
-" packadd git-messenger.vim
-
+vim.cmd([[
 " packadd gv.vim
 
 packadd telescope.nvim
 " packadd telescope-fzf-native.nvim
 packadd telescope-hop.nvim
 
-packadd vim-ReplaceWithRegister
 packadd zen-mode.nvim
 " packadd clever-f.vim 
 
-packadd vim-eunuch 
 " packadd vim-characterize 
 packadd fcitx.nvim
 " packadd vim-rfc 
 " packadd symbols-outline.nvim
 " packadd vim-diagon
-packadd bufferize.vim
+" packadd bufferize.vim
 packadd vim-scriptease 
 packadd diffview.nvim 
-packadd nvim-colorizer.lua
+" packadd nvim-colorizer.lua
 " packadd todo-comments.nvim 
 " packadd webapi-vim
 " packadd vim-gist
@@ -50,12 +47,20 @@ command! Luapad packadd nvim-luapad | :Luapad
 
 packadd aerial.nvim
 
-packadd vim-dadbod
-packadd vim-dadbod-ui
 
 packadd vim-dirdiff
+]])
 
-" NOTES(aca): neovim visual block does not work as expected, override with this.
+vim.cmd [[
+packadd vim-dadbod
+]]
+
+vim.defer_fn(function()
+    vim.cmd.packadd "vim-dadbod-ui"
+end, 30)
+
+vim.cmd [[
+" NOTES: neovim visual block does not work as expected, override with this.
 " Need to fix https://github.com/neovim/neovim/pull/18538/files
 
 " visualblocking `Created "$WORK/secret.txt.age` does not work
@@ -84,13 +89,17 @@ endfunction
 xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
 " xnoremap * y/\V<C-R>"<CR>
-]])
+]]
 
 
 -- edit
 vim.cmd([[
 packadd quickfix-reflector.vim
 
+packadd vim-ReplaceWithRegister
+packadd vim-eunuch 
+
+" vim-swap
 let g:swap_no_default_key_mappings = 1
 packadd vim-swap
 nmap g< <Plug>(swap-prev)

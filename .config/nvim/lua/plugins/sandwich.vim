@@ -24,19 +24,29 @@ let g:sandwich#recipes += [
       \     'input'   : ['l', 'L'],
       \   },
       \   {
+      \     'buns'    : ['`', '`'],
+      \     'filetype': ['markdown'],
+      \     'nesting' : 0,
+      \     'input'   : ['c'],
+      \   },
+      \   {
       \     'buns'    : ['```
       \', '
       \```
       \'],
       \     'filetype': ['markdown'],
       \     'nesting' : 0,
-      \     'input'   : ['C'],
+      \     'motionwise': ['line'],
+      \     'input'   : ['c'],
       \   },
       \   {
-      \     'buns'    : ['`', '`'],
+      \     'buns'    : ['```
+      \', '
+\```
+      \'],
       \     'filetype': ['markdown'],
       \     'nesting' : 0,
-      \     'input'   : ['c'],
+      \     'input'   : ['C'],
       \   },
       \   {
       \     'buns'    : ['[](', ')'],

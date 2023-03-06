@@ -7,5 +7,6 @@ xkb_symbols "ctrl2caps_caps2esc" {
 xkb_symbols "super_esc" {
     replace key <CAPS> { [ Control_L, Control_L ] };
     replace key <LCTL> { [ Escape ] };
+    replace key <ESC> { [ quoteleft, asciitilde ] };
 };
 

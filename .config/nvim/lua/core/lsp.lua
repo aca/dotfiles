@@ -23,13 +23,19 @@ local configs = require("lspconfig.configs")
 
 -- require("lsp-format").setup {}
 
-local null_ls = require("null-ls")
+-- local null_ls = require("null-ls")
+-- "gq" not working in markdown
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   callback = function(args)
+--     vim.bo[args.buf].formatexpr = nil
+--   end,
+-- })
 
-null_ls.setup {
-    sources = {
-        null_ls.builtins.code_actions.gitsigns,
-    }
-}
+-- null_ls.setup {
+--     sources = {
+--         null_ls.builtins.code_actions.gitsigns,
+--     }
+-- }
 
 local rightAlignFormatFunction = function(diagnostic)
     local line = diagnostic.lnum

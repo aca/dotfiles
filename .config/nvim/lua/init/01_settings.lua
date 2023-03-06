@@ -62,8 +62,8 @@ o.number = false
 opt.relativenumber = false
 
 -- Tabs
-opt.autoindent = true
-opt.cindent = true
+-- opt.autoindent = true
+-- opt.cindent = true
 
 opt.cinkeys = opt.cinkeys - "0#" -- https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
 opt.wrap = false

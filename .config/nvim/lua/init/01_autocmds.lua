@@ -23,7 +23,7 @@ execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
 ]],
 })
 
--- load dirvish on open if it's directory
+-- -- load dirvish on open if it's directory
 nvim_create_autocmd("BufEnter", {
     callback = function()
         -- if vim.fn.isdirectory(vim.fn.expand("%:p")) == 1 then

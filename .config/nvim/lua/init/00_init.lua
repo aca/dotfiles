@@ -23,3 +23,5 @@
 
 -- https://github.com/jakewvincent/mkdnflow.nvim
 -- https://github.com/glepnir/easyformat.nvim
+-- https://gitlab.com/HiPhish/nvim-ts-rainbow2
+-- https://github.com/vimpostor/vim-tpipeline
