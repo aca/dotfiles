@@ -52,14 +52,6 @@ packadd vim-dirdiff
 ]])
 
 vim.cmd [[
-packadd vim-dadbod
-]]
-
-vim.defer_fn(function()
-    vim.cmd.packadd "vim-dadbod-ui"
-end, 30)
-
-vim.cmd [[
 " NOTES: neovim visual block does not work as expected, override with this.
 " Need to fix https://github.com/neovim/neovim/pull/18538/files
 
