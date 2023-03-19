@@ -69,17 +69,21 @@ osc7_cwd() {
 }
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+# if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#     . /etc/bash_completion
+# fi
+#
+# if [ -f /opt/homebrew/etc/profile.d/bash_completion.sh ]; then 
+#     . /opt/homebrew/etc/profile.d/bash_completion.sh
+# fi
 
-if [ -f /opt/homebrew/etc/profile.d/bash_completion.sh ]; then 
-    . /opt/homebrew/etc/profile.d/bash_completion.sh
-fi
+# # Automatically added by the Guix install script.
+# if [ -n "$GUIX_ENVIRONMENT" ]; then
+#     if [[ $PS1 =~ (.*)"\\$" ]]; then
+#         PS1="${BASH_REMATCH[1]} [env]\\\$ "
+#     fi
+# fi
 
-# Automatically added by the Guix install script.
-if [ -n "$GUIX_ENVIRONMENT" ]; then
-    if [[ $PS1 =~ (.*)"\\$" ]]; then
-        PS1="${BASH_REMATCH[1]} [env]\\\$ "
-    fi
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi

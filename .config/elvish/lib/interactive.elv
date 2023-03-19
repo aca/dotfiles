@@ -28,6 +28,7 @@ set edit:command-abbr['virt-customize'] = 'sudo virt-customize'
 set edit:command-abbr['virt-clone'] = 'sudo virt-clone'
 set edit:command-abbr['virt-install'] = 'sudo virt-install'
 set edit:command-abbr['xargsi'] = 'xargs -I@'
+set edit:command-abbr['ea'] = 'each { |x| }'
 
 fn asdf-available {
     # if (path:is-dir $pwd/.asdf) {
@@ -61,21 +62,21 @@ fn asdf-available {
 }
 
 set @edit:before-readline = $@edit:before-readline {
-        if ?(var rootdir = (e:git rev-parse --show-toplevel 2>/dev/null)) {
-            if (eq $rootdir $pwd) {
+    if ?(var rootdir = (e:git rev-parse --show-toplevel 2>/dev/null)) {
+        if (eq $rootdir $pwd) {
+            try { 
                 fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
-                nop ?(cat .envrc.elv .envrc.local.elv 2>/dev/null) | slurp | eval (all)
-            } else {
+                nop ?(cat .envrc .envrc.local .envrc.elv .envrc.local.elv 2>/dev/null) | slurp | eval (all)
+            } catch {
+            }
+        } else {
+            try {
                 fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
-                nop ?(cat $rootdir/.envrc.elv $rootdir/.envrc.local.elv .envrc.elv .envrc.local.elv) 2>/dev/null | slurp | eval (all)
+                nop ?(cat $rootdir/.envrc $rootdir/.envrc.local $rootdir/.envrc.elv $rootdir/.envrc.local.elv .envrc .envrc.local .envrc.elv .envrc.local.elv) 2>/dev/null | slurp | eval (all)
+            } catch {
             }
         }
-        #         nop ?(cat .envrc.elv .envrc.local.elv 2>/dev/null | slurp | eval (all))
-        #     } else {
-        #     }
-        # } else {
-        #     nop ?(nop ?(cat .envrc.elv .envrc.local.elv 2>/dev/null) | slurp | eval (all))
-        # }
+    }
 }
 
 # set edit:before-readline = [

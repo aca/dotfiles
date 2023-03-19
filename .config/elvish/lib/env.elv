@@ -1,5 +1,7 @@
 use platform
 
+set-env NIX_PROFILES "/nix/var/nix/profiles/default "$E:HOME"/.nix-profile"
+
 set-env SHELL "/bin/sh"
 set-env LANG en_US.UTF-8
 set-env LANGUAGE en_US.UTF-8
@@ -86,7 +88,8 @@ set paths = [
   # ~/on/rakudo-star-*[nomatch-ok]/install/{bin,share/perl6/site/bin}
   # ~/.gem/ruby/*[nomatch-ok]/bin
   # ~/.bun/bin
-
+  /nix/var/nix/profiles/default/bin
+  ~/.nix-profile/bin
   ~/xxx/bin
   ~/.bin
   ~/.bin/dev
@@ -100,7 +103,6 @@ set paths = [
 
   ~/.cargo/bin
   ~/.local/bin
-  # ~/.nix-profile/bin
   ~/.krew/bin
   # ~/.raku/bin
   /usr/local/bin
@@ -111,4 +113,5 @@ set paths = [
 
   $@paths
 ]
+
 

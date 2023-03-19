@@ -1,9 +1,11 @@
 /README
 /.git
 /.githooks
+/.gitignore
 /Library
 /Dockerfile*
 /Dockerfile.*
 /.dockerignore
 /Makefile
 /deno.jsonc
+/deno.lock

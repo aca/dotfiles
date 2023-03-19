@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+cd "$(git rev-parse --show-toplevel 2>/dev/null)" || cd .
+cdktf synth
+cd cdktf.out/stacks
+cd "$(ls | fzf -1)"
+
+terraform import "$@"
