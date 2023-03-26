@@ -25,5 +25,5 @@
 -- https://github.com/glepnir/easyformat.nvim
 -- https://gitlab.com/HiPhish/nvim-ts-rainbow2
 -- https://github.com/vimpostor/vim-tpipeline
---https://github.com/Wansmer/treesj
---https://github.com/Wansmer/sibling-swap.nvim
+-- https://github.com/Wansmer/treesj
+-- https://github.com/Wansmer/sibling-swap.nvim

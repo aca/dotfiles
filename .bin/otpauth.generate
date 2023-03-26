@@ -1,0 +1,12 @@
+#!/usr/bin/env -S deno run
+
+/* go install github.com/dim13/otpauth@latest */
+/* otpauth -link "otpauth-migration://offline?data=CjEKCkhlbGxvId6tvu8SGEV4YW1wbGU6YWxpY2VAZ29vZ2xlLmNvbRoHRXhhbXBsZTAC" */
+/* url.parse 'otpauth://totp/Binance.com' | jq -r '.path, .query[-1][1]' */
+
+import * as OTPAuth from "https://deno.land/x/otpauth@v9.1.0/dist/otpauth.esm.js";
+
+console.log()
+let totp = new OTPAuth.TOTP({ secret: Deno.args[0] })
+let token = totp.generate();
+console.log(token);
