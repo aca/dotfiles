@@ -547,3 +547,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-buftabline"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-buftabline
 	url = https://github.com/ap/vim-buftabline
+[submodule ".local/share/nvim/site/pack/bundle/opt/gx.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/gx.nvim
+	url = https://github.com/chrishrb/gx.nvim.git
