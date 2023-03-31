@@ -10,11 +10,6 @@ set edit:prompt = {
   styled [&$true=$E:USER@(platform:hostname)" " &$false=" "][(has-env SSH_CLIENT)] yellow; styled 'λ ' #5e5e5e;
 }
 
-# set edit:rprompt = { styled 'elv ' '#7c7c7c'; styled (tilde-abbr $pwd) yellow }
-# set edit:rprompt = { styled (basename $pwd) yellow }
-# set edit:rprompt = { styled [(str:split '/' (tilde-abbr $pwd))][-1] yellow }
-# set edit:rprompt = { styled (tilde-abbr $pwd) yellow }
-
 var short-addr = {
     var arr = [(str:split '/' (tilde-abbr $pwd))]
     if (eq (count $arr) (num 1)) {
