@@ -136,9 +136,7 @@ set edit:insert:binding[Alt-p] = {||
     }
 }
 
-# queue command to pueue
-# I don't like pueue interface, maybe just use tmux
-# elvish -> bash -> elvish
+# queue command to pueue, elvish -> bash -> elvish
 # echo 1\necho 2 -> elvish -c $'echo 1\necho 2'
 set edit:insert:binding[Alt-q] = {|| 
   if (not-eq $edit:current-command "") {
