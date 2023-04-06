@@ -1,4 +1,5 @@
-# get description `swaymsg -t get_outputs` 
+# get output name from `swaymsg -t get_outputs` 
+# swaymsg -t get_outputs | jq '.[] | "\(.make) \(.model) \(.serial)"'
 
 profile {
     # Goldstar Company Ltd LG HDR 4K 104NTLE5N480
@@ -18,7 +19,12 @@ profile {
     # exec swaymsg workspace 6, move workspace to output '"Goldstar Company Ltd LG HDR 4K 104NTLE5N480"'
 }
 
-profile {
+profile sleep {
+    output "LG Electronics LG HDR 4K 104NTLE5N480" mode 3840x2160 position 0,0  transform 180
+    output eDP-1 mode 1920x1200 position 960,2160 transform 180
+}
+
+profile nomonitor{
     output eDP-1 enable
 }
 

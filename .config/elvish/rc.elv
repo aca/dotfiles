@@ -102,3 +102,9 @@ fn ign { |@a|
     }
 }
 
+
+fn psub {
+    var output = (mktemp)
+    cat > $output
+    echo $output
+}
