@@ -22,7 +22,7 @@ fn fzf_history {||
     to-terminated "\x00" |
     try {
       # --exact
-      str:trim-space (fzf --exact --height=75% --min-height 16 --no-sort --read0 --info=hidden --query=$edit:current-command | slurp)
+      str:trim-space (fzf --height=75% --min-height 16 --no-sort --read0 --info=hidden --query=$edit:current-command | slurp)
     } catch {
       edit:redraw &full=$true
       return

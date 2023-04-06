@@ -169,7 +169,6 @@ lspconfig.pyright.setup({
 -- }
 --
 
-lspconfig.gopls.setup({})
 -- if vim.fn.executable("gopls") == 1 then
 --     lspconfig.gopls.setup({
 --         capabilities = capabilities,
@@ -186,18 +185,48 @@ lspconfig.gopls.setup({})
 --     on_attach = on_attach,
 --     settings = gopls_settings,
 -- })
---
+
+
+-- if vim.fn.executable("deno") == 1 then
+--     lspconfig.gopls.setup({
+--         capabilities = capabilities,
+--         on_attach = function(client, bufnr)
+--             require "lsp-format".on_attach(client)
+--             on_attach(client, bufnr)
+--         end,
+--         settings = gopls_settings,
+--     })
+-- end
 
 -- P(lspconfig.tailwindcss.default_config.filetypes)
 require("mason").setup()
 require("mason-lspconfig").setup()
+
+lspconfig.denols.setup {
+    on_attach = on_attach,
+    root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+lspconfig.tsserver.setup {
+    on_attach = on_attach,
+    root_dir = lspconfig.util.root_pattern("package.json"),
+}
+
 require("mason-lspconfig").setup_handlers({
-    ["denols"] = function()
-        lspconfig.denols.setup {
-            on_attach = on_attach,
-            root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-        }
-    end,
+    -- function(server_name) -- default handler (optional)
+    --     lspconfig[server_name].setup({
+    --         capabilities = capabilities,
+    --         on_attach = on_attach,
+    --     })
+    -- end,
+
+    -- ["denols"] = function()
+    --     lspconfig.denols.setup {
+    --         on_attach = on_attach,
+    --         root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+    --     }
+    -- end,
+
     ["lua_ls"] = function()
         lspconfig.lua_ls.setup({
             settings = {
@@ -209,6 +238,7 @@ require("mason-lspconfig").setup_handlers({
             }
         })
     end,
+
     ["tailwindcss"] = function()
         lspconfig.tailwindcss.setup({
             capabilities = capabilities,
@@ -217,54 +247,56 @@ require("mason-lspconfig").setup_handlers({
                 function(x) return x ~= "markdown" end)
         })
     end,
-    ["tsserver"] = function()
-        lspconfig.tsserver.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            root_dir = lspconfig.util.root_pattern("package.json"),
-            single_file_support = false,
-            settings = {
-                codeActionsOnSave = {
-                    ["source.organizeImports.ts"] = true,
-                },
-                -- TODO: not work
-                preferences = {
-                    javascript = {
-                        format = {
-                            tabSize = 2,
-                            convertTabsToSpaces = true,
-                        },
-                    },
-                    typescript = {
-                        format = {
-                            tabSize = 2,
-                            convertTabsToSpaces = true,
-                        },
-                    },
-                    typescriptreact = {
-                        format = {
-                            tabSize = 2,
-                            convertTabsToSpaces = true,
-                        },
-                    },
-                }
-            },
-            commands = {
-                OrganizeImports = {
-                    function()
-                        local params = {
-                            command = "_typescript.organizeImports",
-                            arguments = {
-                                vim.api.nvim_buf_get_name(0)
-                            },
-                            title = ""
-                        }
-                        vim.lsp.buf.execute_command(params)
-                    end
-                }
-            }
-        })
-    end,
+
+    -- ["tsserver"] = function()
+    --     lspconfig.tsserver.setup({
+    --         capabilities = capabilities,
+    --         on_attach = on_attach,
+    --         root_dir = lspconfig.util.root_pattern("package.json"),
+    --         single_file_support = false,
+    --         settings = {
+    --             codeActionsOnSave = {
+    --                 ["source.organizeImports.ts"] = true,
+    --             },
+    --             -- TODO: not work
+    --             preferences = {
+    --                 javascript = {
+    --                     format = {
+    --                         tabSize = 2,
+    --                         convertTabsToSpaces = true,
+    --                     },
+    --                 },
+    --                 typescript = {
+    --                     format = {
+    --                         tabSize = 2,
+    --                         convertTabsToSpaces = true,
+    --                     },
+    --                 },
+    --                 typescriptreact = {
+    --                     format = {
+    --                         tabSize = 2,
+    --                         convertTabsToSpaces = true,
+    --                     },
+    --                 },
+    --             }
+    --         },
+    --         commands = {
+    --             OrganizeImports = {
+    --                 function()
+    --                     local params = {
+    --                         command = "_typescript.organizeImports",
+    --                         arguments = {
+    --                             vim.api.nvim_buf_get_name(0)
+    --                         },
+    --                         title = ""
+    --                     }
+    --                     vim.lsp.buf.execute_command(params)
+    --                 end
+    --             }
+    --         }
+    --     })
+    -- end,
+
     ["gopls"] = function()
         local gopls_settings = {
             gopls = {
@@ -288,12 +320,6 @@ require("mason-lspconfig").setup_handlers({
                 settings = gopls_settings,
             }
         )
-    end,
-    function(server_name) -- default handler (optional)
-        lspconfig[server_name].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
     end,
 })
 
