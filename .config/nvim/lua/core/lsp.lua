@@ -16,10 +16,9 @@ vim.cmd [[
 
 require("neodev").setup({})
 
-
 local lspconfig = require("lspconfig")
 -- local util = require("lspconfig/util")
-local configs = require("lspconfig.configs")
+-- local configs = require("lspconfig.configs")
 
 -- require("lsp-format").setup {}
 
@@ -187,38 +186,24 @@ lspconfig.pyright.setup({
 -- })
 
 
--- if vim.fn.executable("deno") == 1 then
---     lspconfig.gopls.setup({
---         capabilities = capabilities,
---         on_attach = function(client, bufnr)
---             require "lsp-format".on_attach(client)
---             on_attach(client, bufnr)
---         end,
---         settings = gopls_settings,
---     })
--- end
+if vim.fn.executable("deno") == 1 then
+    lspconfig.denols.setup {
+        on_attach = on_attach,
+        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+    }
+end
 
 -- P(lspconfig.tailwindcss.default_config.filetypes)
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-lspconfig.denols.setup {
-    on_attach = on_attach,
-    root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-}
-
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    root_dir = lspconfig.util.root_pattern("package.json"),
-}
-
 require("mason-lspconfig").setup_handlers({
-    -- function(server_name) -- default handler (optional)
-    --     lspconfig[server_name].setup({
-    --         capabilities = capabilities,
-    --         on_attach = on_attach,
-    --     })
-    -- end,
+    function(server_name) -- default handler (optional)
+        lspconfig[server_name].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+    end,
 
     -- ["denols"] = function()
     --     lspconfig.denols.setup {
@@ -248,54 +233,54 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
 
-    -- ["tsserver"] = function()
-    --     lspconfig.tsserver.setup({
-    --         capabilities = capabilities,
-    --         on_attach = on_attach,
-    --         root_dir = lspconfig.util.root_pattern("package.json"),
-    --         single_file_support = false,
-    --         settings = {
-    --             codeActionsOnSave = {
-    --                 ["source.organizeImports.ts"] = true,
-    --             },
-    --             -- TODO: not work
-    --             preferences = {
-    --                 javascript = {
-    --                     format = {
-    --                         tabSize = 2,
-    --                         convertTabsToSpaces = true,
-    --                     },
-    --                 },
-    --                 typescript = {
-    --                     format = {
-    --                         tabSize = 2,
-    --                         convertTabsToSpaces = true,
-    --                     },
-    --                 },
-    --                 typescriptreact = {
-    --                     format = {
-    --                         tabSize = 2,
-    --                         convertTabsToSpaces = true,
-    --                     },
-    --                 },
-    --             }
-    --         },
-    --         commands = {
-    --             OrganizeImports = {
-    --                 function()
-    --                     local params = {
-    --                         command = "_typescript.organizeImports",
-    --                         arguments = {
-    --                             vim.api.nvim_buf_get_name(0)
-    --                         },
-    --                         title = ""
-    --                     }
-    --                     vim.lsp.buf.execute_command(params)
-    --                 end
-    --             }
-    --         }
-    --     })
-    -- end,
+    ["tsserver"] = function()
+        lspconfig.tsserver.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            root_dir = lspconfig.util.root_pattern("package.json"),
+            single_file_support = false,
+            settings = {
+                codeActionsOnSave = {
+                    ["source.organizeImports.ts"] = true,
+                },
+                -- TODO: not work
+                preferences = {
+                    javascript = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                    typescript = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                    typescriptreact = {
+                        format = {
+                            tabSize = 2,
+                            convertTabsToSpaces = true,
+                        },
+                    },
+                }
+            },
+            commands = {
+                OrganizeImports = {
+                    function()
+                        local params = {
+                            command = "_typescript.organizeImports",
+                            arguments = {
+                                vim.api.nvim_buf_get_name(0)
+                            },
+                            title = ""
+                        }
+                        vim.lsp.buf.execute_command(params)
+                    end
+                }
+            }
+        })
+    end,
 
     ["gopls"] = function()
         local gopls_settings = {

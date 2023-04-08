@@ -2,11 +2,11 @@ local vim = vim
 local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 --     -- restore cursor position on start
---     nvim_create_autocmd("BufReadPost", { command = [[ 
---     silent! exe "normal! g`\"" 
+--     nvim_create_autocmd("BufReadPost", { command = [[
+--     silent! exe "normal! g`\""
 -- ]], group = group })
 
-    -- templates, zk
+-- templates, zk
 --     nvim_create_autocmd("BufNewFile", {
 --         group = group,
 --         pattern = { "**/src/zk/**.md" },
@@ -17,10 +17,14 @@ local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 -- templates, gh actions
 nvim_create_autocmd("BufNewFile", {
+    pattern = { "main.go" },
+    command = [[ execute "0r! ~/.config/nvim/templates/go-main.sh" ]],
+})
+
+-- templates
+nvim_create_autocmd("BufNewFile", {
     pattern = { "**/.github/workflows/**.y*ml" },
-    command = [[
-execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r')
-]],
+    command = [[ execute "0r! ~/.config/nvim/templates/gh-actions.sh" . ' ' . expand('%:t:r') ]],
 })
 
 -- -- load dirvish on open if it's directory
@@ -32,7 +36,7 @@ nvim_create_autocmd("BufEnter", {
             vim.cmd([[ 
   packadd vim-dirvish
   execute 'Dirvish %'
-  ]])
+  ]]         )
         end
     end,
 })
