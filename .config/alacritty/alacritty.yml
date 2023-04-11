@@ -177,40 +177,40 @@ debug:
 
 
 # ColorStart
-# Base16 3024 - alacritty color config
-# Jan T. Sott (http://github.com/idleberg)
+# Base16 Ayu Dark - alacritty color config
+# Khue Nguyen &lt;Z5483Y@gmail.com&gt;
 colors:
   # Default colors
   primary:
-    background: '0x090300'
-    foreground: '0xa5a2a2'
+    background: '0x0f1419'
+    foreground: '0xe6e1cf'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x090300'
-    cursor: '0xa5a2a2'
+    text: '0x0f1419'
+    cursor: '0xe6e1cf'
 
   # Normal colors
   normal:
-    black:   '0x090300'
-    red:     '0xdb2d20'
-    green:   '0x01a252'
-    yellow:  '0xfded02'
-    blue:    '0x01a0e4'
-    magenta: '0xa16a94'
-    cyan:    '0xb5e4f4'
-    white:   '0xa5a2a2'
+    black:   '0x0f1419'
+    red:     '0xf07178'
+    green:   '0xb8cc52'
+    yellow:  '0xffb454'
+    blue:    '0x59c2ff'
+    magenta: '0xd2a6ff'
+    cyan:    '0x95e6cb'
+    white:   '0xe6e1cf'
 
   # Bright colors
   bright:
-    black:   '0x5c5855'
-    red:     '0xe8bbd0'
-    green:   '0x3a3432'
-    yellow:  '0x4a4543'
-    blue:    '0x807d7c'
-    magenta: '0xd6d5d4'
-    cyan:    '0xcdab53'
-    white:   '0xf7f7f7'
+    black:   '0x3e4b59'
+    red:     '0xff8f40'
+    green:   '0x131721'
+    yellow:  '0x272d38'
+    blue:    '0xbfbdb6'
+    magenta: '0xe6e1cf'
+    cyan:    '0xe6b673'
+    white:   '0xf3f4f5'
 
 draw_bold_text_with_bright_colors: false
 # ColorEnd

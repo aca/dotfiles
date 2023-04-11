@@ -87,3 +87,8 @@ fi
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
+
+# pnpm
+export PNPM_HOME="/Users/kyungrok.chung/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
