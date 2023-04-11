@@ -118,12 +118,8 @@ vnoremap <expr> i mode()=~'\cv' ? 'i' : 'I'
 nnoremap ;; :
 vnoremap ;; :
 
-" LSP
-inoremap <silent> <c-x>         <C-\><C-O>lua print(require('cmp').visible())<cmd>
 " this makes p slow
-
 " nnoremap <silent> pd            <cmd>lua vim.lsp.buf.peek_definition()<CR>
-
 
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>' 

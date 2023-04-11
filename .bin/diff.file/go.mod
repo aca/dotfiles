@@ -1,4 +1,4 @@
-module config/dotfiles/.bin/diff.hash
+module config/dotfiles/.bin/diff.file
 
 go 1.21
 
