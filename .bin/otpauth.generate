@@ -5,8 +5,6 @@
 /* url.parse 'otpauth://totp/Binance.com' | jq -r '.path, .query[-1][1]' */
 
 import * as OTPAuth from "https://deno.land/x/otpauth@v9.1.0/dist/otpauth.esm.js";
-
-console.log()
 let totp = new OTPAuth.TOTP({ secret: Deno.args[0] })
 let token = totp.generate();
 console.log(token);
