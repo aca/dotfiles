@@ -57,10 +57,12 @@ RUN pip3 install ansible==5.7.1
 RUN pip3 install ansible-core==2.12.5
 RUN pip3 install cryptography==3.4.8
 RUN pip3 install jinja2==2.11.3
-RUN pip3 install netaddr==0.7.19
-RUN pip3 install pbr==5.4.4
 RUN pip3 install jmespath==0.9.5
 RUN pip3 install MarkupSafe==1.1.1
+RUN pip3 install netaddr==0.7.19
+RUN pip3 install pbr==5.4.4
+RUN pip3 install ruamel.yaml==0.16.10
+RUN pip3 install ruamel.yaml.clib==0.2.7
 
 # RUN addgroup -S rok
 # RUN adduser -S -D -G rok -h /home/rok -s /bin/bash rok
