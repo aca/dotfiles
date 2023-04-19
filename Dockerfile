@@ -29,7 +29,6 @@ RUN apk add --no-cache --force-overwrite \
       sudo \
       tmux \
       stow \
-      deno \
       yaml \
       moreutils \
       jq \
@@ -63,6 +62,8 @@ RUN pip3 install netaddr==0.7.19
 RUN pip3 install pbr==5.4.4
 RUN pip3 install ruamel.yaml==0.16.10
 RUN pip3 install ruamel.yaml.clib==0.2.7
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh
+
 
 # RUN addgroup -S rok
 # RUN adduser -S -D -G rok -h /home/rok -s /bin/bash rok
