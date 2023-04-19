@@ -29,6 +29,7 @@ RUN apk add --no-cache --force-overwrite \
       sudo \
       tmux \
       stow \
+      deno \
       yaml \
       moreutils \
       jq \
