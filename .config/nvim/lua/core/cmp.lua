@@ -58,14 +58,14 @@ local cmp_sources = {
 local luasnip = require("luasnip")
 cmp.setup({
     -- documentation = { -- no border; native-style scrollbar
-    --   border = nil,
-    --   scrollbar = '',
+    --   -- border = nil,
+    --   -- scrollbar = '',
     --   -- other options
     -- },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
+    -- window = {
+    --     completion = cmp.config.window.bordered(),
+    --     documentation = cmp.config.window.bordered(),
+    -- },
 
     experimental = {
         ghost_text = true,

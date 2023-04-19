@@ -17,6 +17,8 @@ RUN apk add --no-cache \
       bash-completion
 RUN apk add --no-cache --force-overwrite \
       python3 \
+      pgcli \
+      mycli \
       build-base \
       sshpass \
       ca-certificates \
@@ -48,8 +50,6 @@ RUN apk add --no-cache --force-overwrite \
       unzip \
       py3-pip \
       docker-cli
-      # docker-cli \ -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker:ro 
-      # make cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua5.1-lpeg lua5.1-mpack msgpack-c-dev unibilium-dev libluv-dev tree-sitter-dev luajit-dev
 
 # https://github.com/kubernetes-sigs/kubespray/blob/master/requirements-2.12.txt
 RUN pip3 install ansible==5.7.1
@@ -83,8 +83,8 @@ RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@master
 RUN go install github.com/stern/stern@latest
 RUN go install github.com/aca/agec@latest
-RUN go install github.com/aca/agec@latest
-# RUN go install github.com/derailed/k9s@latest
+RUN curl -sL https://istio.io/downloadIstioctl | sh -
+
 # RUN curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && chmod +x /usr/local/bin/argocd
 
 # RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
