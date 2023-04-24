@@ -1,0 +1,3 @@
+#!/usr/bin/env -S deno run -A
+
+const shouldProceed = confirm("Do you want to proceed?");

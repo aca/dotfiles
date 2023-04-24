@@ -1,11 +1,11 @@
 ; [url "ssh://git@git.sr.ht/"]
 ;     insteadOf = https://git.sr.ht/
                         
-[pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+; [pager]
+;     diff = delta
+;     log = delta
+;     reflog = delta
+;     show = delta
 
 [diff]
     ignoreSubmodules = dirty

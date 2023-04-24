@@ -2,14 +2,18 @@
 
 import { parse, stringify } from "https://deno.land/std@0.182.0/encoding/yaml.ts";
 
-const td = new TextDecoder();
+const stdin = new TextDecoder().decode(await Deno.readAll(Deno.stdin));
+let orig = parse(stdin)
 
-let target = Deno.args[0]
+// const td = new TextDecoder();
+//
+// let target = Deno.args[0]
+//
+// let p = await new Deno.Command("kubectl", { args: ['get', '-f', target, '-o', 'yaml'] }).output();
+// let orig_yaml = td.decode(p.stdout).trim()
+//
+// let orig = parse(orig_yaml)
 
-let p = await new Deno.Command("kubectl", { args: ['get', '-f', target, '-o', 'yaml'] }).output();
-let orig_yaml = td.decode(p.stdout).trim()
-
-let orig = parse(orig_yaml)
 
 delete orig['metadata']['annotations']['kubectl.kubernetes.io/last-applied-configuration']
 delete orig['metadata']['annotations']['deployment.kubernetes.io/revision']
@@ -32,18 +36,16 @@ delete orig['spec']['template']['spec']['schedulerName']
 delete orig['spec']['template']['spec']['securityContext']
 delete orig['spec']['template']['metadata']['annotations']['kubectl.kubernetes.io/restartedAt']
 
-// console.log(stringify(orig))
+console.log(stringify(orig))
 
-import diff from "https://deno.land/x/microdiff@v1.3.2/index.ts";
-
-
-const changed = parse(
-  await Deno.readTextFile(
-    Deno.args[0],
-  ),
-);
-
-
-console.log(diff(orig, changed))
-
-
+// # import diff from "https://deno.land/x/microdiff@v1.3.2/index.ts";
+// #
+// #
+// # const changed = parse(
+// #   await Deno.readTextFile(
+// #     Deno.args[0],
+// #   ),
+// # );
+// #
+// #
+// # console.log(diff(orig, changed))
