@@ -7,4 +7,4 @@
 --yes-playlist
 --paths temp:/tmp/yt
 --netrc
---cookies-from-browser chrome
+# --cookies-from-browser chrome

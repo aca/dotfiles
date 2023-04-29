@@ -112,3 +112,4 @@
 
 [includeIf "gitdir:~/src/github.toss.bz/"]
     path = ~/.gitconfig.tossinvest
+
