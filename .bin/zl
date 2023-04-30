@@ -4,8 +4,8 @@ mkdir -p ~/src/zk/log 2>/dev/null || true
 cd ~/src/zk/log
 
 suffix=${1:-$(hostname)}
-if [ "$suffix" = "rok-te3" ]; then
-  $EDITOR "$HOME/src/zk/log/"$(date '+%Y-%m-%d').md
+if [ "$suffix" = "rok-x1cg10" ]; then
+  $EDITOR "$HOME/src/zk/log/"$(date '+%Y%m%dT000000').md
 else
-  $EDITOR "$HOME/src/zk/log/"$(date '+%Y-%m-%d')_$suffix.md
+  $EDITOR "$HOME/src/zk/log/"$(date '+%Y%m%dT000000')_$suffix.md
 fi

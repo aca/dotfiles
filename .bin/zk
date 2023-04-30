@@ -10,6 +10,6 @@ if [ "$#" -eq 0 ]; then
   fi
   nvim -o $files
 else
-  nvim "$(echo "$@" | sed 's/ /-/g').md"
+  nvim "$(date '+%Y%m%dT%H%M%S')_$(echo "$@" | sed 's/ /-/g').md"
 fi
 
