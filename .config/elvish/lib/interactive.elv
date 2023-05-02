@@ -28,7 +28,7 @@ set edit:command-abbr['virt-customize'] = 'sudo virt-customize'
 set edit:command-abbr['virt-clone'] = 'sudo virt-clone'
 set edit:command-abbr['virt-install'] = 'sudo virt-install'
 set edit:command-abbr['xargsi'] = 'xargs -I@'
-set edit:command-abbr['ea'] = 'each { |x| }'
+set edit:command-abbr['ea'] = 'each { |v| '
 
 fn asdf-available {
     # if (path:is-dir $pwd/.asdf) {

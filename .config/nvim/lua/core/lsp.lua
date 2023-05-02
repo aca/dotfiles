@@ -186,12 +186,12 @@ lspconfig.pyright.setup({
 -- })
 
 
-if vim.fn.executable("deno") == 1 then
-    lspconfig.denols.setup {
-        on_attach = on_attach,
-        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-    }
-end
+-- if vim.fn.executable("deno") == 1 then
+--     lspconfig.denols.setup {
+--         on_attach = on_attach,
+--         root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+--     }
+-- end
 
 -- P(lspconfig.tailwindcss.default_config.filetypes)
 require("mason").setup()
@@ -205,12 +205,12 @@ require("mason-lspconfig").setup_handlers({
         })
     end,
 
-    -- ["denols"] = function()
-    --     lspconfig.denols.setup {
-    --         on_attach = on_attach,
-    --         root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-    --     }
-    -- end,
+    ["denols"] = function()
+        lspconfig.denols.setup {
+            on_attach = on_attach,
+            root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+        }
+    end,
 
     ["lua_ls"] = function()
         lspconfig.lua_ls.setup({

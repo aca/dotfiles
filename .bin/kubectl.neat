@@ -34,7 +34,7 @@ delete orig['spec']['template']['metadata']['creationTimestamp']
 delete orig['status']
 delete orig['spec']['template']['spec']['schedulerName']
 delete orig['spec']['template']['spec']['securityContext']
-delete orig['spec']['template']['metadata']['annotations']['kubectl.kubernetes.io/restartedAt']
+delete orig['spec']['template']['metadata']?.['annotations']?.['kubectl.kubernetes.io/restartedAt']
 
 console.log(stringify(orig))
 
