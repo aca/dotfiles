@@ -2,4 +2,3 @@
 
 cd ~/src/config/dotfiles/.config/nvim || exit
 nvim lua/init/00_init.lua
-just build

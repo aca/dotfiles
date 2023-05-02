@@ -550,3 +550,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/gx.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gx.nvim
 	url = https://github.com/chrishrb/gx.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/overseer.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/overseer.nvim
+	url = https://github.com/stevearc/overseer.nvim.git

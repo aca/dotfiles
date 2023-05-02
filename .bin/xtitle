@@ -1,0 +1,25 @@
+#!/usr/bin/env -S deno run -A
+
+import {
+  DOMParser,
+  Element,
+} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
+
+// const textResponse = await fetch("https://www.youtube.com/watch?v=7D-t8H3Mz4M");
+const textResponse = await fetch(Deno.args[0]);
+const textData = await textResponse.text();
+
+const doc = new DOMParser().parseFromString(textData, "text/html");
+
+let p = doc?.querySelectorAll("html>head>meta")
+
+p?.forEach((n) => {
+    if (n.getAttribute("property") === "og:title") {
+        console.log(n.getAttribute("content"))
+        Deno.exit(0)
+    }
+})
+
+p = doc?.querySelector("head > title")?.textContent || ''
+p = p.replace(/ - YouTube$/, '')
+console.log(p)

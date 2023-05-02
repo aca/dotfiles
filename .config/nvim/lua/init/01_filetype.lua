@@ -24,6 +24,38 @@
 --     },
 -- })
 
+ vim.filetype.add {
+   pattern = {
+     ['.*'] = {
+       priority = -math.huge,
+       function(path, bufnr)
+         local content = vim.filetype.getlines(bufnr, 1)
+         if vim.filetype.matchregex(content, [[env -S deno run]]) then
+           return 'typescript'
+         end
+       end,
+     },
+   },
+ }
+
+-- vim.filetype.add {
+--     pattern = {
+--         ['.*'] = {
+--           function(path, bufnr)
+--             if vim.filetype.match({ contents = {'#!/usr/bin/env -S deno run -A'} }) then
+--                 return 'typescript'
+--             end
+--           end,
+--         },
+--         ['*'] = {
+--           function(path, bufnr)
+--             if vim.filetype.match({ contents = {'#!/usr/bin/env -S deno run -A'} }) then
+--                 return 'typescript'
+--             end
+--           end,
+--         }
+--     }
+-- }
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",

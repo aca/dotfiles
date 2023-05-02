@@ -1,5 +1,0 @@
-build:
-    cat lua/init/*.lua | ~/src/github.com/neovim/neovim/.deps/usr/bin/luajit -b - init.lua
-
-format:
-    stylua lua/

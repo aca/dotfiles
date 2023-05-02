@@ -28,6 +28,7 @@
 -- https://github.com/Wansmer/treesj
 -- https://github.com/Wansmer/sibling-swap.nvim
 
+<<<<<<< HEAD
 -- vim.cmd [[
 -- let g:dbs = {
 -- \  'tooljet': 'postgres://postgres:postgres@localhost:5432/tooljet_production'
@@ -36,3 +37,12 @@
 
 --
 -- nvim 9.0 native cache load, replace impatient
+=======
+vim.cmd [[
+let g:dbs = {
+\  'tooljet': 'postgres://postgres:postgres@localhost:5432/tooljet_production'
+\ }
+]]
+
+-- https://github.com/mg979/vim-visual-multi
+>>>>>>> bd8a84c ()
