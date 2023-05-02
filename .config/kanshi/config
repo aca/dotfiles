@@ -27,6 +27,12 @@ profile sleep {
     output eDP-1 mode 1920x1200 position 960,2160 transform 180
 }
 
+profile main {
+    output "LG Electronics LG TV SSCR2 0x00000101" mode 3840x2160 position 0,0  transform 180
+    output eDP-1 disable
+    output "LG Electronics LG HDR 4K 104NTLE5N480" disable
+}
+
 profile nomonitor{
     output eDP-1 enable
 }
