@@ -4,7 +4,7 @@ local opt = vim.opt
 local o = vim.o
 
 -- sidebar
-o.signcolumn = "auto"
+o.signcolumn = "yes"
 
 if vim.env.VIM_NONU == "1" then
     o.number = false
@@ -22,7 +22,7 @@ o.clipboard = "unnamedplus"
 -- o.fencs = "ucs-bom,utf-8,default,latin1"
 -- vim.o.fencs="ucs-bom,utf-8,cp949,euc-kr,default,latin1"
 
-o.cmdheight = 0
+o.cmdheight = 1 -- set to 0 if https://github.com/aserowy/tmux.nvim/issues/105 fixed
 o.laststatus = 2
 
 -- o.statusline = "%= %m%r%h%w %l:%c %P "

@@ -124,6 +124,14 @@ fn filterline { |@rest|
   }
 }
 
+# https://github.com/elves/elvish/issues/1721
+# filter { |x| > 3 $x } [ 1 2 3 4]
+fn filter {|pred~ @items &not=$false &out=$put~|
+  var ck~ = $pred~
+  if $not { set ck~ = {|item| not (pred $item)} }
+  each {|item| if (ck $item) { $out $item }} $@items
+}
+
 fn fish-completion {|@words|
   use str
   # noti -m (str:join ' ' $words)

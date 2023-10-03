@@ -158,4 +158,3 @@ local function colors_monotone()
     --     nvim_set_hl(0, "DiagnosticVirtualTextHint", { italic = true, fg = "#65737e" })
     -- end, 100)
 end
-

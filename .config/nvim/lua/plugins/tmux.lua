@@ -1,3 +1,13 @@
+-- vim.cmd.packadd 'tmux.nvim'
+-- require("tmux").setup()
+--
+-- TODO: https://github.com/aserowy/tmux.nvim/issues/105
+-- cmdline 이 남아있는 것 같음
+
+
+
+
+
 vim.cmd([[
 packadd vim-tmux-navigator
 nnoremap <silent><c-h> <cmd>TmuxNavigateLeft<cr>
