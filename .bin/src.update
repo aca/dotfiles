@@ -1,0 +1,15 @@
+#!/bin/sh
+
+tmpf=$(mktemp)
+tmpf2=$(mktemp)
+
+fd --base-directory ~/src --strip-cwd-prefix --type d --follow --max-depth 6 > "$tmpf"
+
+# manual include
+echo "git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next" >> "$tmpf"
+
+# manual exclude
+cat $tmpf | grep -v 'hito' > $tmpf2; cp $tmpf2 $tmpf
+cat $tmpf | grep -v 'newt' > $tmpf2; cp $tmpf2 $tmpf
+
+mv -f "$tmpf" ~/src/.src

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+upx -f --brute -o "$1.upx" "$1"

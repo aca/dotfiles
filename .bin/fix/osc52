@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+input=$(printf "\033]52;c;$(cat - | base64)\a")
+
+if ((${#input} < 100000)); then
+    printf "%s" "$input"
+else
+    pbcopy
+fi

@@ -1,0 +1,40 @@
+FROM alpine:edge
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk add --no-cache \
+      fd@community \
+      delta@community \
+      ttyd@community \
+      tree-sitter@community \
+      neovim@community \
+      build-base \
+      ca-certificates \
+      curl \
+      tar \
+      git \
+      busybox-extras \
+      sudo \
+      fish \
+      tmux \
+      stow \
+      moreutils \
+      jq \
+      openssh \
+      fzf \
+      vifm \
+      ripgrep \
+      bash \
+      coreutils \
+      go
+
+ENV GOPATH /root
+RUN go install github.com/x-motemen/ghq@latest
+RUN go install src.elv.sh/cmd/elvish@master
+
+RUN sudo mv /root/bin/* /usr/local/bin
+RUN sudo rm -rf ~/go || true
+RUN sudo rm -rf ~/pkg || true
+RUN sudo rm -rf ~/.cache || true
+RUN sudo rm -rf ~/.npm || true
+
+RUN apk del go --force-broken-world

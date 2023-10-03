@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ~/.config/elvish
+exec nvim ~/.config/elvish/rc.elv

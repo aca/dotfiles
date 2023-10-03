@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Naver-dictionary
+
+xdg-open "https://en.dict.naver.com/#/mini/search?range=all&query=$1"

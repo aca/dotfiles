@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+read -p "Continue? (<c-c> to stop)" 

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+suffix=${1:-$(hostname)}
+
+logdir="$HOME/src/zk.$(hostname -s)/log"
+mkdir -p $logdir 2>/dev/null || true
+cd $logdir
+
+$EDITOR "$logdir/"$(date '+%Y%m%dT000000')_$(hostname -s).md

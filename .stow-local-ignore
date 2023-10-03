@@ -1,0 +1,17 @@
+/result
+/README
+/Brewfile
+/.git
+/.githooks
+/.gitignore
+/Library
+/Dockerfile*
+/Dockerfile.*
+/.dockerignore
+/Makefile
+/deno.jsonc
+/deno.lock
+/flake.nix
+/flake.lock
+/devcontainer.nix
+/*.nix

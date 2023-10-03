@@ -1,0 +1,32 @@
+dotfiles
+========
+
+Public dotfiles for sync. This repository doesn't contains packages required to work properly.
+Initial setup is required with package manager. Most of my systems use Nix if available.
+Check "flake.nix" if you are interested. 
+
+- WindowManager: sway / yabai
+- Terminal: kitty, tmux
+- Shell: elvish
+
+setup
+-----
+
+stow
+
+    git clone -j 8 "https://github.com/aca/dotfiles.git" ~/src/root/dotfiles --recursive --shallow-submodules
+    git clone "https://github.com/aca/stow-antifold.git" ~/src/root/stow-antifold
+    cd ~/src/root
+    stow --adopt -v --target $HOME dotfiles stow-antifold
+
+keys 
+
+    curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+
+local configs
+
+    git clone root:~/src/root/$(hostname -s)
+
+Dev container
+
+    docker run -it acadx0/tools:devcontainer

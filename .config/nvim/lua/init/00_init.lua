@@ -1,0 +1,70 @@
+-- https://github.com/Wansmer/serenity.nvim
+-- https://github.com/Bekaboo/dropbar.nvim.git
+-- https://github.com/stevearc/overseer.nvim
+-- TODO: remove elvish bash submodules
+-- https://xit.jotaen.net/
+-- https://www.reddit.com/r/neovim/comments/15mjzjs/finally_a_plugin_that_automatically_adds/
+-- make / just runner
+-- https://github.com/jakewvincent/mkdnflow.nvim
+-- https://github.com/verless/verless
+-- https://github.com/lukas-reineke/headlines.nvim
+-- https://gist.github.com/fmajestic/f56b637e488b8bfc6cd65f5f9781627b
+-- https://zignar.net/
+-- $ vim-startuptime -vimpath nvim | grep '^Total'
+-- https://github.com/3rd/image.nvim
+--
+-- [AI plugin overview](https://www.reddit.com/r/neovim/comments/12aek0y/ai_plugin_overview/)
+--
+-- Total Average: 5.900700 msec
+-- Total Max:     6.221000 msec
+-- Total Min:     5.663000 msec
+
+-- https://github.com/nullchilly/fsread.nvim
+-- https://github.com/evanpurkhiser/image-paste.nvim
+
+-- TODO
+-- https://this-week-in-neovim.org/
+--
+-- https://github.com/adelarsq/image_preview.nvim
+--
+-- https://github.com/lewis6991/hover.nvim
+--
+-- netrw replace
+-- https://github.com/miversen33/netman.nvim
+-- https://github.com/nvim-neo-tree/n-eo-tree.nvim
+--
+-- https://www.reddit.com/r/neovim/comments/yfbfvu/sympy_luasnip_vimtex/
+-- https://castel.dev/post/lecture-notes-1/
+
+-- https://github.com/jakewvincent/mkdnflow.nvim
+-- https://github.com/glepnir/easyformat.nvim
+-- https://gitlab.com/HiPhish/nvim-ts-rainbow2
+-- https://github.com/Wansmer/treesj
+-- https://github.com/Wansmer/sibling-swap.nvim
+--
+-- vim.cmd [[
+-- let g:dbs = {
+-- \  'tooljet': 'postgres://postgres:postgres@localhost:5432/db'
+-- \ }
+-- ]]
+--
+-- https://github.com/mg979/vim-visual-multi
+-- https://www.reddit.com/r/neovim/comments/13ue0kw/otternvim_lsp_features_for_embedded_languages_eg/
+-- https://github.com/quarto-dev/quarto-nvim
+-- https://github.com/kiran94/maim.nvim
+--
+--
+-- Replace hop.nvim
+-- https://www.reddit.com/r/neovim/comments/142buyl/hop_now_what/
+--
+-- https://github.com/TobinPalmer/pastify.nvim
+-- https://github.com/ekickx/clipboard-image.nvimhttps://www.reddit.com/r/neovim/comments/12aek0y/ai_plugin_overview/
+-- https://www.reddit.com/r/neovim/comments/12aek0y/ai_plugin_overview/
+--
+-- https://vi.stackexchange.com/questions/16320/trigger-reindentation-after-snippet-has-expanded-to-word-in-indentkeys
+-- vim.cmd.packadd("fzf-lua")
+-- bkt
+--
+-- https://github.com/TobinPalmer/BetterGx.nvim
+-- https://github.com/LunarVim/bigfile.nvim
+

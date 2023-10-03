@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+
+copyq read (seq 0 100) | nvim -

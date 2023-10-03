@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# remove ANSI color from stdin
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  sed 's/\x1b\[[0-9;]*m//g'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  gsed 's/\x1b\[[0-9;]*m//g'
+fi

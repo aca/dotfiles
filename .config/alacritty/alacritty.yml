@@ -1,0 +1,223 @@
+env:
+  # NOTES: true color support https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
+  # TERM: xterm-256color
+  # TERM: tmux-256color
+  # TERM: alacritty # Italics not work 
+  LC_CTYPE: UTF-8
+
+window:
+  opacity: 1
+  padding:
+   x: 0
+   y: 0
+
+  decorations: none
+  option_as_alt: Both
+
+scrolling:
+  history: 0
+
+font:
+  size: 14
+  offset:
+    x: 0
+    y: -3
+
+  glyph_offset:
+    x: 0
+    y: 0
+  builtin_box_drawing: true
+  normal:
+    # style: Light
+    # style: Book
+    # family: Iosevka Comfy Motion
+    # family: Iosevka Comfy Motion
+    # family: Inconsolata Nerd Font
+    # family: TriplicateT4 Nerd Font
+    family: BlexMono Nerd Font Mono
+    # family: Lekton Nerd Font Mono
+    # family: Iosevka Term Slab
+    # family: JetBrainsMono Nerd Font
+    # family: SauceCodePro Nerd Font
+    # family: BlexMono Nerd Font
+    # family: Iosevka Comfy Motion
+    # family: Lotion Nerd Font
+    # family: SpaceMono Nerd Font
+    # family: SpaceMono Nerd Font
+    # family: Operator Mono Book
+    # family: Iosevka Term Curly Slab
+    # family: Hasklug Nerd Font Mono
+    # family: JetBrains Mono
+    # family: Noto Sans
+    # family: VictorMono Nerd Font Mono
+    # family: Xanh Mono
+    # family: Triplicate T4
+    # family: TriplicateT3 Nerd Font
+    # family: CaskaydiaCove Nerd Font
+    # family: Prestige Elite
+    # family: GoMono Nerd Font
+    # family: Lotion Nerd Font
+    # family: Lotion
+    # family: DankMono Nerd Font
+    # family: FantasqueSansMono Nerd Font Mono
+    # family: Input Mono Narrow
+    # family: Iosevka Curly Slab
+    # family: Iosevka Nerd Font
+    # family: Nimbus Mono PS
+
+  # bold:
+    # family: FuraCode Nerd Font Mono
+    # family: Operator Mono Book
+    # family: Dina
+    # style: Bold
+
+  # italic:
+  #   family: BlexMono Nerd Font
+
+
+# draw_bold_text_with_bright_colors: true
+
+mouse:
+  hide_when_typing: true
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+  save_to_clipboard: true
+
+live_config_reload: true
+
+# shell:
+#   program: /bin/sh
+#   args:
+#     - -c
+#     - $HOME/bin/elvish 
+
+working_directory: None
+
+key_bindings:
+  - { key: Q, mods: Control, chars: "\x11" } # https://github.com/alacritty/alacritty/issues/1359
+
+  # - { key: L,        mods: Control, chars: "\x0c"                            }
+  # - { key: R,        mods: Control, chars: "\x0c"                            }
+  - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
+  - { key: Home,                    chars: "\x1bOH",        mode: AppCursor  }
+  - { key: Home,                    chars: "\x1b[H",        mode: ~AppCursor }
+  - { key: End,      mods: Alt,     chars: "\x1b[1;3F"                       }
+  - { key: End,                     chars: "\x1bOF",        mode: AppCursor  }
+  - { key: End,                     chars: "\x1b[F",        mode: ~AppCursor }
+  - { key: PageUp,   mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
+  - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~",     mode: Alt        }
+  - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                       }
+  - { key: PageUp,   mods: Alt,     chars: "\x1b[5;3~"                       }
+  - { key: PageUp,                  chars: "\x1b[5~"                         }
+  - { key: PageDown, mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
+  - { key: PageDown, mods: Shift,   chars: "\x1b[6;2~",     mode: Alt        }
+  - { key: PageDown, mods: Control, chars: "\x1b[6;5~"                       }
+  - { key: PageDown, mods: Alt,     chars: "\x1b[6;3~"                       }
+  - { key: PageDown,                chars: "\x1b[6~"                         }
+  - { key: Tab,      mods: Shift,   chars: "\x1b[Z"                          }
+  - { key: Back,                    chars: "\x7f"                            }
+  - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                        }
+  - { key: Insert,                  chars: "\x1b[2~"                         }
+  - { key: Delete,                  chars: "\x1b[3~"                         }
+  - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                       }
+  - { key: Left,     mods: Control, chars: "\x1b[1;5D"                       }
+  - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                       }
+  - { key: Left,                    chars: "\x1b[D",        mode: ~AppCursor }
+  - { key: Left,                    chars: "\x1bOD",        mode: AppCursor  }
+  - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                       }
+  - { key: Right,    mods: Control, chars: "\x1b[1;5C"                       }
+  - { key: Right,    mods: Alt,     chars: "\x1b[1;3C"                       }
+  - { key: Right,                   chars: "\x1b[C",        mode: ~AppCursor }
+  - { key: Right,                   chars: "\x1bOC",        mode: AppCursor  }
+  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                       }
+  - { key: Up,       mods: Control, chars: "\x1b[1;5A"                       }
+  - { key: Up,       mods: Alt,     chars: "\x1b[1;3A"                       }
+  - { key: Up,                      chars: "\x1b[A",        mode: ~AppCursor }
+  - { key: Up,                      chars: "\x1bOA",        mode: AppCursor  }
+  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                       }
+  - { key: Down,     mods: Control, chars: "\x1b[1;5B"                       }
+  - { key: Down,     mods: Alt,     chars: "\x1b[1;3B"                       }
+  - { key: Down,                    chars: "\x1b[B",        mode: ~AppCursor }
+  - { key: Down,                    chars: "\x1bOB",        mode: AppCursor  }
+
+  # custom
+  #
+  #
+  - { key: W,        mods: Command,  action: Quit }
+  - { key: Equals,   mods: Control,              action: IncreaseFontSize }
+  - { key: Plus,     mods: Control,              action: IncreaseFontSize }
+  - { key: Plus,     mods: Control|Shift,        action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,              action: DecreaseFontSize }
+  # - { key: C,         mods: Control,             action: Copy             }
+  # - { key: V,         mods: Control,       action: Paste            }
+  # - { key: V,         mods: Control|Shift,   chars: "\x16"                        }
+  - { key: V,         mods: Control|Shift,     action: Paste                }
+  - { key: N,         mods: Command,           action: SpawnNewInstance }
+
+hints:
+  start:
+    foreground: '0x000000'
+    background: '0xffffff'
+  end:
+    foreground: '0x000000'
+    background: '0xffffff'
+  enabled:
+    - regex: '[\S]{7,100}'
+      action: Copy
+      post_processing: false
+      binding:
+        key: G
+        mods: Alt
+
+debug:
+  persistent_logging: false
+  highlight_damage: false
+  print_events: false
+  render_timer: false
+  log_level: Off
+  # log_level: Error
+  # log_level: Warn
+  # log_level: Info
+  # log_level: Debug
+  # log_level: Trace
+
+
+# ColorStart
+# Base16 Da One Black - alacritty color config
+# NNB (https://github.com/NNBnh)
+colors:
+  # Default colors
+  primary:
+    background: '0x000000'
+    foreground: '0xffffff'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x000000'
+    cursor: '0xffffff'
+
+  # Normal colors
+  normal:
+    black:   '0x000000'
+    red:     '0xfa7883'
+    green:   '0x98c379'
+    yellow:  '0xff9470'
+    blue:    '0x6bb8ff'
+    magenta: '0xe799ff'
+    cyan:    '0x8af5ff'
+    white:   '0xffffff'
+
+  # Bright colors
+  bright:
+    black:   '0x888888'
+    red:     '0xffc387'
+    green:   '0x282828'
+    yellow:  '0x585858'
+    blue:    '0xc8c8c8'
+    magenta: '0xffffff'
+    cyan:    '0xb3684f'
+    white:   '0xffffff'
+
+draw_bold_text_with_bright_colors: false
+# ColorEnd

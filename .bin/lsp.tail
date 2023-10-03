@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tail -f ~/.local/state/nvim/lsp.log

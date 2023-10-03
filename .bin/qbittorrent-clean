@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# 
+# cleanup completed torrents(without deleting files)
+# https://github.com/qbittorrent/qBittorrent/wiki/Web-API-Documentation
+set -euxo pipefail
+
+curl -v "http://localhost:4321/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != '-32400' ) | select (.tracker | contains ("site") | not) | .hash' | xargs -I{} curl -v -X POST --data "hashes={}&deleteFiles=false" "http://localhost:4321/api/v2/torrents/delete"

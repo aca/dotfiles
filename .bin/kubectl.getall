@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | sort | uniq); do
+  echo "Resource:" $i
+  kubectl get ${i}
+  echo
+done

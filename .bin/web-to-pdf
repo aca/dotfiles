@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source _utils.bash
+
+google-chrome --headless --disable-gpu --print-to-pdf=file1.pdf http://www.example.com/

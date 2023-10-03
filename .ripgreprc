@@ -1,0 +1,23 @@
+--smart-case
+--follow
+--hidden
+
+--colors=line:fg:243
+--colors=line:style:nobold
+--colors=path:fg:243
+--colors=path:style:nobold
+--colors=match:fg:black
+--colors=match:bg:yellow
+--colors=match:style:nobold
+
+# --glob=!.stfolder/**
+# --glob=!.DocumentRevisions-V100/**
+# --glob=!.git/**
+# --glob=!vendor/**
+# --glob=!**/vendor/**
+# --glob=!node_modules/**
+# --glob=!.parcel-cache/**
+# --glob=!yarn.lock
+# --glob=!package.json
+# --glob=!dist/**
+# --glob=!fish_history

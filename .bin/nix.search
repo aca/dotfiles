@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xdg-open "https://search.nixos.org/packages?type=packages&query=$1"

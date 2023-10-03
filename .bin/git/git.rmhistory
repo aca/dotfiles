@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+first_commit=`git rev-list --max-parents=0 --abbrev-commit HEAD`
+
+git reset --hard $first_commit
+git add -A
+git push -f

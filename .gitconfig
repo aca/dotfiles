@@ -1,0 +1,118 @@
+; [url "ssh://git@git.sr.ht/"]
+;     insteadOf = https://git.sr.ht/
+                        
+[pager]
+    diff = delta
+    log = delta
+;     reflog = delta
+;     show = delta
+
+[diff]
+    ignoreSubmodules = dirty
+    colorMoved = default
+
+[delta]
+    side-by-side = false
+    navigate = true
+    file-decoration-style = none
+    diff-highlight = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[color]
+    ui = auto
+
+[color "status"]
+    header = cyan
+    branch = white
+    changed = yellow
+    added = green
+    untracked = cyan
+
+[core]
+    editor = nvim
+    excludesFile = ~/.gitignore.global
+    sparseCheckout = true
+    quotepath = false
+    filemode = false
+        
+[alias]
+    co = checkout
+    rb = rebase -i
+    st = status
+    cm = commit
+    comit = commit
+    pl = pull
+    ps = push
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(cyan)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%C(reset)' --all
+    ad = add
+    tg = tag -n
+    df = diff
+    br = branch
+    unstage = reset HEAD --
+    set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+
+[merge]
+    tool = vimdiff
+
+[web]
+    browser = chrome
+
+[pull]
+    ff = only
+
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[sendemail.linux]
+    tocmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nol"
+    cccmd ="`pwd`/scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nom"
+
+[credential]
+    helper = cache --timeout 604800
+
+[status]
+    submoduleSummary = false
+
+[push]
+    ; https://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time
+    default = current
+	autoSetupRemote = true
+
+[receive]
+    denyCurrentBranch = updateInstead
+
+[advice]
+    setUpstreamFailure = false
+
+[init]
+    defaultBranch = main
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[annex "security"]
+    allowed-url-schemes = http https file urls
+    allowed-http-addresses = all
+
+; [include]
+;     path = ~/.gitconfig.local
+
+[github]
+  user = aca
+
+[user]
+  email = "acadx0@gmail.com"
+  name = "rok"
+
+[http]
+	version = HTTP/1.1
+	postBuffer = 157286400
+[pack]
+	window = 1
+[cola]
+	startupmode = list

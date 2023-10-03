@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euox pipefail
+python3 -m pip install -U pip setuptools wheel
+python3 -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz

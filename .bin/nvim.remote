@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# Requires msgpack-rpc: gem install msgpack-rpc
+#
+# To run this script, execute it from a running Nvim instance (notice the
+# trailing '&' which is required since Nvim won't process events while
+# running a blocking command):
+#
+#	:!./hello.rb &
+#
+# Or from another shell by setting NVIM_LISTEN_ADDRESS:
+# $ NVIM_LISTEN_ADDRESS=[address] ./hello.rb
+
+require 'msgpack/rpc'
+require 'msgpack/rpc/transport/unix'
+
+# ENV['NVIM_LISTEN_ADDRESS']
+# NVIM_LISTEN_ADDRESS = '/tmp/nvim7'
+NVIM_LISTEN_ADDRESS = ENV['NVIM_LISTEN_ADDRESS']
+nvim = MessagePack::RPC::Client.new(MessagePack::RPC::UNIXTransport.new, NVIM_LISTEN_ADDRESS)
+# puts "winnr() == winnr('#{ARGV[0]}')"
+result = nvim.call(:nvim_eval, "winnr() == winnr('#{ARGV[0]}')")
+puts result
+# if 1 it's moveable

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sh ~/src/git.dthompson.us/haunt/pre-inst-env haunt $@

@@ -1,0 +1,204 @@
+" vim: ft=vim
+" https://github.com/vifm/vifm/blob/master/data/vifmrc
+" https://github.com/vifm/vifm/blob/master/data/vifmrc-osx
+
+" set slowfs+='/mnt/nas'
+set tuioptions=u
+set tuioptions-=sp
+set dotdirs=
+
+" only
+" vs
+" view!
+" set tabscope=pane
+only
+set millerview
+filetype *.ts,*.tsx,*.js,*.jsx nvim %f
+
+set previewoptions+=graphicsdelay:0
+
+" set milleroptions="lsize:1,csize:2,rsize:2,rpreview:all"
+set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"
+command togglepreview : if &milleroptions == "lsize:1,csize:2,rsize:2,rpreview:all"
+                        \| execute 'set milleroptions="lsize:1,csize:2,rsize:2,rpreview:dirs"'
+                        \| else
+                        \| execute 'set milleroptions="lsize:1,csize:2,rsize:2,rpreview:all"'
+                        \| endif
+nnoremap ;p :togglepreview<cr>
+
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+
+nnoremap - <C-w>5<
+nnoremap _ <C-w>5>
+
+" if $VIM == '' 
+"   nmap e <cr>
+" else
+" endif
+
+nnoremap e :!vi %f<cr>
+
+" if executable('wezterm')
+" endif
+
+
+" fileviewer *.png,*.jpeg,*.jpg,*.gif wezterm.imgcat %c:p %pw %ph %pd
+" fileviewer *.png,*.jpeg,*.jpg,*.gif wezterm imgcat --height %ph %c:p %pd
+fileviewer *.png,*.jpeg,*.jpg,*.gif icat %f
+
+let $SHELL='/bin/sh'
+set shell='/bin/sh'
+
+nnoremap mv :move<cr>
+nnoremap rn :!vidir<cr>
+
+nnoremap b :bmgo<cr>
+delmarks!
+bmark! /mnt/ mount
+mark m /mnt/
+mark a ~/archive/
+bmark! ~/archive/ archive
+mark b ~/archive/books/
+bmark! ~/archive/books/ books
+mark h ~/
+mark r /
+
+
+" toggle dotfiles
+nnoremap ;h :set dotfiles!<cr>
+
+" vs
+" tree!
+" view
+
+nnoremap <space> tj
+nnoremap <C-s> :sync!<cr>
+nnoremap <esc> ZZ
+nnoremap <C-c> ZZ
+nnoremap DD delete!
+nnoremap t :if getpanetype() == "tree" | mview | else | treevs | endif<cr>
+
+command! treevs :tree  | vs | view!
+command! mview  :tree! | only
+
+
+" ------------------------------------------------------------------------------
+set dotfiles
+set vicmd=nvim
+set syscalls
+set trash
+set history=50
+set nofollowlinks
+set fastrun
+set sortnumbers
+set undolevels=50
+set vimhelp
+set norunexec
+set timefmt=%m/%d\ %H:%M
+set wildmenu
+set wildstyle=popup
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+set ignorecase
+set smartcase
+set nohlsearch
+set incsearch
+set scrolloff=4
+set slowfs=curlftpfs
+
+mark h ~/
+mark r /
+mark d ~/Downloads
+mark s ~/src
+
+command! df df -h %m 2> /dev/null
+command! diff vim -d %f %F
+" command! zip zip -r %f.zip %f
+command! run !! ./%f
+command! make !!make %a
+command! mkcd :mkdir %a | cd %a
+command! putd :mkdir %a | move %f %a
+command! vgrep vim "+grep %a"
+command! reload :write | restart
+
+set vifminfo=dhistory,chistory,state,tui,shistory,
+    \phistory,fhistory,dirstack,registers,bookmarks,bmarks
+
+" Start shell in current directory
+nnoremap s :q<cr>
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" Open file in new MacVim tab
+" nnoremap o :!mvim --remote-tab-silent %f<cr>
+" Open file in new MacVim window
+nnoremap O :!mvim %f<cr>
+
+" Open file in the background using its default program
+nnoremap gb :!open -g %f<cr>
+
+" Yank current file path into the clipboard
+nnoremap yp :!printf \'%c:p\' | pbcopy<cr>
+
+" View preview in Quick Look
+" nnoremap <space> :!qlmanage -p %f > /dev/null 2>&1<cr>
+
+" Mappings for faster renaming
+nnoremap I cw<c-a>
+nnoremap cc cw<c-u>
+nnoremap A cw
+
+" Open editor to edit vifmrc and apply settings after returning to vifm
+nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+nnoremap q :q<cr>
+
+" gruvbox color scheme approximation for vifm
+
+" Reset all styles first
+" highlight clear
+
+
+" Torrent
+filetype {*.torrent},<application/x-bittorrent> ktorrent %f &
+fileviewer {*.torrent},<application/x-bittorrent> dumptorrent -v %c, echo ""
+
+
+if executable('osascript')
+  source ~/.config/vifm/vifmrc-osx
+else
+  source ~/.config/vifm/vifmrc-linux
+endif
+
+
+hi Border     cterm=none    ctermfg=-1    ctermbg=-1
+hi TopLine    cterm=none  ctermfg=white ctermbg=237
+hi TopLineSel cterm=none  ctermfg=white ctermbg=237
+hi StatusLine cterm=none  ctermfg=white ctermbg=237
+hi Win        ctermbg=none  ctermfg=199   
+hi Directory  ctermbg=none  ctermfg=188   
+hi CurrLine   ctermbg=none  ctermfg=188   ctermbg=236
+hi OtherLine  ctermbg=none  ctermfg=247   ctermbg=237
+hi Selected   ctermbg=none  ctermfg=188   ctermbg=238
+hi JobLine    cterm=bold    ctermfg=188   ctermbg=238
+hi WildMenu   cterm=none    ctermfg=188   
+hi CmdLine    cterm=none    ctermfg=188   ctermbg=0
+hi ErrorMsg   cterm=none    ctermfg=188   ctermbg=237
+hi Executable cterm=none    ctermfg=188
+hi BrokenLink cterm=none    ctermfg=188   
+hi Device     cterm=none    ctermfg=188   
+hi Fifo       cterm=none    ctermfg=188   
+hi Socket     cterm=none    ctermfg=188   
+hi Link       cterm=bold    ctermfg=green ctermbg=default
+
+" colorscheme zenburn
+
+" command! fzfcd :execute 'cd' fnameescape(term('find -type d | fzf 2> /dev/tty'))
