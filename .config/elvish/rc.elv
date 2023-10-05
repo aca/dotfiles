@@ -140,9 +140,9 @@ fn fish-completion {|@words|
     var cands = [(str:split &max=2 "\t" $x)]
     var n = (count $cands)
     if (== $n 2) {
-        edit:complex-candidate $cands[0] &display=(str:join ' | ' $cands)
+        edit:complex-candidate $cands[0] &code-suffix=' ' &display=(str:join ' | ' $cands)
     } else {
-        edit:complex-candidate $cands[0]
+        edit:complex-candidate $cands[0] &code-suffix=' '
     }
   } 
 }
