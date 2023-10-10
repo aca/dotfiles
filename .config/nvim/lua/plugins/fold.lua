@@ -7,6 +7,8 @@ packadd promise-async
 packadd nvim-ufo
 ]])
 
+vim.o.foldmethod = 'expr'
+
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 

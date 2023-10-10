@@ -5,6 +5,8 @@ set edit:command-abbr['gco'] = 'git checkout'
 
 set edit:command-abbr['c'] = 'cd'
 set edit:command-abbr['k'] = 'kubectl'
+set edit:command-abbr['j'] = 'just'
+set edit:command-abbr['g'] = 'git'
 set edit:command-abbr['ke'] = 'kubectl edit'
 set edit:command-abbr['kg'] = 'kubectl get'
 set edit:command-abbr['kgd'] = 'kubectl get deploy'

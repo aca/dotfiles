@@ -5,13 +5,12 @@
 # }
 
 use platform
+
+# use github.com/xiaq/edit.elv/compl/go
+# use plugins/edit.elv/compl/go; go:apply
+
 # use github.com/zzamboni/elvish-completions/builtins
 # use github.com/zzamboni/elvish-completions/cd
-
-# set edit:completion:arg-completer[ssh] = $fish-completion~
-# set edit:completion:arg-completer[curl] = $fish-completion~
-# set edit:completion:arg-completer[fd] = $fish-completion~
-# set edit:completion:arg-completer[gh] = $fish-completion~
 
 # use elvish-bash-completion/bash-completer
 # use github.com/aca/elvish-bash-completion/bash-completer
@@ -69,3 +68,32 @@ use platform
 #         }
 #     }
 # }
+#
+
+fn fish-completion {|@words|
+  use str
+  # noti -m (str:join ' ' $words)
+  # printf "complete -C killall" (str:join ' ' $words) | fish | from-lines 
+  printf "complete -C %q" (str:join ' ' $words) | fish | from-lines | each { |x| 
+    var cands = [(str:split &max=2 "\t" $x)]
+    var n = (count $cands)
+    if (== $n 2) {
+        # edit:complex-candidate $cands[0] &code-suffix=' ' &display=(str:join ' | ' $cands)
+        edit:complex-candidate $cands[0] &display=(str:join ' | ' $cands)
+    } else {
+        # edit:complex-candidate $cands[0] &code-suffix=' '
+        edit:complex-candidate $cands[0]
+    }
+  } 
+}
+
+set edit:completion:arg-completer[go] = $fish-completion~
+set edit:completion:arg-completer[git] = $fish-completion~
+set edit:completion:arg-completer[kubectl] = $fish-completion~
+set edit:completion:arg-completer[pueue] = $fish-completion~
+set edit:completion:arg-completer[systemctl] = $fish-completion~
+set edit:completion:arg-completer[rg] = $fish-completion~
+set edit:completion:arg-completer[ssh] = $fish-completion~
+set edit:completion:arg-completer[aria2c] = $fish-completion~
+set edit:completion:arg-completer[killall] = $fish-completion~
+set edit:completion:arg-completer[just] = $fish-completion~

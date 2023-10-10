@@ -1,7 +1,13 @@
 # Reference
 # - https://github.com/xiaq/etc/blob/master/rc.elv
 #
-# TODO: use `constantly` to cache elvish
+# TODO: 
+#
+# - find alternative to eval, this doesn't work
+#   - fn ign { |$@a| nop ($@a) }
+#   - fn ign { |$@a| nop ($a[0] $a[1:]) }
+# 
+# - extension to stdlib, (list in operation)
 
 use interactive
 use str
@@ -15,43 +21,45 @@ use path
 # }
 
 if (not (has-env _ELVISH_INIT)) { 
-    # http://www.linusakesson.net/programming/tty/
-    stty -ixon
+    stty -ixon # http://www.linusakesson.net/programming/tty/
     use /env 
-
     set-env _ELVISH_INIT 1
 }
 
-use /funcs
 use /bind
 use /completion
-# use /git-subrepo-elvish/.elvish
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
 
+# use /git-subrepo-elvish/.elvish
+
 nop ?(use local)
 
-fn d {|@a| cd ~/src/configs/dotfiles }
-fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
-fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
-fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+# move
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
-# directory
 fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
-fn dot {|@a| cd ~/src/root/dotfiles }
+fn d {|@a| cd ~/src/root/dotfiles }
 fn dot.v {|@a| cd ~/src/root/dotfiles/.config/nvim }
 fn grt { cd (e:git rev-parse --show-toplevel) }
 fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) } }
 fn ffc { || $cdf~ (ff)  }
-# fn sudo {|@a| if (eq 0 (id -u)) {
-#         e:sudo $@a
+
+# basics
+fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
+
+# do not call sudo if you are root, type sudo without sudo in container
+# var idu = (constantly (id -u))
+# fn sudo {|@a| if (eq 0 ($idu)) {
+#         eval (repr $@a)
 #     } else {
-#          $a[0] }
+#         e:sudo $@a
 #     }
 # }
 
-# wrapper
+# wrappers
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn ghqbare { |@a| e:ghq clone --bare $@a;  ;sh -c "src.update &" }
 fn zs {|@a| zsh $@a }
@@ -64,6 +72,7 @@ fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 # utils
 fn from-0 { || from-terminated "\x00" }
 fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
+fn history { edit:command-history &dedup &newest-first &cmd-only | to-lines }
 
 # cloudflare warp proxy
 # fn proxyon { 
@@ -83,6 +92,8 @@ fn str-to-rune-array { |x|
 }
 
 fn ign { |@a|
+    # $@a # FIXME: What's wrong with this
+    # $a[0] $a[1:] # FIXME: What's wrong with this
     try {
         eval (repr $@a)
     } catch {
@@ -98,33 +109,14 @@ fn psub {
 }
 
 # Filters a sequence of items and outputs those for whom the function outputs $true.
+# https://github.com/elves/elvish/issues/1721~/.config/elvish/rc.elv:90
 #
-# exclude csv
+# fd --type f | grep 'html'
+# fd --type f | from-lines | filter { |x| str:contains $x 'html' } [(all)]
 #
-#   fd --type f | filter { |x| not (str:contains $x "csv") }
+# fd --type f | grep -v 'html'
+# fd --type f | from-lines | filter &not=true { |x| str:contains $x 'html' } [(all)]
 #
-fn filter {|&out=$false func~ @inputs|
-    if $out {
-        each {|item| if (not (func $item)) { put $item } } $@inputs
-    } else {
-        each {|item| if (func $item) { put $item } } $@inputs
-    }
-}
-
-# UNIX comm alternative but keep original output sorted
-# list all non md files
-#   λ fd --type f | filterline fd --extension 'md'
-fn filterline { |@rest|
-  var second = [(eval (echo $@rest))]
-  from-lines | each {
-    |x|
-    if (not (has-value $second $x)) {
-      echo $x
-    }
-  }
-}
-
-# https://github.com/elves/elvish/issues/1721
 # filter { |x| > 3 $x } [ 1 2 3 4]
 fn filter {|pred~ @items &not=$false &out=$put~|
   var ck~ = $pred~
@@ -132,31 +124,16 @@ fn filter {|pred~ @items &not=$false &out=$put~|
   each {|item| if (ck $item) { $out $item }} $@items
 }
 
-fn fish-completion {|@words|
-  use str
-  # noti -m (str:join ' ' $words)
-  # printf "complete -C killall" (str:join ' ' $words) | fish | from-lines 
-  printf "complete -C %q" (str:join ' ' $words) | fish | from-lines | each { |x| 
-    var cands = [(str:split &max=2 "\t" $x)]
-    var n = (count $cands)
-    if (== $n 2) {
-        edit:complex-candidate $cands[0] &code-suffix=' ' &display=(str:join ' | ' $cands)
-    } else {
-        edit:complex-candidate $cands[0] &code-suffix=' '
-    }
-  } 
-}
-
-# use github.com/xiaq/edit.elv/compl/go
-#
-use plugins/edit.elv/compl/go; go:apply
-# set edit:completion:arg-completer[go] = $fish-completion~
-set edit:completion:arg-completer[git] = $fish-completion~
-set edit:completion:arg-completer[kubectl] = $fish-completion~
-set edit:completion:arg-completer[pueue] = $fish-completion~
-set edit:completion:arg-completer[systemctl] = $fish-completion~
-set edit:completion:arg-completer[rg] = $fish-completion~
-set edit:completion:arg-completer[ssh] = $fish-completion~
-set edit:completion:arg-completer[aria2c] = $fish-completion~
-set edit:completion:arg-completer[killall] = $fish-completion~
-set edit:completion:arg-completer[just] = $fish-completion~
+# TODO: improve
+# UNIX comm alternative but keep original output sorted
+# list all non md files
+#   λ fd --type f | filterline fd --extension 'md'
+# fn filterline { |@rest|
+#   var second = [(eval (echo $@rest))]
+#   from-lines | each {
+#     |x|
+#     if (not (has-value $second $x)) {
+#       echo $x
+#     }
+#   }
+# }

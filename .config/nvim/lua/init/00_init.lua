@@ -1,3 +1,4 @@
+-- start insert mode
 -- https://github.com/Wansmer/serenity.nvim
 -- https://github.com/Bekaboo/dropbar.nvim.git
 -- https://github.com/stevearc/overseer.nvim

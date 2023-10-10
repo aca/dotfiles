@@ -7,10 +7,12 @@
 --     ]],
 --     })
 
--- templates, gh actions
+-- package name at start
+-- TODO: main pkg doesn't work
 vim.api.nvim_create_autocmd("BufNewFile", {
     pattern = { "*.go" },
-    command = [[ execute "0r! ~/.config/nvim/templates/go.sh" ]],
+    -- pass dirname
+    command = [[ execute "0r! ~/.config/nvim/templates/go.sh" . ' ' . expand('%:p:h') ]],
 })
 --
 -- -- templates
