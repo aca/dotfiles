@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync all' -c ':q'
+

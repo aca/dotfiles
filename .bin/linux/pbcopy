@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# if [ "$SSH_TTY" != "" ]; then
+#     yank
+# fi
+
+# if pgrep copyq 1>/dev/null 2>/dev/null; then 
+#     copyq copy - 1>/dev/null 2>/dev/null
+
+if [ "$WAYLAND_DISPLAY" = "" ]; then
+    timeout 1s xsel --clipboard --input
+else
+    wl-copy
+fi

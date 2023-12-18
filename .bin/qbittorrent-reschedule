@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# custom qbittorrent scheduler
+#
+# 1. pause slow downloads
+# 2. randomly starts paused torrent
+
+# https://github.com/qbittorrent/qBittorrent/wiki/Web-API-Documentation
+set -euxo pipefail
+
+# skip if less than 10
+[[ $(curl -s "http://localhost:4321/api/v2/torrents/info" | jq -r '.[] | .hash' | wc -l) < 10 ]] && exit 0 
+
+# stop torrents under 50k downloads
+curl -s "http://localhost:4321/api/v2/torrents/info" | jq -r '.[] | select(.dlspeed < 50000 and .state != "pausedDL") | .hash' | xargs -I@ curl --fail --data "hashes=@" "http://localhost:4321/api/v2/torrents/pause"
+
+# if total download is smaller than 1MB randomly start paused torrent
+curl -s "http://localhost:4321/api/v2/torrents/info" | jq -r '.[] | select(.state == "pausedDL") | .hash' | shuf | head -n 7 | xargs -I@ curl -v --fail --data "hashes=@" "http://localhost:4321/api/v2/torrents/resume"

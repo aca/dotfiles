@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -euxo pipefail
+cd ~/src/root
+
+set -- "dotfiles"
+[ -d stow-antifold ] && set -- "$@" "stow-antifold"
+[ -d dotfiles.$(hostname -s) ] && set -- "$@" "dotfiles.$(hostname -s)"
+
+stow --adopt -v --target "$HOME" "$@"

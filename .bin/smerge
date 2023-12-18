@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [[ $SSH_CLIENT != "" ]]; then
+    ssh rok-toss "/usr/bin/open -a 'Sublime Merge' $(pwd | sed "s|$HOME|~|")"
+elif [[ -f /run/current-system/sw/bin/sublime_merge ]]; then
+    exec /run/current-system/sw/bin/sublime_merge "$@"
+elif [[ -f /opt/sublime_merge/sublime_merge ]]; then
+    exec /opt/sublime_merge/sublime_merge "$@"
+else
+    exec "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge" "$@"
+fi

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+mkdir patched || true
+fontforge -script ~/src/github.com/ryanoasis/nerd-fonts/font-patcher --complete "$1" -out patched
+
+# python3 ~/src/github.com/ryanoasis/nerd-fonts/font-patcher --complete $1 -out $(pwd)
+# fontforge -script ~/src/github.com/ryanoasis/nerd-fonts/font-patcher --complete $1 -out $(pwd)

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+cd ~/src/github.com/tmux/tmux
+git pull --rebase
+git clean -xfd
+sh autogen.sh
+# ./configure --enable-utf8proc && make
+./configure --enable-utf8proc && make
+sudo make install

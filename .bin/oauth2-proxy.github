@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+oauth2-proxy \
+    --cookie-secret $(python3 -c 'import os,base64; print(base64.urlsafe_b64encode(os.urandom(32)).decode())') \
+    --cookie-secure=false \
+    --http-address=0.0.0.0:4180 \
+    --provider=github \
+    --client-id=$CLIENT_ID \
+    --client-secret=$CLIENT_SECRET \
+    --scope "user:email" \
+    --github-user "aca" \
+    --email-domain="*" \
+    --show-debug-on-error \
+    --upstream http://localhost:7681

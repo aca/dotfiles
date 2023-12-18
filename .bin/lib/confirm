@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+trap no_ctrlc SIGINT
+
+function no_ctrlc()
+{
+    echo "Stop that."
+}
+
+echo "Continue? (<c-c> to stop)"
+tail -f /dev/null # sleep infinity

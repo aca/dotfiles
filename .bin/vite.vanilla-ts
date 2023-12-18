@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+pnpm create vite --template vanilla-ts "$@" 

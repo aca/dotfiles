@@ -1,0 +1,32 @@
+#!/usr/bin/env elvish
+#
+# find rootdir where $args[0] is located
+#
+# find.rootdir .git
+#
+# TODO: write in bash
+
+var target = $args[0]
+var pwd = (pwd)
+
+for i [(range 20)] {
+    set pwd = (pwd)
+    if (eq $pwd $E:HOME) {
+        exit 1
+    }
+
+    if (eq $pwd /) {
+        exit 1
+    }
+
+    if ?(test -e $target) {
+      pwd
+      exit 0
+    } else {
+      cd ..
+    }
+}
+
+exit 1
+
+

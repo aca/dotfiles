@@ -1,0 +1,29 @@
+scratchpad_space = 8
+launch_timeout = 5
+
+[[scratchpad]]
+name = "telegram"
+target_type = "app"
+target = "Telegram"
+position = [290, 175]
+size = [1100, 700]
+launch_type = "app"
+launch_command = "Telegram.app"
+
+[[scratchpad]]
+name = "alacritty"
+target_type = "title"
+target = "AlacrittyScratchpad"
+position = [290, 175]
+size = [500, 500]
+launch_type = "app_with_arg"
+launch_command = ["Alacritty.app", "--title", "AlacrittyScratchpad"]
+
+[[scratchpad]]
+name = "discord"
+target_type = "app"
+target = "Discord"
+position = [290, 175]
+size = [1100, 700]
+launch_type = "app"
+launch_command = "Discord.app"

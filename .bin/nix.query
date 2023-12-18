@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# export LD_LIBRARY_PATH=$(nix.query oracle-instantclient)
+#
+export NIXPKGS_ALLOW_UNFREE=1
+nix-instantiate --expr "(import <nixpkgs> {}).$1" 2>/dev/null

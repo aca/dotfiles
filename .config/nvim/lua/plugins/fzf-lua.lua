@@ -1,0 +1,7 @@
+-- vim.cmd.packadd('fzf-lua')
+-- require("fzf-lua").setup({
+--     winopts = {
+--         height = 0.7,
+--         width = 0.95,
+--     },
+-- })

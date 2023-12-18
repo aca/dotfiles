@@ -1,0 +1,46 @@
+FROM archlinux:base-devel
+
+RUN	pacman -Syy git --noconfirm
+RUN useradd -m -G wheel --create-home aur
+RUN sed -Ei 's/^#\ (%wheel.*NOPASSWD.*)/\1/' /etc/sudoers
+RUN sudo -u aur git clone --depth=1 https://aur.archlinux.org/paru-bin.git /tmp/paru
+RUN cd /tmp/paru && sudo -u aur makepkg -si --noconfirm
+
+RUN sudo -u aur paru -Syy --noconfirm \
+    elvish \
+    neovim-git \
+    ghq-bin \
+    ttyd luit \
+    fd \
+    stow \
+    sshpass \
+    tmux \
+    moreutils \
+    jq \
+    openssh \
+    fzf \
+    vifm \
+    ripgrep \
+    zsh \
+    coreutils \
+    tcpdump \
+    socat \
+    go \
+    unzip \
+    python3 \
+    nodejs
+
+RUN git clone --recurse-submodules -j20 https://github.com/aca/dotfiles ~/src/config/dotfiles --depth 1 && rm -rf ~/src/config/dotfiles/.git
+RUN bash ~/src/config/dotfiles/.bin/setup.stow
+RUN nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync! bash c cpp css go make yaml json' -c ':q'
+
+RUN sudo rm -rf ~/go || true
+RUN sudo rm -rf ~/pkg || true
+RUN sudo rm -rf ~/.cache || true
+RUN sudo rm -rf ~/.npm || true
+RUN sudo rm -rf ~/.local/share/fonts || true
+RUN sudo rm -rf ~/.local/share/nvim/site/pack/bundle/opt/markdown-preview.nvim || true
+RUN paru -Scc
+
+WORKDIR /root
+CMD ["elvish"]

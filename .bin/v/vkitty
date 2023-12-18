@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+$EDITOR ~/.config/kitty/kitty.conf
+
+kill -s SIGUSR1 $(pgrep kitty)

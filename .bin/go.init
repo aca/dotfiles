@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+go mod init &
+go get -u github.com/aca/go@latest &
+

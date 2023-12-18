@@ -1,0 +1,189 @@
+env:
+  # NOTES: true color support https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6
+  # TERM: xterm-256color
+  # TERM: tmux-256color
+  # TERM: alacritty # Italics not work 
+  LC_CTYPE: UTF-8
+
+window:
+  opacity: 1
+  padding:
+   x: 0
+   y: 0
+
+  decorations: none
+  option_as_alt: Both
+
+scrolling:
+  history: 0
+
+font:
+  size: 28
+  offset:
+    x: 0
+    y: 0
+
+  glyph_offset:
+    x: 0
+    y: 0
+  builtin_box_drawing: true
+  normal:
+    style: ExtraLight
+    # family: IosevkaTermSlab Nerd Font
+    family: IosevkaTermSlab Nerd Font
+
+  bold:
+    family: IosevkaTermSlab Nerd Font
+    style: Bold
+
+  italic:
+    style: Oblique
+    family: IosevkaTermSlab Nerd Font
+
+
+# draw_bold_text_with_bright_colors: true
+
+mouse:
+  hide_when_typing: true
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+  save_to_clipboard: true
+
+live_config_reload: true
+
+# shell:
+#   program: /bin/sh
+#   args:
+#     - -c
+#     - $HOME/bin/elvish 
+
+working_directory: None
+
+key_bindings:
+  - { key: Q, mods: Control, chars: "\x11" } # https://github.com/alacritty/alacritty/issues/1359
+
+  # - { key: L,        mods: Control, chars: "\x0c"                            }
+  # - { key: R,        mods: Control, chars: "\x0c"                            }
+  - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
+  - { key: Home,                    chars: "\x1bOH",        mode: AppCursor  }
+  - { key: Home,                    chars: "\x1b[H",        mode: ~AppCursor }
+  - { key: End,      mods: Alt,     chars: "\x1b[1;3F"                       }
+  - { key: End,                     chars: "\x1bOF",        mode: AppCursor  }
+  - { key: End,                     chars: "\x1b[F",        mode: ~AppCursor }
+  - { key: PageUp,   mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
+  - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~",     mode: Alt        }
+  - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                       }
+  - { key: PageUp,   mods: Alt,     chars: "\x1b[5;3~"                       }
+  - { key: PageUp,                  chars: "\x1b[5~"                         }
+  - { key: PageDown, mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
+  - { key: PageDown, mods: Shift,   chars: "\x1b[6;2~",     mode: Alt        }
+  - { key: PageDown, mods: Control, chars: "\x1b[6;5~"                       }
+  - { key: PageDown, mods: Alt,     chars: "\x1b[6;3~"                       }
+  - { key: PageDown,                chars: "\x1b[6~"                         }
+  - { key: Tab,      mods: Shift,   chars: "\x1b[Z"                          }
+  - { key: Back,                    chars: "\x7f"                            }
+  - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                        }
+  - { key: Insert,                  chars: "\x1b[2~"                         }
+  - { key: Delete,                  chars: "\x1b[3~"                         }
+  - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                       }
+  - { key: Left,     mods: Control, chars: "\x1b[1;5D"                       }
+  - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                       }
+  - { key: Left,                    chars: "\x1b[D",        mode: ~AppCursor }
+  - { key: Left,                    chars: "\x1bOD",        mode: AppCursor  }
+  - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                       }
+  - { key: Right,    mods: Control, chars: "\x1b[1;5C"                       }
+  - { key: Right,    mods: Alt,     chars: "\x1b[1;3C"                       }
+  - { key: Right,                   chars: "\x1b[C",        mode: ~AppCursor }
+  - { key: Right,                   chars: "\x1bOC",        mode: AppCursor  }
+  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                       }
+  - { key: Up,       mods: Control, chars: "\x1b[1;5A"                       }
+  - { key: Up,       mods: Alt,     chars: "\x1b[1;3A"                       }
+  - { key: Up,                      chars: "\x1b[A",        mode: ~AppCursor }
+  - { key: Up,                      chars: "\x1bOA",        mode: AppCursor  }
+  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                       }
+  - { key: Down,     mods: Control, chars: "\x1b[1;5B"                       }
+  - { key: Down,     mods: Alt,     chars: "\x1b[1;3B"                       }
+  - { key: Down,                    chars: "\x1b[B",        mode: ~AppCursor }
+  - { key: Down,                    chars: "\x1bOB",        mode: AppCursor  }
+
+  # custom
+  #
+  #
+  - { key: W,        mods: Command,  action: Quit }
+  - { key: Equals,   mods: Control,              action: IncreaseFontSize }
+  - { key: Plus,     mods: Control,              action: IncreaseFontSize }
+  - { key: Plus,     mods: Control|Shift,        action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,              action: DecreaseFontSize }
+  # - { key: C,         mods: Control,             action: Copy             }
+  # - { key: V,         mods: Control,       action: Paste            }
+  # - { key: V,         mods: Control|Shift,   chars: "\x16"                        }
+  - { key: V,         mods: Control|Shift,     action: Paste                }
+  - { key: N,         mods: Command,           action: SpawnNewInstance }
+
+hints:
+  start:
+    foreground: '0x000000'
+    background: '0xffffff'
+  end:
+    foreground: '0x000000'
+    background: '0xffffff'
+  enabled:
+    - regex: '[\S]{7,100}'
+      action: Copy
+      post_processing: false
+      binding:
+        key: G
+        mods: Alt
+
+debug:
+  persistent_logging: false
+  highlight_damage: false
+  print_events: false
+  render_timer: false
+  log_level: Off
+  # log_level: Error
+  # log_level: Warn
+  # log_level: Info
+  # log_level: Debug
+  # log_level: Trace
+
+
+# ColorStart
+# Base16 Black Metal (Marduk) - alacritty color config
+# metalelf0 (https://github.com/metalelf0)
+colors:
+  # Default colors
+  primary:
+    background: '0x000000'
+    foreground: '0xc1c1c1'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x000000'
+    cursor: '0xc1c1c1'
+
+  # Normal colors
+  normal:
+    black:   '0x000000'
+    red:     '0x5f8787'
+    green:   '0xa5aaa7'
+    yellow:  '0x626b67'
+    blue:    '0x888888'
+    magenta: '0x999999'
+    cyan:    '0xaaaaaa'
+    white:   '0xc1c1c1'
+
+  # Bright colors
+  bright:
+    black:   '0x333333'
+    red:     '0xaaaaaa'
+    green:   '0x121212'
+    yellow:  '0x222222'
+    blue:    '0x999999'
+    magenta: '0x999999'
+    cyan:    '0x444444'
+    white:   '0xc1c1c1'
+
+draw_bold_text_with_bright_colors: false
+# ColorEnd

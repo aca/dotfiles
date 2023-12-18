@@ -1,0 +1,5 @@
+#!/bin/sh
+# check if command exists
+# https://news.ycombinator.com/item?id=29055988
+
+command -v "$@" > /dev/null 2>&1

@@ -1,0 +1,197 @@
+set -gx SHELL /bin/sh
+
+# vars {{{
+
+if not set -q _FISH_INIT_VAR
+    set -gx _FISH_INIT_VAR
+
+    # In case TERM=xterm-256color not exists
+    if [ "$USER" = "ubuntu" ]; set -gx TERM linux; end
+
+    # nord
+    set -gx fish_color_normal normal
+    set -gx fish_color_command 81a1c1
+    set -gx fish_color_quote a3be8c
+    set -gx fish_color_redirection b48ead
+    set -gx fish_color_end 88c0d0
+    set -gx fish_color_error ebcb8b
+    set -gx fish_color_param eceff4
+    set -gx fish_color_comment 434c5e
+    set -gx fish_color_match --background=brblue
+    set -gx fish_color_selection white --bold --background=brblack
+    set -gx fish_color_search_match bryellow --background=brblack
+    set -gx fish_color_history_current --bold
+    set -gx fish_color_operator 00a6b2
+    set -gx fish_color_escape 00a6b2
+    set -gx fish_color_cwd green
+    set -gx fish_color_cwd_root red
+    set -gx fish_color_valid_path --underline
+    set -gx fish_color_autosuggestion 4c566a
+    set -gx fish_color_user brgreen
+    set -gx fish_color_host normal
+    set -gx fish_color_cancel -r
+    set -gx fish_pager_color_completion normal
+    set -gx fish_pager_color_description B3A06D yellow
+    set -gx fish_pager_color_prefix white --bold --underline
+    set -gx fish_pager_color_progress brwhite --background=cyan
+
+    # uname is too slow
+    if [ -d /Users ] 
+      set -gx _uname darwin
+    else
+      set -gx _uname linux
+    end
+
+    set CDPATH .
+    set -gx GTK_IM_MODULE fcitx
+    set -gx QT_IM_MODULE fcitx
+    set -gx XMODIFIERS "@im=fcitx"
+
+    # set -gx _SRC "$HOME/src"
+    # set -gx _TMP "$HOME/tmp"
+    # set -gx _SHELL "fish"
+
+    set -gx ASDF_DIR $HOME/.asdf
+    set -gx GHQ_ROOT $HOME/src
+    set -gx MANPAGER 'nvim +Man!'
+    set -gx MANWIDTH '88'
+    
+    set -gx RIPGREP_CONFIG_PATH $HOME/.ripgreprc
+    set -gx BROWSER google-chrome
+    set -gx COLORTERM truecolor
+    set -gx EDITOR nvim
+    set -gx VISUAL nvim
+    set -gx GOPATH $HOME
+    set -gx GOPROXY direct
+
+    set -gx LANG en_US.UTF-8
+    set -gx LANGUAGE en_US.UTF-8
+    set -gx LC_ALL en_US.UTF-8
+
+    set -gx HOMEBREW_CASK_OPTS "--no-quarantine"
+
+    # set -q SSH_CLIENT && set -gx TERM xterm
+    set -gx XDG_CONFIG_HOME $HOME/.config
+
+    #  colorful man
+    # set -gx LESS_TERMCAP_mb (printf "\033[01;31m")
+    # set -gx LESS_TERMCAP_md (printf "\033[01;31m")
+    # set -gx LESS_TERMCAP_me (printf "\033[0m")
+    # set -gx LESS_TERMCAP_se (printf "\033[0m")
+    # set -gx LESS_TERMCAP_so (printf "\033[01;44;33m")
+    # set -gx LESS_TERMCAP_ue (printf "\033[0m")
+    # set -gx LESS_TERMCAP_us (printf "\033[01;32m")
+
+    set -gx MAN_DISABLE_SECCOMP 1 # man page issues
+    # set -gx _JAVA_AWT_WM_NONREPARENTING 1 # jetbrains, set /etc/profile.d/jre.sh
+
+    # vivid generate molokai 
+    # https://github.com/sharkdp/vivid
+
+    set -gx FZF_DEFAULT_COMMAND 'fd --hidden --type f'
+    set -gx FZF_DEFAULT_OPTS '--reverse --color "gutter:-1" --inline-info --cycle -m --bind ctrl-a:toggle-all --bind ctrl-j:down --bind ctrl-k:up'
+    set -gx FZF_CTRL_T_COMMAND 'fd --hidden'
+    set -gx FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10 --no-ignore'
+
+    set -px PATH $HOME/bin
+    set -px PATH $HOME/.bin
+    set -px PATH $HOME/.bin/v
+    set -px PATH $HOME/.bin/lib
+    set -px PATH $HOME/.bin/$_uname
+
+    if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                         ; end
+    # if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --prepend PATH $HOME/src/go.googlesource.com/go/bin        ; end
+    # if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -x --append PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
+    if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
+    if [ -d $HOME/.raku/bin ]                             ; set -x --append PATH $HOME/.raku/bin                              ; end
+    if [ -d $HOME/.linkerd2/bin ]                         ; set -x --append PATH $HOME/.linkerd2/bin                          ; end
+    if [ -d $HOME/xxx/bin ]                               ; set -x --append PATH $HOME/xxx/bin                                ; end
+    if [ -d /usr/local/opt/coreutils/libexec/gnubin ]     ; set -x --append PATH /usr/local/opt/coreutils/libexec/gnubin      ; end
+    if [ -d $HOME/.local/bin ]                            ; set -x --append PATH $HOME/.local/bin                             ; end
+    if [ -d $HOME/.cargo/bin ]                            ; set -x --append PATH $HOME/.cargo/bin                             ; end
+    if [ -d $HOME/.nix-profile/bin ]                      ; set -x --append PATH $HOME/.nix-profile/bin                       ; end
+    if [ -d /usr/local/opt/llvm/bin ]                     ; set -x --append PATH /usr/local/opt/llvm/bin                      ; end
+    if [ -d /usr/local/sbin ]                             ; set -x --append PATH /usr/local/sbin                              ; end
+    if [ -d $HOME/.asdf/shims ]                           ; set -x --append PATH $HOME/.asdf/shims                            ; end
+    if [ -d $HOME/.asdf/bin ]                             ; set -x --append PATH $HOME/.asdf/bin                              ; end
+
+    # npm
+    # Avoid installing binaries in /usr/local/bin.
+    # Maybe replace it with asdf-vm if it's performance issue get fixed
+    set -gx NPM_CONFIG_GLOBALCONFIG $HOME/.npmrc.global
+end
+
+# function _prepend_path
+#    set -l path $argv[1]
+#
+#    if [ ! -d $path ]
+#       return
+#    end
+#
+#    set -l index (contains -i -- $path $PATH)
+#    if set -q index[1]
+#      set -e PATH[$index]
+#    end
+#    set -px PATH $path
+# end
+#
+# _prepend_path $HOME/.asdf/shims
+# _prepend_path $HOME/.asdf/bin
+# _prepend_path $HOME/sdk/gotip/bin
+
+# }}}
+# Section: alias {{{
+
+# "alias" makes fish init too slow, keep it minimal and use function instead
+# abbr --global v 'nvim'
+abbr --global g 'stdbuf -o0 -e0 -i0 rg -i'
+abbr --global pu 'pueue'
+abbr --global cmd 'command'
+abbr --global k 'kubectl'
+abbr --global os 'openstack'
+abbr --global ta 'tmux attach -t'
+abbr --global v 'nvim'
+abbr --global ci 'pbcopy'
+abbr --global co 'pbpaste'
+# abbr --global tm 'tmux'
+# abbr --global td 'tmux detach'
+abbr --global gcm git commit --allow-empty-message -m
+abbr --global gacm git commit -a --allow-empty-message -m
+# abbr --global gacm2  git commit -a --allow-empty-message -m
+# abbr --global gacm3  git commit -a --allow-empty-message -m
+# abbr --global gacm4  git commit -a --allow-empty-message -m
+# abbr --global gacm5  git commit -a --allow-empty-message -m
+# abbr --global gacm6  git commit -a --allow-empty-message -m
+# abbr --global gacm7  git commit -a --allow-empty-message -m
+# abbr --global gacm8  git commit -a --allow-empty-message -m
+
+# }}}
+# hooks {{{
+#
+# share history
+# function _save_history --on-event fish_postexec; history --save; end 
+
+# OS specific {{{
+switch $_uname
+    case linux
+        abbr --global svc 'sudo systemctl'
+        abbr --global svcu 'systemctl --user'
+
+        set -gx BROWSER google-chrome-stable
+        set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
+        set -gx VIRSH_DEFAULT_CONNECT_URI "qemu:///system"
+    case darwin
+        # if [ -f /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc ]; source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc; end
+        abbr --global svc 'brew services'
+        abbr --global svcu 'brew services'
+end
+# }}}
+
+# update: zoxide init fish > ~/src/configs/dotfiles/.config/fish/zoxide.fish
+# if command -sq zoxide
+#   source $HOME/.config/fish/zoxide.fish
+# end
+
+if not set -q $WEZTERM_PANE
+  set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$WEZTERM_PANE"
+end

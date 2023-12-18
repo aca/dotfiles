@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# this works, setting terminal in tmux.conf doesn't work
+# Don't know why ...
+export TERM=xterm-256color
+tmux new -s bg -d
+tmux new -s main || tmux attach -t main

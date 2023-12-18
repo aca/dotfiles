@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+fpath="$(realpath ~/.config/kitty/fonts.conf)"
+
+selected="$(kitty list-fonts | grep -v '^\s' | grep -v '^\s*$' | fzf)"
+
+echo -e "font_family\t$selected" > $fpath
+
+kitty.reload

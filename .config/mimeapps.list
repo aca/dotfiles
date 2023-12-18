@@ -1,0 +1,7 @@
+[Default Applications]
+text/html=google-chrome.desktop;
+application/xhtml+xml=google-chrome.desktop;
+application/xml=google-chrome.desktop;
+x-scheme-handler/http=google-chrome.desktop;
+x-scheme-handler/https=google-chrome.desktop;
+x-scheme-handler/magnet=qbittorrent-nox.desktop;

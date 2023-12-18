@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# https://github.com/farukuzun/notsodeep
+# https://wiki.nftables.org/wiki-nftables/index.php/Queueing_to_userspace
+# https://home.regit.org/netfilter-en/using-nfqueue-and-libnetfilter_queue/
+# https://wiki.nftables.org/wiki-nftables/index.php/Moving_from_iptables_to_nftables
+# sudo iptables-translate -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 -j NFQUEUE --queue-num 200 --queue-bypass
+
+tmpfile=$(mktemp)
+echo $tmpfile
+cat >> $tmpfile << EOF
+add rule ip filter INPUT tcp sport 80 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
+add rule ip filter INPUT tcp sport 443 tcp flags & (syn|ack) == syn|ack counter queue num 200 bypass
+EOF
+
+sudo nft -f $tmpfile

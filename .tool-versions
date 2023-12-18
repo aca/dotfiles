@@ -1,0 +1,11 @@
+python system
+lua 5.1.5
+ruby 3.0.2
+zig 0.9.1
+java openjdk-17
+rust 1.62.0
+kotlin 1.5.21
+haskell 9.2.2
+golang system
+luajit 2.1.0-beta3--3.4.0
+nodejs 17.6.0

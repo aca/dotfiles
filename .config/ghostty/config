@@ -1,0 +1,45 @@
+# The syntax is "key = value". The whitespace around the equals doesn't matter.
+background = 282c34
+foreground= ffffff
+
+# Blank lines are ignored!
+
+window-decoration = false
+macos-option-as-alt = true
+
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+# keybind = ctrl+minus=decrease_font_size
+keybind = ctrl+z=reload_config
+keybind = ctrl+shift+v=paste_from_clipboard
+
+# Colors can be changed by setting the 16 colors of `palette`, which each color
+# being defined as regular and bold.
+#
+
+font-family	= Iosevka Term Slab Light
+font-family-bold = Iosevka Term Slab
+font-family-italic = Iosevka Term Slab Light Oblique
+font-family-bold-italic = Iosevka Term Slab Oblique
+
+palette = 0=#4f4f4f
+palette = 1=#fa6c60
+palette = 2=#a8ff60
+palette = 3=#fffeb7
+palette = 4=#96cafe
+palette = 5=#fa73fd
+palette = 6=#c6c5fe
+palette = 7=#efedef
+palette = 8=#7b7b7b
+palette = 9=#fcb6b0
+palette = 10=#cfffab
+palette = 11=#ffffcc
+palette = 12=#b5dcff
+palette = 13=#fb9cfe
+palette = 14=#e0e0fe
+palette = 15=#ffffff
+background = 000000
+foreground = f1f1f1
+cursor-color = 808080
+selection-background = b5d5ff
+selection-foreground = 000000
