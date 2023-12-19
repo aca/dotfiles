@@ -1,6 +1,7 @@
 -- svg-term 
 --
 -- https://news.ycombinator.com/item?id=38443608
+-- https://news.ycombinator.com/item?id=38681115
 --https://www.reddit.com/r/neovim/comments/18gr7qe/work_in_progress_neovim_x11_window_manager/
 --
 -- https://www.reddit.com/r/neovim/comments/185uv3f/announcing_jupytextnvim/

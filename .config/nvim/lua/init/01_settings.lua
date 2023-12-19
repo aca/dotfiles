@@ -19,7 +19,7 @@ o.formatoptions = "jncroql"
 o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 
 -- https://github.com/neovim/neovim/pull/25872
--- o.clipboard = "unnamedplus"
+o.clipboard = "unnamedplus"
 -- vim.g.clipboard = {
 --   name = 'OSC 52',
 --   copy = {
