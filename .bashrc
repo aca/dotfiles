@@ -6,7 +6,7 @@ alias elv='elvish'
 
 # clipboard share
 shopt -s nullglob
-if [ -n "$WAYLAND_DISPLAY" ]; then
+if [ -z "$WAYLAND_DISPLAY" ]; then
     for i in "$XDG_RUNTIME_DIR/wayland"-?; do
         export WAYLAND_DISPLAY="$i"
     done
