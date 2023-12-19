@@ -4,6 +4,13 @@ export PATH=$HOME/.bin:$HOME/bin:$PATH:/opt/homebrew/bin
 
 alias elv='elvish'
 
+# clipboard share
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    if [ -f "$XDG_RUNTIME_DIR/wayland-*.lock" ]; then
+        export WAYLAND_DISPLAY=$XDG_RUNTIME_DIR/wayland-?
+    fi
+fi
+
 shopt -s checkwinsize # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s histappend # append to the history file, don't overwrite it
 
