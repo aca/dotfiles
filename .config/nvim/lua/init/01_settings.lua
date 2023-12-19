@@ -23,15 +23,14 @@ o.clipboard = "unnamedplus"
 -- vim.g.clipboard = {
 --   name = 'OSC 52',
 --   copy = {
---     ['+'] = function()
---             require("vim.ui.clipboard.osc52").copy()
---             print("wer")
---         end,
---     ['*'] = function()
---         require('vim.ui.clipboard.osc52').copy()
---         print("wedr")
---     end
+--     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
 --   },
+--   paste = {
+--     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+--   },
+-- }
 --   paste = {
 --     ['+'] = require('vim.ui.clipboard.osc52').paste,
 --     ['*'] = require('vim.ui.clipboard.osc52').paste,
