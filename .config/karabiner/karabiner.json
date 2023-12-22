@@ -94,6 +94,14 @@
                         "manipulators": [
                             {
                                 "description": "left_option -> (super)left_command+left_control+left_option.",
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com\\.utmapp\\.UTM"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "left_command",
                                     "modifiers": {
@@ -108,6 +116,34 @@
                                         "modifiers": [
                                             "left_command",
                                             "left_control"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "left_option -> (super)left_command+left_control+left_option.",
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com\\.utmapp\\.UTM"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "modifiers": [
+                                            "right_command"
                                         ]
                                     }
                                 ],
