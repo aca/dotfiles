@@ -1,3 +1,5 @@
+-- scratchpad
+-- https://news.ycombinator.com/item?id=38733968
 -- svg-term 
 --
 -- https://news.ycombinator.com/item?id=38443608
