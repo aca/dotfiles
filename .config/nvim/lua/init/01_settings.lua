@@ -6,11 +6,10 @@ local o = vim.o
 -- sidebar
 o.signcolumn = "yes"
 
-if vim.env.VIM_NONU == "1" then
-    o.number = false
-    o.relativenumber = false
-else 
-end
+-- if vim.env.VIM_NONU == "1" then
+--     o.number = false
+--     o.relativenumber = false
+-- end
 
 o.number = false
 o.relativenumber = false
@@ -19,7 +18,60 @@ o.formatoptions = "jncroql"
 o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 
 -- https://github.com/neovim/neovim/pull/25872
-o.clipboard = "unnamedplus"
+-- opt.clipboard = { "unnamed", "unnamedplus" }
+--
+-- vim.defer_fn(function()
+--     if vim.fn.has("win32") == 1 or vim.fn.has("wsl") == 1 then
+--       vim.g.clipboard = {
+--         copy = {
+--           ["+"] = "win32yank.exe -i --crlf",
+--           ["*"] = "win32yank.exe -i --crlf",
+--         },
+--         paste = {
+--           ["+"] = "win32yank.exe -o --lf",
+--           ["*"] = "win32yank.exe -o --lf",
+--         },
+--       }
+--     elseif vim.fn.has("unix") == 1 then
+--       if vim.fn.executable("xclip") == 1 then
+--         vim.g.clipboard = {
+--           copy = {
+--             ["+"] = "xclip -selection clipboard",
+--             ["*"] = "xclip -selection clipboard",
+--           },
+--           paste = {
+--             ["+"] = "xclip -selection clipboard -o",
+--             ["*"] = "xclip -selection clipboard -o",
+--           },
+--         }
+--       elseif vim.fn.executable("xsel") == 1 then
+--         vim.g.clipboard = {
+--           copy = {
+--             ["+"] = "xsel --clipboard --input",
+--             ["*"] = "xsel --clipboard --input",
+--           },
+--           paste = {
+--             ["+"] = "xsel --clipboard --output",
+--             ["*"] = "xsel --clipboard --output",
+--           },
+--         }
+--       end
+--       elseif vim.fn.executable("wl-paste") == 1 then
+--         vim.g.clipboard = {
+--           copy = {
+--             ["+"] = "wl-copy",
+--             ["*"] = "wl-copy",
+--           },
+--           paste = {
+--             ["+"] = "wl-paste",
+--             ["*"] = "wl-paste",
+--           },
+--         }
+--       end
+--     vim.opt.clipboard = "unnamedplus"
+-- end, 80)
+
+
 vim.g.clipboard = {
   name = 'OSC 52',
   copy = {
@@ -31,7 +83,14 @@ vim.g.clipboard = {
     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
   },
 }
---
+vim.opt.clipboard = "unnamedplus"
+
+-- vim.fn.
+-- vim.g.clipboard.copy = {
+--     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+-- }
+
     -- vim.g.clipboard = {
     --   name = 'OSC 52',
     --   copy = {
