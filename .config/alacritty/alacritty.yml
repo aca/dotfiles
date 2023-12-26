@@ -5,6 +5,9 @@ env:
   # TERM: alacritty # Italics not work 
   LC_CTYPE: UTF-8
 
+terminal:
+  osc52: "CopyPaste"
+
 window:
   opacity: 1
   padding:
@@ -62,7 +65,6 @@ working_directory: None
 
 key_bindings:
   - { key: Q, mods: Control, chars: "\x11" } # https://github.com/alacritty/alacritty/issues/1359
-
   # - { key: L,        mods: Control, chars: "\x0c"                            }
   # - { key: R,        mods: Control, chars: "\x0c"                            }
   - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
