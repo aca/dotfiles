@@ -1,3 +1,7 @@
 #!/bin/sh
 
-pbcopy
+if [ "$SSH_TTY" != "" ]; then
+    osc52.sh
+else
+    pbcopy
+fi
