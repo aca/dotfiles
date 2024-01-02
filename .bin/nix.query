@@ -7,5 +7,5 @@ cd /home/rok/src/root/nix-config
 #
 # nix-instantiate --expr "(import <nixpkgs> {}).$1.libpath" 2>/dev/null
 
-nix eval "nixpkgs#$1.libPath" --raw
+nix  --extra-experimental-features "nix-command flakes" eval "nixpkgs#$1.lib" --raw --impure
 
