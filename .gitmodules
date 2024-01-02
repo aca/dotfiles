@@ -853,3 +853,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/rasmus.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/rasmus.nvim
 	url = https://github.com/kvrohit/rasmus.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-osc52"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-osc52
+	url = https://github.com/ojroques/nvim-osc52

@@ -18,7 +18,6 @@ o.formatoptions = "jncroql"
 o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 
 -- https://github.com/neovim/neovim/pull/25872
--- opt.clipboard = { "unnamed", "unnamedplus" }
 --
 -- vim.defer_fn(function()
 --     if vim.fn.has("win32") == 1 or vim.fn.has("wsl") == 1 then
@@ -71,6 +70,32 @@ o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 --     vim.opt.clipboard = "unnamedplus"
 -- end, 80)
 
+-- vim.cmd.packadd("nvim-osc52")
+-- require("osc52").setup({
+-- 	max_length = 0,
+-- 	silent = true,
+-- 	trim = false,
+-- 	tmux_passthrough = true,
+-- })
+--
+-- local function copy(lines, _)
+-- 	require("osc52").copy(table.concat(lines, "\n"))
+-- end
+--
+-- local function paste()
+-- 	return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+-- end
+--
+-- vim.g.clipboard = {
+-- 	name = "osc52",
+-- 	copy = { ["+"] = copy, ["*"] = copy },
+-- 	-- paste = { ["+"] = paste, ["*"] = paste },
+-- 	-- paste = { ["+"] = paste, ["*"] = paste },
+-- 	paste = {
+-- 		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+-- 		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+-- 	},
+-- }
 
 vim.g.clipboard = {
   name = 'OSC 52',
@@ -83,45 +108,42 @@ vim.g.clipboard = {
     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
   },
 }
-vim.opt.clipboard = "unnamedplus"
 
--- vim.fn.
--- vim.g.clipboard.copy = {
---     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
---     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+-- -- https://rumpelsepp.org/blog/nvim-clipboard-through-ssh/
+-- vim.g.clipboard = {
+--     name = 'tmux',
+--     copy = {
+--         ["+"] = {'tmux', 'load-buffer', '-w', '-'},
+--         ["*"] = {'tmux', 'load-buffer', '-w', '-'},
+--     },
+--     paste = {
+--         ["+"] = {'bash', '-c', 'tmux refresh-client -l && sleep 0.2 && tmux save-buffer -'},
+--         ["*"] = {'bash', '-c', 'tmux refresh-client -l && sleep 0.2 && tmux save-buffer -'},
+--     },
+--     cache_enabled = false,
 -- }
 
-    -- vim.g.clipboard = {
-    --   name = 'OSC 52',
-    --   copy = {
-    --     ['+'] = function()
-    --         print("called + ")
-    --         require('vim.ui.clipboard.osc52').copy('+')
-    --     end
-    --     ,
-    --     ['*'] = function()
-    --         print("called * ")
-    --         require('vim.ui.clipboard.osc52').copy('*')
-    --     end
-    --   },
-    --   paste = {
-    --     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    --     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-    --   },
-    -- }
+opt.clipboard = { "unnamed", "unnamedplus" }
 
---     vim.g.clipboard = {
---       name = 'OSC 52',
---       copy = {
---         ['+'] = require('vim.ui.clipboard.osc52').copy('0'),
---         ['*'] = require('vim.ui.clipboard.osc52').copy('0'),
---       },
---       paste = {
---         ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
---         ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
---       },
---     }
---
+-- vim.g.clipboard = {
+--   name = 'OSC 52',
+--   copy = {
+--     ['+'] = function()
+--         print("called + ")
+--         require('vim.ui.clipboard.osc52').copy('+')
+--     end
+--     ,
+--     ['*'] = function()
+--         print("called * ")
+--         require('vim.ui.clipboard.osc52').copy('*')
+--     end
+--   },
+--   paste = {
+--     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+--   },
+-- }
+
 -- o.fencs = "euc-kr"
 -- o.fencs = "ucs-bom,utf-8,default,latin1"
 -- vim.o.fencs="ucs-bom,utf-8,cp949,euc-kr,default,latin1"
@@ -178,12 +200,11 @@ opt.hidden = true -- zepl.vim
 opt.joinspaces = false
 opt.belloff = "all"
 
-
 -- Tabs
 -- opt.autoindent = true
 -- opt.cindent = true
 
-opt.indentkeys = opt.indentkeys + '!^Y'
+opt.indentkeys = opt.indentkeys + "!^Y"
 opt.cinkeys = opt.cinkeys - "0#" -- https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
 opt.wrap = false
 opt.wrapscan = false
@@ -229,4 +250,3 @@ g.loaded_ftplugin = 1
 g.loaded_netrwPlugin = 1
 g.loaded_matchit = 1
 g.loaded_matchparen = 1
-

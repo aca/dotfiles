@@ -30,8 +30,10 @@ known() { command -v "$1" >/dev/null ;}
 maybe() { known "$1" && input | "$@" ;}
 alive() { known "$1" && "$@" >/dev/null 2>&1 ;}
 
+# unset TMUX
+
 # copy to tmux
-test -n "$TMUX" && maybe tmux load-buffer -
+# test -n "$TMUX" && maybe tmux load-buffer -
 
 # # copy via X11
 # test -n "$DISPLAY" && alive xhost && {
