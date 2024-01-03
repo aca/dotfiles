@@ -1,7 +1,11 @@
 #!/bin/sh
 
 if [ "$SSH_TTY" != "" ]; then
-    osc52.sh
+    if pgrep qemu-ga; then
+        pbcopy
+    else
+        osc52.sh
+    fi
 else
     pbcopy
 fi
