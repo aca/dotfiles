@@ -97,17 +97,19 @@ o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 -- 	},
 -- }
 
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  -- paste = {
-  --   ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-  --   ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  -- },
-}
+if vim.env.VIM_OSC52_ENABLE ~= "0" then
+    vim.g.clipboard = {
+      name = 'OSC 52',
+      copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+      },
+      paste = {
+        ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+      },
+    }
+end
 
 -- -- https://rumpelsepp.org/blog/nvim-clipboard-through-ssh/
 -- vim.g.clipboard = {

@@ -40,7 +40,7 @@ nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent 
 set("n", ";dd", vim.diagnostic.setloclist)
 set("n", "gd", vim.lsp.buf.definition, { silent = true })
 set("n", "gD", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end, { silent = true })
-set("n", "gv", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end , { silent = true })
+-- set("n", "gv", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end , { silent = true })
 
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
 set("n", ";f", function()

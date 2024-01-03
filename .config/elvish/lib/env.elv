@@ -57,6 +57,12 @@ if (eq $platform:os "linux") {
     }
 }
 
+if (not (has-env VIM_OSC52_ENABLE)) {
+    if ?(pgrep qemu-ga) {
+        set-env VIM_OSC52_ENABLE 0 
+    }
+}
+
 # if (eq $E:HOSTNAME "rok-te3") {
 #   set E:LIBVIRT_DEFAULT_URI = "qemu:///system"
 #   set E:VIRSH_DEFAULT_CONNECT_URI = "qemu:///system"
