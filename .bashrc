@@ -70,8 +70,3 @@ if [ -z "$TMUX" ]; then
 else
     PS1=${PS1}'\[\ePtmux;\e\e]1337;CurrentDir=${PWD}\a\e\\\]'
 fi
-
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/kyungrok.chung/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
