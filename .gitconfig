@@ -119,3 +119,6 @@
 
 [include]
     path = ~/.gitconfig.local
+
+[submodule]
+    fetchJobs = 16
