@@ -10,7 +10,7 @@ update:
 .PHONY: sync
 sync:
 		@git pull --rebase
-		@git submodule update -j 16 --init --force
+		@git submodule update --init --force
 
 .PHONY: container
 container:

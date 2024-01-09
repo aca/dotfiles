@@ -121,4 +121,4 @@
     path = ~/.gitconfig.local
 
 [submodule]
-    fetchJobs = 16
+    fetchJobs = 4
