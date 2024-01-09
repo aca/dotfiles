@@ -343,7 +343,7 @@ end
 if vim.fn.executable("deno") == 1 then
 	lspconfig.denols.setup({
 		capabilities = capabilities,
-		-- single_file_support = true,
+		single_file_support = true,
 		handlers = handlers,
 		on_attach = on_attach,
 		root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),

@@ -58,7 +58,7 @@ if (eq $platform:os "linux") {
 }
 
 if (not (has-env VIM_OSC52_ENABLE)) {
-    if ?(pgrep qemu-ga) {
+    if ?(pgrep qemu-ga >/dev/null) {
         set-env VIM_OSC52_ENABLE 0 
     }
 }
