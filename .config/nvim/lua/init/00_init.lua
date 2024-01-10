@@ -1,4 +1,6 @@
 -- scratchpad
+-- https://www.reddit.com/r/neovim/comments/192gvkz/reflections_on_implementing_a_homemade/
+-- https://github.com/jorgerojas26/lazysql
 -- https://news.ycombinator.com/item?id=38733968
 -- svg-term 
 --
