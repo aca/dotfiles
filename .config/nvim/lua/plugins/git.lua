@@ -10,7 +10,7 @@ vim.cmd.packadd 'vim-fugitive'
 vim.cmd.packadd 'vim-rhubarb'
 vim.cmd.packadd 'gv.vim'
 
-
+-- vim.cmd.packadd 'blame.nvim'
 -- vim.cmd.packadd "gin.vim" 
 -- vim.cmd.packadd "denops.vim"
 

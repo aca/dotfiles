@@ -1,5 +1,5 @@
-" unlet g:loaded_clipboard_provider
-" runtime plugin/clipboard.vim
+unlet g:loaded_clipboard_provider
+runtime plugin/clipboard.vim
 " unlet g:loaded_netrwPlugin
 " runtime plugin/netrwPlugin.vim
 " unlet g:loaded_matchit

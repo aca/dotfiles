@@ -237,7 +237,7 @@ g.maplocalleader = " "
 -- disable default vim stuffs for faster startuptime
 g.loaded_2html_plugin = 1
 g.loaded_syntax = 1
--- g.loaded_clipboard_provider = 1
+g.loaded_clipboard_provider = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 g.loaded_gzip = 1

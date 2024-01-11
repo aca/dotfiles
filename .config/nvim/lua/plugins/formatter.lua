@@ -8,8 +8,9 @@ require("conform").setup({
 		-- Use a sub-list to run only the first available formatter
 		javascript = { { "prettierd", "prettier" } },
 		nix = { { "nixfmt", "alejandra" } },
-		jsonc = { { "deno_fmt"} },
-		json = { { "deno_fmt"} },
+		jsonc = { { "deno_fmt" } },
+		json = { { "deno_fmt" } },
+		sql = { { "sql_formatter" } },
 	},
 })
 

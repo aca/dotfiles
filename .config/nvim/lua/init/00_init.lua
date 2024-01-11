@@ -1,3 +1,4 @@
+-- https://github.com/gsuuon/note.nvim
 -- scratchpad
 -- https://www.reddit.com/r/neovim/comments/192gvkz/reflections_on_implementing_a_homemade/
 -- https://github.com/jorgerojas26/lazysql
@@ -6,7 +7,7 @@
 --
 -- https://news.ycombinator.com/item?id=38443608
 -- https://news.ycombinator.com/item?id=38681115
---https://www.reddit.com/r/neovim/comments/18gr7qe/work_in_progress_neovim_x11_window_manager/
+-- https://www.reddit.com/r/neovim/comments/18gr7qe/work_in_progress_neovim_x11_window_manager/
 --
 -- https://www.reddit.com/r/neovim/comments/185uv3f/announcing_jupytextnvim/
 -- https://www.reddit.com/r/neovim/comments/184r2d1/announcing_tscnvim_v200/
@@ -14,6 +15,7 @@
 -- https://github.com/benlubas/molten-nvim
 -- surround fix
 -- hop fix
+-- https://www.reddit.com/r/neovim/comments/18jvnlk/introducing_neovim_m_%CE%BB_c_r_o_an_elegant_config/
 --
 -- https://github.com/roxma/vim-tmux-clipboard
 -- https://www.reddit.com/r/neovim/comments/17dsmuj/update_added_support_for_rendering_image_files_as/
@@ -85,7 +87,7 @@
 -- https://www.reddit.com/r/neovim/comments/142buyl/hop_now_what/
 --
 -- https://github.com/TobinPalmer/pastify.nvim
--- https://github.com/ekickx/clipboard-image.nvimhttps://www.reddit.com/r/neovim/comments/12aek0y/ai_plugin_overview/
+-- https://github.com/ekickx/clipboard-image.nvim
 -- https://www.reddit.com/r/neovim/comments/12aek0y/ai_plugin_overview/
 --
 -- https://vi.stackexchange.com/questions/16320/trigger-reindentation-after-snippet-has-expanded-to-word-in-indentkeys
@@ -96,4 +98,3 @@
 -- https://github.com/LunarVim/bigfile.nvim
 
 -- check fcitx-remote (fcitx5-remote)
-
