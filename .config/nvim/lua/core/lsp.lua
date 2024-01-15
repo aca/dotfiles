@@ -185,7 +185,7 @@ end
 --     }
 -- end
 
-vim.lsp.set_log_level("DEBUG")
+-- vim.lsp.set_log_level("DEBUG")
 
 if vim.fn.executable("/home/rok/src/github.com/aca/deno-lsp/main.ts") == 1 then
     configs.mdpls = {

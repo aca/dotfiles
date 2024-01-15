@@ -125,7 +125,7 @@ o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 --     cache_enabled = false,
 -- }
 
-opt.clipboard = { "unnamed", "unnamedplus" }
+-- opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- vim.g.clipboard = {
 --   name = 'OSC 52',

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSUpdateSync all' -c ':q'
