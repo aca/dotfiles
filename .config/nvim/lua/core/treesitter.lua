@@ -137,6 +137,8 @@ require("nvim-treesitter.configs").setup({
 	enable = true,
 	disable = {
 		"c",
+        "ada",
+        "beancount",
         "go",
 		"dockerfile",
 		"cooklang",
