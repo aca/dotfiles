@@ -5,14 +5,14 @@ working_directory = "None"
 draw_bold_text_with_bright_colors = false
 
 [colors.bright]
-black = "0x333333"
-blue = "0x999999"
-cyan = "0x444444"
-green = "0x121212"
-magenta = "0x999999"
-red = "0xaaaaaa"
-white = "0xc1c1c1"
-yellow = "0x222222"
+black = "0x000000"
+# blue = "0x999999"
+# cyan = "0x444444"
+# green = "0x121212"
+# magenta = "0x999999"
+# red = "0xaaaaaa"
+# white = "0xc1c1c1"
+# yellow = "0x222222"
 
 [colors.cursor]
 cursor = "0xc1c1c1"
@@ -20,17 +20,17 @@ text = "0x000000"
 
 [colors.normal]
 black = "0x000000"
-blue = "0x888888"
-cyan = "0xaaaaaa"
-green = "0xa5aaa7"
-magenta = "0x999999"
-red = "0x5f8787"
-white = "0xc1c1c1"
-yellow = "0x626b67"
+# blue = "0x888888"
+# cyan = "0xaaaaaa"
+# green = "0xa5aaa7"
+# magenta = "0x999999"
+# red = "0x5f8787"
+# white = "0xc1c1c1"
+# yellow = "0x626b67"
 
 [colors.primary]
 background = "0x000000"
-foreground = "0xc1c1c1"
+# foreground = "0xc1c1c1"
 
 [debug]
 highlight_damage = false

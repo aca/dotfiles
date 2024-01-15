@@ -429,6 +429,15 @@ if vim.fn.executable("clangd") == 1 then
 	})
 end
 
+if vim.fn.executable("nixd") == 1 then
+	lspconfig.clangd.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
+
 if vim.fn.executable("gopls") == 1 then
 	lspconfig.gopls.setup({
         cmd = { 'gopls', '-remote=auto' },
