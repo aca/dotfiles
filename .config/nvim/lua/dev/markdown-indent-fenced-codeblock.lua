@@ -77,27 +77,30 @@ local function update()
 	-- delete all marks in the block
 	local node = vim.treesitter.get_node()
 	if node == nil then
-		-- vim.notify("skip" .. node:type())
+		-- vim.notify("node == nil, skip")
 		return
 	end
 
 	local nodetype = node:type()
+    -- vim.notify("nodetype: " .. nodetype)
 	if
 		nodetype == "code_fence_content"
 		or nodetype == "fenced_code_block"
 		or nodetype == "fenced_code_block_delimiter"
 	then
-		indent_codeblock()
-	else
+        -- vim.notify("indent_codeblock")
 		indent_clear(node)
+	else
+        -- vim.notify("vim.clearnotify")
+		indent_codeblock()
 	end
 end
 
+local augroup = vim.api.nvim_create_augroup('markdown-indent-fenced-codeblock', { clear = true })
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	pattern = { "*.md" },
-	callback = function()
-		update()
-	end,
+	callback = update,
+    group = augroup,
 })
 
 -- indent_codeblock()
