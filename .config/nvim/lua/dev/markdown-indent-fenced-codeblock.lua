@@ -3,13 +3,14 @@
 -- vim.notify = require("notify")
 
 local ns_id = vim.api.nvim_create_namespace("demo")
+local indentString = "    "
 
 local function indent_line(line_num)
 	local col_num = 0
 	local opts = {
 		-- end_line = line_num + 1,
 		-- id = line_num,
-		virt_text = { { "    ", "Normal" } },
+		virt_text = { { indentString, "Normal" } },
 		virt_text_pos = "inline",
 		invalidate = true,
 		undo_restore = false,
@@ -48,11 +49,13 @@ local function indent_codeblock()
 	end
 end
 
-local function indent_clear(node)
-	-- simply, remove namespace?
-	-- 	vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
-	-- 	ns_id = vim.api.nvim_create_namespace('demo')
+-- local function indent_clear_all()
+	-- simply, remove namespace, clear all mark
+	-- vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+	-- ns_id = vim.api.nvim_create_namespace('demo')
+-- end
 
+local function indent_clear(node)
 	local r1, _, r3, _ = vim.treesitter.get_node_range(node)
 	local block = vim.api.nvim_buf_get_extmarks(0, ns_id, { r1, 0 }, { r3, 0 }, {})
 	for _, name in ipairs(block) do
@@ -73,7 +76,7 @@ local function indent_clear(node)
 	end
 end
 
-local function update()
+local function update(mode)
 	-- delete all marks in the block
 	local node = vim.treesitter.get_node()
 	if node == nil then
@@ -82,25 +85,37 @@ local function update()
 	end
 
 	local nodetype = node:type()
-    -- vim.notify("nodetype: " .. nodetype)
+	-- vim.notify("nodetype: " .. nodetype)
 	if
 		nodetype == "code_fence_content"
 		or nodetype == "fenced_code_block"
 		or nodetype == "fenced_code_block_delimiter"
 	then
-        -- vim.notify("indent_codeblock")
-		indent_clear(node)
+		-- clear indentation in current node
+        if mode == "I" then
+            indent_clear(node)
+        end
 	else
-        -- vim.notify("vim.clearnotify")
+		-- reindent
 		indent_codeblock()
 	end
 end
 
-local augroup = vim.api.nvim_create_augroup('markdown-indent-fenced-codeblock', { clear = true })
+local augroup = vim.api.nvim_create_augroup("markdown-indent-fenced-codeblock", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	pattern = { "*.md" },
-	callback = update,
-    group = augroup,
+	callback = function() update("") end,
+	group = augroup,
+})
+vim.api.nvim_create_autocmd({ "BufLeave", "InsertLeave" }, {
+	pattern = { "*.md" },
+	callback = indent_codeblock,
+	group = augroup,
+})
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+	pattern = { "*.md" },
+	callback = function() update("I") end,
+	group = augroup,
 })
 
 -- indent_codeblock()
