@@ -43,22 +43,6 @@ set("n", "gD", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end, { sile
 -- set("n", "gv", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end , { silent = true })
 
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
-set("n", ";f", function()
-    local filetype = vim.bo.filetype
-    if filetype == "go" then
-        vim.lsp.buf.format({ async = false })
-        vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
-    elseif filetype == "typescript" or filetype == "javascript" or filetype == "javascriptreact" or filetype == "typescriptreact" then
-        vim.lsp.buf.format({ formatting_options = { tabSize = 2 } })
-        vim.lsp.buf.execute_command({
-            command = "_typescript.organizeImports",
-            arguments = { vim.api.nvim_buf_get_name(0) },
-        })
-    else
-        require("conform").format()
-    end
-    vim.cmd([[ normal! zX ]]) -- update fold
-end, { silent = true })
 set("n", "[d", function()
     vim.diagnostic.goto_prev({ wrap = false })
 end, { silent = true })

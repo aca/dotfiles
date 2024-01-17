@@ -98,159 +98,180 @@ local cmp = require("cmp")
 local cmp_sources = {}
 
 if vim.env.VIM_DISABLE_LSP == "1" then
-    cmp_sources = {
-        -- { name = "nvim_lsp" },
-        -- { name = "copilot" },
-        -- { name = "tabnine" },
-        { name = "tmux" },
-        -- { name = "omni" },
-        { name = "buffer", option = { keyword_length = 4 } },
-        -- { name = "luasnip" },
-        -- { name = "nvim_lsp_signature_help" },
-        -- { name = "luasnip_choice" },
-    }
+	cmp_sources = {
+		-- { name = "nvim_lsp" },
+		-- { name = "copilot" },
+		-- { name = "tabnine" },
+		{ name = "tmux" },
+		-- { name = "omni" },
+		{ name = "buffer", option = { keyword_length = 4 } },
+		-- { name = "luasnip" },
+		-- { name = "nvim_lsp_signature_help" },
+		-- { name = "luasnip_choice" },
+	}
 else
-    cmp_sources = {
-        { name = "nvim_lsp" },
-        { name = "function" },
-        -- { name = "copilot" },
-        -- { name = "tabnine" },
-        -- { name = "path" },
-        { name = "buffer",  option = { keyword_length = 5 } },
-        { name = "luasnip" },
-        -- { name = "nvim_lsp_signature_help" },
-        -- { name = "luasnip_choice" },
-        -- { name = "path", option = { } }
-    }
+	cmp_sources = {
+		{ name = "nvim_lsp" },
+		{ name = "function" },
+		-- { name = "copilot", group_index = 2 },
+		{ name = "copilot" },
+		-- { name = "copilot" },
+		-- { name = "tabnine" },
+		-- { name = "path" },
+		-- { name = "buffer", option = { keyword_length = 5 } },
+		{ name = "luasnip" },
+		-- { name = "nvim_lsp_signature_help" },
+		-- { name = "luasnip_choice" },
+		-- { name = "path", option = { } }
+	}
 end
 
- -- -- Set configuration for specific filetype.
- --  cmp.setup.filetype('gitcommit', {
- --    sources = cmp.config.sources({
- --      { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
- --    }, {
- --      { name = 'buffer' },
- --    })
- --  })
+-- -- Set configuration for specific filetype.
+--  cmp.setup.filetype('gitcommit', {
+--    sources = cmp.config.sources({
+--      { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+--    }, {
+--      { name = 'buffer' },
+--    })
+--  })
+
+local has_words_before = function()
+	-- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+	--
+	-- api is deprecated, NOT SURE THIS IS CORRECT
+	if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then
+		return false
+	end
+
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
 
 local luasnip = require("luasnip")
 cmp.setup({
-    window = {
-        completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
-        -- documentation = { -- no border; native-style scrollbar
-        --   border = nil,
-        --   -- scrollbar = '',
-        --   -- other options
-        -- },
-    },
+	window = {
+		completion = cmp.config.window.bordered(),
+		-- documentation = cmp.config.window.bordered(),
+		-- documentation = { -- no border; native-style scrollbar
+		--   border = nil,
+		--   -- scrollbar = '',
+		--   -- other options
+		-- },
+	},
 
-    experimental = {
-        ghost_text = false,
-    },
-    -- confirmation = {
-    --     get_commit_characters = function()
-    --         return {}
-    --     end,
-    -- },
+	experimental = {
+		ghost_text = false,
+	},
+	-- confirmation = {
+	--     get_commit_characters = function()
+	--         return {}
+	--     end,
+	-- },
 
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-            -- vim.snippet.expand(args.body)
-        end,
-    },
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+			-- vim.snippet.expand(args.body)
+		end,
+	},
 
-    -- formatting = {
-    --     -- format = function(_, vim_item)
-    --     --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
-    --     --     return vim_item
-    --     -- end,
-    --     fields = { "kind", "abbr", "menu" },
-    --     format = function(_, vim_item)
-    --         vim_item.menu = vim_item.kind
-    --         vim_item.kind = cmp_kinds[vim_item.kind]
-    --
-    --         return vim_item
-    --     end,
-    -- },
-    
-    enabled = function()
-        return not luasnip.jumpable(1)
-    end,
+	-- formatting = {
+	--     -- format = function(_, vim_item)
+	--     --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+	--     --     return vim_item
+	--     -- end,
+	--     fields = { "kind", "abbr", "menu" },
+	--     format = function(_, vim_item)
+	--         vim_item.menu = vim_item.kind
+	--         vim_item.kind = cmp_kinds[vim_item.kind]
+	--
+	--         return vim_item
+	--     end,
+	-- },
 
-    preselect = "none",
+	enabled = function()
+		return not luasnip.jumpable(1)
+	end,
 
-    mapping = {
-        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        -- ["<CR>"] = cmp.mapping(function(fallback)
-        --
-        --     if cmp.core.view:get_selected_entry() then
-        --         cmp.confirm({
-        --             behavior = cmp.ConfirmBehavior.Replace,
-        --             select = true,
-        --         })
-        --     else
-        --         fallback()
-        --     end
-        -- end, {
-        --     "i",
-        --     "s",
-        -- }),
-        -- ["<c-e>"] = cmp.mapping(function(fallback)
-        --     if luasnip.expandable() then
-        --         require("luasnip").expand()
-        --     else
-        --         fallback()
-        --     end
-        -- end, {
-        --     "i",
-        -- }),
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            -- local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.jumpable(1) then
-                luasnip.jump(1)
-                -- luasnip.unlink_current()
-                -- elseif
-                --     next_char == '"'
-                --     or next_char == ")"
-                --     or next_char == "'"
-                --     or next_char == "]"
-                --     or next_char == "}"
-                --     or next_char == "("
-                -- then
-                --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
-            else
-                fallback()
-            end
-        end, {
-            "i",
-            "s",
-            "n",
-        }),
-        ["<S-Tab>"] = function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-                -- vim.snippet.jump(-1)
-            else
-                fallback()
-            end
-        end,
-    },
-    sources = cmp_sources,
+	preselect = "none",
+
+	mapping = {
+		["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		["<C-x>"] = cmp.mapping.close(), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		-- ["<CR>"] = cmp.mapping(function(fallback)
+		--     if cmp.core.view:get_selected_entry() then
+		--         cmp.confirm({
+		--             behavior = cmp.ConfirmBehavior.Replace,
+		--             select = true,
+		--         })
+		--     else
+		--         fallback()
+		--     end
+		-- end, {
+		--     "i",
+		--     "s",
+		-- }),
+		-- ["<c-e>"] = cmp.mapping(function(fallback)
+		--     if luasnip.expandable() then
+		--         require("luasnip").expand()
+		--     else
+		--         fallback()
+		--     end
+		-- end, {
+		--     "i",
+		-- }),
+		["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+
+		-- ["<Tab>"] = cmp.mapping(function(fallback)
+		--     -- local next_char = vim.api.nvim_eval("strcharpart(getline('.')[col('.') - 1:], 0, 1)")
+		--     if cmp.visible() then
+		--         cmp.select_next_item()
+		--     elseif luasnip.jumpable(1) then
+		--         luasnip.jump(1)
+		--         -- luasnip.unlink_current()
+		--         -- elseif
+		--         --     next_char == '"'
+		--         --     or next_char == ")"
+		--         --     or next_char == "'"
+		--         --     or next_char == "]"
+		--         --     or next_char == "}"
+		--         --     or next_char == "("
+		--         -- then
+		--         --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Right>", true, true, true), "n", true)
+		--     else
+		--         fallback()
+		--     end
+		-- end, {
+		--     "i",
+		--     "s",
+		--     "n",
+		-- }),
+
+		["<Tab>"] = vim.schedule_wrap(function(fallback)
+			if cmp.visible() and has_words_before() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+			else
+				fallback()
+			end
+		end),
+
+		["<S-Tab>"] = function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+				-- vim.snippet.jump(-1)
+			else
+				fallback()
+			end
+		end,
+	},
+	sources = cmp_sources,
 })
 
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local cmp = require("cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
