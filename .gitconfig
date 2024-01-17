@@ -36,6 +36,7 @@
     sparseCheckout = true
     quotepath = false
     filemode = false
+	pager = less
         
 [alias]
     co = checkout

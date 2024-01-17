@@ -343,7 +343,7 @@ osc52 = "CopyPaste"
 [window]
 decorations = "none"
 opacity = 1
-# option_as_alt = "Both"
+option_as_alt = "Both"
 
 [window.padding]
 x = 0
