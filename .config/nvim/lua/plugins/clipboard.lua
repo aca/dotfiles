@@ -2,7 +2,7 @@ local vim = vim
 
 -- TODO, on tmux osc52 paste doesn't work as expected, requires `tmux refresh-client -l` every time.
 -- 1. Ditch tmux and use OSC52 for all
---    - osc52 has size limit, not fast enough 
+--    - osc52 has size limit, not fast enough
 -- 2. Hook every entrypoint (e.g. refresh-client -l before launching vim ... )
 
 -- vim.g.clipboard = {
@@ -17,9 +17,22 @@ local vim = vim
 -- 	},
 -- }
 
-if vim.loop.os_uname().sysname == "Darwin" then
-    vim.opt.clipboard = { "unnamed" }
-else
-    vim.opt.clipboard = { "unnamed", "unnamedplus" }
-end
+-- vim.g.clipboard = {
+-- 	name = "custom clipboard",
+-- 	copy = {
+-- 		["+"] = "ci",
+-- 		["*"] = "ci",
+-- 	},
+-- 	paste = {
+-- 		["+"] = "co",
+-- 		["*"] = "co",
+-- 	},
+-- 	cache_enabled = 1,
+-- }
+-- vim.g.clipboard.cache_enabled = 1
 
+if vim.loop.os_uname().sysname == "Darwin" then
+	vim.opt.clipboard = { "unnamed" }
+else
+	vim.opt.clipboard = { "unnamed", "unnamedplus" }
+end

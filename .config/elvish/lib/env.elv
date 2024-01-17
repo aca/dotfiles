@@ -48,14 +48,17 @@ if (not (has-env TERM)) { set-env TERM xterm-color }
 
 set-env SYSTEMCTL_FORCE_BUS 1 # enable systemctl inside container
 
-if (eq $platform:os "linux") {
-    if (not (has-env WAYLAND_DISPLAY)) {
-        set-env WAYLAND_DISPLAY wayland-0 
-        # if (not (has-env DISPLAY)) {
-        #     set-env DISPLAY ":0" 
-        # }
-    }
+if (eq $E:HOSTNAME "rok-toss-nix") {
+    set-env DISPLAY ":0"
 }
+# if (eq $platform:os "linux") {
+#     if (not (has-env WAYLAND_DISPLAY)) {
+#         set-env WAYLAND_DISPLAY wayland-0 
+#         # if (not (has-env DISPLAY)) {
+#         #     set-env DISPLAY ":0" 
+#         # }
+#     }
+# }
 
 if (not (has-env VIM_OSC52_ENABLE)) {
     if ?(pgrep qemu-ga >/dev/null) {
