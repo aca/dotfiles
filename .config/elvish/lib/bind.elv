@@ -188,6 +188,16 @@ set edit:insert:binding[Alt-b] = {||
 # navigate history like vim
 set edit:insert:binding[Ctrl-P] =  { edit:history:start }
 set edit:history:binding[Ctrl-P] = { edit:history:up }
+
+set edit:navigation:binding[Ctrl-N] = { edit:navigation:down }
+set edit:navigation:binding[Ctrl-P] = { edit:navigation:up }
+set edit:navigation:binding[Ctrl-H] = { edit:navigation:left }
+set edit:navigation:binding[Ctrl-L] = { edit:navigation:right }
+# set edit:navigation:binding[Enter] = { vim }
+
+ # &Enter=	<builtin <edit:navigation>:insert-selected-and-quit>
+# set edit:navigation:binding[Ctrl-K] = { edit:navigation:up }
+
 # set edit:insert:binding[Ctrl-N] =  { edit:history:down-or-quit }
 
 # set edit:insert:binding["Up"] =  { edit:histlist:start }

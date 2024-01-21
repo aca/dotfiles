@@ -187,22 +187,22 @@ end
 
 -- vim.lsp.set_log_level("DEBUG")
 
-if vim.fn.executable("/home/rok/src/github.com/aca/deno-lsp/main.ts") == 1 then
-    configs.mdpls = {
-        default_config = {
-            cmd = { "/home/rok/src/github.com/aca/deno-lsp/main.ts", "--stdio" },
-            filetypes = { "markdown" },
-            root_dir = function()
-                return vim.loop.cwd()
-            end,
-            settings = {},
-        }
-    }
-    lspconfig.mdpls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-    }
-end
+-- if vim.fn.executable("/home/rok/src/github.com/aca/deno-lsp/main.ts") == 1 then
+--     configs.mdpls = {
+--         default_config = {
+--             cmd = { "/home/rok/src/github.com/aca/deno-lsp/main.ts", "--stdio" },
+--             filetypes = { "markdown" },
+--             root_dir = function()
+--                 return vim.loop.cwd()
+--             end,
+--             settings = {},
+--         }
+--     }
+--     lspconfig.mdpls.setup {
+--         capabilities = capabilities,
+--         on_attach = on_attach,
+--     }
+-- end
 
 -- if vim.fn.executable("gopls") == 1 then
 -- end
