@@ -1,17 +1,17 @@
 -- vim.cmd.packadd "nvim-surround"
 vim.cmd.packadd "mini.nvim"
 
-function buf_vtext()
-  local a_orig = vim.fn.getreg('a')
-  local mode = vim.fn.mode()
-  if mode ~= 'v' and mode ~= 'V' then
-    vim.cmd([[normal! gv]])
-  end
-  vim.cmd([[silent! normal! "aygv]])
-  local text = vim.fn.getreg('a')
-  vim.fn.setreg('a', a_orig)
-  return text
-end
+-- local function buf_vtext()
+--   local a_orig = vim.fn.getreg('a')
+--   local mode = vim.fn.mode()
+--   if mode ~= 'v' and mode ~= 'V' then
+--     vim.cmd([[normal! gv]])
+--   end
+--   vim.cmd([[silent! normal! "aygv]])
+--   local text = vim.fn.getreg('a')
+--   vim.fn.setreg('a', a_orig)
+--   return text
+-- end
 
 require('mini.surround').setup({
     -- Add custom surroundings to be used on top of builtin ones. For more
@@ -25,25 +25,15 @@ require('mini.surround').setup({
                 -- local mark_from = is_visual and "'<" or "'["
                 -- local mark_to = is_visual and "'>" or "']"
                 local mark_from = "'<"
-                local mark_to = "'>"
+                -- local mark_to = "'>"
                 local startline = vim.fn.line(mark_from)
-                local endline = vim.fn.line(mark_to)
-                local n_content_lines = endline - startline
-                if n_content_lines == 0 then
-                    -- vim.print(vim.api.nvim_buf_get_lines(0, startline - 1, startline, false))
-
-                    -- local vstart = vim.fn.getpos("'<")
-                    --
-                    -- local vend = vim.fn.getpos("'>")
-                    --
-                    -- local line_start = vstart[2]
-                    -- local line_end = vend[2]
-                    --
-                    -- -- or use api.nvim_buf_get_lines
-                    -- local lines = vim.fn.getline(line_start,line_end)
-                    vim.print({ a = buf_vtext() })
-                    return { left = "`", right = "`" }
-                end
+                -- local endline = vim.fn.line(mark_to)
+                -- local n_content_lines = endline - startline
+                -- local vtext = buf_vtext()
+                -- vim.print({a = vtext})
+                -- if n_content_lines == 0 and not string.find(vtext,  '\n' ) then
+                --         return { left = "`", right = "`" }
+                -- end
                 local firstline = vim.api.nvim_buf_get_lines(0, startline - 1, startline, false)
                 local _, indent = string.find(firstline[1], '^%s*')
                 if indent ~= nil then

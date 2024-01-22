@@ -102,6 +102,11 @@ local function update(mode)
 end
 
 local augroup = vim.api.nvim_create_augroup("markdown-indent-fenced-codeblock", { clear = true })
+vim.api.nvim_create_autocmd({ "TextChanged" }, {
+	pattern = { "*.md" },
+	callback = function() update("I") end,
+	group = augroup,
+})
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	pattern = { "*.md" },
 	callback = function() update("") end,

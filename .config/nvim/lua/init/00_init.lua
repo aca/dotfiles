@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 -- https://news.ycombinator.com/item?id=38965636
 -- https://tabokie.github.io/non-fiction/2024/01/13/log-kb.html
-=======
 -- typst nvim
->>>>>>> 00d3bfc ()
 -- https://github.com/gsuuon/note.nvim
 -- scratchpad
 -- https://www.reddit.com/r/neovim/comments/192gvkz/reflections_on_implementing_a_homemade/
