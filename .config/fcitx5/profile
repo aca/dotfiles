@@ -4,17 +4,11 @@ Name=Default
 # Layout
 Default Layout=us
 # Default Input Method
-DefaultIM=keyboard-us
+DefaultIM=hangul
 
 [Groups/0/Items/0]
 # Name
 Name=hangul
-# Layout
-Layout=
-
-[Groups/0/Items/1]
-# Name
-Name=keyboard-us
 # Layout
 Layout=
 
