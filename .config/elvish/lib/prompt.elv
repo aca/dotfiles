@@ -6,8 +6,12 @@ use platform
 # vi mode binding https://github.com/elves/elvish/issues/971
 set edit:insert:binding[Ctrl-'['] = $edit:command:start~
 set edit:rprompt-persistent = $true
+
+var user = [&$true="" &$false=$E:USER"@"][(eq $E:USER rok)]
+var hostname = [&$false="nix" &$true=(platform:hostname)][(eq $E:HOST "rok-toss-nix")]
+
 set edit:prompt = {
-  styled [&$true=$E:USER@(platform:hostname)" " &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' red;
+  styled [&$true=$user$hostname" " &$false=""][(has-env SSH_CLIENT)] yellow; styled 'λ ' red;
   # styled 'λ ' red;
 }
 
