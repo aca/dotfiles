@@ -4,28 +4,28 @@ foreground= ffffff
 
 # Blank lines are ignored!
 
-window-decoration = true
+window-decoration = false
 macos-option-as-alt = true
 
 keybind = ctrl+equal=increase_font_size:1
 keybind = ctrl+minus=decrease_font_size:1
 # keybind = ctrl+minus=decrease_font_size
-keybind = ctrl+z=reload_config
+# keybind = ctrl+z=reload_config
 keybind = ctrl+shift+v=paste_from_clipboard
-keybind = ctrl+space=new_tab
+# keybind = ctrl+space=new_tab
 # keybind = ctrl+space v=paste_from_clipboard
 
 # tmux bindings
-keybind = super+p=text:\x01n
-keybind = super+p=text:\x01n
-keybind = super+shift+p=text:\x01p
-keybind = super+comma=text:\x01,
-keybind = super+up=text:\x01\x1b\x5b\x41
-keybind = super+down=text:\x01\x1b\x5b\x42
-keybind = super+right=text:\x01\x1b\x5b\x43
-keybind = super+left=text:\x01\x1b\x5b\x44
-keybind = super+d=text:\x01%
-keybind = super+shift+d=text:\x01-
+# keybind = super+p=text:\x01n
+# keybind = super+p=text:\x01n
+# keybind = super+shift+p=text:\x01p
+# keybind = super+comma=text:\x01,
+# keybind = super+up=text:\x01\x1b\x5b\x41
+# keybind = super+down=text:\x01\x1b\x5b\x42
+# keybind = super+right=text:\x01\x1b\x5b\x43
+# keybind = super+left=text:\x01\x1b\x5b\x44
+# keybind = super+d=text:\x01%
+# keybind = super+shift+d=text:\x01-
 
 # Colors can be changed by setting the 16 colors of `palette`, which each color
 # being defined as regular and bold.
