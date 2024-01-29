@@ -1,5 +1,5 @@
 -- vim.cmd.packadd "nvim-surround"
-vim.cmd.packadd "mini.nvim"
+-- require("nvim-surround").setup()
 
 -- local function buf_vtext()
 --   local a_orig = vim.fn.getreg('a')
@@ -13,6 +13,7 @@ vim.cmd.packadd "mini.nvim"
 --   return text
 -- end
 
+vim.cmd.packadd "mini.nvim"
 require('mini.surround').setup({
     -- Add custom surroundings to be used on top of builtin ones. For more
     -- information with examples, see `:h MiniSurround.config`.
@@ -68,7 +69,7 @@ require('mini.surround').setup({
     -- -- Whether to respect selection type:
     -- -- - Place surroundings on separate lines in linewise mode.
     -- -- - Place surroundings on each line in blockwise mode.
-    -- respect_selection_type = false,
+    -- respect_selection_type = true,
     --
     -- -- How to search for surrounding (first inside current line, then inside
     -- -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
@@ -79,5 +80,3 @@ require('mini.surround').setup({
     -- -- Whether to disable showing non-error feedback
     -- silent = false,
 })
-
-

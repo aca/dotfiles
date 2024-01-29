@@ -9,8 +9,8 @@ packadd nvim-ufo
 
 vim.o.foldmethod = 'expr'
 
-vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "zO", require("ufo").openAllFolds)
+vim.keymap.set("n", "zC", require("ufo").closeAllFolds)
 
 require("ufo").setup({
 provider_selector = function(bufnr, filetype, buftype)
@@ -27,9 +27,9 @@ vim.keymap.set('n', '<tab>',
 vim.keymap.set('n', '<s-tab>',
   function() return require('fold-cycle').close() end,
   {silent = true, desc = 'Fold-cycle: close folds'})
-vim.keymap.set('n', 'zC',
-  function() return require('fold-cycle').close_all() end,
-  {remap = true, silent = true, desc = 'Fold-cycle: close all folds'})
+-- vim.keymap.set('n', 'zC',
+--   function() return require('fold-cycle').close_all() end,
+--   {remap = true, silent = true, desc = 'Fold-cycle: close all folds'})
 
 local function isfolded(line)
     local folded
