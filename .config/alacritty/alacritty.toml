@@ -46,17 +46,17 @@ LC_CTYPE = "UTF-8"
 builtin_box_drawing = true
 size = 28
 
-# [font.italic]
-# family = "IosevkaTermSlab Nerd Font"
-# style = "Oblique"
-#
-# [font.normal]
-# family = "IosevkaTermSlab Nerd Font"
-# style = "ExtraLight"
-#
-# [font.bold]
-# family = "IosevkaTermSlab Nerd Font"
-# style = "Bold"
+[font.italic]
+family = "IosevkaTermSlab Nerd Font"
+style = "Oblique"
+
+[font.normal]
+family = "IosevkaTermSlab Nerd Font"
+style = "ExtraLight"
+
+[font.bold]
+family = "IosevkaTermSlab Nerd Font"
+style = "Bold"
 
 [font.glyph_offset]
 x = 0
