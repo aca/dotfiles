@@ -865,6 +865,3 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/copilot-cmp"]
 	path = .local/share/nvim/site/pack/bundle/opt/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp
-[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-surround"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-surround
-	url = https://github.com/kylechui/nvim-surround.git
