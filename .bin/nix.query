@@ -15,5 +15,5 @@ cd /home/rok/src/root/nix-config
 #
 # nix eval --extra-experimental-features "nix-command flakes" --inputs-from . --raw "nixpkgs#legacyPackages.aarch64-linux.oracle-instantclient" --impure
 nix eval --extra-experimental-features "nix-command flakes" --inputs-from . --raw "nixpkgs#oracle-instantclient.lib" --impure
-# nix eval  --raw "nixpkgs#legacyPackages.aarch64-linux.oracle-instantclient"
+# nix eval --raw "nixpkgs#legacyPackages.aarch64-linux.oracle-instantclient"
 
