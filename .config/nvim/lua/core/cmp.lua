@@ -114,7 +114,7 @@ else
 		{ name = "nvim_lsp" },
 		{ name = "function" },
 		-- { name = "copilot", group_index = 2 },
-		{ name = "copilot" },
+		-- { name = "copilot" },
 		-- { name = "copilot" },
 		-- { name = "tabnine" },
 		-- { name = "path" },
