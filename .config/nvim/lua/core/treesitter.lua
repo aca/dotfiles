@@ -20,13 +20,12 @@ vim.cmd([[
     packadd playground
 ]])
 
--- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
--- local query = require("vim.treesitter.query")
--- local install = require("nvim-treesitter.install")
--- install.compilers = { "gcc" }
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+local query = require("vim.treesitter.query")
+local install = require("nvim-treesitter.install")
+install.compilers = { "gcc" }
 
 -- https://github.com/IndianBoy42/tree-sitter-just
-local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 -- parser_configs.markdown = {
 --   install_info = {
 --     url = "https://github.com/MDeiml/tree-sitter-markdown",

@@ -35,31 +35,26 @@ local util = require("lspconfig/util")
 
 require("neodev").setup({})
 
--- null_ls.setup {
---     sources = {
---         null_ls.builtins.code_actions.gitsigns,
---     }
+-- local border = {
+-- 	{ "🭽", "FloatBorder" },
+-- 	{ "▔", "FloatBorder" },
+-- 	{ "🭾", "FloatBorder" },
+-- 	{ "▕", "FloatBorder" },
+-- 	{ "🭿", "FloatBorder" },
+-- 	{ "▁", "FloatBorder" },
+-- 	{ "🭼", "FloatBorder" },
+-- 	{ "▏", "FloatBorder" },
 -- }
 
-local border = {
-	{ "🭽", "FloatBorder" },
-	{ "▔", "FloatBorder" },
-	{ "🭾", "FloatBorder" },
-	{ "▕", "FloatBorder" },
-	{ "🭿", "FloatBorder" },
-	{ "▁", "FloatBorder" },
-	{ "🭼", "FloatBorder" },
-	{ "▏", "FloatBorder" },
-}
+local handlers = {}
 
--- LSP settings (for overriding per client)
-local handlers = {
-	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		signs = false,
-	}),
-}
+-- handlers = {
+-- 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+-- 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+-- 	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- 		signs = false,
+-- 	}),
+-- }
 
 local rightAlignFormatFunction = function(diagnostic)
 	local line = diagnostic.lnum
@@ -78,6 +73,7 @@ end
 
 vim.diagnostic.config({
 	virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+    -- float = { border = "rounded" },
 })
 
 vim.api.nvim_create_autocmd("VimResized", {
