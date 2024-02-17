@@ -57,17 +57,6 @@ nnoremap <silent><leader>'    :FZFMarks<cr>
 nnoremap <silent><leader>b    :Buffers<cr>
 nnoremap <silent><leader>fc   :Commits<cr>
 
-command! -bang -nargs=* Rg          call fzf#vim#grep('rg -L --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 3.. '}), 0)
-command! -bang -nargs=* Rgf  call fzf#vim#grep('rg -L --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 1,3.. '}), 0)
-
-" lua << 
-" vim.api.nvim_create_user_command("XXX", function(msg)
-"     vim.print(msg)
-"     -- local cfile = vim.call("expand", "<cfile>")
-"     -- if cfile:find("^https?://") then
-"     --     print("url")
-"     -- else
-"     --     print("not url")
-"     -- end
-" end, {})
-"
+" Rg: Search in files
+" Rg! Rg + include filename
+command! -bang -nargs=* Rg call fzf#vim#grep('rg -L --line-number --color=always --no-heading  --smart-case -- 2>/dev/null '.shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth ' .substitute('<bang>','!','1,', '') . '3.. '}), 0)

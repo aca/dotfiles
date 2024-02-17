@@ -1,3 +1,5 @@
+local vim = vim
+
 vim.filetype.add({
 	extension = {
 		pc = "c",

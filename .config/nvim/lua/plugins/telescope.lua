@@ -1,3 +1,8 @@
+-- NOTES(aca): disable telescope, I don't use it
+if true then
+    return
+end
+
 vim.cmd.packadd("telescope.nvim")
 
 local ok, telescope = pcall(require, "telescope")
@@ -7,7 +12,6 @@ end
 
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
--- telescope.setup()
 
 -- -- https://github.com/thanhvule0310/dotfiles/blob/main/nvim/lua/plugins/configs/telescope.lua
 --
@@ -135,7 +139,8 @@ telescope.setup({
 			"--smart-case",
 			"--hidden",
 		},
-		prompt_prefix = "     ",
+		-- prompt_prefix = "     ",
+		prompt_prefix = "  >   ",
 		selection_caret = "  ",
 		entry_prefix = "  ",
 		initial_mode = "insert",

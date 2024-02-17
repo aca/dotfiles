@@ -1,6 +1,7 @@
 " https://github.com/tridactyl/tridactyl/blob/master/.tridactylrc
 unbind d
 unbind <c-f>
+unbind <c-a>
 bind W tabdetach
 
 set newtab about:blank

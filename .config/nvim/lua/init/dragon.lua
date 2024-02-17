@@ -6,8 +6,8 @@
 -- Last Updated: Thu 11 Jan 2024 07:09:36 PM CST
 
 -- Clear hlgroups and set colors_name {{{
-vim.cmd.hi('clear')
-vim.g.colors_name = 'dragon'
+-- vim.cmd.hi('clear')
+-- vim.g.colors_name = 'dragon'
 -- }}}
 
 -- Palette {{{
@@ -69,7 +69,7 @@ if vim.go.bg == 'dark' then
   c_dragonAqua    = '#95aeac'
   c_dragonAsh     = '#626462'
   c_dragonBg0     = '#0d0c0c'
-  c_dragonBg1     = '#181616'
+  c_dragonBg1     = '#000000'
   c_dragonBg2     = '#201d1d'
   c_dragonBg3     = '#282727'
   c_dragonBg4     = '#393836'
@@ -570,33 +570,6 @@ local hlgroups = {
 
   -- }}}
 }
--- }}}1
-
--- Highlight group overrides {{{1
-if vim.go.bg == 'light' then
-  hlgroups.CursorLine = { bg = c_dragonBg2 }
-  hlgroups.DiagnosticSignWarn = { fg = c_autumnYellow }
-  hlgroups.DiagnosticUnderlineWarn = { sp = c_autumnYellow, undercurl = true }
-  hlgroups.DiagnosticVirtualTextWarn =
-    { bg = c_winterYellow, fg = c_autumnYellow }
-  hlgroups.DiagnosticWarn = { fg = c_autumnYellow }
-  hlgroups.IncSearch = { bg = c_autumnYellow, fg = c_dragonBg0, bold = true }
-  hlgroups.Keyword = { fg = c_dragonRed }
-  hlgroups.ModeMsg = { fg = c_dragonRed, bold = true }
-  hlgroups.Pmenu = { bg = c_dragonBg0, fg = c_dragonFg1 }
-  hlgroups.PmenuSbar = { bg = c_dragonBg2 }
-  hlgroups.PmenuSel = { bg = c_dragonFg0, fg = c_dragonBg0 }
-  hlgroups.PmenuThumb = { bg = c_dragonBg4 }
-  hlgroups.Search = { bg = c_dragonBg3 }
-  hlgroups.StatusLine = { bg = c_dragonBg0 }
-  hlgroups.StatusLineGitAdded = { bg = c_dragonBg0, fg = c_dragonGreen1 }
-  hlgroups.StatusLineGitChanged = { bg = c_dragonBg0, fg = c_autumnYellow }
-  hlgroups.StatusLineGitRemoved = { bg = c_dragonBg0, fg = c_dragonRed }
-  hlgroups.StatusLineHeader = { bg = c_dragonFg0, fg = c_dragonBg0 }
-  hlgroups.StatusLineHeaderModified = { bg = c_dragonRed, fg = c_dragonBg0 }
-  hlgroups.Visual = { bg = c_dragonBg3 }
-  hlgroups['@parameter'] = { link = 'Identifier' }
-end
 -- }}}1
 
 -- Set highlight groups {{{1
