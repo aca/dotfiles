@@ -92,6 +92,10 @@ default_floating_border pixel 1
 client.focused "#9f1209" "#9f1209" "#ffffff" "#9f1209"
 smart_borders off
 smart_gaps on
+# gaps left 10
+# swaymsg gaps inner 10 # set default gaps for new workspace
+# swaymsg gaps left all set 20 # set gaps for all workspaces
+# gaps left 30
 
 ### Output configuration
 #
