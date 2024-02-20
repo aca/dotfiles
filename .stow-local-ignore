@@ -15,5 +15,6 @@
 /flake.nix
 /flake.lock
 /devcontainer.nix
+/@file
 /*.nix
 /TODO
