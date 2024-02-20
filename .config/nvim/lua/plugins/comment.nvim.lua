@@ -1,3 +1,9 @@
+local pre_hook
+local ok, ts_context_commentstring = pcall(require, 'ts_context_commentstring.integrations.comment_nvim')
+if ok then
+    pre_hook = ts_context_commentstring.create_pre_hook()
+end
+
 vim.cmd [[
     packadd Comment.nvim 
     runtime after/plugin/Comment.lua
@@ -16,10 +22,11 @@ require("Comment").setup({
         block = 'gbc',
     },
 
-    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    -- TODO: https://github.com/numToStr/Comment.nvim/pull/133 remove nvim-ts-context-commentstring?
+    -- pre_hook = ts_context_commentstring.create_pre_hook(),
+    pre_hook = pre_hook,
 
     -- pre_hook = function(ctx)
-    --     -- TODO: https://github.com/numToStr/Comment.nvim/pull/133 remove nvim-ts-context-commentstring?
     --     -- require('Comment.jsx').calculate(ctx)
     --     require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
     --
