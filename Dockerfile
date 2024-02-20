@@ -63,7 +63,8 @@ RUN sh -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 # stow
 RUN git clone --recurse-submodules -j20 https://github.com/aca/dotfiles ~/src/config/dotfiles --depth 1 && rm -rf ~/src/config/dotfiles/.git
 
-RUN bash ~/src/config/dotfiles/.bin/setup.stow
+RUN stow -d ~/src/config/dotfiles --adopt -v --target /root dotfiles
+RUN stow -d ~/src/config/dotfiles/.config/stow --adopt -v --target /root antifold
 
 RUN nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 # RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
