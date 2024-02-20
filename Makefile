@@ -25,7 +25,7 @@ container-alpine:
 		@docker push acadx0/tools:devcontainer-alpine
 
 .PHONY: container-light
-container-alpine:
+container-light:
 		@docker build -f Dockerfile-light -t acadx0/tools:devcontainer-light .
 		@docker push acadx0/tools:devcontainer-light
 
