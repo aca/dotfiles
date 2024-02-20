@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -euxo pipefail
-# go install github.com/aca/iferr@latest
 go install golang.org/x/tools/gopls@latest
 go install mvdan.cc/gofumpt@latest
 go install golang.org/x/tools/cmd/goimports@latest
