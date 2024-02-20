@@ -177,6 +177,7 @@ wezterm.on("resize-down", function(window, pane)
 end)
 
 local config = {
+    window_background_opacity = 0.1,
     front_end = "WebGpu",
     unix_domains = {
         {
