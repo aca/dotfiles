@@ -1,4 +1,14 @@
 #!/bin/sh
+#
+# POSIX compliant command runner. Alternative to make, just, taskfile etc.
+#
+# @file is a file that is used to identify the root directory ($PROJECT_ROOT) of the project just like Makefile.
+# 
+# This command will simply execute $PROJECT_ROOT/build in the root directory
+#
+#   @ build
+#
+# TODO: implement dag with this https://benhoyt.com/writings/awk-make/ ?
 
 rootdir() {
     current_dir="$PWD"
@@ -21,8 +31,9 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-script="$1"
+command="$1"
 shift
 args="$@"
-./@"$script".sh "$@"
+
+./@/$command "$@"
 exit 0
