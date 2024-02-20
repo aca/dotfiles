@@ -24,6 +24,11 @@ container-alpine:
 		@docker build --build-arg BASE_IMAGE=acadx0/tools:devcontainer-alpine -f Dockerfile-nix -t acadx0/tools:devcontainer-alpine .
 		@docker push acadx0/tools:devcontainer-alpine
 
+.PHONY: container-light
+container-alpine:
+		@docker build -f Dockerfile-light -t acadx0/tools:devcontainer-light .
+		@docker push acadx0/tools:devcontainer-light
+
 
 .PHONY: dev
 dev:

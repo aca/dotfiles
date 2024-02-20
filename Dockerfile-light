@@ -1,6 +1,6 @@
 # docker run -it -v (pwd):/workspace acadx0/tools:devcontainer
 
-FROM alpine:3.18.2
+FROM alpine:3.19
 # RUN apk add --no-cache python2 --repository=http://dl-cdn.alpinelinux.org/alpine/v3.15/community
 # RUN apk add --no-cache py2-pip --repository=http://dl-cdn.alpinelinux.org/alpine/v3.11/main
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -43,7 +43,7 @@ RUN apk add --no-cache --force-overwrite \
     # tree-sitter@community \
     neovim@community
 
-RUN sh -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
+# RUN sh -c "curl -fsSL https://deno.land/x/install/install.sh | sh"
 
 # kubernetes
 # RUN apk add --no-cache --force-overwrite gron@testing
@@ -81,12 +81,14 @@ RUN sudo rm -rf ~/go || true
 RUN sudo rm -rf ~/pkg || true
 RUN sudo rm -rf ~/.cache || true
 RUN sudo rm -rf ~/.npm || true
-RUN sudo rm -rf ~/.local/share/fonts || true
+# RUN sudo rm -rf ~/.local/share/fonts || true
 RUN sudo rm -rf ~/.local/share/nvim/site/pack/bundle/opt/markdown-preview.nvim || true
 
 RUN apk del go --force-broken-world
 RUN apk del stow --force-broken-world
 
 WORKDIR /root
+
+ENV VIM_DISABLE_TREESITTER 1
 # CMD ["/usr/local/bin/elvish"]
 CMD ["/root/bin/elvish"]
