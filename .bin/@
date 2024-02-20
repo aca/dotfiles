@@ -1,15 +1,30 @@
 #!/bin/sh
 #
-# POSIX compliant command runner. Alternative to make, just, taskfile etc.
+# Command runner. Alternative to make, just, taskfile etc.
+#
+# - POSIX compliant, run on anywhere.
+# - Run in any directory under the project
 #
 # @file is a file that is used to identify the root directory ($PROJECT_ROOT) of the project just like Makefile.
-# 
-# This command will simply execute $PROJECT_ROOT/build in the root directory
+# This command will simply execute $PROJECT_ROOT/@/build in the root directory.
 #
 #   @ build
 #
 # TODO: implement dag with this https://benhoyt.com/writings/awk-make/ ?
 
+if [ $# -eq 0 ]; then
+    echo 'Usage: @ <command>'
+    exit 0
+fi
+
+case $1 in
+    -i) 
+        touch "@file"
+        mkdir -p "@"
+        echo "@ initalized in "$PWD
+        exit
+        ;;
+esac
 rootdir() {
     current_dir="$PWD"
     while [ "$current_dir" != "/" ]; do
@@ -25,15 +40,8 @@ rootdir() {
 ROOT_DIR=$(rootdir @file)
 cd $ROOT_DIR
 
-# Check if an argument is provided
-if [ $# -eq 0 ]; then
-    echo "No argument provided. Please provide an argument."
-    exit 1
-fi
-
 command="$1"
 shift
 args="$@"
 
 ./@/$command "$@"
-exit 0
