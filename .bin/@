@@ -24,6 +24,10 @@ case $1 in
         echo "@ initalized in "$PWD
         exit
         ;;
+    -l) 
+        ls @/
+        exit
+        ;;
 esac
 rootdir() {
     current_dir="$PWD"
