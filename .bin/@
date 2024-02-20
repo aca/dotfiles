@@ -1,0 +1,39 @@
+#!/bin/sh
+
+SCRIPT_DIR=_
+
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+    echo "No argument provided. Please provide an argument."
+    exit 1
+fi
+
+# # Define functions to execute based on the argument
+# function_one() {
+#     echo "Executing function one"
+#     # Add your commands for function one here
+# }
+#
+# function_two() {
+#     echo "Executing function two"
+#     # Add your commands for function two here
+# }
+
+# Determine which function to execute based on the argument
+case "$1" in
+    # "run")
+    #     function_one
+    #     ;;
+    # "list")
+    #     function_two
+    #     ;;
+    # "three")
+    #     function_three
+    #     ;;
+    *)
+        "$SCRIPT_DIR/$@"
+        exit 1
+        ;;
+esac
+
+exit 0
