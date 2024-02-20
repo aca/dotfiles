@@ -62,7 +62,7 @@ RUN apk add --no-cache --force-overwrite \
 # RUN cd ~/src/configs/github.com/neovim/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install && rm -rf ~/src/configs/github.com/neovim/neovim
 
 # stow
-RUN git clone --recurse-submodules -j20 --depth 1 https://github.com/aca/dotfiles ~/.dotfiles && \
+RUN git clone --recurse-submodules -j20 --depth 1 https://github.com/aca/dotfiles ~/src/config/dotfiles && \
     rm -rf ~/.dotfiles/.git
 
 RUN stow -d ~/src/config/dotfiles/.config/stow --adopt -v --target /root antifold
