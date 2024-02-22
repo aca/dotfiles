@@ -10,6 +10,11 @@
 #
 #   @ build
 #
+# Some environment variable is set when @ command is executed
+#
+#   AT_ROOT_DIR: The root directory of the project
+#   AT_COMMAND_DIR: The directory of the script
+#
 # TODO: implement dag with this https://benhoyt.com/writings/awk-make/ ?
 
 if [ $# -eq 0 ]; then
@@ -17,18 +22,6 @@ if [ $# -eq 0 ]; then
     exit 0
 fi
 
-case $1 in
-    -i) 
-        touch "@file"
-        mkdir -p "@"
-        echo "@ initalized in "$PWD
-        exit
-        ;;
-    -l) 
-        ls @/
-        exit
-        ;;
-esac
 rootdir() {
     current_dir="$PWD"
     while [ "$current_dir" != "/" ]; do
@@ -41,8 +34,32 @@ rootdir() {
     exit 1
 }
 
-ROOT_DIR=$(rootdir @file)
-cd $ROOT_DIR
+export AT_ROOT_DIR=$(rootdir @file)
+export AT_COMMAND_DIR=$AT_ROOT_DIR/@
+cd $AT_ROOT_DIR
+
+case $1 in
+    -i) 
+        touch "@file"
+        mkdir -p "@"
+        echo "@ initalized in "$PWD
+        exit
+        ;;
+    -e) 
+        if [ "$2" = "" ]; then
+            echo "Usage: @ -e <command>"
+            exit 1
+        fi
+        $EDITOR "@/$2"
+        exit
+        ;;
+    -l) 
+        ls @/
+        exit
+        ;;
+esac
+
+
 
 command="$1"
 shift

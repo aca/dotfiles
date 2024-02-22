@@ -165,7 +165,7 @@ opt.wildignore = { "/tmp/*", "*.so", "*.swp", "*.zip", "*.pyc", "*.db", "*.sqlit
 -- o.conceallevel = 3
 o.conceallevel = 2
 o.shortmess = "aItcF"
--- opt.clipboard = { "unnamed", "unnamedplus" }
+opt.clipboard = { "unnamed", "unnamedplus" }
 -- o.virtualedit = "block"
 opt.nrformats = { "bin", "hex", "alpha", "octal" }
 
