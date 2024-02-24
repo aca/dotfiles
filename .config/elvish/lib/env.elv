@@ -98,29 +98,32 @@ set-env NCDU_SHELL elvish
 set-env BKT_TTL 7d
 set-env DOCKER_BUILDKIT 1
 
-set paths = [
-  # clean up this mess
-  ~/.bin
-  ~/.bin/git
-  ~/.bin/dev
-  ~/.bin/lib
-  ~/.cargo/bin
-  ~/.bin/v
-  ~/.bin/installations
-  ~/.bin/abbr
-  ~/.bin/$platform:os
-  ~/.bin/host_$E:HOSTNAME
-  ~/bin
-  ~/src/xxx/bin
+if (not (has-env IN_NIX_SHELL)) {
+    set paths = [
+      # clean up this mess
+      ~/.bin
+      ~/.bin/git
+      ~/.bin/dev
+      ~/.bin/lib
+      ~/.cargo/bin
+      ~/.bin/v
+      ~/.bin/installations
+      ~/.bin/abbr
+      ~/.bin/$platform:os
+      ~/.bin/host_$E:HOSTNAME
+      ~/bin
+      ~/src/xxx/bin
 
-  # nix
-  /etc/profiles/per-user/$E:USER/bin
-  /nix/var/nix/profiles/default/bin # nix binaries for darwin
+      # nix
+      /etc/profiles/per-user/$E:USER/bin
+      /nix/var/nix/profiles/default/bin # nix binaries for darwin
 
-  $@paths
+      $@paths
 
-  /run/current-system/sw/bin # sudo issue, /run/wrappers/bin/sudo should be run 
+      /run/current-system/sw/bin # sudo issue, /run/wrappers/bin/sudo should be run 
 
-  /opt/homebrew/bin
-  /opt/homebrew/sbin
-]
+      /opt/homebrew/bin
+      /opt/homebrew/sbin
+    ]
+}
+

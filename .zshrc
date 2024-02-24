@@ -143,3 +143,4 @@ function __prompt_preexec() {
 
 preexec_functions+=(__prompt_preexec)
 precmd_functions+=(__prompt_precmd)
+export PATH=$PATH:$HOME/.maestro/bin

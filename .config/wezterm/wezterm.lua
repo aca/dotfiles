@@ -177,16 +177,8 @@ wezterm.on("resize-down", function(window, pane)
 end)
 
 local config = {
-    window_background_opacity = 0.1,
-    front_end = "WebGpu",
-    unix_domains = {
-        {
-            name = "unix",
-        },
-    },
-    default_gui_startup_args = { "connect", "unix" },
     window_decorations = "RESIZE",
-    cell_width = 0.85,
+    cell_width = 0.9,
     tab_bar_at_bottom = true,
     hide_tab_bar_if_only_one_tab = true,
     use_fancy_tab_bar = false,
@@ -202,6 +194,7 @@ local config = {
     --   font = wezterm.font("SauceCodePro Nerd Font", { weight = "Regular" }),
     -- },
 
+    font = wezterm.font 'IosevkaTermSlab Nerd Font',
     -- font_rules = {
     --     -- Define a rule that matches when italic text is shown
     --     {
@@ -305,8 +298,8 @@ local config = {
         bottom = "0cell",
     },
     -- timeout_milliseconds defaults to 1000 and can be omitted
-    -- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
-    leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
+    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
+    -- leader = { key = " ", mods = "CTRL", timeout_milliseconds = 1000 },
     send_composed_key_when_left_alt_is_pressed = false,
     keys = {
         { key = "w", mods = "CTRL",       action = "QuickSelect" },
@@ -423,16 +416,16 @@ local config = {
         { key = "k",         mods = "LEADER",       action = wezterm.action({ ActivatePaneDirection = "Up" }) },
         { key = "l",         mods = "LEADER",       action = wezterm.action({ ActivatePaneDirection = "Right" }) },
 
-        -- -- pane move(vim aware)
-        { key = "h",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-left" }) },
-        { key = "l",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-right" }) },
-        { key = "k",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-up" }) },
-        { key = "j",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-down" }) },
-        -- resize(vim aware)
-        { key = "h",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-left" }) },
-        { key = "l",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-right" }) },
-        { key = "k",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-up" }) },
-        { key = "j",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-down" }) },
+        -- -- -- pane move(vim aware)
+        -- { key = "h",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-left" }) },
+        -- { key = "l",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-right" }) },
+        -- { key = "k",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-up" }) },
+        -- { key = "j",         mods = "CTRL",         action = wezterm.action({ EmitEvent = "move-down" }) },
+        -- -- resize(vim aware)
+        -- { key = "h",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-left" }) },
+        -- { key = "l",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-right" }) },
+        -- { key = "k",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-up" }) },
+        -- { key = "j",         mods = "ALT",          action = wezterm.action({ EmitEvent = "resize-down" }) },
     },
 }
 
