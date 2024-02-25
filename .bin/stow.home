@@ -1,10 +1,11 @@
 #!/bin/sh
 
 set -euxo pipefail
-cd ~/src/root
+# cd ~/src/root
+cd ~/src/github.com/aca
 
 set -- "dotfiles"
 [ -d dotfiles.nostow ] && set -- "$@" "dotfiles.nostow"
-[ -d dotfiles.$(hostname -s) ] && set -- "$@" "dotfiles.$(hostname -s)"
+[ -d dotfiles__$(hostname -s) ] && set -- "$@" "dotfiles__$(hostname -s)"
 
 stow --adopt -v --target "$HOME" "$@"

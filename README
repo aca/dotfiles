@@ -1,23 +1,27 @@
 dotfiles
 ========
 
-Public dotfiles for sync. This repository doesn't contains packages required to work properly.
-Initial setup is required with package manager. Most of my systems use Nix if available.
-Check "flake.nix" if you are interested. 
+Public dotfiles for sync. This repository contains scripts/configurations for my system.
+Initial setup requires nix. Check flake.nix or https://github.com/aca/nix-config.
 
-- WindowManager: sway / yabai
-- Terminal: kitty, tmux
-- Shell: elvish
+- os: nixOS (main) / darwin (secondary)
+- windowManager: sway / yabai
+- terminal: ghostty+tmux
+- shell: elvish
 
 setup
 -----
 
-stow
+install (stow)
 
-    git clone -j 8 "https://github.com/aca/dotfiles.git" ~/src/root/dotfiles --recursive --shallow-submodules
-    git clone "https://github.com/aca/stow-antifold.git" ~/src/root/stow-antifold
-    cd ~/src/root
-    stow --adopt -v --target $HOME dotfiles stow-antifold
+    git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfiles --recursive --shallow-submodules -j 4 
+    git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
+    cd ~/src/github.com/aca
+    stow --adopt -v --target $HOME dotfiles dotfiles.nostow
+
+uninstall
+
+    stow --delete -v --target $HOME dotfiles dotfiles.nostow
 
 keys 
 
@@ -25,8 +29,8 @@ keys
 
 local configs
 
-    git clone root:~/src/root/$(hostname -s)
+    git clone root:~/src/root/dotfiles_$(hostname -s)
 
-Dev container
+dev container
 
     docker run -it acadx0/tools:devcontainer
