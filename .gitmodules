@@ -448,9 +448,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/image-paste.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/image-paste.nvim
 	url = https://github.com/evanpurkhiser/image-paste.nvim.git
-[submodule ".submodules/crontab-explain"]
-	path = .submodules/crontab-explain
-	url = https://github.com/MeekMark/crontab-explain.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/neogit"]
 	path = .local/share/nvim/site/pack/bundle/opt/neogit
 	url = https://github.com/TimUntersberger/neogit.git
@@ -562,9 +559,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-startify"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-startify
 	url = https://github.com/mhinz/vim-startify.git
-[submodule ".submodules/tccutil"]
-	path = .submodules/tccutil
-	url = https://github.com/jacobsalmela/tccutil
 [submodule ".local/share/nvim/site/pack/bundle/opt/marks.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/marks.nvim
 	url = https://github.com/chentoast/marks.nvim.git

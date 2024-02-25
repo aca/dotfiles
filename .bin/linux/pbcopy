@@ -8,7 +8,7 @@
 #     copyq copy - 1>/dev/null 2>/dev/null
 
 if [ "$WAYLAND_DISPLAY" = "" ]; then
-    timeout 1s xsel --clipboard --input
+    timeout 5s xsel --clipboard --input
 else
     wl-copy
 fi

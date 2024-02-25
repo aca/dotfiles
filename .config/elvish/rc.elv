@@ -21,12 +21,6 @@ use str
 use platform
 use path
 
-# if (has-external zoxide) { 
-#     use /zoxide 
-#     set notify-bg-job-success = $false
-#     set after-chdir = [{|_| zoxide add -- $pwd & }]
-# }
-
 if (not (has-env _ELVISH_INIT)) { 
     stty -ixon # http://www.linusakesson.net/programming/tty/
     use /env 
@@ -37,9 +31,6 @@ use /bind
 use /completion
 use /prompt
 use plugins/edit.elv/smart-matcher; smart-matcher:apply
-
-# use /git-subrepo-elvish/.elvish
-
 nop ?(use local)
 
 # move
@@ -50,38 +41,23 @@ fn d {|@a| cd ~/src/root/dotfiles }
 fn dot.v {|@a| cd ~/src/root/dotfiles/.config/nvim }
 fn grt { cd (e:git rev-parse --show-toplevel) }
 fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) } }
-fn ffc { || $cdf~ (ff)  }
+fn ffc { |@a| $cdf~ (ff)  }
 
 # basics
 fn la {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
-fn make {|@a| e:make --directory (find.rootdir Makefile) $@a }
-
-# do not call sudo if you are root, type sudo without sudo in container
-# var idu = (constantly (id -u))
-# fn sudo {|@a| if (eq 0 ($idu)) {
-#         eval (repr $@a)
-#     } else {
-#         e:sudo $@a
-#     }
-# }
-
-# fn cp { |@a|
-#     e:advcp -g $@a
-# }
-#
-# fn mv { |@a|
-#     e:advmv -g $@a
-# }
+fn make {|@a| e:make --directory (find.rootdir Makefile $E:HOME) $@a }
 
 # wrappers
+fn cp { |@a| if (has-external advcp) { e:advcp -g $@a } else { e:cp -v $@a } }
+fn mv { |@a| if (has-external advmv) { e:advmv -g $@a } else { e:mv -v $@a } }
+fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn ghqbare { |@a| e:ghq clone --bare $@a;  ;sh -c "src.update &" }
 fn zs {|@a| zsh $@a }
-fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn trash-empty { |@a| yes | e:trash-empty }
-fn vifm {|@a| cd (e:vifm -c 'nnoremap s :quit<cr>' $@a --choose-dir -) }; fn f {|@a| vifm $@a}
+fn vifm {|@a| cd (e:vifm $@a --choose-dir -) }; fn f {|@a| vifm $@a}
 fn v {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 fn vim {|@a| if (has-external nvim) { e:nvim $@a } else { e:vim $@a }}
 
@@ -133,26 +109,9 @@ fn psub {
 # fd --type f | grep -v 'html'
 # fd --type f | from-lines | filter &not=true { |x| str:contains $x 'html' } [(all)]
 #
-# filter { |x| > 3 $x } [ 1 2 3 4]
+# filter { |x| > 3 $x } [ 1 2 3 4 ]
 fn filter {|pred~ @items &not=$false &out=$put~|
   var ck~ = $pred~
   if $not { set ck~ = {|item| not (pred $item)} }
   each {|item| if (ck $item) { $out $item }} $@items
 }
-
-# TODO: improve
-# UNIX comm alternative but keep original output sorted
-# list all non md files
-#   λ fd --type f | filterline fd --extension 'md'
-# fn filterline { |@rest|
-#   var second = [(eval (echo $@rest))]
-#   from-lines | each {
-#     |x|
-#     if (not (has-value $second $x)) {
-#       echo $x
-#     }
-#   }
-# }
-#
-
-# nop ?(touch ~/.cache/__elvish_active 1>/dev/null 2>/dev/null)

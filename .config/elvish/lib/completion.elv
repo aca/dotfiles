@@ -87,10 +87,6 @@ fn fish-completion {|@words|
   } 
 }
 
-fn completion-at { |@args|
-    ls @ | each {|x| edit:complex-candidate $x } 
-}
-
 set edit:completion:arg-completer[go] = $fish-completion~
 set edit:completion:arg-completer[git] = $fish-completion~
 set edit:completion:arg-completer[kubectl] = $fish-completion~
@@ -101,5 +97,4 @@ set edit:completion:arg-completer[ssh] = $fish-completion~
 set edit:completion:arg-completer[aria2c] = $fish-completion~
 set edit:completion:arg-completer[killall] = $fish-completion~
 set edit:completion:arg-completer[just] = $fish-completion~
-set edit:completion:arg-completer[ko] = $completion-at~
-set edit:completion:arg-completer[@] = $completion-at~
+set edit:completion:arg-completer[@] = { |@args| ls @ | each {|x| edit:complex-candidate $x } }
