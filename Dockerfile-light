@@ -1,6 +1,6 @@
 # docker run -it -v (pwd):/workspace acadx0/tools:devcontainer
 
-FROM alpine:3.19
+FROM alpine:edge
 # RUN apk add --no-cache python2 --repository=http://dl-cdn.alpinelinux.org/alpine/v3.15/community
 # RUN apk add --no-cache py2-pip --repository=http://dl-cdn.alpinelinux.org/alpine/v3.11/main
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -9,6 +9,7 @@ RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /et
 RUN apk add --no-cache --force-overwrite \ 
     # ttyd@community \
     fd@community \
+    go@edge \
     delta@community \
     # bash-completion \
     stow \
@@ -32,7 +33,6 @@ RUN apk add --no-cache --force-overwrite \
     coreutils \
     # tcpdump \
     # socat \
-    go \
     unzip \
     # docker-cli \
     # python3 \
@@ -62,21 +62,15 @@ RUN apk add --no-cache --force-overwrite \
 # RUN cd ~/src/configs/github.com/neovim/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install && rm -rf ~/src/configs/github.com/neovim/neovim
 
 # stow
-RUN git clone --recurse-submodules -j20 --depth 1 https://github.com/aca/dotfiles ~/src/config/dotfiles && \
-    rm -rf ~/.dotfiles/.git
+RUN git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfiles --recursive --shallow-submodules -j 4 && rm -rf ~/src/github.com/aca/dotfiles/.git
+RUN git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
+RUN cd ~/src/github.com/aca && stow --adopt -v --target ~ dotfiles dotfiles.nostow && rm -rf dotfiles.nostow
 
-RUN stow -d ~/src/config/dotfiles/.config/stow --adopt -v --target /root antifold
-RUN stow -d ~/src/config --adopt -v --target /root dotfiles
-
-# RUN nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 # RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
 
 ENV GOPATH /root
 # RUN go install github.com/x-motemen/ghq@latest
 RUN go install src.elv.sh/cmd/elvish@master
-
-# RUN nvim --headless -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
-# RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
 
 RUN sudo rm -rf ~/go || true
 RUN sudo rm -rf ~/pkg || true
@@ -91,5 +85,6 @@ RUN apk del stow --force-broken-world
 WORKDIR /root
 
 ENV VIM_DISABLE_TREESITTER 1
+# RUN nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync! bash c cpp css go html javascript lua make markdown python tsx typescript yaml' -c ':q'
 # CMD ["/usr/local/bin/elvish"]
 CMD ["/root/bin/elvish"]
