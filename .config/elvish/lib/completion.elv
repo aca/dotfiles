@@ -97,4 +97,4 @@ set edit:completion:arg-completer[ssh] = $fish-completion~
 set edit:completion:arg-completer[aria2c] = $fish-completion~
 set edit:completion:arg-completer[killall] = $fish-completion~
 set edit:completion:arg-completer[just] = $fish-completion~
-set edit:completion:arg-completer[@] = { |@args| ls @ | each {|x| edit:complex-candidate $x } }
+set edit:completion:arg-completer[@] = { |@args| ls @ | each {|x| edit:complex-candidate $x; } }
