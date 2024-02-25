@@ -93,51 +93,16 @@ if not set -q _FISH_INIT_VAR
     set -gx FZF_CTRL_T_COMMAND 'fd --hidden'
     set -gx FZF_ALT_C_COMMAND 'fd --hidden --type d --max-depth 10 --no-ignore'
 
-    set -px PATH $HOME/bin
-    set -px PATH $HOME/.bin
-    set -px PATH $HOME/.bin/v
-    set -px PATH $HOME/.bin/lib
-    set -px PATH $HOME/.bin/$_uname
+    if not set -q IN_NIX_SHELL
+        set -px PATH $HOME/bin
+        set -px PATH $HOME/.bin
+        # set -px PATH $HOME/.bin/v
+        # set -px PATH $HOME/.bin/lib
+        # set -px PATH $HOME/.bin/$_uname
+    end
 
-    if [ -d $HOME/sdk/gotip/bin ]                         ; set -x --prepend PATH $HOME/sdk/gotip/bin                         ; end
-    # if [ -d $HOME/src/go.googlesource.com/go/bin ]        ; set -x --prepend PATH $HOME/src/go.googlesource.com/go/bin        ; end
-    # if [ -d $HOME/src/k8s.io/kubernetes/third_party/etcd ]; set -x --append PATH $HOME/src/k8s.io/kubernetes/third_party/etcd ; end
-    if [ -d $HOME/.krew/bin ]                             ; set -x --append PATH $HOME/.krew/bin                              ; end
-    if [ -d $HOME/.raku/bin ]                             ; set -x --append PATH $HOME/.raku/bin                              ; end
-    if [ -d $HOME/.linkerd2/bin ]                         ; set -x --append PATH $HOME/.linkerd2/bin                          ; end
-    if [ -d $HOME/xxx/bin ]                               ; set -x --append PATH $HOME/xxx/bin                                ; end
-    if [ -d /usr/local/opt/coreutils/libexec/gnubin ]     ; set -x --append PATH /usr/local/opt/coreutils/libexec/gnubin      ; end
-    if [ -d $HOME/.local/bin ]                            ; set -x --append PATH $HOME/.local/bin                             ; end
-    if [ -d $HOME/.cargo/bin ]                            ; set -x --append PATH $HOME/.cargo/bin                             ; end
-    if [ -d $HOME/.nix-profile/bin ]                      ; set -x --append PATH $HOME/.nix-profile/bin                       ; end
-    if [ -d /usr/local/opt/llvm/bin ]                     ; set -x --append PATH /usr/local/opt/llvm/bin                      ; end
-    if [ -d /usr/local/sbin ]                             ; set -x --append PATH /usr/local/sbin                              ; end
-    if [ -d $HOME/.asdf/shims ]                           ; set -x --append PATH $HOME/.asdf/shims                            ; end
-    if [ -d $HOME/.asdf/bin ]                             ; set -x --append PATH $HOME/.asdf/bin                              ; end
-
-    # npm
-    # Avoid installing binaries in /usr/local/bin.
-    # Maybe replace it with asdf-vm if it's performance issue get fixed
     set -gx NPM_CONFIG_GLOBALCONFIG $HOME/.npmrc.global
 end
-
-# function _prepend_path
-#    set -l path $argv[1]
-#
-#    if [ ! -d $path ]
-#       return
-#    end
-#
-#    set -l index (contains -i -- $path $PATH)
-#    if set -q index[1]
-#      set -e PATH[$index]
-#    end
-#    set -px PATH $path
-# end
-#
-# _prepend_path $HOME/.asdf/shims
-# _prepend_path $HOME/.asdf/bin
-# _prepend_path $HOME/sdk/gotip/bin
 
 # }}}
 # Section: alias {{{

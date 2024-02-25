@@ -67,14 +67,14 @@ RUN git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfile
 RUN git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
 RUN cd ~/src/github.com/aca && stow --adopt -v --target ~ dotfiles dotfiles.nostow && rm -rf dotfiles.nostow
 
-RUN sudo rm -rf ~/go || true
-RUN sudo rm -rf ~/pkg || true
-RUN sudo rm -rf ~/.cache || true
-RUN sudo rm -rf ~/.npm || true
+# RUN sudo rm -rf ~/go || true
+# RUN sudo rm -rf ~/pkg || true
+# RUN sudo rm -rf ~/.cache || true
+# RUN sudo rm -rf ~/.npm || true
 # RUN sudo rm -rf ~/.local/share/fonts || true
 RUN sudo rm -rf ~/.local/share/nvim/site/pack/bundle/opt/markdown-preview.nvim || true
 
-RUN apk del go --force-broken-world
+# RUN apk del go --force-broken-world
 RUN apk del stow --force-broken-world
 
 WORKDIR /root

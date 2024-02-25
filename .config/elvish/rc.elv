@@ -37,8 +37,8 @@ nop ?(use local)
 fn w { nop ?(cd ~/src/scratch/(fd --base-directory ~/src/scratch --strip-cwd-prefix --hidden --type d --max-depth 1 --no-ignore -0 | fzf --read0)) }
 fn s {|| cd (src.dir)}
 fn x {|@a| cd (scratch $@a) }
-fn d {|@a| cd ~/src/root/dotfiles }
-fn dot.v {|@a| cd ~/src/root/dotfiles/.config/nvim }
+fn d {|@a| cd ~/src/github.com/aca/dotfiles }
+fn dot.v {|@a| cd ~/src/github.com/aca/dotfiles/.config/nvim }
 fn grt { cd (e:git rev-parse --show-toplevel) }
 fn cdf { |p| try { isDir $p; cd $p } catch { cd (dirname $p) } }
 fn ffc { |@a| $cdf~ (ff)  }
