@@ -5,8 +5,9 @@ require("conform").setup({
 		-- Conform will run multiple formatters sequentially
 		python = { "isort", "black" },
 		-- Use a sub-list to run only the first available formatter
-		javascript = { { "prettierd", "prettier" } },
-		nix = { { "nixfmt", "alejandra" } },
+		javascript = { {  "biome", "prettier", "prettierd" } },
+		html = { {  "prettier", "prettierd", "biome" } }, -- biome doesn't support html yet
+		nix = { { "alejandra", "nixfmt" } },
 		jsonc = { { "deno_fmt" } },
 		json = { { "deno_fmt" } },
 		sql = { { "sql_formatter" } },
