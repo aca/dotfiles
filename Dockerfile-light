@@ -9,7 +9,8 @@ RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /et
 RUN apk add --no-cache --force-overwrite \ 
     # ttyd@community \
     fd@community \
-    go@edge \
+    elvish@community \
+    ghq@testing \
     delta@community \
     # bash-completion \
     stow \
@@ -65,12 +66,6 @@ RUN apk add --no-cache --force-overwrite \
 RUN git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfiles --recursive --shallow-submodules -j 4 && rm -rf ~/src/github.com/aca/dotfiles/.git
 RUN git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
 RUN cd ~/src/github.com/aca && stow --adopt -v --target ~ dotfiles dotfiles.nostow && rm -rf dotfiles.nostow
-
-# RUN nvim --headless -c ':LspInstall --sync gopls' -c ':q'
-
-ENV GOPATH /root
-# RUN go install github.com/x-motemen/ghq@latest
-RUN go install src.elv.sh/cmd/elvish@master
 
 RUN sudo rm -rf ~/go || true
 RUN sudo rm -rf ~/pkg || true
