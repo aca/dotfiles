@@ -2,7 +2,7 @@
 #
 # Command runner. Alternative to make, just, taskfile etc.
 #
-# - POSIX compliant, run on anywhere.
+# - POSIX, run on anywhere.
 # - Run in any directory under the project
 #
 # @file is a file that is used to identify the root directory ($PROJECT_ROOT) of the project just like Makefile.
@@ -59,7 +59,6 @@ case $1 in
         exit
         ;;
 esac
-
 
 command="$1"
 shift
