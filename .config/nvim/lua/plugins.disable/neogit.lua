@@ -1,4 +1,3 @@
-
 if vim.fn.executable("git") ~= 1  then
     return
 end
