@@ -17,11 +17,11 @@ install (stow)
     git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfiles --recursive --shallow-submodules -j 4 
     git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
     cd ~/src/github.com/aca
-    stow --adopt -v --target $HOME dotfiles dotfiles.nostow
+    stow -v --target $HOME dotfiles dotfiles.nostow
 
 uninstall
 
-    stow --delete -v --target $HOME dotfiles dotfiles.nostow
+    stow -v --target $HOME --delete  dotfiles dotfiles.nostow
 
 keys 
 
