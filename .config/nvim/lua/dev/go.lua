@@ -1,12 +1,13 @@
 vim.cmd.packadd "go.nvim"
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require("go").setup({
     lsp_inlay_hints = {
         enable = false,
     },
-    luasnip = true,
+    -- luasnip = true,
+    diagnostic = false,
     -- lsp_cfg = {
     --     capabilities = capabilities,
     -- }

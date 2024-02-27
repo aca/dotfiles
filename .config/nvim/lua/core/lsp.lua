@@ -18,7 +18,6 @@ end
 -- 	return contents
 -- end
 
-
 vim.cmd.packadd("nvim-lspconfig")
 -- vim.cmd.packadd("mason.nvim")
 -- vim.cmd.packadd("mason-lspconfig.nvim")
@@ -57,31 +56,47 @@ local handlers = {}
 -- }
 
 local rightAlignFormatFunction = function(diagnostic)
-	local line = diagnostic.lnum
-	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
-	local lwidth = vim.api.nvim_get_option("columns")
-	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-	local splen = lwidth - line_length - msg_length - 6
-	local sp = string.rep(" ", splen)
-
-	if string.find(diagnostic.message, "declared but its value is never read") then
-		return ""
-	end
-
-	return string.format("%s» %s", sp, diagnostic.message)
+    return "something wrong"
+    -- print("error")
+    -- return string.format("E: %s", diagnostic.message)
+	-- local line = diagnostic.lnum
+	-- local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+	-- local lwidth = vim.api.nvim_get_option_value("columns", {})
+	-- local msg_length = vim.api.nvim_strwidth(diagnostic.message)
+	-- local splen = lwidth - line_length - msg_length - 6
+	-- local sp = string.rep(" ", splen)
+	--
+	-- if string.find(diagnostic.message, "declared but its value is never read") then
+	-- 	return ""
+	-- end
+	--
+	-- return string.format("%s» %s", sp, diagnostic.message)
+end
+-- Highlight line number instead of having icons in sign column https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
+for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
+	vim.fn.sign_define("DiagnosticSign" .. diag, {
+		text = "",
+		texthl = "DiagnosticSign" .. diag,
+		linehl = "",
+		numhl = "DiagnosticSign" .. diag,
+	})
 end
 
 vim.diagnostic.config({
-	virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
-    -- float = { border = "rounded" },
+	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+	virtual_text = false,
+	-- float = {
+	-- 	source = "always", -- Or "if_many"
+	-- },
+	-- float = { border = "rounded" },
 })
 
-vim.api.nvim_create_autocmd("VimResized", {
-	callback = function()
-		vim.diagnostic.hide()
-		vim.diagnostic.show()
-	end,
-})
+-- vim.api.nvim_create_autocmd("VimResized", {
+-- 	callback = function()
+-- 		vim.diagnostic.hide()
+-- 		vim.diagnostic.show()
+-- 	end,
+-- })
 
 -- capabilities [[
 -- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
@@ -340,7 +355,7 @@ if vim.fn.executable("deno") == 1 then
 	lspconfig.denols.setup({
 		capabilities = capabilities,
 		single_file_support = true,
-		handlers = handlers,
+		-- handlers = handlers,
 		on_attach = on_attach,
 		root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 		-- root_dir = function()
@@ -386,6 +401,14 @@ if vim.fn.executable("lua-language-server") == 1 then
 		single_file_support = false,
 		handlers = handlers,
 		on_attach = on_attach,
+		settings = {
+			Lua = {
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
+				},
+			},
+		},
 	})
 end
 
@@ -416,7 +439,6 @@ if vim.fn.executable("sourcekit-lsp") == 1 then
 	})
 end
 
-
 if vim.fn.executable("zls") == 1 then
 	lspconfig.zls.setup({
 		capabilities = capabilities,
@@ -446,15 +468,16 @@ end
 
 if vim.fn.executable("gopls") == 1 then
 	lspconfig.gopls.setup({
-        cmd = { 'gopls', '-remote=auto' },
-        -- cmd = { 'goplsx' },
-        -- cmd = { 'gopls', '-remote=unix;/tmp/gopls-daemon-socket2' },
+		cmd = { "gopls", "-remote=auto" },
+		-- cmd = { 'goplsx' },
+		-- cmd = { 'gopls', '-remote=unix;/tmp/gopls-daemon-socket2' },
 
-        capabilities = capabilities,
+		capabilities = capabilities,
 		root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
 		-- single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
+		-- handlers = handlers,
+		-- handlers = handlers,
+		-- on_attach = on_attach,
 		-- settings = {
 		--     gopls = {
 		--         -- ["ui.completion.usePlaceholders"] = true,

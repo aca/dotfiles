@@ -48,6 +48,7 @@ packadd nvim-autopairs
 ]])
 
 local cmp = require("cmp")
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 -- local function go_iferr()
 --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<c-f>', true, false, true), 'm', true)
@@ -147,7 +148,6 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
-local luasnip = require("luasnip")
 cmp.setup({
 	window = {
 		completion = cmp.config.window.bordered(),
@@ -170,30 +170,17 @@ cmp.setup({
 
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+            pcall(require("luasnip").lsp_expand, args.body)
+            -- TODO: use native vim sinppet?
 			-- vim.snippet.expand(args.body)
 		end,
 	},
 
-	-- formatting = {
-	--     -- format = function(_, vim_item)
-	--     --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
-	--     --     return vim_item
-	--     -- end,
-	--     fields = { "kind", "abbr", "menu" },
-	--     format = function(_, vim_item)
-	--         vim_item.menu = vim_item.kind
-	--         vim_item.kind = cmp_kinds[vim_item.kind]
-	--
-	--         return vim_item
-	--     end,
-	-- },
+	-- enabled = function()
+	-- 	return not luasnip.jumpable(1)
+	-- end,
 
-	enabled = function()
-		return not luasnip.jumpable(1)
-	end,
-
-	preselect = "none",
+	-- preselect = "none",
 
 	mapping = {
 		["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -261,9 +248,9 @@ cmp.setup({
 		["<S-Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-				-- vim.snippet.jump(-1)
+			-- elseif luasnip.jumpable(-1) then
+			-- 	luasnip.jump(-1)
+			-- 	-- vim.snippet.jump(-1)
 			else
 				fallback()
 			end
@@ -272,6 +259,4 @@ cmp.setup({
 	sources = cmp_sources,
 })
 
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-local cmp = require("cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done());

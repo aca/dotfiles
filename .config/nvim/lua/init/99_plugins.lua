@@ -6,7 +6,7 @@ local load = function()
 
     require("core.treesitter")
     require("core.keymap")
-    require("core.luasnip")
+    -- require("core.luasnip")
 
     require("core.cmp")
     require("core.lsp")

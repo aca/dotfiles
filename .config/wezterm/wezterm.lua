@@ -258,7 +258,7 @@ local config = {
         tab_bar = {
             -- The color of the inactive tab bar edge/divider
             inactive_tab_edge = "#575757",
-            background = "#000000",
+            background = "#1e1e1e",
             new_tab = {
                 bg_color = "#000000",
                 fg_color = "#808080",

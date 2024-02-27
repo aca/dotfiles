@@ -51,7 +51,7 @@ fn make {|@a| e:make --directory (find.rootdir Makefile $E:HOME) $@a }
 
 # wrappers
 fn cp { |@a| if (has-external advcp) { e:advcp -g $@a } else { e:cp -v $@a } }
-fn mv { |@a| if (has-external advmv) { e:advmv -g $@a } else { e:mv -v $@a } }
+fn mv { |@a| if (has-external advmv) { e:advmv -g $@a } else { e:mv $@a } }
 fn rm {|@a| if (has-external trash-put) { e:trash-put -v $@a } else { e:rm -rv $@a } }
 fn ghq { |@a| e:ghq $@a; sh -c "src.update &" }
 fn ghqbare { |@a| e:ghq clone --bare $@a;  ;sh -c "src.update &" }
