@@ -74,6 +74,7 @@
 -- https://github.com/Wansmer/treesj
 -- https://github.com/Wansmer/sibling-swap.nvim
 --
+--
 -- vim.cmd [[
 -- let g:dbs = {
 -- \  'tooljet': 'postgres://postgres:postgres@localhost:5432/db'

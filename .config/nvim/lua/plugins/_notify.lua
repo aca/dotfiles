@@ -1,6 +1,6 @@
--- vim.cmd.packadd("nvim-notify")
+vim.cmd.packadd("nvim-notify")
 -- vim.notify = require("notify")
--- -- vim.notify("This is an error message", "error")
+-- vim.notify("This is an error message", "error")
 --
 -- vim.cmd [[ 
 -- highlight NotifyERRORBorder guifg=#06a323

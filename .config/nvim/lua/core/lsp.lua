@@ -56,22 +56,21 @@ local handlers = {}
 -- }
 
 local rightAlignFormatFunction = function(diagnostic)
-    return "something wrong"
-    -- print("error")
-    -- return string.format("E: %s", diagnostic.message)
-	-- local line = diagnostic.lnum
-	-- local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
-	-- local lwidth = vim.api.nvim_get_option_value("columns", {})
-	-- local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-	-- local splen = lwidth - line_length - msg_length - 6
-	-- local sp = string.rep(" ", splen)
-	--
+	local line = diagnostic.lnum
+	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+	local lwidth = vim.api.nvim_get_option_value("columns", {})
+	local numberwidth = vim.api.nvim_get_option_value("numberwidth", {})
+	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
+	local splen = lwidth - line_length - msg_length - numberwidth - 5
+	local sp = string.rep(" ", splen)
+
 	-- if string.find(diagnostic.message, "declared but its value is never read") then
 	-- 	return ""
 	-- end
-	--
-	-- return string.format("%s» %s", sp, diagnostic.message)
+
+	return string.format("%s» %s", sp, diagnostic.message)
 end
+
 -- Highlight line number instead of having icons in sign column https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
 for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
 	vim.fn.sign_define("DiagnosticSign" .. diag, {
@@ -83,20 +82,20 @@ for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
 end
 
 vim.diagnostic.config({
-	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
-	virtual_text = false,
+	virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+	-- virtual_text = false,
 	-- float = {
 	-- 	source = "always", -- Or "if_many"
 	-- },
 	-- float = { border = "rounded" },
 })
 
--- vim.api.nvim_create_autocmd("VimResized", {
--- 	callback = function()
--- 		vim.diagnostic.hide()
--- 		vim.diagnostic.show()
--- 	end,
--- })
+vim.api.nvim_create_autocmd("VimResized", {
+	callback = function()
+		vim.diagnostic.hide()
+		vim.diagnostic.show()
+	end,
+})
 
 -- capabilities [[
 -- https://github.com/hrsh7th/cmp-nvim-lsp/blob/b4251f0fca1daeb6db5d60a23ca81507acf858c2/lua/cmp_nvim_lsp/init.lua#L23
@@ -104,7 +103,7 @@ vim.diagnostic.config({
 -- TMP: https://github.com/neovim/neovim/issues/23291
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
 -- local navic = require("nvim-navic")
 -- navic.setup({
@@ -449,8 +448,11 @@ if vim.fn.executable("zls") == 1 then
 end
 
 if vim.fn.executable("clangd") == 1 then
+    local clangd_capabilities = vim.deepcopy(capabilities)
+    clangd_capabilities.offsetEncoding = "utf-8"
+
 	lspconfig.clangd.setup({
-		capabilities = capabilities,
+		capabilities = clangd_capabilities,
 		single_file_support = true,
 		handlers = handlers,
 		on_attach = on_attach,

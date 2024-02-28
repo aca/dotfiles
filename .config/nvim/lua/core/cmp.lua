@@ -180,7 +180,7 @@ cmp.setup({
 	-- 	return not luasnip.jumpable(1)
 	-- end,
 
-	-- preselect = "none",
+	preselect = "none",
 
 	mapping = {
 		["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.

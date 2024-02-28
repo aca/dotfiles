@@ -4,7 +4,7 @@ local opt = vim.opt
 local o = vim.o
 
 -- sidebar
--- o.signcolumn = "yes"
+-- o.signcolumn = "no"
 
 -- if vim.env.VIM_NONU == "1" then
 --     o.number = false
