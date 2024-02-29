@@ -151,12 +151,11 @@ o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 -- vim.o.fencs="ucs-bom,utf-8,cp949,euc-kr,default,latin1"
 
 o.cmdheight = 0 -- set to 0 if https://github.com/aserowy/tmux.nvim/issues/105 fixed
-o.laststatus = 0
+o.laststatus = 3
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
 -- opt.winbar = "%=%l:%c %P %m%f"
-opt.winbar = ""
 -- opt.winbar = " "
 
 o.mmp = 50000

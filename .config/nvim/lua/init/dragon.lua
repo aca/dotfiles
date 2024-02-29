@@ -400,10 +400,10 @@ local hlgroups = {
   DiagnosticUnderlineHint = { sp = c_dragonAqua, undercurl = true },
   DiagnosticUnderlineInfo = { sp = c_dragonBlue1, undercurl = true },
   DiagnosticUnderlineWarn = { sp = c_carpYellow, undercurl = true },
-  DiagnosticVirtualTextError = { bg = c_winterRed, fg = c_dragonRed },
-  DiagnosticVirtualTextHint = { bg = c_winterGreen, fg = c_dragonAqua },
-  DiagnosticVirtualTextInfo = { bg = c_winterBlue, fg = c_dragonBlue1 },
-  DiagnosticVirtualTextWarn = { bg = c_winterYellow, fg = c_carpYellow },
+  DiagnosticVirtualTextError = {  fg = c_dragonRed },
+  DiagnosticVirtualTextHint = {   fg = c_dragonAqua },
+  DiagnosticVirtualTextInfo = {   fg = c_dragonBlue1 },
+  DiagnosticVirtualTextWarn = {   fg = c_carpYellow },
   -- }}}
 
   -- Filetype {{{2
