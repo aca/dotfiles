@@ -3,9 +3,10 @@
 cat << EOF
 package main
 
-import "fmt"
+import "log"
 
 func main(){
-    fmt.Println("start")
+    log.Println("start")
+    
 }
 EOF

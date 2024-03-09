@@ -9,11 +9,14 @@
 
 -- package name at start
 -- TODO: main pkg doesn't work
--- vim.api.nvim_create_autocmd("BufNewFile", {
---     pattern = { "*.go" },
---     -- pass dirname
---     command = [[ execute "0r! ~/.config/nvim/templates/go.sh" . ' ' . expand('%:p:h') ]],
--- })
+vim.api.nvim_create_autocmd("BufNewFile", {
+    pattern = { "main.go" },
+    -- pass dirname
+    command = [[ 
+    execute "0r! ~/.config/nvim/templates/go-main.sh"
+    normal k
+    ]],
+})
 
 
 -- -- templates
