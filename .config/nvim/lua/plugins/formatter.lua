@@ -13,6 +13,7 @@ require("conform").setup({
 		jsonc = { { "deno_fmt" } },
 		json = { { "deno_fmt" } },
 		sql = { { "sql_formatter" } },
+		zig = { { "zigfmt" } },
 	},
 })
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
