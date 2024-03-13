@@ -83,7 +83,8 @@ set-env GHQ_ROOT $E:HOME/src
 set-env PYTHONSTARTUP ~/.bin/pythonstartup
 set-env DENO_NO_UPDATE_CHECK 1
 
-set-env NODE_OPTIONS "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
+# set-env NODE_OPTIONS "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
+# set-env NODE_OPTIONS "--experimental-fetch --experimental-top-level-await --experimental-modules --no-warnings"
 set-env NPM_CONFIG_GLOBALCONFIG $E:HOME/.npmrc.global
 
 # CLI

@@ -69,8 +69,11 @@ use platform
 #     }
 # }
 
-use github.com/aca/elvish-comp/fish-completer
-fish-completer:set go
+use github.com/aca/elvish-compl/fish-completer
+fish-completer:apply go
+fish-completer:apply systemctl
+fish-completer:apply node
+fish-completer:apply kubectl
 
 # fn fish-completion {|@words|
 #   use str
