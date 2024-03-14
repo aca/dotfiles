@@ -69,11 +69,14 @@ use platform
 #     }
 # }
 
-use github.com/aca/elvish-compl/fish-completer
-fish-completer:apply go
-fish-completer:apply systemctl
-fish-completer:apply node
-fish-completer:apply kubectl
+# use github.com/aca/elvish-compl/fish-completer
+use github.com/aca/elvish-compl/fish-completer-apply-all
+# fish-completer:apply-all
+# fish-completer:apply go
+# fish-completer:apply systemctl
+# fish-completer:apply node
+# fish-completer:apply kubectl
+# fish-completer:apply-all
 
 # fn fish-completion {|@words|
 #   use str
@@ -1046,3 +1049,4 @@ set edit:completion:arg-completer[@] = { |@args| ls @ | each {|x| edit:complex-c
 # for i $arr {
 #     set edit:completion:arg-completer[$i] = $fish-completion~
 # }
+

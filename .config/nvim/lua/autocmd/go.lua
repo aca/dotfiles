@@ -19,13 +19,13 @@
 -- })
 
 -- https://github.com/neovim/nvim-lspconfig/issues/115
--- vim.api.nvim_create_autocmd({"InsertLeave"}, {
---     pattern = { "*.go" },
---     callback = function()
---         -- this runs in async
---         vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
---     end,
--- })
+vim.api.nvim_create_autocmd({"InsertLeave"}, {
+    pattern = { "*.go" },
+    callback = function()
+        -- this runs in async
+        vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
+    end,
+})
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --     pattern = "*.go",

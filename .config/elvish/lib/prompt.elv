@@ -32,7 +32,6 @@ var short-addr = {
 
 # set edit:rprompt = { styled ($short-addr) '#636a72' }
 set edit:rprompt = { }
- 
 # set edit:after-readline = [
 #   {|args|
 #     # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
@@ -44,9 +43,17 @@ set edit:after-command = [
   {|m|
     # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
     printf "\033]133;A;cl=m;aid=%s\007" $pid
+    # pprint $m
     if (< $m[duration] 2) {
       nop
     } else {
+      if (has-env TMUX) {
+        if (str:has-prefix $m[src][code] "vim") {
+          nop
+        } else {
+          tmux display-message -d 999999 -l $m[src][code]
+        }
+      }
       echo (styled (printf "« took: %.3fs / done: "(e:date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red italic)
     }
   }
