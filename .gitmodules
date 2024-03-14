@@ -292,9 +292,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/fcitx.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/fcitx.nvim
 	url = https://github.com/h-hg/fcitx.nvim.git
-[submodule ".config/elvish/lib/completions/bash-completion"]
-	path = .config/elvish/lib/completions/bash-completion
-	url = https://github.com/scop/bash-completion.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/gv.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gv.vim
 	url = https://github.com/junegunn/gv.vim.git
@@ -343,9 +340,6 @@
 [submodule ".config/elvish/lib/git-subrepo-elvish"]
 	path = .config/elvish/lib/git-subrepo-elvish
 	url = https://github.com/aca/git-subrepo-elvish.git
-[submodule ".config/elvish/lib/elvish-bash-completion"]
-	path = .config/elvish/lib/elvish-bash-completion
-	url = https://github.com/aca/elvish-bash-completion.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context.git
