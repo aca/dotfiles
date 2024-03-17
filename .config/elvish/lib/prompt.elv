@@ -51,6 +51,7 @@ set edit:after-command = [
         if (str:has-prefix $m[src][code] "vim") {
           nop
         } else {
+          # tmux display-message -d 999999 -l $m[src][code]
           tmux display-message -d 999999 -l $m[src][code]
         }
       }

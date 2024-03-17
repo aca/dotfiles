@@ -856,3 +856,6 @@
 [submodule ".local/share/elvish/lib/github.com/aca/elvish-compl"]
 	path = .local/share/elvish/lib/github.com/aca/elvish-compl
 	url = https://github.com/aca/elvish-compl
+[submodule ".local/share/nvim/site/pack/bundle/opt/none-ls.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/none-ls.nvim
+	url = https://github.com/nvimtools/none-ls.nvim.git
