@@ -438,6 +438,16 @@ if vim.fn.executable("sourcekit-lsp") == 1 then
 	})
 end
 
+if vim.fn.executable("jdt-language-server") == 1 then
+	lspconfig.jdtls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+        cmd = { 'jdt-language-server' },
+	})
+end
+
 if vim.fn.executable("zls") == 1 then
 	lspconfig.zls.setup({
 		capabilities = capabilities,

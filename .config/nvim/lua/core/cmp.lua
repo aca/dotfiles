@@ -27,8 +27,8 @@ packadd nvim-autopairs
 " packadd cmp-nvim-lsp-signature-help
 " runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 
-" packadd cmp-cmdline
-" runtime after/plugin/cmp_cmdline.lua
+packadd cmp-cmdline
+runtime after/plugin/cmp_cmdline.lua
 
 " packadd cmp-tmux
 " runtime after/plugin/cmp_tmux.vim
@@ -170,8 +170,8 @@ cmp.setup({
 
 	snippet = {
 		expand = function(args)
-            pcall(require("luasnip").lsp_expand, args.body)
-            -- TODO: use native vim sinppet?
+			pcall(require("luasnip").lsp_expand, args.body)
+			-- TODO: use native vim sinppet?
 			-- vim.snippet.expand(args.body)
 		end,
 	},
@@ -259,4 +259,18 @@ cmp.setup({
 	sources = cmp_sources,
 })
 
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done());
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{
+			name = "cmdline",
+			option = {
+				ignore_cmds = { "Man", "!" },
+			},
+		},
+	}),
+})
+
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
