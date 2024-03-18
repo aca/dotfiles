@@ -2,6 +2,8 @@ export PATH=$HOME/.bin:$HOME/bin:$PATH:/opt/homebrew/bin
 
 [ -z "$PS1" ] && return # If not running interactively, don't do anything
 
+export XDG_CONFIG_HOME=$HOME/.config
+
 alias elv='elvish'
 
 # clipboard share
@@ -70,3 +72,4 @@ if [ -z "$TMUX" ]; then
 else
     PS1=${PS1}'\[\ePtmux;\e\e]1337;CurrentDir=${PWD}\a\e\\\]'
 fi
+
