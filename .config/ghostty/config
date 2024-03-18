@@ -34,11 +34,17 @@ keybind = ctrl+shift+v=paste_from_clipboard
 # being defined as regular and bold.
 #
 
-# font-family	= BlexMono Nerd Font
-font-family	= Iosevka Term Slab
+# font-family	= Monaspace Xenon
+# font-family	= Academy Engraved LET
+font-family	= Iosevka Term Slab Light
+# font-family	= Luxi Mono
+# font-family	= Lotion Nerd Font
 # font-family-bold = Iosevka Term Slab
 # font-family-italic = Iosevka Term Slab Light Oblique
 # font-family-bold-italic = Iosevka Term Slab Oblique
+
+adjust-cell-width = -4%
+adjust-cell-height = 0%
 
 palette = 0=#4f4f4f
 palette = 1=#fa6c60
