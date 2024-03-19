@@ -172,7 +172,7 @@ nnoremap q :q<cr>
 filetype {*.torrent},<application/x-bittorrent> ktorrent %f &
 fileviewer {*.torrent},<application/x-bittorrent> dumptorrent -v %c, echo ""
 
-
+set showtabline=always
 if executable('osascript')
   source ~/.config/vifm/vifmrc-osx
 else
