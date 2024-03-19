@@ -2,9 +2,9 @@ vim.cmd.packadd("dropbar.nvim")
 require("dropbar").setup({
 	general = { enable = false },
 	icons = {
-		enable = false,
+		enable = true,
 		kinds = {
-			use_devicons = false,
+			use_devicons = true,
 			-- symbols = {
 			-- 	Array = " ",
 			-- 	Boolean = " ",

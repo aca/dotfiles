@@ -179,26 +179,27 @@ else
   source ~/.config/vifm/vifmrc-linux
 endif
 
+highlight Win ctermbg=default
 
-hi Border     cterm=none    ctermfg=-1    ctermbg=-1
-hi TopLine    cterm=none  ctermfg=white ctermbg=237
-hi TopLineSel cterm=none  ctermfg=white ctermbg=237
-hi StatusLine cterm=none  ctermfg=white ctermbg=237
-hi Win        ctermbg=none  ctermfg=199   
-hi Directory  ctermbg=none  ctermfg=188   
-hi CurrLine   ctermbg=none  ctermfg=188   ctermbg=236
-hi OtherLine  ctermbg=none  ctermfg=247   ctermbg=237
-hi Selected   ctermbg=none  ctermfg=188   ctermbg=238
-hi JobLine    cterm=bold    ctermfg=188   ctermbg=238
-hi WildMenu   cterm=none    ctermfg=188   
-hi CmdLine    cterm=none    ctermfg=188   ctermbg=0
-hi ErrorMsg   cterm=none    ctermfg=188   ctermbg=237
-hi Executable cterm=none    ctermfg=188
-hi BrokenLink cterm=none    ctermfg=188   
-hi Device     cterm=none    ctermfg=188   
-hi Fifo       cterm=none    ctermfg=188   
-hi Socket     cterm=none    ctermfg=188   
-hi Link       cterm=bold    ctermfg=green ctermbg=default
+" hi Border     cterm=none    ctermfg=-1    ctermbg=-1
+" hi TopLine    cterm=none  ctermfg=white ctermbg=237
+" hi TopLineSel cterm=none  ctermfg=white ctermbg=237
+" hi StatusLine cterm=none  ctermfg=white ctermbg=237
+" hi Win        ctermbg=none  ctermfg=199   
+" hi Directory  ctermbg=none  ctermfg=188   
+" hi CurrLine   ctermbg=none  ctermfg=188   ctermbg=236
+" hi OtherLine  ctermbg=none  ctermfg=247   ctermbg=237
+" hi Selected   ctermbg=none  ctermfg=188   ctermbg=238
+" hi JobLine    cterm=bold    ctermfg=188   ctermbg=238
+" hi WildMenu   cterm=none    ctermfg=188   
+" hi CmdLine    cterm=none    ctermfg=188   ctermbg=0
+" hi ErrorMsg   cterm=none    ctermfg=188   ctermbg=237
+" hi Executable cterm=none    ctermfg=188
+" hi BrokenLink cterm=none    ctermfg=188   
+" hi Device     cterm=none    ctermfg=188   
+" hi Fifo       cterm=none    ctermfg=188   
+" hi Socket     cterm=none    ctermfg=188   
+" hi Link       cterm=bold    ctermfg=green ctermbg=default
 
 " colorscheme zenburn
 

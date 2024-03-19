@@ -8,6 +8,8 @@ window-decoration = false
 macos-option-as-alt = true
 adjust-cell-width = -1
 
+window-padding-x = 0
+window-padding-y = 0
 
 keybind = ctrl+comma=reload_config
 keybind = ctrl+equal=increase_font_size:1
@@ -43,8 +45,8 @@ font-family	= Iosevka Term Slab Light
 # font-family-italic = Iosevka Term Slab Light Oblique
 # font-family-bold-italic = Iosevka Term Slab Oblique
 
-adjust-cell-width = -4%
-adjust-cell-height = 0%
+# adjust-cell-width = -4%
+# adjust-cell-height = 0%
 
 palette = 0=#4f4f4f
 palette = 1=#fa6c60
