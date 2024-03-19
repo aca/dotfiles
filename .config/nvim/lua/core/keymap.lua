@@ -186,7 +186,7 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Clean search (highlight)
 " nnoremap <silent> <ESC> :<C-u>nohlsearch<CR> | echo
-" map <silent><esc> :noh <CR><esc>
+nnoremap <silent><space><space> :noh <CR>
 
 " vv, instead of V (which includes new line) + copy
 nnoremap vv g^vg_"+ygv
