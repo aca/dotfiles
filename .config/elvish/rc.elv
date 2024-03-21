@@ -16,10 +16,9 @@
 #
 # Of course, if this is at the head of a function replace @args by `a @args` in the function signature, and drop the first two lines.
 
-use interactive
 use str
 use platform
-use path
+use interactive
 
 if (not (has-env _ELVISH_INIT)) { 
     stty -ixon # http://www.linusakesson.net/programming/tty/

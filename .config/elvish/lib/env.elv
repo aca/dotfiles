@@ -104,6 +104,7 @@ if (not (has-env IN_NIX_SHELL)) {
     set paths = [
       # clean up this mess
 
+      ~/src/go.googlesource.com/go/bin
       ~/.bin
       ~/.bin/git
       ~/.bin/dev

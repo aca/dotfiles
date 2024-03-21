@@ -34,38 +34,6 @@ command! Luapad packadd nvim-luapad | :Luapad
 packadd vim-dirdiff
 ]])
 
-vim.cmd([[
-" NOTES: neovim visual block does not work as expected, override with this.
-" Need to fix https://github.com/neovim/neovim/pull/18538/files
-
-" visualblocking `Created "$WORK/secret.txt.age` does not work
-" visualblocking `Created "$WORK/secret.txt.age` does not work
-" visualblocking `Created "$WORK/se` does not work
-
-" https://github.com/bronson/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
-" makes * and # work on visual mode too.  global function so user mappings can call it.
-" specifying 'raw' for the second argument prevents escaping the result for vimgrep
-" TODO: there's a bug with raw mode.  since we're using @/ to return an unescaped
-" search string, vim's search highlight will be wrong.  Refactor plz.
-function! VisualStarSearchSet(cmdtype,...)
-  let temp = @"
-  normal! gvy
-  if !a:0 || a:1 != 'raw'
-    let @" = escape(@", a:cmdtype.'\*')
-  endif
-  let @/ = substitute(@", '\n', '\\n', 'g')
-  let @/ = substitute(@/, '\[', '\\[', 'g')
-  let @/ = substitute(@/, '\~', '\\~', 'g')
-  let @/ = substitute(@/, '\.', '\\.', 'g')
-  let @" = temp
-endfunction
-
-" replace vim's built-in visual * and # behavior
-xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
-" xnoremap * y/\V<C-R>"<CR>
-]])
-
 -- edit
 vim.cmd.packadd 'quickfix-reflector.vim'
 vim.cmd.packadd 'vim-ReplaceWithRegister'
