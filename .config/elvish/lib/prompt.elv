@@ -44,7 +44,7 @@ set edit:after-command = [
     # https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
     printf "\033]133;A;cl=m;aid=%s\007" $pid
     # pprint $m
-    if (< $m[duration] 2) {
+    if (< $m[duration] 10) {
       nop
     } else {
       if (has-env TMUX) {
