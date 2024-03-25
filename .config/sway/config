@@ -202,8 +202,11 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym $mod+bracketright workspace next_on_output
-bindsym $mod+bracketleft workspace prev_on_output
+# bindsym $mod+bracketright workspace next_on_output
+# bindsym $mod+bracketleft workspace prev_on_output
+
+bindsym $mod+bracketright focus output right
+bindsym $mod+bracketleft focus output left
 
 #
 # Workspaces:
