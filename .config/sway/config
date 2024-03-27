@@ -333,6 +333,8 @@ exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activati
 
 set $HOME /home/rok
 exec --no-startup-id $HOME/src/root/dotfiles/.submodules/sway-alternating-layout/alternating_layouts.py
+exec --no-startup-id /home/rok/bin/p2p-clipboard --listen 100.85.204.31:34853 --key /home/rok/.config/p2p-clipboard/key
+
 # exec --no-startup-id swaymsg 'workspace main; exec /run/current-system/sw/bin/kitty' 
 # exec --no-startup-id swaymsg 'workspace 1; exec /run/current-system/sw/bin/alacritty' 
 exec sleep 4; /run/current-system/sw/bin/kanshi

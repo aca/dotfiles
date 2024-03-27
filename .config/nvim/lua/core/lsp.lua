@@ -353,10 +353,23 @@ end
 if vim.fn.executable("deno") == 1 then
 	lspconfig.denols.setup({
 		capabilities = capabilities,
-		single_file_support = true,
+		-- single_file_support = false,
 		-- handlers = handlers,
 		on_attach = on_attach,
 		root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+		init_options = {
+			lint = true,
+			unstable = true,
+			suggest = {
+				imports = {
+					hosts = {
+						["https://deno.land"] = true,
+						["https://cdn.nest.land"] = true,
+						["https://crux.land"] = true,
+					},
+				},
+			},
+		},
 		-- root_dir = function()
 		--     root = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
 		--     vim.print(root())
@@ -444,7 +457,7 @@ if vim.fn.executable("jdt-language-server") == 1 then
 		single_file_support = true,
 		handlers = handlers,
 		on_attach = on_attach,
-        cmd = { 'jdt-language-server' },
+		cmd = { "jdt-language-server" },
 	})
 end
 
@@ -458,8 +471,8 @@ if vim.fn.executable("zls") == 1 then
 end
 
 if vim.fn.executable("clangd") == 1 then
-    local clangd_capabilities = vim.deepcopy(capabilities)
-    clangd_capabilities.offsetEncoding = "utf-8"
+	local clangd_capabilities = vim.deepcopy(capabilities)
+	clangd_capabilities.offsetEncoding = "utf-8"
 
 	lspconfig.clangd.setup({
 		capabilities = clangd_capabilities,
@@ -475,6 +488,12 @@ if vim.fn.executable("nixd") == 1 then
 		single_file_support = true,
 		handlers = handlers,
 		on_attach = on_attach,
+	})
+end
+
+if vim.fn.executable("rust-analyzer") == 1 then
+	lspconfig.rust_analyzer.setup({
+		capabilities = capabilities,
 	})
 end
 
