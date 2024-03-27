@@ -2,7 +2,6 @@ local wezterm = require("wezterm")
 local os = require("os")
 local homedir = os.getenv("HOME")
 
-
 -- wezterm.on("window-config-reloaded", function(window, pane)
 --   window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
 -- end)
