@@ -37,6 +37,11 @@ if (eq $platform_os "linux") {
   set-env BROWSER google-chrome
 }
 
+if (eq $platform_os "darwin") {
+  # use system clang instead of nix for cgo build
+  set-env CC /usr/bin/clang 
+}
+
 # https://nixos.wiki/wiki/Locales
 # set-env LOCALE_ARCHIVE /usr/lib/locale/locale-archive
 
