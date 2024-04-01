@@ -35,7 +35,7 @@
 #
 # # general space settings
 # yabai -m config layout                       bsp
-# yabai -m config top_padding                  0
+# yabai -m config top_padding                  20
 # yabai -m config bottom_padding               0
 # yabai -m config left_padding                 0
 # yabai -m config right_padding                0

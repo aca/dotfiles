@@ -30,6 +30,7 @@ alias l='ls -CF'
 
 set -o vi
 
+# https://codeberg.org/dnkl/foot/wiki#bash
 osc7_cwd() {
     local strlen=${#PWD}
     local encoded=""
@@ -46,12 +47,6 @@ osc7_cwd() {
 }
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
 
-# NOTES: bash completion sources all completion files which makes startup lag.
-# Remove completion not used.
-if [[ $PS1 && -f /opt/homebrew/etc/profile.d/bash_completion.sh ]]; then 
-    . /opt/homebrew/etc/profile.d/bash_completion.sh
-fi
-
 # GUIX
 if [ -n "$GUIX_ENVIRONMENT" ]; then
     if [[ $PS1 =~ (.*)"\\$" ]]; then
@@ -65,11 +60,3 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 
 # . /home/rok/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion
-
-# https://github.com/Eugeny/tabby/issues/7717
-if [ -z "$TMUX" ]; then
-    PS1=${PS1}'\[\e]1337;CurrentDir=${PWD}\a\]'
-else
-    PS1=${PS1}'\[\ePtmux;\e\e]1337;CurrentDir=${PWD}\a\e\\\]'
-fi
-

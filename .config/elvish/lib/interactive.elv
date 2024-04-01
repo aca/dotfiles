@@ -63,7 +63,7 @@ set edit:command-abbr['ea'] = 'each { |x|'
 set edit:before-readline = [
     # osc7 escape sequence
     # { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
-    { printf "\e]7;"$pwd"\e\\" }
+    # { printf "\e]7;"$pwd"\e\\" }
 
     # osc1337 escape sequence
     # { printf "\[\ePtmux;\e\e]1337'CurrentDir="$pwd"\a\e\\\" }
@@ -112,3 +112,8 @@ set edit:before-readline = [
 #     }
 # }
 #
+
+# OSC7
+# print "\033]7;file://"$pwd"\033\\" # not work 
+# printf "\e]7;"$pwd"\e\\"
+set @after-chdir = $@after-chdir {|_| printf "\e]7;"$pwd"\e\\" > /dev/tty }
