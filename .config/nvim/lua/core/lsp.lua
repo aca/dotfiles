@@ -197,10 +197,10 @@ end
 
 -- vim.lsp.set_log_level("DEBUG")
 
--- if vim.fn.executable("/home/rok/src/github.com/aca/deno-lsp/main.ts") == 1 then
---     configs.mdpls = {
+-- if vim.fn.executable("korean-ls") == 1 then
+--     configs.korean_ls = {
 --         default_config = {
---             cmd = { "/home/rok/src/github.com/aca/deno-lsp/main.ts", "--stdio" },
+--             cmd = { "korean-ls", "--stdio" },
 --             filetypes = { "markdown" },
 --             root_dir = function()
 --                 return vim.loop.cwd()
@@ -208,7 +208,7 @@ end
 --             settings = {},
 --         }
 --     }
---     lspconfig.mdpls.setup {
+--     lspconfig.korean_ls.setup {
 --         capabilities = capabilities,
 --         on_attach = on_attach,
 --     }

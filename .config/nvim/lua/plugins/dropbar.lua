@@ -1,8 +1,9 @@
 vim.cmd.packadd("dropbar.nvim")
+vim.cmd.packadd("nvim-web-devicons")
 require("dropbar").setup({
 	general = { enable = false },
 	icons = {
-		enable = true,
+		enable = false,
 		kinds = {
 			use_devicons = true,
 			-- symbols = {
