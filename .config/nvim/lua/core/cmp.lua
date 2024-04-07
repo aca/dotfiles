@@ -16,9 +16,6 @@ runtime after/plugin/cmp_nvim_lsp.lua
 packadd cmp-path
 runtime after/plugin/cmp_path.lua
 
-packadd cmp_luasnip
-runtime after/plugin/cmp_luasnip.lua
-
 packadd nvim-autopairs
 
 " packadd cmp-omni
@@ -26,9 +23,6 @@ packadd nvim-autopairs
 
 " packadd cmp-nvim-lsp-signature-help
 " runtime after/plugin/cmp_nvim_lsp_signature_help.lua
-
-packadd cmp-cmdline
-runtime after/plugin/cmp_cmdline.lua
 
 " packadd cmp-tmux
 " runtime after/plugin/cmp_tmux.vim
@@ -45,7 +39,19 @@ runtime after/plugin/cmp_cmdline.lua
 
 " packadd cmp-dynamic
 " runtime after/plugin/cmp_dynamic.lua
+
+packadd cmp-cmdline
+runtime after/plugin/cmp_cmdline.lua
 ]])
+
+local use_luasnip = false
+if pcall(require, "luasnip") then
+	use_luasnip = true
+	vim.cmd([[
+    packadd cmp_luasnip
+    runtime after/plugin/cmp_luasnip.lua
+    ]])
+end
 
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -120,12 +126,14 @@ else
 		-- { name = "tabnine" },
 		-- { name = "path" },
 		-- { name = "buffer", option = { keyword_length = 5 } },
-		{ name = "luasnip" },
+		-- { name = "luasnip" },
 		-- { name = "nvim_lsp_signature_help" },
 		-- { name = "luasnip_choice" },
 		-- { name = "path", option = { } }
 	}
 end
+
+table.insert(cmp_sources, { name = "luasnip" })
 
 -- -- Set configuration for specific filetype.
 --  cmp.setup.filetype('gitcommit', {
@@ -170,9 +178,11 @@ cmp.setup({
 
 	snippet = {
 		expand = function(args)
-			pcall(require("luasnip").lsp_expand, args.body)
-			-- TODO: use native vim sinppet?
-			-- vim.snippet.expand(args.body)
+			if use_luasnip then
+				require("luasnip").lsp_expand(args.body)
+			else
+				vim.snippet.expand(args.body)
+			end
 		end,
 	},
 

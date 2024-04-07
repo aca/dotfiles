@@ -11,7 +11,8 @@ hop.setup()
 --         current_line_only = false,
 --     })
 -- end)
-vim.keymap.set("n", "<leader>w", function()
+-- vim.keymap.set("n", "<leader>w", function()
+vim.keymap.set("n", "gw", function()
     hop.hint_words({})
 end)
 

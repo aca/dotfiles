@@ -60,39 +60,39 @@ set edit:command-abbr['ea'] = 'each { |x|'
 #     fail 1
 # }
 
-set edit:before-readline = [
-    # osc7 escape sequence
-    # { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
-    # { printf "\e]7;"$pwd"\e\\" }
-
-    # osc1337 escape sequence
-    # { printf "\[\ePtmux;\e\e]1337'CurrentDir="$pwd"\a\e\\\" }
-
-    # # this is fix for asdf performance issue
-    # {
-    #     set paths = [(
-    #         if ?(asdf-available) {
-    #             put $@paths | { 
-    #                 put ~/.asdf/bin ~/.asdf/shims
-    #                 each { |x|
-    #                     if (not (str:contains $x "/.asdf")) { 
-    #                         put $x
-    #                     } 
-    #                 }' 
-    #             }
-    #         } else {
-    #             put $@paths | { 
-    #                 each { |x| 
-    #                     if (not (str:contains $x "/.asdf")) { 
-    #                         put $x
-    #                     } 
-    #                 }; 
-    #                 put ~/.asdf/bin ~/.asdf/shims
-    #             }
-    #         }
-    #     )]
-    # }
-]
+# set edit:before-readline = $@edit:before-readline [
+#     # osc7 escape sequence
+#     # { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
+#     # { printf "\e]7;"$pwd"\e\\" }
+#
+#     # osc1337 escape sequence
+#     # { printf "\[\ePtmux;\e\e]1337'CurrentDir="$pwd"\a\e\\\" }
+#
+#     # # this is fix for asdf performance issue
+#     # {
+#     #     set paths = [(
+#     #         if ?(asdf-available) {
+#     #             put $@paths | { 
+#     #                 put ~/.asdf/bin ~/.asdf/shims
+#     #                 each { |x|
+#     #                     if (not (str:contains $x "/.asdf")) { 
+#     #                         put $x
+#     #                     } 
+#     #                 }' 
+#     #             }
+#     #         } else {
+#     #             put $@paths | { 
+#     #                 each { |x| 
+#     #                     if (not (str:contains $x "/.asdf")) { 
+#     #                         put $x
+#     #                     } 
+#     #                 }; 
+#     #                 put ~/.asdf/bin ~/.asdf/shims
+#     #             }
+#     #         }
+#     #     )]
+#
+# ]
 
 # set @edit:before-readline = $@edit:before-readline {
 #     if ?(var rootdir = (e:git rev-parse --show-toplevel 2>/dev/null)) {

@@ -230,20 +230,3 @@ from ptpython.repl import embed; embed(globals(), locals())
         )
     ),
 })
-
-local function shebang(_, _)
-    local cstring = vim.split(vim.bo.commentstring, "%s", true)[1]
-    if cstring == "/*" then
-        cstring = "//"
-    end
-    cstring = vim.trim(cstring)
-    local ft = vim.bo.filetype
-    if ft == "python" then
-        ft = "python3"
-    end
-    return sn(nil, {
-        t(cstring),
-        t("!/usr/bin/env "),
-        i(1, ft),
-    })
-end

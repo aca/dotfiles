@@ -114,3 +114,7 @@ fn filter {|pred~ @items &not=$false &out=$put~|
   if $not { set ck~ = {|item| not (pred $item)} }
   each {|item| if (ck $item) { $out $item }} $@items
 }
+
+if (has-external direnv) {
+    use direnv
+}

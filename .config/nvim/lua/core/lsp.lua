@@ -28,9 +28,9 @@ vim.cmd.packadd("nvim-vtsls")
 -- vim.cmd.packadd "pylance"
 
 local lspconfig = require("lspconfig")
-local configs = require("lspconfig.configs")
+-- local configs = require("lspconfig.configs")
 -- local lume = require("lib/lume")
-local util = require("lspconfig/util")
+-- local util = require("lspconfig/util")
 
 require("neodev").setup({})
 

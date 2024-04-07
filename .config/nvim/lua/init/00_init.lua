@@ -1,3 +1,4 @@
+-- https://github.com/ggandor/leap.nvim statusline
 -- https://news.ycombinator.com/item?id=38965636
 -- https://tabokie.github.io/non-fiction/2024/01/13/log-kb.html
 -- typst nvim

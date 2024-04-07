@@ -5,7 +5,7 @@
 # https://xeiaso.net/blog/nix-flakes-look-up-package/
 
 export NIXPKGS_ALLOW_UNFREE=1
-cd /home/rok/src/root/nix-config
+cd /home/rok/src/github.com/aca/nix-config
 # nix eval --raw nixpkgs.zlib
 #
 # nix-instantiate --expr "(import <nixpkgs> {}).$1.libpath" 2>/dev/null

@@ -27,24 +27,24 @@ local function isfolded(line)
    return vim.fn.foldclosed(line) == -1
 end
 
--- toggle fold on current cursor
-vim.keymap.set("n", "<tab>", function()
-    local lineNum = vim.api.nvim_win_get_cursor(0)[1]
-
-    if vim.fn.foldlevel(lineNum) == 0 then
-        -- vim.notify("no fold")
-        return
-    end
-    require('fold-cycle').toggle_all()
-
-    -- if isfolded(lineNum) then
-    --     -- print("is folded", lineNum)
-    --     -- vim.cmd("normal! zo")
-    -- else
-    --     -- print("is not folded", lineNum)
-    --     -- vim.cmd("normal! zc")
-    -- end
-end, {
-    silent = true,
-    desc = "Fold-cycle",
-})
+-- -- toggle fold on current cursor
+-- vim.keymap.set("n", "<tab>", function()
+--     local lineNum = vim.api.nvim_win_get_cursor(0)[1]
+--
+--     if vim.fn.foldlevel(lineNum) == 0 then
+--         -- vim.notify("no fold")
+--         return
+--     end
+--     require('fold-cycle').toggle_all()
+--
+--     -- if isfolded(lineNum) then
+--     --     -- print("is folded", lineNum)
+--     --     -- vim.cmd("normal! zo")
+--     -- else
+--     --     -- print("is not folded", lineNum)
+--     --     -- vim.cmd("normal! zc")
+--     -- end
+-- end, {
+--     silent = true,
+--     desc = "Fold-cycle",
+-- })

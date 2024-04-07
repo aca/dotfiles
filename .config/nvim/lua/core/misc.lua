@@ -11,7 +11,6 @@ vim.cmd.packadd 'tree-sitter-just'
 
 -- vim.cmd.packadd 'clever-f.vim'
 
--- packadd fcitx.nvim
 
 vim.cmd([[
 packadd vim-scriptease

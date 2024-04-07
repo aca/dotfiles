@@ -1,8 +1,9 @@
--- -- https://github.com/L3MON4D3/LuaSnip/issues/258#issuecomment-1011938524
-local loaded, ls = pcall(require, "luasnip")
-if not loaded then
+-- -- -- https://github.com/L3MON4D3/LuaSnip/issues/258#issuecomment-1011938524
+if not pcall(require, "luasnip") then
     return
 end
+
+local ls = require("luasnip")
 
 function _G._leave_snippet()
 	if
