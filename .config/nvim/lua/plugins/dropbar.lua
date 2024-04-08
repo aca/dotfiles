@@ -259,5 +259,5 @@ nvim_set_hl(0, "DropBarMenuSbar", { link = "StatusLine" })
 nvim_set_hl(0, "DropBarMenuThumb", { link = "StatusLine" })
 nvim_set_hl(0, "DropBarPreview", { link = "StatusLine" })
 -- -- vim.o.winbar = "%{%v:lua.dropbar.get_dropbar_str()%}"
-vim.o.statusline = "%t %{%v:lua.dropbar.get_dropbar_str()%}"
+vim.o.statusline = "%t %{%v:lua.dropbar.get_dropbar_str()%} %{mode()}"
 -- -- vim.opt.winbar = ""

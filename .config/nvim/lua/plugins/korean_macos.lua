@@ -2,10 +2,6 @@ if os.getenv('HOSTNAME') ~= "rok-toss-nix" then
   return
 end
 
--- if vim.fn.executable('fcitx5-remote') ~= 1 then
---     return
--- end
---
 function _Fcitx2en()
   local input_status = tostring(vim.fn.system([[ remote-exec client-oneshot :11111 "hs -c 'hs.keycodes.currentSourceID()'" ]]))
   -- input status 0: English, 1: Non-Latin
@@ -30,7 +26,7 @@ end
 
 vim.cmd[[
   augroup fcitx
-    au InsertEnter * :lua _Fcitx2NonLatin()
+    " au InsertEnter * :lua _Fcitx2NonLatin()
     au InsertLeave * :lua _Fcitx2en()
     au CmdlineEnter [/\?] :lua _Fcitx2NonLatin()
     au CmdlineLeave [/\?] :lua _Fcitx2en()
