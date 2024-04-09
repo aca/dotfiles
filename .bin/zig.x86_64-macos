@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# CGO_ENABLED=1 GOARCH=amd64 CC="zig.x86_64-macos cc" CXX="zig.x86_64-macos c++" go build
+
+cc=$1
+shift
+sysroot=$(xcrun --sdk macosx --show-sdk-path)
+/opt/homebrew/bin/zig $cc -target x86_64-macos --sysroot=$sysroot -I$sysroot/usr/include -L/usr/lib -F$sysroot/System/Library/Frameworks "$@"
