@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/opt/homebrew/bin/hs -c "hs.keycodes.currentSourceID('com.apple.inputmethod.Korean.2SetKorean')"
