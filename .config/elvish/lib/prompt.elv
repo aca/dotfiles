@@ -52,7 +52,7 @@ set edit:after-command = [
           nop
         } else {
           # tmux display-message -d 999999 -l $m[src][code]
-          tmux display-message -d 999999 -l $m[src][code]
+          # tmux display-message -d 999999 -l $m[src][code]
         }
       }
       echo (styled (printf "« took: %.3fs / done: "(e:date "+%Y-%m-%d %H:%M:%S") $m[duration])"\n" red italic)

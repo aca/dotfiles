@@ -59,11 +59,11 @@ set edit:command-abbr['ea'] = 'each { |x|'
 #
 #     fail 1
 # }
+#
 
 # set edit:before-readline = $@edit:before-readline [
 #     # osc7 escape sequence
 #     # { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
-#     # { printf "\e]7;"$pwd"\e\\" }
 #
 #     # osc1337 escape sequence
 #     # { printf "\[\ePtmux;\e\e]1337'CurrentDir="$pwd"\a\e\\\" }
@@ -94,26 +94,13 @@ set edit:command-abbr['ea'] = 'each { |x|'
 #
 # ]
 
-# set @edit:before-readline = $@edit:before-readline {
-#     if ?(var rootdir = (e:git rev-parse --show-toplevel 2>/dev/null)) {
-#         if (eq $rootdir $pwd) {
-#             try { 
-#                 fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
-#                 nop ?(cat .envrc .envrc.local .envrc.elv .envrc.local.elv 2>/dev/null) | slurp | eval (all)
-#             } catch {
-#             }
-#         } else {
-#             try {
-#                 fn export { |v| put $v | str:split &max=2 '=' (one) | set-env (all) }
-#                 nop ?(cat $rootdir/.envrc $rootdir/.envrc.local $rootdir/.envrc.elv $rootdir/.envrc.local.elv .envrc .envrc.local .envrc.elv .envrc.local.elv) 2>/dev/null | slurp | eval (all)
-#             } catch {
-#             }
-#         }
-#     }
-# }
-#
-
 # OSC7
 # print "\033]7;file://"$pwd"\033\\" # not work 
 # printf "\e]7;"$pwd"\e\\"
-set @after-chdir = $@after-chdir {|_| printf "\e]7;"$pwd"\e\\" > /dev/tty }
+# set @after-chdir = $@after-chdir {|_| printf "\e]7;"$pwd"\e\\" > /dev/tty }
+
+set edit:before-readline = $@edit:before-readline [
+    # osc7 escape sequence
+    # { printf "\e]7;file://"$E:HOSTNAME$pwd"\e\\" }
+    { printf "\e]7;"$pwd"\e\\" }
+]
