@@ -48,6 +48,19 @@ fn l {|@a| e:ls -1U [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn ll {|@a| e:ls -alU [&darwin=-G &linux=--color=auto][$platform:os] $@a }
 fn make {|@a| e:make --directory (find.rootdir Makefile $E:HOME) $@a }
 
+fn grep { |@a| 
+    if (has-external stdbuf) {
+        stdbuf -i0 -o0 -e0 grep $@a
+    } else {
+        e:grep $@a
+    }
+}
+# fn grep {|@a| 
+#     if (has-external rg) {
+#     } else {
+#     }
+# }
+
 # wrappers
 fn cp { |@a| if (has-external advcp) { e:advcp -g $@a } else { e:cp -v $@a } }
 fn mv { |@a| if (has-external advmv) { e:advmv -g $@a } else { e:mv $@a } }

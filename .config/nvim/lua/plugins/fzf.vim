@@ -13,10 +13,10 @@ let g:fzf_action = {
 " autocmd! FileType fzf
 " autocmd  FileType fzf set laststatus=0 noshowmode noruler
 "   \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
-"
-autocmd! FileType fzf
-autocmd  FileType fzf set noshowmode noruler
-  \| autocmd BufLeave <buffer> set showmode ruler
+
+" autocmd! FileType fzf
+" autocmd  FileType fzf set noshowmode noruler
+"   \| autocmd BufLeave <buffer> set showmode ruler
 
 " TODO: reset
 " au FileType fzf tnoremap <buffer> <Esc> <c-c>
