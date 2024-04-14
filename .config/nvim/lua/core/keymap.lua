@@ -1,6 +1,9 @@
 -- https://github.com/neovim/neovim/pull/16591
 -- nvim_set_keymap('n', ' <NL>', '', {'nowait': v:true})
 
+
+-- TODO: cleanup api, use vim.keymap.set? or nvim_set_keymap?
+
 local nvim_set_keymap = vim.api.nvim_set_keymap
 local set = vim.keymap.set
 local vim = vim
@@ -29,9 +32,11 @@ set("n", "[w", "<c-w>W")
 set("n", "[j", "g;")
 set("n", "]j", "g,")
 
+set("n", ";n", ":set number!<CR>", { silent = true, noremap = true })
+
 -- toggle
 nvim_set_keymap("n", ";w", ":set wrap!<CR>", { silent = true, noremap = true })
-nvim_set_keymap("n", ";n", ":set relativenumber! | set number!<CR>", { silent = true, noremap = true })
+-- nvim_set_keymap("n", ";n", ":set relativenumber! | set number!<CR>", { silent = true, noremap = true })
 nvim_set_keymap("n", ";m", ":Messages<cr><c-w><c-w>", { silent = true, noremap = true })
 nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent = true, noremap = true })
 
@@ -92,8 +97,7 @@ function s:close()
   elseif getwininfo(win_getid())[0]['loclist'] == 1
     lclose
   elseif len(getbufinfo({'buflisted':1})) > 1
-    BufferClose!
-    " q!
+    bd
   else
     q!
   end

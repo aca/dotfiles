@@ -784,9 +784,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/conform.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/conform.nvim
 	url = https://github.com/stevearc/conform.nvim
-[submodule ".local/share/nvim/site/pack/bundle/opt/tmux.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/tmux.nvim
-	url = https://github.com/aserowy/tmux.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/dropbar.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/dropbar.nvim
 	url = https://github.com/Bekaboo/dropbar.nvim.git
@@ -862,3 +859,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/hangeul.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/hangeul.vim
 	url = https://github.com/lifthrasiir/hangeul.vim
+[submodule ".local/share/nvim/site/pack/bundle/opt/copilot.vim"]
+	path = .local/share/nvim/site/pack/bundle/opt/copilot.vim
+	url = https://github.com/github/copilot.vim.git

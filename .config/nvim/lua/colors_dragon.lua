@@ -412,7 +412,7 @@ local colors_init = {
     fg = "#c4746e"
   },
   Pmenu = {
-    bg = "#282727",
+    bg = "#1c1c1c",
     fg = "#b4b3a7"
   },
   PmenuSbar = {
@@ -432,7 +432,7 @@ local colors_init = {
     link = "MoreMsg"
   },
   QuickFixLine = {
-    bg = "#282727"
+    bg = "#1c1c1c"
   },
   Search = {
     bg = "#393836"
@@ -462,19 +462,19 @@ local colors_init = {
     fg = "#8992a7"
   },
   StatusLine = {
-    bg = "#282727",
+    bg = "#1c1c1c",
     fg = "#b4b3a7"
   },
   StatusLineGitAdded = {
-    bg = "#282727",
+    bg = "#1c1c1c",
     fg = "#8a9a7b"
   },
   StatusLineGitChanged = {
-    bg = "#282727",
+    bg = "#1c1c1c",
     fg = "#c8ae81"
   },
   StatusLineGitRemoved = {
-    bg = "#282727",
+    bg = "#1c1c1c",
     fg = "#c4746e"
   },
   StatusLineHeader = {

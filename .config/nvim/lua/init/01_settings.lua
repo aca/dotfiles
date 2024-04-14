@@ -155,6 +155,7 @@ o.laststatus = 2
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
+vim.o.statusline = "%t"
 -- opt.winbar = "%=%l:%c %P %m%f"
 -- opt.winbar = " "
 

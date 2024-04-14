@@ -39,7 +39,7 @@ ShareInputState=No
 # Show preedit in application
 PreeditEnabledByDefault=True
 # Show Input Method Information when switch input method
-ShowInputMethodInformation=True
+ShowInputMethodInformation=False
 # Show Input Method Information when changing focus
 showInputMethodInformationWhenFocusIn=False
 # Show compact input method information
