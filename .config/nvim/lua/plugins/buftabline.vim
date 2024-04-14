@@ -1,4 +1,6 @@
 packadd vim-buftabline                 
+" set tabline=""
+" set showtabline=0
                                           
 nmap <leader>1 <Plug>BufTabLine.Go(1)
 nmap <leader>2 <Plug>BufTabLine.Go(2)

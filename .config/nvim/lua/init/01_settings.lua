@@ -11,8 +11,8 @@ local o = vim.o
 --     o.relativenumber = false
 -- end
 
-o.number = true
-o.relativenumber = true
+o.number = false
+o.relativenumber = false
 o.splitkeep = "screen"
 o.formatoptions = "jncroql"
 o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
@@ -155,7 +155,10 @@ o.laststatus = 2
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
-vim.o.statusline = "%t"
+o.statusline = "%=%l/%L"
+o.tabline = " %t"
+o.showtabline = 2
+-- vim.o.statusline = "%t"
 -- opt.winbar = "%=%l:%c %P %m%f"
 -- opt.winbar = " "
 

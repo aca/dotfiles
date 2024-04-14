@@ -172,8 +172,8 @@ require("dropbar").setup({
 			}
 		end,
 		padding = {
-			left = 1,
-			right = 1,
+			left = 0,
+			right = 0,
 		},
 		-- pick = {
 		--   pivots = 'abcdefghijklmnopqrstuvwxyz',
@@ -265,6 +265,9 @@ nvim_set_hl(0, "DropBarMenuNormalFloat", { link = "StatusLine" })
 nvim_set_hl(0, "DropBarMenuSbar", { link = "StatusLine" })
 nvim_set_hl(0, "DropBarMenuThumb", { link = "StatusLine" })
 nvim_set_hl(0, "DropBarPreview", { link = "StatusLine" })
--- -- vim.o.winbar = "%{%v:lua.dropbar.get_dropbar_str()%}"
-vim.o.statusline = "%t%{%v:lua.dropbar.get_dropbar_str()%}"
+-- vim.o.winbar = "%=%t %{%v:lua.dropbar.get_dropbar_str()%}"
+
+-- vim.o.tabline = "%=%t %{%v:lua.dropbar.get_dropbar_str()%}"
+-- vim.o.statusline = "%t%{%v:lua.dropbar.get_dropbar_str()%}"
+-- vim.o.statusline = "%t%{%v:lua.dropbar.get_dropbar_str()%}"
 -- -- vim.opt.winbar = ""

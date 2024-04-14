@@ -70,7 +70,7 @@ if vim.go.bg == 'dark' then
   c_dragonAsh     = '#626462'
   c_dragonBg0     = '#0d0c0c'
   c_dragonBg1     = '#000000'
-  c_dragonBg2     = '#201d1d'
+  c_dragonBg2     = '#111111'
   -- c_dragonBg3     = '#282727'
   c_dragonBg3     = '#111111'
   c_dragonBg4     = '#393836'

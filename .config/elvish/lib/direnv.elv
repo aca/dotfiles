@@ -4,7 +4,7 @@ set @edit:before-readline = $@edit:before-readline {
     if (str:has-prefix $pwd $E:HOME/src) {
         try {
             # var m = [("direnv" export elvish 2>/dev/null | from-json)]
-            var m = [("direnv" export elvish | from-json)]
+            var m = [("direnv" export elvish 2>/dev/null | from-json)]
             if (> (count $m) 0) {
                 set m = (all $m)
                 keys $m | each { |k|

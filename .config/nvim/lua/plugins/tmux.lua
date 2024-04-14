@@ -1,5 +1,9 @@
 vim.cmd.packadd 'tmux.nvim'
-require("tmux").setup()
+require("tmux").setup({
+    copy_sync = {
+        enable = false,
+    },
+})
 
 -- TODO: https://github.com/aserowy/tmux.nvim/issues/105
 -- cmdline 이 남아있는 것 같음

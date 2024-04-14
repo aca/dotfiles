@@ -7,8 +7,8 @@ local load = function()
     require("core.treesitter")
     require("core.keymap")
     require("core.luasnip")
-
     require("core.cmp")
+    require("core.copilot_vim")
     require("core.lsp")
     require("core.misc")
 
@@ -22,11 +22,11 @@ local load = function()
 
     -- -- require("core.zettels")
 
-    -- vim.defer_fn(function()
-    --     -- prevent delay on startup
-    --     vim.cmd([[ silent! helptags ALL ]])
-    -- end, 200)
+    vim.defer_fn(function()
+        -- prevent delay on startup
+        vim.cmd([[ silent! helptags ALL ]])
+    end, 200)
 end
 
-vim.defer_fn(load, 80)
+vim.defer_fn(load, 50)
 -- load()
