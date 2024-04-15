@@ -865,3 +865,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/tmux.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/tmux.nvim
 	url = https://github.com/aca/tmux.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/fzfx.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/fzfx.nvim
+	url = https://github.com/linrongbin16/fzfx.nvim.git

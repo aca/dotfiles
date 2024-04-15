@@ -25,9 +25,9 @@ au FileType fzf tnoremap <buffer> <c-k> <c-k>
 
 let g:fzf_preview_window = ['right:50%:noborder','ctrl-w']
 let g:fzf_layout = { 'window': { 'width': 0.99, 'height': 0.8, 'relative': v:true } }
-if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p90%,80%' }
-endif
+" if exists('$TMUX')
+"   let g:fzf_layout = { 'tmux': '-p90%,80%' }
+" endif
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 
 " fzf mark with preview

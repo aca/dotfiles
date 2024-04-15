@@ -50,7 +50,8 @@ fn make {|@a| e:make --directory (find.rootdir Makefile $E:HOME) $@a }
 
 fn grep { |@a| 
     if (has-external stdbuf) {
-        stdbuf -i0 -o0 -e0 grep $@a
+        # stdbuf -i0 -o0 -e0 e:grep $@a
+        e:grep $@a
     } else {
         e:grep $@a
     }

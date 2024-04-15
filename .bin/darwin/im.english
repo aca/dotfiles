@@ -1,3 +1,4 @@
 #!/bin/sh
 
- /opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then hs.execute("/opt/homebrew/bin/macism com.apple.keylayout.US"); print(1); end' 
+export HOME=/Users/kyungrok.chung
+/opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then hs.execute("/opt/homebrew/bin/macism com.apple.keylayout.US"); print(1); end' 
