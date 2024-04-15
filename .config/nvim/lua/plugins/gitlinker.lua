@@ -1,7 +1,7 @@
 -- local vim = vim
 --
--- vim.cmd.packadd("plenary.nvim")
--- vim.cmd.packadd("gitlinker.nvim")
+vim.cmd.packadd("plenary.nvim")
+vim.cmd.packadd("gitlinker.nvim")
 --
 -- vim.api.nvim_create_user_command("GBrowse", function()
 --     require("gitlinker").link({action = require("gitlinker.actions").clipboard})
@@ -33,16 +33,15 @@
 --     { desc = "Copy git link to clipboard" }
 -- )
 --
--- require('gitlinker').setup({
---   mapping = {
---     ["<leader>go"] = {
---       action = require("gitlinker.actions").clipboard,
---       desc = "Copy git link to clipboard",
---     },
---     ["<leader>xg"] = {
---       action = require("gitlinker.actions").system,
---       desc = "Open git link in default browser",
---     },
---   },
---
--- })
+require('gitlinker').setup({
+  mapping = {
+    ["<leader>go"] = {
+      action = require("gitlinker.actions").clipboard,
+      desc = "Copy git link to clipboard",
+    },
+    ["<leader>xg"] = {
+      action = require("gitlinker.actions").system,
+      desc = "Open git link in default browser",
+    },
+  },
+})
