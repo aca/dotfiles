@@ -2,4 +2,5 @@
 set -euxo pipefail
 
 git pull --rebase
+git submodule sync
 git submodule update --init --force
