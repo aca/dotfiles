@@ -8,5 +8,5 @@ shift
 
 args="$(echo "$@" | sed 's/ -Wl,-x / /g')" # zig fail for this flag, don't know why..
 sysroot=$(xcrun --sdk macosx --show-sdk-path)
-arch=x86_64-macos
-zig $cc -target $arch --sysroot=$sysroot -I$sysroot/usr/include -L$sysroot/usr/lib -F$sysroot/System/Library/Frameworks -w $args
+arch=x86_64-macos-none
+zig $cc -target $arch --sysroot=$sysroot -I$sysroot/usr/include -L$sysroot/usr/lib -F$sysroot/System/Library/Frameworks -w $@
