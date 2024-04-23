@@ -1,22 +1,20 @@
 ## hook for direnv
 use str
 set @edit:before-readline = $@edit:before-readline {
-    if (str:has-prefix $pwd $E:HOME/src) {
-        try {
-            # var m = [("direnv" export elvish 2>/dev/null | from-json)]
-            var m = [("direnv" export elvish 2>/dev/null | from-json)]
-            if (> (count $m) 0) {
-                set m = (all $m)
-                keys $m | each { |k|
-                    if $m[$k] {
-                        set-env $k $m[$k]
-                    } else {
-                        unset-env $k
-                    }
+    try {
+        # var m = [("direnv" export elvish 2>/dev/null | from-json)]
+        var m = [("direnv" export elvish 2>/dev/null | from-json)]
+        if (> (count $m) 0) {
+            set m = (all $m)
+            keys $m | each { |k|
+                if $m[$k] {
+                    set-env $k $m[$k]
+                } else {
+                    unset-env $k
                 }
             }
-        } catch e {
-            echo $e
         }
+    } catch e {
+        echo $e
     }
 }

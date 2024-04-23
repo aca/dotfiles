@@ -1,28 +1,20 @@
-if os.getenv('HOSTNAME') ~= "kyungrokchung02" then
-  return
+if os.getenv("HOSTNAME") ~= "kyungrokchung02" then
+	return
 end
 
 function _Fcitx2en()
-  local input_status = tonumber(vim.fn.system([[ im.english ]]))
-  if input_status == 1 then
-    vim.b.input_toggle_flag = true
-  else
-    vim.b.input_toggle_flag = false
-  end
+    vim.fn.system([[ /opt/homebrew/bin/hs -c "use_english()" ]])
 end
 
 function _Fcitx2NonLatin()
-  if vim.b.input_toggle_flag == true then
-    vim.fn.system([[ im.korean ]])
-    vim.b.input_toggle_flag = false
-  end
+    vim.fn.system([[ /opt/homebrew/bin/hs -c "use_korean()" ]])
 end
 
-vim.cmd[[
+vim.cmd([[
   augroup fcitx
     au InsertEnter * :lua _Fcitx2NonLatin()
-    au InsertLeave * :lua _Fcitx2en()
+    au InsertLeavePre * :lua _Fcitx2en()
     au CmdlineEnter [/\?] :lua _Fcitx2NonLatin()
     au CmdlineLeave [/\?] :lua _Fcitx2en()
   augroup END
-]]
+]])

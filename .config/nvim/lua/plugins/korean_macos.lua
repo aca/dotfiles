@@ -11,24 +11,16 @@ if vim.fn.executable('remote-exec') ~= 1 then
 end
 
 function _Fcitx2en()
-	local input_status = tonumber(vim.fn.system([[ remote-exec client-oneshot :11111 /Users/kyungrok.chung/.bin/darwin/im.english ]]))
-	if input_status == 1 then
-		vim.b.input_toggle_flag = true
-	else
-		vim.b.input_toggle_flag = false
-	end
+	vim.fn.system([[ remote-exec client-oneshot :11111 '/opt/homebrew/bin/hs -c "use_english()"' ]])
 end
 
 function _Fcitx2NonLatin()
-	if vim.b.input_toggle_flag == true then
-		vim.fn.system([[ remote-exec client-oneshot :11111 /Users/kyungrok.chung/.bin/darwin/im.korean ]])
-		vim.b.input_toggle_flag = false
-	end
+     vim.fn.system([[ remote-exec client-oneshot :11111 '/opt/homebrew/bin/hs -c "use_korean()"' ]])
 end
 
 vim.cmd([[
   augroup fcitx
-    au InsertEnter * :lua _Fcitx2NonLatin()
+    au InsertEnterPre * :lua _Fcitx2NonLatin()
     au InsertLeave * :lua _Fcitx2en()
     au CmdlineEnter [/\?] :lua _Fcitx2NonLatin()
     au CmdlineLeave [/\?] :lua _Fcitx2en()
