@@ -1,3 +1,4 @@
+-- colors: https://www.reddit.com/r/neovim/comments/1c9q60s/tip_cmp_menu_with_rightaligned_import_location/#lightbox
 -- https://github.com/ggandor/leap.nvim statusline
 -- https://news.ycombinator.com/item?id=38965636
 -- https://tabokie.github.io/non-fiction/2024/01/13/log-kb.html

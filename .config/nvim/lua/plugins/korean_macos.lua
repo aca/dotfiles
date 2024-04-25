@@ -20,8 +20,8 @@ end
 
 vim.cmd([[
   augroup fcitx
-    au InsertEnterPre * :lua _Fcitx2NonLatin()
-    au InsertLeave * :lua _Fcitx2en()
+    au InsertEnter * :lua _Fcitx2NonLatin()
+    au InsertLeavePre * :lua _Fcitx2en()
     au CmdlineEnter [/\?] :lua _Fcitx2NonLatin()
     au CmdlineLeave [/\?] :lua _Fcitx2en()
   augroup END

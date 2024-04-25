@@ -123,8 +123,10 @@ function AerialToggle()
       AerialToggle
       wincmd p
 endfunction
-nnoremap <silent> ;t :call AerialToggle()<cr>
+nnoremap <silent> ;s :call AerialToggle()<cr> 
 " nnoremap <silent> ;t :AerialToggle <bar> wincmd p<cr>
+
+nnoremap <silent> ;t :Neotest run<cr>
 
 function! Togglesigncolumn()
   if &signcolumn == 'yes'

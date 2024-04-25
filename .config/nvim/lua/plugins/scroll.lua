@@ -1,13 +1,13 @@
 -- https://github.com/petertriho/nvim-scrollbar
 
-vim.cmd([[
-   packadd nvim-hlslens
-   packadd nvim-scrollbar
-]])
-
-require("scrollbar.handlers.search").setup({
-	-- hlslens config overrides
-})
+-- vim.cmd([[
+--    packadd nvim-hlslens
+--    packadd nvim-scrollbar
+-- ]])
+--
+-- require("scrollbar.handlers.search").setup({
+-- 	-- hlslens config overrides
+-- })
 --
 -- require("scrollbar").setup({
 --     -- show_in_active_only = true,
