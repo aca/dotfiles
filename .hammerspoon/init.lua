@@ -76,3 +76,28 @@ function use_korean()
         hs.keycodes.currentSourceID('com.apple.inputmethod.Korean.2SetKorean')
     end
 end
+
+-- hs.socket.udp.server(9001, pong):receive()
+-- -- local callback = function(data, tag)
+-- --     hs.alert.show(data)
+-- -- end
+-- -- server:setCallback(callback)
+-- server:read("\n")
+-- function ping(data, addr)
+--   print(data)
+--   addr = hs.socket.parseAddress(addr)
+--   hs.timer.doAfter(1, function()
+--     client:send("ping", addr.host, addr.port)
+--   end)
+-- end
+--
+-- function pong(data, addr)
+--   print(data)
+--   addr = hs.socket.parseAddress(addr)
+--   hs.timer.doAfter(1, function()
+--     server:send("pong", addr.host, addr.port)
+--   end)
+-- end
+--
+-- server = hs.socket.udp.server(9001, pong):receive()
+-- client = hs.socket.udp.new(ping):send("ping", "localhost", 9001):receive()
