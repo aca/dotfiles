@@ -119,13 +119,6 @@ vnoremap ;; :
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>'
 
-function AerialToggle()
-      AerialToggle
-      wincmd p
-endfunction
-nnoremap <silent> ;s :call AerialToggle()<cr> 
-" nnoremap <silent> ;t :AerialToggle <bar> wincmd p<cr>
-
 nnoremap <silent> ;t :Neotest run<cr>
 
 function! Togglesigncolumn()
@@ -138,12 +131,19 @@ endfunction
 " nnoremap <silent>;g :call Togglesigncolumn()\|Gitsigns toggle_signs<cr>
 nnoremap <silent>;g :call Togglesigncolumn()<cr>
 
-nnoremap <silent>;s
-             \ : if exists("syntax_on") <BAR>
-             \    syntax off <BAR>
-             \ else <BAR>
-             \    syntax enable <BAR>
-             \ endif<CR>
+" nnoremap <silent>;s
+"              \ : if exists("syntax_on") <BAR>
+"              \    syntax off <BAR>
+"              \ else <BAR>
+"              \    syntax enable <BAR>
+"              \ endif<CR>
+
+function AerialToggle()
+      AerialToggle
+      wincmd p
+endfunction
+nnoremap <silent> ;s :call AerialToggle()<cr> 
+" nnoremap <silent> ;t :AerialToggle <bar> wincmd p<cr>
 
 
 " visual block increment
@@ -177,7 +177,7 @@ cnoreabbrev l lua
 cnoreabbrev l= lua=
 
 cnoreabbrev Source source
-cnoreabbrev src source
+" cnoreabbrev src source
 cnoreabbrev SOurce source
 
 " qq to record, Q to replay

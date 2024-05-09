@@ -155,7 +155,19 @@ o.laststatus = 2
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
-o.statusline = "%=%l/%L"
+
+_G.wordcount__visual_words = function()
+    local wordcount = vim.fn.wordcount()["visual_bytes"]
+    if wordcount == nil then
+        return ""
+    else
+        return wordcount
+    end
+end
+
+-- o.statusline = "%{%v:lua.vim.fn.wordcount().visual_words%}%=%l/%L"
+o.statusline = "%{%v:lua.wordcount__visual_words()%}%=%l/%L"
+
 o.tabline = " %t"
 o.showtabline = 2
 -- vim.o.statusline = "%t"
