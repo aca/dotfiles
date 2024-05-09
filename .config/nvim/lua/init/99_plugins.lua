@@ -10,6 +10,7 @@ local load = function()
     require("core.cmp")
     require("core.copilot_vim")
     require("core.lsp")
+    require("core.tmux")
     require("core.misc")
 
     vim.cmd([[

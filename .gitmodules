@@ -877,3 +877,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/neotest-go"]
 	path = .local/share/nvim/site/pack/bundle/opt/neotest-go
 	url = https://github.com/nvim-neotest/neotest-go.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/zenbones.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/zenbones.nvim
+	url = https://github.com/mcchrish/zenbones.nvim.git

@@ -227,7 +227,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
-		enable = true,
+		enable = false,
 		disable = {},
 		additional_vim_regex_highlighting = false,
 	},
