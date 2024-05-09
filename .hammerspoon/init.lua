@@ -17,87 +17,38 @@ require("hs.ipc")
 
 -- hs -c 'hs.keycodes.currentSourceID("com.apple.inputmethod.Korean.2SetKorean")'
 
--- local inputEnglish = "com.apple.keylayout.US"
--- local esc_bind
--- function convert_to_eng_with_esc()
--- 	local inputSource = hs.keycodes.currentSourceID()
--- 	if not (inputSource == inputEnglish) then
--- 		hs.keycodes.currentSourceID(inputEnglish)
--- 	end
--- 	esc_bind:disable()
--- 	hs.eventtap.keyStroke({}, 'escape')
--- 	esc_bind:enable()
--- end
---
---
--- local esc_bind
--- function convert_to_eng_with_esc()
--- 	-- local inputSource = hs.keycodes.currentSourceID()
--- 	-- if not (inputSource == inputEnglish) then
--- 	-- 	hs.keycodes.currentSourceID(inputEnglish)
--- 	-- end
--- 	esc_bind:disable()
--- 	hs.eventtap.keyStroke({}, 'escape')
--- 	hs.eventtap.keyStroke({}, 'escape')
--- 	esc_bind:enable()
--- end
--- esc_bind = hs.hotkey.new({}, 'escape', convert_to_eng_with_esc):enable()
---
--- local inputEnglish = "com.apple.keylayout.US"
--- local esc_bind
---
--- function convert_to_eng_with_esc()
--- 	local inputSource = hs.keycodes.currentSourceID()
--- 	if not (inputSource == inputEnglish) then
--- 		-- hs.eventtap.keyStroke({}, 'right')
--- 		hs.keycodes.currentSourceID(inputEnglish)
--- 	end
--- 	esc_bind:disable()
--- 	hs.eventtap.keyStroke({}, 'escape')
--- 	esc_bind:enable()
--- end
---
--- esc_bind = hs.hotkey.new({}, 'escape', convert_to_eng_with_esc):enable()
-
-local input_toggle_flag = false
-local eng_layout = "com.apple.keylayout.US"
-
-function use_english()
-    if hs.keycodes.currentSourceID() ~= eng_layout then
-        input_toggle_flag = true
-        hs.keycodes.currentSourceID(eng_layout)
-    else
-        input_toggle_flag = false
-    end
+local inputEnglish = "com.apple.keylayout.US"
+local esc_bind
+local function convert_to_eng_with_esc()
+	local inputSource = hs.keycodes.currentSourceID()
+	if not (inputSource == inputEnglish) then
+		hs.keycodes.currentSourceID(inputEnglish)
+	end
+	esc_bind:disable()
+	hs.eventtap.keyStroke({}, 'escape')
+	esc_bind:enable()
 end
 
-function use_korean()
-    if input_toggle_flag == true then
-        hs.keycodes.currentSourceID('com.apple.inputmethod.Korean.2SetKorean')
-    end
-end
+esc_bind = hs.hotkey.new({}, 'escape', convert_to_eng_with_esc):enable()
 
--- hs.socket.udp.server(9001, pong):receive()
--- -- local callback = function(data, tag)
--- --     hs.alert.show(data)
--- -- end
--- -- server:setCallback(callback)
--- server:read("\n")
--- function ping(data, addr)
---   print(data)
---   addr = hs.socket.parseAddress(addr)
---   hs.timer.doAfter(1, function()
---     client:send("ping", addr.host, addr.port)
---   end)
+-- local inputEnglish = "com.apple.keylayout.US"
+-- local esc_bind
+
+
+-- local input_toggle_flag = false
+-- local eng_layout = "com.apple.keylayout.US"
+--
+-- function use_english()
+--     if hs.keycodes.currentSourceID() ~= eng_layout then
+--         input_toggle_flag = true
+--         hs.keycodes.currentSourceID(eng_layout)
+--     else
+--         input_toggle_flag = false
+--     end
 -- end
 --
--- function pong(data, addr)
---   print(data)
---   addr = hs.socket.parseAddress(addr)
---   hs.timer.doAfter(1, function()
---     server:send("pong", addr.host, addr.port)
---   end)
+-- function use_korean()
+--     if input_toggle_flag == true then
+--         hs.keycodes.currentSourceID('com.apple.inputmethod.Korean.2SetKorean')
+--     end
 -- end
---
--- server = hs.socket.udp.server(9001, pong):receive()
--- client = hs.socket.udp.new(ping):send("ping", "localhost", 9001):receive()
