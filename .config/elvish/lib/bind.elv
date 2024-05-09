@@ -191,6 +191,10 @@ set edit:history:binding[Ctrl-P] = { edit:history:up }
 
 set edit:navigation:binding[Ctrl-N] = { edit:navigation:down }
 set edit:navigation:binding[Ctrl-P] = { edit:navigation:up }
+
+set edit:location:binding[Ctrl-N] = { edit:listing:down }
+set edit:location:binding[Ctrl-P] = { edit:listing:up }
+
 set edit:navigation:binding[Ctrl-H] = { edit:navigation:left }
 set edit:navigation:binding[Ctrl-L] = { edit:navigation:right }
 # set edit:navigation:binding[Enter] = { vim }
