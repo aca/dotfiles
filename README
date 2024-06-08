@@ -1,12 +1,13 @@
 dotfiles
 ========
 
-Public dotfiles for sync. This repository contains scripts/configurations for my system.
-Initial setup requires nix. Check flake.nix or https://github.com/aca/nix-config.
+This repository contains minimal scripts/configurations for my system that are not managed by Nix.
+Nix configurations are managed in a separate repository. https://github.com/aca/nix-config
 
 - os: nixOS (main) / darwin (secondary)
-- windowManager: sway / yabai
-- terminal: ghostty+tmux
+- wm: sway / yabai
+- terminal: ghostty, tmux
+- editor: nvim
 - shell: elvish
 
 setup
@@ -21,17 +22,17 @@ install (stow)
 
 uninstall
 
-    stow -v --target $HOME --delete  dotfiles dotfiles.nostow
+    stow -v --target $HOME --delete dotfiles dotfiles.nostow
 
 keys 
 
     curl -L github.com/aca.keys > ~/.ssh/authorized_keys
 
-local configs
+local configs 
 
-    git clone root:~/src/root/dotfiles_$(hostname -s)
+    bash -c 'git clone root:~/src/root/dotfiles_$(hostname -s)'
 
-dev container
+dev container 
 
     docker run -it acadx0/tools:devcontainer
 
