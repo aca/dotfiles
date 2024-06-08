@@ -110,17 +110,15 @@ set-env DOCKER_BUILDKIT 1
 if (not (has-env IN_NIX_SHELL)) {
     set paths = [
       # clean up this mess
-
-      ~/src/go.googlesource.com/go/bin
-      ~/.bin
-      ~/.bin/git
-      ~/.bin/dev
-      ~/.bin/lib
-      ~/.bin/v
-      ~/.bin/installations
-      ~/.bin/abbr
-      ~/.bin/$platform:os
-      ~/.bin/host_$E:HOSTNAME
+      ~/bin/git
+      ~/bin/dev
+      ~/bin/lib
+      ~/bin/v
+      ~/bin/installations
+      ~/bin/abbr
+      ~/bin/$platform:os
+      ~/bin/host_$E:HOSTNAME
+      ~/bin/x
       ~/bin
       ~/src/xxx/bin
       # ~/.cargo/bin

@@ -1,16 +1,30 @@
 [ -z "$PS1" ] && return # If not running interactively, don't do anything
 [ -n "$__BASHRC_LOADED" ] && return; export __BASHRC_LOADED=1
 
-export PATH=$HOME/.bin:$HOME/bin:$PATH:/opt/homebrew/bin
-export TERMINFO_DIRS=$HOME/.local/share/terminfo:$TERMINFO_DIRS
-# export GHOSTTY_RESOURCES_DIR=~/.local/share
+export PATH=\
+$HOME/bin/x:\
+$HOME/bin:\
+/opt/homebrew/bin:\
+$PATH
+
+# envs [[ ]]
+# export TERMINFO_DIRS=$HOME/.local/share/terminfo:$TERMINFO_DIRS
 # export GHOSTTY_RESOURCES_DIR=~/.local/share
 
 # export XDG_CONFIG_HOME=$HOME/.config
 
+# OPTS
+shopt -s checkwinsize # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
+shopt -s histappend # append to the history file, don't overwrite it
+HISTCONTROL=ignoredups:ignorespace # don't put duplicate lines in the history. See bash(1) for more options ... or force ignoredups and ignorespace
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+
 alias elv='elvish'
 
-# clipboard share
+# use active DISPLAY if available on remote session
+# NOTES: this is a hack for working on VM
 shopt -s nullglob
 if [ -z "$WAYLAND_DISPLAY" ]; then
     for i in "$XDG_RUNTIME_DIR/wayland"-?; do
@@ -18,21 +32,7 @@ if [ -z "$WAYLAND_DISPLAY" ]; then
     done
 fi
 
-shopt -s checkwinsize # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
-shopt -s histappend # append to the history file, don't overwrite it
-
-HISTCONTROL=ignoredups:ignorespace # don't put duplicate lines in the history. See bash(1) for more options ... or force ignoredups and ignorespace
-HISTSIZE=1000
-HISTFILESIZE=2000
-
 PS1='\u@\h $ '
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-set -o vi
 
 # https://codeberg.org/dnkl/foot/wiki#bash
 osc7_cwd() {
@@ -51,16 +51,14 @@ osc7_cwd() {
 }
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
 
-# GUIX
-if [ -n "$GUIX_ENVIRONMENT" ]; then
-    if [[ $PS1 =~ (.*)"\\$" ]]; then
-        PS1="${BASH_REMATCH[1]} [env]\\\$ "
-    fi
-fi
-
 # NIX
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
-# . /home/rok/src/config/dotfiles/.config/elvish/lib/elvish-bash-completion/bash-completion/bash_completion
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+set -o vi
+

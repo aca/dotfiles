@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-mkdir $HOME/.cache/lcache 2>/dev/null || true
-cat "$HOME/.cache/lcache/$1"
