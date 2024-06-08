@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/opt/homebrew/bin/hs -c "hs.keycodes.currentSourceID('com.apple.inputmethod.Korean.2SetKorean')"
+# /opt/homebrew/bin/hs -c "hs.execute('/opt/homebrew/bin/macism com.apple.inputmethod.Korean.2SetKorean')"
+# /opt/homebrew/bin/macism com.apple.inputmethod.Korean.2SetKorean

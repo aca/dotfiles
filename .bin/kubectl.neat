@@ -1,0 +1,62 @@
+#!/usr/bin/env -S deno run -A
+
+import { parse, stringify } from "https://deno.land/std@0.182.0/encoding/yaml.ts";
+import { isEmpty } from 'https://raw.githubusercontent.com/lodash/lodash/4.17.21-es/lodash.js';
+
+const stdin = new TextDecoder().decode(await Deno.readAll(Deno.stdin));
+let orig = parse(stdin)
+
+// const td = new TextDecoder();
+//
+// let target = Deno.args[0]
+//
+// let p = await new Deno.Command("kubectl", { args: ['get', '-f', target, '-o', 'yaml'] }).output();
+// let orig_yaml = td.decode(p.stdout).trim()
+//
+// let orig = parse(orig_yaml)
+//
+
+
+delete orig['metadata']?.['selfLink']
+delete orig['metadata']?.['annotations']?.['kubectl.kubernetes.io/last-applied-configuration']
+delete orig['metadata']?.['annotations']?.['deployment.kubernetes.io/revision']
+delete orig['metadata']?.['creationTimestamp']
+delete orig['metadata']?.['generation']
+delete orig['metadata']?.['resourceVersion']
+delete orig['spec']?.['revisionHistoryLimit']
+delete orig['metadata']?.['resourceVersion']
+delete orig['metadata']?.['uid']
+delete orig['spec']?.['revisionHistoryLimit']
+delete orig['spec']?.['progressDeadlineSeconds']
+// delete orig['spec']?.['strategy']
+// delete orig['spec']?.['strategy']
+delete orig['spec']?.['revisionHistoryLimit']
+delete orig['spec']?.['template']?.['metadata']['creationTimestamp']
+delete orig['status']
+delete orig['spec']?.['template']?.['spec']['schedulerName']
+delete orig['spec']?.['template']?.['spec']['securityContext']
+delete orig['spec']?.['template']?.['metadata']?.['annotations']?.['kubectl.kubernetes.io/restartedAt']
+
+if (!isEmpty(orig['spec']?.['template']?.['spec']?.['containers'][0]['env'])) {
+    orig['spec']['template']['spec']['containers'][0]['env'] = orig['spec']['template']['spec']['containers'][0]['env'].sort((a, b) => a.name.localeCompare(b.name))
+}
+
+
+if (isEmpty(orig['metadata']?.['annotations'])) {
+    delete(orig['metadata']?.['annotations'])
+}
+
+
+console.log(stringify(orig))
+
+// # import diff from "https://deno.land/x/microdiff@v1.3.2/index.ts";
+// #
+// #
+// # const changed = parse(
+// #   await Deno.readTextFile(
+// #     Deno.args[0],
+// #   ),
+// # );
+// #
+// #
+// # console.log(diff(orig, changed))

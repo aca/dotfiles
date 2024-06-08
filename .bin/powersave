@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+systemctl --user stop dura
+systemctl --user stop qbittorrent-nox
+systemctl --user stop proxy-socks5
+

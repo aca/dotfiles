@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# Command runner. Alternative to make, just, taskfile etc.
+#
+# - POSIX, run on anywhere.
+# - Run in any directory under the project
+#
+# @file is a file that is used to identify the root directory ($PROJECT_ROOT) of the project just like Makefile.
+# This command will simply execute $PROJECT_ROOT/@/build in the root directory.
+#
+#   @ build
+#
+# Some environment variable is set when @ command is executed
+#
+#   AT_ROOT_DIR: The root directory of the project
+#   AT_COMMAND_DIR: The directory of the script
+#
+# TODO: implement dag with this https://benhoyt.com/writings/awk-make/ ?
+
+if [ $# -eq 0 ]; then
+    echo 'Usage: @ <command>'
+    exit 0
+fi
+
+if [ "$1" = "-i" ]; then
+    touch "@file"
+    mkdir -p "@"
+    echo "@ initalized in "$PWD
+    exit 0
+fi
+
+rootdir() {
+    current_dir="$PWD"
+    while [ "$current_dir" != "/" ]; do
+        if [ -f "$current_dir/@file" ]; then
+            echo "$current_dir"
+            exit 0
+        fi
+        current_dir=$(dirname "$current_dir")
+    done
+    exit 1
+}
+
+export AT_ROOT_DIR=$(rootdir @file)
+export AT_COMMAND_DIR=$AT_ROOT_DIR/@
+cd $AT_ROOT_DIR
+
+case $1 in
+    -e) 
+        if [ "$2" = "" ]; then
+            echo "Usage: @ -e <command>"
+            exit 1
+        fi
+        $EDITOR "@/$2"
+        exit
+        ;;
+    -l) 
+        ls @/
+        exit
+        ;;
+esac
+
+command="$1"
+shift
+args="$@"
+
+./@/$command "$@"

@@ -1,0 +1,24 @@
+#!/usr/bin/env raku
+
+grammar submodules {
+    token TOP { [<submodule>]* }
+    token submodule  { '[submodule ' <path> \n }
+    token path  { [a-zA-Z0-9-_]+ }
+}
+
+my $xxx = q:to/END/;
+[submodule ".tmux/plugins/tmux-yank"]
+[submodule ".tmux/plugins/tmux-xx"]
+END
+
+my $match=submodules.parse($xxx);
+
+say $match{'submodule'}[0]{'path'};
+
+# say "-------";
+#
+# say $match;
+# say "-------";
+# # say $match.keys.;
+
+

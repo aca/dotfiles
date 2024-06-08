@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -xeuo pipefail
+IFS=$'\n\t'
+
+for f in $(ls ~/.asdf/installs); do
+    echo $f
+    asdf list $f | grep -v $(asdf current $f | awk '{print $1}') | xargs -I{} asdf uninstall $f {} || true
+done

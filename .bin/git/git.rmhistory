@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+branch_cur=$(git rev-parse --abbrev-ref HEAD)
+branch=$(echo $RANDOM | md5sum | head -c 20)
+git checkout --orphan $branch
+git add -A 
+git commit --allow-empty-message -m ""
+git branch -D $branch_cur
+git branch -m $branch_cur
+# git gc --aggressive --prune=all

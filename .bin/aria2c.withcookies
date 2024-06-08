@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# use cookies from chrome Get cookies.txt" plugin with aria2c
+# https://chrome.google.com/webstore/detail/get-cookiestxt/bgaddhkoddajcdgocldbbfleckgcbcid
+set -euxo pipefail
+
+cookies=$(fd "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}" --type f --extension txt ~/Downloads --exec-batch ls -t | head -n 1)
+aria2c --load-cookies $cookies "$@"

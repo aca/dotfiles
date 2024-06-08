@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for id in "$@"; do
+  pueue restart $id && pueue remove $id
+done

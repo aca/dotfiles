@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# bkt wrapper, remembers directory and automatic refresh in background
+#
+set -euo pipefail
+
+# SC_SHELL="${SC_SHELL:-"bash"}"
+# bkt --ttl=365d --scope=$(pwd | base64)  -- $SC_SHELL -c "$*"
+
+bkt --ttl=365d --stale=15s --scope="$(pwd | base64)"  -- "$@"

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# specific process
+pstree -p -s $1

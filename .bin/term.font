@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+
+# The ANSI/VT100 terminals and terminal emulators are not just able to display
+# black and white text; they can display colors and formatted texts thanks to
+# escape sequences. Those sequences are composed of the Escape character (often
+# represented by "^[" or "Esc") followed by some other characters:
+# "Esc[FormatCodem".
+
+# \e
+# \033
+# \x1B
+
+echo  -e "\033[5mTitle of the Program\033[0m"
+echo -e "\e[1mhello world bold\e[0m"
+echo -e "\e[3mhello world italic\e[0m"
+echo -e "\e[4munderline\e[0m"
+echo -e "\e[9mstrikethrough\e[0m"
+echo -e "\e[31mred\e[0m"
+echo -e "\x1B[32mgreen\e[0m"

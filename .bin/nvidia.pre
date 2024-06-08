@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euxo
+
+prime-offload
+optimus-manager --switch nvidia --no-confirm
+

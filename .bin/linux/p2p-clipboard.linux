@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export WAYLAND_DISPLAY=$(ls /run/user/1000/wayland-* | grep -v lock | head -n 1)
+
+/home/rok/bin/p2p-clipboard "$@"

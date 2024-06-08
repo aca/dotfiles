@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+osascript <<EOF
+tell application "System Events"
+    click at {100,100}
+end tell
+EOF

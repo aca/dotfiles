@@ -1,0 +1,20 @@
+input "2652:34050:FC660MBT_Keyboard" {
+    xkb_layout us,de
+    xkb_variant ,nodeadkeys
+    
+    xkb_options custom:super_esc,altwin:swap_lalt_lwin
+    
+    repeat_delay 200
+    repeat_rate 30
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us,de
+    xkb_variant ,nodeadkeys
+    
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+    # xkb_options ctrl:nocaps,altwin:swap_lalt_lwin,custom:menu_esc
+    
+    repeat_delay 200
+    repeat_rate 30
+}

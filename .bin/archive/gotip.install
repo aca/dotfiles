@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+go install golang.org/dl/gotip@latest
+gotip download
+# cp ~/sdk/gotip/bin/* $HOME/bin/
+
