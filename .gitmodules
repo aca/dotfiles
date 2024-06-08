@@ -889,3 +889,12 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-dadbod-completion"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-dadbod-completion
 	url = https://github.com/kristijanhusak/vim-dadbod-completion.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-dbee"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-dbee
+	url = https://github.com/kndndrj/nvim-dbee.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-256noir"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-256noir
+	url = https://github.com/andreasvc/vim-256noir.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vim-monotone"]
+	path = .local/share/nvim/site/pack/bundle/opt/vim-monotone
+	url = https://github.com/Lokaltog/vim-monotone

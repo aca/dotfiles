@@ -94,11 +94,14 @@ vim.diagnostic.config({
 	},
 	signs = {
 		text = {
+            -- do not use signcolumn
 			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.INFO] = "",
 			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.HINT] = "",
 		},
 		linehl = {
-			[vim.diagnostic.severity.ERROR] = "ErrorMsg",
+			-- [vim.diagnostic.severity.ERROR] = "ErrorMsg",
 		},
 		numhl = {
 			[vim.diagnostic.severity.WARN] = "WarningMsg",
@@ -537,6 +540,12 @@ end
 
 if vim.fn.executable("rust-analyzer") == 1 then
 	lspconfig.rust_analyzer.setup({
+		capabilities = capabilities,
+	})
+end
+
+if vim.fn.executable("templ") == 1 then
+	lspconfig.templ.setup({
 		capabilities = capabilities,
 	})
 end
