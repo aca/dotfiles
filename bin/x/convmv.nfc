@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# fix korean NFC encoding issue
+
+convmv -f utf8 -t utf8 --nfc --notest -- "$1"

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# ssh LocalForward with socat
+
+socat -v TCP-LISTEN:$1,fork TCP:$2

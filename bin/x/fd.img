@@ -1,0 +1,3 @@
+#!/bin/sh
+
+fd -e jpg -e jpeg -e png -e gif -e svg --absolute-path

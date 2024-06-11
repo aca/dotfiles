@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+timeout 3s dig +short myip.opendns.com @resolver1.opendns.com 2>/dev/null

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# if [ "$SSH_TTY" != "" ]; then
+#     # TODO: apply bkt cache
+#     if pgrep qemu-ga >/dev/null; then
+#         pbcopy
+#     else
+#         osc52.sh
+#     fi
+# else
+# fi
+
+pbcopy

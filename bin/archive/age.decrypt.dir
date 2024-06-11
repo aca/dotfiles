@@ -1,0 +1,3 @@
+#!/bin/sh
+
+age -d -i ~/.ssh/id_rsa "$1" | tar -xvz -f - > "$(basename "$1" .tar.gz.age)"

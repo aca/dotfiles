@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+
+#
+# Assumptions:
+#  1) User has partitioned, formatted, and mounted partitions on /mnt
+#  2) Network is functional
+#  3) Arguments passed to the script are valid pacman targets
+#  4) A valid mirror appears in /etc/pacman.d/mirrorlist
+#
+
+shopt -s extglob
+
+m4_include(common)
+
+hostcache=0
+copykeyring=1
+copymirrorlist=1
+pacmode=-Sy
+
+usage() {
+  cat <<EOF
+usage: ${0##*/} [options] root [packages...]
+
+  Options:
+    -C <config>    Use an alternate config file for pacman
+    -c             Use the package cache on the host, rather than the target
+    -G             Avoid copying the host's pacman keyring to the target
+    -i             Prompt for package confirmation when needed (run interactively)
+    -M             Avoid copying the host's mirrorlist to the target
+    -U             Use pacman -U to install packages
+
+    -h             Print this help message
+
+pacstrap installs packages to the specified new root directory. If no packages
+are given, pacstrap defaults to the "base" group.
+
+EOF
+}
+
+if [[ -z $1 || $1 = @(-h|--help) ]]; then
+  usage
+  exit $(( $# ? 0 : 1 ))
+fi
+
+(( EUID == 0 )) || die 'This script must be run with root privileges'
+
+while getopts ':C:cdGiMU' flag; do
+  case $flag in
+    C)
+      pacman_config=$OPTARG
+      ;;
+    d)
+      # retired flag. does nothing.
+      ;;
+    c)
+      hostcache=1
+      ;;
+    i)
+      interactive=1
+      ;;
+    G)
+      copykeyring=0
+      ;;
+    M)
+      copymirrorlist=0
+      ;;
+    U)
+      pacmode=-U
+      ;;
+    :)
+      die '%s: option requires an argument -- '\''%s'\' "${0##*/}" "$OPTARG"
+      ;;
+    ?)
+      die '%s: invalid option -- '\''%s'\' "${0##*/}" "$OPTARG"
+      ;;
+  esac
+done
+shift $(( OPTIND - 1 ))
+
+(( $# )) || die "No root directory specified"
+newroot=$1; shift
+pacman_args=("${@:-base}")
+
+if (( ! hostcache )); then
+  pacman_args+=(--cachedir="$newroot/var/cache/pacman/pkg")
+fi
+
+if (( ! interactive )); then
+  pacman_args+=(--noconfirm)
+fi
+
+if [[ $pacman_config ]]; then
+  pacman_args+=(--config="$pacman_config")
+fi
+
+[[ -d $newroot ]] || die "%s is not a directory" "$newroot"
+
+# create obligatory directories
+msg 'Creating install root at %s' "$newroot"
+mkdir -m 0755 -p "$newroot"/var/{cache/pacman/pkg,lib/pacman,log} "$newroot"/{dev,run,etc/pacman.d}
+mkdir -m 1777 -p "$newroot"/tmp
+mkdir -m 0555 -p "$newroot"/{sys,proc}
+
+# mount API filesystems
+chroot_setup "$newroot" || die "failed to setup chroot %s" "$newroot"
+
+if (( copykeyring )); then
+  # if there's a keyring on the host, copy it into the new root, unless it exists already
+  if [[ -d /etc/pacman.d/gnupg && ! -d $newroot/etc/pacman.d/gnupg ]]; then
+    cp -a /etc/pacman.d/gnupg "$newroot/etc/pacman.d/"
+  fi
+fi
+
+msg 'Installing packages to %s' "$newroot"
+if ! unshare --fork --pid pacman -r "$newroot" $pacmode "${pacman_args[@]}"; then
+  die 'Failed to install packages to new root'
+fi
+
+if (( copymirrorlist )); then
+  # install the host's mirrorlist onto the new root
+  cp -a /etc/pacman.d/mirrorlist "$newroot/etc/pacman.d/"
+fi
+
+# vim: et ts=2 sw=2 ft=sh:

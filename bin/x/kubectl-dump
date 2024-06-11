@@ -1,0 +1,17 @@
+#!/usr/bin/env elvish
+
+use path
+
+var resource = $args[0]
+
+var output = (kubectl get $resource -o json | kubectl neat | slurp)
+var kind = (print $output | jq -r .kind)
+var name = (print $output | jq -r .metadata.name)
+var backup = $kind.$name.yaml
+
+if (path:is-regular $backup) {
+    echo skipping $backup
+} else {
+    print $output | yj -jy > $backup
+}
+

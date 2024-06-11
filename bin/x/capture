@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+cd /tmp
+tmpf=$(mktemp)
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  grim -g "$(slurp)" $tmpf.png
+  cat $tmpf.png | wl-copy
+  echo $tmpf.png
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # mkdir -p $HOME/tmp/capture
+  suffix=$(date +%Y%m%d_T%H%M%S)
+  screencapture -i capture_$suffix.png
+fi
+
+

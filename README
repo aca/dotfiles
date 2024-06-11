@@ -1,0 +1,41 @@
+dotfiles
+========
+
+This repository contains minimal scripts/configurations for my system that are not managed by Nix.
+Nix configurations are managed in a separate repository. https://github.com/aca/nix-config
+
+- os: nixOS (main) / darwin (secondary)
+- wm: sway / yabai
+- terminal: ghostty, tmux
+- editor: nvim
+- shell: elvish
+
+setup
+-----
+
+install (stow)
+
+    git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfiles --recursive --shallow-submodules -j 4 
+    git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
+    cd ~/src/github.com/aca
+    bash -c "stow -v --target $HOME dotfiles dotfiles.nostow"
+
+uninstall
+
+    bash -c "stow -v --target $HOME --delete dotfiles dotfiles.nostow"
+
+keys 
+
+    curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+
+local configs 
+
+    bash -c 'git clone root:~/src/root/dotfiles_$(hostname -s)'
+
+dev container 
+
+    docker run -it acadx0/tools:devcontainer
+
+
+    
+                

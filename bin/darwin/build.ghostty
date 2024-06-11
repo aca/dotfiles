@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+zig build -Doptimize=ReleaseFast
+cd macos && xcodebuild

@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+const ipaddrJs = require('ipaddr.js');
+console.log(ipaddrJs.parse('10.187.4.127').range())

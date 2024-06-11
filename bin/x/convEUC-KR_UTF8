@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# iconv -l | tr -d '//' | each { |x| 
+#     try {
+#         iconv -f $x -t UTF-8 input -o out 2>/dev/null
+#     } catch {
+#         cat out
+#     }
+# }
+
+# illegal byte error
+# iconv -f EUC-KR -t UTF-8 input 
+# recode 'euc-kr..utf8' "$@"
+
+vim --cmd ':e ++enc=euc-kr | set fileencoding=utf-8 | set noro | wq'  "$@"

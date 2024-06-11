@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import sys
+import json
+data = json.load(sys.stdin)
+
+data["metadata"].pop("managedFields" , None)
+del data["status"]
+del data["metadata"]["uid"]
+del data["metadata"]["creationTimestamp"]
+del data["metadata"]["generation"]
+data["metadata"].pop("resourceVersion", None)
+data["spec"].pop("revisionHistoryLimit", None)
+data["metadata"]["annotations"].pop("kubectl.kubernetes.io/last-applied-configuration", None)
+
+print(json.dumps(data))

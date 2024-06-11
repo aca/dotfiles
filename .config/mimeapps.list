@@ -1,0 +1,14 @@
+[Default Applications]
+text/html=vivaldi-stable.desktop
+application/xhtml+xml=google-chrome.desktop;
+application/xml=google-chrome.desktop;
+x-scheme-handler/http=vivaldi-stable.desktop
+x-scheme-handler/https=vivaldi-stable.desktop
+x-scheme-handler/magnet=qbt-torrent-add.desktop;
+x-scheme-handler/tg=org.telegram.desktop.desktop;
+application/x-bittorrent=qbt-torrent-add.desktop;
+x-scheme-handler/about=vivaldi-stable.desktop
+x-scheme-handler/unknown=vivaldi-stable.desktop
+
+[Added Associations]
+x-scheme-handler/tg=org.telegram.desktop.desktop;

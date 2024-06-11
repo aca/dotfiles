@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+shopt -s dotglob
+
+IMAGE=acadx0/${1:tmp}
+WD=$(pwd)
+cd $(mktemp -d)
+docker image save $IMAGE | tar -xf - "$(docker image save $IMAGE | tar -tf - | grep layer.tar)" -O | tar -xf -
+mv files/* "$WD"
