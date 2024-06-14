@@ -93,7 +93,7 @@ set-env DENO_NO_UPDATE_CHECK 1
 set-env NPM_CONFIG_GLOBALCONFIG $E:HOME/.npmrc.global
 
 # CLI
-set-env RIPGREP_CONFIG_PATH $E:HOME/.ripgreprc
+# set-env RIPGREP_CONFIG_PATH $E:HOME/.ripgreprc
 # set-env FZF_DEFAULT_COMMAND 'fd -L --hidden --type f'
 set-env FZF_DEFAULT_COMMAND 'fd -L --hidden --type f --type symlink'
 # set-env FZF_DEFAULT_COMMAND 'bfs -name config -exclude -name .git'
@@ -110,6 +110,7 @@ set-env DOCKER_BUILDKIT 1
 if (not (has-env IN_NIX_SHELL)) {
     set paths = [
       # clean up this mess
+      ~/src/github.com/golang/go/bin
       ~/bin/git
       ~/bin/dev
       ~/bin/lib

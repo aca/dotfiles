@@ -1,4 +1,5 @@
 local colorschemes = {
+{ name = "lackluster" },
 { name = "duckbones" },
 { name = "forestbones" },
 { name = "kanagawabones" },

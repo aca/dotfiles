@@ -898,3 +898,12 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-monotone"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-monotone
 	url = https://github.com/Lokaltog/vim-monotone
+[submodule ".local/share/nvim/site/pack/bundle/opt/lackluster.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/lackluster.nvim
+	url = https://github.com/slugbyte/lackluster.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/mellifluous.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/mellifluous.nvim
+	url = https://github.com/ramojus/mellifluous.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/monokai-pro.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/monokai-pro.nvim
+	url = https://github.com/loctvl842/monokai-pro.nvim.git

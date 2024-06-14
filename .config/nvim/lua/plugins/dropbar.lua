@@ -269,5 +269,5 @@ nvim_set_hl(0, "DropBarPreview", { link = "StatusLine" })
 
 -- vim.o.tabline = "%=%t %{%v:lua.dropbar.get_dropbar_str()%}"
 -- vim.o.statusline = "%t%{%v:lua.dropbar.get_dropbar_str()%}"
--- vim.o.statusline = "%t%{%v:lua.dropbar.get_dropbar_str()%}"
+vim.o.statusline = "%t %{%v:lua.dropbar.get_dropbar_str()%}%=%l/%L"
 -- -- vim.opt.winbar = ""

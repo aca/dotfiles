@@ -20,8 +20,8 @@ vim.cmd([[
     packadd playground
 ]])
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-local query = require("vim.treesitter.query")
+-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+-- local query = require("vim.treesitter.query")
 local install = require("nvim-treesitter.install")
 install.compilers = { "gcc" }
 
@@ -63,7 +63,7 @@ install.compilers = { "gcc" }
 -- }
 
 require("nvim-treesitter.configs").setup({
-	ignore_install = { "wing" },
+	-- ignore_install = { "wing" },
 	-- context_commentstring = {
 	--     enable = true,
 	--     enable_autocmd = false,
@@ -227,7 +227,10 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
-		enable = true,
+		enable = {
+            "go",
+            "bash",
+        },
 		disable = {},
 		additional_vim_regex_highlighting = false,
 	},
@@ -251,7 +254,7 @@ local folds_levels = ts_utils.memoize_by_buf_tick(function(bufnr)
 	local levels = {}
 
 	-- NOTE: don't use `_recursive` variant to fold only based on markdown itself
-	local matches = query.get_capture_matches(bufnr, "@fold", "folds")
+	local matches = query.get_capture_matches(bufnr, "@fold", "folds") or {}
 	for _, m in pairs(matches) do
 		local node = m.node
 		local s_row, _, e_row, _ = node:range()

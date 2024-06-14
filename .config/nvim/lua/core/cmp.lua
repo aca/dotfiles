@@ -162,7 +162,7 @@ end
 
 cmp.setup({
 	window = {
-		completion = cmp.config.window.bordered(),
+		-- completion = cmp.config.window.bordered(),
 		-- documentation = cmp.config.window.bordered(),
 		-- documentation = { -- no border; native-style scrollbar
 		--   border = nil,
