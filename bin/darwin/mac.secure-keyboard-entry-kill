@@ -1,0 +1,8 @@
+#!/usr/bin/env elvish
+
+# https://github.com/koekeishiya/skhd/issues/48
+
+ioreg -l -w 0 ^
+    | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' ^
+    | uniq | each { |x| sudo kill $x }
+    # | xargs -I{} ps -p {} -o "comm=" | each { |x| echo $x }

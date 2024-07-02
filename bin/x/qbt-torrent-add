@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+qbt torrent add "$1";
+# errcode=$?
+#
+# # if errcode is 0 echo success
+# if [ $errcode -eq 0 ]; then
+#     notify-send "qbt-torrent-add" "Torrent added successfully";
+#     exit 0;
+# else
+#     notify-send "qbt-torrent-add" "Torrent added successfully";
+# fi
+#
+# notify-send "qbt-torrent-add";
+#

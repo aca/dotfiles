@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+tmux set remain-on-exit on
+pane_id=$(tmux split-window -P -F "#{pane_id}")
+# tmux send-keys -t $pane_id "$(pbpaste)" Enter
+
+tmux send-keys -t $pane_id "$(pbpaste)"

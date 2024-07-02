@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# term_size2 - Dynamically display terminal window size
+
+redraw() {
+    clear
+    echo "Width = $(tput cols) Height = $(tput lines)"
+}
+
+redraw
+
+# trap redraw WINCH
+# while true; do
+#     :
+# done

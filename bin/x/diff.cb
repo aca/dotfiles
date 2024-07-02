@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+command -v copyq
+
+nvim -d <(copyq read 0) <(copyq read 1)

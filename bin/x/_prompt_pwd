@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+# print path in short 
+#
+#   _prompt_pwd
+#   "~/s/c/d/.bin"
+
+sed "s:\([^/\.]\)[^/]*/:\1/:g" <<< ${PWD/#$HOME/\~}

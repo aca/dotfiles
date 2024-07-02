@@ -1,0 +1,2 @@
+#!/bin/sh
+broot -c :pt . </dev/tty >/dev/tty

@@ -1,0 +1,61 @@
+#!/usr/bin/env sh
+
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/icons.sh"  # Loads all defined icons
+
+ITEM_DIR="$HOME/.config/sketchybar/items"
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+FONT="CaskaydiaCove Nerd Font Mono"
+# FONT="Blex Nerd Font Mono"
+# SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
+
+PADDINGS=3 # All paddings use this value (icon, label, background)
+
+POPUP_BORDER_WIDTH=2
+POPUP_CORNER_RADIUS=8
+
+CORNER_RADIUS=0
+SHADOW=off
+
+sketchybar --bar height=30 \
+	color=$BLACK \
+	shadow=$SHADOW \
+	position=top \
+	sticky=on \
+	padding_right=6 \
+	padding_left=6 \
+	corner_radius=$CORNER_RADIUS \
+	y_offset=0 \
+	margin=0 \
+	blur_radius=0 \
+	notch_width=200 \
+	--default updates=when_shown \
+	icon.font="$FONT:Bold:14.0" \
+	icon.color=$ICON_COLOR \
+	icon.padding_left=$PADDINGS \
+	icon.padding_right=$PADDINGS \
+	label.font="$FONT:Bold:13.0" \
+	label.color=$LABEL_COLOR \
+	label.padding_left=$PADDINGS \
+	label.padding_right=$PADDINGS \
+	background.padding_right=$PADDINGS \
+	background.padding_left=$PADDINGS \
+	popup.background.border_width=2 \
+	popup.background.corner_radius=11 \
+	popup.background.border_color=$POPUP_BORDER_COLOR \
+	popup.background.color=$POPUP_BACKGROUND_COLOR \
+	popup.background.shadow.drawing=$SHADOW
+
+# source "$ITEM_DIR/apple.sh"
+source "$ITEM_DIR/spaces.sh"
+
+source "$ITEM_DIR/clock.sh"
+source "$ITEM_DIR/front_app.sh"
+# source "$ITEM_DIR/calendar.sh"
+# source "$ITEM_DIR/battery.sh"
+# source "$ITEM_DIR/volume.sh"
+# source "$ITEM_DIR/input.sh"
+sketchybar --update
+
+echo "sketchybar configuration loaded.."

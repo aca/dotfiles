@@ -1,0 +1,5 @@
+#!/bin/sh
+# https://unix.stackexchange.com/questions/88296/get-vertical-cursor-position
+
+IFS=';' read -sdR -p $'\E[6n' ROW COL;echo "${ROW#*[}"
+
