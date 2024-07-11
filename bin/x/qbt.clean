@@ -1,0 +1,23 @@
+#!/usr/bin/env elvish
+# 
+# cleanup completed torrents(without deleting files)
+# https://github.com/qbittorrent/qBittorrent/wiki/Web-API-Documentation
+#
+# host="http://localhost:4321"
+
+# curl --fail -b $tmpf -c $tmpf "http://localhost:4321/api/v2/auth/login" --data 'username=admin&password=adminadmin'
+# opt=("--cookie" "$tmpf" "--cookie-jar" "$tmpf" "--fail")
+
+# curl ${opt[@]} -s "$host/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != -32400 ) | select (.magnet_uri | contains ("ab.site") | not) | .name' 
+#
+# curl ${opt[@]} -s "$host/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != -32400 ) | select (.magnet_uri | contains ("ab.site") | not) | .hash' | xargs -I{} curl ${opt[@]} -vvv -X POST "$host/api/v2/torrents/recheck?hashes={}"
+
+# curl ${opt[@]} -s "$host/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != -32400 ) | select (.magnet_uri | contains ("ab.site") | not) | .hash' | xargs -I{} curl ${opt[@]} -vvv --data "hashes={}&deleteFiles=false" "$host/api/v2/torrents/delete"
+
+# curl ${opt[@]} -s "$host/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != -32400 ) | .hash'
+# curl ${opt[@]} -s "$host/api/v2/torrents/info" | jq -r '.[] | select (.completion_on != -32400 ) | .hash' | xargs -I{} curl ${opt[@]} -vvv --data "hashes={}&deleteFiles=false" "$host/api/v2/torrents/delete"
+
+# /api/v2/torrents/recheck?hashes={}
+use str
+# qbt torrent list --filter completed --output json | jq '.[] | .hash' -r | str:join ',' | qbt torrent recheck --hashes (all)
+qbt torrent list --filter completed --output json | jq '.[] | .hash' -r | str:join ',' | qbt torrent remove --hashes (all)

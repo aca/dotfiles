@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+echo 'socat -v TCP-LISTEN:1521,fork TCP:100.85.204.31:1521'

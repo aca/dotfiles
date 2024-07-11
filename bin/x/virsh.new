@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo virt-clone --original debian --name $VM --auto-clone
+sudo virt-customize -a /var/lib/libvirt/images/$VM.qcow2 --hostname $VM

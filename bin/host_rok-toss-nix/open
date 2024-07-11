@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+# open file in remote server, handles filenames with CJK characters for MacOS.
+# FUCK mac
+fname=$(md5sum "$1" | awk '{print $1}')
+ext=$(echo "${1##*.}")
+# rsync "$1" /tmp/$fname.$ext
+# rsync --progress "/tmp/$fname.$ext" "rok-toss:/tmp/$fname.$ext"
+scp "$1" "rok-toss:/tmp/$fname.$ext"
+# rm /tmp/$fname.$ext
+ssh host "/opt/homebrew/bin/zathura" "/tmp/$fname.$ext"

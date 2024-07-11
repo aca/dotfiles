@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ssh -D 1337 -q -C "$@"

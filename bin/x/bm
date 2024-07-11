@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cat <<EOF | fzf | xargs -I{} setsid vivaldi "{}"
+http://seedbox.local:4321
+EOF

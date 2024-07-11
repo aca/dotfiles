@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fd --type f -x mv -v -n -- {} .

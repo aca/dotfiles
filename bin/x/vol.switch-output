@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+sink=$(pactl list short sinks |awk '{print $2}' | fzf)
+pactl set-default-sink $sink
+
+for i in $(pactl list short sink-inputs | awk '{print $1}') 
+do
+    pactl move-sink-input $i $sink
+done
+
+# pactl list cards > Card > Properties > Profiles
+# pactl list cards short | grep bluez | awk '{print $1}' // 84
+# pactl set-card-profile 84 a2dp-sink-aac
+# pactl set-card-profile 84 headset-head-unit-msbc

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# for i in {1..1000}; do echo $i; sleep 0.1; done | fzf --no-sort --tac --layout=default
+
+export FZF_DEFAULT_OPTS=""
+fzf --no-sort --tac --layout=default --info=inline --color "gutter:-1" --no-scrollbar --no-separator

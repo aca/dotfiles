@@ -1,0 +1,6 @@
+#!/usr/bin/env elvish
+
+while true {
+    date
+    sleep 1s
+}

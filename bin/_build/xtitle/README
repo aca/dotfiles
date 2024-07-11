@@ -1,0 +1,7 @@
+Extract "title" from web page. Used for vim markdown formatting.
+
+    $ xtitle "http://google.com"
+    Google
+
+- Format
+- Opengraph title

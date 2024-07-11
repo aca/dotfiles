@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+yabai -m window --close && exit 0
+
+osascript <<EOF
+  quit app "$(yabai -m query --windows --window | jq -r .app)"
+EOF

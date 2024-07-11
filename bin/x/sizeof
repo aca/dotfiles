@@ -1,0 +1,8 @@
+#!/bin/sh
+
+uname_S=$(sh -c 'uname -s 2>/dev/null || echo not')
+if [ "$uname_S" = "Darwin" ] || [ "$uname_S" = "darwin" ]; then
+  stat -fL "%z" "$1"
+else
+  stat -cL "%s" "$1"
+fi

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# ps -elHf | fzf  --header-lines=1
+# ps -eHf | fzf  --header-lines=1
+ps -ef | fzf  --header-lines=1
+

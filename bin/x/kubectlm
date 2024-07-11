@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+IFS=$'\n'
+xpanes --desync -e $(kubectl config view -o json | jq -r .contexts[].name | fzf -m | xargs -I{} echo 'alias kubectl="kubectl --context {}"')

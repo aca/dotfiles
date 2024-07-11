@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cd ~/src/zk
+gacp
+
+cd ~/src/config/dotfiles
+gacp
