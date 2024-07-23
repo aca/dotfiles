@@ -1,3 +1,4 @@
+--https://www.reddit.com/r/neovim/comments/1e8ayeo/candied_markdown_anyone/
 -- https://www.reddit.com/r/neovim/comments/1do67fj/dont_mind_me_just_posting_some_screenshots_of_a/
 --
 -- https://github.com/ojroques/nvim-bufdel
