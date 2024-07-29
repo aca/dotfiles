@@ -5,7 +5,7 @@
 -- vim.cmd.colorscheme "monokai-pro"
 vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
 vim.api.nvim_set_hl(0, "NormalNC", {bg = "none"})
-vim.api.nvim_set_hl(0, "Statusline", {bg = "#2e2e2e"})
+vim.api.nvim_set_hl(0, "Statusline", {bg = "#0D0D0D"})
 --
 -- vim.cmd.packadd "lush.nvim"
 -- vim.cmd [[ 

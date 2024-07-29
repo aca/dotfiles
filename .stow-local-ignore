@@ -19,3 +19,14 @@
 /@
 /*.nix
 /TODO
+
+# replaced with ni
+/.submodules
+/bin
+/.ssh
+/.tmux
+/.config.bak
+/.tmux.conf
+/.ideavimrc
+/.gitmodules
+/.gitignore*
