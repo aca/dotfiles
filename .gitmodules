@@ -322,9 +322,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-matchup"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-matchup
 	url = https://github.com/andymass/vim-matchup.git
-[submodule ".config/elvish/lib/plugins/edit.elv"]
-	path = .config/elvish/lib/plugins/edit.elv
-	url = https://github.com/xiaq/edit.elv.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/lush.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/lush.nvim
 	url = https://github.com/rktjmp/lush.nvim.git
@@ -838,9 +835,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/copilot-cmp"]
 	path = .local/share/nvim/site/pack/bundle/opt/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp
-[submodule ".local/share/elvish/lib/github.com/aca/elvish-compl"]
-	path = .local/share/elvish/lib/github.com/aca/elvish-compl
-	url = https://github.com/aca/elvish-compl
 [submodule ".local/share/nvim/site/pack/bundle/opt/none-ls.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/none-ls.nvim
 	url = https://github.com/nvimtools/none-ls.nvim.git
