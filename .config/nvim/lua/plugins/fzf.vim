@@ -11,8 +11,12 @@ let g:fzf_action = {
 
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#hide-statusline
 " autocmd! FileType fzf
-" autocmd  FileType fzf set laststatus=0 noshowmode noruler
-"   \| autocmd BufLeave <buffer> set laststatus=3 showmode ruler
+" autocmd  FileType fzf set laststatus=0 noshowmode noruler 
+"   \| autocmd BufLeave <buffer> exec 'set laststatus=' . _laststatus . ' showmode ruler'
+
+autocmd! FileType fzf
+autocmd  FileType fzf let _laststatus=&laststatus | set laststatus=0
+  \| autocmd BufLeave <buffer> exec 'set laststatus=' . _laststatus
 
 " autocmd! FileType fzf
 " autocmd  FileType fzf set noshowmode noruler

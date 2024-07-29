@@ -25,9 +25,13 @@ end, {})
 
 vim.api.nvim_create_user_command("ExtractHighlights", function()
 	local extractHighlight = function(s)
-		local m = vim.api.nvim_get_hl_by_name(s, true)
-		m[true] = nil
-		print("vim.api.nvim_set_hl(0, ", '"' .. s .. '",', vim.inspect(m, { newline = " " }), ")")
+        local status, m = pcall(vim.api.nvim_get_hl_by_name, s, true);
+        if status then
+            m[true] = nil
+            print("vim.api.nvim_set_hl(0, ", '"' .. s .. '",', vim.inspect(m, { newline = " " }), ")")
+        else
+            print("-- ", s)
+        end
 	end
 
 	-- extractHighlight("Normal")
