@@ -11,10 +11,11 @@ local o = vim.o
 --     o.relativenumber = false
 -- end
 
-o.number = true
+o.number = false
 o.relativenumber = false
 o.splitkeep = "screen"
-o.signcolumn = "yes:1"
+-- o.signcolumn = "yes:1"
+o.signcolumn = "no"
 o.formatoptions = "jncroql"
 o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 

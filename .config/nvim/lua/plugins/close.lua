@@ -6,15 +6,29 @@
 vim.cmd([[
 packadd nvim-bufdel
 function s:close()
-  if getwininfo(win_getid())[0]['quickfix'] == 1
-    cclose
-  elseif getwininfo(win_getid())[0]['loclist'] == 1
-    lclose
-  elseif len(getbufinfo({'buflisted':1})) > 1
-    :BufDel
-  else
-    q!
-  end
+  " let win_getid = getwininfo(win_getid())[0]
+  " if win_getid['quickfix'] == 1
+  "   cclose
+  " elseif win_getid['loclist'] == 1
+  "   lclose
+  " " elseif len(getbufinfo({'buflisted':1})) > 1
+  " "   echom ":BufDel"
+  " "   :BufDel
+  " else
+  "   let tabinfo = gettabinfo()
+  "   if len(tabinfo) == 1 && len(tabinfo[0].windows) == 1
+  "       :quit
+  "   else
+  "       :close
+  "   endif
+  " end
+
+    let tabinfo = gettabinfo()
+    if len(tabinfo) == 1 && len(tabinfo[0].windows) == 1
+        :quit
+    else
+        :close
+    endif
 endfunction
 inoremap <silent><C-Q>     <esc>:call <sid>close()<cr>
 nnoremap <silent><C-Q>     :call <sid>close()<cr>

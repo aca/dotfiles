@@ -904,3 +904,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-emoji"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-emoji
 	url = https://github.com/hrsh7th/cmp-emoji.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/betterTerm.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/betterTerm.nvim
+	url = https://github.com/CRAG666/betterTerm.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/code_runner.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/code_runner.nvim
+	url = https://github.com/CRAG666/code_runner.nvim.git

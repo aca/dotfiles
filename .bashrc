@@ -7,6 +7,7 @@
 # OPTS
 shopt -s checkwinsize # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s histappend # append to the history file, don't overwrite it
+shopt -s nullglob # ignore if no match
 HISTCONTROL=ignoredups:ignorespace # don't put duplicate lines in the history. See bash(1) for more options ... or force ignoredups and ignorespace
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -15,7 +16,6 @@ alias elv='elvish'
 
 # use active DISPLAY if available on remote session
 # NOTES: this is a hack for working on VM
-shopt -s nullglob
 if [ -z "$WAYLAND_DISPLAY" ]; then
     for i in "$XDG_RUNTIME_DIR/wayland"-?; do
         export WAYLAND_DISPLAY="$i"
