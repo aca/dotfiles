@@ -59,6 +59,9 @@ div.UrlBar-SearchField {
 /* height:35px !important; transition: height 0s .7s !important; */
 /* } */
 /**/
+.color-behind-tabs-on.tabs-bottom#browser > footer #tabs-tabbar-container, .color-behind-tabs-on.tabs-bottom#browser > footer > .toolbar-statusbar {
+        display: none !important;
+}
 
 
 .address-bottom:not(:has(.toolbar-editor)) .toolbar-mainbar {

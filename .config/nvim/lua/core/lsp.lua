@@ -5,6 +5,9 @@ if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
 
+vim.cmd.packadd("plenary.nvim")
+local strdisplaywidth = require("plenary").strings.strdisplaywidth
+
 -- https://www.reddit.com/r/neovim/comments/180fmw5/add_this_to_make_nvmcmp_docs_look_way_better_in/
 -- vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
 -- 	contents = vim.lsp.util._normalize_markdown(contents, {
@@ -55,21 +58,31 @@ local handlers = {}
 -- 	}),
 -- }
 
--- local rightAlignFormatFunction = function(diagnostic)
--- 	local line = diagnostic.lnum
--- 	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
--- 	local lwidth = vim.api.nvim_get_option_value("columns", {})
--- 	local numberwidth = vim.api.nvim_get_option_value("numberwidth", {})
--- 	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
--- 	local splen = lwidth - line_length - msg_length - numberwidth - 6
--- 	local sp = string.rep(" ", splen)
---
--- 	-- if string.find(diagnostic.message, "declared but its value is never read") then
--- 	-- 	return ""
--- 	-- end
---
--- 	return string.format("%s» %s", sp, diagnostic.message)
--- end
+-- custom right align function as `virt_text_pos = "right_align"` override original text
+local rightAlignFormatFunction = function(diagnostic)
+	local msg = diagnostic.message
+	local line = diagnostic.lnum
+	local line_length = strdisplaywidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+	local msg_length = strdisplaywidth(msg)
+	-- local lwidth = vim.api.nvim_get_option_value("columns", {})
+	-- local wwidth = vim.api.nvim_get_option_value("columns", {})
+	-- local numberwidth = vim.api.nvim_get_option_value("numberwidth", {})
+	local wininfo = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1]
+	-- https://github.com/neovim/neovim/issues/17229
+	local textoff = wininfo.textoff
+	local wwidth = wininfo.width
+
+	local sp = ""
+	-- -4: -2 for minimal default spacing that i can't control, -2 for prefix
+	local maxrightwidth = wwidth - textoff - line_length - 4
+	if msg_length > maxrightwidth then
+		msg = string.sub(msg, 1, maxrightwidth - 1) .. "…"
+	else
+		local splen = wwidth - textoff - line_length - msg_length - 4
+		sp = string.rep(" ", splen)
+	end
+	return string.format("%s» %s", sp, msg)
+end
 
 -- NOTES: Deprecated
 -- -- Highlight line number instead of having icons in sign column https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
@@ -85,43 +98,44 @@ local handlers = {}
 vim.diagnostic.config({
 	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
 	virtual_text = {
-		format = function(diagnostic)
-			local lines = vim.split(diagnostic.message, "\n")
-            local msg = lines[1]
-
-			-- if diagnostic.severity == vim.diagnostic.severity.HINT then
-			--     return ""
-			-- end
-
-			local line = diagnostic.lnum
-			local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
-			local window_width = vim.api.nvim_get_option_value("columns", {})
-			local number_width = vim.api.nvim_get_option_value("numberwidth", {})
-
-            local maxwidth = window_width - number_width - line_length - 3
-
-            -- get lua string length
-            local len = vim.api.nvim_strwidth(msg)
-            if len > maxwidth then
-                msg = string.sub(msg, 1, maxwidth - 2) .. ".."
-            end
-
-			-- 	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-			-- 	local splen = lwidth - line_length - msg_length - numberwidth - 6
-			-- 	local sp = string.rep(" ", splen)
-
-			-- if string.find(lines[1], "declared but its value is never read") then
-			-- 	return ""
-			-- end
-
-			return msg
-		end,
+		format = rightAlignFormatFunction,
+		-- format = function(diagnostic)
+		-- 	local lines = vim.split(diagnostic.message, "\n")
+		--           local msg = lines[1]
+		--
+		-- 	-- if diagnostic.severity == vim.diagnostic.severity.HINT then
+		-- 	--     return ""
+		-- 	-- end
+		--
+		-- 	local line = diagnostic.lnum
+		-- 	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
+		-- 	local window_width = vim.api.nvim_get_option_value("columns", {})
+		-- 	local number_width = vim.api.nvim_get_option_value("numberwidth", {})
+		--
+		--           local maxwidth = window_width - number_width - line_length - 3
+		--
+		--           -- get lua string length
+		--           local len = vim.api.nvim_strwidth(msg)
+		--           if len > maxwidth then
+		--               msg = string.sub(msg, 1, maxwidth - 2) .. ".."
+		--           end
+		--
+		-- 	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
+		-- 	local splen = lwidth - line_length - msg_length - numberwidth - 6
+		-- 	local sp = string.rep(" ", splen)
+		--
+		-- 	-- if string.find(lines[1], "declared but its value is never read") then
+		-- 	-- 	return ""
+		-- 	-- end
+		--
+		-- 	return msg
+		-- end,
+		spacing = 0,
+		prefix = "",
+		suffix = "",
 		severity = vim.diagnostic.severity.ERROR,
-		--       hl_mode = "replace",
-		virt_text_pos = "right_align",
-		-- virt_text_win_col = 40,
-		virt_text_hide = true,
-		-- suffix = " ",
+		-- hl_mode = "combine",
+		-- virt_text_pos = "right_align",
 	},
 	signs = {
 		text = {
@@ -161,7 +175,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
 local on_attach = function(client, bufnr)
-    -- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+	-- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
 	require("lsp_signature").on_attach({
 		fix_pos = true,
 	}, bufnr)
@@ -542,7 +556,7 @@ end
 if vim.fn.executable("gopls") == 1 then
 	lspconfig.gopls.setup({
 
-        on_attach = on_attach,
+		on_attach = on_attach,
 		cmd = { "gopls", "-remote=auto" },
 		-- cmd = { 'goplsx' },
 		-- cmd = { 'gopls', '-remote=unix;/tmp/gopls-daemon-socket2' },
@@ -595,7 +609,5 @@ vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, offs
 
 	vim.lsp.util.apply_text_edits(text_document_edit.edits, buf, offset_encoding)
 end
-
-
 
 vim.cmd("LspStart")

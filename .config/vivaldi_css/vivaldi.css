@@ -1,0 +1,44 @@
+
+
+
+
+
+#browser > footer > div.toolbar.toolbar-droptarget.toolbar-statusbar.toolbar-medium {
+    display: none !important;
+}
+
+
+
+
+
+
+/* maximized window */
+#browser.maximized div#panels-container {
+	width: 1px !important;
+	position: absolute !important;
+	padding-left: 1px;
+	opacity: 0;
+	border: none;
+}
+/* in maximized window, highlight it a bit on hover */
+#browser.maximized div#panels-container:hover {
+	opacity: .6;
+}
+/* non-maximized window */
+div#panels-container {
+	width: 10px !important;
+	overflow: hidden;
+	position: relative !important;
+	padding-left: 10px;
+	opacity: 1;
+	border-right: 1px solid var(--colorBorder);
+}
+/* after clicking the bar, during hovering over the panels */
+div#panels-container:active, div#panels-container:has(#panels:hover, button:hover),
+#browser.maximized div#panels-container:active, #browser.maximized div#panels-container:has(#panels:hover, button:hover) {
+	width: 35px !important;
+	overflow: visible;
+	opacity: 1;
+	padding-left: 0;
+	border: none;
+}
