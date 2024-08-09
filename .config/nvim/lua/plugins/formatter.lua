@@ -1,5 +1,3 @@
-
-
 vim.cmd.packadd("conform.nvim")
 require("conform").setup({
 	formatters_by_ft = {
@@ -29,14 +27,13 @@ vim.keymap.set("n", ";f", function()
 	local filetype = vim.bo.filetype
 	if filetype == "go" then
         local prev = vim.lsp.log.get_level()
-        local notify = vim.notify
-        vim.notify = silent_notify
+        -- local notify = vim.notify
+        -- vim.notify = silent_notify
 		vim.lsp.buf.format({ async = false })
-		-- vim.lsp.buf.format()
 		vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
-        vim.defer_fn(function()
-            vim.notify = notify
-        end, 50)
+        -- vim.defer_fn(function()
+        --     vim.notify = notify
+        -- end, 50)
 	elseif
 		filetype == "typescript"
 		or filetype == "javascript"
