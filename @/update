@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+git pull --rebase
+git submodule update --init --remote --force

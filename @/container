@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+nix run '.#devbox.copyToDockerDaemon'
+docker build -f Dockerfile-nix -t acadx0/tools:devcontainer .
+docker push acadx0/tools:devcontainer
+

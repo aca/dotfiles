@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+docker build -f Dockerfile-light -t acadx0/tools:devcontainer-light .
+docker push acadx0/tools:devcontainer-light

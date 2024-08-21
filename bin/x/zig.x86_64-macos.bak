@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# GOOS=darwin CGO_ENABLED=1 GOARCH=amd64 CC="zig.x86_64-macos cc -w" CXX="zig.x86_64-macos c++ -w" go build
+
+cc=$1
+shift
+
+args="$(echo "$@" | sed 's/ -Wl,-x / /g')" # zig fail for this flag, don't know why..
+sysroot=$(xcrun --sdk macosx --show-sdk-path)
+arch=x86_64-macos-none
+zig $cc -target $arch --sysroot=$sysroot -I$sysroot/usr/include -L$sysroot/usr/lib -F$sysroot/System/Library/Frameworks -w $@

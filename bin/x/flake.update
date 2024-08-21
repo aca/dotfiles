@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+nix flake lock --update-input "$1"

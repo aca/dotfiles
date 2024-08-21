@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+docker run -it nixos/nix nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz -p attic-server --run atticd
+# nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz -p **hugo**
+
+docker run -p 5000:5000  -it nixos/nix nix --extra-experimental-features "nix-command flakes" run github:edolstra/nix-serve
+

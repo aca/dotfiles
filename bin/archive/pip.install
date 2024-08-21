@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+python -m pip install -U pip
+
+pip install --upgrade pynvim
+pip install --upgrade pytest
+# pip install --upgrade youtube-dl
+pip install --upgrade black
+pip install --upgrade requests
+pip install --upgrade ansible
+pip install --upgrade pandas
+pip install --upgrade lxml
+pip install --upgrade BeautifulSoup4
+pip install --upgrade neovim-remote
+
+[[ $(hostname) =~ "kakao" ]] && pip install python-openstackclient
+
+asdf reshim

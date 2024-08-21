@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#
+echo -en "\x1b]52;c;$(base64)\x07"
+

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+go install golang.org/x/tools/gopls@latest
+# go install mvdan.cc/gofumpt@latest
+# go install golang.org/x/tools/cmd/goimports@latest
+# go install golang.org/x/tools/cmd/godoc@latest
+# go install golang.org/x/pkgsite/cmd/pkgsite@latest
+# go install go101.org/golds@latest

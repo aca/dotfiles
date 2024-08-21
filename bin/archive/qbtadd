@@ -1,0 +1,20 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p curl
+
+# NOTES: deprecated. use `qbt torrent add` 
+
+set -euxo pipefail
+
+tmpf=$(mktemp)
+
+curl --fail -b $tmpf -c $tmpf "http://localhost:4321/api/v2/auth/login" --data 'username=admin&password=adminadmin'
+
+for var in "$@"
+do
+    curl -i \
+       --cookie $tmpf --cookie-jar $tmpf \
+       -H 'User-Agent: Fiddler' \
+       -F "torrents=@$var" -F 'root_folder=true' \
+       http://localhost:4321/api/v2/torrents/add
+done
+

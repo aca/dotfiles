@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sudo sqlite3 '/Library/Application Support/com.apple.TCC/TCC.db' 'UPDATE access SET auth_value = 2 where true'

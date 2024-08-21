@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# update fonts option for alacritty
+# 
+# fc-list | rg '.*: (\w+ Nerd Font Mono).*' -r '$1' | shuf | head -n 1 | xargsi alacritty.fonts {}
+
+if command -v gsed >/dev/null 2>&1;then
+  SED=gsed
+else
+  SED=sed
+fi
+
+$SED -i "s/    family:.*/    family: $1/" $(realpath $HOME/.config/alacritty/alacritty.yml)

@@ -1,0 +1,96 @@
+/* vivaldi://inspect/#apps */
+
+div#panels-container.left.icons.overlay.minimized {
+    display: none;
+}
+
+div#panels-container.overlay.minimized {
+    position: absolute;
+}
+
+/**
+ * Merge tabbar and addressbar
+ * Forum link: https://forum.vivaldi.net/topic/96664/merge-tabs-and-address-bar
+ * Inspired by: https://forum.vivaldi.net/topic/34187/merge-tabs-and-address-bar
+ */
+
+div.UrlBar-SearchField {
+    display: none;
+}
+
+/* .button-textonly.UrlBar-SearchField.iconmenu-container.SearchField.below { */
+/*     display: none; */
+/* } */
+
+div.UrlBar-SearchField {
+    display: none;
+}
+
+.button-textonly.UrlBar-SearchField {
+    display: none;
+}
+
+
+.button-toolbar.button-circularimage {
+    display: none;
+}
+
+#tabs-container > div.button-toolbar.workspace-popup.tabbar-workspace-button {
+    display: none;
+}
+
+#main > div.mainbar > div > div:nth-child(2) {
+    display: none;
+}
+
+/* .address-bottom:not(:has(.toolbar-editor)) .toolbar-mainbar { */
+/*     border: solid red; */
+/* margin-top: -34px; transition: margin-bottom .1s ease-out 0s !important; */
+/* } */
+/**/
+/* .address-bottom.hasfocus:not(:has(.toolbar-editor)) #header:not(:hover) + #main:is(:hover, :focus-within) > .mainbar:not(:focus-within):not(:hover):not(:has(.button-pressed)) > .toolbar-mainbar { */
+/*     border: solid blue; */
+/* margin-bottom: -34px; transition: margin-bottom .1s linear .6s !important; */
+/* } */
+/**/
+/* /* drag & drop when mainbar is hidden */ */
+/* .address-bottom.hasfocus #header:not(:hover) + #main:is(:hover, :focus-within) > .mainbar:not(:focus-within):not(:hover) input:is(.vivaldi-addressfield, .vivaldi-searchfield) { */
+/*     border: solid green; */
+/* height:35px !important; transition: height 0s .7s !important; */
+/* } */
+/**/
+
+
+.address-bottom:not(:has(.toolbar-editor)) .toolbar-mainbar {
+    visibility: visible !important;
+    height: 2rem !important;
+}
+
+.address-bottom.hasfocus:not(:has(.toolbar-editor)) #header:not(:hover) + #main:is(:hover, :focus-within) > .mainbar:not(:focus-within):not(:hover):not(:has(.button-pressed)) > .toolbar-mainbar {
+    visibility: hidden !important;
+    height: 0 !important;
+}
+
+/* drag & drop when mainbar is hidden */
+.address-bottom.hasfocus #header:not(:hover) + #main:is(:hover, :focus-within) > .mainbar:not(:focus-within):not(:hover) input:is(.vivaldi-addressfield, .vivaldi-searchfield) {
+    /* border: solid green; */
+        visibility: visible !important;
+        height: 2rem !important;
+        /* transition: height 0s .7s !important; */ */
+}
+
+div.mainbar {
+    background: black !important;
+}
+
+div#tabs-tabbar-container {
+    background: black !important;
+}
+
+div.tab-header {
+    background: black !important;
+}
+
+div#header {
+    display: none;
+}

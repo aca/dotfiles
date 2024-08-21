@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# https://docs.github.com/en/enterprise-server@3.8/actions/using-workflows/workflow-commands-for-github-actions
+# EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+# echo "JSON_RESPONSE<<$EOF" >> "$GITHUB_ENV"
+# curl https://example.com >> "$GITHUB_ENV"
+# echo "$EOF" >> "$GITHUB_ENV"
+
+dd if=/dev/urandom bs=15 count=1 status=none | base64

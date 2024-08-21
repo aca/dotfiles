@@ -1,0 +1,26 @@
+dotfiles
+========
+
+DEPRECATED. MIGRATED TO https://github.com/aca/nix-config
+
+setup
+-----
+
+install (stow)
+
+    git clone "https://github.com/aca/dotfiles.git" ~/src/github.com/aca/dotfiles --recursive --shallow-submodules -j 4 
+    git clone "https://github.com/aca/dotfiles.nostow.git" ~/src/github.com/aca/dotfiles.nostow
+    cd ~/src/github.com/aca
+    bash -c "stow -v --target $HOME dotfiles dotfiles.nostow"
+
+uninstall
+
+    bash -c "stow -v --target $HOME --delete dotfiles dotfiles.nostow"
+
+keys 
+
+    curl -L github.com/aca.keys > ~/.ssh/authorized_keys
+
+local configs 
+
+    bash -c 'git clone root:~/src/root/dotfiles_$(hostname -s)'

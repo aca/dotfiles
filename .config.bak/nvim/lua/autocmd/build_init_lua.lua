@@ -1,0 +1,10 @@
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     -- pattern = vim.fn.expand("~") .. "/.config/nvim/lua/init/*.lua",
+--     pattern = "**/.config/nvim/lua/init/*.lua",
+-- 	callback = function()
+--         print("build")
+--         vim.api.nvim_command([[
+-- call system(["bash", "-c", "make -C ~/.config/nvim build_init_lua"])
+--         ]])
+-- 	end,
+-- })

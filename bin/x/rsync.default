@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# create "xxx" in current directory, if xxx exists, put it inside xxx
+# rsync.default root:~/src/github.com/aca/xxx .
+
+# copy all data in current directory
+# rsync.default root:~/src/github.com/aca/agec/ .
+# rsync.default . root:~/src/github.com/aca/agec/
+
+# human-readable
+# archive mode
+# skip based on checksum
+# --partial --progress
+# output a change-summary for all updates
+# compress file data during transfer
+rsync \
+    --checksum \
+    --archive \
+    --human-readable \
+    --backup \
+    -P \
+    -i \
+    -z \
+    --verbose \
+    "$@"

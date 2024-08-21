@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+output=$(swaymsg -t get_outputs | jq -r '.[] | (.name) + "\t" + (.model)' | fzf | awk '{print $1}')
+swaymsg output "$output" "$@"
