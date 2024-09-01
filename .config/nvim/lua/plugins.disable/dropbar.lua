@@ -275,3 +275,16 @@ require("dropbar").setup({
 vim.o.statusline = "%1*%t %{%v:lua.dropbar.get_dropbar_str()%}%=%l/%L"
 -- restore with %0*
 -- -- vim.opt.winbar = ""
+--
+
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+	callback = function()
+		vim.o.tabline = " %t %{%v:lua.dropbar.get_dropbar_str()%}"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+	callback = function()
+        vim.o.tabline="%!buftabline#render()"
+	end,
+})
