@@ -829,9 +829,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/blame.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/blame.nvim
 	url = https://github.com/FabijanZulj/blame.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/copilot.lua"]
-	path = .local/share/nvim/site/pack/bundle/opt/copilot.lua
-	url = https://github.com/zbirenbaum/copilot.lua.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/copilot-cmp"]
 	path = .local/share/nvim/site/pack/bundle/opt/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp
