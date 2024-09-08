@@ -43,6 +43,29 @@ null_ls.register({
 	},
 })
 
+null_ls.register({
+	name = "goimports",
+	method = { require("null-ls").methods.DIAGNOSTICS },
+	filetypes = { "go" },
+	generator = {
+		fn = function()
+			local found = false
+			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
+				if v["code"] == "UndeclaredName" or v["code"] == "UnusedImport" then
+                    vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
+                    return nil
+				end
+			end
+
+			-- if not found then
+			-- 	return nil
+			-- end
+
+            return nil
+		end,
+	},
+})
+
 -- { {
 --     bufnr = 4,
 --     code = "MissingFieldOrMethod",

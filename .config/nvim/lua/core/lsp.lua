@@ -5,6 +5,8 @@ if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
 
+-- vim.lsp.set_log_level("DEBUG")
+
 vim.cmd.packadd("plenary.nvim")
 local strdisplaywidth = require("plenary").strings.strdisplaywidth
 
@@ -37,26 +39,7 @@ local lspconfig = require("lspconfig")
 
 require("neodev").setup({})
 
--- local border = {
--- 	{ "🭽", "FloatBorder" },
--- 	{ "▔", "FloatBorder" },
--- 	{ "🭾", "FloatBorder" },
--- 	{ "▕", "FloatBorder" },
--- 	{ "🭿", "FloatBorder" },
--- 	{ "▁", "FloatBorder" },
--- 	{ "🭼", "FloatBorder" },
--- 	{ "▏", "FloatBorder" },
--- }
-
 local handlers = {}
-
--- handlers = {
--- 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
--- 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
--- 	["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
--- 		signs = false,
--- 	}),
--- }
 
 -- custom right align function as `virt_text_pos = "right_align"` override original text
 local rightAlignFormatFunction = function(diagnostic)
@@ -202,26 +185,6 @@ end
 --     }
 -- }
 
--- local dev_name = "gohelper"
--- if vim.fn.executable(dev_name) == 1 then
---     configs.dev = {
---         default_config = {
---             cmd = { dev_name },
---             filetypes = { "raku" },
---             root_dir = function()
---                 return vim.loop.cwd()
---             end,
---             settings = {},
---         }
---     }
---
---     lspconfig.dev.setup {
---         capabilities = capabilities,
---         on_attach = on_attach,
---     }
--- end
-
--- vim.lsp.set_log_level("DEBUG")
 
 -- if vim.fn.executable("korean-ls") == 1 then
 --     configs.korean_ls = {
@@ -249,56 +212,6 @@ end
 --     settings = gopls_settings,
 -- })
 
--- require("mason").setup()
--- require("mason-lspconfig").setup()
-
--- require("mason-lspconfig").setup_handlers({
---     function(server_name) -- default handler (optional)
---         lspconfig[server_name].setup({
---             capabilities = capabilities,
---             on_attach = on_attach,
---         })
---     end,
---
---     ["emmet_ls"] = function()
---         lspconfig.emmet_ls.setup({
---             init_options = {
---                 jsx = {
---                     options = {
---                         ["markup.attributes"] = { className = "class" },
---                     },
---                 },
---             },
---         })
---     end,
---
---     ["denols"] = function()
---         lspconfig.denols.setup({
---             on_attach = on_attach,
---             root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
---         })
---     end,
---
---     ["yamlls"] = function()
---         lspconfig.yamlls.setup({
---             yaml = {
---                 keyOrdering = false,
---             },
---         })
---     end,
---
---     ["lua_ls"] = function()
---         lspconfig.lua_ls.setup({
---             settings = {
---                 Lua = {
---                     completion = {
---                         callSnippet = "Replace",
---                     },
---                 },
---             },
---         })
---     end,
---
 --     ["tailwindcss"] = function()
 --         lspconfig.tailwindcss.setup({
 --             capabilities = capabilities,
@@ -308,77 +221,9 @@ end
 --             end),
 --         })
 --     end,
---
---     ["vtsls"] = function()
---         require("lspconfig.configs").vtsls = require("vtsls").lspconfig
---         lspconfig.vtsls.setup({
---             capabilities = capabilities,
---             on_attach = on_attach,
---             root_dir = lspconfig.util.root_pattern("package.json"),
---             single_file_support = false,
---             -- settings = {
---             --     codeActionsOnSave = {
---             --         ["source.organizeImports.ts"] = true,
---             --     },
---             -- },
---             -- commands = {
---             --     OrganizeImports = {
---             --         function()
---             --             local params = {
---             --                 command = "_typescript.organizeImports",
---             --                 arguments = {
---             --                     vim.api.nvim_buf_get_name(0),
---             --                 },
---             --                 title = "",
---             --             }
---             --             vim.lsp.buf.execute_command(params)
---             --         end,
---             --     },
---             -- },
---         })
---     end,
---
---     -- ["tsserver"] = function()
---     --     lspconfig.tsserver.setup({
---     --         capabilities = capabilities,
---     --         on_attach = on_attach,
---     --         root_dir = lspconfig.util.root_pattern("package.json"),
---     --         single_file_support = false,
---     --         settings = {
---     --             codeActionsOnSave = {
---     --                 ["source.organizeImports.ts"] = true,
---     --             },
---     --         },
---     --         commands = {
---     --             OrganizeImports = {
---     --                 function()
---     --                     local params = {
---     --                         command = "_typescript.organizeImports",
---     --                         arguments = {
---     --                             vim.api.nvim_buf_get_name(0),
---     --                         },
---     --                         title = "",
---     --                     }
---     --                     vim.lsp.buf.execute_command(params)
---     --                 end,
---     --             },
---     --         },
---     --     })
---     -- end,
---
---     -- ["gopls"] = function()
---     --     lspconfig.gopls.setup({
---     --         single_file_support = true,
---     --         capabilities = capabilities,
---     --         on_attach = on_attach,
---     --         settings = gopls_settings,
---     --     })
---     -- end,
--- })
 
 if vim.fn.executable("deno") == 1 then
 	lspconfig.denols.setup({
-
 		capabilities = capabilities,
 		-- single_file_support = false,
 		-- handlers = handlers,
@@ -424,38 +269,6 @@ if vim.fn.executable("pyright") == 1 then
 		},
 	})
 end
-
--- if vim.fn.executable("my") == 1 then
--- 	lspconfig.lua_ls.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = false,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
---
-
--- NOTES: configuration does not work as expected, and it is not worth it.
--- language server itself sucks, rely on dadbod completion
--- if vim.fn.executable("sqls") == 1 then
--- 	lspconfig.sqls.setup({
--- 		on_attach = on_attach,
--- 		settings = {
--- 			sqls = {
--- 				connections = {
--- 					{
--- 						driver = "sqlite3",
--- 						-- dataSourceName = "root:root@tcp(127.0.0.1:13306)/world",
--- 						-- dataSourceName = vim.env.SQLS_SQLITE_DB_FILE,
--- 						dataSourceName = "example.db",
--- 					},
--- 				},
--- 			},
--- 		},
--- 	})
--- end
--- if vim.env.SQLS_SQLITE_DB_FILE ~= "" then
--- end
 
 if vim.fn.executable("lua-language-server") == 1 then
 	lspconfig.lua_ls.setup({
@@ -507,12 +320,47 @@ if vim.fn.executable("jdt-language-server") == 1 then
 		single_file_support = true,
 		handlers = handlers,
 		on_attach = on_attach,
-		cmd = { "jdt-language-server" },
 	})
 end
 
 if vim.fn.executable("zls") == 1 then
 	lspconfig.zls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
+
+if vim.fn.executable("vscode-css-language-server") == 1 then
+	lspconfig.cssls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
+--
+if vim.fn.executable("vscode-html-language-server") == 1 then
+	lspconfig.html.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
+
+if vim.fn.executable("vscode-json-language-server") == 1 then
+	lspconfig.jsonls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
+--
+if vim.fn.executable("vscode-eslint-language-server") == 1 then
+	lspconfig.eslint.setup({
 		capabilities = capabilities,
 		single_file_support = true,
 		handlers = handlers,

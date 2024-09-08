@@ -907,3 +907,12 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/code_runner.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/code_runner.nvim
 	url = https://github.com/CRAG666/code_runner.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/render-markdown.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/render-markdown.nvim
+	url = https://github.com/MeanderingProgrammer/render-markdown.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/markview.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/markview.nvim
+	url = https://github.com/OXY2DEV/markview.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/github-preview.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/github-preview.nvim
+	url = https://github.com/wallpants/github-preview.nvim.git
