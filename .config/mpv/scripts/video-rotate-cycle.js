@@ -3,7 +3,7 @@
 //   cache_file=~/.mpv_rotate_history.json
 //
 var opts = {
-  cache_file: mp.utils.getenv("HOME") + ".xcache/mpv/rotate.json",
+  cache_file: mp.utils.getenv("HOME") + ".cache/mpv/rotate.json",
 };
 
 mp.options.read_options(opts, "video-rotate-cycle");
