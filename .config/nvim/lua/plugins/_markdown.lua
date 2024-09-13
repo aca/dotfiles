@@ -18,7 +18,7 @@ require("github-preview").setup({
     host = "localhost",
 
     -- port used by local server
-    port = 6041,
+    port = 6060,
 
     -- set to "true" to force single-file mode & disable repository mode
     single_file = false,
