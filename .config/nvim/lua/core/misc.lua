@@ -46,19 +46,15 @@ nmap g< <Plug>(swap-prev)
 nmap g> <Plug>(swap-next)
 ]])
 
--- -- navigate
--- vim.cmd([[
--- packadd vim-fetch " TODO: replace or mv to start
---
--- let g:nf_map_next=']f'
--- let g:nf_map_previous='[f'
--- packadd nextfile.vim
--- packadd vim-dirvish
--- ]])
+-- navigate
+vim.cmd([[
+packadd vim-fetch " TODO: replace or mv to start
 
--- go
--- vim.cmd.packadd 'go-patch-unusedvar.nvim'
--- require("go-patch-unusedvar")
+let g:nf_map_next=']f'
+let g:nf_map_previous='[f'
+packadd nextfile.vim
+packadd vim-dirvish
+]])
 
 -- etc
 vim.cmd([[

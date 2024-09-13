@@ -24,8 +24,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com.vivaldi.Vivaldi",
-                      "^com.microsoft.VSCode"
+                      "^com.vivaldi.Vivaldi$",
+                      "^com.microsoft.VSCode$"
                     ],
                     "type": "frontmost_application_if"
                   }
@@ -52,8 +52,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com.vivaldi.Vivaldi",
-                      "^com.microsoft.VSCode"
+                      "^com.vivaldi.Vivaldi$",
+                      "^com.microsoft.VSCode$"
                     ],
                     "type": "frontmost_application_if"
                   }
@@ -62,7 +62,7 @@
                   "key_code": "tab",
                   "modifiers": {
                     "optional": [
-                      "control",
+                      "command",
                       "shift"
                     ]
                   }
