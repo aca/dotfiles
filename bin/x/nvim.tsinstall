@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
-nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync all' -c ':q'
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSUninstall all' -c ':q'
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync!all' -c ':q'
+
+
 
