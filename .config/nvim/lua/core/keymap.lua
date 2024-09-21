@@ -37,7 +37,10 @@ set("n", ";n", ":set number!<CR>", { silent = true, noremap = true })
 -- toggle
 nvim_set_keymap("n", ";w", ":set wrap!<CR>", { silent = true, noremap = true })
 -- nvim_set_keymap("n", ";n", ":set relativenumber! | set number!<CR>", { silent = true, noremap = true })
-nvim_set_keymap("n", ";m", ":Messages<cr><c-w><c-w>", { silent = true, noremap = true })
+-- nvim_set_keymap("n", ";m", ":Messages<cr><c-w><c-w>", { silent = true, noremap = true })
+-- nvim_set_keymap("n", ";m", ":Messages<cr><c-w><c-w>", { silent = true, noremap = true })
+-- nvim_set_keymap("n", ";m", ":messages<cr>", { noremap = true })
+nvim_set_keymap("n", ";m", ":Redir messages<cr>", { noremap = true })
 nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent = true, noremap = true })
 
 -- LSP

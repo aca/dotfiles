@@ -13,7 +13,7 @@ vim.cmd.packadd 'tree-sitter-just'
 
 
 vim.cmd([[
-packadd vim-scriptease
+" packadd vim-scriptease
 " packadd vim-characterize
 " packadd vim-rfc
 " packadd symbols-outline.nvim

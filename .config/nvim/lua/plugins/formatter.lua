@@ -26,7 +26,7 @@ end
 vim.keymap.set("n", ";f", function()
 	local filetype = vim.bo.filetype
 	if filetype == "go" then
-        local prev = vim.lsp.log.get_level()
+        -- local prev = vim.lsp.log.get_level()
         -- local notify = vim.notify
         -- vim.notify = silent_notify
 		vim.lsp.buf.format({ async = false })
