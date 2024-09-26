@@ -1,9 +1,5 @@
 local hostname = vim.uv.os_gethostname()
 
-if true then
-	return
-end
-
 if hostname ~= "rok-txxx-nix" and hostname ~= "home" then
 	return
 end
