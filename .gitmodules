@@ -916,3 +916,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/github-preview.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/github-preview.nvim
 	url = https://github.com/wallpants/github-preview.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-lsp-endhints"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-lsp-endhints
+	url = https://github.com/chrisgrieser/nvim-lsp-endhints

@@ -1,5 +1,9 @@
 local hostname = vim.uv.os_gethostname()
 
+if true then
+	return
+end
+
 if hostname ~= "rok-txxx-nix" and hostname ~= "home" then
 	return
 end
@@ -17,7 +21,7 @@ vim.keymap.set("i", "<C-F>", "<Plug>(copilot-accept-line)")
 local initcmd
 initcmd = vim.api.nvim_create_autocmd("InsertLeave", {
 	callback = function()
-        print("loaded copilot")
+		print("loaded copilot")
 		vim.cmd([[
             call copilot#Init()
         ]])

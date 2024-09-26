@@ -5,6 +5,44 @@ if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
 
+-- vim.cmd.packadd("nvim-lsp-endhints")
+-- require("lsp-endhints").setup({
+-- 	-- icons = {
+-- 	-- 	type = "󰜁 ",
+-- 	-- 	parameter = "󰏪 ",
+-- 	-- 	offspec = " ", -- hint kind not defined in official LSP spec
+-- 	-- 	unknown = " ", -- hint kind is nil
+-- 	-- },
+-- 	label = {
+-- 		padding = 1,
+-- 		marginLeft = 0,
+-- 		bracketedParameters = true,
+-- 	},
+-- 	autoEnableHints = true,
+-- })
+
+vim.cmd.packadd("nvim-lsp-endhints")
+require("lsp-endhints").setup({
+	icons = {
+		type = "󰜁 ",
+		parameter = "󰏪 ",
+		offspec = " ", -- hint kind not defined in official LSP spec
+		unknown = " ", -- hint kind is nil
+	},
+	label = {
+		padding = 1,
+		marginLeft = 0,
+		bracketedParameters = true,
+	},
+	autoEnableHints = true,
+})
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		vim.lsp.inlay_hint.enable(true)
+		require("lsp-endhints").enable()
+	end,
+})
+
 -- vim.lsp.set_log_level("DEBUG")
 
 vim.cmd.packadd("plenary.nvim")
@@ -26,7 +64,7 @@ local strdisplaywidth = require("plenary").strings.strdisplaywidth
 vim.cmd.packadd("nvim-lspconfig")
 -- vim.cmd.packadd("mason.nvim")
 -- vim.cmd.packadd("mason-lspconfig.nvim")
-vim.cmd.packadd("lsp_signature.nvim")
+-- vim.cmd.packadd("lsp_signature.nvim")
 vim.cmd.packadd("neodev.nvim")
 vim.cmd.packadd("nvim-vtsls")
 -- vim.cmd.packadd("nvim-navic") -- TODO: replace with dropbar.nvim
@@ -159,9 +197,9 @@ capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
 local on_attach = function(client, bufnr)
 	-- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-	require("lsp_signature").on_attach({
-		fix_pos = true,
-	}, bufnr)
+	-- require("lsp_signature").on_attach({
+	-- 	fix_pos = true,
+	-- }, bufnr)
 end
 
 -- configs.emmet = {
@@ -184,7 +222,6 @@ end
 --       },
 --     }
 -- }
-
 
 -- if vim.fn.executable("korean-ls") == 1 then
 --     configs.korean_ls = {
@@ -282,6 +319,8 @@ if vim.fn.executable("lua-language-server") == 1 then
 					-- Get the language server to recognize the `vim` global
 					globals = { "vim" },
 				},
+
+				hint = { enable = true },
 			},
 		},
 	})
@@ -289,13 +328,13 @@ end
 
 if vim.fn.executable("kotlin-language-server") == 1 then
 	lspconfig.kotlin_language_server.setup({
-      init_options = {
-        storagePath = vim.fn.resolve(vim.fn.stdpath("cache") .. "/kotlin_language_server"),
-      },
+		init_options = {
+			storagePath = vim.fn.resolve(vim.fn.stdpath("cache") .. "/kotlin_language_server"),
+		},
 
-       root_dir = function()
-           return vim.loop.cwd()
-       end,
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
 		-- capabilities = capabilities,
 		-- single_file_support = true,
 		-- handlers = handlers,
@@ -303,12 +342,24 @@ if vim.fn.executable("kotlin-language-server") == 1 then
 	})
 end
 
+local jsInlayHints = {
+	includeInlayParameterNameHints = "all",
+	includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+	includeInlayFunctionParameterTypeHints = true,
+	includeInlayVariableTypeHints = true,
+	includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+	includeInlayPropertyDeclarationTypeHints = true,
+	includeInlayFunctionLikeReturnTypeHints = true,
+	includeInlayEnumMemberValueHints = true,
+}
+
 if vim.fn.executable("vtsls") == 1 then
 	lspconfig.vtsls.setup({
 		capabilities = capabilities,
 		single_file_support = false,
 		handlers = handlers,
 		on_attach = on_attach,
+		settings = jsInlayHints,
 	})
 end
 
@@ -413,11 +464,21 @@ if vim.fn.executable("gopls") == 1 then
 
 		on_attach = on_attach,
 		cmd = { "gopls", "-remote=auto" },
-		-- cmd = { 'goplsx' },
-		-- cmd = { 'gopls', '-remote=unix;/tmp/gopls-daemon-socket2' },
-
-		capabilities = capabilities,
-		root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+		-- capabilities = capabilities,
+		-- root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+		settings = {
+			gopls = {
+				hints = {
+					rangeVariableTypes = true,
+					parameterNames = true,
+					constantValues = true,
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = true,
+					functionTypeParameters = true,
+				},
+			},
+		},
 		-- single_file_support = true,
 		-- handlers = handlers,
 		-- handlers = handlers,
