@@ -4,10 +4,55 @@ vim.cmd.packadd("none-ls.nvim")
 vim.cmd.packadd("go-patch-unusedvar.nvim")
 
 local null_ls = require("null-ls")
+
+local b = null_ls.builtins
+
+local sources = {
+	b.formatting.gofumpt,
+	b.formatting.goimports,
+	b.diagnostics.golangci_lint,
+}
+
 null_ls.setup({
 	-- sources = { null_ls.builtins.code_actions.impl },
 	debug = false,
+	sources = sources,
 })
+
+-- local api = vim.api
+-- local function get_diagnostic_at_cursor()
+-- 	local cur_buf = api.nvim_get_current_buf()
+-- 	-- local line, col = unpack(api.nvim_win_get_cursor(0))
+-- 	local line, col = 4, 0
+-- 	local entrys = vim.diagnostic.get(cur_buf, { lnum = line - 1 })
+-- 	local res = {}
+-- 	for _, v in pairs(entrys) do
+-- 		if v.col <= col and v.end_col >= col then
+-- 			table.insert(res, {
+-- 				code = v.code,
+-- 				message = v.message,
+-- 				range = {
+-- 					["start"] = {
+-- 						character = v.col,
+-- 						line = v.lnum,
+-- 					},
+-- 					["end"] = {
+-- 						character = v.end_col,
+-- 						line = v.end_lnum,
+-- 					},
+-- 				},
+-- 				severity = v.severity,
+-- 				source = v.source or nil,
+-- 			})
+-- 		end
+-- 	end
+-- 	return res
+-- end
+
+-- vim.lsp.buf.code_action({
+--  context = {
+--       diagnostics = get_diagnostic_at_cursor()
+-- }})
 
 null_ls.register({
 	name = "go-patch-unusedvar",
@@ -32,61 +77,31 @@ null_ls.register({
 	},
 })
 
+local function extract_last_url(msg)
+	-- Pattern to match the last URL
+	local url = msg:match("([%w%.%-]+/%S+)")
+	return url
+end
+
+local gogetmap = {}
 null_ls.register({
-	name = "goimports",
+	name = "go-get",
 	method = { require("null-ls").methods.DIAGNOSTICS },
 	filetypes = { "go" },
 	generator = {
 		fn = function()
 			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
-				-- if v["code"] == "UndeclaredName" or v["code"] == "UnusedImport" then
-				--                 print(running_go_imports)
-				-- 	if not running_go_imports then
-				-- 		running_go_imports = true
-				--
-				-- 		vim.lsp.buf.code_action({
-				-- 			apply = true,
-				-- 			filter = function(action)
-				-- 				return action.title == "Organize Imports"
-				-- 			end,
-				-- 		})
-				--
-				-- 	vim.defer_fn(function()
-				-- 		running_go_imports = false
-				-- 	end, 200)
-				-- 	return {}
-				-- end
-
+				-- Function to extract the last URL
 				if v["code"] == "BrokenImport" then
-                    vim.print(v)
-
-					-- local params = vim.lsp.util.make_range_params(nil, nil)
-					-- local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-					-- for _, res in pairs(result or {}) do
-					-- 	for _, r in pairs(res.result or {}) do
-     --                        vim.print(r)
-					-- 		-- if r.kind == "source.organizeImports" then
-					-- 		-- 	vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
-					-- 		-- 	-- running_go_imports = false
-					-- 		-- 	return
-					-- 		-- end
-					-- 	end
-					-- end
-
-					-- vim.lsp.buf.code_action({
-					-- 	only = { "quickfix" },
-					-- 	apply = true,
-					-- 	filter = function(action)
-					--                        if string.find(actions.command, "get") then
-					--                            return true
-					--                        else
-					--                            return false
-					--                        end
-					-- 	end,
-					-- })
-					-- vim.lsp.buf.code_action({
-					-- 	apply = true,
-					-- })
+					-- vim.print(extract_last_url(v["message"]))
+					local url = extract_last_url(v["message"])
+					if gogetmap[url] ~= nil then
+						return
+					end
+					gogetmap = {
+						url = true,
+					}
+					vim.fn.jobstart("go get -u " .. url)
 					return {}
 				end
 			end
