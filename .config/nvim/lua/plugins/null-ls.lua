@@ -90,6 +90,7 @@ null_ls.register({
 	filetypes = { "go" },
 	generator = {
 		fn = function()
+			local found = false
 			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
 				-- Function to extract the last URL
 				if v["code"] == "BrokenImport" then
@@ -103,6 +104,11 @@ null_ls.register({
 					}
 					vim.fn.jobstart("go get -u " .. url)
 					return {}
+				end
+				if v["code"] == "NoNewVar" then
+                    vim.cmd(':' .. v["lnum"] + 1 .. 's/:=/=/')
+                    -- vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
+                    -- return nil
 				end
 			end
 			return {}
