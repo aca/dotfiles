@@ -130,9 +130,6 @@
 [submodule ".submodules/mpvc"]
 	path = .submodules/mpvc
 	url = https://github.com/lwilletts/mpvc.git
-[submodule ".local/share/nvim/site/pack/paqs/start/plenary.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
 	path = .local/share/nvim/site/pack/bundle/opt/playground
 	url = https://github.com/nvim-treesitter/playground.git
@@ -652,9 +649,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/gitsigns.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/plenary.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/playground"]
 	path = .local/share/nvim/site/pack/bundle/opt/playground
 	url = https://github.com/nvim-treesitter/playground.git
@@ -919,3 +913,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-lsp-endhints"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-lsp-endhints
 	url = https://github.com/chrisgrieser/nvim-lsp-endhints
+[submodule ".local/share/nvim/site/pack/bundle/start/plenary.nvim"]
+	path = .local/share/nvim/site/pack/bundle/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git

@@ -8,18 +8,24 @@ end, {})
 vim.api.nvim_create_user_command("GoimportsEnable", function(msg)
 	running_go_imports = false
 end, {})
+vim.api.nvim_create_user_command("GoimportsPrint", function(msg)
+	print(running_go_imports)
+end, {})
 
--- vim.api.nvim_create_user_command("GoimportsPrint", function(msg)
--- 	print(running_go_imports)
--- end, {})
+-- require('plenary.nvim')
 
-vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave" }, {
+-- local running_go_imports_debouncer = vim.uv.new_timer()
+
+vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave", "CursorHold", "CursorHoldI" }, {
 	pattern = { "*.go" },
 	callback = function()
 		if running_go_imports then
 			return
 		end
 		running_go_imports = true
+        -- running_go_imports_debouncer:start(500, 0, vim.schedule_wrap(function()
+        --     vim.cmd("GoimportsEnable")
+        -- end))
 		-- this is async
 		-- vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
 		local params = vim.lsp.util.make_range_params()
@@ -28,8 +34,8 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave" }, {
 		for _, res in pairs(result or {}) do
 			for _, r in pairs(res.result or {}) do
 				if r.kind == "source.organizeImports" then
-					-- vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
 					vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
+                    print("fmt done")
 					running_go_imports = false
 					return
 				end

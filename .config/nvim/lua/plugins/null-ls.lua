@@ -8,8 +8,8 @@ local null_ls = require("null-ls")
 local b = null_ls.builtins
 
 local sources = {
-	b.formatting.gofumpt,
-	b.formatting.goimports,
+	-- b.formatting.gofumpt,
+	-- b.formatting.goimports,
 	b.diagnostics.golangci_lint,
 }
 
