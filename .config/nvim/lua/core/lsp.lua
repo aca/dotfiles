@@ -289,6 +289,20 @@ if vim.fn.executable("deno") == 1 then
 	})
 end
 
+if vim.fn.executable("harper-ls") == 1 then
+	lspconfig.harper_ls.setup({
+		-- cmd = require("pylance"),
+		capabilities = capabilities,
+		on_attach = on_attach,
+		-- settings = {
+		-- 	["harper-ls"] = {
+		-- 		userDictPath = "~/dict.txt",
+		-- 		fileDictPath = "~/.harper/",
+		-- 	},
+		-- },
+	})
+end
+
 if vim.fn.executable("pyright") == 1 then
 	lspconfig.pyright.setup({
 		-- cmd = require("pylance"),
