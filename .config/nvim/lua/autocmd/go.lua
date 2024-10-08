@@ -20,9 +20,9 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave", "CursorHold", "CursorHo
 	pattern = { "*.go" },
 	callback = function()
 		if running_go_imports then
+            log.debug("Organize Imports skipped")
 			return
 		end
-		running_go_imports = true
         -- running_go_imports_debouncer:start(500, 0, vim.schedule_wrap(function()
         --     vim.cmd("GoimportsEnable")
         -- end))
@@ -34,8 +34,10 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "BufLeave", "CursorHold", "CursorHo
 		for _, res in pairs(result or {}) do
 			for _, r in pairs(res.result or {}) do
 				if r.kind == "source.organizeImports" then
+                    log.debug("Organize Imports start")
+                    running_go_imports = true
 					vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
-                    print("fmt done")
+                    log.debug("Organize Imports done")
 					running_go_imports = false
 					return
 				end

@@ -24,8 +24,8 @@ runtime after/plugin/vim_dadbod_completion.lua
 " packadd cmp-omni
 " runtime /after/plugin/cmp_omni.lua
 
-" packadd cmp-nvim-lsp-signature-help
-" runtime after/plugin/cmp_nvim_lsp_signature_help.lua
+packadd cmp-nvim-lsp-signature-help
+runtime after/plugin/cmp_nvim_lsp_signature_help.lua
 
 " packadd cmp-tmux
 " runtime after/plugin/cmp_tmux.vim
@@ -123,8 +123,8 @@ else
 	cmp_sources = {
 		{ name = "nvim_lsp" },
 		{ name = "vim-dadbod-completion" },
-		{ name = "function" },
-		{ name = "emoji", insert = true },
+		-- { name = "function" },
+		-- { name = "emoji", insert = true },
 		-- { name = "copilot", group_index = 2 },
 		-- { name = "copilot" },
 		-- { name = "copilot" },
@@ -132,7 +132,7 @@ else
 		-- { name = "path" },
 		-- { name = "buffer", option = { keyword_length = 5 } },
 		-- { name = "luasnip" },
-		-- { name = "nvim_lsp_signature_help" },
+		{ name = "nvim_lsp_signature_help" },
 		-- { name = "luasnip_choice" },
 		-- { name = "path", option = { } }
 	}
@@ -162,19 +162,19 @@ local has_words_before = function()
 end
 
 cmp.setup({
-	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
-		-- documentation = { -- no border; native-style scrollbar
-		--   border = nil,
-		--   -- scrollbar = '',
-		--   -- other options
-		-- },
-	},
-
-	experimental = {
-		ghost_text = false,
-	},
+	-- window = {
+	-- 	-- completion = cmp.config.window.bordered(),
+	-- 	-- documentation = cmp.config.window.bordered(),
+	-- 	-- documentation = { -- no border; native-style scrollbar
+	-- 	--   border = nil,
+	-- 	--   -- scrollbar = '',
+	-- 	--   -- other options
+	-- 	-- },
+	-- },
+	--
+	-- experimental = {
+	-- 	ghost_text = false,
+	-- },
 	-- confirmation = {
 	--     get_commit_characters = function()
 	--         return {}

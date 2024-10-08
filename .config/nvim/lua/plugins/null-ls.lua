@@ -10,7 +10,7 @@ local b = null_ls.builtins
 local sources = {
 	-- b.formatting.gofumpt,
 	-- b.formatting.goimports,
-	b.diagnostics.golangci_lint,
+	-- b.diagnostics.golangci_lint,
 }
 
 null_ls.setup({

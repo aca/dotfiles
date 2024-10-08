@@ -421,9 +421,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/tcomment_vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/tcomment_vim
 	url = https://github.com/tomtom/tcomment_vim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/lsp-inlayhints.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/lsp-inlayhints.nvim
-	url = https://github.com/lvimuser/lsp-inlayhints.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/hex.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/hex.nvim
 	url = https://github.com/RaafatTurki/hex.nvim.git

@@ -2,13 +2,16 @@ local vim = vim
 vim.loader.enable()
 
 local load = function()
+	_G.P = vim.print
+	_G.log = require("plenary.log")
+
 	vim.cmd([[ runtime! lua/core/fzf.vim ]])
 
 	require("core.treesitter")
 	require("core.keymap")
 	require("core.luasnip")
 	require("core.cmp")
-    require("core.copilot_vim")
+	require("core.copilot_vim")
 	require("core.lsp")
 	require("core.tmux")
 	require("core.misc")
@@ -30,4 +33,3 @@ local load = function()
 end
 
 vim.defer_fn(load, 50)
--- load()

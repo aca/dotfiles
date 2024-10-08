@@ -21,27 +21,27 @@ end
 -- 	autoEnableHints = true,
 -- })
 
-vim.cmd.packadd("nvim-lsp-endhints")
-require("lsp-endhints").setup({
-	icons = {
-		type = "󰜁 ",
-		parameter = "󰏪 ",
-		offspec = " ", -- hint kind not defined in official LSP spec
-		unknown = " ", -- hint kind is nil
-	},
-	label = {
-		padding = 1,
-		marginLeft = 0,
-		bracketedParameters = true,
-	},
-	autoEnableHints = true,
-})
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(args)
-		vim.lsp.inlay_hint.enable(true)
-		require("lsp-endhints").enable()
-	end,
-})
+-- vim.cmd.packadd("nvim-lsp-endhints")
+-- require("lsp-endhints").setup({
+-- 	icons = {
+-- 		type = "󰜁 ",
+-- 		parameter = "󰏪 ",
+-- 		offspec = " ", -- hint kind not defined in official LSP spec
+-- 		unknown = " ", -- hint kind is nil
+-- 	},
+-- 	label = {
+-- 		padding = 1,
+-- 		marginLeft = 0,
+-- 		bracketedParameters = true,
+-- 	},
+-- 	autoEnableHints = true,
+-- })
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	callback = function(args)
+-- 		vim.lsp.inlay_hint.enable(true)
+-- 		require("lsp-endhints").enable()
+-- 	end,
+-- })
 
 -- vim.lsp.set_log_level("DEBUG")
 
@@ -74,6 +74,8 @@ local lspconfig = require("lspconfig")
 -- local configs = require("lspconfig.configs")
 -- local lume = require("lib/lume")
 -- local util = require("lspconfig/util")
+
+-- https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921
 
 require("neodev").setup({})
 
