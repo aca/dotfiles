@@ -1,7 +1,7 @@
 vim.cmd.packadd("plenary.nvim")
 vim.cmd.packadd("none-ls.nvim")
 
-vim.cmd.packadd("go-patch-unusedvar.nvim")
+-- vim.cmd.packadd("go-patch-unusedvar.nvim")
 
 local null_ls = require("null-ls")
 
@@ -54,28 +54,28 @@ null_ls.setup({
 --       diagnostics = get_diagnostic_at_cursor()
 -- }})
 
-null_ls.register({
-	name = "go-patch-unusedvar",
-	method = { require("null-ls").methods.CODE_ACTION },
-	filetypes = { "go" },
-	generator = {
-		fn = function()
-			local found = false
-			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
-				if v["code"] == "UnusedVar" then
-					return {
-						{
-							title = "patch unused vars",
-							action = function()
-								require("go-patch-unusedvar")()
-							end,
-						},
-					}
-				end
-			end
-		end,
-	},
-})
+-- null_ls.register({
+-- 	name = "go-patch-unusedvar",
+-- 	method = { require("null-ls").methods.CODE_ACTION },
+-- 	filetypes = { "go" },
+-- 	generator = {
+-- 		fn = function()
+-- 			local found = false
+-- 			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
+-- 				if v["code"] == "UnusedVar" then
+-- 					return {
+-- 						{
+-- 							title = "patch unused vars",
+-- 							action = function()
+-- 								require("go-patch-unusedvar")()
+-- 							end,
+-- 						},
+-- 					}
+-- 				end
+-- 			end
+-- 		end,
+-- 	},
+-- })
 
 local function extract_last_url(msg)
 	-- Pattern to match the last URL
@@ -83,38 +83,38 @@ local function extract_last_url(msg)
 	return url
 end
 
-local gogetmap = {}
-null_ls.register({
-	name = "go-get",
-	method = { require("null-ls").methods.DIAGNOSTICS },
-	filetypes = { "go" },
-	generator = {
-		fn = function()
-			local found = false
-			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
-				-- Function to extract the last URL
-				if v["code"] == "BrokenImport" then
-					-- vim.print(extract_last_url(v["message"]))
-					local url = extract_last_url(v["message"])
-					if gogetmap[url] ~= nil then
-						return
-					end
-					gogetmap = {
-						url = true,
-					}
-					vim.fn.jobstart("go get -u " .. url)
-					return {}
-				end
-				if v["code"] == "NoNewVar" then
-                    vim.cmd(':' .. v["lnum"] + 1 .. 's/:=/=/')
-                    -- vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
-                    -- return nil
-				end
-			end
-			return {}
-		end,
-	},
-})
+-- local gogetmap = {}
+-- null_ls.register({
+-- 	name = "go-get",
+-- 	method = { require("null-ls").methods.DIAGNOSTICS },
+-- 	filetypes = { "go" },
+-- 	generator = {
+-- 		fn = function()
+-- 			local found = false
+-- 			for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
+-- 				-- Function to extract the last URL
+-- 				if v["code"] == "BrokenImport" then
+-- 					-- vim.print(extract_last_url(v["message"]))
+-- 					local url = extract_last_url(v["message"])
+-- 					if gogetmap[url] ~= nil then
+-- 						return
+-- 					end
+-- 					gogetmap = {
+-- 						url = true,
+-- 					}
+-- 					vim.fn.jobstart("go get -u " .. url)
+-- 					return {}
+-- 				end
+-- 				if v["code"] == "NoNewVar" then
+--                     vim.cmd(':' .. v["lnum"] + 1 .. 's/:=/=/')
+--                     -- vim.lsp.buf.code_action({ apply = true, filter = function(action) return action.title == "Organize Imports" end })
+--                     -- return nil
+-- 				end
+-- 			end
+-- 			return {}
+-- 		end,
+-- 	},
+-- })
 
 -- go, implement method action
 -- p.parseStatement undefined (type *Parser has no field or method parseStatement)
