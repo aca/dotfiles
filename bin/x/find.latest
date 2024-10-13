@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-# https://stackoverflow.com/questions/1015678/get-most-recent-file-in-a-directory-on-linux
-# find . -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2-
-find -cmin -20 -type f
-

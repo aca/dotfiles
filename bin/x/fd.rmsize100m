@@ -1,3 +1,0 @@
-#!/bin/sh
-
-fd --size -100M -x rm -v

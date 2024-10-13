@@ -4,12 +4,12 @@ if vim.env.VIM_DISABLE_TREESITTER == "1" then
 	return
 end
 
-vim.fn.setenv("EXTENSION_WIKI_LINK", 1)
-vim.fn.setenv("EXTENSION_TAGS", 1)
+vim.fn.setenv("EXTENSION_WIKI_LINK", "1")
+vim.fn.setenv("EXTENSION_TAGS", "1")
 
 -- NOTES: replaced with nvim-ufo
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.cmd([[ 
     packadd nvim-treesitter
@@ -227,15 +227,21 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
-		enable = {
-            "go",
-            "bash",
-        },
+		-- enable = {
+		--           "go",
+		--           "bash",
+		--           "svelte",
+		--       },
+		enable = true,
 		disable = {
-            "markdown"
-        },
+			"markdown",
+		},
 		additional_vim_regex_highlighting = false,
 	},
+	ensure_installed = {},
+	auto_install = false,
+    ignore_install = false,
+
 })
 
 -- require("treesitter-context").setup()

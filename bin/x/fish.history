@@ -1,4 +1,0 @@
-#!/usr/bin/env fish
-
-history --merge
-fish -c history

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-fd --type empty -x trash-put -v '{}'

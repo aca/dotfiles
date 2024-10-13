@@ -419,14 +419,14 @@ if vim.fn.executable("vscode-json-language-server") == 1 then
 	})
 end
 --
-if vim.fn.executable("vscode-eslint-language-server") == 1 then
-	lspconfig.eslint.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
+-- if vim.fn.executable("vscode-eslint-language-server") == 1 then
+-- 	lspconfig.eslint.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
 
 if vim.fn.executable("clangd") == 1 then
 	local clangd_capabilities = vim.deepcopy(capabilities)
