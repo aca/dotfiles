@@ -17,7 +17,7 @@ vim.cmd([[
     " packadd nvim-treesitter-context
     packadd nvim-treesitter-textobjects
     packadd nvim-ts-context-commentstring
-    packadd playground
+    " packadd playground
 ]])
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -146,9 +146,6 @@ require("nvim-treesitter.configs").setup({
 	},
 	indent = {
 		enable = false,
-	},
-	playground = {
-		enable = true,
 	},
 	-- matchup = {
 	--     enable = true,

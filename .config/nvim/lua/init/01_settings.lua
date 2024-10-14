@@ -152,8 +152,8 @@ o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 -- o.fencs = "ucs-bom,utf-8,default,latin1"
 -- vim.o.fencs="ucs-bom,utf-8,cp949,euc-kr,default,latin1"
 
-o.cmdheight = 0
-o.laststatus = 3
+vim.o.cmdheight = 0
+vim.o.laststatus = 3
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
