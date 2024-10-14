@@ -232,7 +232,7 @@ require("nvim-treesitter.configs").setup({
 		--           "bash",
 		--           "svelte",
 		--       },
-		enable = true,
+		-- enable = true,
 		disable = {
 			"markdown",
 		},
