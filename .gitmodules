@@ -130,9 +130,6 @@
 [submodule ".submodules/mpvc"]
 	path = .submodules/mpvc
 	url = https://github.com/lwilletts/mpvc.git
-[submodule ".local/share/nvim/site/pack/paqs/opt/playground"]
-	path = .local/share/nvim/site/pack/bundle/opt/playground
-	url = https://github.com/nvim-treesitter/playground.git
 [submodule ".local/share/nvim/site/pack/paqs/opt/vim-dadbod-ui"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-dadbod-ui
 	url = https://github.com/kristijanhusak/vim-dadbod-ui.git
