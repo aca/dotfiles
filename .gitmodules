@@ -910,3 +910,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/gopher.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gopher.nvim
 	url = https://github.com/olexsmir/gopher.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/vesper.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/vesper.nvim
+	url = https://github.com/datsfilipe/vesper.nvim
