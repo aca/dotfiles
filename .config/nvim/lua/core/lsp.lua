@@ -289,9 +289,28 @@ if vim.fn.executable("deno") == 1 then
 	})
 end
 
-if vim.fn.executable("pyright") == 1 then
-	lspconfig.pyright.setup({
-		-- cmd = require("pylance"),
+-- if vim.fn.executable("pyright") == 1 then
+-- 	lspconfig.pyright.setup({
+-- 		-- cmd = require("pylance"),
+-- 		capabilities = capabilities,
+-- 		on_attach = on_attach,
+-- 		settings = {
+-- 			python = {
+-- 				analysis = {
+-- 					diagnosticSeverityOverrides = {
+-- 						reportUnusedClass = "none",
+-- 						reportUnusedImport = "none",
+-- 						reportUnusedVariable = "none",
+-- 						reportDuplicateImport = "none",
+-- 					},
+-- 				},
+-- 			},
+-- 		},
+-- 	})
+-- end
+
+if vim.fn.executable("pylyzer") == 1 then
+	lspconfig.pylyzer.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 		settings = {
