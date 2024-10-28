@@ -7,7 +7,7 @@ require("conform").setup({
 		-- Use a sub-list to run only the first available formatter
 		javascript = { { "biome", "prettier", "prettierd" } },
 		html = { { "prettier", "prettierd", "biome" } }, -- biome doesn't support html yet
-		nix = { { "alejandra", "nixfmt" } },
+		-- nix = { { "alejandra", "nixfmt" } },
 		jsonc = { { "deno_fmt" } },
 		json = { { "deno_fmt" } },
 		sql = { { "sql_formatter" } },
@@ -18,33 +18,49 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- vim.lsp.set_log_level(vim.lsp.log.levels.OFF) doesn't work
 function silent_notify(msg, level, opts) -- luacheck: no unused args
-  if level == vim.log.levels.ERROR or level == vim.log.levels.WARN then
-    vim.api.nvim_err_writeln(msg)
-  end
+	if level == vim.log.levels.ERROR or level == vim.log.levels.WARN then
+		vim.api.nvim_err_writeln(msg)
+	end
 end
 
 vim.keymap.set("n", ";f", function()
 	local filetype = vim.bo.filetype
 	if filetype == "go" then
-        -- local prev = vim.lsp.log.get_level()
-        -- local notify = vim.notify
-        -- vim.notify = silent_notify
+		-- local prev = vim.lsp.log.get_level()
+		-- local notify = vim.notify
+		-- vim.notify = silent_notify
 		vim.lsp.buf.format({ async = false })
 		vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
-        -- vim.defer_fn(function()
-        --     vim.notify = notify
-        -- end, 50)
-	elseif
-		filetype == "typescript"
-		or filetype == "javascript"
-		or filetype == "javascriptreact"
-		or filetype == "typescriptreact"
-	then
-		vim.lsp.buf.format({ formatting_options = { tabSize = 2 } })
-		vim.lsp.buf.execute_command({
-			command = "_typescript.organizeImports",
-			arguments = { vim.api.nvim_buf_get_name(0) },
-		})
+		-- vim.defer_fn(function()
+		--     vim.notify = notify
+		-- end, 50)
+		-- elseif
+		-- 	filetype == "typescript"
+		-- 	or filetype == "javascript"
+		-- 	or filetype == "javascriptreact"
+		-- 	or filetype == "typescriptreact"
+		-- then
+		-- 	vim.lsp.buf.format({ formatting_options = { tabSize = 2 } })
+		-- 	local clients = vim.lsp.get_active_clients()
+		-- 	-- Find the client by name
+		-- 	-- local target_client = nil
+		-- 	for _, client in ipairs(clients) do
+		-- 		if client.name == "vtsls" then
+		--                print("found vtsls")
+		--                -- client.request("workspace/executeCommand", "_typescript.organizeImports", { vim.api.nvim_buf_get_name(0) }, 0)
+		--                client.request('workspace/executeCommand', {
+		--                    command = "_typescript.organizeImports",
+		--                    arguments = { vim.api.nvim_buf_get_name(0) },
+		--                    title = "",
+		--                })
+		-- 			break
+		-- 		end
+		-- 	end
+		-- vim.lsp.buf.execute_command({
+		-- 	command = "_typescript.organizeImports",
+		-- 	arguments = { vim.api.nvim_buf_get_name(0) },
+		-- })
+		-- require("conform").format()
 	else
 		require("conform").format()
 	end

@@ -288,29 +288,10 @@ if vim.fn.executable("deno") == 1 then
 		-- end,
 	})
 end
+		-- cmd = require("pylance"),
 
--- if vim.fn.executable("pyright") == 1 then
--- 	lspconfig.pyright.setup({
--- 		-- cmd = require("pylance"),
--- 		capabilities = capabilities,
--- 		on_attach = on_attach,
--- 		settings = {
--- 			python = {
--- 				analysis = {
--- 					diagnosticSeverityOverrides = {
--- 						reportUnusedClass = "none",
--- 						reportUnusedImport = "none",
--- 						reportUnusedVariable = "none",
--- 						reportDuplicateImport = "none",
--- 					},
--- 				},
--- 			},
--- 		},
--- 	})
--- end
-
-if vim.fn.executable("pylyzer") == 1 then
-	lspconfig.pylyzer.setup({
+if vim.fn.executable("basedpyright") == 1 then
+	lspconfig.basedpyright.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 		settings = {
@@ -327,6 +308,25 @@ if vim.fn.executable("pylyzer") == 1 then
 		},
 	})
 end
+
+-- if vim.fn.executable("pylyzer") == 1 then
+-- 	lspconfig.pylyzer.setup({
+-- 		capabilities = capabilities,
+-- 		on_attach = on_attach,
+-- 		settings = {
+-- 			python = {
+-- 				analysis = {
+-- 					diagnosticSeverityOverrides = {
+-- 						reportUnusedClass = "none",
+-- 						reportUnusedImport = "none",
+-- 						reportUnusedVariable = "none",
+-- 						reportDuplicateImport = "none",
+-- 					},
+-- 				},
+-- 			},
+-- 		},
+-- 	})
+-- end
 
 if vim.fn.executable("lua-language-server") == 1 then
 	lspconfig.lua_ls.setup({
@@ -447,17 +447,17 @@ end
 -- 	})
 -- end
 
-if vim.fn.executable("clangd") == 1 then
-	local clangd_capabilities = vim.deepcopy(capabilities)
-	clangd_capabilities.offsetEncoding = "utf-8"
-
-	lspconfig.clangd.setup({
-		capabilities = clangd_capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
+-- if vim.fn.executable("clangd") == 1 then
+-- 	local clangd_capabilities = vim.deepcopy(capabilities)
+-- 	clangd_capabilities.offsetEncoding = "utf-8"
+--
+-- 	lspconfig.clangd.setup({
+-- 		capabilities = clangd_capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
 
 if vim.fn.executable("nixd") == 1 then
 	lspconfig.nixd.setup({

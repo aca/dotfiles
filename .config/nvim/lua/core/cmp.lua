@@ -21,8 +21,8 @@ runtime after/plugin/cmp_path.lua
 
 packadd nvim-autopairs
 
-packadd vim-dadbod-completion
-runtime after/plugin/vim_dadbod_completion.lua
+" packadd vim-dadbod-completion
+" runtime after/plugin/vim_dadbod_completion.lua
 
 " packadd cmp-omni
 " runtime /after/plugin/cmp_omni.lua

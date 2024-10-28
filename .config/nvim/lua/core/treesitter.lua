@@ -173,6 +173,7 @@ require("nvim-treesitter.configs").setup({
         "json",
         "jsonc",
         "yaml",
+        "c",
     },
 	-- disable = {
 	-- 	"c",
@@ -237,6 +238,7 @@ require("nvim-treesitter.configs").setup({
 		-- enable = true,
 		disable = {
 			"markdown",
+            "c",
 		},
 		additional_vim_regex_highlighting = false,
 	},
