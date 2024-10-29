@@ -2,6 +2,8 @@ local hostname = vim.uv.os_gethostname()
 
 if hostname ~= "rok-txxx-nix" and hostname ~= "home" then
 	return
+else
+    return
 end
 
 vim.g.copilot_no_tab_map = true
