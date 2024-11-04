@@ -5,6 +5,14 @@ if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
 
+-- diagnostic at insert mode
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- delay update diagnostics
+    update_in_insert = true,
+  }
+)
+
 -- vim.cmd.packadd("nvim-lsp-endhints")
 -- require("lsp-endhints").setup({
 -- 	-- icons = {
@@ -196,6 +204,12 @@ vim.api.nvim_create_autocmd("VimResized", {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
+-- nvim-ufo
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    -- lineFoldingOnly = true
+}
 
 local on_attach = function(client, bufnr)
 	-- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
@@ -485,7 +499,7 @@ if vim.fn.executable("gopls") == 1 then
 
 		on_attach = on_attach,
 		cmd = { "gopls", "-remote=auto" },
-		-- capabilities = capabilities,
+		capabilities = capabilities,
 		-- root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
 		settings = {
 			gopls = {

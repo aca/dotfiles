@@ -4,10 +4,10 @@
 -- https://github.com/anuvyklack/pretty-fold.nvim
 -- https://github.com/snelling-a/better-folds.nvim
 
--- vim.cmd([[
--- packadd promise-async
--- packadd nvim-ufo
--- ]])
+vim.cmd([[
+packadd promise-async
+packadd nvim-ufo
+]])
 --
 -- vim.o.foldmethod = 'expr'
 --
@@ -19,6 +19,13 @@
 -- --     return { "treesitter", "indent" }
 -- -- end,
 -- })
+--
+require("ufo").setup({
+	provider_selector = function(bufnr, filetype, buftype)
+		return { "treesitter", "indent" }
+	end,
+}
+)
 
 -- vim.cmd.packadd("fold-cycle.nvim")
 -- require("fold-cycle").setup()
