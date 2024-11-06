@@ -2,8 +2,6 @@ local hostname = vim.uv.os_gethostname()
 
 if hostname ~= "rok-txxx-nix" and hostname ~= "home" then
 	return
-else
-    return
 end
 
 vim.g.copilot_no_tab_map = true
@@ -15,27 +13,18 @@ vim.keymap.set("i", "<C-F>", 'copilot#Accept("\\<CR>")', {
 
 vim.keymap.set("i", "<C-F>", "<Plug>(copilot-accept-line)")
 
--- local initcmd
--- initcmd = vim.api.nvim_create_autocmd("InsertLeave", {
--- 	callback = function()
--- 		-- print("loaded copilot")
--- 		vim.cmd([[
---             call copilot#Init()
---         ]])
--- 		vim.defer_fn(function()
--- 			vim.api.nvim_del_autocmd(initcmd)
--- 		end, 20)
--- 	end,
--- })
-
--- autocmd VimEnter             * call s:MapTab() | call copilot#Init()
--- vim.cmd [[
--- call copilot#Init()
--- ]]
-
 vim.defer_fn(function()
 	vim.cmd.packadd("copilot.vim")
 	vim.cmd([[
         call copilot#Init()
     ]])
 end, 100)
+
+-- vim.cmd.packadd("supermaven-nvim")
+-- require("supermaven-nvim").setup({
+--   keymaps = {
+--     accept_suggestion = "<C-f>",
+--     -- clear_suggestion = "<C-]>",
+--     -- accept_word = "<C-j>",
+--   },
+-- })

@@ -34,33 +34,34 @@ vim.keymap.set("n", ";f", function()
 		-- vim.defer_fn(function()
 		--     vim.notify = notify
 		-- end, 50)
-		-- elseif
-		-- 	filetype == "typescript"
-		-- 	or filetype == "javascript"
-		-- 	or filetype == "javascriptreact"
-		-- 	or filetype == "typescriptreact"
-		-- then
-		-- 	vim.lsp.buf.format({ formatting_options = { tabSize = 2 } })
-		-- 	local clients = vim.lsp.get_active_clients()
-		-- 	-- Find the client by name
-		-- 	-- local target_client = nil
-		-- 	for _, client in ipairs(clients) do
-		-- 		if client.name == "vtsls" then
-		--                print("found vtsls")
-		--                -- client.request("workspace/executeCommand", "_typescript.organizeImports", { vim.api.nvim_buf_get_name(0) }, 0)
-		--                client.request('workspace/executeCommand', {
-		--                    command = "_typescript.organizeImports",
-		--                    arguments = { vim.api.nvim_buf_get_name(0) },
-		--                    title = "",
-		--                })
-		-- 			break
-		-- 		end
-		-- 	end
-		-- vim.lsp.buf.execute_command({
-		-- 	command = "_typescript.organizeImports",
-		-- 	arguments = { vim.api.nvim_buf_get_name(0) },
-		-- })
-		-- require("conform").format()
+	elseif
+		filetype == "typescript"
+		or filetype == "javascript"
+		or filetype == "javascriptreact"
+		or filetype == "typescriptreact"
+	then
+		local clients = vim.lsp.get_clients({ name = "vtsls" })
+		if clients == nil then
+			require("conform").format()
+			return
+		end
+		local client = clients[1]
+		client.request("workspace/executeCommand", {
+			command = "typescript.organizeImports",
+			arguments = { vim.api.nvim_buf_get_name(0) },
+		})
+		client.request("workspace/executeCommand", {
+			command = "typescript.sortImports",
+			arguments = { vim.api.nvim_buf_get_name(0) },
+		})
+		vim.lsp.buf.format({
+			formatting_options = { tabSize = 2 },
+			vim.lsp.buf.format({
+				filter = function(_client)
+					return _client.name == "vtsls"
+				end,
+			}),
+		})
 	else
 		require("conform").format()
 	end

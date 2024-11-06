@@ -4,13 +4,6 @@ if vim.env.VIM_DISABLE_TREESITTER == "1" then
 	return
 end
 
-vim.fn.setenv("EXTENSION_WIKI_LINK", "1")
-vim.fn.setenv("EXTENSION_TAGS", "1")
-
--- NOTES: replaced with nvim-ufo
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-
 vim.cmd([[ 
     packadd nvim-treesitter
     " packadd nvim-ts-rainbow
@@ -19,6 +12,13 @@ vim.cmd([[
     packadd nvim-ts-context-commentstring
     " packadd playground
 ]])
+
+-- vim.fn.setenv("EXTENSION_WIKI_LINK", "1")
+-- vim.fn.setenv("EXTENSION_TAGS", "1")
+
+-- NOTES: replaced with nvim-ufo
+-- vim.o.foldmethod = "expr"
+-- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local query = require("vim.treesitter.query")
@@ -63,6 +63,18 @@ vim.cmd([[
 -- }
 
 require("nvim-treesitter.configs").setup({
+	enable = true,
+	-- disable = {
+	-- 	"json",
+	-- 	"jsonc",
+	-- 	"yaml",
+	-- 	"c",
+	-- },
+	sync_install = false,
+	auto_install = false,
+	ensure_installed = {},
+	modules = {},
+	ignore_install = {},
 	-- ignore_install = { "wing" },
 	-- context_commentstring = {
 	--     enable = true,
@@ -78,75 +90,75 @@ require("nvim-treesitter.configs").setup({
 	--         typescript = { __default = "// %s", __multiline = "/* %s */" },
 	--     },
 	-- },
-	textobjects = {
-		move = {
-			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]]"] = { query = "@class.outer", desc = "Next class start" },
-				--
-				-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-				["]o"] = "@loop.*",
-				-- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-				--
-				-- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-				-- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-				["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-				["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[["] = "@class.outer",
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
-			},
-			-- Below will go to either the start or the end, whichever is closer.
-			-- Use if you want more granular movements
-			-- Make it even more gradual by adding multiple queries and regex.
-			goto_next = {
-				["<tab>"] = "@*",
-			},
-			goto_previous = {
-				["[d"] = "@conditional.outer",
-			},
-		},
-		select = {
-			enable = true,
-
-			-- Automatically jump forward to textobj, similar to targets.vim
-			lookahead = true,
-
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				-- you can optionally set descriptions to the mappings (used in the desc parameter of nvim_buf_set_keymap
-				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-			},
-			-- You can choose the select mode (default is charwise 'v')
-			selection_modes = {
-				["@parameter.outer"] = "v", -- charwise
-				["@function.outer"] = "V", -- linewise
-				["@class.outer"] = "<c-v>", -- blockwise
-			},
-			-- If you set this to `true` (default is `false`) then any textobject is
-			-- extended to include preceding xor succeeding whitespace. Succeeding
-			-- whitespace has priority in order to act similarly to eg the built-in
-			-- `ap`.
-			include_surrounding_whitespace = true,
-		},
-	},
-	indent = {
-		enable = false,
-	},
+	-- textobjects = {
+	-- 	move = {
+	-- 		enable = false,
+	-- 		set_jumps = true, -- whether to set jumps in the jumplist
+	-- 		goto_next_start = {
+	-- 			["]m"] = "@function.outer",
+	-- 			["]]"] = { query = "@class.outer", desc = "Next class start" },
+	-- 			--
+	-- 			-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+	-- 			["]o"] = "@loop.*",
+	-- 			-- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+	-- 			--
+	-- 			-- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+	-- 			-- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+	-- 			["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+	-- 			["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+	-- 		},
+	-- 		goto_next_end = {
+	-- 			["]M"] = "@function.outer",
+	-- 			["]["] = "@class.outer",
+	-- 		},
+	-- 		goto_previous_start = {
+	-- 			["[m"] = "@function.outer",
+	-- 			["[["] = "@class.outer",
+	-- 		},
+	-- 		goto_previous_end = {
+	-- 			["[M"] = "@function.outer",
+	-- 			["[]"] = "@class.outer",
+	-- 		},
+	-- 		-- Below will go to either the start or the end, whichever is closer.
+	-- 		-- Use if you want more granular movements
+	-- 		-- Make it even more gradual by adding multiple queries and regex.
+	-- 		goto_next = {
+	-- 			["<tab>"] = "@*",
+	-- 		},
+	-- 		goto_previous = {
+	-- 			["[d"] = "@conditional.outer",
+	-- 		},
+	-- 	},
+	-- 	select = {
+	-- 		enable = false,
+	--
+	-- 		-- Automatically jump forward to textobj, similar to targets.vim
+	-- 		lookahead = true,
+	--
+	-- 		keymaps = {
+	-- 			-- You can use the capture groups defined in textobjects.scm
+	-- 			["af"] = "@function.outer",
+	-- 			["if"] = "@function.inner",
+	-- 			["ac"] = "@class.outer",
+	-- 			-- you can optionally set descriptions to the mappings (used in the desc parameter of nvim_buf_set_keymap
+	-- 			["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+	-- 		},
+	-- 		-- You can choose the select mode (default is charwise 'v')
+	-- 		selection_modes = {
+	-- 			["@parameter.outer"] = "v", -- charwise
+	-- 			["@function.outer"] = "V", -- linewise
+	-- 			["@class.outer"] = "<c-v>", -- blockwise
+	-- 		},
+	-- 		-- If you set this to `true` (default is `false`) then any textobject is
+	-- 		-- extended to include preceding xor succeeding whitespace. Succeeding
+	-- 		-- whitespace has priority in order to act similarly to eg the built-in
+	-- 		-- `ap`.
+	-- 		include_surrounding_whitespace = true,
+	-- 	},
+	-- },
+	-- indent = {
+	-- 	enable = false,
+	-- },
 	-- matchup = {
 	--     enable = true,
 	-- },
@@ -168,13 +180,6 @@ require("nvim-treesitter.configs").setup({
 	-- },
 	-- enable = "all",
 	-- NOTE: elixir TS returns error, remove this later
-	enable = true,
-    disable = {
-        "json",
-        "jsonc",
-        "yaml",
-        "c",
-    },
 	-- disable = {
 	-- 	"c",
 	-- 	"ada",
@@ -226,26 +231,22 @@ require("nvim-treesitter.configs").setup({
 	-- 	"lalrpop",
 	-- },
 	autopairs = {
+		disable = function(lang, bufnr) -- Disable in large C++ buffers
+			-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
+			-- vim.notify("treesitter-autopairs is disable")
+			return vim.api.nvim_buf_line_count(bufnr) > 10000
+		end,
 		enable = true,
 	},
 	highlight = {
-		-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
-		-- enable = {
-		--           "go",
-		--           "bash",
-		--           "svelte",
-		--       },
-		-- enable = true,
-		disable = {
-			"markdown",
-            "c",
-		},
+        enable = true,
+		disable = function(lang, bufnr) -- Disable in large C++ buffers
+			-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
+			-- vim.notify("treesitter-highlight is disable")
+			return vim.api.nvim_buf_line_count(bufnr) > 10000
+		end,
 		additional_vim_regex_highlighting = false,
 	},
-	ensure_installed = {},
-	auto_install = false,
-    ignore_install = false,
-
 })
 
 -- require("treesitter-context").setup()
