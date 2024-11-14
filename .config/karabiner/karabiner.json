@@ -148,8 +148,7 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "right_command",
-                                        "modifiers": ["right_command"]
+                                        "key_code": "left_command"
                                     }
                                 ],
                                 "type": "basic"
