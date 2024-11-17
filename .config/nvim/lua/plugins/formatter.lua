@@ -7,7 +7,7 @@ require("conform").setup({
 		-- Use a sub-list to run only the first available formatter
 		javascript = { { "biome", "prettier", "prettierd" } },
 		html = { { "prettier", "prettierd", "biome" } }, -- biome doesn't support html yet
-		-- nix = { { "alejandra", "nixfmt" } },
+		nix = { { "alejandra", "nixfmt" } },
 		jsonc = { { "deno_fmt" } },
 		json = { { "deno_fmt" } },
 		sql = { { "sql_formatter" } },
