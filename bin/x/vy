@@ -1,3 +1,0 @@
-#!/bin/sh
-
-nvim -c "set ft=yaml" -

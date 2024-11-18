@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-# ssh rok-toss "/usr/bin/open -a 'Google Chrome' $@"
-chromectl open "$@"

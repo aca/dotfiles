@@ -5,55 +5,6 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "Use ctrl+tab as tab switcher in vscode and vivaldi",
-            "manipulators": [
-              {
-                "conditions": [
-                  {
-                    "bundle_identifiers": [
-                      "^com.vivaldi.Vivaldi$",
-                      "^com.microsoft.VSCode$"
-                    ],
-                    "type": "frontmost_application_if"
-                  }
-                ],
-                "from": {
-                  "key_code": "tab",
-                  "modifiers": { "optional": ["command"] }
-                },
-                "to": [
-                  {
-                    "key_code": "tab",
-                    "modifiers": ["option"]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "bundle_identifiers": [
-                      "^com.vivaldi.Vivaldi$",
-                      "^com.microsoft.VSCode$"
-                    ],
-                    "type": "frontmost_application_if"
-                  }
-                ],
-                "from": {
-                  "key_code": "tab",
-                  "modifiers": { "optional": ["command", "shift"] }
-                },
-                "to": [
-                  {
-                    "key_code": "tab",
-                    "modifiers": ["option", "shift"]
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
             "description": "custom control, left_control <-> left_command",
             "manipulators": [
               {
@@ -70,6 +21,7 @@
                       "^com\\.apple\\.Terminal$",
                       "^com\\.googlecode\\.iterm2$",
                       "com\\.utmapp\\.UTM",
+                      "com\\.vmware\\.fusion",
                       "^com\\.microsoft\\.VSCode$",
                       "^org\\.qt-project\\.Qt\\.QtWebEngineCore$"
                     ],
@@ -93,6 +45,7 @@
                       "^io\\.alacritty$",
                       "^org\\.alacritty$",
                       "com\\.utmapp\\.UTM",
+                      "com\\.vmware\\.fusion",
                       "^com\\.github\\.wez\\.wezterm$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.apple\\.Terminal$",
@@ -120,6 +73,7 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
                       "com\\.utmapp\\.UTM"
                     ],
                     "type": "frontmost_application_unless"
@@ -142,6 +96,61 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
+                      "com\\.utmapp\\.UTM"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "description": "disable command + q for utm",
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": ["left_command", "left_control"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
+                      "com\\.utmapp\\.UTM"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "description": "disable command + q for utm",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "quote",
+                    "modifiers": ["left_command", "left_control"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
                       "com\\.utmapp\\.UTM"
                     ],
                     "type": "frontmost_application_if"
@@ -168,12 +177,13 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
                       "com\\.utmapp\\.UTM"
                     ],
                     "type": "frontmost_application_if"
                   }
                 ],
-                "description": "left_option -> (super)left_command+left_control+left_option.",
+                "description": "left command as left command for vm",
                 "from": {
                   "key_code": "left_command",
                   "modifiers": { "optional": ["any"] }
@@ -181,6 +191,60 @@
                 "to": [
                   {
                     "key_code": "left_command"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
+                      "com\\.utmapp\\.UTM"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "description": "left command as left command for vm",
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": ["left_command", "left_control"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "com\\.vmware\\.fusion",
+                      "com\\.utmapp\\.UTM"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "description": "left command as left command for vm",
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "semicolon",
+                    "modifiers": ["left_command", "left_control"]
                   }
                 ],
                 "type": "basic"
