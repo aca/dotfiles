@@ -46,12 +46,9 @@ local vim = vim
 -- 		},
 -- 	}
 -- end
---
+
 local function paste()
-	return {
-		vim.fn.split(vim.fn.getreg(""), "\n"),
-		vim.fn.getregtype(""),
-	}
+	return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
 end
 
 if vim.env.SSH_TTY ~= nil then
@@ -61,10 +58,7 @@ if vim.env.SSH_TTY ~= nil then
 			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
 			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
 		},
-		paste = {
-			["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-			["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-		},
+		paste = { ["+"] = paste, ["*"] = paste },
 	}
 	if vim.env.TMUX ~= nil then
 		local copy = { "tmux", "load-buffer", "-w", "-" }
