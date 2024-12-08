@@ -1,6 +1,0 @@
-! option = symbols
-  custom:ctrl2caps_caps2esc = +custom(ctrl2caps_caps2esc)
-  custom:super_esc = +custom(super_esc)
-  custom:menu_esc = +custom(menu_esc)
-  custom:hjkl = +custom(hjkl)
-! include %S/evdev

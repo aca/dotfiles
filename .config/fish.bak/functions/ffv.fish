@@ -1,4 +1,0 @@
-function ffv
-  set files (fd --type f -L --hidden | fzf -m --ansi --preview  "bat --line-range :300 {}")
-  [ (count $files) != 0 ] && $EDITOR -O $files
-end

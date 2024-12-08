@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			-- log.debug("Organize Imports skipped")
 			return
 		end
-		local params = vim.lsp.util.make_range_params()
+		local params = vim.lsp.util.make_range_params(0, "utf-16")
 		-- params.context = { only = { "source.organizeImports" } } -- not sure this works
 		local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
 		for _, res in pairs(result or {}) do
