@@ -1,18 +1,18 @@
-function _G.getcodeactions()
-	local params = vim.lsp.util.make_range_params()
-
-	params.context = {
-		triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
-		diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
-	}
-
-	local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-	for _, res in pairs(result or {}) do
-		for _, r in pairs(res.result or {}) do
-			vim.print(r)
-		end
-	end
-end
+-- function _G.getcodeactions()
+-- 	local params = vim.lsp.util.make_range_params()
+--
+-- 	params.context = {
+-- 		triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
+-- 		diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
+-- 	}
+--
+-- 	local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+-- 	for _, res in pairs(result or {}) do
+-- 		for _, r in pairs(res.result or {}) do
+-- 			vim.print(r)
+-- 		end
+-- 	end
+-- end
 
 local running_go_imports = false
 vim.api.nvim_create_user_command("GoimportsDisable", function(msg)
@@ -50,14 +50,14 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 	end,
 })
 
--- vim.cmd.packadd("go-patch-unusedvar.nvim")
--- -- vim.api.nvim_create_autocmd({ "BufLeave", "CursorHold", "CursorHoldI" }, {
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
--- 	pattern = { "*.go" },
--- 	callback = function()
--- 		require("go-patch-unusedvar")()
--- 	end,
--- })
+vim.cmd.packadd("go-patch-unusedvar.nvim")
+-- vim.api.nvim_create_autocmd({ "BufLeave", "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+	pattern = { "*.go" },
+	callback = function()
+		require("go-patch-unusedvar")()
+	end,
+})
 
 -- vim.api.nvim_create_autocmd({ "CursorHold" }, {
 -- 	pattern = { "*.go" },

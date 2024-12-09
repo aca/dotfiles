@@ -239,12 +239,16 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 	},
 	highlight = {
-        enable = true,
-		disable = function(lang, bufnr) -- Disable in large C++ buffers
-			-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
-			-- vim.notify("treesitter-highlight is disable")
-			return vim.api.nvim_buf_line_count(bufnr) > 10000
-		end,
+		-- NOTE: treesitter highlight blocks UI, shows worse performance in many cases
+		-- enable = {
+		--           "go",
+		--           "bash",
+		--           "svelte",
+		--       },
+		enable = true,
+		disable = {
+			"markdown",
+		},
 		additional_vim_regex_highlighting = false,
 	},
 })
