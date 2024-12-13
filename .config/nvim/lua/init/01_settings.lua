@@ -16,7 +16,8 @@ o.relativenumber = false
 o.splitkeep = "screen"
 -- o.signcolumn = "yes:1"
 o.signcolumn = "no"
-o.formatoptions = "jncroql"
+-- o.formatoptions = "jncroql"
+o.formatoptions = "jnql"
 o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 
 -- https://github.com/neovim/neovim/pull/25872

@@ -498,7 +498,7 @@
 	url = https://github.com/folke/noice.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/nui.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/nui.nvim
-	url = https://github.com/MunifTanjim/nui.nvim.git
+	url = https://github.com/MunifTanjim/nui.nvim
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-function"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-function
 	url = https://github.com/aca/cmp-function.git
@@ -916,3 +916,12 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/supermaven-nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/supermaven-nvim
 	url = https://github.com/supermaven-inc/supermaven-nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/avante.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/avante.nvim
+	url = https://github.com/yetone/avante.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/dressing.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/dressing.nvim
+	url = https://github.com/stevearc/dressing.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim.ai"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim.ai
+	url = https://github.com/magicalne/nvim.ai.git

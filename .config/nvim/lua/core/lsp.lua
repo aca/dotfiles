@@ -496,11 +496,11 @@ end
 
 if vim.fn.executable("gopls") == 1 then
 	lspconfig.gopls.setup({
-
 		on_attach = on_attach,
 		cmd = { "gopls", "-remote=auto" },
+		-- cmd = { "nix", "run", "nixpkgs#gopls", "--", "--remote=auto" },
+		-- cmd = { "nix", "run", "github:NixOS/nixpkgs/24.05#gopls", "--", "--remote=auto" },
 		capabilities = capabilities,
-		-- root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
 		settings = {
 			gopls = {
 				hints = {
@@ -514,29 +514,6 @@ if vim.fn.executable("gopls") == 1 then
 				},
 			},
 		},
-		-- single_file_support = true,
-		-- handlers = handlers,
-		-- handlers = handlers,
-		-- on_attach = on_attach,
-		-- settings = {
-		--     gopls = {
-		--         -- ["ui.completion.usePlaceholders"] = true,
-		--         -- allExperiments = true,
-		--         ["formatting.gofumpt"] = true,
-		--         -- analyses = {
-		--         --     unusedparams = false,
-		--         -- },
-		--         -- staticcheck = true,
-		--         -- hints = {
-		--         --     assignVariableTypes = true,
-		--         --     compositeLiteralFields = true,
-		--         --     constantValues = true,
-		--         --     functionTypeParameters = true,
-		--         --     parameterNames = true,
-		--         --     rangeVariableTypes = true,
-		--         -- },
-		--     },
-		-- },
 	})
 end
 
