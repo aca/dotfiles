@@ -928,6 +928,3 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/presenting.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/presenting.nvim
 	url = https://github.com/sotte/presenting.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/start/blink.cmp"]
-	path = .local/share/nvim/site/pack/bundle/start/blink.cmp
-	url = https://github.com/Saghen/blink.cmp.git
