@@ -1,7 +1,6 @@
 -- https://github.com/neovim/neovim/pull/16591
 -- nvim_set_keymap('n', ' <NL>', '', {'nowait': v:true})
 
-
 -- TODO: cleanup api, use vim.keymap.set? or nvim_set_keymap?
 
 local nvim_set_keymap = vim.api.nvim_set_keymap
@@ -47,48 +46,55 @@ nvim_set_keymap("n", ";d", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent 
 --
 set("n", ";dd", vim.diagnostic.setloclist)
 set("n", "gd", vim.lsp.buf.definition, { silent = true })
-set("n", "gD", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end, { silent = true })
+set("n", "gD", function()
+	vim.cmd.vsplit()
+	vim.lsp.buf.definition()
+end, { silent = true })
 -- set("n", "gv", function() vim.cmd.vsplit(); vim.lsp.buf.definition() end , { silent = true })
 
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
 set("n", "[d", function()
-    vim.diagnostic.goto_prev({ wrap = false })
+	vim.diagnostic.goto_prev({ wrap = false })
 end, { silent = true })
 set("n", "]d", function()
-    vim.diagnostic.goto_next({ wrap = false })
+	vim.diagnostic.goto_next({ wrap = false })
 end, { silent = true })
 -- NOTES: this is set by neovim, lsprestart fails if it's set here
 -- set("n", "K", vim.lsp.buf.hover, { silent = true })
 set("n", "<leader>gd", function()
-    vim.cmd([[ vsplit ]])
-    vim.lsp.buf.definition()
+	vim.cmd([[ vsplit ]])
+	vim.lsp.buf.definition()
 end, { silent = true })
 set("n", "gi", vim.lsp.buf.implementation, { silent = true })
-set({ "n", "v" }, ";a", vim.lsp.buf.code_action, { silent = true })
+set({ "n", "v" }, ";a", function()
+	vim.lsp.buf.code_action()
+end)
+set({ "n", "v" }, "<leader>q", function()
+	vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor" } } })
+end, { silent = true })
 
 -- nvim_set_keymap("n", ";ff", "<cmd>Neoformat<CR>", { noremap = true, silent = true })
 set("n", ";rn", vim.lsp.buf.rename, { silent = true })
 set("n", ";rf", vim.lsp.buf.references, { silent = true })
 
-
 -- https://github.com/yuki-yano/zero.nvim/blob/main/lua/zero.lua
 nvim_set_keymap(
-    "n",
-    "0",
-    "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-    { silent = true, noremap = true, expr = true }
+	"n",
+	"0",
+	"getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+	{ silent = true, noremap = true, expr = true }
 )
 nvim_set_keymap(
-    "x",
-    "0",
-    "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-    { silent = true, noremap = true, expr = true }
+	"x",
+	"0",
+	"getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+	{ silent = true, noremap = true, expr = true }
 )
 nvim_set_keymap(
-    "o",
-    "0",
-    "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-    { silent = true, noremap = true, expr = true }
+	"o",
+	"0",
+	"getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
+	{ silent = true, noremap = true, expr = true }
 )
 
 vim.cmd([[

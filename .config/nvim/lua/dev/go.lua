@@ -23,17 +23,17 @@
 --   },
 -- }
 
--- vim.cmd.packadd "go.nvim"
--- require("go").setup({
---     lsp_inlay_hints = {
---         enable = false,
---     },
---     -- luasnip = true,
---     diagnostic = false,
---     -- lsp_cfg = {
---     --     capabilities = capabilities,
---     -- }
--- })
+vim.cmd.packadd "go.nvim"
+require("go").setup({
+    lsp_inlay_hints = {
+        enable = false,
+    },
+    -- luasnip = true,
+    diagnostic = false,
+    -- lsp_cfg = {
+    --     capabilities = capabilities,
+    -- }
+})
 
 -- vim.cmd.packadd "nvim-go"
 -- require('go').setup({
