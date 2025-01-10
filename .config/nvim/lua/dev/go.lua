@@ -23,16 +23,16 @@
 --   },
 -- }
 
-vim.cmd.packadd "go.nvim"
+vim.cmd.packadd("go.nvim")
 require("go").setup({
-    lsp_inlay_hints = {
-        enable = false,
-    },
-    -- luasnip = true,
-    diagnostic = false,
-    -- lsp_cfg = {
-    --     capabilities = capabilities,
-    -- }
+	lsp_inlay_hints = {
+		enable = false,
+	},
+	-- luasnip = true,
+	diagnostic = false,
+	-- lsp_cfg = {
+	--     capabilities = capabilities,
+	-- }
 })
 
 -- vim.cmd.packadd "nvim-go"
@@ -72,13 +72,13 @@ require("go").setup({
 --     quick_type_flags = {'--just-types'},
 -- })
 
-vim.cmd [[ runtime after/ftplugin/go.lua ]]
+vim.cmd([[ runtime after/ftplugin/go.lua ]])
 
 -- -- local config = require('go.config')
 -- -- local output = require('go.output')
 -- -- local util = require('go.util')
 --
--- -- function go_iferr() 
+-- -- function go_iferr()
 -- --     local boff = vim.fn.wordcount().cursor_bytes
 -- --     local cmd = ('iferr' .. ' -pos ' .. boff)
 -- --     local data = vim.fn.systemlist(cmd, vim.fn.bufnr('%'))
@@ -103,3 +103,26 @@ vim.cmd [[ runtime after/ftplugin/go.lua ]]
 -- -- vim.api.nvim_create_user_command("GoIfErr", function()
 -- --     go_iferr()
 -- -- end, {})
+--
+
+vim.api.nvim_create_autocmd({ "FocusLost" }, {
+	pattern = "*.go",
+	callback = function()
+		-- print("write")
+		vim.cmd.packadd("go-patch-unusedvar.nvim")
+		require("go-patch-unusedvar")()
+		if vim.bo.modifiable then
+			vim.cmd("silent! write")
+			-- print("write")
+			-- vim.cmd("write")
+		end
+	end,
+})
+
+-- vim.api.nvim_create_autocmd({ "FocusLost" }, {
+-- 	pattern = { "*.go" },
+-- 	callback = function()
+-- 		vim.cmd.packadd("go-patch-unusedvar.nvim")
+-- 		require("go-patch-unusedvar")()
+-- 	end,
+-- })

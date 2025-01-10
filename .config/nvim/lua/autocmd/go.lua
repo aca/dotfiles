@@ -50,14 +50,8 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 	end,
 })
 
-vim.cmd.packadd("go-patch-unusedvar.nvim")
 -- vim.api.nvim_create_autocmd({ "BufLeave", "CursorHold", "CursorHoldI" }, {
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-	pattern = { "*.go" },
-	callback = function()
-		require("go-patch-unusedvar")()
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 
 -- vim.api.nvim_create_autocmd({ "CursorHold" }, {
 -- 	pattern = { "*.go" },
