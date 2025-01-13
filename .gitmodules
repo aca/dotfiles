@@ -931,3 +931,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/blink.cmp"]
 	path = .local/share/nvim/site/pack/bundle/opt/blink.cmp
 	url = https://github.com/Saghen/blink.cmp.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/auto-save.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/auto-save.nvim
+	url = https://github.com/pocco81/auto-save.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-highlight-colors"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-highlight-colors
+	url = https://github.com/brenoprata10/nvim-highlight-colors
