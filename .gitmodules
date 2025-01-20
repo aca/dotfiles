@@ -937,3 +937,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-highlight-colors"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-highlight-colors
 	url = https://github.com/brenoprata10/nvim-highlight-colors
+[submodule ".local/share/nvim/site/pack/bundle/opt/vimux"]
+	path = .local/share/nvim/site/pack/bundle/opt/vimux
+	url = https://github.com/preservim/vimux.git

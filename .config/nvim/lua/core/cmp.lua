@@ -1,5 +1,10 @@
 vim.cmd([[ packadd blink.cmp ]])
 require("blink-cmp").setup({
+    fuzzy = {
+        prebuilt_binaries = {
+            ignore_version_mismatch = true,
+        },
+    },
 	keymap = {
 		["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 		["<C-e>"] = { "hide", "fallback" },
