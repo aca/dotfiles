@@ -6,6 +6,9 @@ require("conform").setup({
 		python = { "isort", "black" },
 		-- Use a sub-list to run only the first available formatter
 		javascript = { { "biome", "prettier", "prettierd" } },
+		typescript = { { "biome", "prettier", "prettierd" } },
+		javascriptreact = { { "biome", "prettier", "prettierd" } },
+		typescriptreact = { { "biome", "prettier", "prettierd" } },
 		html = { { "prettier", "prettierd", "biome" } }, -- biome doesn't support html yet
 		nix = { { "alejandra", "nixfmt" } },
 		jsonc = { { "deno_fmt" } },
@@ -40,20 +43,22 @@ vim.keymap.set("n", ";f", function()
 		or filetype == "javascriptreact"
 		or filetype == "typescriptreact"
 	then
+     	-- require("conform").format()
+     	-- return
 		local clients = vim.lsp.get_clients({ name = "vtsls" })
 		if clients == nil then
 			require("conform").format()
 			return
 		end
 		local client = clients[1]
-		client.request("workspace/executeCommand", {
-			command = "typescript.organizeImports",
-			arguments = { vim.api.nvim_buf_get_name(0) },
-		})
-		client.request("workspace/executeCommand", {
-			command = "typescript.sortImports",
-			arguments = { vim.api.nvim_buf_get_name(0) },
-		})
+		-- client.request("workspace/executeCommand", {
+		-- 	command = "typescript.organizeImports",
+		-- 	arguments = { vim.api.nvim_buf_get_name(0) },
+		-- })
+		-- client.request("workspace/executeCommand", {
+		-- 	command = "typescript.sortImports",
+		-- 	arguments = { vim.api.nvim_buf_get_name(0) },
+		-- })
 		vim.lsp.buf.format({
 			formatting_options = { tabSize = 2 },
 			vim.lsp.buf.format({
