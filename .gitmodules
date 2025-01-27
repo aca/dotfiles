@@ -940,3 +940,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vimux"]
 	path = .local/share/nvim/site/pack/bundle/opt/vimux
 	url = https://github.com/preservim/vimux.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/minuet-ai.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/minuet-ai.nvim
+	url = https://github.com/milanglacier/minuet-ai.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/llm.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/llm.nvim
+	url = https://github.com/huggingface/llm.nvim.git
