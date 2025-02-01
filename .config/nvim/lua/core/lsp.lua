@@ -128,39 +128,9 @@ end
 
 vim.diagnostic.config({
 	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+    -- virtual_lines = true,
 	virtual_text = {
 		format = rightAlignFormatFunction,
-		-- format = function(diagnostic)
-		-- 	local lines = vim.split(diagnostic.message, "\n")
-		--           local msg = lines[1]
-		--
-		-- 	-- if diagnostic.severity == vim.diagnostic.severity.HINT then
-		-- 	--     return ""
-		-- 	-- end
-		--
-		-- 	local line = diagnostic.lnum
-		-- 	local line_length = vim.api.nvim_strwidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
-		-- 	local window_width = vim.api.nvim_get_option_value("columns", {})
-		-- 	local number_width = vim.api.nvim_get_option_value("numberwidth", {})
-		--
-		--           local maxwidth = window_width - number_width - line_length - 3
-		--
-		--           -- get lua string length
-		--           local len = vim.api.nvim_strwidth(msg)
-		--           if len > maxwidth then
-		--               msg = string.sub(msg, 1, maxwidth - 2) .. ".."
-		--           end
-		--
-		-- 	local msg_length = vim.api.nvim_strwidth(diagnostic.message)
-		-- 	local splen = lwidth - line_length - msg_length - numberwidth - 6
-		-- 	local sp = string.rep(" ", splen)
-		--
-		-- 	-- if string.find(lines[1], "declared but its value is never read") then
-		-- 	-- 	return ""
-		-- 	-- end
-		--
-		-- 	return msg
-		-- end,
 		spacing = 0,
 		prefix = "",
 		suffix = "",
