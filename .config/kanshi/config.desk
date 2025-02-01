@@ -1,25 +1,10 @@
 profile desk {
-    output "LG Electronics LG TV SSCR2 0x01010101" mode 3840x2160 position 0,0 scale 1.5
-    output "LG Electronics LG HDR 4K 104NTLE5N480" mode 3840x2160 position 2560,0 scale 1.5
+    output "LG Electronics LG TV SSCR2 0x01010101" enable mode 3840x2160 position 0,0 scale 1.5
+    output "LG Electronics LG HDR 4K 104NTLE5N480" enable mode 3840x2160 position 2560,0 scale 1.5
     output "Dell Inc. DELL P2421D 9XJVQ33" disable
-
-    # exec swaymsg bindsym 'Mod4+1' workspace number 1 output "LG Electronics LG TV SSCR2 0x01010101"
-    # exec swaymsg bindsym 'Mod4+2' workspace number 2 output "LG Electronics LG TV SSCR2 0x01010101"
-    # exec swaymsg bindsym 'Mod4+3' workspace number 3 output "LG Electronics LG HDR 4K 104NTLE5N480"
-    # exec swaymsg bindsym 'Mod4+4' workspace number r output "LG Electronics LG HDR 4K 104NTLE5N480"
 
     exec swaymsg workspace 1 output "LG Electronics LG TV SSCR2 0x01010101"
     exec swaymsg workspace 2 output "LG Electronics LG TV SSCR2 0x01010101"
     exec swaymsg workspace 3 output "LG Electronics LG HDR 4K 104NTLE5N480"
     exec swaymsg workspace 4 output "LG Electronics LG HDR 4K 104NTLE5N480"
-
-    exec swaymsg workspace 1, move workspace to output '"LG Electronics LG TV SSCR2 0x01010101"'
-    exec swaymsg workspace 2, move workspace to output '"LG Electronics LG TV SSCR2 0x01010101"'
-    exec swaymsg workspace 3, move workspace to output '"LG Electronics LG HDR 4K 104NTLE5N480"'
-    exec swaymsg workspace 4, move workspace to output '"LG Electronics LG HDR 4K 104NTLE5N480"'
-}
-
-
-profile laptop {
-    output eDP-1 enable
 }

@@ -946,3 +946,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/llm.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/llm.nvim
 	url = https://github.com/huggingface/llm.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/cmdbuf.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/cmdbuf.nvim
+	url = https://github.com/notomo/cmdbuf.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/Base2Tone-nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/Base2Tone-nvim
+	url = https://github.com/atelierbram/Base2Tone-nvim.git

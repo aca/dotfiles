@@ -5,11 +5,6 @@
 -- vim.cmd.colorscheme "monokai-pro"
 
 -- vim.cmd.packadd "lush.nvim"
-vim.cmd([[ 
-packadd zenbones.nvim
-packadd lush.nvim
-" let g:zenbones_compat = 1
-]])
 
 -- vim.cmd.packadd("mellifluous.nvim")
 -- require("mellifluous").setup({
@@ -19,6 +14,11 @@ packadd lush.nvim
 -- 	-- color_set = "tender"
 -- 	-- color_set = "kanagawa_dragon"
 -- })
+
+vim.cmd([[ 
+packadd zenbones.nvim
+packadd lush.nvim
+]])
 
 vim.cmd.colorscheme("zenwritten")
 
