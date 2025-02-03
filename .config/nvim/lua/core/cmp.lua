@@ -1,10 +1,18 @@
 vim.cmd([[ packadd blink.cmp ]])
 require("blink-cmp").setup({
-    fuzzy = {
-        prebuilt_binaries = {
-            ignore_version_mismatch = true,
-        },
-    },
+	completion = {
+		-- 'prefix' will fuzzy match on the text before the cursor
+		-- 'full' will fuzzy match on the text before *and* after the cursor
+		-- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+		keyword = { range = "full" },
+
+		-- Disable auto brackets
+		-- NOTE: some LSPs may add auto brackets themselves anyway
+		accept = { auto_brackets = { enabled = false } },
+
+		-- Don't select by default, auto insert on selection
+		list = { selection = { preselect = false, auto_insert = true } },
+	},
 	keymap = {
 		["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 		["<C-e>"] = { "hide", "fallback" },

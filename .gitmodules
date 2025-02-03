@@ -955,3 +955,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/ex-colors.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/ex-colors.nvim
 	url = https://github.com/aileot/ex-colors.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/live-preview.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/live-preview.nvim
+	url = https://github.com/aca/live-preview.nvim.git
