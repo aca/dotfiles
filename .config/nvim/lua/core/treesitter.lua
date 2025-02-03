@@ -10,6 +10,7 @@ vim.cmd([[
     " packadd nvim-treesitter-context
     packadd nvim-treesitter-textobjects
     packadd nvim-ts-context-commentstring
+    " packadd contextindent.nvim
     " packadd playground
 ]])
 
@@ -389,3 +390,5 @@ vim.api.nvim_create_autocmd("Filetype", {
 -- ] @fold
 -- ]])
 --
+
+-- require("contextindent").setup()
