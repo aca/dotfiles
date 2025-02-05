@@ -188,7 +188,17 @@ opt.nrformats = { "bin", "hex", "alpha", "octal" }
 opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
 opt.termguicolors = true
 
-opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal", "vertical" }
+opt.diffopt = {
+	"internal",
+	"filler",
+	"closeoff",
+	"hiddenoff",
+	"algorithm:histogram",
+	"vertical",
+	"linematch:60",
+	"indent-heuristic",
+}
+-- vim.opt.diffopt="internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
 opt.completeopt = { "menu", "menuone", "noselect" }
 
 opt.wrapmargin = 0
