@@ -334,14 +334,14 @@ end
 if vim.fn.executable("kotlin-language-server") == 1 then
 	lspconfig.kotlin_language_server.setup({
 		init_options = {
-			storagePath = vim.fn.resolve(vim.fn.stdpath("cache") .. "/kotlin_language_server"),
+			storagePath = vim.fn.resolve(vim.fn.stdpath("cache")),
 		},
 
 		root_dir = function()
 			return vim.loop.cwd()
 		end,
 		-- capabilities = capabilities,
-		-- single_file_support = true,
+		single_file_support = true,
 		-- handlers = handlers,
 		-- on_attach = on_attach,
 	})
