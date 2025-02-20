@@ -1,9 +1,16 @@
--- DEBUG
+-- if true then
+--     return
+-- end
+
 local vim = vim
 
 if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
+
+vim.lsp.set_log_level("OFF")
+-- vim.lsp.set_log_level("DEBUG")
+
 
 -- diagnostic at insert mode
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -51,7 +58,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- 	end,
 -- })
 
--- vim.lsp.set_log_level("DEBUG")
 
 vim.cmd.packadd("plenary.nvim")
 local strdisplaywidth = require("plenary").strings.strdisplaywidth
@@ -70,22 +76,18 @@ local strdisplaywidth = require("plenary").strings.strdisplaywidth
 -- end
 
 vim.cmd.packadd("nvim-lspconfig")
--- vim.cmd.packadd("mason.nvim")
--- vim.cmd.packadd("mason-lspconfig.nvim")
--- vim.cmd.packadd("lsp_signature.nvim")
-vim.cmd.packadd("neodev.nvim")
-vim.cmd.packadd("nvim-vtsls")
--- vim.cmd.packadd("nvim-navic") -- TODO: replace with dropbar.nvim
--- vim.cmd.packadd "pylance"
-
 local lspconfig = require("lspconfig")
+
+-- vim.cmd.packadd("neodev.nvim")
+-- require("neodev").setup({})
+
+-- vim.cmd.packadd("nvim-vtsls")
 -- local configs = require("lspconfig.configs")
 -- local lume = require("lib/lume")
 -- local util = require("lspconfig/util")
 
 -- https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921
 
-require("neodev").setup({})
 
 local handlers = {}
 
@@ -226,9 +228,6 @@ end
 --     }
 -- end
 
--- if vim.fn.executable("gopls") == 1 then
--- end
-
 -- lspconfig.elvish.setup({
 --     capabilities = capabilities,
 --     on_attach = on_attach,
@@ -312,40 +311,40 @@ end
 -- 	})
 -- end
 
-if vim.fn.executable("lua-language-server") == 1 then
-	lspconfig.lua_ls.setup({
-		capabilities = capabilities,
-		single_file_support = false,
-		handlers = handlers,
-		on_attach = on_attach,
-		settings = {
-			Lua = {
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
-				},
+-- if vim.fn.executable("lua-language-server") == 1 then
+-- 	lspconfig.lua_ls.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = false,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 		settings = {
+-- 			Lua = {
+-- 				diagnostics = {
+-- 					-- Get the language server to recognize the `vim` global
+-- 					globals = { "vim" },
+-- 				},
+--
+-- 				hint = { enable = true },
+-- 			},
+-- 		},
+-- 	})
+-- end
 
-				hint = { enable = true },
-			},
-		},
-	})
-end
-
-if vim.fn.executable("kotlin-language-server") == 1 then
-	lspconfig.kotlin_language_server.setup({
-		init_options = {
-			storagePath = vim.fn.resolve(vim.fn.stdpath("cache")),
-		},
-
-		root_dir = function()
-			return vim.loop.cwd()
-		end,
-		-- capabilities = capabilities,
-		single_file_support = true,
-		-- handlers = handlers,
-		-- on_attach = on_attach,
-	})
-end
+-- if vim.fn.executable("kotlin-language-server") == 1 then
+-- 	lspconfig.kotlin_language_server.setup({
+-- 		init_options = {
+-- 			storagePath = vim.fn.resolve(vim.fn.stdpath("cache")),
+-- 		},
+--
+-- 		root_dir = function()
+-- 			return vim.loop.cwd()
+-- 		end,
+-- 		-- capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		-- handlers = handlers,
+-- 		-- on_attach = on_attach,
+-- 	})
+-- end
 
 local jsInlayHints = {
 	includeInlayParameterNameHints = "all",
@@ -358,69 +357,69 @@ local jsInlayHints = {
 	includeInlayEnumMemberValueHints = true,
 }
 
-if vim.fn.executable("vtsls") == 1 then
-	lspconfig.vtsls.setup({
-		capabilities = capabilities,
-		single_file_support = false,
-		handlers = handlers,
-		on_attach = on_attach,
-		settings = jsInlayHints,
-	})
-end
-
-if vim.fn.executable("sourcekit-lsp") == 1 then
-	lspconfig.sourcekit.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
-
-if vim.fn.executable("jdt-language-server") == 1 then
-	lspconfig.jdtls.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
-
-if vim.fn.executable("zls") == 1 then
-	lspconfig.zls.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
-
-if vim.fn.executable("vscode-css-language-server") == 1 then
-	lspconfig.cssls.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
+-- if vim.fn.executable("vtsls") == 1 then
+-- 	lspconfig.vtsls.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = false,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 		settings = jsInlayHints,
+-- 	})
+-- end
 --
-if vim.fn.executable("vscode-html-language-server") == 1 then
-	lspconfig.html.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
-
-if vim.fn.executable("vscode-json-language-server") == 1 then
-	lspconfig.jsonls.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
+-- if vim.fn.executable("sourcekit-lsp") == 1 then
+-- 	lspconfig.sourcekit.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+--
+-- if vim.fn.executable("jdt-language-server") == 1 then
+-- 	lspconfig.jdtls.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+--
+-- if vim.fn.executable("zls") == 1 then
+-- 	lspconfig.zls.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+--
+-- if vim.fn.executable("vscode-css-language-server") == 1 then
+-- 	lspconfig.cssls.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+-- --
+-- if vim.fn.executable("vscode-html-language-server") == 1 then
+-- 	lspconfig.html.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+--
+-- if vim.fn.executable("vscode-json-language-server") == 1 then
+-- 	lspconfig.jsonls.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
 --
 -- if vim.fn.executable("vscode-eslint-language-server") == 1 then
 -- 	lspconfig.eslint.setup({
@@ -431,33 +430,33 @@ end
 -- 	})
 -- end
 
-if vim.fn.executable("clangd") == 1 then
-	local clangd_capabilities = vim.deepcopy(capabilities)
-	clangd_capabilities.offsetEncoding = "utf-8"
-
-	lspconfig.clangd.setup({
-		capabilities = clangd_capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
-
-if vim.fn.executable("nixd") == 1 then
-	lspconfig.nixd.setup({
-		capabilities = capabilities,
-		single_file_support = true,
-		handlers = handlers,
-		on_attach = on_attach,
-	})
-end
-
-if vim.fn.executable("rust-analyzer") == 1 then
-	lspconfig.rust_analyzer.setup({
-		capabilities = capabilities,
-	})
-end
-
+-- if vim.fn.executable("clangd") == 1 then
+-- 	local clangd_capabilities = vim.deepcopy(capabilities)
+-- 	clangd_capabilities.offsetEncoding = "utf-8"
+--
+-- 	lspconfig.clangd.setup({
+-- 		capabilities = clangd_capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+--
+-- if vim.fn.executable("nixd") == 1 then
+-- 	lspconfig.nixd.setup({
+-- 		capabilities = capabilities,
+-- 		single_file_support = true,
+-- 		handlers = handlers,
+-- 		on_attach = on_attach,
+-- 	})
+-- end
+--
+-- if vim.fn.executable("rust-analyzer") == 1 then
+-- 	lspconfig.rust_analyzer.setup({
+-- 		capabilities = capabilities,
+-- 	})
+-- end
+--
 if vim.fn.executable("templ") == 1 then
 	lspconfig.templ.setup({
 		capabilities = capabilities,
@@ -467,10 +466,11 @@ end
 if vim.fn.executable("gopls") == 1 then
 	lspconfig.gopls.setup({
 		on_attach = on_attach,
-		cmd = { "gopls", "-remote=auto" },
+		-- cmd = { "gopls", "-remote=auto" },
+		-- cmd = { "gopls", "-remote=auto" },
 		-- cmd = { "nix", "run", "nixpkgs#gopls", "--", "--remote=auto" },
 		-- cmd = { "nix", "run", "github:NixOS/nixpkgs/24.05#gopls", "--", "--remote=auto" },
-		capabilities = capabilities,
+		-- capabilities = capabilities,
 		settings = {
 			gopls = {
 				hints = {

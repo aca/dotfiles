@@ -1,4 +1,3 @@
-
 -- https://www.reddit.com/r/neovim/comments/re07pk/close_neovim_if_last_buffer/
 -- TODO: replace with lua
 --
@@ -24,7 +23,8 @@ function s:close()
   " end
 
     let tabinfo = gettabinfo()
-    if len(tabinfo) == 1 && len(tabinfo[0].windows) == 1
+    " if len(tabinfo) == 1 && len(tabinfo[0].windows) == 1
+    if len(tabinfo) == 1
         :quit
     else
         :close

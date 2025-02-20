@@ -54,6 +54,10 @@ require("blink-cmp").setup({
 		-- ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 	},
 
+    cmdline = {
+        enabled = false,
+    },
+
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer" },
 		-- default = { 'lsp' },

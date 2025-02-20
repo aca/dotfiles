@@ -1,3 +1,7 @@
+-- if true then
+-- 	return
+-- end
+
 local hostname = vim.uv.os_gethostname()
 
 if hostname ~= "txxx-nix" and hostname ~= "home" then

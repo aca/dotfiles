@@ -7,4 +7,5 @@ npairs.setup({
 	check_ts = true,
 	disable_in_visualblock = true,
 	disable_in_macro = true,
+    -- map_cr = false,
 })

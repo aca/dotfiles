@@ -1,10 +1,10 @@
 vim.cmd.packadd "LuaSnip"
 
--- slow performance
-require("luasnip/loaders/from_vscode").lazy_load({
-    paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
-    exclude = { "go" },
-})
+-- -- slow performance
+-- require("luasnip/loaders/from_vscode").lazy_load({
+--     paths = { "~/.local/share/nvim/site/pack/bundle/opt/friendly-snippets" },
+--     exclude = { "go" },
+-- })
 
 local ls = require("luasnip")
 
