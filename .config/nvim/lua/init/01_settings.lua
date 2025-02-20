@@ -11,8 +11,8 @@ local o = vim.o
 --     o.relativenumber = false
 -- end
 
-o.number = false
-o.relativenumber = false
+o.number = true
+o.relativenumber = true
 o.splitkeep = "screen"
 -- o.signcolumn = "yes:1"
 o.signcolumn = "no"
@@ -170,8 +170,8 @@ vim.o.laststatus = 3
 -- o.statusline = "%{%v:lua.wordcount__visual_words()%}%=%l/%L"
 o.statusline = "%=%l/%L"
 
-o.tabline = " %t"
-o.showtabline = 2
+-- o.tabline = " %t"
+o.showtabline = 0
 -- vim.o.statusline = "%t"
 -- opt.winbar = "%=%l:%c %P %m%f"
 -- opt.winbar = " "
