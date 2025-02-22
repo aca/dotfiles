@@ -357,15 +357,15 @@ local jsInlayHints = {
 	includeInlayEnumMemberValueHints = true,
 }
 
--- if vim.fn.executable("vtsls") == 1 then
--- 	lspconfig.vtsls.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = false,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 		settings = jsInlayHints,
--- 	})
--- end
+if vim.fn.executable("vtsls") == 1 then
+	lspconfig.vtsls.setup({
+		capabilities = capabilities,
+		single_file_support = false,
+		handlers = handlers,
+		on_attach = on_attach,
+		settings = jsInlayHints,
+	})
+end
 --
 -- if vim.fn.executable("sourcekit-lsp") == 1 then
 -- 	lspconfig.sourcekit.setup({
