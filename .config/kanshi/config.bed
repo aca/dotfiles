@@ -1,5 +1,5 @@
 profile bed {
-    output "Dell Inc. DELL P2421D 9XJVQ33" enable mode 1920x1080 position 0,0 scale 1.5
+    output "Dell Inc. DELL P2421D 9XJVQ33" enable mode 1920x1080 position 0,0 scale 1.5 transform 180
     output "LG Electronics LG TV SSCR2 0x01010101" disable
     output "LG Electronics LG HDR 4K 104NTLE5N480" disable
 }
