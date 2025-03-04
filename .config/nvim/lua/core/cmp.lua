@@ -1,5 +1,12 @@
 vim.cmd([[ packadd blink.cmp ]])
 require("blink-cmp").setup({
+    fuzzy = { 
+        implementation = "prefer_rust",
+        prebuilt_binaries = { 
+            ignore_version_mismatch = true,
+        },
+    },
+
 	completion = {
 		-- 'prefix' will fuzzy match on the text before the cursor
 		-- 'full' will fuzzy match on the text before *and* after the cursor

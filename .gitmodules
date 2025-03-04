@@ -850,9 +850,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/neotest-go"]
 	path = .local/share/nvim/site/pack/bundle/opt/neotest-go
 	url = https://github.com/nvim-neotest/neotest-go.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/zenbones.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/zenbones.nvim
-	url = https://github.com/mcchrish/zenbones.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/markdown.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/markdown.nvim
 	url = https://github.com/MeanderingProgrammer/markdown.nvim.git
@@ -970,3 +967,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/bufferline.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/bufferline.nvim
 	url = https://github.com/akinsho/bufferline.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/zenbones.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/zenbones.nvim
+	url = https://github.com/zenbones-theme/zenbones.nvim.git
