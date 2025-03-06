@@ -18,7 +18,6 @@ vim.api.nvim_create_autocmd("BufNewFile", {
     ]],
 })
 
-
 -- -- templates
 -- nvim_create_autocmd("BufNewFile", {
 --     pattern = { "**/.github/workflows/**.y*ml" },

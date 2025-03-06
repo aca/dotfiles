@@ -1,5 +1,9 @@
 local vim = vim
 
+-- if true then
+--     return
+-- end
+
 if vim.env.VIM_DISABLE_TREESITTER == "1" then
 	return
 end
