@@ -970,3 +970,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/base16-nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/base16-nvim
 	url = https://github.com/RRethy/base16-nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/substitute.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/substitute.nvim
+	url = https://github.com/gbprod/substitute.nvim
