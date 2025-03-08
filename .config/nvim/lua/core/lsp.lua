@@ -8,8 +8,8 @@ if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
 
-vim.lsp.set_log_level("OFF")
--- vim.lsp.set_log_level("DEBUG")
+-- vim.lsp.set_log_level("OFF")
+vim.lsp.set_log_level("DEBUG")
 
 
 -- diagnostic at insert mode
@@ -273,24 +273,24 @@ if vim.fn.executable("deno") == 1 then
 end
 		-- cmd = require("pylance"),
 
-if vim.fn.executable("basedpyright") == 1 then
-	lspconfig.basedpyright.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		settings = {
-			python = {
-				analysis = {
-					diagnosticSeverityOverrides = {
-						reportUnusedClass = "none",
-						reportUnusedImport = "none",
-						reportUnusedVariable = "none",
-						reportDuplicateImport = "none",
-					},
-				},
-			},
-		},
-	})
-end
+-- if vim.fn.executable("basedpyright") == 1 then
+-- 	lspconfig.basedpyright.setup({
+-- 		capabilities = capabilities,
+-- 		on_attach = on_attach,
+-- 		settings = {
+-- 			python = {
+-- 				analysis = {
+-- 					diagnosticSeverityOverrides = {
+-- 						reportUnusedClass = "none",
+-- 						reportUnusedImport = "none",
+-- 						reportUnusedVariable = "none",
+-- 						reportDuplicateImport = "none",
+-- 					},
+-- 				},
+-- 			},
+-- 		},
+-- 	})
+-- end
 
 -- if vim.fn.executable("pylyzer") == 1 then
 -- 	lspconfig.pylyzer.setup({
@@ -384,6 +384,16 @@ end
 -- 		on_attach = on_attach,
 -- 	})
 -- end
+--
+if vim.fn.executable("ruff") == 1 then
+	lspconfig.ruff.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
+--
 --
 -- if vim.fn.executable("zls") == 1 then
 -- 	lspconfig.zls.setup({
