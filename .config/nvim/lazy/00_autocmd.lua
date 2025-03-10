@@ -9,3 +9,32 @@ vim.api.nvim_create_autocmd('CursorMoved', {
 })
 
 
+-- mkdir on save
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+	callback = function()
+		local dir = vim.fn.expand("%:p:h")
+		local match = string.find(dir, "://")
+		if match ~= nil then
+			return
+		end
+		if vim.fn.isdirectory(dir) == 0 then
+			vim.fn.mkdir(dir, "p")
+		end
+	end,
+})
+
+-- if there's no other window but quickfix close vim
+vim.api.nvim_create_autocmd("WinEnter", {
+	-- group = group,
+	pattern = { "*" },
+	command = 'au WinEnter * if winnr(\'$\') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif',
+})
+
+-- highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = { "*" },
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+

@@ -3,14 +3,13 @@ local g = vim.g
 local opt = vim.opt
 local o = vim.o
 
-o.number = true
-o.relativenumber = true
-o.splitkeep = "screen"
+-- vim.opt.wrap = false
+-- vim.o.number = false
+-- vim.o.relativenumber = false
 -- o.signcolumn = "yes:1"
-o.signcolumn = "no"
+vim.o.signcolumn = "no"
 -- o.formatoptions = "jncroql"
-o.formatoptions = "jnql"
-o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
+vim.o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 
 -- https://github.com/neovim/neovim/pull/25872
 
@@ -55,24 +54,19 @@ vim.o.laststatus = 3
 o.statusline = "%=%l/%L"
 
 -- o.tabline = " %t"
-o.showtabline = 0
+vim.o.showtabline = 0
 -- vim.o.statusline = "%t"
 -- opt.winbar = "%=%l:%c %P %m%f"
 -- opt.winbar = " "
 
-o.mmp = 50000
-o.shell = "/bin/sh"
-opt.wildignore = { "/tmp/*", "*.so", "*.swp", "*.zip", "*.pyc", "*.db", "*.sqlite", "*.git/*" }
+-- o.mmp = 50000
+-- o.shell = "/bin/sh"
+vim.opt.wildignore = { "/tmp/*", "*.so", "*.swp", "*.zip", "*.pyc", "*.db", "*.sqlite", "*.git/*" }
 -- o.conceallevel = 3
-o.conceallevel = 2
-o.shortmess = "aItcF"
-opt.clipboard = { "unnamed", "unnamedplus" }
-opt.nrformats = { "bin", "hex", "alpha", "octal" }
-
-opt.isfname = opt.isfname - "=" -- fix gf for file_path=path/to/file.txt
-opt.termguicolors = true
-
-opt.diffopt = {
+vim.o.conceallevel = 2
+vim.o.shortmess = "aItcF"
+vim.opt.clipboard = { "unnamed", "unnamedplus" }
+vim.opt.diffopt = {
 	"internal",
 	"filler",
 	"closeoff",
@@ -82,14 +76,10 @@ opt.diffopt = {
 	"linematch:60",
 	"indent-heuristic",
 }
--- vim.opt.diffopt="internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
-opt.completeopt = { "menu", "menuone", "noselect" }
+-- opt.lazyredraw = false -- noice.nvim
 
-opt.wrapmargin = 0
-opt.lazyredraw = false -- noice.nvim
-
-opt.cursorcolumn = false
-opt.cursorline = true
+-- opt.cursorcolumn = false
+-- opt.cursorline = true
 -- opt.timeoutlen = 500
 
 -- fold
@@ -97,68 +87,37 @@ opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldnestmax = 7
 
-opt.ignorecase = true -- Ignore case when searching...
-opt.smartcase = true -- ... unless there is a capital letter in the query
-opt.showmatch = true -- show matching brackets when text indicator is over them
-opt.updatetime = 500 -- Make updates happen faster
-opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
-opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
-
-opt.inccommand = "split"
 opt.swapfile = false
 opt.shada = { "!", "'1000", "<50", "s10", "h" }
 opt.hidden = true -- zepl.vim
-
-opt.joinspaces = false
-opt.belloff = "all"
-
--- Tabs
--- opt.autoindent = true
--- opt.cindent = true
-
-opt.indentkeys = opt.indentkeys + "!^Y"
-opt.cinkeys = opt.cinkeys - "0#" -- https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
-opt.wrap = false
-opt.wrapscan = false
 
 opt.tabstop = 4
 opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.expandtab = true
 
-opt.incsearch = true -- Makes search act like search in modern browsers
-opt.equalalways = false -- I don't like my windows changing all the time
-opt.splitright = true -- Prefer windows splitting to the right
-opt.splitbelow = true -- Prefer windows splitting to the bottom
-
 opt.modelineexpr = true
 opt.showcmd = false
 opt.showmode = false
 
--- opt.wildmenu = true
--- opt.wildmode = "longest:full"
--- opt.wildoptions = "pum"
--- Cool floating window popup menu for completion on command line
-opt.pumblend = 17
-
-g.mapleader = " "
-g.maplocalleader = " "
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- disable default vim stuffs for faster startuptime
-g.loaded_2html_plugin = 1
-g.loaded_syntax = 1
-g.loaded_clipboard_provider = 1
-g.loaded_getscript = 1
-g.loaded_getscriptPlugin = 1
-g.loaded_gzip = 1
-g.loaded_logiPat = 1
-g.loaded_remote_plugins = 1
-g.loaded_rrhelper = 1
-g.loaded_spellfile_plugin = 1
-g.loaded_tarPlugin = 1
-g.loaded_tutor_mode_plugin = 1
-g.loaded_zipPlugin = 1
-g.loaded_ftplugin = 1
-g.loaded_netrwPlugin = 1
-g.loaded_matchit = 1
-g.loaded_matchparen = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_syntax = 1
+vim.g.loaded_clipboard_provider = 1
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_remote_plugins = 1
+vim.g.loaded_rrhelper = 1
+vim.g.loaded_spellfile_plugin = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_tutor_mode_plugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_ftplugin = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1

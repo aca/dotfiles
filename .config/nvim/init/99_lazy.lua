@@ -1,4 +1,3 @@
 vim.defer_fn(function()
-    vim.loader.enable()
-    require("lazy")
+	require("init-lazy")
 end, 100)

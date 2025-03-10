@@ -1,3 +1,5 @@
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
 vim.cmd([[ packadd blink.cmp ]])
 require("blink-cmp").setup({
     fuzzy = { 

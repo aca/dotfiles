@@ -896,7 +896,7 @@
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-lsp-endhints
 	url = https://github.com/chrisgrieser/nvim-lsp-endhints
 [submodule ".local/share/nvim/site/pack/bundle/start/plenary.nvim"]
-	path = .local/share/nvim/site/pack/bundle/start/plenary.nvim
+	path = .local/share/nvim/site/pack/bundle/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/gopher.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gopher.nvim
