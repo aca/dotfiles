@@ -1,7 +1,3 @@
-vim.g.github_enterprise_urls = {
-    "https://git" .. "hub.t" .. "os" .. "sin" .. "ve" .. "st.bz",
-}
-
 vim.cmd.packadd 'plenary.nvim'
 vim.cmd.packadd 'tree-sitter-just'
 
@@ -25,8 +21,8 @@ vim.cmd([[
 " packadd webapi-vim
 " packadd vim-gist
 
-command! Codi packadd codi.vim | :Codi
-command! Luapad packadd nvim-luapad | :Luapad
+"command! Codi packadd codi.vim | :Codi
+"command! Luapad packadd nvim-luapad | :Luapad
 
 " packadd vim-boxdraw
 " packadd vim-markdown-toc

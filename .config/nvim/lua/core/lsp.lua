@@ -8,17 +8,17 @@ if vim.env.VIM_DISABLE_LSP == "1" then
 	return
 end
 
--- vim.lsp.set_log_level("OFF")
-vim.lsp.set_log_level("DEBUG")
+vim.lsp.set_log_level("OFF")
+-- vim.lsp.set_log_level("DEBUG")
 
 
--- diagnostic at insert mode
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- delay update diagnostics
-    update_in_insert = true,
-  }
-)
+-- -- diagnostic at insert mode
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--     -- delay update diagnostics
+--     update_in_insert = true,
+--   }
+-- )
 
 -- vim.cmd.packadd("nvim-lsp-endhints")
 -- require("lsp-endhints").setup({
@@ -58,9 +58,12 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- 	end,
 -- })
 
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	callback = function(args)
+-- 		vim.lsp.inlay_hint.enable(false)
+-- 	end,
+-- })
 
-vim.cmd.packadd("plenary.nvim")
-local strdisplaywidth = require("plenary").strings.strdisplaywidth
 
 -- https://www.reddit.com/r/neovim/comments/180fmw5/add_this_to_make_nvmcmp_docs_look_way_better_in/
 -- vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
@@ -91,15 +94,13 @@ local lspconfig = require("lspconfig")
 
 local handlers = {}
 
--- custom right align function as `virt_text_pos = "right_align"` override original text
+-- -- custom right align function as `virt_text_pos = "right_align"` override original text
+local strdisplaywidth = require("plenary").strings.strdisplaywidth
 local rightAlignFormatFunction = function(diagnostic)
 	local msg = diagnostic.message
 	local line = diagnostic.lnum
 	local line_length = strdisplaywidth(vim.api.nvim_buf_get_lines(0, line, line + 1, false)[1] or "")
 	local msg_length = strdisplaywidth(msg)
-	-- local lwidth = vim.api.nvim_get_option_value("columns", {})
-	-- local wwidth = vim.api.nvim_get_option_value("columns", {})
-	-- local numberwidth = vim.api.nvim_get_option_value("numberwidth", {})
 	local wininfo = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1]
 	-- https://github.com/neovim/neovim/issues/17229
 	local textoff = wininfo.textoff
@@ -116,17 +117,6 @@ local rightAlignFormatFunction = function(diagnostic)
 	end
 	return string.format("%s» %s", sp, msg)
 end
-
--- NOTES: Deprecated
--- -- Highlight line number instead of having icons in sign column https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
--- for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
--- 	vim.fn.sign_define("DiagnosticSign" .. diag, {
--- 		text = "",
--- 		texthl = "DiagnosticSign" .. diag,
--- 		linehl = "",
--- 		numhl = "DiagnosticSign" .. diag,
--- 	})
--- end
 
 vim.diagnostic.config({
 	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
@@ -174,8 +164,7 @@ vim.api.nvim_create_autocmd("VimResized", {
 
 -- TMP: https://github.com/neovim/neovim/issues/23291
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+-- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true -- this makes python lsp hang at startup
 
 -- nvim-ufo
 capabilities.textDocument.foldingRange = {
@@ -183,12 +172,12 @@ capabilities.textDocument.foldingRange = {
     -- lineFoldingOnly = true
 }
 
-local on_attach = function(client, bufnr)
-	-- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-	-- require("lsp_signature").on_attach({
-	-- 	fix_pos = true,
-	-- }, bufnr)
-end
+-- local on_attach = function(client, bufnr)
+-- 	-- vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+-- 	-- require("lsp_signature").on_attach({
+-- 	-- 	fix_pos = true,
+-- 	-- }, bufnr)
+-- end
 
 -- configs.emmet = {
 --     default_config = {
@@ -363,7 +352,7 @@ if vim.fn.executable("vtsls") == 1 then
 		single_file_support = false,
 		handlers = handlers,
 		on_attach = on_attach,
-		settings = jsInlayHints,
+		-- settings = jsInlayHints,
 	})
 end
 --
@@ -498,24 +487,24 @@ if vim.fn.executable("gopls") == 1 then
 end
 
 local diagnostics_active = true
-vim.api.nvim_create_user_command("ToggleDiagnostic", function()
-	diagnostics_active = not diagnostics_active
-	if diagnostics_active then
-		vim.diagnostic.show()
-	else
-		vim.diagnostic.hide()
-	end
-end, {})
+-- vim.api.nvim_create_user_command("ToggleDiagnostic", function()
+-- 	diagnostics_active = not diagnostics_active
+-- 	if diagnostics_active then
+-- 		vim.diagnostic.show()
+-- 	else
+-- 		vim.diagnostic.hide()
+-- 	end
+-- end, {})
 
 -- Fix for bug https://github.com/neovim/neovim/issues/12970
-vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, offset_encoding)
-	local text_document = text_document_edit.textDocument
-	local buf = vim.uri_to_bufnr(text_document.uri)
-	if offset_encoding == nil then
-		vim.notify_once("apply_text_document_edit must be called with valid offset encoding", vim.log.levels.WARN)
-	end
-
-	vim.lsp.util.apply_text_edits(text_document_edit.edits, buf, offset_encoding)
-end
+-- vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, offset_encoding)
+-- 	local text_document = text_document_edit.textDocument
+-- 	local buf = vim.uri_to_bufnr(text_document.uri)
+-- 	if offset_encoding == nil then
+-- 		vim.notify_once("apply_text_document_edit must be called with valid offset encoding", vim.log.levels.WARN)
+-- 	end
+--
+-- 	vim.lsp.util.apply_text_edits(text_document_edit.edits, buf, offset_encoding)
+-- end
 
 vim.cmd("LspStart")

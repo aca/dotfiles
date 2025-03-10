@@ -2,29 +2,28 @@ local vim = vim
 vim.loader.enable()
 
 local load = function()
-	_G.P = vim.print
-	_G.log = require("plenary.log")
-
 	vim.cmd([[ runtime! lua/core/fzf.vim ]])
 
 	require("core.treesitter")
 	require("core.keymap")
 	-- require("core.luasnip")
-    require("core.cmp")
+	require("core.cmp")
 	require("core.copilot_vim")
 	require("core.lsp")
 	require("core.tmux")
+
 	require("core.misc")
 
 	vim.cmd([[
         runtime! lua/plugins/*
+        runtime! lua/plugins-unstable/*
         runtime! lua/command/*
         runtime! lua/autocmd/*
         runtime! local/*
         runtime! lua/dev/*
     ]])
 
-	-- -- require("core.zettels")
+	vim.cmd.packadd("vim-dirvish")
 
 	vim.defer_fn(function()
 		-- prevent delay on startup

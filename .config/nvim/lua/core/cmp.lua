@@ -2,6 +2,7 @@ vim.cmd([[ packadd blink.cmp ]])
 require("blink-cmp").setup({
     fuzzy = { 
         implementation = "prefer_rust",
+        -- implementation = "lua",
         prebuilt_binaries = { 
             ignore_version_mismatch = true,
         },

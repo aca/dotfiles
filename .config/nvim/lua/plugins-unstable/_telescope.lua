@@ -11,22 +11,6 @@ if not ok then
 	return
 end
 
--- local actions = require("telescope.actions")
--- local action_state = require("telescope.actions.state")
-
--- -- https://github.com/thanhvule0310/dotfiles/blob/main/nvim/lua/plugins/configs/telescope.lua
---
--- -- Built-in actions
--- local transform_mod = require('telescope.actions.mt').transform_mod
---
--- -- or create your custom action
--- local openQuickFix = transform_mod({
---   x = function(prompt_bufnr)
---     vim.cmd [[ echom 3 ]]
---     vim.cmd [[ cnext ]]
---   end,
--- })
-
 -- -- local custom_actions = {}
 --
 -- -- function custom_actions.fzf_multi_select(prompt_bufnr)
@@ -44,18 +28,41 @@ end
 -- --     end
 -- -- end
 
-local select_one_or_multi = function(prompt_bufnr)
-	local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-	local multi = picker:get_multi_selection()
-	if not vim.tbl_isempty(multi) then
-		require("telescope.actions").close(prompt_bufnr)
-		for _, j in pairs(multi) do
-			if j.path ~= nil then
-				vim.cmd(string.format("%s %s", "edit", j.path))
-			end
-		end
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local action_utils = require("telescope.actions.utils")
+local function single_or_multi_select(prompt_bufnr)
+    print("multi", "start")
+	local current_picker = action_state.get_current_picker(prompt_bufnr)
+	local has_multi_selection = (next(current_picker:get_multi_selection()) ~= nil)
+    print("multi", has_multi_selection)
+
+	if has_multi_selection then
+		-- local results = {}
+		-- action_utils.map_selections(prompt_bufnr, function(selection)
+		-- 	table.insert(results, selection[1])
+		-- end)
+		--
+		-- -- load the selections into buffers list without switching to them
+		-- for _, filepath in ipairs(results) do
+		-- 	-- not the same as vim.fn.bufadd!
+		-- 	vim.cmd.badd({ args = { filepath } })
+		-- end
+		--
+		-- require("telescope.pickers").on_close_prompt(prompt_bufnr)
+		--
+		-- -- switch to newly loaded buffers if on an empty buffer
+		-- if vim.fn.bufname() == "" and not vim.bo.modified then
+		-- 	vim.cmd.bwipeout()
+		-- 	vim.cmd.buffer(results[1])
+		-- end
+
+		actions.send_selected_to_qflist(prompt_bufnr)
+		actions.open_qflist()
+		return
 	else
-		require("telescope.actions").select_default(prompt_bufnr)
+		-- if does not have multi selection, open single file
+		require("telescope.actions").file_edit(prompt_bufnr)
 	end
 end
 
@@ -63,7 +70,10 @@ telescope.setup({
 	defaults = {
 		mappings = {
 			i = {
-				["<CR>"] = select_one_or_multi,
+				["<CR>"] = single_or_multi_select,
+			},
+			n = {
+				["<CR>"] = single_or_multi_select,
 			},
 		},
 	},
@@ -88,6 +98,7 @@ telescope.setup({
 					-- ["<Tab>"] = "move_selection_next",
 					-- ["<S-Tab>"] = "move_selection_previous",
 					-- ["<cr>"] = actions.send_to_qflist,
+					["<cr>"] = single_or_multi_select,
 					-- ["<cr>"] =  actions.smart_send_to_qflist + actions.open_qflist + openQuickFix ,
 					-- ["<cr>"] = custom_actions.fzf_multi_select,
 					-- local opts = {

@@ -17,8 +17,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- })
 --
 -- vim.cmd.colorscheme "macro"
-vim.cmd.packadd("lush.nvim")
-vim.cmd.packadd("base16-nvim")
+-- vim.cmd.packadd("lush.nvim")
+-- vim.cmd.packadd("base16-nvim")
 
 -- -- Alternatively, you can provide a table specifying your colors to the setup function.
 -- require('base16-colorscheme').setup({
@@ -37,13 +37,13 @@ vim.cmd.packadd("base16-nvim")
 -- 	-- color_set = "kanagawa_dragon"
 -- })
 -- vim.cmd.colorscheme "mellifluous"
-
-vim.g.zenbones_compat = 1
-vim.cmd([[
-packadd lush.nvim
-packadd zenbones.nvim
-runtime! autoload/bones.vim
-]])
+--
+-- vim.g.zenbones_compat = 1
+-- vim.cmd([[
+-- packadd lush.nvim
+-- packadd zenbones.nvim
+-- runtime! autoload/bones.vim
+-- ]])
 
 -- vim.cmd.colorscheme("zenwritten")
 
