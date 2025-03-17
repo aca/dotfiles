@@ -973,3 +973,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/substitute.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/substitute.nvim
 	url = https://github.com/gbprod/substitute.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/tabby.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/tabby.nvim
+	url = https://github.com/nanozuki/tabby.nvim.git

@@ -429,17 +429,17 @@ end
 -- 	})
 -- end
 
--- if vim.fn.executable("clangd") == 1 then
--- 	local clangd_capabilities = vim.deepcopy(capabilities)
--- 	clangd_capabilities.offsetEncoding = "utf-8"
---
--- 	lspconfig.clangd.setup({
--- 		capabilities = clangd_capabilities,
--- 		single_file_support = true,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
+if vim.fn.executable("clangd") == 1 then
+	local clangd_capabilities = vim.deepcopy(capabilities)
+	clangd_capabilities.offsetEncoding = "utf-8"
+
+	lspconfig.clangd.setup({
+		capabilities = clangd_capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
 --
 -- if vim.fn.executable("nixd") == 1 then
 -- 	lspconfig.nixd.setup({

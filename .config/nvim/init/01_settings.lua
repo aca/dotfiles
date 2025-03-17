@@ -4,8 +4,10 @@ local opt = vim.opt
 local o = vim.o
 
 -- vim.opt.wrap = false
--- vim.o.number = false
--- vim.o.relativenumber = false
+vim.o.showtabline = 2
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.numberwidth = 5
 -- o.signcolumn = "yes:1"
 vim.o.signcolumn = "no"
 -- o.formatoptions = "jncroql"
@@ -13,31 +15,12 @@ vim.o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 
 -- https://github.com/neovim/neovim/pull/25872
 
--- vim.g.clipboard = {
---   name = 'OSC 52',
---   copy = {
---     ['+'] = function()
---         print("called + ")
---         require('vim.ui.clipboard.osc52').copy('+')
---     end
---     ,
---     ['*'] = function()
---         print("called * ")
---         require('vim.ui.clipboard.osc52').copy('*')
---     end
---   },
---   paste = {
---     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
---     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
---   },
--- }
-
 -- o.fencs = "euc-kr"
 -- o.fencs = "ucs-bom,utf-8,default,latin1"
 -- vim.o.fencs="ucs-bom,utf-8,cp949,euc-kr,default,latin1"
 
 vim.o.cmdheight = 0
-vim.o.laststatus = 3
+vim.o.laststatus = 0
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
@@ -54,7 +37,6 @@ vim.o.laststatus = 3
 o.statusline = "%=%l/%L"
 
 -- o.tabline = " %t"
-vim.o.showtabline = 0
 -- vim.o.statusline = "%t"
 -- opt.winbar = "%=%l:%c %P %m%f"
 -- opt.winbar = " "

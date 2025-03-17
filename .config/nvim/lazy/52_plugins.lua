@@ -35,6 +35,3 @@ packadd vim-dirvish
 vim.cmd([[
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 ]])
-
--- vim.o.cmdheight = 2
-vim.o.laststatus = 3
