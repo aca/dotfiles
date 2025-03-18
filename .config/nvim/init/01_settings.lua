@@ -7,9 +7,9 @@ local o = vim.o
 vim.o.showtabline = 2
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.numberwidth = 5
+-- vim.o.numberwidth = 5
 -- o.signcolumn = "yes:1"
-vim.o.signcolumn = "no"
+vim.o.signcolumn = "yes:1"
 -- o.formatoptions = "jncroql"
 vim.o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 

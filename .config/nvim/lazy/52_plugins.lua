@@ -5,6 +5,9 @@ vim.cmd.packadd("quickfix-reflector.vim")
 vim.cmd.packadd("vim-ReplaceWithRegister")
 vim.cmd.packadd("vim-eunuch")
 
+vim.cmd.packadd("visual-whitespace.nvim")
+require("visual-whitespace").setup()
+
 vim.cmd([[
         runtime! lua/plugins/*
         runtime! lua/plugins-unstable/*
