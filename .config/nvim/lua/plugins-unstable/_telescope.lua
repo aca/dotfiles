@@ -3,8 +3,8 @@
 --     return
 -- end
 
-vim.cmd.packadd("telescope.nvim")
 vim.cmd.packadd("plenary.nvim")
+vim.cmd.packadd("telescope.nvim")
 
 local ok, telescope = pcall(require, "telescope")
 if not ok then

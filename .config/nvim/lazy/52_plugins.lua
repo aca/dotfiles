@@ -1,3 +1,4 @@
+vim.cmd.packadd("plenary.nvim")
 vim.cmd.packadd("tree-sitter-just")
 vim.cmd.packadd("vim-dirvish")
 vim.cmd.packadd("quickfix-reflector.vim")
