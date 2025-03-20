@@ -292,9 +292,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vista.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/vista.vim
 	url = https://github.com/liuchengxu/vista.vim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/aerial.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/aerial.nvim
-	url = https://github.com/stevearc/aerial.nvim.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/cmp-under-comparator"]
 	path = .local/share/nvim/site/pack/bundle/opt/cmp-under-comparator
 	url = https://github.com/lukas-reineke/cmp-under-comparator.git
@@ -982,3 +979,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/visual-whitespace.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/visual-whitespace.nvim
 	url = https://github.com/mcauley-penney/visual-whitespace.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/smear-cursor.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/smear-cursor.nvim
+	url = https://github.com/sphamba/smear-cursor.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/symbols.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/symbols.nvim
+	url = https://github.com/oskarrrrrrr/symbols.nvim.git
