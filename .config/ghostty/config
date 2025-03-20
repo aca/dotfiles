@@ -47,7 +47,8 @@ keybind = alt+grave_accent=toggle_quick_terminal
 font-family = "IosevkaTermSlab NFM Light"
 font-family = "IBM Plex Sans KR"
 
-theme = Solarized Dark Higher Contrast
+# theme = Solarized Dark Higher Contrast
+theme = Mellifluous
 
 # palette = 0=#4f4f4f
 # palette = 1=#fa6c60
