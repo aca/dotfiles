@@ -154,3 +154,6 @@ if [[ $(uname -s) = Darwin ]]; then
   ulimit -u 2048
 fi
 
+export GIT_SSL_CAPATH="/Library/Application Support/Netskope/STAgent/data/netskope-cert-bundle.pem"
+export SSL_CERT_FILE="/Library/Application Support/Netskope/STAgent/data/netskope-cert-bundle.pem"
+export REQUESTS_CA_BUNDLE="/Library/Application Support/Netskope/STAgent/data/netskope-cert-bundle.pem"
