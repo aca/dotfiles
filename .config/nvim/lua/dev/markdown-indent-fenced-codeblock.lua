@@ -19,7 +19,13 @@ local function indent_line(line_num)
 
 	-- indent only if extmark not exists on current line
 	if next(mark) == nil then
-		vim.api.nvim_buf_set_extmark(0, ns_id, line_num, col_num, opts)
+		-- vim.api.nvim_buf_set_extmark(0, ns_id, line_num, col_num, opts)
+        vim.api.nvim_buf_set_extmark(
+            0,
+            ns_id,
+            line_num, 0,
+            { line_hl_group = 'DiffDelete' }
+        )
 	end
 end
 
@@ -67,11 +73,11 @@ local function indent_codeblock()
 		local range = metadata[1].range
 		if range[3] - range[1] > 0 then
 			-- hide language
-			hide_language(range[1] - 1)
+			-- hide_language(range[1] - 1)
 			for i = range[1], range[3] - 1, 1 do
 				indent_line(i)
 			end
-			hide_language(range[3])
+			-- hide_language(range[3])
 		end
 	end
 end
