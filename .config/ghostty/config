@@ -1,3 +1,7 @@
+
+# https://github.com/ghostty-org/ghostty/discussions/2353
+# If this is fixed, we can integrate with neovim
+
 # osc52
 clipboard-read = allow
 # clipboard-write = allow
@@ -28,12 +32,30 @@ keybind = ctrl+b>l=goto_split:right
 keybind = ctrl+b>k=goto_split:top
 keybind = ctrl+b>j=goto_split:bottom
 # keybind = ctrl+b>"=new_split:down
+keybind = ctrl+b>shift+'=new_split:down
+keybind = ctrl+b>shift+5=new_split:right
 keybind = ctrl+b>%=new_split:right
 keybind = ctrl+b>q=close_window
+keybind = ctrl+b>x=close_surface
 # popup window
 keybind = ctrl+b>n=new_window
 # keybind = ctrl+b>five=new_split:right
 keybind = alt+grave_accent=toggle_quick_terminal
+keybind = ctrl+b>r=reload_config
+keybind = ctrl+b>;=previous_tab
+keybind = ctrl+b>'=next_tab
+keybind = ctrl+b>equal=equalize_splits
+
+# when not used tmux
+# keybind = alt+h=resize_split:left,30
+# keybind = alt+l=resize_split:right,30
+# keybind = alt+k=resize_split:up,30
+# keybind = alt+j=resize_split:down,30
+
+gtk-tabs-location = bottom
+
+
+keybind = ctrl+b>c=new_tab
 
 
 
@@ -48,7 +70,6 @@ font-family = "IosevkaTermSlab NFM Light"
 font-family = "IBM Plex Sans KR"
 
 # theme = Solarized Dark Higher Contrast
-theme = Mellifluous
 
 # palette = 0=#4f4f4f
 # palette = 1=#fa6c60
@@ -72,4 +93,36 @@ theme = Mellifluous
 # selection-background = b5d5ff
 # selection-foreground = 000000
 
-font-size = 22
+font-size = 26
+
+
+# theme = Mellifluous
+palette = 0=#1a1a1a
+palette = 1=#d29393
+palette = 2=#b3b393
+palette = 3=#cbaa89
+palette = 4=#a8a1be
+palette = 5=#b39fb0
+palette = 6=#c0af8c
+palette = 7=#dadada
+palette = 8=#5b5b5b
+palette = 9=#c95954
+palette = 10=#828040
+palette = 11=#a6794c
+palette = 12=#5a6599
+palette = 13=#9c6995
+palette = 14=#74a39e
+palette = 15=#ffffff
+background = #000000
+foreground = #dadada
+cursor-color = #bfad9e
+cursor-text = #1a1a1a
+selection-background = #2d2d2d
+selection-foreground = #c0af8c
+
+cursor-style = bar
+
+keybind = alt+g=write_scrollback_file:paste
+keybind = alt+t=copy_url_to_clipboard
+# keybind = alt+g=new_tab
+# keybind = ctrl+shift+v=paste_from_clipboard

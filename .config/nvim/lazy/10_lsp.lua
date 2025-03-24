@@ -384,41 +384,41 @@ if vim.fn.executable("ruff") == 1 then
 end
 --
 --
--- if vim.fn.executable("zls") == 1 then
--- 	lspconfig.zls.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = true,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
+if vim.fn.executable("zls") == 1 then
+	lspconfig.zls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
 --
--- if vim.fn.executable("vscode-css-language-server") == 1 then
--- 	lspconfig.cssls.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = true,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
+if vim.fn.executable("vscode-css-language-server") == 1 then
+	lspconfig.cssls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
 -- --
--- if vim.fn.executable("vscode-html-language-server") == 1 then
--- 	lspconfig.html.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = true,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
+if vim.fn.executable("vscode-html-language-server") == 1 then
+	lspconfig.html.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
 --
--- if vim.fn.executable("vscode-json-language-server") == 1 then
--- 	lspconfig.jsonls.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = true,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
+if vim.fn.executable("vscode-json-language-server") == 1 then
+	lspconfig.jsonls.setup({
+		capabilities = capabilities,
+		single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
 --
 -- if vim.fn.executable("vscode-eslint-language-server") == 1 then
 -- 	lspconfig.eslint.setup({
@@ -441,20 +441,20 @@ if vim.fn.executable("clangd") == 1 then
 	})
 end
 --
--- if vim.fn.executable("nixd") == 1 then
--- 	lspconfig.nixd.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = true,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 	})
--- end
+if vim.fn.executable("nixd") == 1 then
+	lspconfig.nixd.setup({
+		capabilities = capabilities,
+		-- single_file_support = true,
+		handlers = handlers,
+		on_attach = on_attach,
+	})
+end
 --
--- if vim.fn.executable("rust-analyzer") == 1 then
--- 	lspconfig.rust_analyzer.setup({
--- 		capabilities = capabilities,
--- 	})
--- end
+if vim.fn.executable("rust-analyzer") == 1 then
+	lspconfig.rust_analyzer.setup({
+		capabilities = capabilities,
+	})
+end
 --
 if vim.fn.executable("templ") == 1 then
 	lspconfig.templ.setup({

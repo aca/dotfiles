@@ -985,3 +985,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/symbols.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/symbols.nvim
 	url = https://github.com/oskarrrrrrr/symbols.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/markview.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/markview.nvim
+	url = https://github.com/OXY2DEV/markview.nvim

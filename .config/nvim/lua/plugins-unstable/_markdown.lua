@@ -6,10 +6,9 @@
 -- require("render-markdown").setup({})
 -- require('render-markdown').setup({})
 --
--- vim.cmd.packadd("markview.nvim")
--- -- require("render-markdown").setup({})
--- require("markview").setup({
--- })
+-- require("render-markdown").setup({})
+vim.cmd.packadd("markview.nvim")
+require("markview").setup({})
 
 
 vim.cmd.packadd "github-preview.nvim"
