@@ -1,0 +1,3 @@
+#! /usr/bin/env nix-shell
+#! nix-shell --quiet --extra-experimental-features nix-command --extra-experimental-features flakes -i bash -p rmtrash
+rmtrash "$@"
