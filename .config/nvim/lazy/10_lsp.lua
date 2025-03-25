@@ -300,24 +300,24 @@ end
 -- 	})
 -- end
 
--- if vim.fn.executable("lua-language-server") == 1 then
--- 	lspconfig.lua_ls.setup({
--- 		capabilities = capabilities,
--- 		single_file_support = false,
--- 		handlers = handlers,
--- 		on_attach = on_attach,
--- 		settings = {
--- 			Lua = {
--- 				diagnostics = {
--- 					-- Get the language server to recognize the `vim` global
--- 					globals = { "vim" },
--- 				},
---
--- 				hint = { enable = true },
--- 			},
--- 		},
--- 	})
--- end
+if vim.fn.executable("lua-language-server") == 1 then
+	lspconfig.lua_ls.setup({
+		capabilities = capabilities,
+		single_file_support = false,
+		handlers = handlers,
+		on_attach = on_attach,
+		settings = {
+			Lua = {
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
+				},
+
+				hint = { enable = true },
+			},
+		},
+	})
+end
 
 -- if vim.fn.executable("kotlin-language-server") == 1 then
 -- 	lspconfig.kotlin_language_server.setup({

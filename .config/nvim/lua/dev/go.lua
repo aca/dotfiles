@@ -105,14 +105,14 @@ vim.cmd([[ runtime after/ftplugin/go.lua ]])
 -- -- end, {})
 --
 
-vim.api.nvim_create_autocmd({ "FocusLost" }, {
+vim.cmd.packadd("go-patch-unusedvar.nvim")
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 	pattern = "*.go",
 	callback = function()
 		-- print("write")
-		vim.cmd.packadd("go-patch-unusedvar.nvim")
-		require("go-patch-unusedvar")()
 		if vim.bo.modifiable then
-			vim.cmd("silent! write")
+			pcall(function() require("go-patch-unusedvar")() end)
+			-- vim.cmd("silent! write")
 			-- print("write")
 			-- vim.cmd("write")
 		end
