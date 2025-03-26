@@ -20,9 +20,8 @@
 /*.nix
 /TODO
 
-# replaced with ni
+# replaced with nix
 /.submodules
-/bin
 /.ssh
 /.tmux
 /.config.bak
