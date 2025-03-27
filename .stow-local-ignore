@@ -1,6 +1,7 @@
 /.config/stow
 /result
 /README
+/*.bak
 /Brewfile
 /.git
 /.githooks
