@@ -12,8 +12,6 @@ HISTCONTROL=ignoredups:ignorespace # don't put duplicate lines in the history. S
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-alias elv='elvish'
-
 # use active DISPLAY if available on remote session
 # NOTES: this is a hack for working on VM
 if [ -z "$WAYLAND_DISPLAY" ]; then
@@ -39,15 +37,18 @@ osc7_cwd() {
     done
     printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
 }
-PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
+PROMPT_COMMAND=${PROMPT_COMMAND:+${PROMPT_COMMAND%;}; }osc7_cwd;
 
 # NIX
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
+# if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+#   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+# fi
 
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias elv='elvish'
+
 set -o vi
+
