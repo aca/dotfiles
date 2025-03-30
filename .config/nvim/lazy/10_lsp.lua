@@ -462,28 +462,49 @@ if vim.fn.executable("templ") == 1 then
 	})
 end
 
+
+
 if vim.fn.executable("gopls") == 1 then
-	lspconfig.gopls.setup({
-		on_attach = on_attach,
-		-- cmd = { "gopls", "-remote=auto" },
-		-- cmd = { "gopls", "-remote=auto" },
-		-- cmd = { "nix", "run", "nixpkgs#gopls", "--", "--remote=auto" },
-		-- cmd = { "nix", "run", "github:NixOS/nixpkgs/24.05#gopls", "--", "--remote=auto" },
-		-- capabilities = capabilities,
-		settings = {
-			gopls = {
-				hints = {
-					rangeVariableTypes = true,
-					parameterNames = true,
-					constantValues = true,
-					assignVariableTypes = true,
-					compositeLiteralFields = true,
-					compositeLiteralTypes = true,
-					functionTypeParameters = true,
-				},
-			},
-		},
-	})
+    vim.lsp.config.gopls = {
+        cmd = { "gopls", "-remote=auto" },
+        -- on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+            gopls = {
+                hints = {
+                    rangeVariableTypes = true,
+                    parameterNames = true,
+                    constantValues = true,
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    functionTypeParameters = true,
+                },
+            },
+        },
+    }
+
+	-- vim.lsp.gopls.setup({
+	-- 	on_attach = on_attach,
+	-- 	-- cmd = { "gopls", "-remote=auto" },
+	-- 	-- cmd = { "gopls", "-remote=auto" },
+	-- 	-- cmd = { "nix", "run", "nixpkgs#gopls", "--", "--remote=auto" },
+	-- 	-- cmd = { "nix", "run", "github:NixOS/nixpkgs/24.05#gopls", "--", "--remote=auto" },
+	-- 	-- capabilities = capabilities,
+	-- 	settings = {
+	-- 		gopls = {
+	-- 			hints = {
+	-- 				rangeVariableTypes = true,
+	-- 				parameterNames = true,
+	-- 				constantValues = true,
+	-- 				assignVariableTypes = true,
+	-- 				compositeLiteralFields = true,
+	-- 				compositeLiteralTypes = true,
+	-- 				functionTypeParameters = true,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- })
 end
 
 local diagnostics_active = true
