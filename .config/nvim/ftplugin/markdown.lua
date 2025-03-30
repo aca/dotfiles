@@ -2,6 +2,7 @@
 vim.cmd.packadd "live-preview.nvim"
 require('livepreview.config').set()
 
+vim.o.conceallevel = 0
 
 
 -- https://github.com/wookayin/dotfiles/blob/9fe85278869d3fde63e140598e2b0896bfb4fdd1/nvim/after/ftplugin/markdown.lua#L20-L42
