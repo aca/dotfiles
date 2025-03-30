@@ -3,4 +3,4 @@ vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 -- Prefer LSP folding if client supports it
 
-vim.api.nvim_create_autocmd(‘LspDetach’, { command = ‘setl foldexpr<‘ })
+vim.api.nvim_create_autocmd('LspDetach', { command = 'setl foldexpr<' })
