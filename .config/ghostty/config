@@ -128,6 +128,5 @@ selection-foreground = #c0af8c
 cursor-style = bar
 
 keybind = alt+g=write_scrollback_file:paste
-keybind = alt+t=copy_url_to_clipboard
 # keybind = alt+g=new_tab
 # keybind = ctrl+shift+v=paste_from_clipboard
