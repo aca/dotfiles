@@ -14,7 +14,8 @@
 -- 	end
 -- end
 
-local running_go_imports = false
+local running_go_imports = true
+
 vim.api.nvim_create_user_command("GoimportsDisable", function(msg)
 	running_go_imports = true
 end, {})

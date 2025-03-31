@@ -1,16 +1,16 @@
--- -- if true then
--- --     return
--- -- end
---
--- -- print("not executed")
---
--- local hostname = vim.uv.os_gethostname()
---
--- -- if hostname ~= "txxx-nix" and hostname ~= "home" then
--- -- 	return
--- -- end
---
---
+-- if true then
+--     return
+-- end
+
+-- print("not executed")
+
+local hostname = vim.uv.os_gethostname()
+
+-- if hostname ~= "txxx-nix" and hostname ~= "home" then
+-- 	return
+-- end
+
+
 -- vim.g.copilot_no_tab_map = true
 --
 -- vim.keymap.set("i", "<C-F>", 'copilot#Accept("\\<CR>")', {
