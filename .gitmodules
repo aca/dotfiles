@@ -988,3 +988,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/statuscol.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/statuscol.nvim
 	url = https://github.com/luukvbaal/statuscol.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua
+	url = https://github.com/catgoose/nvim-colorizer.lua.git
