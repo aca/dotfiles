@@ -8,6 +8,9 @@ vim.cmd.packadd("vim-eunuch")
 vim.cmd.packadd("visual-whitespace.nvim")
 require("visual-whitespace").setup()
 
+vim.cmd.packadd("nvim-colorizer.lua")
+require("colorizer").setup()
+
 vim.cmd([[
         runtime! lua/plugins/*
         runtime! lua/plugins-unstable/*
