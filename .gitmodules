@@ -382,9 +382,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/go-patch-unusedvar.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/go-patch-unusedvar.nvim
 	url = https://github.com/aca/go-patch-unusedvar.nvim.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua
-	url = https://github.com/NvChad/nvim-colorizer.lua
 [submodule ".local/share/nvim/site/pack/bundle/opt/autolist.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/autolist.nvim
 	url = https://github.com/gaoDean/autolist.nvim

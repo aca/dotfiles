@@ -7,7 +7,7 @@ end
 vim.cmd([[ 
     packadd nvim-treesitter
     " packadd nvim-ts-rainbow
-    packadd nvim-treesitter-context
+    " packadd nvim-treesitter-context
     packadd nvim-treesitter-textobjects
     packadd nvim-ts-context-commentstring
     " packadd contextindent.nvim
@@ -254,9 +254,9 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-require("treesitter-context").setup({
-    enable = true,
-})
+-- require("treesitter-context").setup({
+--     enable = true,
+-- })
 
 -- https://github.com/echasnovski/nvim/blob/34506b1682b56f1f617fd31d2dfe3c72497dd17d/lua/ec/configs/nvim-treesitter.lua#L133
 -- requires folds.scm
