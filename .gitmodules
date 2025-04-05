@@ -775,9 +775,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-barbaric"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-barbaric
 	url = https://github.com/rlue/vim-barbaric.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/hop.nvim"]
-	path = .local/share/nvim/site/pack/bundle/opt/hop.nvim
-	url = https://github.com/smoka7/hop.nvim
 [submodule ".local/share/nvim/site/pack/bundle/opt/gin.vim"]
 	path = .local/share/nvim/site/pack/bundle/opt/gin.vim
 	url = https://github.com/lambdalisue/gin.vim.git

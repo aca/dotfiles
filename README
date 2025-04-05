@@ -13,6 +13,9 @@ install (stow)
     cd ~/src/github.com/aca
     bash -c "stow -v --target $HOME dotfiles dotfiles.nostow"
 
+    bash -c "stow -v --target $HOME dotfiles"
+
+
 uninstall
 
     bash -c "stow -v --target $HOME --delete dotfiles dotfiles.nostow"

@@ -36,7 +36,7 @@ vim.o.laststatus = 0
 -- o.statusline = "%{%v:lua.wordcount__visual_words()%}%=%l/%L"
 o.statusline = "%=%l/%L"
 
--- o.tabline = " %t"
+vim.o.tabline = " "
 -- vim.o.statusline = "%t"
 -- opt.winbar = "%=%l:%c %P %m%f"
 -- opt.winbar = " "

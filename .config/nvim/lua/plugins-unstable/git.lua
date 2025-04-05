@@ -7,7 +7,7 @@
 -- vim.cmd.packadd "tardis.nvim"
 vim.cmd.packadd 'neogit'
 
--- vim.cmd.packadd("vim-fugitive")
+vim.cmd.packadd("vim-fugitive")
 -- vim.cmd.packadd("vim-rhubarb")
 -- vim.cmd.packadd("gv.vim")
 
