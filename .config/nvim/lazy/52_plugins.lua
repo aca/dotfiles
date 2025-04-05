@@ -11,6 +11,8 @@ require("visual-whitespace").setup()
 vim.cmd.packadd("nvim-colorizer.lua")
 require("colorizer").setup()
 
+vim.cmd.packadd 'cmd-height.nvim'
+
 vim.cmd([[
         runtime! lua/plugins/*
         runtime! lua/plugins-unstable/*

@@ -991,3 +991,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-colorizer.lua
 	url = https://github.com/catgoose/nvim-colorizer.lua.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/auto-cmdheight.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/auto-cmdheight.nvim
+	url = https://github.com/jake-stewart/auto-cmdheight.nvim
