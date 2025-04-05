@@ -133,32 +133,32 @@ local function update(mode)
 	end
 end
 
-local augroup = vim.api.nvim_create_augroup("markdown-indent-fenced-codeblock", { clear = true })
-vim.api.nvim_create_autocmd({ "TextChanged" }, {
-	pattern = { "*.md" },
-	callback = function()
-		update("I")
-	end,
-	group = augroup,
-})
-vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-	pattern = { "*.md" },
-	callback = function()
-		update("")
-	end,
-	group = augroup,
-})
-vim.api.nvim_create_autocmd({ "BufLeave", "InsertLeave" }, {
-	pattern = { "*.md" },
-	callback = indent_codeblock,
-	group = augroup,
-})
-vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-	pattern = { "*.md" },
-	callback = function()
-		update("I")
-	end,
-	group = augroup,
-})
+-- local augroup = vim.api.nvim_create_augroup("markdown-indent-fenced-codeblock", { clear = true })
+-- vim.api.nvim_create_autocmd({ "TextChanged" }, {
+-- 	pattern = { "*.md" },
+-- 	callback = function()
+-- 		update("I")
+-- 	end,
+-- 	group = augroup,
+-- })
+-- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+-- 	pattern = { "*.md" },
+-- 	callback = function()
+-- 		update("")
+-- 	end,
+-- 	group = augroup,
+-- })
+-- vim.api.nvim_create_autocmd({ "BufLeave", "InsertLeave" }, {
+-- 	pattern = { "*.md" },
+-- 	callback = indent_codeblock,
+-- 	group = augroup,
+-- })
+-- vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+-- 	pattern = { "*.md" },
+-- 	callback = function()
+-- 		update("I")
+-- 	end,
+-- 	group = augroup,
+-- })
 
 -- indent_codeblock()
