@@ -14,4 +14,5 @@ vim.lsp.config.gopls = {
     root_markers = { "go.mod" },
     filetypes = {"go"},
 }
--- vim.lsp.enable({"gopls", "luals"})
+
+vim.lsp.enable({"gopls", "luals"})

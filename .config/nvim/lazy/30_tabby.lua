@@ -71,14 +71,17 @@ require("tabby.tabline").set(function(line)
 		-- end),
 		line.spacer(),
 		line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-			local hl = win.is_current() and theme.current or theme.not_current
+            local current = win.is_current()
+			-- local hl = current and theme.current or theme.not_current
+			local hl = current and { style = 'bold', fg = "#5b5b5b" } or { style = 'italic', fg = "#3b3b3b" }
 			return {
-				line.sep("", theme.win, theme.fill),
-				win.is_current() and "" or "",
-				win.buf_name(),
-				line.sep("", theme.win, theme.fill),
-				hl = theme.win,
-				margin = " ",
+				-- line.sep("", {  style = 'italic', fg = "#2e2e2e" }, {   style = 'italic', fg = "#2e2e2e" }),
+				-- win.is_current() and "" or "",
+                " ",
+                { win.buf_name(), hl = hl },
+				-- line.sep("", {  style = 'italic', fg = "#2e2e2e" }, {   style = 'italic', fg = "#2e2e2e" }),
+                -- " ",
+				-- margin = " ",
 			}
 			-- return {
 			-- 	line.sep("", hl, theme.fill),

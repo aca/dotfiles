@@ -12,6 +12,7 @@ bind t fillcmdline tab
 bind <c-]> tabnext
 bind <c-[> tabprev
 
+" replaced with extension 
 " bind <c-1> tab 1
 " bind <c-2> tab 2
 " bind <c-3> tab 3
