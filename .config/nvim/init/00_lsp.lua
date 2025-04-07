@@ -10,9 +10,24 @@
 -- })
 
 vim.lsp.config.gopls = {
-    cmd = {"gopls"},
-    root_markers = { "go.mod" },
-    filetypes = {"go"},
+	cmd = { "gopls" },
+	root_markers = { "go.mod" },
+	filetypes = { "go" },
+	config = {
+		settings = {
+			gopls = {
+				hints = {
+					rangeVariableTypes = true,
+					parameterNames = true,
+					constantValues = true,
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = true,
+					functionTypeParameters = true,
+				},
+			},
+		},
+	},
 }
 
-vim.lsp.enable({"gopls", "luals"})
+vim.lsp.enable({ "gopls", "luals" })

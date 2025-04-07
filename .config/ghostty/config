@@ -15,7 +15,7 @@ window-decoration = false
 confirm-close-surface = false
 quit-after-last-window-closed = true
 macos-option-as-alt = true
-adjust-cell-width = -1
+adjust-cell-width = 0
 
 window-padding-x = 0
 window-padding-y = 0
@@ -66,8 +66,11 @@ keybind = ctrl+b>c=new_tab
 # font-family = "ZedMono Nerd Font Mono"
 # font-family = "BlexMono Nerd Font"
 
-font-family = "IosevkaTermSlab NFM Light"
-font-family = "IBM Plex Sans KR"
+# font-family = "IosevkaTermSlab NFM Light"
+font-family = "CMU Typewriter Text"
+# font-style = "Light"
+# font-family = "Lotion"
+# font-family = "IBM Plex Sans KR"
 
 # theme = Solarized Dark Higher Contrast
 

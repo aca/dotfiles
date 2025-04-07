@@ -11,7 +11,13 @@ require("visual-whitespace").setup()
 vim.cmd.packadd("nvim-colorizer.lua")
 require("colorizer").setup()
 
-vim.cmd.packadd 'cmd-height.nvim'
+-- vim.cmd.packadd 'auto-cmdheight.nvim'
+-- require("auto-cmdheight").setup({
+--     max_lines = 10,
+--     duration = 2,
+--     remove_on_key = true,
+--     clear_always = false,
+-- })
 
 vim.cmd([[
         runtime! lua/plugins/*
