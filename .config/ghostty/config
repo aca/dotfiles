@@ -67,8 +67,8 @@ keybind = ctrl+b>c=new_tab
 # font-family = "ZedMono Nerd Font Mono"
 # font-family = "BlexMono Nerd Font"
 
-# font-family = "IosevkaTermSlab NFM Light"
-font-family = "CMU Typewriter Text"
+font-family = "IosevkaTermSlab NFM Light"
+# font-family = "CMU Typewriter Text"
 font-family = "IBM Plex Sans KR"
 # font-feature = "-dlig"
 # font-family = "Lotion"
