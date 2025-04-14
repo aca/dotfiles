@@ -325,9 +325,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/vim-markdown-toc"]
 	path = .local/share/nvim/site/pack/bundle/opt/vim-markdown-toc
 	url = https://github.com/mzlogin/vim-markdown-toc.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context"]
-	path = .local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context
-	url = https://github.com/nvim-treesitter/nvim-treesitter-context.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/zenburn.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/zenburn.nvim
 	url = https://github.com/phha/zenburn.nvim.git
