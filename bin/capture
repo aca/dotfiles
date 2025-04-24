@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if [ -z "$WAYLAND_DISPLAY" ]; then
+    grim -g "$(slurp -d)" - | wl-copy
+fi
+
