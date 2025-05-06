@@ -38,3 +38,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "*",
+    callback = function()
+        if vim.bo.filetype == "" then
+            vim.cmd("filetype detect")
+        end
+    end,
+})
+
+

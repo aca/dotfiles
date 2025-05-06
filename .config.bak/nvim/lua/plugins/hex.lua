@@ -1,2 +1,0 @@
--- vim.cmd.packadd("hex.nvim")
--- require'hex'.setup()

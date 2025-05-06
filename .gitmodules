@@ -991,3 +991,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/hop.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/hop.nvim
 	url = https://github.com/yehuohan/hop.nvim.git
+[submodule ".config/yazi/restore.yazi"]
+	path = .config/yazi/plugins/restore.yazi
+	url = https://github.com/boydaihungst/restore.yazi
