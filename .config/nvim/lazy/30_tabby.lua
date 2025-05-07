@@ -1,6 +1,7 @@
 -- vim.o.showtabline = 0
 vim.cmd.packadd("tabby.nvim")
 
+
 function intToRoman(n)
 	local romans = {
 		"一",
@@ -17,6 +18,7 @@ function intToRoman(n)
 	return romans[n]
 end
 
+
 local theme = {
 	fill = "TabLineFill",
 	-- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
@@ -30,9 +32,10 @@ local theme = {
 
 require("tabby.tabline").set(function(line)
 	return {
-		-- {
-		-- 	{ "  " },
-		-- },
+		{
+            -- {"-"},
+			{ "%{%v:lua.require'nvim-navic'.get_location()%}" },
+		},
 		line.spacer(),
 		line.bufs().foreach(function(buf)
 			local current = buf.is_current()

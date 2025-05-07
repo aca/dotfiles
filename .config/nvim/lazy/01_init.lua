@@ -1,1 +1,0 @@
-vim.loader.enable()

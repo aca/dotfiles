@@ -19,8 +19,6 @@ vim.o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
 -- o.fencs = "ucs-bom,utf-8,default,latin1"
 -- vim.o.fencs="ucs-bom,utf-8,cp949,euc-kr,default,latin1"
 
-vim.o.cmdheight = 0
-vim.o.laststatus = 0
 
 -- o. = "%= %m%r%h%w %l:%c %P "
 -- o.statusline = "%= %m%r%h%w %l:%c %P "
@@ -34,7 +32,6 @@ vim.o.laststatus = 0
 --     end
 -- end
 -- o.statusline = "%{%v:lua.wordcount__visual_words()%}%=%l/%L"
-o.statusline = "%=%l/%L"
 
 vim.o.tabline = " "
 -- vim.o.statusline = "%t"

@@ -6,7 +6,7 @@ vim.cmd.packadd("vim-ReplaceWithRegister")
 vim.cmd.packadd("vim-eunuch")
 
 vim.cmd.packadd("visual-whitespace.nvim")
-require("visual-whitespace").setup()
+require("visual-whitespace")
 
 vim.cmd.packadd("nvim-colorizer.lua")
 require("colorizer").setup()
@@ -50,3 +50,9 @@ packadd vim-dirvish
 vim.cmd([[
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 ]])
+
+vim.cmd.packadd("which-key.nvim")
+require("which-key").setup({
+    preset = "helix",
+})
+-- require("which-key").show({ global = false })
