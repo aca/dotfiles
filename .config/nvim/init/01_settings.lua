@@ -3,6 +3,10 @@ local g = vim.g
 local opt = vim.opt
 local o = vim.o
 
+vim.opt.wrap = false
+vim.opt.wrapscan = false
+vim.opt.wrapmargin = 0
+
 -- vim.opt.wrap = false
 vim.o.showtabline = 2
 vim.o.number = true
@@ -100,3 +104,4 @@ vim.g.loaded_ftplugin = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
+

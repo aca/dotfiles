@@ -1,16 +1,16 @@
-    -- require('vim._extui').enable({
-    --  enable = true, -- Whether to enable or disable the UI.
-    --  msg = { -- Options related to the message module.
-    --    ---@type 'box'|'cmd' Type of window used to place messages, either in the
-    --    ---cmdline or in a separate message box window with ephemeral messages.
-    --    pos = 'cmd',
-    --    box = { -- Options related to the message box window.
-    --      timeout = 4000, -- Time a message is visible.
-    --    },
-    --  },
-    -- })
+-- https://github.com/neovim/neovim/pull/27855/files
+require('vim._extui').enable({
+ enable = true, -- Whether to enable or disable the UI.
+ msg = { -- Options related to the message module.
+   ---@type 'box'|'cmd' Type of window used to place messages, either in the
+   ---cmdline or in a separate message box window with ephemeral messages.
+   pos = 'cmd',
+   box = { -- Options related to the message box window.
+     timeout = 4000, -- Time a message is visible.
+   },
+ },
+})
 
--- vim.o.cmdheight=0
 vim.o.statuscolumn="%@SignCb@%s%=%T%@NumCb@%l │%T "
 vim.o.statusline = "%<%f %h%m%r"
 vim.o.cmdheight = 0

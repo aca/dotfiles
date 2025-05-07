@@ -294,13 +294,12 @@ M.render = function()
 	-- return "%<%f %h%m%r%=%-14.(%l,%c%V%)" .. get_scrollbar()
 end
 
--- vim.o.statusline = "%!v:lua.require('ui.statusline').render()"
+vim.o.statusline = "%!v:lua.require('ui.statusline').render()"
 -- vim.o.statusline = "%!v:lua.require('ui.statusline').render()"
 -- -- vim.o.statusline = "------------- %!v:lua.require('ui.statusline').render()"
 
 -- reset
 -- https://github.com/aserowy/tmux.nvim/issues/105
--- vim.o.laststatus = vim.o.laststatus
 
 return M
 

@@ -43,7 +43,7 @@ require("tabby.tabline").set(function(line)
 			return {
 				line.sep(" ", hl, theme.fill),
 				buf.name({
-                    mode = "shorten",
+                    -- mode = "shorten",
                 }),
 				hl = hl,
 			}

@@ -1,9 +1,6 @@
 local opt = vim.opt
 local o = vim.o
 
-vim.opt.wrap = false
-vim.opt.wrapscan = false
-vim.opt.wrapmargin = 0
 
 vim.o.splitkeep = "screen"
 

@@ -51,8 +51,8 @@ vim.cmd([[
 imap <silent><c-d> <c-r>=strftime("## %Y-%m-%d %a %H:%M:%S %Z")<cr><cr>
 ]])
 
-vim.cmd.packadd("which-key.nvim")
-require("which-key").setup({
-    preset = "helix",
-})
+-- vim.cmd.packadd("which-key.nvim")
+-- require("which-key").setup({
+--     preset = "helix",
+-- })
 -- require("which-key").show({ global = false })
