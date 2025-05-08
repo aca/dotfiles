@@ -196,14 +196,14 @@ local function insert_err_return()
     node = node:parent()
   end
   if not node then
-    vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
+    -- vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
     return
   end
 
   -- 2) 결과(리턴 타입) 노드
   local result = node:field('result')[1]
   if not result then
-    vim.notify('리턴 값이 없는 함수입니다', vim.log.levels.INFO)
+    -- vim.notify('리턴 값이 없는 함수입니다', vim.log.levels.INFO)
     return
   end
 
@@ -395,8 +395,5 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 				patch()
 			end)
 		end
-
-		-- vim.cmd.packadd("go-patch-unusedvar.nvim")
-		-- require("go-patch-unusedvar")()
 	end,
 })
