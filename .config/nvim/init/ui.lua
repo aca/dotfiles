@@ -7,7 +7,7 @@ require('vim._extui').enable({
    ---cmdline or in a separate message box window with ephemeral messages.
    pos = 'cmd',
    box = { -- Options related to the message box window.
-     timeout = 4000, -- Time a message is visible.
+     timeout = 2000, -- Time a message is visible.
    },
  },
 })

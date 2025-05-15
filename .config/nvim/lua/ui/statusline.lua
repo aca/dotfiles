@@ -284,8 +284,7 @@ end
 -- 	return ordered_tbl_concat(stl_order, stl_parts)
 -- end
 --
---
---
+
 M.render = function()
 	-- return "%<%f %h%m%r%=%-14.(%l,%c%V%)" .. get_scrollbar()
 	local ok, result = pcall(get_scrollbar)
@@ -294,9 +293,11 @@ M.render = function()
 	-- return "%<%f %h%m%r%=%-14.(%l,%c%V%)" .. get_scrollbar()
 end
 
+<<<<<<< HEAD
 -- vim.o.statusline = "%!v:lua.require('ui.statusline').render()"
+=======
+>>>>>>> 5701376 ()
 -- vim.o.statusline = "%!v:lua.require('ui.statusline').render()"
--- -- vim.o.statusline = "------------- %!v:lua.require('ui.statusline').render()"
 
 -- reset
 -- https://github.com/aserowy/tmux.nvim/issues/105

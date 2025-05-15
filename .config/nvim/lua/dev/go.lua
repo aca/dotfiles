@@ -23,6 +23,19 @@ local vim = vim
 --     transform = "camelcase",
 --   },
 -- }
+--
+local function get_indent(line)
+	-- print("get_indent", line)
+	local lnum = vim.fn.prevnonblank(line)
+	if lnum < 1 then
+		return ""
+	end
+	local line = vim.fn.getline(lnum)
+	print("line", line)
+	local indent = line:match("^%s*") or ""
+	-- print(string.format("indent %q", indent))
+	return indent
+end
 
 vim.cmd.packadd("go.nvim")
 require("go").setup({
@@ -106,7 +119,6 @@ vim.cmd([[ runtime after/ftplugin/go.lua ]])
 -- -- end, {})
 --
 
-
 -- vim.cmd.packadd("go-patch-unusedvar.nvim")
 -- vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 -- 	pattern = "*.go",
@@ -125,53 +137,58 @@ vim.cmd([[ runtime after/ftplugin/go.lua ]])
 -- })
 
 -- lua/err_return.lua
-local ts_utils = require('nvim-treesitter.ts_utils')
+local ts_utils = require("nvim-treesitter.ts_utils")
+_G.ts_utils = ts_utils
 
 -- zero‑value 결정 함수 ──
 -- 입력: Treesitter가 뽑은 '타입 문자열'(whitespace 포함 가능)
 -- 출력: 그 타입에 맞는 Go 코드 조각
 local function zero_value_for(t)
-  -- -- 앞뒤 공백 제거
-  t = (t:gsub('^%s+', ''):gsub('%s+$', ''))
-  --
-  -- ▼ ① 내장 기본형
-  if     t == 'bool'      then return 'false'
-  elseif t == 'string'    then return '""'
-  elseif t == 'error'     then return 'nil'        -- 실제 호출부에선 마지막에 err 를 붙일 것
-  elseif t:match('^u?int')  or
-         t:match('^byte$') or t:match('^rune$')  then return '0'
-  elseif t:match('^float') or t == 'complex64' or t == 'complex128' then return '0'
-  end
+	-- -- 앞뒤 공백 제거
+	t = (t:gsub("^%s+", ""):gsub("%s+$", ""))
+	--
+	-- ▼ ① 내장 기본형
+	if t == "bool" then
+		return "false"
+	elseif t == "string" then
+		return '""'
+	elseif t == "error" then
+		return "nil" -- 실제 호출부에선 마지막에 err 를 붙일 것
+	elseif t:match("^u?int") or t:match("^byte$") or t:match("^rune$") then
+		return "0"
+	elseif t:match("^float") or t == "complex64" or t == "complex128" then
+		return "0"
+	end
 
-  --
-  -- ▼ ② 포인터, 슬라이스, 맵, 채널, 함수타입, 인터페이스
-  --    → 전부 nil
-  if t:match('^%*') or        -- *T
-     t:match('^%[ %]') or     -- []T
-     t:match('^map%[') or     -- map[K]V
-     t:match('^chan%s') or    -- chan T / <-chan T / chan<- T
-     t:match('^func%(') or    -- func(...)
-     t == 'interface{}'       -- 빈 인터페이스 포함
-  then
-    return 'nil'
-  end
-  --
-  -- ▼ ③ 고정 길이 배열 → T{} 와 syntax 충돌을 피하려고 'var <tmp> [N]T; <tmp>' 식도 가능
-  --    하지만 단순 반환값이라면 리터럴이 가장 읽기 쉽다.
-  local arr_len, elem_t = t:match('^%[([%d]+)%]%s*(.+)$')
-  if arr_len then
-    return string.format('%s{}', t)
-  end
+	--
+	-- ▼ ② 포인터, 슬라이스, 맵, 채널, 함수타입, 인터페이스
+	--    → 전부 nil
+	if
+		t:match("^%*") -- *T
+		or t:match("^%[ %]") -- []T
+		or t:match("^map%[") -- map[K]V
+		or t:match("^chan%s") -- chan T / <-chan T / chan<- T
+		or t:match("^func%(") -- func(...)
+		or t == "interface{}" -- 빈 인터페이스 포함
+	then
+		return "nil"
+	end
+	--
+	-- ▼ ③ 고정 길이 배열 → T{} 와 syntax 충돌을 피하려고 'var <tmp> [N]T; <tmp>' 식도 가능
+	--    하지만 단순 반환값이라면 리터럴이 가장 읽기 쉽다.
+	local arr_len, elem_t = t:match("^%[([%d]+)%]%s*(.+)$")
+	if arr_len then
+		return string.format("%s{}", t)
+	end
 
-  -- ▼ ④ struct 타입(이름 있든 없든) → T{}  (컴파일러가 zero init)
-  if t:match('^struct%s*{') or t:match('[%w_]+$') then
-    return string.format('%s{}', t)
-  end
+	-- ▼ ④ struct 타입(이름 있든 없든) → T{}  (컴파일러가 zero init)
+	if t:match("^struct%s*{") or t:match("[%w_]+$") then
+		return string.format("%s{}", t)
+	end
 
-  -- -- ▼ ⑤ 마지막 안전책: 모르는 타입은 nil (대부분 포인터·슬라이스·맵일 확률이 큼)
-  return 'nil'
+	-- -- ▼ ⑤ 마지막 안전책: 모르는 타입은 nil (대부분 포인터·슬라이스·맵일 확률이 큼)
+	return "nil"
 end
-
 
 -- 간단한 zero‑value 매핑
 -- local function zero_value_for(type_name)
@@ -189,199 +206,202 @@ end
 --   end
 -- end
 
-local function insert_err_return()
-  -- 1) 현재 함수 노드 찾기
-  local node = ts_utils.get_node_at_cursor()
-  while node and node:type() ~= 'function_declaration' do
-    node = node:parent()
-  end
-  if not node then
-    -- vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
-    return
-  end
+local function insert_err_return(d)
+	-- 1) 현재 함수 노드 찾기
+	-- local node  = ts_utils.get_root_for_position(d.lnum, d.col)
+	print(d)
+	-- local node = nil
+	local node = ts_utils.get_node_at_cursor()
+	-- local node  = vim.treesitter.get_node({pos={d.lnum, d.col}})
+	print(node)
 
-  -- 2) 결과(리턴 타입) 노드
-  local result = node:field('result')[1]
-  if not result then
-    -- vim.notify('리턴 값이 없는 함수입니다', vim.log.levels.INFO)
-    return
-  end
+	while node and (node:type() ~= "function_declaration") or (node:type() ~= "func_literal") do
+		node = node:parent()
+	end
+	if not node then
+		-- vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
+		return
+	end
 
-  -- vim.print("result start")
-  -- vim.print(result:type(), vim.treesitter.get_node_text(result, 0))
-  -- vim.print("result end")
+	-- 2) 결과(리턴 타입) 노드
+	local result = node:field("result")[1]
+	if not result then
+		-- vim.notify('리턴 값이 없는 함수입니다', vim.log.levels.INFO)
+		return
+	end
 
-  local zero_vals, has_error = {}, false
-  local function handle_type(tnode)
-    local tname = vim.treesitter.get_node_text(tnode, 0)
-    -- vim.print("tname", tname)
-    if tname == 'error' then
-      has_error = true
-    else
-      table.insert(zero_vals, zero_value_for(tname))
-    end
-  end
+	-- vim.print("result start")
+	-- vim.print(result:type(), vim.treesitter.get_node_text(result, 0))
+	-- vim.print("result end")
 
-  -- vim.print("zero_vals", zero_vals)
+	local zero_vals, has_error = {}, false
+	local function handle_type(tnode)
+		local tname = vim.treesitter.get_node_text(tnode, 0)
+		-- vim.print("tname", tname)
+		if tname == "error" then
+			has_error = true
+		else
+			table.insert(zero_vals, zero_value_for(tname))
+		end
+	end
 
-  if result:type() == 'parameter_list' then
-    for tnode in result:iter_children() do
-      -- vim.print("---")
-      -- vim.print("tnode", tnode:type(), vim.treesitter.get_node_text(tnode, 0))
-      -- vim.print("---")
-      if tnode:type():match('parameter_declaration') then
-        handle_type(tnode)
-      end
-    end
-  else
-    handle_type(result)
-  end
+	-- vim.print("zero_vals", zero_vals)
 
-  if not has_error then
-    -- vim.notify('error 를 리턴하지 않는 함수입니다', vim.log.levels.INFO)
-    return
-  end
+	if result:type() == "parameter_list" then
+		for tnode in result:iter_children() do
+			-- vim.print("---")
+			-- vim.print("tnode", tnode:type(), vim.treesitter.get_node_text(tnode, 0))
+			-- vim.print("---")
+			if tnode:type():match("parameter_declaration") then
+				handle_type(tnode)
+			end
+		end
+	else
+		handle_type(result)
+	end
 
-  local ret = table.concat(zero_vals, ', ')
-  if #ret > 0 then ret = ret .. ', ' end
-  ret = ret .. 'err'
+	if not has_error then
+		-- vim.notify('error 를 리턴하지 않는 함수입니다', vim.log.levels.INFO)
+		return
+	end
 
-  local line = string.format('if err != nil { return %s }', ret)
+	local ret = table.concat(zero_vals, ", ")
+	if #ret > 0 then
+		ret = ret .. ", "
+	end
+	ret = ret .. "err"
 
-  -- 3) 현재 라인 바로 아래에 삽입 (Neovim은 0‑index, vim.fn.line()은 1‑index)
-  local row = vim.fn.line('.')
-  vim.api.nvim_buf_set_lines(0, row, row, false, { line })
+	local line = string.format("if err != nil { return %s }", ret)
+
+	-- 3) 현재 라인 바로 아래에 삽입 (Neovim은 0‑index, vim.fn.line()은 1‑index)
+	local row = vim.fn.line(".")
+	vim.api.nvim_buf_set_lines(0, row, row, false, { line })
 end
 
+local function insert_return(d, changed_lines)
+	local lnum = d.lnum + changed_lines
+	local col = d.col
+	local node = vim.treesitter.get_node({ pos = { lnum, col } })
+	while node and (node:type() ~= "function_declaration" and node:type() ~= "func_literal") do
+		node = node:parent()
+	end
+	if not node then
+		-- not inside function
+		return 0
+	end
 
-local function insert_return()
-  -- 1) 현재 함수 노드 찾기
-  local node = ts_utils.get_node_at_cursor()
-  while node and node:type() ~= 'function_declaration' do
-    node = node:parent()
-  end
-  if not node then
-    -- vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
-    return
-  end
+	-- 2) 결과(리턴 타입) 노드
+	local result = node:field("result")[1]
+	if not result then
+		-- has no return
+		return 0
+	end
 
-  -- 2) 결과(리턴 타입) 노드
-  local result = node:field('result')[1]
-  if not result then
-    -- vim.notify('리턴 값이 없는 함수입니다', vim.log.levels.INFO)
-    return
-  end
+	local zero_vals, has_error = {}, false
+	local function handle_type(tnode)
+		local tname = vim.treesitter.get_node_text(tnode, 0)
+		-- vim.print("tname", tname)
+		table.insert(zero_vals, zero_value_for(tname))
+	end
 
-  local zero_vals, has_error = {}, false
-  local function handle_type(tnode)
-    local tname = vim.treesitter.get_node_text(tnode, 0)
-    -- vim.print("tname", tname)
-      table.insert(zero_vals, zero_value_for(tname))
-  end
+	-- vim.print("zero_vals", zero_vals)
 
-  -- vim.print("zero_vals", zero_vals)
+	if result:type() == "parameter_list" then
+		for tnode in result:iter_children() do
+			-- vim.print("---")
+			-- vim.print("tnode", tnode:type(), vim.treesitter.get_node_text(tnode, 0))
+			-- vim.print("---")
+			if tnode:type():match("parameter_declaration") then
+				handle_type(tnode)
+			end
+		end
+	else
+		handle_type(result)
+	end
 
-  if result:type() == 'parameter_list' then
-    for tnode in result:iter_children() do
-      -- vim.print("---")
-      -- vim.print("tnode", tnode:type(), vim.treesitter.get_node_text(tnode, 0))
-      -- vim.print("---")
-      if tnode:type():match('parameter_declaration') then
-        handle_type(tnode)
-      end
-    end
-  else
-    handle_type(result)
-  end
+	-- if not has_error then
+	--   vim.notify('error 를 리턴하지 않는 함수입니다', vim.log.levels.INFO)
+	--   return
+	-- end
 
-  -- if not has_error then
-  --   vim.notify('error 를 리턴하지 않는 함수입니다', vim.log.levels.INFO)
-  --   return
-  -- end
+	local ret = table.concat(zero_vals, ", ")
+	-- if #ret > 0 then ret = ret .. ', ' end
+	-- ret = ret
 
-  local ret = table.concat(zero_vals, ', ')
-  -- if #ret > 0 then ret = ret .. ', ' end
-  -- ret = ret
+	local line = get_indent(lnum) .. "\t" .. string.format("return %s", ret)
 
-  local line = string.format('return %s', ret)
-
-  -- 3) 현재 라인 바로 아래에 삽입 (Neovim은 0‑index, vim.fn.line()은 1‑index)
-  local row = vim.fn.line('.')
-  vim.api.nvim_buf_set_lines(0, row, row, false, { line })
+	-- 3) 현재 라인 바로 아래에 삽입 (Neovim은 0‑index, vim.fn.line()은 1‑index)
+	-- local row = vim.fn.line(".")
+	vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { line })
+	return 1
 end
 
 -- 4) 키 매핑
-vim.keymap.set('n', '<leader>er', insert_err_return, { desc = '자동 err 리턴 삽입', silent = true })
+-- vim.keymap.set("n", "<leader>er", insert_err_return, { desc = "자동 err 리턴 삽입", silent = true })
+--
 
+local function patch_unusedvar = func(diag, changed_lines)
+	local lnum = d.lnum + changed_lines
+	local col = d.col
+	local node = vim.treesitter.get_node({ pos = { lnum, col } })
+	local var_name = vim.treesitter.get_node_text(cur_node, 0, {})
 
-local patch = function()
-	local patchtable = {}
-	local count = 0
-	for _, v in ipairs(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })) do
-		if v["code"] == "UnusedVar" then
-			count = count + 1
-
-			local cur_node = vim.treesitter.get_node({
-				bufnr = 0,
-				pos = { v.lnum, v.col },
-				lang = "go",
-			})
-
-			-- vim.print(cur_node)
-			-- vim.print(cur_node:type())
-			-- vim.print(cur_node:parent():type())
-			-- vim.print(cur_node:parent():parent():type())
-
-			if cur_node == nil then
-				return 1
-			end
-			-- TODO: handle error cases
-			local var_name = vim.treesitter.get_node_text(cur_node, 0, {})
-
-			-- append line at the end of declaration
-			local block = cur_node:parent():parent()
-			if block == nil then
-				return 1
-			end
-
-			-- if var_name == "err" then
-			--     patchtable[count] = { v.lnum + 1, string.rep("\t", 1) .. "_ = " .. var_name }
-			-- end
-
-			if block:type() == "range_clause" then
-				block = block
-				-- local _, start_col = block:start()
-				local _, start_col = block:parent():start()
-				local end_row = block:end_()
-				patchtable[count] = { end_row + 1, { string.rep("\t", start_col + 1) .. "_ = " .. var_name } }
-			else
-				local _, start_col = block:start()
-				local end_row = block:end_()
-
-                local indent = string.rep("\t", start_col)
-				if var_name == "err" then
-					patchtable[count] = { end_row + 1, { indent .. "if err != nil {", indent .. "\t" .. "panic(err)", indent .. "}"}}
-				else
-                    patchtable[count] = { end_row + 1, { indent .. "_ = " .. var_name } }
-				end
-                -- patchtable[count] = { end_row + 1, string.rep("\t", start_col) .. "_ = " .. var_name }
-			end
-		end
-
-        print(v["code"])
-        if v["code"] == "MissingReturn" then
-            print("err return should be inserted")
-            insert_return()
-        end
-	end
-
-	for k, v in pairs(patchtable) do
-		-- if not string.find(v[2], "\n") then
-        vim.api.nvim_buf_set_lines(0, v[1] + k - 1, v[1] + k - 1, false, v[2])
-		-- end
+	local block = cur_node:parent():parent()
+	if block == nil then
+		return 1
 	end
 end
 
+	--
+	-- 	-- TODO: handle error cases
+	--
+	-- 	-- append line at the end of declaration
+	--
+	-- 	if block:type() == "range_clause" then
+	-- 		block = block
+	-- 		-- local _, start_col = block:start()
+	-- 		local _, start_col = block:parent():start()
+	-- 		local end_row = block:end_()
+	--            vim.api.nvim_buf_set_lines(0, endrow + 1, endrow + 1, false, { string.rep("\t", start_col + 1) .. "_ = " .. var_name })
+	--
+	--            -- for k, v in pairs(patchtable) do
+	--            --     -- if not string.find(v[2], "\n") then
+	--            --     vim.api.nvim_buf_set_lines(0, v[1] + k - 1, v[1] + k - 1, false, v[2])
+	--            --     -- end
+	--            -- end
+	-- 	else
+	-- 		local _, start_col = block:start()
+	-- 		local end_row = block:end_()
+	--
+	-- 		local indent = string.rep("\t", start_col)
+	-- 		if var_name == "err" then
+	--                vim.api.nvim_buf_set_lines(0, end_row + 1, end_row + 1, false, { indent .. "if err != nil {" })
+	-- 		else
+	--                vim.api.nvim_buf_set_lines(0, end_row + 1, end_row + 1, false, { indent .. "_ = " .. var_name })
+	-- 		end
+	-- 	end
+	-- end
+
+local patch = function()
+	-- local patchtable = {}
+	local changed_lines = 0
+	local diags = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+	if not diags and #diags == 0 then
+		return
+	end
+
+	for _, diag in ipairs(diags) do
+		if diag["code"] == "MissingReturn" then
+			-- print("missing return", diag.lnum)
+			local changed = insert_return(diag, changed_lines)
+            changed_lines = changed_lines + changed
+        else diag["code"] == "UnusedVar" then
+			local changed = patch_unusedvar(diag, changed_lines)
+			changed_lines = changed_lines + changed
+		end
+	end
+
+end
 
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
 	pattern = { "*.go" },

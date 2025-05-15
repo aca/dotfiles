@@ -76,4 +76,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
 vim.cmd.packadd("nvim-lspconfig")
-vim.lsp.enable({ "gopls", "luals", "basedpyright", "denols" })
+vim.lsp.enable({ "gopls", "lua_ls", "basedpyright", "vtsls" })

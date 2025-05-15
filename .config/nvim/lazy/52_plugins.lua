@@ -11,6 +11,15 @@ require("visual-whitespace")
 vim.cmd.packadd("nvim-colorizer.lua")
 require("colorizer").setup()
 
+
+-- vim.cmd.packadd("nvim-luadev")
+--
+-- vim.cmd [[ 
+-- nmap <leader>r <Plug>(Luadev-RunLine)
+-- ]]
+
+
+
 -- vim.cmd.packadd 'auto-cmdheight.nvim'
 -- require("auto-cmdheight").setup({
 --     max_lines = 10,
