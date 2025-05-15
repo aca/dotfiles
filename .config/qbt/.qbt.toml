@@ -3,6 +3,6 @@
 # login      = "admin"                  # qbittorrent webui-api user
 # password   = "adminadmin"              # qbittorrent webui-api password
 
-addr       = "http://100.115.251.37:8080" # qbittorrent webui-api hostname/ip
+addr       = "http://seedbox:8080" # qbittorrent webui-api hostname/ip
 # login      = "admin"                  # qbittorrent webui-api user
 # password   = "adminadmin"              # qbittorrent webui-api password
