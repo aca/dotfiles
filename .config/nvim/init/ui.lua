@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 -- https://github.com/neovim/neovim/pull/27855/files
 require('vim._extui').enable({
  enable = true, -- Whether to enable or disable the UI.
@@ -12,7 +11,6 @@ require('vim._extui').enable({
  },
 })
 
-=======
     -- require('vim._extui').enable({
     --  enable = true, -- Whether to enable or disable the UI.
     --  msg = { -- Options related to the message module.
@@ -25,8 +23,6 @@ require('vim._extui').enable({
     --  },
     -- })
 
--- vim.o.cmdheight=0
->>>>>>> 327824e ()
 vim.o.statuscolumn="%@SignCb@%s%=%T%@NumCb@%l │%T "
 vim.o.statusline = "%<%f %h%m%r"
 vim.o.cmdheight = 0
