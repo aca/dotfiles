@@ -238,7 +238,7 @@ local function insert_err_return()
   end
 
   if not has_error then
-    vim.notify('error 를 리턴하지 않는 함수입니다', vim.log.levels.INFO)
+    -- vim.notify('error 를 리턴하지 않는 함수입니다', vim.log.levels.INFO)
     return
   end
 
@@ -261,7 +261,7 @@ local function insert_return()
     node = node:parent()
   end
   if not node then
-    vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
+    -- vim.notify('함수 안이 아닙니다', vim.log.levels.WARN)
     return
   end
 
@@ -271,10 +271,6 @@ local function insert_return()
     -- vim.notify('리턴 값이 없는 함수입니다', vim.log.levels.INFO)
     return
   end
-
-  -- vim.print("result start")
-  -- vim.print(result:type(), vim.treesitter.get_node_text(result, 0))
-  -- vim.print("result end")
 
   local zero_vals, has_error = {}, false
   local function handle_type(tnode)
