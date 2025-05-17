@@ -235,9 +235,9 @@ local function insert_err_return(d)
 	vim.api.nvim_buf_set_lines(0, row, row, false, { line })
 end
 
-local function patch_missing_return(d, changed_lines)
-	local lnum = d.lnum + changed_lines
-	local col = d.col
+local function patch_missing_return(diag, changed_lines)
+	local lnum = diag.lnum + changed_lines
+	local col = diag.col
 	local node = vim.treesitter.get_node({ pos = { lnum, col } })
 	while node and (node:type() ~= "function_declaration" and node:type() ~= "func_literal") do
 		node = node:parent()
@@ -261,13 +261,12 @@ local function patch_missing_return(d, changed_lines)
 		table.insert(zero_vals, zero_value_for(tname))
 	end
 
-	-- vim.print("zero_vals", zero_vals)
-
     local namedreturn = false
 
 	if result:type() == "parameter_list" then
 		for tnode in result:iter_children() do
-            if tnode:field("name") then
+            local resultnamefield = tnode:field("name")
+            if resultnamefield and #resultnamefield > 0 then
                 namedreturn = true
                 break
             end
@@ -277,7 +276,8 @@ local function patch_missing_return(d, changed_lines)
 			end
 		end
 	else
-        if result:field("name") then
+        local resultnamefield = result:field("name")
+        if resultnamefield and #resultnamefield > 0 then
             namedreturn = true
         else
             handle_type(result)
@@ -327,7 +327,7 @@ local function patch_unused_var(diag, changed_lines)
     elseif block:type() == "var_declaration" then
 		local start_line = block:start()
 		local end_row = block:end_()
-		vim.api.nvim_buf_set_lines(0, end_row + 1, end_row + 1, false, { get_indent(start_line) .. "_ = " .. var_name })
+		vim.api.nvim_buf_set_lines(0, end_row + 1, end_row + 1, false, { get_indent(start_line) .. "\t_ = " .. var_name })
         return 1
 	elseif block:type() == "short_var_declaration" then
 		local start_line = block:start()
