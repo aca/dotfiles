@@ -1,3 +1,4 @@
+-- start
 -- https://github.com/neovim/neovim/pull/27855/files
 require('vim._extui').enable({
  enable = true, -- Whether to enable or disable the UI.

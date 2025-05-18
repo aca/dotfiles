@@ -20,24 +20,25 @@ if [ -z "$WAYLAND_DISPLAY" ]; then
     done
 fi
 
-PS1='\u@\h $ '
+# PS1='\u@\h $ '
 
+# replace with programs.bash.vteIntegration
 # https://codeberg.org/dnkl/foot/wiki#bash
-osc7_cwd() {
-    local strlen=${#PWD}
-    local encoded=""
-    local pos c o
-    for (( pos=0; pos<strlen; pos++ )); do
-        c=${PWD:$pos:1}
-        case "$c" in
-            [-/:_.!\'\(\)~[:alnum:]] ) o="${c}" ;;
-            * ) printf -v o '%%%02X' "'${c}" ;;
-        esac
-        encoded+="${o}"
-    done
-    printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
-}
-PROMPT_COMMAND=${PROMPT_COMMAND:+${PROMPT_COMMAND%;}; }osc7_cwd;
+# osc7_cwd() {
+#     local strlen=${#PWD}
+#     local encoded=""
+#     local pos c o
+#     for (( pos=0; pos<strlen; pos++ )); do
+#         c=${PWD:$pos:1}
+#         case "$c" in
+#             [-/:_.!\'\(\)~[:alnum:]] ) o="${c}" ;;
+#             * ) printf -v o '%%%02X' "'${c}" ;;
+#         esac
+#         encoded+="${o}"
+#     done
+#     printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
+# }
+# PROMPT_COMMAND=${PROMPT_COMMAND:+${PROMPT_COMMAND%;}; }osc7_cwd;
 
 # NIX
 # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -51,4 +52,3 @@ alias l='ls -CF'
 alias elv='elvish'
 
 set -o vi
-

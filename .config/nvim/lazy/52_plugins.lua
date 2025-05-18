@@ -5,12 +5,12 @@ vim.cmd.packadd("quickfix-reflector.vim")
 vim.cmd.packadd("vim-ReplaceWithRegister")
 vim.cmd.packadd("vim-eunuch")
 
-vim.cmd.packadd("visual-whitespace.nvim")
-require("visual-whitespace")
+-- this cause slowdown on large file
+-- vim.cmd.packadd("visual-whitespace.nvim")
+-- require("visual-whitespace")
 
 -- vim.cmd.packadd("nvim-colorizer.lua")
 -- require("colorizer").setup()
-
 
 -- vim.cmd.packadd("nvim-luadev")
 --
@@ -30,7 +30,6 @@ require("visual-whitespace")
 
 vim.cmd([[
         runtime! lua/plugins/*
-        runtime! lua/plugins-unstable/*
         runtime! lua/command/*
         runtime! lua/autocmd/*
         runtime! local/*

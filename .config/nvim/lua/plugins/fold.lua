@@ -8,6 +8,13 @@ vim.cmd([[
 packadd promise-async
 packadd nvim-ufo
 ]])
+
+require("ufo").setup({
+	provider_selector = function(bufnr, filetype, buftype)
+		return { "indent", "treesitter" }
+	end,
+})
+
 --
 -- vim.o.foldmethod = 'expr'
 --
@@ -20,12 +27,6 @@ packadd nvim-ufo
 -- -- end,
 -- })
 --
-require("ufo").setup({
-	provider_selector = function(bufnr, filetype, buftype)
-		return { "treesitter", "indent" }
-	end,
-}
-)
 
 -- vim.cmd.packadd("fold-cycle.nvim")
 -- require("fold-cycle").setup()

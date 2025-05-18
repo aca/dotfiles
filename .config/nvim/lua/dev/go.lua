@@ -1,4 +1,10 @@
 local vim = vim
+
+local ok = pcall(require, 'nvim-treesitter.configs')
+if not ok then
+  return
+end
+
 -- vim.cmd.packadd "gopher.nvim"
 --
 -- require("gopher").setup {

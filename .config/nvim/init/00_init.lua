@@ -1,3 +1,4 @@
+-- vim.o.syntax = "off"
 
 vim.lsp.start_client = vim.lsp.start -- lsp bug
 --https://www.reddit.com/r/neovim/comments/1e8ayeo/candied_markdown_anyone/
