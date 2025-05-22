@@ -1,16 +1,20 @@
 -- start
 -- https://github.com/neovim/neovim/pull/27855/files
-require('vim._extui').enable({
- enable = true, -- Whether to enable or disable the UI.
- msg = { -- Options related to the message module.
-   ---@type 'box'|'cmd' Type of window used to place messages, either in the
-   ---cmdline or in a separate message box window with ephemeral messages.
-   pos = 'cmd',
-   box = { -- Options related to the message box window.
-     timeout = 2000, -- Time a message is visible.
-   },
- },
-})
+
+-- vim.defer_fn(function()
+-- 	-- vim.cmd([[ silent! helptags ALL ]])
+--     require('vim._extui').enable({
+--      enable = true, -- Whether to enable or disable the UI.
+--      msg = { -- Options related to the message module.
+--        ---@type 'box'|'cmd' Type of window used to place messages, either in the
+--        ---cmdline or in a separate message box window with ephemeral messages.
+--        pos = 'cmd',
+--        box = { -- Options related to the message box window.
+--          timeout = 2000, -- Time a message is visible.
+--        },
+--      },
+--     })
+-- end, 200)
 
     -- require('vim._extui').enable({
     --  enable = true, -- Whether to enable or disable the UI.
