@@ -2,8 +2,7 @@
 
 local hostname = vim.uv.os_gethostname()
 
-
-if hostname ~= "txxx-nix" and hostname ~= "home" then
+if hostname ~= "home" and hostname ~= "txxx-nix" and hostname ~= "minibox" then
 	return
 end
 

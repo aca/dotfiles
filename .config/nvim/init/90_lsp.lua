@@ -78,4 +78,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.cmd.packadd("nvim-lspconfig")
 -- vim.lsp.bashls.cmd = { "bash-language-server", "start" }
 
-vim.lsp.enable({ "gopls", "lua_ls", "basedpyright", "vtsls", "teal_ls", "ols", "zls", "bashls" })
+vim.lsp.enable({ "gopls", "lua_ls", "basedpyright", "vtsls", "teal_ls", "ols", "zls", "bashls", "clangd" })
