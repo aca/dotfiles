@@ -1,9 +1,11 @@
 vim.cmd.packadd("plenary.nvim")
 vim.cmd.packadd("tree-sitter-just")
 vim.cmd.packadd("vim-dirvish")
-vim.cmd.packadd("quickfix-reflector.vim")
 vim.cmd.packadd("vim-ReplaceWithRegister")
 vim.cmd.packadd("vim-eunuch")
+-- vim.cmd.packadd("quickfix-reflector.vim")
+vim.cmd.packadd("quicker.nvim")
+require("quicker").setup()
 
 -- this cause slowdown on large file
 -- vim.cmd.packadd("visual-whitespace.nvim")

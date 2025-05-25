@@ -997,3 +997,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/which-key.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/quicker.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/quicker.nvim
+	url = https://github.com/stevearc/quicker.nvim
