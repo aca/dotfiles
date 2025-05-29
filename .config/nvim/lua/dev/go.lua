@@ -244,11 +244,13 @@ end
 local function patch_missing_return(diag, changed_lines)
 	local lnum = diag.lnum + changed_lines
 	local col = diag.col
+    -- print("search for root", node, lnum, col)
 	local node = vim.treesitter.get_node({ pos = { lnum, col } })
 	while node and (node:type() ~= "function_declaration" and node:type() ~= "func_literal") do
 		node = node:parent()
 	end
 	if not node then
+        print("not in function")
 		-- not inside function
 		return 0
 	end
