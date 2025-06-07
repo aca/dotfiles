@@ -18,13 +18,13 @@ HISTCONTROL=ignoredups:ignorespace # don't put duplicate lines in the history. S
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# use active DISPLAY if available on remote session
-# NOTES: this is a hack for working on VM
-if [ -z "$WAYLAND_DISPLAY" ]; then
-    for i in "$XDG_RUNTIME_DIR/wayland"-?; do
-        export WAYLAND_DISPLAY="$i"
-    done
-fi
+# # use active DISPLAY if available on remote session
+# # NOTES: this is a hack for working on VM
+# if [ -z "$WAYLAND_DISPLAY" ]; then
+#     for i in "$XDG_RUNTIME_DIR/wayland"-?; do
+#         export WAYLAND_DISPLAY="$i"
+#     done
+# fi
 
 # PS1='\u@\h $ '
 
