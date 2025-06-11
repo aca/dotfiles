@@ -1,5 +1,9 @@
 vim.defer_fn(function()
-	require("init-lazy")
+
+
+	require("lazy")
+
+
 end, 100)
 
 -- this doesn't work
