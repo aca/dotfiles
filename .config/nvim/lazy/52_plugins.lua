@@ -6,7 +6,7 @@ vim.cmd.packadd("vim-eunuch")
 -- vim.cmd.packadd("quickfix-reflector.vim")
 vim.cmd.packadd("quicker.nvim")
 require("quicker").setup()
-vim.cmd.packadd("dirdiff.nvim")
+vim.cmd.packadd("vim-dirdiff")
 
 -- this cause slowdown on large file
 -- vim.cmd.packadd("visual-whitespace.nvim")
