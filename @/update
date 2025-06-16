@@ -3,3 +3,5 @@ set -euxo pipefail
 
 git pull --rebase
 git submodule update --jobs=8 --init --remote --force
+cd $HOME/src/github.com/aca/dotfiles/.local/share/nvim/site/pack/bundle/opt/blink.cmp && nix run .#build-plugin
+
