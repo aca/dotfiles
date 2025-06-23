@@ -38,7 +38,7 @@ local function get_indent(lnum, add)
 	local line = vim.fn.getline(lnum + 1) -- ts/lsp line +1 = vim line
 	-- print("get_indent: line", line)
 	local indent = line:match("^%s*") or ""
-	print(string.format("indent %q %q", indent, line))
+	-- print(string.format("indent %q %q", indent, line))
 	if add ~= nil then
 		return indent + add
 	else
@@ -217,7 +217,6 @@ local function insert_err_return(diag, changed_lines)
 		return
 	end
 
-
 	-- vim.print(result:type(), vim.treesitter.get_node_text(result, 0))
 
 	local zero_vals, has_error = {}, false
@@ -261,11 +260,11 @@ local function insert_err_return(diag, changed_lines)
 
 	local indent = get_indent(node_declare_start_line)
 	local lines = { indent .. "if err != nil {", indent .. string.format("\treturn %s", ret), indent .. "}" }
-    -- print("err handler insert at ", node_declare_start_line + 1)
+	-- print("err handler insert at ", node_declare_start_line + 1)
 
 	vim.api.nvim_buf_set_lines(0, node_declare_end_line + 1, node_declare_end_line + 1, false, lines)
 
-    -- error handler adds 2 line 
+	-- error handler adds 2 line
 	return 2
 
 	--    print("end_row", end_row)
@@ -416,10 +415,15 @@ local function patch_unused_var(diag, changed_lines)
 end
 
 local patch = function()
+	print("patch")
 	local changed_lines = 0
 	local diags = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 	if not diags and #diags == 0 then
 		return
+	end
+
+	for _, diag in ipairs(diags) do
+		print(diag.lnum, diag.col, diag.code, diag.message)
 	end
 
 	for _, diag in ipairs(diags) do
@@ -429,13 +433,17 @@ local patch = function()
 		if diag["code"] == "MissingReturn" then
 			local changed = patch_missing_return(diag, changed_lines)
 			changed_lines = changed_lines + changed
+            return 
 		elseif diag["code"] == "UnusedVar" then
 			if diag["message"] == "declared and not used: err" then
 				local changed = insert_err_return(diag, changed_lines)
-				-- changed_lines = changed_lines + changed
+				-- local changed = patch_unused_var(diag, changed_lines)
+				changed_lines = changed_lines + changed
+                return
 			else
 				local changed = patch_unused_var(diag, changed_lines)
 				changed_lines = changed_lines + changed
+                return
 			end
 		end
 	end
@@ -446,7 +454,6 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 	callback = function()
 		if vim.bo.modifiable then
 			pcall(function()
-                print("patch")
 				patch()
 			end)
 		end

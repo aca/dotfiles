@@ -31,6 +31,7 @@ func (x X) px() (int, int, error) {
 
 func Print() (int, error) {
 	f, err := os.Open("hello")
+	return 0, nil
 }
 
 // this should be here
