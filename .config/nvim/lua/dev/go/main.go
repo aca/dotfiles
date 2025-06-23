@@ -21,6 +21,9 @@ type X struct {
 func (x X) px() (int, int, error) {
 
 	xx, err := os.Open("ewr")
+	if err != nil {
+		return 0, 0, nil
+	}
 	_ = xx
 
 	return 0, 0, nil
@@ -28,11 +31,6 @@ func (x X) px() (int, int, error) {
 
 func Print() (int, error) {
 	f, err := os.Open("hello")
-	if err != nil {
-		return 0, nil
-	}
-	_ = f
-	return 0, nil
 }
 
 // this should be here
@@ -41,13 +39,16 @@ func Print() (int, error) {
 // this should be here
 // this should be here
 
-// func (x *X) Print() (int, error) {
-// 	f, err := os.Open("hello")
-// 	_ = f
-//
-//
-// 	return 0, nil
-// }
+func (x *X) Print() (int, error) {
+	f, err := os.Open("hello")
+	if err != nil {
+		return 0, nil
+	}
+	_ = f
+
+
+	return 0, nil
+}
 
 func zoo() (int, err error) {
 

@@ -261,9 +261,12 @@ local function insert_err_return(diag, changed_lines)
 
 	local indent = get_indent(node_declare_start_line)
 	local lines = { indent .. "if err != nil {", indent .. string.format("\treturn %s", ret), indent .. "}" }
-    print("err handler insert at ", node_declare_start_line + 1)
+    -- print("err handler insert at ", node_declare_start_line + 1)
 
-	-- vim.api.nvim_buf_set_lines(0, node_declare_end_line + 1, node_declare_end_line + 1, false, lines)
+	vim.api.nvim_buf_set_lines(0, node_declare_end_line + 1, node_declare_end_line + 1, false, lines)
+
+    -- error handler adds 2 line 
+	return 2
 
 	--    print("end_row", end_row)
 	-- vim.api.nvim_buf_set_lines(0, end_row + 1, end_row + 1, false, lines)
@@ -276,7 +279,6 @@ local function insert_err_return(diag, changed_lines)
 	-- -- -- 3) 현재 라인 바로 아래에 삽입 (Neovim은 0‑index, vim.fn.line()은 1‑index)
 	-- -- local row = vim.fn.line(".")
 	-- -- vim.api.nvim_buf_set_lines(0, row, row, false, { line })
-	return 2
 end
 
 local function patch_missing_return(diag, changed_lines)
