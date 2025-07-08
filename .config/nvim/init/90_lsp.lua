@@ -1,5 +1,8 @@
 vim.cmd.packadd("nvim-navic")
 
+vim.lsp.set_log_level("debug")
+-- require("vim.lsp.log").set_format_func(vim.inspect)
+
 local navic = require("nvim-navic")
 -- navic.setup {
 --     icons = {
@@ -77,29 +80,36 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.cmd.packadd("nvim-lspconfig")
 local lspconfig = require("lspconfig")
 
-vim.lsp.config('*', {
-   root_markers = { ".git" },
+vim.lsp.config("*", {
+	root_markers = { ".git" },
 })
 
 -- -- don't know why but '*' doesn't work
-vim.lsp.config('basedpyright', {
-   root_markers = { ".git" },
+vim.lsp.config("basedpyright", {
+	root_markers = { ".git" },
 })
 
 -- vim.lsp.config('basedpyright', {
 --     cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
 -- })
 
-
 -- lspconfig['basedpyright'].cmd = { "uv", "run", "basedpyright-langserver", "--stdio" }
 -- vim.print(lspconfig['basedpyright'])
 -- vim.lsp.config('basedpyright', lspconfig['basedpyright'])
+
+vim.lsp.config["agl"] = {
+	cmd = { "agl-lsp" },
+	filetypes = { "agl" },
+	root_markers = { ".git" },
+	settings = {},
+}
 
 vim.lsp.enable({
 	"gopls",
 	"lua_ls",
 	"vtsls",
 	"teal_ls",
+	"agl",
 	"ols",
 	"zls",
 	"bashls",
@@ -107,6 +117,5 @@ vim.lsp.enable({
 	-- "ty",
 	"basedpyright",
 })
-
 
 -- "basedpyright",

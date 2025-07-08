@@ -4,6 +4,7 @@ vim.filetype.add({
 	extension = {
 		pc = "c",
 		tyson = "typescript",
+		agl = "agl",
 	},
 	filename = {
 		["justfile"] = "just",
