@@ -120,7 +120,7 @@ else
 	-- }
 end
 
-if vim.fn.executable("mac") == 0 then
+if vim.fn.executable("mac") ~= 0 then
 	vim.g.clipboard = {
 		name = "macOS-clipboard",
 
