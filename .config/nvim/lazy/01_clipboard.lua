@@ -120,8 +120,7 @@ else
 	-- }
 end
 
-if vim.fn.executable("mac") then
-    print("clipboard set to orbstack")
+if vim.fn.executable("mac") == 0 then
 	vim.g.clipboard = {
 		name = "macOS-clipboard",
 
@@ -145,27 +144,3 @@ if vim.fn.executable("mac") then
 	vim.opt.clipboard = "unnamedplus"
 end
 
-if vim.fn.executable("mac2") then
-    print("clipboard set to orbstack2")
-	vim.g.clipboard = {
-		name = "macOS-clipboard",
-
-		-- When you use the "+y or "*y commands in Neovim, it will copy the selected text to the clipboard using mac pbcopy .
-		copy = {
-			["+"] = "mac pbcopy", -- You can use `mac link pbcopy` first, then just use pbcopy
-			["*"] = "mac pbcopy",
-		},
-
-		-- When you use the "+p or "*p commands in Neovim, it will paste the clipboard content by invoking mac pbpaste.
-		paste = {
-			["+"] = "mac pbpaste",
-			["*"] = "mac pbpaste",
-		},
-		cache_enabled = 0,
-	}
-
-	-- This option tells Neovim to use the + register whenever you perform actions like copying and pasting.
-	-- It essentially makes "+y and "+p the default behavior, even without explicitly specifying the register.
-	-- So, y (yank) and p (put) will copy and paste directly to/from + register without requiring special register commands.
-	vim.opt.clipboard = "unnamedplus"
-end
