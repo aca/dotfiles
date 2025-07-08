@@ -120,7 +120,7 @@ else
 	-- }
 end
 
-if vim.fn.executable("/opt/orbstack-guest/bin/pbcopy") then
+if vim.fn.executable("mac") then
 	vim.g.clipboard = {
 		name = "macOS-clipboard",
 
