@@ -121,6 +121,7 @@ else
 end
 
 if vim.fn.executable("mac") then
+    print("clipboard set to orbstack")
 	vim.g.clipboard = {
 		name = "macOS-clipboard",
 
