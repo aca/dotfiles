@@ -23,9 +23,9 @@ vim.keymap.set("i", "<c-f>", 'copilot#Accept("\\<cr>")', {
 -- Fix for copilot not working with nvim 0.11
 -- TODO: remove after copilot.vim update
 
--- vim.defer_fn(function()
--- 	vim.cmd.packadd("copilot.vim")
--- 	vim.cmd([[
---         call copilot#Init()
---     ]])
--- end, 50)
+vim.defer_fn(function()
+	vim.cmd.packadd("copilot.vim")
+	vim.cmd([[
+        call copilot#Init()
+    ]])
+end, 50)
