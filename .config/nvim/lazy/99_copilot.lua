@@ -2,14 +2,13 @@
 
 local hostname = vim.uv.os_gethostname()
 
-if hostname ~= "home" and hostname ~= "txxx-nix" and hostname ~= "sm-a556e" then
+if hostname ~= "home" and hostname ~= "txxx-nix" and hostname ~= "sm-a556e" and hostname ~= "elckyungrokchung2" then
 	return
 end
 
 if os.getenv("DISABLE_COPILOT") ~= "" then
-    return
+	return
 end
-
 
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_proxy_strict_ssl = false
