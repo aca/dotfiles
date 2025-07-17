@@ -414,17 +414,29 @@ local function patch_unused_var(diag, changed_lines)
 	end
 end
 
+local function patch_undefined_ctx(diag, changed_lines)
+	local lnum = diag.lnum + changed_lines
+	local col = diag.col
+	-- local cur_node = vim.treesitter.get_node({ pos = { lnum, col } })
+	-- if cur_node == nil then
+	-- 	return 0
+	-- end
+	--
+    vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { get_indent(lnum) .. "ctx := context.Background()"  })
+    return 1
+end
+
 local patch = function()
-	print("patch")
+	-- print("patch")
 	local changed_lines = 0
 	local diags = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 	if not diags and #diags == 0 then
 		return
 	end
 
-	for _, diag in ipairs(diags) do
-		print(diag.lnum, diag.col, diag.code, diag.message)
-	end
+	-- for _, diag in ipairs(diags) do
+	-- 	print(diag.lnum, diag.col, diag.code, diag.message)
+	-- end
 
 	for _, diag in ipairs(diags) do
 		-- lsp: line 5 -> vim 6
@@ -433,7 +445,7 @@ local patch = function()
 		if diag["code"] == "MissingReturn" then
 			local changed = patch_missing_return(diag, changed_lines)
 			changed_lines = changed_lines + changed
-            return 
+            return
 		elseif diag["code"] == "UnusedVar" then
 			if diag["message"] == "declared and not used: err" then
 				local changed = insert_err_return(diag, changed_lines)
@@ -445,6 +457,9 @@ local patch = function()
 				changed_lines = changed_lines + changed
                 return
 			end
+		elseif diag["message"] == "undefined: ctx" then
+				local changed = patch_undefined_ctx(diag, changed_lines)
+				changed_lines = changed_lines + changed
 		end
 	end
 end
@@ -459,6 +474,7 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 		end
 	end,
 })
+
 
 -- 4) 키 매핑
 -- vim.keymap.set("n", "<leader>er", insert_err_return, { desc = "자동 err 리턴 삽입", silent = true })
