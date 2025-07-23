@@ -1,10 +1,21 @@
 package main
 
-import "log"
+import (
+	"context"
+	"log"
+)
 
-func main(){
-    log.Println("start")
+func main() {
+	log.Println("start")
+
+		x := 3
+		_ = x
+
+	ctx := context.Background()
+
 	c(ctx)
+
+
 
 
 }
@@ -12,4 +23,3 @@ func main(){
 func c(ctx context.Context) {
 
 }
-

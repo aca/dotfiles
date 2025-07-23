@@ -55,10 +55,11 @@ end, { silent = true })
 
 set("n", "gt", vim.lsp.buf.type_definition, { silent = true })
 set("n", "[d", function()
-	vim.diagnostic.goto_prev({ wrap = false })
+	-- vim.diagnostic.goto_prev({ wrap = false })
+	vim.diagnostic.jump({count=-1, float=true} )
 end, { silent = true })
 set("n", "]d", function()
-	vim.diagnostic.goto_next({ wrap = false })
+	vim.diagnostic.jump({count=1, float=true} )
 end, { silent = true })
 -- NOTES: this is set by neovim, lsprestart fails if it's set here
 -- set("n", "K", vim.lsp.buf.hover, { silent = true })

@@ -83,3 +83,49 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 --         vim.o.expandtab = false
 --     end,
 -- })
+
+-- Auto apply Go import fixes on save
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*.go",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    
+    -- Get current buffer diagnostics
+    local diagnostics = vim.diagnostic.get(bufnr)
+    
+    -- Get attached clients using the new API
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
+    if #clients == 0 then return end
+    
+    -- Create code action params with proper encoding
+    local params = vim.lsp.util.make_range_params(0, clients[1].offset_encoding)
+    params.context = {
+      diagnostics = diagnostics,
+      only = { "quickfix" }
+    }
+    
+    -- Request code actions
+    local results = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
+    
+    if not results then return end
+    
+    -- Process results from each LSP client
+    for client_id, result in pairs(results) do
+      local client = vim.lsp.get_client_by_id(client_id)
+      
+      if result.result and client then
+        for _, action in ipairs(result.result) do
+          -- Check if this is an import action
+          if action.title and action.title:match("Add import") then
+            -- Apply the code action
+            if action.edit then
+              vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+            elseif action.command then
+              vim.lsp.buf.execute_command(action.command)
+            end
+          end
+        end
+      end
+    end
+  end,
+})
