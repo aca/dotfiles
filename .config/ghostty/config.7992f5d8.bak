@@ -131,4 +131,3 @@ cursor-style = bar
 keybind = alt+g=write_scrollback_file:paste
 # keybind = alt+g=new_tab
 # keybind = ctrl+shift+v=paste_from_clipboard
-keybind = shift+enter=text:\x1b\r

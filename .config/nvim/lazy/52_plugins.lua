@@ -37,6 +37,7 @@ vim.cmd([[
         runtime! lua/autocmd/*
         runtime! local/*
         runtime! lua/dev/*
+        runtime! lua/dev/gofix/*
 ]])
 
 vim.cmd([[

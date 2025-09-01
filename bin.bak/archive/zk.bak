@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if ! docker inspect zk >/dev/null ; then
-  docker run -d --name zk --rm -p 9999:9999 -v ~/src/zettels:/notes sridca/neuron neuron gen -ws 0.0.0.0:9999
-fi
-
-open "http://0.0.0.0:9999" || xdg-open "http://0.0.0.0:9999"

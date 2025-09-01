@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-sleep 10
-systemd-notify --ready --status="Waiting for data…"
-
-while : ; do
-        systemd-notify --status="Processing"
-        sleep 10
-        systemd-notify --status="Waiting for data…"
-done

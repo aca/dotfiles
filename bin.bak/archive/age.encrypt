@@ -1,3 +1,0 @@
-#!/bin/sh
-
-age -R ~/.ssh/id_rsa "$1" > "$1.age"

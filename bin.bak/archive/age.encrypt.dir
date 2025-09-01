@@ -1,3 +1,0 @@
-#!/bin/sh
-
-tar cvz "$1" | age -R ~/.ssh/id_rsa.pub > "$1.tar.gz.age"
