@@ -1,6 +1,6 @@
 vim.cmd.packadd("nvim-navic")
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
 local navic = require("nvim-navic")

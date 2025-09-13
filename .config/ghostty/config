@@ -59,21 +59,20 @@ keybind = ctrl+b>c=new_tab
 
 
 
-# font-family = "Iosevka Term Slab Light"
 # font-family = "BlexMono Nerd Font"
 # font-feature = "-dlig"
 #
-# font-family = "Iosevka Term Slab Light"
+font-family = "IosevkaTermSlab Nerd Font"
 # font-family = "ZedMono Nerd Font Mono"
 # font-family = "BlexMono Nerd Font"
 
 
-font-family = "IosevkaTermSlab Nerd Font"
+# font-family = "IosevkaTermSlab Nerd Font"
 # font-family = "CMU Typewriter Text"
-font-family = "IBM Plex Sans KR"
+# font-family = "Lilex Nerd Font"
 # font-feature = "-dlig"
 # font-family = "Lotion"
-font-style = "Light"
+# font-style = "Light"
 
 # theme = Solarized Dark Higher Contrast
 
