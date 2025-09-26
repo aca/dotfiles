@@ -108,4 +108,4 @@ mp.register_event("file-loaded", function()
     start_time = nil
 end)
 
-show_message("EDL Segments loaded. Keys: 'a'=mark start, 's'=mark end & add, 'd'=reset, 'f'=status")
+-- show_message("EDL Segments loaded. Keys: 'a'=mark start, 's'=mark end & add, 'd'=reset, 'f'=status")
