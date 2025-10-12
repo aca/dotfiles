@@ -104,8 +104,11 @@ vim.lsp.config["agl"] = {
 	settings = {},
 }
 
+-- vim.lsp.config["basedpyright"].cmd = "basedpyright"
+
 vim.lsp.enable({
 	"gopls",
+    "zuban",
 	"lua_ls",
 	"vtsls",
 	"teal_ls",
@@ -115,7 +118,7 @@ vim.lsp.enable({
 	"bashls",
 	"clangd",
 	-- "ty",
-	"basedpyright",
+	-- "basedpyright",
 })
 
 -- "basedpyright",
