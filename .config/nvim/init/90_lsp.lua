@@ -1,6 +1,6 @@
 vim.cmd.packadd("nvim-navic")
 
--- vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("debug")
 -- require("vim.lsp.log").set_format_func(vim.inspect)
 
 local navic = require("nvim-navic")
@@ -77,8 +77,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+
 vim.cmd.packadd("nvim-lspconfig")
-local lspconfig = require("lspconfig")
 
 vim.lsp.config("*", {
 	root_markers = { ".git" },

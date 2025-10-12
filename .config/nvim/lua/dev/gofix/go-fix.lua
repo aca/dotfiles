@@ -1,8 +1,7 @@
 local M = {}
+local vim = vim
 M.is_running = false
 M.pending_request = false
-
-local vim = vim
 
 local ok = pcall(require, "nvim-treesitter.configs")
 if not ok then
