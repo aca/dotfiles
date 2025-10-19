@@ -1006,3 +1006,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/lazy.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/lazy.nvim
 	url = https://github.com/folke/lazy.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/img-clip.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/img-clip.nvim
+	url = https://github.com/hakonharnes/img-clip.nvim.git
