@@ -116,6 +116,7 @@ vim.lsp.enable({
 	"ols",
 	"zls",
 	"bashls",
+    "rust_analyzer",
 	"clangd",
 	-- "ty",
 	-- "basedpyright",
