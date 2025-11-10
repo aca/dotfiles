@@ -228,7 +228,7 @@ local config = {
     -- },
     line_height = 1,
     -- adjust_window_size_when_changing_font_size = false,
-    default_prog = { homedir .. "/bin/elvish" },
+    -- default_prog = { homedir .. "/bin/elvish" },
     -- default_prog = { "/bin/sh" },
     -- default_prog = { "/usr/local/bin/elvish" },
     -- default_prog = { "/usr/local/bin/fish", "--login"},

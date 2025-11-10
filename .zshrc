@@ -156,3 +156,4 @@ fi
 export GIT_SSL_CAPATH="/tmp/netskope-cert-bundle.pem"
 export SSL_CERT_FILE="/tmp/netskope-cert-bundle.pem"
 export REQUESTS_CA_BUNDLE="/tmp/netskope-cert-bundle.pem"
+export AWS_CA_BUNDLE="/tmp/netskope-cert-bundle.pem"
