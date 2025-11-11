@@ -113,7 +113,6 @@ vnoremap ;; :
 " imap <expr><C-j>                vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
 imap <silent><expr>             <c-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<c-j>'
 
-nnoremap <silent> ;t :Neotest run<cr>
 
 function! Togglesigncolumn()
   if &signcolumn == 'yes'

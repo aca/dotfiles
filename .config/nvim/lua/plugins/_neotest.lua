@@ -9,6 +9,10 @@ packadd neotest
 packadd neotest-go
 ]])
 
+vim.keymap.set("n", ";t", function()
+	require("neotest").run.run()
+end, { desc = "Run nearest test" })
+
 require("neotest").setup({
 	adapters = {
 		require("neotest-go")({
@@ -37,9 +41,4 @@ require("neotest").setup({
 			-- end,
 		}),
 	},
-    status = {
-      enabled = true,
-      signs = false,
-      virtual_text = true
-    },
 })
