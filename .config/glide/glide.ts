@@ -30,11 +30,12 @@ glide.keymaps.set(["normal", "insert"], "<C-j>", "tab_next");
 glide.keymaps.set(["normal", "insert"], "<C-k>", "tab_prev");
 
 glide.keymaps.set(["normal", "insert"], "<C-Backspace>", "back");
-if (glide.ctx.os === "macosx") {
-  glide.keymaps.set(["normal", "insert"], "<D-h>", "back");
-  glide.keymaps.set(["normal", "insert"], "<D-l>", "forward");
-} else {
-  // we don't use <C-l> on linux as it would conflict with a builtin keymap
-  glide.keymaps.set(["normal", "insert"], "<C-h>", "back");
-  glide.keymaps.set(["normal", "insert"], "<C-l>", "forward");
-}
+// if (glide.ctx.os === "macosx") {
+//   glide.keymaps.set(["normal", "insert"], "<D-h>", "back");
+//   glide.keymaps.set(["normal", "insert"], "<D-l>", "forward");
+// } else {
+//   // we don't use <C-l> on linux as it would conflict with a builtin keymap
+//   glide.keymaps.set(["normal", "insert"], "<C-h>", "back");
+//   glide.keymaps.set(["normal", "insert"], "<C-l>", "forward");
+// }
+// glide.keymaps.del(["normal", "insert"], "<C-l>");
