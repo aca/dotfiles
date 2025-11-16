@@ -829,9 +829,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/nvim-nio"]
 	path = .local/share/nvim/site/pack/bundle/opt/nvim-nio
 	url = https://github.com/nvim-neotest/nvim-nio.git
-[submodule ".local/share/nvim/site/pack/bundle/opt/neotest-go"]
-	path = .local/share/nvim/site/pack/bundle/opt/neotest-go
-	url = https://github.com/nvim-neotest/neotest-go.git
 [submodule ".local/share/nvim/site/pack/bundle/opt/markdown.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/markdown.nvim
 	url = https://github.com/MeanderingProgrammer/markdown.nvim.git
@@ -1009,3 +1006,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/img-clip.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/img-clip.nvim
 	url = https://github.com/hakonharnes/img-clip.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/neotest-golang"]
+	path = .local/share/nvim/site/pack/bundle/opt/neotest-golang
+	url = https://github.com/fredrikaverpil/neotest-golang
