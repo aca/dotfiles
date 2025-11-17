@@ -16,19 +16,31 @@
 --     })
 -- end, 200)
 
-    -- require('vim._extui').enable({
-    --  enable = true, -- Whether to enable or disable the UI.
-    --  msg = { -- Options related to the message module.
-    --    ---@type 'box'|'cmd' Type of window used to place messages, either in the
-    --    ---cmdline or in a separate message box window with ephemeral messages.
-    --    pos = 'cmd',
-    --    box = { -- Options related to the message box window.
-    --      timeout = 4000, -- Time a message is visible.
-    --    },
-    --  },
-    -- })
+-- require('vim._extui').enable({
+--  enable = true, -- Whether to enable or disable the UI.
+--  msg = { -- Options related to the message module.
+--    ---@type 'box'|'cmd' Type of window used to place messages, either in the
+--    ---cmdline or in a separate message box window with ephemeral messages.
+--    pos = 'cmd',
+--    box = { -- Options related to the message box window.
+--      timeout = 4000, -- Time a message is visible.
+--    },
+--  },
+-- })
 
-vim.o.statuscolumn="%@SignCb@%s%=%T%@NumCb@%l │%T "
+
+-- -- vim.opt.wrap = false
+vim.o.showtabline = 2
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.numberwidth = 3
+-- -- o.signcolumn = "yes:1"
+vim.o.signcolumn = "yes:1"
+-- -- o.formatoptions = "jncroql"
+-- vim.o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
+--
+--
+vim.o.statuscolumn = "%@SignCb@%s%=%T%@NumCb@%l │%T "
 vim.o.statusline = "%<%f %h%m%r"
 vim.o.cmdheight = 0
 
@@ -42,8 +54,39 @@ vim.o.cmdheight = 0
 -- 	end,
 -- })
 
-
 -- autocmd ModeChanged * lua vim.schedule(function() vim.cmd('redraw') end)
 
 -- vim.print("reset laststatus")
 -- vim.o.laststatus = vim.o.laststatus
+--
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function()
+		vim.bo.filetype = "terminal"
+	end,
+})
+
+-- Then: configure settings for that filetype
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "terminal",
+	callback = function()
+		vim.wo.relativenumber = false
+		vim.wo.number = false
+		vim.wo.signcolumn = "no"
+		vim.wo.statuscolumn = ""
+	end,
+})
+
+-- vim.cmd([[
+-- au TermOpen * tnoremap <Esc> <c-\><c-n>
+-- au TermOpen * tnoremap <c-l> <c-\><c-l>
+-- au TermOpen * tnoremap <c-h> <c-\><c-l>
+-- ]])
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { buffer = true })
+    vim.keymap.set('t', '<c-l>', '<C-\\><C-n><c-l><c-h>', { buffer = true })
+    vim.keymap.set('t', '<c-h>', '<C-\\><C-n><c-h><c-h>', { buffer = true })
+  end,
+})

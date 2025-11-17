@@ -22,9 +22,9 @@ local function smart_close()
   -- Count listed (normal) buffers
   local listed = vim.fn.getbufinfo({ buflisted = 1 })
   if #listed > 1 then
-    vim.cmd("bdelete")      -- just close the current buffer
+    vim.cmd("bdelete!")      -- just close the current buffer
   else
-    vim.cmd("quit")         -- last one → leave Neovim
+    vim.cmd("quit!")         -- last one → leave Neovim
   end
 end
 

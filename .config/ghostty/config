@@ -75,7 +75,6 @@ font-family = "IosevkaTermSlab Nerd Font"
 # font-style = "Light"
 
 # theme = Solarized Dark Higher Contrast
-
 # palette = 0=#4f4f4f
 # palette = 1=#fa6c60
 # palette = 2=#a8ff60
@@ -101,29 +100,29 @@ font-family = "IosevkaTermSlab Nerd Font"
 font-size = 26
 
 
-theme = Mellifluous
-# palette = 0=#1a1a1a
-# palette = 1=#d29393
-# palette = 2=#b3b393
-# palette = 3=#cbaa89
-# palette = 4=#a8a1be
-# palette = 5=#b39fb0
-# palette = 6=#c0af8c
-# palette = 7=#dadada
-# palette = 8=#5b5b5b
-# palette = 9=#c95954
-# palette = 10=#828040
-# palette = 11=#a6794c
-# palette = 12=#5a6599
-# palette = 13=#9c6995
-# palette = 14=#74a39e
-# palette = 15=#ffffff
-# background = #000000
-# foreground = #dadada
-# cursor-color = #bfad9e
-# cursor-text = #1a1a1a
-# selection-background = #2d2d2d
-# selection-foreground = #c0af8c
+# theme = Mellifluous
+palette = 0=#1a1a1a
+palette = 1=#d29393
+palette = 2=#b3b393
+palette = 3=#cbaa89
+palette = 4=#a8a1be
+palette = 5=#b39fb0
+palette = 6=#c0af8c
+palette = 7=#dadada
+palette = 8=#5b5b5b
+palette = 9=#c95954
+palette = 10=#828040
+palette = 11=#a6794c
+palette = 12=#5a6599
+palette = 13=#9c6995
+palette = 14=#74a39e
+palette = 15=#ffffff
+background = #000000
+foreground = #dadada
+cursor-color = #bfad9e
+cursor-text = #1a1a1a
+selection-background = #2d2d2d
+selection-foreground = #c0af8c
 
 cursor-style = bar
 
