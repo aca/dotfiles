@@ -1,14 +1,16 @@
 local vim = vim
 
-vim.cmd([[ 
-    packadd nvim-treesitter
-    " packadd nvim-ts-rainbow
-    " packadd nvim-treesitter-context
-    "packadd nvim-treesitter-textobjects
-    "packadd nvim-ts-context-commentstring
-    " packadd contextindent.nvim
-    " packadd playground
-]])
+-- vim.cmd.packadd "nvim-treesitter"
+
+-- vim.cmd([[ 
+--     packadd nvim-treesitter
+--     " packadd nvim-ts-rainbow
+--     " packadd nvim-treesitter-context
+--     "packadd nvim-treesitter-textobjects
+--     "packadd nvim-ts-context-commentstring
+--     " packadd contextindent.nvim
+--     " packadd playground
+-- ]])
 
 -- require("nvim-treesitter.configs").setup({
 -- 	enable = true,
@@ -174,4 +176,4 @@ vim.cmd([[
 -- --
 -- safe_treesitter_start(0)
 -- vim.treesitter.start(0,  )
-pcall(vim.treesitter.start)
+-- pcall(vim.treesitter.start)

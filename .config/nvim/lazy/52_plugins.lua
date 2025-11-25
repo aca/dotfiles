@@ -12,8 +12,8 @@ vim.cmd.packadd("vim-dirdiff")
 -- vim.cmd.packadd("visual-whitespace.nvim")
 -- require("visual-whitespace")
 
--- vim.cmd.packadd("nvim-colorizer.lua")
--- require("colorizer").setup()
+vim.cmd.packadd("nvim-colorizer.lua")
+require("colorizer").setup()
 
 -- vim.cmd.packadd("nvim-luadev")
 --

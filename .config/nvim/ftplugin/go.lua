@@ -1,4 +1,17 @@
 local vim = vim
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'rust', 'javascript', 'zig' },
+    callback = function()
+      -- syntax highlighting, provided by Neovim
+      vim.treesitter.start()
+      -- folds, provided by Neovim
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      -- indentation, provided by nvim-treesitter
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+  })
+
 vim.o.expandtab = false
 
 local runTmux = function(cmd)
