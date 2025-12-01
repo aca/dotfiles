@@ -1,5 +1,5 @@
 /* ======================================================
-                Glide version: 0.1.53a
+                Glide version: 0.1.54a
    ====================================================== */
 
 declare const GLIDE_EXCOMMANDS: [
@@ -303,13 +303,20 @@ declare const GLIDE_EXCOMMANDS: [
 						"left",
 						"right",
 						"up",
-						"down"
+						"down",
+						"endline"
 					];
 				};
 				readonly required: true;
 				readonly position: 0;
 			};
 		};
+	},
+	{
+		readonly name: "copy";
+		readonly description: "Copy text from an applicable context to the clipboard";
+		readonly content: false;
+		readonly repeatable: false;
 	},
 	{
 		readonly name: "visual_selection_copy";
@@ -364,25 +371,25 @@ declare const GLIDE_EXCOMMANDS: [
 	{
 		readonly name: "scroll_top";
 		readonly description: "Scroll to the top of the window";
-		readonly content: true;
-		readonly repeatable: false;
-	},
-	{
-		readonly name: "scroll_page_down";
-		readonly description: "Scroll down by 1 page (the size of the viewport)";
-		readonly content: true;
-		readonly repeatable: false;
-	},
-	{
-		readonly name: "scroll_page_up";
-		readonly description: "Scroll up by 1 page (the size of the viewport)";
-		readonly content: true;
+		readonly content: false;
 		readonly repeatable: false;
 	},
 	{
 		readonly name: "scroll_bottom";
 		readonly description: "Scroll to the bottom of the window";
-		readonly content: true;
+		readonly content: false;
+		readonly repeatable: false;
+	},
+	{
+		readonly name: "scroll_page_down";
+		readonly description: "Scroll down by 1 page (the size of the viewport)";
+		readonly content: false;
+		readonly repeatable: false;
+	},
+	{
+		readonly name: "scroll_page_up";
+		readonly description: "Scroll up by 1 page (the size of the viewport)";
+		readonly content: false;
 		readonly repeatable: false;
 	},
 	{
@@ -480,6 +487,7 @@ declare const GLIDE_EXCOMMANDS: [
 						"e",
 						"b",
 						"B",
+						"I",
 						"0",
 						"$",
 						"{",
@@ -525,6 +533,18 @@ declare global {
 			 * The currently active mode.
 			 */
 			mode: GlideMode;
+			/**
+			 * The current glide version.
+			 *
+			 * @example "0.1.53a"
+			 */
+			version: string;
+			/**
+			 * The firefox version that glide is based on.
+			 *
+			 * @example "145.0b6"
+			 */
+			firefox_version: string;
 			/**
 			 * The URL of the currently focused tab.
 			 */
@@ -678,8 +698,29 @@ declare global {
 			 *   }
 			 * `);
 			 * ```
+			 *
+			 * If you want to remove the styles later on, you can pass an ID with `ts:glide.styles.add(..., { id: 'my-id'}`, and then
+			 * remove it with `ts:glide.styles.remove('my-id')`.
 			 */
-			add(styles: string): void;
+			add(styles: string, opts?: {
+				id: string;
+			}): void;
+			/**
+			 * Remove custom CSS that has previously been added.
+			 *
+			 * ```typescript
+			 * glide.styles.add(css`
+			 *   #TabsToolbar {
+			 *     visibility: collapse !important;
+			 *   }
+			 * `, { id: 'disable-tab-bar' });
+			 * // ...
+			 * glide.styles.remove('disable-tab-bar');
+			 * ```
+			 *
+			 * If the given ID does not correspond to any previously registered styles, then `false` is returned.
+			 */
+			remove(id: string): boolean;
 		};
 		prefs: {
 			/**
@@ -853,6 +894,13 @@ declare global {
 				 */
 				editable?: boolean;
 				/**
+				 * Include elements that have a `click` listener registered.
+				 *
+				 * @experimental
+				 * @default false
+				 */
+				include_click_listeners?: boolean;
+				/**
 				 * If only one hint is generated, automatically activate it.
 				 *
 				 * @default false
@@ -1007,10 +1055,6 @@ declare global {
 			/**
 			 * Include another file as part of your config. The given file is evluated as if it
 			 * was just another Glide config file.
-			 *
-			 * **note**: this only supports files that are directly relative to your config file,
-			 *           for example, `ts:"shared.glide.ts"` or `ts:"shared/glide.ts"` would work but
-			 *           `ts:"../shared/glide.ts"` will not.
 			 *
 			 * **note**: this function cannot be called from inside a file that has been included
 			 *           itself, i.e. nested {@link glide.unstable.include} calls are not supported.
@@ -1296,6 +1340,17 @@ declare global {
 			 * @default "hjklasdfgyuiopqwertnmzxcvb"
 			 */
 			hint_chars: string;
+			/**
+			 * Configure the strategy for implementing scrolling, this affects the
+			 * `h`, `j`, `k`, `l`,`<C-u>`, `<C-d>`, `G`, and `gg` mappings.
+			 *
+			 * This is exposed as the current `keys` implementation can result in non-ideal behaviour if a website overrides arrow key events.
+			 *
+			 * This will be removed in the future when the kinks with the `keys` implementation are ironed out.
+			 *
+			 * @default "keys"
+			 */
+			scroll_implementation: "keys" | "legacy";
 		};
 		export type SpawnOptions = {
 			cwd?: string;
