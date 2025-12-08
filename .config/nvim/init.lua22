@@ -1,0 +1,3 @@
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+vim.keymap.set('t', '<c-h>', [[<C-\><C-n><c-w>h]])
+vim.keymap.set('t', '<c-l>', [[<C-\><C-n><c-w>l]])

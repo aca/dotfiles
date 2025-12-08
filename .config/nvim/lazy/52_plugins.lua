@@ -49,9 +49,14 @@ nmap g> <Plug>(swap-next)
 ]])
 
 -- navigate
-vim.cmd([[
-packadd vim-fetch " TODO: replace or mv to start
+-- vim.opt.isfname:append(":")
+-- vim.cmd([[
+-- " https://github.com/wsdjeg/vim-fetch/issues/27
+-- packadd vim-fetch " TODO: replace or mv to start
+-- ]])
+vim.cmd.packadd('fileline.nvim')
 
+vim.cmd([[
 let g:nf_map_next=']f'
 let g:nf_map_previous='[f'
 packadd nextfile.vim

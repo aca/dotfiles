@@ -1009,3 +1009,9 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/neotest-golang"]
 	path = .local/share/nvim/site/pack/bundle/opt/neotest-golang
 	url = https://github.com/fredrikaverpil/neotest-golang
+[submodule ".local/share/nvim/site/pack/bundle/opt/flatten.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/flatten.nvim
+	url = https://github.com/willothy/flatten.nvim
+[submodule ".local/share/nvim/site/pack/bundle/opt/fileline.nvim"]
+	path = .local/share/nvim/site/pack/bundle/opt/fileline.nvim
+	url = https://github.com/lewis6991/fileline.nvim.git

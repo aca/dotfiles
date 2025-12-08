@@ -76,17 +76,25 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+    -- au TermOpen * tnoremap <Esc> <c-\><c-n>
 -- vim.cmd([[
--- au TermOpen * tnoremap <Esc> <c-\><c-n>
--- au TermOpen * tnoremap <c-l> <c-\><c-l>
--- au TermOpen * tnoremap <c-h> <c-\><c-l>
+--     au TermOpen * tnoremap <c-l> <c-\><c-w>l
+--     au TermOpen * tnoremap <c-h> <c-\><c-w>h
 -- ]])
 
+-- vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+-- vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+
+
+vim.keymap.set('n', 'gf', [[gF]])
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function()
-    vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { buffer = true })
-    vim.keymap.set('t', '<c-l>', '<C-\\><C-n><c-l><c-h>', { buffer = true })
-    vim.keymap.set('t', '<c-h>', '<C-\\><C-n><c-h><c-h>', { buffer = true })
+    vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { buffer = true })
+    vim.keymap.set('t', '<c-h>', [[<C-\><C-n><c-w>h]], { buffer = true })
+    vim.keymap.set('t', '<c-l>', [[<C-\><C-n><c-w>l]], { buffer = true })
+    vim.cmd('startinsert')
+    -- vim.keymap.set('t', '<c-l>', '<C-\\><C-n><c-l><c-h>', { buffer = true })
+    -- vim.keymap.set('t', '<c-h>', '<C-\\><C-n><c-h><c-h>', { buffer = true })
   end,
 })
