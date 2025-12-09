@@ -20,6 +20,7 @@ glide.g.mapleader = "<Space>";
 
 glide.keymaps.set("normal", "<leader>r", "config_reload");
 
+glide.prefs.set("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 15.7; rv:145.0) Gecko/20100101 Firefox/145.0");
 glide.prefs.set("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 glide.prefs.set("devtools.debugger.prompt-connection", false);
 glide.prefs.set("media.videocontrols.picture-in-picture.audio-toggle.enabled", true);
