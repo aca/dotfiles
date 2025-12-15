@@ -1015,3 +1015,6 @@
 [submodule ".local/share/nvim/site/pack/bundle/opt/fileline.nvim"]
 	path = .local/share/nvim/site/pack/bundle/opt/fileline.nvim
 	url = https://github.com/lewis6991/fileline.nvim.git
+[submodule ".local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context"]
+	path = .local/share/nvim/site/pack/bundle/opt/nvim-treesitter-context
+	url = https://github.com/nvim-treesitter/nvim-treesitter-context

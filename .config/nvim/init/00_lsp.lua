@@ -61,6 +61,7 @@ local function setup_winbar(client, bufnr)
 
 	if client.server_capabilities.documentSymbolProvider then
 		require("nvim-navic").attach(client, bufnr)
+        vim.o.statusline = "%{%v:lua.require'nvim-navic'.get_location()%}"
 	end
 end
 
@@ -77,14 +78,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-
 vim.cmd.packadd("nvim-lspconfig")
 
-vim.lsp.config("*", {
-	root_markers = { ".git" },
-})
+-- don't know why but '*' doesn't work
+-- vim.lsp.config("*", {
+-- 	root_markers = { ".git" },
+-- })
 
--- -- don't know why but '*' doesn't work
 vim.lsp.config("basedpyright", {
 	root_markers = { ".git" },
 })
@@ -106,8 +106,11 @@ vim.lsp.config["agl"] = {
 
 -- vim.lsp.config["basedpyright"].cmd = "basedpyright"
 
+-- vim.lsp.config('json')
+
 vim.lsp.enable({
 	"gopls",
+    "jsonls",
     "zuban",
 	"lua_ls",
 	"vtsls",
@@ -117,9 +120,9 @@ vim.lsp.enable({
 	"zls",
 	"bashls",
     "rust_analyzer",
+    -- "json",
 	"clangd",
 	-- "ty",
 	-- "basedpyright",
 })
 
--- "basedpyright",
