@@ -53,12 +53,12 @@ vim.diagnostic.config({
     end,
   },
   signs = {
-    text = {
-      [S.ERROR] = tools.ui.icons.error,
-      [S.HINT] = tools.ui.icons.info,
-      [S.INFO] = tools.ui.icons.info,
-      [S.WARN] = tools.ui.icons.warning,
-    },
+    -- text = {
+    --   [S.ERROR] = tools.ui.icons.error,
+    --   [S.HINT] = tools.ui.icons.info,
+    --   [S.INFO] = tools.ui.icons.info,
+    --   [S.WARN] = tools.ui.icons.warning,
+    -- },
   },
 })
 
