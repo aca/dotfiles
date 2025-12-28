@@ -39,27 +39,28 @@ vim.diagnostic.config({
       return msg
     end,
   },
-  float = {
-    header = " ",
-    source = "if_many",
-    title = " Diagnostics ",
-    prefix = function(diag)
-      local lsp_sym = lsp_signs[diag.severity].sym
-      local prefix = string.format(" %s  ", lsp_sym)
-
-      local severity = vim.diagnostic.severity[diag.severity]
-      local diag_hl_name = severity:sub(1, 1) .. severity:sub(2):lower()
-      return prefix, "Diagnostic" .. diag_hl_name:gsub("^%l", string.upper)
-    end,
-  },
-  signs = {
-    -- text = {
-    --   [S.ERROR] = tools.ui.icons.error,
-    --   [S.HINT] = tools.ui.icons.info,
-    --   [S.INFO] = tools.ui.icons.info,
-    --   [S.WARN] = tools.ui.icons.warning,
-    -- },
-  },
+  -- float = {
+  --   header = " ",
+  --   source = "if_many",
+  --   title = " Diagnostics ",
+  --   prefix = function(diag)
+  --     local lsp_sym = lsp_signs[diag.severity].sym
+  --     local prefix = string.format(" %s  ", lsp_sym)
+  --
+  --     local severity = vim.diagnostic.severity[diag.severity]
+  --     local diag_hl_name = severity:sub(1, 1) .. severity:sub(2):lower()
+  --     return prefix, "Diagnostic" .. diag_hl_name:gsub("^%l", string.upper)
+  --   end,
+  -- },
+  signs = false,
+  -- signs = {
+  --   -- text = {
+  --   --   [S.ERROR] = tools.ui.icons.error,
+  --   --   [S.HINT] = tools.ui.icons.info,
+  --   --   [S.INFO] = tools.ui.icons.info,
+  --   --   [S.WARN] = tools.ui.icons.warning,
+  --   -- },
+  -- },
 })
 
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization

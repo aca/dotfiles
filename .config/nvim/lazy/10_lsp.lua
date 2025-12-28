@@ -114,40 +114,52 @@
 -- 	end
 -- 	return string.format("%s» %s", sp, msg)
 -- end
---
--- vim.diagnostic.config({
--- 	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
--- 	-- virtual_lines = true,
--- 	virtual_text = {
--- 		format = rightAlignFormatFunction,
--- 		spacing = 0,
--- 		prefix = "",
--- 		suffix = "",
--- 		severity = vim.diagnostic.severity.ERROR,
--- 		-- hl_mode = "combine",
--- 		-- virt_text_pos = "right_align",
--- 	},
--- 	signs = {
--- 		text = {
--- 			-- do not use signcolumn
--- 			[vim.diagnostic.severity.ERROR] = "",
--- 			[vim.diagnostic.severity.INFO] = "",
--- 			[vim.diagnostic.severity.WARN] = "",
--- 			[vim.diagnostic.severity.HINT] = "",
--- 		},
--- 		linehl = {
--- 			-- [vim.diagnostic.severity.ERROR] = "ErrorMsg",
--- 		},
--- 		numhl = {
--- 			[vim.diagnostic.severity.WARN] = "WarningMsg",
--- 		},
--- 	},
--- 	-- virtual_text = false,
--- 	-- float = {
--- 	-- 	source = "always", -- Or "if_many"
--- 	-- },
--- 	-- float = { border = "rounded" },
--- })
+
+local function truncate(str, maxLen)
+    maxLen = maxLen or 20
+    if #str > maxLen then
+        return string.sub(str, 1, maxLen) .. "..."
+    end
+    return str
+end
+
+vim.diagnostic.config({
+	-- virtual_text = { prefix = "", format = rightAlignFormatFunction, spacing = 0, update_in_insert = true },
+	-- virtual_lines = true,
+	virtual_text = {
+		-- format = rightAlignFormatFunction,
+		spacing = 0,
+		prefix = "",
+		suffix = "",
+        format = function(diagnostic)
+            return "» " .. truncate(diagnostic.message, 20)
+        end,
+		severity = vim.diagnostic.severity.ERROR,
+		hl_mode = "combine",
+		virt_text_pos = "right_align",
+	},
+    signs = false;
+	-- signs = {
+	-- 	text = {
+	-- 		-- do not use signcolumn
+	-- 		[vim.diagnostic.severity.ERROR] = "",
+	-- 		[vim.diagnostic.severity.INFO] = "",
+	-- 		[vim.diagnostic.severity.WARN] = "",
+	-- 		[vim.diagnostic.severity.HINT] = "",
+	-- 	},
+	-- 	linehl = {
+	-- 		-- [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+	-- 	},
+	-- 	numhl = {
+	-- 		[vim.diagnostic.severity.WARN] = "WarningMsg",
+	-- 	},
+	-- },
+	-- virtual_text = false,
+	-- float = {
+	-- 	source = "always", -- Or "if_many"
+	-- },
+	-- float = { border = "rounded" },
+})
 --
 -- vim.api.nvim_create_autocmd("VimResized", {
 -- 	callback = function()

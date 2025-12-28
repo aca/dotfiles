@@ -9,9 +9,11 @@ packadd promise-async
 packadd nvim-ufo
 ]])
 
+
+vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'
 require("ufo").setup({
 	provider_selector = function(bufnr, filetype, buftype)
-		return { "indent", "treesitter" }
+		return { "treesitter", "indent" }
 	end,
 })
 

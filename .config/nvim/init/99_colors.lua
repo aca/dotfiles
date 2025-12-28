@@ -119,7 +119,7 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { cterm = { underline = true }
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", { cterm = { underline = true }, sp = 9671540, underline = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { cterm = { underline = true }, sp = 11176553, underline = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { cterm = { underline = true }, underline = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = 3024422, fg = 12483709 })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = 12483709, italic = true })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = 2762538, fg = 10716831 })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = 2697259, fg = 9669800 })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { bg = 2697509, fg = 9671540 })
@@ -199,8 +199,11 @@ vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "WinSeparator", { bg = 1710618, fg = 7565894 })
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "none", fg = "#2e2e2e"  })
 -- vim.api.nvim_set_hl(0, "Statusline", { bg = "#0D0D0D", fg ="" })
-vim.api.nvim_set_hl(0, "StatusLine", { bg = 855309, fg = 5987163 })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = 855309, fg = 5987163 })
+-- vim.api.nvim_set_hl(0, "StatusLine", { bg = 855309, fg = 5987163, italic = true })
+-- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = 855309, fg = 5987163, italic = true })
+
+vim.api.nvim_set_hl(0, "StatusLine", { bg = "none", fg = 5987163, italic = true })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none", fg = 5987163, italic = true })
 
 vim.api.nvim_set_hl(0, "LineNr", { bg = "none", fg = "#3e3e3e" })
 

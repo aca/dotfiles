@@ -1,5 +1,5 @@
 /* ======================================================
-                Glide version: 0.1.54a
+                Glide version: 0.1.56a
    ====================================================== */
 
 declare const GLIDE_EXCOMMANDS: [
@@ -255,6 +255,18 @@ declare const GLIDE_EXCOMMANDS: [
 		readonly content: false;
 		readonly args_schema: {};
 		readonly repeatable: false;
+	},
+	{
+		readonly name: "go_up";
+		readonly description: "Go up the URL hierarchy";
+		readonly content: false;
+		readonly repeatable: true;
+	},
+	{
+		readonly name: "go_to_root";
+		readonly description: "Go to the root of the current URL";
+		readonly content: false;
+		readonly repeatable: true;
 	},
 	{
 		readonly name: "mode_change";
@@ -562,9 +574,19 @@ declare global {
 		};
 		/**
 		 * Set browser-wide options.
+		 *
+		 * You can define your own options by declaration merging `GlideOptions`:
+		 *
+		 * ```typescript
+		 * declare global {
+		 *   interface GlideOptions {
+		 *     my_custom_option?: boolean;
+		 *   }
+		 * }
+		 * ```
 		 */
 		/// @docs-expand-type-reference
-		o: glide.Options;
+		o: GlideOptions;
 		/**
 		 * Set buffer specific options.
 		 *
@@ -685,7 +707,25 @@ declare global {
 			 * **note**: this is not invoked when the config is reloaded.
 			 */
 			create<const Event extends "WindowLoaded">(event: Event, callback: (args: glide.AutocmdArgs[Event]) => void): void;
+			/**
+			 * Create an autocmd that will be invoked when the commandline is closed.
+			 */
+			create<const Event extends "CommandLineExit">(event: Event, callback: (args: glide.AutocmdArgs[Event]) => void): void;
 			create<const Event extends glide.AutocmdEvent>(event: Event, pattern: glide.AutocmdPatterns[Event] extends never ? (args: glide.AutocmdArgs[Event]) => void : glide.AutocmdPatterns[Event], callback?: (args: glide.AutocmdArgs[Event]) => void): void;
+			/**
+			 * Remove a previously created autocmd.
+			 *
+			 * e.g. to create an autocmd that is only invoked once:
+			 * ```typescript
+			 * glide.autocmds.create("UrlEnter", /url/, function autocmd() {
+			 *   // ... do things
+			 *   glide.autocmds.remove("UrlEnter", autocmd);
+			 * });
+			 * ```
+			 *
+			 * If the given event/callback does not correspond to any previously created autocmds, then `false` is returned.
+			 */
+			remove<const Event extends glide.AutocmdEvent>(event: Event, callback: (args: glide.AutocmdArgs[Event]) => void): boolean;
 		};
 		styles: {
 			/**
@@ -784,6 +824,30 @@ declare global {
 			 */
 			query(query: Browser.Tabs.QueryQueryInfoType): Promise<Browser.Tabs.Tab[]>;
 		};
+		commandline: {
+			/**
+			 * Show the commandline UI.
+			 *
+			 * By default this will list all excmds, but you can specify your own options, e.g.
+			 *
+			 * ```typescript
+			 * glide.commandline.show({
+			 *   title: "my options",
+			 *   options: ["option 1", "option 2", "option 3"].map((label) => ({
+			 *     label,
+			 *     execute() {
+			 *       console.log(`label ${label} was selected`);
+			 *     },
+			 *   })),
+			 * });
+			 * ```
+			 */
+			show(opts?: glide.CommandLineShowOpts): Promise<void>;
+			/**
+			 * If the commandline is open and focused.
+			 */
+			is_active(): boolean;
+		};
 		excmds: {
 			/**
 			 * Execute an excmd, this is the same as typing `:cmd --args`.
@@ -807,9 +871,24 @@ declare global {
 			 * }
 			 * ```
 			 */
-			create<const Excmd extends glide.ExcmdCreateProps>(info: Excmd, fn: (props: glide.ExcmdCallbackProps) => void | Promise<void>): Excmd;
+			create<const Excmd extends glide.ExcmdCreateProps>(info: Excmd, fn: glide.ExcmdCallback | glide.ExcmdContentCallback): Excmd;
 		};
 		content: {
+			/**
+			 * Mark a function so that it will be executed in the content process instead of the main proces.
+			 *
+			 * This is useful for APIs that are typically executed in the main process, for example:
+			 *
+			 * ```typescript
+			 * glide.excmds.create(
+			 *   { name: "focus_page" },
+			 *   glide.content.fn(() => {
+			 *     document.body!.focus();
+			 *   }),
+			 * );
+			 * ```
+			 */
+			fn<F extends (...args: any[]) => any>(wrapped: F): glide.ContentFunction<F>;
 			/**
 			 * Execute a function in the content process for the given tab.
 			 *
@@ -851,7 +930,7 @@ declare global {
 			})): Promise<ReturnType<F>>;
 		};
 		keymaps: {
-			set<const LHS>(modes: GlideMode | GlideMode[], lhs: $keymapcompletions.T<LHS>, rhs: glide.ExcmdString | glide.KeymapCallback, opts?: glide.KeymapOpts | undefined): void;
+			set<const LHS>(modes: GlideMode | GlideMode[], lhs: $keymapcompletions.T<LHS>, rhs: glide.ExcmdString | glide.KeymapCallback | glide.KeymapContentCallback, opts?: glide.KeymapOpts | undefined): void;
 			/**
 			 * Remove the mapping of {lhs} for the {modes} where the map command applies.
 			 *
@@ -911,7 +990,7 @@ declare global {
 				 *
 				 * This is executed in the content process.
 				 */
-				action?: "click" | "newtab-click" | ((target: HTMLElement) => Promise<void>);
+				action?: glide.HintAction;
 				/**
 				 * Which area to generate hints for.
 				 *
@@ -922,16 +1001,57 @@ declare global {
 				 */
 				location?: glide.HintLocation;
 				/**
+				 * A function to produce labels for the given hints. You can provide
+				 * your own function or use an included one:
+				 *
+				 *  - {@link glide.hints.label_generators.prefix_free}; this is the default.
+				 *  - {@link glide.hints.label_generators.numeric}
+				 *
+				 * For example:
+				 *
+				 * ```typescript
+				 * glide.hints.show({
+				 *   label_generator: ({ hints }) => Array.from({ length: hints.length }).map((_, i) => String(i))
+				 * });
+				 * ```
+				 *
+				 * Or using data from the hinted elements through `content.execute()`:
+				 *
+				 * ```typescript
+				 * glide.hints.show({
+				 *   async label_generator({ content }) {
+				 *     const texts = await content.execute((element) => element.textContent);
+				 *     return texts.map((text) => text.trim().toLowerCase().slice(0, 2));
+				 *   },
+				 * });
+				 * ```
+				 * note: the above example is a very naive implementation and will result in issues if there are multiple
+				 *       elements that start with the same text.
+				 */
+				label_generator?: glide.HintLabelGenerator;
+				/**
 				 * Define a callback to filter the resolved hints. It is called once with the resolved hints,
 				 * and must return an array of the hints you want to include.
 				 *
 				 * An empty array may be returned but will result in an error notification indicating that no
 				 * hints were found.
-				 *
-				 * @content this function is evaluated in the content process.
 				 */
-				pick?: (hints: glide.ContentHint[]) => glide.ContentHint[];
+				pick?: glide.HintPicker;
 			}): void;
+			label_generators: {
+				/**
+				 * Use with {@link glide.o.hint_label_generator} to generate
+				 * prefix-free combinations of the characters in
+				 * {@link glide.o.hint_chars}.
+				 */
+				prefix_free: glide.HintLabelGenerator;
+				/**
+				 * Use with {@link glide.o.hint_label_generator} to generate
+				 * sequential numeric labels, starting at `1` and counting up.
+				 * Ignores {@link glide.o.hint_chars}.
+				 */
+				numeric: glide.HintLabelGenerator;
+			};
 		};
 		buf: {
 			prefs: {
@@ -944,7 +1064,7 @@ declare global {
 				set(name: string, value: string | number | boolean): void;
 			};
 			keymaps: {
-				set<const LHS>(modes: GlideMode | GlideMode[], lhs: $keymapcompletions.T<LHS>, rhs: glide.ExcmdString | glide.KeymapCallback, opts?: Omit<glide.KeymapOpts, "buffer"> | undefined): void;
+				set<const LHS>(modes: GlideMode | GlideMode[], lhs: $keymapcompletions.T<LHS>, rhs: glide.ExcmdString | glide.KeymapCallback | glide.KeymapContentCallback, opts?: Omit<glide.KeymapOpts, "buffer"> | undefined): void;
 				/**
 				 * Remove the mapping of {lhs} for the {modes} where the map command applies.
 				 *
@@ -1052,6 +1172,35 @@ declare global {
 			parse(key_notation: string): glide.KeyNotation;
 		};
 		unstable: {
+			/**
+			 * Manage tab split views.
+			 *
+			 * **note**: split views are experimental in Firefox, there *will* be bugs.
+			 */
+			split_views: {
+				/**
+				 * Start a split view with the given tabs.
+				 *
+				 * At least 2 tabs must be passed.
+				 *
+				 * **note**: this will not work if one of the given tabs is *pinned*.
+				 */
+				create(tabs: Array<TabID | Browser.Tabs.Tab>, opts?: glide.SplitViewCreateOpts): glide.SplitView;
+				/**
+				 * Given a tab, tab ID, or a splitview ID, return the corresponding split view.
+				 */
+				get(tab: SplitViewID | TabID | Browser.Tabs.Tab): glide.SplitView | null;
+				/**
+				 * Revert a tab in a split view to a normal tab.
+				 *
+				 * If the given tab is *not* in a split view, then an error is thrown.
+				 */
+				separate(tab: SplitViewID | TabID | Browser.Tabs.Tab): void;
+				/**
+				 * Whether or not the given tab is in a split view.
+				 */
+				has_split_view(tab: TabID | Browser.Tabs.Tab): boolean;
+			};
 			/**
 			 * Include another file as part of your config. The given file is evluated as if it
 			 * was just another Glide config file.
@@ -1178,6 +1327,10 @@ declare global {
 			register<Mode extends keyof GlideModes>(mode: Mode, opts: {
 				caret: "block" | "line" | "underline";
 			}): void;
+			/**
+			 * List all registered modes.
+			 */
+			list(): GlideMode[];
 		};
 	};
 	/**
@@ -1222,6 +1375,125 @@ declare global {
 		mapleader: string;
 	}
 	/**
+	 * Corresponds to {@link glide.o} or {@link glide.bo}.
+	 *
+	 * You can define your own options by declaration merging `GlideOptions`:
+	 *
+	 * ```typescript
+	 * declare global {
+	 *   interface GlideOptions {
+	 *     my_custom_option?: boolean;
+	 *   }
+	 * }
+	 * ```
+	 */
+	// note: this is skipped in docs generation because we expand `glide.o`, so rendering
+	//       the `Options` type as well would be redundant.
+	/// @docs-skip
+	interface GlideOptions {
+		/**
+		 * How long to wait until cancelling a partial keymapping execution.
+		 *
+		 * For example, `glide.keymaps.set('insert', 'jj', 'mode_change normal')`, after
+		 * pressing `j` once, this option determines how long the delay should be until
+		 * the `j` key is considered fully pressed and the mapping sequence is reset.
+		 *
+		 * note: this only applies in insert mode.
+		 *
+		 * @default 200
+		 */
+		mapping_timeout: number;
+		/**
+		 * Color used to briefly highlight text when it's yanked.
+		 *
+		 * @example "#ff6b35"        // Orange highlight
+		 * @example "rgb(255, 0, 0)" // Red highlight
+		 * @default "#edc73b"
+		 */
+		yank_highlight: glide.RGBString;
+		/**
+		 * How long, in milliseconds, to highlight the selection for when it's yanked.
+		 *
+		 * @default 150
+		 */
+		yank_highlight_time: number;
+		/**
+		 * The delay, in milliseconds, before showing the which key UI.
+		 *
+		 * @default 300
+		 */
+		which_key_delay: number;
+		/**
+		 * The maximum number of entries to include in the jumplist, i.e.
+		 * how far back in history will the jumplist store.
+		 *
+		 * @default 100
+		 */
+		jumplist_max_entries: number;
+		/**
+		 * The font size of the hint label, directly corresponds to the
+		 * [font-size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size) property.
+		 *
+		 * @default "11px"
+		 */
+		hint_size: string;
+		/**
+		 * The characters to include in hint labels.
+		 *
+		 * @default "hjklasdfgyuiopqwertnmzxcvb"
+		 */
+		hint_chars: string;
+		/**
+		 * A function to produce labels for the given hints. You can provide
+		 * your own function or use an included one:
+		 *
+		 *  - {@link glide.hints.label_generators.prefix_free}; this is the
+		 *    default.
+		 *
+		 *  - {@link glide.hints.label_generators.numeric}
+		 *
+		 * For example:
+		 * ```typescript
+		 * glide.o.hint_label_generator = ({ hints }) => Array.from({ length: hints.length }).map((_, i) => String(i));
+		 * ```
+		 *
+		 * Or using data from the hinted elements through `content.execute()`:
+		 *
+		 * ```typescript
+		 * glide.hints.show({
+		 *   async label_generator({ content }) {
+		 *     const texts = await content.execute((element) => element.textContent);
+		 *     return texts.map((text) => text.trim().toLowerCase().slice(0, 2));
+		 *   },
+		 * });
+		 * ```
+		 * note: the above example is a very naive implementation and will result in issues if there are multiple
+		 *       elements that start with the same text.
+		 */
+		hint_label_generator: glide.HintLabelGenerator;
+		/**
+		 * Determines if the current mode will change when certain element types are focused.
+		 *
+		 * For example, if `true` then Glide will automatically switch to `insert` mode when an editable element is focused.
+		 *
+		 * This can be useful for staying in the same mode while switching tabs.
+		 *
+		 * @default true
+		 */
+		switch_mode_on_focus: boolean;
+		/**
+		 * Configure the strategy for implementing scrolling, this affects the
+		 * `h`, `j`, `k`, `l`,`<C-u>`, `<C-d>`, `G`, and `gg` mappings.
+		 *
+		 * This is exposed as the current `keys` implementation can result in non-ideal behaviour if a website overrides arrow key events.
+		 *
+		 * This will be removed in the future when the kinks with the `keys` implementation are ironed out.
+		 *
+		 * @default "keys"
+		 */
+		scroll_implementation: "keys" | "legacy";
+	}
+	/**
 	 * Throws an error if the given value is not truthy.
 	 *
 	 * Returns the value if it is truthy.
@@ -1256,6 +1528,8 @@ declare global {
 			path: string;
 		});
 	}
+	class DataCloneError extends Error {
+	}
 	class GlideProcessError extends Error {
 		process: glide.CompletedProcess;
 		exit_code: number;
@@ -1288,70 +1562,7 @@ declare global {
 		// note: this is skipped in docs generation because we expand `glide.o`, so rendering
 		//       the `Options` type as well would be redundant.
 		/// @docs-skip
-		export type Options = {
-			/**
-			 * How long to wait until cancelling a partial keymapping execution.
-			 *
-			 * For example, `glide.keymaps.set('insert', 'jj', 'mode_change normal')`, after
-			 * pressing `j` once, this option determines how long the delay should be until
-			 * the `j` key is considered fully pressed and the mapping sequence is reset.
-			 *
-			 * note: this only applies in insert mode.
-			 *
-			 * @default 200
-			 */
-			mapping_timeout: number;
-			/**
-			 * Color used to briefly highlight text when it's yanked.
-			 *
-			 * @example "#ff6b35" // Orange highlight
-			 * @default "#edc73b"
-			 */
-			yank_highlight: glide.RGBString;
-			/**
-			 * How long, in milliseconds, to highlight the selection for when it's yanked.
-			 *
-			 * @default 150
-			 */
-			yank_highlight_time: number;
-			/**
-			 * The delay, in milliseconds, before showing the which key UI.
-			 *
-			 * @default 300
-			 */
-			which_key_delay: number;
-			/**
-			 * The maximum number of entries to include in the jumplist, i.e.
-			 * how far back in history will the jumplist store.
-			 *
-			 * @default 100
-			 */
-			jumplist_max_entries: number;
-			/**
-			 * The font size of the hint label, directly corresponds to the
-			 * [font-size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size) property.
-			 *
-			 * @default "11px"
-			 */
-			hint_size: string;
-			/**
-			 * The characters to include in hint labels.
-			 *
-			 * @default "hjklasdfgyuiopqwertnmzxcvb"
-			 */
-			hint_chars: string;
-			/**
-			 * Configure the strategy for implementing scrolling, this affects the
-			 * `h`, `j`, `k`, `l`,`<C-u>`, `<C-d>`, `G`, and `gg` mappings.
-			 *
-			 * This is exposed as the current `keys` implementation can result in non-ideal behaviour if a website overrides arrow key events.
-			 *
-			 * This will be removed in the future when the kinks with the `keys` implementation are ironed out.
-			 *
-			 * @default "keys"
-			 */
-			scroll_implementation: "keys" | "legacy";
-		};
+		export type Options = GlideOptions;
 		export type SpawnOptions = {
 			cwd?: string;
 			env?: Record<string, string | null>;
@@ -1414,7 +1625,7 @@ declare global {
 		export type CompletedProcess = glide.Process & {
 			exit_code: number;
 		};
-		export type RGBString = `#${string}`;
+		export type RGBString = `#${string}` | `rgb(${string})`;
 		/** A web extension tab that is guaranteed to have the `ts:id` property present. */
 		export type TabWithID = Omit<Browser.Tabs.Tab, "id"> & {
 			id: number;
@@ -1457,21 +1668,32 @@ declare global {
 			skip_mappings?: boolean;
 		};
 		export type KeymapCallback = (props: glide.KeymapCallbackProps) => void;
+		export type KeymapContentCallback = glide.ContentFunction<() => void>;
 		export type KeymapCallbackProps = {
 			/**
 			 * The tab that the callback is being executed in.
 			 */
 			tab_id: number;
 		};
+		/**
+		 * Represents a function that will be executed in the content process.
+		 */
+		export interface ContentFunction<F extends (...args: any[]) => any> {
+			$brand: "$glide.content.fn";
+			fn: F;
+			name: string;
+		}
 		/// @docs-skip
 		export type ExcmdCreateProps = {
 			name: string;
 			description?: string | undefined;
 		};
 		/// @docs-skip
-		export type ExcmdValue = glide.ExcmdString | glide.ExcmdCallback | glide.KeymapCallback;
+		export type ExcmdValue = glide.ExcmdString | glide.ExcmdCallback | glide.ExcmdContentCallback | glide.KeymapCallback | glide.KeymapContentCallback;
 		/// @docs-skip
-		export type ExcmdCallback = (props: glide.ExcmdCallbackProps) => void;
+		export type ExcmdCallback = (props: glide.ExcmdCallbackProps) => void | Promise<void>;
+		/// @docs-skip
+		export type ExcmdContentCallback = glide.ContentFunction<(props: glide.ExcmdContentCallbackProps) => void>;
 		/// @docs-skip
 		export type ExcmdCallbackProps = {
 			/**
@@ -1487,21 +1709,96 @@ declare global {
 			args_arr: string[];
 		};
 		/// @docs-skip
+		export type ExcmdContentCallbackProps = {
+			/**
+			 * The args passed to the excmd.
+			 *
+			 * @example "foo -r"                      -> ["-r"]
+			 * @example "foo -r 'string with spaces'" -> ["-r", "string with spaces"]
+			 */
+			args_arr: string[];
+		};
+		/// @docs-skip
 		export type ExcmdString = 
 		// builtin
 		GlideCommandString
 		// custom
 		 | keyof ExcmdRegistry | `${keyof ExcmdRegistry} ${string}`;
 		/// @docs-skip
-		export type ContentHint = {
+		export type Hint = {
 			id: number;
 			x: number;
 			y: number;
 			width: number;
 			height: number;
+		};
+		/// @docs-skip
+		export type ContentHint = glide.Hint & {
 			element: HTMLElement;
 		};
+		/// @docs-skip
+		export type ResolvedHint = glide.Hint & {
+			label: string;
+		};
+		export type HintLabelGenerator = (ctx: HintLabelGeneratorProps) => string[] | Promise<string[]>;
+		export type HintLabelGeneratorProps = {
+			hints: glide.Hint[];
+			content: {
+				/**
+				 * Executes the given callback in the content process to extract properties
+				 * from the all elements that are being hinted.
+				 *
+				 * For example:
+				 * ```typescript
+				 * const texts = await content.map((target) => target.textContent);
+				 * ```
+				 */
+				map<R>(cb: (target: HTMLElement, index: number) => R | Promise<R>): Promise<Awaited<R>[]>;
+			};
+		};
+		export type HintPicker = (props: glide.HintPickerProps) => glide.Hint[] | Promise<glide.Hint[]>;
+		export type HintPickerProps = {
+			hints: glide.Hint[];
+			content: {
+				/**
+				 * Executes the given callback in the content process to extract properties
+				 * from the all elements that are being hinted.
+				 *
+				 * For example:
+				 * ```typescript
+				 * const areas = await content.map((element) => element.offsetWidth * element.offsetHeight);
+				 * ```
+				 */
+				map<R>(cb: (target: HTMLElement, index: number) => R | Promise<R>): Promise<Awaited<R>[]>;
+			};
+		};
 		export type HintLocation = "content" | "browser-ui";
+		export type HintAction = "click" | "newtab-click" | ((props: glide.HintActionProps) => Promise<void> | void);
+		export type HintActionProps = {
+			/**
+			 * The resolved hint that is being executed.
+			 */
+			hint: glide.ResolvedHint;
+			content: {
+				/**
+				 * Execute the given callback in the content process to extract properties
+				 * from the hint element.
+				 *
+				 * For example:
+				 * ```typescript
+				 * const href = await content.execute((target) => target.href);
+				 * ```
+				 */
+				execute<R>(cb: (target: HTMLElement) => R | Promise<R>): Promise<R extends Promise<infer U> ? U : R>;
+			};
+		};
+		export type SplitViewCreateOpts = {
+			id?: string;
+		};
+		export type SplitView = {
+			id: string;
+			tabs: Browser.Tabs.Tab[];
+		};
 		export type KeyNotation = {
 			/**
 			 * @example <leader>
@@ -1543,7 +1840,83 @@ declare global {
 			retain_key_display?: boolean;
 		};
 		export type KeymapDeleteOpts = Pick<glide.KeymapOpts, "buffer">;
-		type AutocmdEvent = "UrlEnter" | "ModeChanged" | "ConfigLoaded" | "WindowLoaded" | "KeyStateChanged";
+		export type CommandLineShowOpts = {
+			/**
+			 * Fill the commandline with this input by default.
+			 */
+			input?: string;
+			/**
+			 * Configure the text shown at the top of the commandline.
+			 *
+			 * This is *only* used when `options` are provided.
+			 *
+			 * If `options` are given and this is not, then it defaults to `"options"`.
+			 */
+			title?: string;
+			/**
+			 * Replace the default commandline options.
+			 *
+			 * For example:
+			 *
+			 * ```typescript
+			 * ["option 1", "option 2", "option 3"].map((label) => ({
+			 *   label,
+			 *   execute() {
+			 *     console.log(`label ${label} was selected`);
+			 *   },
+			 * })),
+			 * ```
+			 */
+			options?: glide.CommandLineCustomOption[];
+		};
+		export type CommandLineCustomOption = {
+			/** Primary text shown for this option. */
+			label: string;
+			/** Optional secondary text rendered next to the label. */
+			description?: string;
+			/**
+			 * Optional callback used to display this option in the UI.
+			 *
+			 * If provided, this _replaces_ the default rendering, which is placing `label` / `description` in two columns.
+			 *
+			 * @example
+			 * ```typescript
+			 * render() {
+			 *   return DOM.create_element("div", {
+			 *     style: { display: "flex", alignItems: "center", gap: "8px" },
+			 *     children: [bookmark.title],
+			 *   });
+			 * }
+			 * ```
+			 */
+			render?(): HTMLElement;
+			/**
+			 * Optional callback used to determine if this option matches the input entered in the commandline.
+			 *
+			 * This is called every time the input changes.
+			 *
+			 * `null` can be returned to defer to the default matcher.
+			 *
+			 * @example
+			 * ```typescript
+			 * matches({ input }) {
+			 *   return my_fuzzy_matcher(input, [bookmark.title]);
+			 * }
+			 * ```
+			 */
+			matches?(props: {
+				input: string;
+			}): boolean | null;
+			/**
+			 * Callback that is invoked when `<enter>` is pressed while this option is focused.
+			 *
+			 * The `input` corresponds to the text entered in the commandline.
+			 */
+			execute(props: {
+				input: string;
+			}): void;
+		};
+		type AutocmdEvent = "UrlEnter" | "ModeChanged" | "ConfigLoaded" | "WindowLoaded" | "CommandLineExit" | "KeyStateChanged";
 		type AutocmdPatterns = {
 			UrlEnter: RegExp | {
 				hostname?: string;
@@ -1551,6 +1924,7 @@ declare global {
 			ModeChanged: "*" | `${GlideMode | "*"}:${GlideMode | "*"}`;
 			ConfigLoaded: null;
 			WindowLoaded: null;
+			CommandLineExit: null;
 			KeyStateChanged: null;
 		};
 		type AutocmdArgs = {
@@ -1567,6 +1941,7 @@ declare global {
 			};
 			ConfigLoaded: {};
 			WindowLoaded: {};
+			CommandLineExit: {};
 			KeyStateChanged: {
 				readonly mode: GlideMode;
 				readonly sequence: string[];
@@ -1615,6 +1990,8 @@ declare global {
 			size: number | undefined;
 		};
 	}
+	type TabID = number;
+	type SplitViewID = string;
 	/**
 	 * Dedent template function.
 	 *
@@ -1657,15 +2034,21 @@ declare global {
 		 * DOM.create_element('img', { src: '...' });
 		 * ```
 		 *
-		 * You can also pass a `children` property, which will use `.replaceChildren()`:
+		 * You can also pass a `children` array, or property, which will use `.replaceChildren()`:
 		 *
 		 * ```ts
+		 * DOM.create_element("div", ["text content", DOM.create_element("img", { alt: "hint" })]);
+		 * // or
 		 * DOM.create_element("div", {
 		 *   children: ["text content", DOM.create_element("img", { alt: "hint" })],
 		 * });
 		 * ```
 		 */
-		create_element<TagName extends keyof HTMLElementTagNameMap | (string & {})>(tag_name: TagName, props?: DOM.CreateElementProps<TagName extends keyof HTMLElementTagNameMap ? TagName : "div">): TagName extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[TagName] : HTMLElement;
+		create_element<TagName extends keyof HTMLElementTagNameMap | (string & {})>(tag_name: TagName, props_or_children?: 
+		// props
+		DOM.CreateElementProps<TagName extends keyof HTMLElementTagNameMap ? TagName : "div">
+		// children
+		 | Array<(Node | string)>, props?: DOM.CreateElementProps<TagName extends keyof HTMLElementTagNameMap ? TagName : "div">): TagName extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[TagName] : HTMLElement;
 	};
 	namespace DOM {
 		type Utils = typeof DOM;
@@ -1694,9 +2077,10 @@ declare global {
 		 *
 		 * `<C-` -> `<C-a>` | `<C-D-` ...
 		 * `<leader>` -> `<leader>f` | `<leader><CR>` ...
+		 * `<leader>-` -> `<leader>-a` | `<leader>-<CR>` ...
 		 * `g` -> `gg` | `gj` ...
 		 */
-		type T<LHS> = LHS extends "" ? SingleKey : LHS extends "<" ? SpecialKey | `<${ModifierKey}-` : LHS extends `${infer S}<${infer M}-` ? `${S}<${M}-${Exclude<StripAngles<SingleKey>, ModifierKey>}>` | `${S}<${M}-${ModifierKey}-` | (S & {}) : LHS extends `${infer S}<` ? `${S}${SpecialKey}` | S : LHS extends `${infer S}` ? `${S}${SingleKey}` | S : LHS;
+		type T<LHS> = LHS extends "" ? SingleKey : LHS extends "<" ? LHS | SpecialKey | `<${ModifierKey}-` : LHS extends `${infer S}<${infer M}-` ? LHS | `${S}<${M}-${Exclude<StripAngles<SingleKey>, ModifierKey>}>` | `${S}<${M}-${ModifierKey}-` : LHS extends `${infer S}<` ? LHS | `${S}${SpecialKey}` : LHS extends `${infer S}-` ? LHS | `${S}-${SingleKey}` : LHS extends `${infer S}` ? LHS | `${S}${SingleKey}` : LHS;
 		/**
 		 * e.g. a, b, <leader>
 		 */

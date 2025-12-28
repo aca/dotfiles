@@ -1,5 +1,7 @@
 vim.cmd.packadd("satellite.nvim")
-require("satellite").setup({})
+require("satellite").setup({
+    winblend = 100,
+})
 -- https://github.com/petertriho/nvim-scrollbar
 
 -- vim.cmd([[
