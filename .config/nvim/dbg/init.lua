@@ -1,2 +1,2 @@
-vim.o.showtabline = 2
-vim.o.tabline = "3"
+-- vim.o.showtabline = 2
+-- vim.o.tabline = "3"

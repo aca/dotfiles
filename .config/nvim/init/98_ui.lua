@@ -29,17 +29,20 @@
 -- })
 
 
--- -- vim.opt.wrap = false
-vim.o.showtabline = 2
-vim.o.number = true
+vim.o.wrap = false
+-- vim.o.showtabline = 2
 vim.o.relativenumber = true
-vim.o.numberwidth = 3
--- -- o.signcolumn = "yes:1"
-vim.o.signcolumn = "yes:1"
--- -- o.formatoptions = "jncroql"
+-- vim.o.signcolumn = "yes:1"
+-- vim.o.signcolumn = "yes:1"
+vim.o.formatoptions = "jncroql"
 vim.o.fillchars = "eob: ,fold: ,foldclose:▸,foldopen:▾,stl: "
-vim.o.statuscolumn = "%@SignCb@%s%=%T%@NumCb@%l │%T "
+
+vim.o.number = false
+vim.o.relativenumber = false
+-- vim.o.numberwidth = 3
+-- vim.o.statuscolumn = "%@SignCb@%s%=%T%@NumCb@%l │%T "
 -- vim.o.statusline = "%<%f %h%m%r"
+vim.o.statusline = "%=%f"
 vim.o.cmdheight = 0
 
 -- vim.o.laststatus = vim.o.laststatus
