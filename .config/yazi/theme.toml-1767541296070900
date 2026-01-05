@@ -20,7 +20,7 @@
 # surimiOrange  "#e46876"
 # waveAqua2     "#7aa89f"
 
-[mgr]
+[manager]
 marker_copied = { fg = "#8a9a7b", bg = "#8a9a7b" }
 marker_cut = { fg = "#e46876", bg = "#e46876" }
 marker_marked = { fg = "#a292a3", bg = "#a292a3" }

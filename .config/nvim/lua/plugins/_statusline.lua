@@ -1,0 +1,140 @@
+-- -- Neovim plugin: Tree-sitter context for statusline
+-- -- Shows the path to current cursor position (e.g., menu > popup > menuitem)
+--
+-- local M = {}
+--
+-- function M.get_context()
+--   local bufnr = vim.api.nvim_get_current_buf()
+--   local cursor = vim.api.nvim_win_get_cursor(0)
+--   local row = cursor[1] - 1 -- Tree-sitter uses 0-indexed rows
+--   local col = cursor[2]
+--
+--   -- Check if Tree-sitter is available for this buffer
+--   local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+--   if not ok or not parser then
+--     return ""
+--   end
+--
+--   local tree = parser:parse()[1]
+--   if not tree then
+--     return ""
+--   end
+--
+--   local root = tree:root()
+--   local node = root:named_descendant_for_range(row, col, row, col)
+--   if not node then
+--     return ""
+--   end
+--
+--   local path = {}
+--
+--   -- Walk up the tree to find all context nodes
+--   while node do
+--     local parent = node:parent()
+--     if not parent then
+--       break
+--     end
+--
+--     local node_type = node:type()
+--     local parent_type = parent:type()
+--
+--     -- Handle JSON: look for "pair" nodes and extract the key
+--     if parent_type == "pair" then
+--       -- First child of pair is the key (string node)
+--       local key_node = parent:child(0)
+--       if key_node then
+--         local key_text = vim.treesitter.get_node_text(key_node, bufnr)
+--         -- Remove quotes from JSON strings
+--         key_text = key_text:gsub('^"', ''):gsub('"$', '')
+--         table.insert(path, 1, key_text)
+--       end
+--     end
+--
+--     -- Handle JSON arrays: get 1-based index of current element
+--     if parent_type == "array" then
+--       local index = 1
+--       for child in parent:iter_children() do
+--         if child:type() ~= "," and child:type() ~= "[" and child:type() ~= "]" then
+--           if child:id() == node:id() then
+--             table.insert(path, 1, tostring(index))
+--             break
+--           end
+--           index = index + 1
+--         end
+--       end
+--     end
+--
+--     -- Handle other languages: objects, functions, classes, etc.
+--     if node_type == "function_declaration" or node_type == "function_definition" then
+--       local name = M.get_node_name(node, bufnr)
+--       if name then
+--         table.insert(path, 1, name)
+--       end
+--     elseif node_type == "method_definition" or node_type == "method_declaration" then
+--       local name = M.get_node_name(node, bufnr)
+--       if name then
+--         table.insert(path, 1, name)
+--       end
+--     elseif node_type == "class_declaration" or node_type == "class_definition" then
+--       local name = M.get_node_name(node, bufnr)
+--       if name then
+--         table.insert(path, 1, name)
+--       end
+--     elseif node_type == "struct_type" or node_type == "type_spec" then
+--       local name = M.get_node_name(node, bufnr)
+--       if name then
+--         table.insert(path, 1, name)
+--       end
+--     end
+--
+--     node = parent
+--   end
+--
+--   -- Remove duplicates while preserving order
+--   local seen = {}
+--   local unique_path = {}
+--   for _, v in ipairs(path) do
+--     if not seen[v] then
+--       seen[v] = true
+--       table.insert(unique_path, v)
+--     end
+--   end
+--
+--   return table.concat(unique_path, " > ")
+-- end
+--
+-- -- Helper to extract name from a node (looks for name/identifier child)
+-- function M.get_node_name(node, bufnr)
+--   for child in node:iter_children() do
+--     local child_type = child:type()
+--     if child_type == "identifier" or child_type == "name" or child_type == "property_identifier" then
+--       return vim.treesitter.get_node_text(child, bufnr)
+--     end
+--   end
+--   return nil
+-- end
+--
+-- -- Setup function to configure statusline
+-- function M.setup(opts)
+--   opts = opts or {}
+--   local separator = opts.separator or " > "
+--
+--   -- Override get_context to use custom separator
+--   if separator ~= " > " then
+--     local original = M.get_context
+--     M.get_context = function()
+--       local result = original()
+--       return result:gsub(" > ", separator)
+--     end
+--   end
+-- end
+--
+-- M.setup()
+--
+-- -- Set statusline: filename on left, treesitter context on right
+--
+-- return M
+
+vim.cmd.packadd("nvim-contextline")
+vim.o.statusline = "%{%v:lua.require('nvim-contextline').get_contextline()%}%=%f"
+
