@@ -1,6 +1,14 @@
 vim.cmd.packadd("satellite.nvim")
 require("satellite").setup({
-    winblend = 100,
+	winblend = 100,
+	excluded_filetypes = {
+		-- "man",
+	},
+	handlers = {
+		cursor = {
+			enable = false,
+		},
+	},
 })
 -- https://github.com/petertriho/nvim-scrollbar
 

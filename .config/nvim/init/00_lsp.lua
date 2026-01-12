@@ -3,68 +3,68 @@
 
 -- vim.cmd.packadd("dropbar.nvim")
 
-vim.cmd.packadd("nvim-navic")
-local navic = require("nvim-navic")
-navic.setup {
-    icons = {
-        File          = " ",
-        Module        = " ",
-        Namespace     = " ",
-        Package       = " ",
-        Class         = " ",
-        Method        = " ",
-        Property      = " ",
-        Field         = " ",
-        Constructor   = " ",
-        Enum          = " ",
-        Interface     = " ",
-        Function      = " ",
-        Variable      = " ",
-        Constant      = " ",
-        String        = " ",
-        Number        = " ",
-        Boolean       = " ",
-        Array         = " ",
-        Object        = " ",
-        Key           = " ",
-        Null          = " ",
-        EnumMember    = " ",
-        Struct        = " ",
-        Event         = " ",
-        Operator      = " ",
-        TypeParameter = " ",
-    },
-    -- lsp = {
-    --     auto_attach = false,
-    --     preference = nil,
-    -- },
-    -- highlight = false,
-    -- separator = " > ",
-    -- depth_limit = 0,
-    -- depth_limit_indicator = "..",
-    -- safe_output = true,
-    -- lazy_update_context = false,
-    -- click = false,
-    -- format_text = function(text)
-    --     return text
-    -- end,
-}
-
-local function setup_winbar(client, bufnr)
-	-- local status_ok, method_supported = pcall(function()
-	--   return client.supports_method 'textDocument/documentSymbol'
-	-- end)
-
-	-- if not status_ok or not method_supported then
-	--   return
-	-- end
-	-- navic.attach(client, bufnr)
-
-	if client.server_capabilities.documentSymbolProvider then
-		require("nvim-navic").attach(client, bufnr)
-        vim.o.statusline = "»%{%v:lua.require'nvim-navic'.get_location()%}%=%f"
-	end
-end
+-- vim.cmd.packadd("nvim-navic")
+-- local navic = require("nvim-navic")
+-- navic.setup {
+--     icons = {
+--         File          = " ",
+--         Module        = " ",
+--         Namespace     = " ",
+--         Package       = " ",
+--         Class         = " ",
+--         Method        = " ",
+--         Property      = " ",
+--         Field         = " ",
+--         Constructor   = " ",
+--         Enum          = " ",
+--         Interface     = " ",
+--         Function      = " ",
+--         Variable      = " ",
+--         Constant      = " ",
+--         String        = " ",
+--         Number        = " ",
+--         Boolean       = " ",
+--         Array         = " ",
+--         Object        = " ",
+--         Key           = " ",
+--         Null          = " ",
+--         EnumMember    = " ",
+--         Struct        = " ",
+--         Event         = " ",
+--         Operator      = " ",
+--         TypeParameter = " ",
+--     },
+--     -- lsp = {
+--     --     auto_attach = false,
+--     --     preference = nil,
+--     -- },
+--     -- highlight = false,
+--     -- separator = " > ",
+--     -- depth_limit = 0,
+--     -- depth_limit_indicator = "..",
+--     -- safe_output = true,
+--     -- lazy_update_context = false,
+--     -- click = false,
+--     -- format_text = function(text)
+--     --     return text
+--     -- end,
+-- }
+--
+-- local function setup_winbar(client, bufnr)
+-- 	-- local status_ok, method_supported = pcall(function()
+-- 	--   return client.supports_method 'textDocument/documentSymbol'
+-- 	-- end)
+--
+-- 	-- if not status_ok or not method_supported then
+-- 	--   return
+-- 	-- end
+-- 	-- navic.attach(client, bufnr)
+--
+-- 	if client.server_capabilities.documentSymbolProvider then
+-- 		require("nvim-navic").attach(client, bufnr)
+--         vim.o.statusline = "»%{%v:lua.require'nvim-navic'.get_location()%}%=%f"
+-- 	end
+-- end
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
 -- 	group = vim.api.nvim_create_augroup("_navic", {}),

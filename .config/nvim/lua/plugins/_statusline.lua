@@ -135,6 +135,6 @@
 --
 -- return M
 
-vim.cmd.packadd("nvim-contextline")
-vim.o.statusline = "%{%v:lua.require('nvim-contextline').get_contextline()%}%=%f"
+-- vim.cmd.packadd("nvim-contextline")
+-- vim.o.statusline = "%{%v:lua.require('nvim-contextline').get_contextline()%}%=%f"
 
