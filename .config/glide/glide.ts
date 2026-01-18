@@ -18,9 +18,7 @@
 
 glide.g.mapleader = "<Space>";
 
-glide.addons.install(
-  "https://addons.mozilla.org/firefox/downloads/file/4598854/ublock_origin-1.68.0.xpi",
-general.useragent.override
+glide.addons.install("https://addons.mozilla.org/firefox/downloads/file/4598854/ublock_origin-1.68.0.xpi")
 
 glide.keymaps.set("normal", "<leader>r", "config_reload");
 
