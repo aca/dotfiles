@@ -1,0 +1,112 @@
+VENN *venn*
+
+            VENN REFERENCE MANUAL~
+                by jbyuki~
+
+
+venn offers utilities to simply draw ASCII diagrams using
+the box-drawing characters.
+
+https://en.wikipedia.org/wiki/Box-drawing_character
+
+                  Type |gO| to see the table of contents.
+
+======================================================
+
+EXAMPLES
+
+The following diagrams were all drawn using venn. This shows
+the possibilities offered by the plug-in. 
+
+>
+  If some characters are not displayed correctly make sure
+  to install a font which supports Unicode special box
+  characters
+<
+                                                ┌───┐
+                                                └───┘
+        ┌─┐  ┌─┐           ┌──────┐          ┌─┐  ▲  ┌─┐
+        │a├─►│b│           │ loop │◄┐        │ │◄─┼─►│ │
+        └─┘  └─┘           └────┬─┘ │        └─┘  ▼  └─┘
+                                └───┘           ┌───┐
+                                                └───┘
+
+                                    ┌────┐╔══════╗┌───┐
+        ╔═╗     ┏━┓    ┌─┐          │████│║ venn ║│ v │
+        ║ ╟────►┃ ┠───►│ ├──►       │████│╚══════╝│ i │
+        ╚═╝     ┗━┛    └─┘          │████│┌──────┐│ m │
+                                    └────┘└──────┘└───┘
+
+======================================================
+
+USAGE
+
+1. `set virtualedit=all` or `set ve=all` . This allows to
+freely move the cursor inside the buffer. (see
+|virtualedit|).
+
+2. Enter in Visual Block mode using <C-v>. Select the
+region where the box should be.
+
+3. Invoke |:VBox|. This will draw a rectangle. In case, it
+has a width or a height of 1, it will draw a line.
+
+Notes:
+
+To avoid switching to |virtualedit| everytime a text file is
+opened, please use a vim |modeline|. For example:
+>
+  vim:ve=all:cursorcolumn:cursorline:
+<
+This should be the last line of the text file.
+
+======================================================
+
+COMMANDS
+
+                                                *:VBox*
+:VBox                     
+                Draw a single line box or arrow.
+
+                                                *:VBoxD*
+:VBoxD          
+                Draw a double line box or arrow.
+
+                                                *:VBoxH*
+:VBoxH          
+                Draw a heavy line box or arrow.
+
+                                                *:VBoxO*
+:VBoxO                     
+                Draw a single line box or arrow. It tries
+                to give the impression the box is drawn
+                over existing characters.
+
+    With |:VBox|:
+
+         ┌───┐
+         │ ┌───┐
+         └─│─┘ │
+           └───┘
+
+    With |:VBoxO|:
+
+         ┌───┐
+         │ ┌─┼─┐
+         └─┼─┘ │
+           └───┘
+
+                                                *:VBoxDO*
+:VBoxDO          
+                Draw a double line box or arrow. Draw
+                over.
+
+                                                *:VBoxHO*
+:VBoxHO          
+                Draw a heavy line box or arrow. Draw over.
+
+                                                *:VFill*
+:VFill          
+                Fill the area with a solid color.
+
+ vim:tw=58:ts=8:ft=help:norl:

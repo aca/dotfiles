@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/toppair/peek.nvim.git
+	branch = master
+	commit = 5820d937d5414baea5f586dc2a3d912a74636e5b
+	parent = a9c7591a3814a1437b4dc161d85af71253b2d9cd
+	method = merge
+	cmdver = 0.4.9

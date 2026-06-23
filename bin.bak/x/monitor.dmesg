@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sudo dmesg -w | awk '/Keyboard/ { system("xmodmap ~/.Xmodmap && xset r rate 200 25") }'

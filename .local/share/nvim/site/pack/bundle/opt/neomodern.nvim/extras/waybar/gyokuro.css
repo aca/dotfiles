@@ -1,0 +1,33 @@
+/* name: gyokuro colors for waybar   */
+/* url: https://github.com/Alexays/Waybar                        */
+/* upstream: https://github.com/cdmill/neomodern.nvim/raw/main/extras/              */
+/* author: Casey Miller               */
+
+/* 
+1. copy into ~/.config/waybar/
+2. include at the top of your style.css:
+@import "gyokuro.css";
+3. use colors in your style.css, e.g.:
+* {
+color: @func
+}
+*/
+
+@define-color alt #94A991;
+@define-color bg #1b1c1d;
+@define-color comment #6B6B67;
+@define-color constant #868db5;
+@define-color fg #AFB0A6;
+@define-color func #61765E;
+@define-color keyword #799475;
+@define-color line #232425;
+@define-color number #d6a9b3;
+@define-color operator #b08c7d;
+@define-color property #748fa6;
+@define-color string #a69e6f;
+@define-color type #AFBFAC;
+@define-color visual #2D2E2F;
+@define-color diag_red #E3878A;
+@define-color diag_blue #829FE1;
+@define-color diag_yellow #AC9569;
+@define-color diag_green #698E6F;

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/cirala/vifmimg.git
+	branch = master
+	commit = 8ba24fc724505582015203f257c71b9d8a30454f
+	parent = 766aa0ff2453178fef837030e56615609ea90bdd
+	method = merge
+	cmdver = 0.4.9

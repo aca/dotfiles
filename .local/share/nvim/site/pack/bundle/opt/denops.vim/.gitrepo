@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/vim-denops/denops.vim
+	branch = main
+	commit = 1df7a022d6e9cb3f6a3db43235e0f174ccd79e03
+	parent = 4ceb1c5872c42df34e5b8981c94c23043eb451a9
+	method = merge
+	cmdver = 0.4.9

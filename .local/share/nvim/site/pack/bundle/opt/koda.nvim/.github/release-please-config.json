@@ -1,0 +1,8 @@
+{
+  "packages": {
+    ".": {
+      "release-type": "simple",
+      "extra-files": ["lua/koda/config.lua"]
+    }
+  }
+}

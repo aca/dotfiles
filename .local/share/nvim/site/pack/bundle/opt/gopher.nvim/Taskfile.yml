@@ -1,0 +1,42 @@
+version: "3"
+
+includes:
+  vhs:
+    taskfile: ./vhs/Taskfile.yml
+    dir: ./vhs
+
+tasks:
+  lint:
+    cmds:
+      - selene .
+      - stylua --check .
+
+  format:
+    cmd: stylua .
+
+  test:
+    cmds:
+      - |
+        nvim --clean --headless \
+             -u ./scripts/minimal_init.lua \
+             -c "lua MiniTest.run()" \
+             -c ":qa!"
+  nvim:
+    cmd: nvim --clean -u "./scripts/minimal_init.lua" {{ .CLI_ARGS }}
+
+  docgen:
+    desc: generate vimhelp
+    cmds:
+      - |
+        nvim --clean --headless \
+             -u "./scripts/minimal_init.lua" \
+             -c "luafile ./scripts/docgen.lua" \
+             -c ":qa!"
+
+  install-deps:
+    desc: installs go bin (used in CI)
+    cmds:
+      - |
+        nvim --clean --headless \
+             -u "./scripts/minimal_init.lua" \
+             +GoInstallDepsSync +qa

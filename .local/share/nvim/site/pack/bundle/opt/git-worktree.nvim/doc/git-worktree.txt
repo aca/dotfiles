@@ -1,0 +1,121 @@
+==============================================================================
+Table of Contents                                        *git-worktree.contents*
+
+Introduction ··························································· |intro|
+ ································································ |git-worktree|
+plugin configuration ····································· |git-worktree.config|
+hooks ····················································· |git-worktree.hooks|
+
+==============================================================================
+Introduction                                                             *intro*
+
+ A plugin  that helps to use git worktree operations, create, switch, and delete in neovim.
+
+==============================================================================
+                                                                  *git-worktree*
+
+
+
+M.switch_worktree({path})                                    *M.switch_worktree*
+
+    Parameters: ~
+        {path}  (string)
+
+
+                                                             *M.create_worktree*
+M.create_worktree({path}, {branch}, {upstream?})
+
+    Parameters: ~
+        {path}       (string)
+        {branch}     (string)
+        {upstream?}  (string)
+
+
+                                                             *M.delete_worktree*
+M.delete_worktree({path}, {force}, {opts})
+
+    Parameters: ~
+        {path}   (string)
+        {force}  (boolean)
+        {opts}   (any)
+
+
+==============================================================================
+plugin configuration                                       *git-worktree.config*
+
+
+ git-worktree.nvim does not need a `setup` function to work.
+
+To configure git-worktree.nvim, set the variable `vim.g.git-worktree`,
+which is a `GitWorktreeConfig` table, in your neovim configuration.
+
+ The plugin configuration.
+ Merges the default config with `vim.g.git_worktree`.
+
+Example:
+
+>lua
+---@type GitWorktreeConfig
+vim.g.git_worktree = {
+    change_directory_command = 'cd',
+    update_on_change = true,
+    update_on_change_command = 'e .',
+    clearjumps_on_change = true,
+    confirm_telescope_deletions = true,
+    autopush = false,
+ }
+<
+
+
+GitWorktreeConfig                                            *GitWorktreeConfig*
+
+    Fields: ~
+        {change_directory_command}     (string)   command to change directory on your OS
+        {update_on_change_command}     (string)   vim command to call to switch file buffer to new git-worktree
+        {clearjumps_on_change}         (boolean)  clear jump list on change
+        {confirm_telescope_deletions}  (boolean)  confirm telescope deletions operations
+        {autopush}                     (boolean)  automatically push worktree to origin repo
+
+
+==============================================================================
+hooks                                                       *git-worktree.hooks*
+
+git-worktree.hooks.cb.create                      *git-worktree.hooks.cb.create*
+
+    Type: ~
+        fun(path:string,branch:string,upstream:string)
+
+
+git-worktree.hooks.cb.delete                      *git-worktree.hooks.cb.delete*
+
+    Type: ~
+        fun(path:string)
+
+
+git-worktree.hooks.cb.switch                      *git-worktree.hooks.cb.switch*
+
+    Type: ~
+        fun(path:string,prev_path:string)
+
+
+M.register({type}, {cb})                                            *M.register*
+     Registers a hook
+
+     Each hook type takes a callback a different function
+
+    Parameters: ~
+        {type}  (git-worktree.hooks.type)
+        {cb}    (function)                 @overload fun(type: 'CREATE', cb: git-worktree.hooks.cb.create): string
+                                           @overload fun(type: 'DELETE', cb: git-worktree.hooks.cb.delete): string
+                                           @overload fun(type: 'SWITCH', cb: git-worktree.hooks.cb.switch): string
+
+
+M.emit({type}, {...})                                                   *M.emit*
+     Emits an event and calls all the hook callbacks registered
+
+    Parameters: ~
+        {type}  (git-worktree.hooks.type)
+        {...}   (any)
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:

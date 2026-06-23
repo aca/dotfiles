@@ -1,0 +1,49 @@
+// vim: ft=typoscript
+foo { // {{CONTEXT}}
+
+
+
+
+    // {{CURSOR}}
+}
+
+[condition]
+
+
+
+
+
+[end]
+
+[condition]
+
+
+
+
+
+foo {
+
+
+
+
+
+    nested {
+
+
+
+
+
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+[global]

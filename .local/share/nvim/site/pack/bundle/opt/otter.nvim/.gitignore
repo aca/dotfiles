@@ -1,0 +1,9 @@
+wip
+.tests
+doc/tags
+debug
+.repro
+*.log
+.venv
+.notes.md
+*.otter.*

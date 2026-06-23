@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# sudo virt-install --osinfo list
+# aria2c "https://cloud.debian.org/images/cloud/bookworm/daily/latest/debian-12-genericcloud-amd64-daily.qcow2"
+
+set -euxo pipefail
+
+VM_NAME="$1"
+VM_FILE="/var/lib/libvirt/images/$1.qcow2"
+BASE="/var/lib/libvirt/images/nixos-minimal-23.05.533.c37ca420157-x86_64-linux.iso"
+
+virt-install --name=nixos \
+    --memory=8196 \
+    --vcpus=2 \
+    --disk $VM_FILE,device=disk,bus=virtio,size=16 \
+    --cdrom=$BASE \
+    --osinfo=nixos-unknown \
+    --boot=uefi \
+    --graphics none \
+    --console pty,target_type=virtio
+
+# sudo cp $BASE $VM_FILE
+
+# sudo qemu-img convert -O qcow2 $BASE $VM_FILE
+# sudo qemu-img resize $VM_FILE +10G
+
+# sudo virt-customize \
+#     -a "$VM_FILE" \
+#     --ssh-inject "root:file:$HOME/.ssh/id_rsa.pub" \
+#     --hostname $VM_NAME
+
+# demo/demo
+
+# sudo virt-install --name $VM_NAME \
+#     --virt-type kvm --memory 3000 --vcpus 2 \
+#     --osinfo nixos-unknown  \
+#     --boot hd \
+#     --network network=default,model=virtio \
+#     --disk "$VM_FILE" \
+#     --boot=uefi \
+#     --graphics none \
+#     --console pty,target_type=serial --import

@@ -1,0 +1,68 @@
+" vim:ft=vim
+
+Execute(Include base):
+  source test/base_vader.vim
+
+Execute(FloatermShow/Hide):
+  Log '# FloatermHide'
+    FloatermNew
+    FloatermHide
+    AssertEqual '', &filetype
+  Log '# FloatermShow'
+    FloatermNew
+    FloatermShow
+    Assert IsInFloatermBuffer()
+
+  Log '# FloatermHide!'
+    FloatermNew
+    let bufnr1 = bufnr('%')
+    FloatermNew
+    let bufnr2 = bufnr('%')
+    FloatermHide!
+    Assert !BufWinExists(bufnr1)
+    Assert !BufWinExists(bufnr2)
+
+  Log '# FloatermShow!'
+    if has('nvim')
+      " NOTE: the 2 floaterms must have different positions can `:FloatermShow!
+      " ` take effect
+      FloatermNew --position=left
+      let bufnr1 = bufnr('%')
+      FloatermNew --position=right
+      let bufnr2 = bufnr('%')
+      FloatermShow!
+    Assert BufWinExists(bufnr1)
+    Assert BufWinExists(bufnr2)
+    endif
+
+  Log '# [N]FloatermHide'
+    FloatermNew
+    let bufnr1 = bufnr('%')
+    execute bufnr1 . 'FloatermHide'
+    Assert !BufWinExists(bufnr1)
+
+    FloatermNew
+    let bufnr2 = bufnr('%')
+    execute bufnr2 . 'FloatermHide'
+    Assert !BufWinExists(bufnr2)
+
+  Log '# [N]FloatermShow'
+    if has('nvim')
+      execute bufnr1 . 'FloatermShow'
+      AssertEqual bufnr1, bufnr('%')
+      execute bufnr2 . 'FloatermShow'
+      AssertEqual bufnr2, bufnr('%')
+    endif
+
+  Log '# FloatermHide --name'
+    FloatermNew --name=ft1
+    FloatermHide ft1
+    FloatermNew --name=ft2
+    FloatermHide ft2
+
+  Log '# FloatermShow --name'
+    FloatermShow ft1
+    FloatermShow ft2
+
+  FloatermKill!
+  stopinsert

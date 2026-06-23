@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lambdalisue/suda.vim.git
+	branch = master
+	commit = c492741b4679b3cdd4d9e34138209784e061d916
+	parent = 11f9437eb8e1fec6be3591902ddc576a812604d7
+	method = merge
+	cmdver = 0.4.9

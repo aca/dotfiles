@@ -1,0 +1,58 @@
+name: Linting
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  code_quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: selene,typos-cli
+      - name: Run linters
+        run: make lint
+
+  code_style:
+    name: Code Style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --color always --check lua/ tests/
+
+  ruby_lint:
+    name: Rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec rubocop
+
+  lua_types:
+    name: lua-typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Homebrew/actions/setup-homebrew@master
+      - run: brew install lua-language-server
+      - uses: luarocks/gh-actions-lua@v10
+        with:
+          luaVersion: luajit
+      - uses: luarocks/gh-actions-luarocks@v5
+        with:
+          luaRocksVersion: "3.12.1"
+      - run: |
+         luarocks install llscheck
+         llscheck lua/

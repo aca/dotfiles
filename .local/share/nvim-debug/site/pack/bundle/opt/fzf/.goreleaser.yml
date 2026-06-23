@@ -1,0 +1,114 @@
+---
+version: 2
+project_name: fzf
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - id: fzf
+    goos:
+      - darwin
+      - linux
+      - windows
+      - freebsd
+      - openbsd
+      - android
+    goarch:
+      - amd64
+      - arm
+      - arm64
+      - loong64
+      - ppc64le
+      - s390x
+      - riscv64
+    goarm:
+      - "5"
+      - "6"
+      - "7"
+    flags:
+      - -trimpath
+    ldflags:
+      - "-s -w -X main.version={{ .Version }} -X main.revision={{ .ShortCommit }}"
+    ignore:
+      - goos: freebsd
+        goarch: arm
+      - goos: openbsd
+        goarch: arm
+      - goos: freebsd
+        goarch: arm64
+      - goos: openbsd
+        goarch: arm64
+      - goos: openbsd
+        goarch: riscv64
+      - goos: android
+        goarch: amd64
+      - goos: android
+        goarch: arm
+
+# .goreleaser.yaml
+notarize:
+  macos:
+    - # Whether this configuration is enabled or not.
+      #
+      # Default: false.
+      # Templates: allowed.
+      enabled: "{{ not .IsSnapshot }}"
+
+      # Before notarizing, we need to sign the binary.
+      # This blocks defines the configuration for doing so.
+      sign:
+        # The .p12 certificate file path or its base64'd contents.
+        certificate: "{{.Env.MACOS_SIGN_P12}}"
+
+        # The password to be used to open the certificate.
+        password: "{{.Env.MACOS_SIGN_PASSWORD}}"
+
+      # Then, we notarize the binaries.
+      notarize:
+        # The issuer ID.
+        # Its the UUID you see when creating the App Store Connect key.
+        issuer_id: "{{.Env.MACOS_NOTARY_ISSUER_ID}}"
+
+        # Key ID.
+        # You can see it in the list of App Store Connect Keys.
+        # It will also be in the ApiKey filename.
+        key_id: "{{.Env.MACOS_NOTARY_KEY_ID}}"
+
+        # The .p8 key file path or its base64'd contents.
+        key: "{{.Env.MACOS_NOTARY_KEY}}"
+
+        # Whether to wait for the notarization to finish.
+        # Not recommended, as it could take a really long time.
+        wait: true
+
+archives:
+  - name_template: "{{ .ProjectName }}-{{ .Version }}-{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    ids:
+      - fzf
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    files:
+      - non-existent*
+
+release:
+  github:
+    owner: junegunn
+    name: fzf
+  prerelease: auto
+  name_template: '{{ .Version }}'
+
+snapshot:
+  version_template: "{{ .Version }}-devel"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - README
+      - test

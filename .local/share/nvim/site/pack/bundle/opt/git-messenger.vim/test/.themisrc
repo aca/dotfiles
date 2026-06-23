@@ -1,0 +1,70 @@
+call themis#option('exclude', 'test/README.md')
+call themis#option('exclude', 'test/Guardfile')
+
+if $THEMIS_PROFILE !=# ''
+  execute 'profile' 'start' $THEMIS_PROFILE
+  profile! file ./autoload/*
+  profile! file ./plugin/*
+  profile! file ./syntax/*
+endif
+
+let s:helper = themis#helper('assert')
+call themis#helper('command').with(s:helper)
+
+function! GetPopupNoWait() abort
+    for b in range(1, bufnr('$'))
+        let p = getbufvar(b, '__gitmessenger_popup', v:null)
+        if p isnot v:null
+            return p
+        endif
+    endfor
+    return v:null
+endfunction
+function! GetPopup() abort
+    return CallWithTimeout(1, funcref('GetPopupNoWait'))
+endfunction
+
+function! CallWithTimeout(timeout, func) abort
+    let total = 0
+    while v:true
+        let v = a:func()
+        if v isnot v:null
+            return v
+        endif
+        sleep 100m
+        let total += 0.1
+        if total >= a:timeout
+            return v:null
+        endif
+    endwhile
+endfunction
+
+function! WaitUntil(func, ...) abort
+    let timeout = get(a:, 1, 1) " 1sec by default
+    let total = 0
+    while !a:func()
+        sleep 100m
+        let total += 0.1
+        if total >= timeout
+            " Note: v:true/v:false are not supported by themis.vim
+            " https://github.com/thinca/vim-themis/pull/56
+            return 0
+        endif
+    endwhile
+    return 1
+endfunction
+
+function! WaitWhile(func, ...) abort
+    return call('WaitUntil', [{-> !a:func()}] + a:000)
+endfunction
+
+function! Git(dir, ...) abort
+    let cmd = join(['git', '-C', shellescape(a:dir)] + a:000, ' ')
+    let out = system(cmd)
+    if v:shell_error
+        throw '`' . cmd . '` failed: ' . out
+    endif
+    return out
+endfunction
+
+let g:ON_TRAVIS = $TRAVIS !=# ''

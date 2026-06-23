@@ -1,0 +1,117 @@
+{{! {{TEST}}
+<div> {{! {{CONTEXT}}
+
+
+
+
+
+
+{{! {{CURSOR}}
+</div>
+{{! {{TEST}}
+<div> {{! {{CONTEXT}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {{! {{CURSOR}}
+  <ul> {{! {{CONTEXT}}
+    <li></li>
+    <li> {{! {{CONTEXT}}
+
+
+
+
+
+
+      {{! {{CURSOR}}
+
+    </li> {{! {{POPCONTEXT}}
+    <li></li>
+  </ul> {{! {{POPCONTEXT}}
+
+
+
+
+
+
+
+  {{#if this.test}} {{! {{CONTEXT}}
+    <div> {{! {{CONTEXT}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {{! {{CURSOR}}
+    </div> {{! {{POPCONTEXT}}
+  {{else}}
+    <div> {{! {{CONTEXT}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {{! {{CURSOR}}
+
+    </div>
+  {{/if}}
+</div>

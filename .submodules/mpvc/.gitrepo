@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lwilletts/mpvc.git
+	branch = master
+	commit = d4c64bf19b5619fe77d494af6a668ba589e27f9b
+	parent = 6ec938d51381c15eb879b5576cec7041b25f6a59
+	method = merge
+	cmdver = 0.4.9

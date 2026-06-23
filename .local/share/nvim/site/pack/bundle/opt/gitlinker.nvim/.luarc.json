@@ -1,0 +1,16 @@
+{
+  "diagnostics.globals": [
+    "vim",
+    "describe",
+    "before_each",
+    "it",
+    "jit",
+    "utf8"
+  ],
+  "diagnostics.disable": [
+    "luadoc-miss-symbol",
+    "missing-return"
+  ],
+  "runtime.version": "LuaJIT",
+  "workspace.checkThirdParty": "Disable"
+}

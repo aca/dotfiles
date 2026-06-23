@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/brenoprata10/nvim-highlight-colors
+	branch = main
+	commit = e2cb22089cc2358b2b995c09578224f142de6039
+	parent = 50d7285069a651c903accc9adc352adb6a4614b7
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,25 @@
+---
+ci:
+  autofix_prs: true
+
+repos:
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v2.3.1
+    hooks:
+      - id: stylua-github
+  - repo: local
+    hooks:
+      - id: check-vim-notify-once
+        name: Use notify or utils module for notifications over vim.notify
+        entry: scripts/no-vim-notify.sh
+        language: script
+        files: ^lua/octo/.*\.lua$
+        pass_filenames: false
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: debug-statements
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files

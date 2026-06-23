@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+_VIM_MODE=minimal nvim -c "set nowrap noshowmode noshowcmd laststatus=0 noruler signcolumn=no" "$@"

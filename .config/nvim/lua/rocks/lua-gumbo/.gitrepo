@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/craigbarnes/lua-gumbo.git
+	branch = master
+	commit = f7887fb66a7cdad6f660a36118a744f93f3338f2
+	parent = 59a510cfc9138fa16c82053de181a714e421bba1
+	method = merge
+	cmdver = 0.4.9

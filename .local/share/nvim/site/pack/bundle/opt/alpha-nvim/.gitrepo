@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/goolord/alpha-nvim.git
+	branch = main
+	commit = a9d8fb72213c8b461e791409e7feabb74eb6ce73
+	parent = ba7a84f2fa76b2f4f520e1bac837df00ce9c73b7
+	method = merge
+	cmdver = 0.4.9

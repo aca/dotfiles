@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/thinca/vim-quickrun.git
+	branch = master
+	commit = 77b4d6ea9972a206f02c736882c2398c36d2983c
+	parent = a703617dd143c62a3d4feb353c93af9bf02ae1f5
+	method = merge
+	cmdver = 0.4.9

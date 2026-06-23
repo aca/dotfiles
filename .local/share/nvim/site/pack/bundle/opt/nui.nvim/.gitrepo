@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/MunifTanjim/nui.nvim
+	branch = main
+	commit = de740991c12411b663994b2860f1a4fd0937c130
+	parent = 4ad30d90ecc523a17f77d81ea0a6951e3fe05b9f
+	method = merge
+	cmdver = 0.4.9

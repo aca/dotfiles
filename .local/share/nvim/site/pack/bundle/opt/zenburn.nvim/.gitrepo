@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/phha/zenburn.nvim.git
+	branch = master
+	commit = f5ee12b30119499c7fa7f95719cd7c5aab9f9f29
+	parent = 234accb4fe8535fe0334622743200f6323591b77
+	method = merge
+	cmdver = 0.4.9

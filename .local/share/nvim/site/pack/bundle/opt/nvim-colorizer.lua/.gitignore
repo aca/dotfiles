@@ -1,0 +1,10 @@
+doc/tags
+doc/html/
+deps/
+node_modules/
+colorizer.lua
+scripts/screenshots/output/
+test/colorizer_tailwind/
+test/colorizer_minimal/
+test/trie/colorizer_trie/
+test/colorizer_css_var/

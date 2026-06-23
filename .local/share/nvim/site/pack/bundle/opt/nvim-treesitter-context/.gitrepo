@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/nvim-treesitter/nvim-treesitter-context
+	branch = master
+	commit = adf4b6b0420b7be6c717ef0ac7993183d6c201b1
+	parent = 4332abbe2352f6c9f0181cbea9b5d1820959ba07
+	method = merge
+	cmdver = 0.4.9

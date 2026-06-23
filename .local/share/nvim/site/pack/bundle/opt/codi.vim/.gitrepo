@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/metakirby5/codi.vim.git
+	branch = master
+	commit = 83b9859aaf8066d95892e01eb9c01571a4b325dd
+	parent = 0074956e2047c317c7b249f334de3a9b64b32f47
+	method = merge
+	cmdver = 0.4.9

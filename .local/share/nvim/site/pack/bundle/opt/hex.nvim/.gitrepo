@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/RaafatTurki/hex.nvim.git
+	branch = master
+	commit = b46e63356a69e8d6f046c38a9708d55d17f15038
+	parent = 7c25f3881cb84ba2e552d23a873eb64c210814ce
+	method = merge
+	cmdver = 0.4.9

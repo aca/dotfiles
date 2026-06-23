@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/chrisgrieser/nvim-lsp-endhints
+	branch = main
+	commit = 1a3ddb56ad94b1584d88782bc3e9c628e498a07c
+	parent = e9d5d5fe92cda3951771065d5515ae59efed0741
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,339 @@
+*floaterm.txt*                        (Neo)vim floating/popup terminal plugin
+==============================================================================
+Author : voldikss <https://github.com/voldikss>
+License: MIT license
+NOTE: This doc may be outdated, please refer to the README file instead,
+    https://github.com/voldikss/vim-floaterm/blob/master/README.md
+    or
+    ../README.md(put the cursor on this and type `gf`)
+==============================================================================
+
+CONTENTS                                         *floaterm-contents*
+Introduction                                     |floaterm-introduction|
+Options                                          |floaterm-options|
+Mapping                                          |floaterm-mappings|
+Commands                                         |floaterm-commands|
+Highlight                                        |floaterm-highlight|
+Extensions                                       |floaterm-extensions|
+Integrations                                     |floaterm-integrations|
+FAQ                                              |floaterm-faq|
+Repository                                       |floaterm-repository|
+
+==============================================================================
+INTRODUCTION                                     *floaterm-introduction*
+
+Use (neo)vim terminal in the floating/popup window.
+
+- NeoVim |api-floatwin| and Vim8 |popup-window| support
+- Open and toggle terminal window quickly
+- Manage multiple terminal instances
+- Customizable terminal window style
+- Switch/Preview floating terminal buffers using fuzzy finder plugins such as
+  |vim-clap|, |denite.nvim|, |coc.nvim|, |fzf.vim| and |LeaderF|.
+- Integrate with other external command-line tools(ranger, lf, fzf, etc.)
+- Autocompletion from within floaterms(require |coc.nvim|)
+- Use as a custom task runner for |asynctasks.vim|
+
+==============================================================================
+OPTIONS                                          *floaterm-options*
+
+g:floaterm_shell                                 *g:floaterm_shell*
+	Type |String|.
+	Which shell should floaterm use.
+	Default value is the same as your 'shell' option.
+
+g:floaterm_title                                 *g:floaterm_title*
+	Type |String|.
+	Title format in the floating/popup terminal window.
+	If empty, the title won't be show.
+	Default value is 'floaterm: $1/$2'
+
+g:floaterm_wintype                               *g:floaterm_wintype*
+    Type |String|.
+    'float'(nvim's floatwin or vim's popupwin) by default. Set it to
+    'split' or 'vsplit'if you don't want to use floating or popup window.
+
+g:floaterm_width                                 *g:floaterm_width*
+    Type: |Number| (number of columns) or |Float| (between 0 and 1).
+    If |Float|, the width is relative to 'columns'.
+    Default value is 0.6.
+
+g:floaterm_height                                *g:floaterm_height*
+    Type |Number| (number of lines) or |Float| (between 0 and 1).
+    If |Float|, the height is relative to 'lines'.
+    Default value is 0.6.
+
+g:floaterm_position                              *g:floaterm_position*
+	Type |String|.
+	The position of the floaterm window.
+    If |g:floaterm_wintype| is 'split' or 'vsplit': 'leftabove', 'aboveleft',
+    'rightbelow', 'belowright', 'topleft', 'botright'.
+    Default: 'botright'.
+    It's recommended to have a look at those options meanings, e.g.
+>
+        `:help :leftabove`.
+<
+    If |g:floaterm_wintype| is 'float': 'top', 'bottom', 'left', 'right',
+    'topleft', 'topright', 'bottomleft', 'bottomright', 'center', 'auto'(at the
+    cursor place).
+    Default: 'center'
+
+g:floaterm_borderchars                           *g:floaterm_borderchars*
+	Type |String|.
+    8 characters of the floating window border(top, right, bottom, left, topleft,
+    topright, botright, botleft).
+    Default value is '─│─│┌┐┘└'.
+
+g:floaterm_rootmarkers                           *g:floaterm_rootmarkers*
+    Type |List| of |String|.
+    Markers used to detect the project root directory when running
+    >
+        :FloatermNew --cwd=<root>
+<
+    Default: `['.project', '.git', '.hg', '.svn', '.root']`
+
+g:floaterm_opener
+    Type |String|.
+    Command used for opening a file in the outside nvim from within `:terminal`.
+    Available: 'edit', 'split', 'vsplit', 'tabe', 'drop' or user-defined commands
+    Default: 'split'
+
+g:floaterm_autoclose                             *g:floaterm_autoclose*
+	Type |Number|.
+	Whether to close floaterm window once a job gets finished.
+        0 - Always do NOT close floaterm window.
+        1 - Close window only if the job exits normally
+        2 - Always close floaterm window.
+	Default value is 1.
+
+g:floaterm_autohide                              *g:floaterm_autohide*
+	Type |Number|.
+    Whether to hide previous floaterms before switching to or opening a another
+    one.
+        0 - Always do NOT hide previous floaterm windows
+        1 - Only hide those whose position (`b:floaterm_position`) is identical to
+            that of the floaterm which will be opened
+        2 - Always hide them
+	Default value is 1.
+
+g:floaterm_autoinsert                            *g:floaterm_autoinsert*
+	Type |Boolean|.
+	Whether to enter |Terminal-mode| after opening a floaterm.
+	Default value is |v:true|.
+
+g:floaterm_titleposition                        *g:floaterm_titleposition*
+    Type |String|.
+    The position of the floaterm title.
+    Available: 'left', 'center', 'right'
+    Default value is 'left'.
+
+==============================================================================
+MAPPINGS                                         *floaterm-mappings*
+
+This plugin doesn't supply any default mappings. To use a recommended
+mappings, put the following code in your `vimrc`.
+ >
+	let g:floaterm_keymap_new    = '<F7>'
+	let g:floaterm_keymap_prev   = '<F8>'
+	let g:floaterm_keymap_next   = '<F9>'
+	let g:floaterm_keymap_toggle = '<F12>'
+<
+You can also use other keys as shown below:
+ >
+	let g:floaterm_keymap_new = '<Leader>fn'
+<
+All options for the mappings are listed below:
+ >
+	- g:floaterm_keymap_new
+	- g:floaterm_keymap_prev
+	- g:floaterm_keymap_next
+	- g:floaterm_keymap_first
+	- g:floaterm_keymap_last
+	- g:floaterm_keymap_hide
+	- g:floaterm_keymap_show
+	- g:floaterm_keymap_kill
+	- g:floaterm_keymap_toggle
+
+Note that this key mapping is installed from the `plugin` directory, so if you
+are using on-demand loading provided by some plugin-managers, the keymap above
+won't take effect(:help |load-plugins|). Then you have to define the key
+bindings yourself by putting the code used to define the key bindings in your
+`vimrc`. For example,
+ >
+	nnoremap   <silent>   <F7>    :FloatermNew<CR>
+	tnoremap   <silent>   <F7>    <C-\><C-n>:FloatermNew<CR>
+	nnoremap   <silent>   <F8>    :FloatermPrev<CR>
+	tnoremap   <silent>   <F8>    <C-\><C-n>:FloatermPrev<CR>
+	nnoremap   <silent>   <F9>    :FloatermNext<CR>
+	tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
+	nnoremap   <silent>   <F12>   :FloatermToggle<CR>
+	tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
+<
+==============================================================================
+COMMANDS                                         *floaterm-commands*
+
+:FloatermNew[!] [options] [cmd]                  *FloatermNew*
+	Open a floaterm window.
+
+:FloatermPrev                                    *FloatermPrev*
+	Switch to the previous floaterm instance
+
+:FloatermNext                                    *FloatermNext*
+	Switch to the next floaterm instance
+
+:FloatermFirst                                   *FloatermFirst*
+	Switch to the first floaterm instance
+
+:FloatermLast                                    *FloatermLast*
+	Switch to the last floaterm instance
+
+:FloatermUpdate [options]                        *FloatermUpdate*
+	Update floaterm window attributes(`height`, `width`, etc.).
+
+:[N]FloatermToggle[!] [floaterm_name]            *FloatermToggle*
+	Open or hide the floaterm window.
+
+:[N]FloatermShow[!] [floaterm_name]              *FloatermShow*
+	Show the current floaterm window.
+
+:[N]FloatermHide[!] [floaterm_name]              *FloatermHide*
+	Hide the current floaterms window.
+
+:[N]FloatermKill[!] [floaterm_name]              *FloatermKill*
+	Kill the current floaterm instance
+
+:FloatermSend[!] [--name=floaterm_name] [cmd]    *FloatermSend*
+	Send command to a job in floaterm.
+
+For the detailed information about the arguments, please refer to
+https://github.com/voldikss/vim-floaterm#commands
+
+==============================================================================
+HIGHLIGHT                                        *floaterm-highlight*
+
+This plugin provides two |highlight-groups| to specify the bg/fg color of
+floaterm (also the border color if |g:floaterm_wintype| is 'float')window.
+
+To customize, use |hi| command together with the colors you prefer.  For example,
+ >
+	" Set floaterm window's background to black
+	hi Floaterm guibg=black
+	" Set floating window border line color to cyan, and background to orange
+	hi FloatermBorder guibg=orange guifg=cyan
+<
+Besides, there is a neovim only |hi-group| which can be used to configure
+no-current-focused window(:help |hl-NormalNC|).
+
+==============================================================================
+EXTENSIONS                                       *floaterm-extensions*
+
+------------------------------------------------------------------------------
+CLAP-FLOATERM                                         *clap-floaterm*
+
+Install voldikss/clap-floaterm.
+
+Start |vim-clap| to manage floaterms.
+ >
+    :Clap floaterm
+<
+------------------------------------------------------------------------------
+DENITE-FLOATERM                                  *denite-floaterm*
+
+Install delphinus/denite-floaterm.
+
+							 *denite-source-floaterm*
+SOURCES~
+
+floaterm	Gather floaterms as candidates. This accepts an argument below.
+
+		Source arguments:
+		1. "new" adds a candidate to open a new floaterm.
+
+						    *denite-floaterm-actions*
+ACTIONS~
+
+open (default)
+		Open the selected floaterm.
+
+new
+		Open a new floaterm.
+
+preview
+		Preview the selected floaterm.
+
+							*denite-floaterm-usage*
+USAGE~
+
+Start to manage existent floaterms.
+ >
+    :Denite floaterm
+<
+Start to open a new floaterm.
+ >
+    :Denite floaterm:new
+<
+Start with all features and preview automatically with moving the cursor.
+ >
+    :Denite floaterm floaterm:new -auto-action=preview
+<
+------------------------------------------------------------------------------
+COC-FLOATERM                                     *coc-floaterm*
+
+Install coc-floaterm using `:CocInstall coc-floaterm`
+
+COMMANDS~
+ >
+	CocCommand floaterm.new
+
+	CocCommand floaterm.prev
+
+	CocCommand floaterm.next
+
+	CocCommand floaterm.toggle
+
+	CocCommand floaterm.update
+<
+COCLIST~
+ >
+ 	:CocList floaterm
+<
+------------------------------------------------------------------------------
+FZF-FLOATERM                                     *fzf-floaterm*
+
+Install voldikss/fzf-floaterm and run:
+ >
+	:Floaterms
+<
+------------------------------------------------------------------------------
+LEADERF-FLOATERM                                 *leaderf-floaterm*
+
+Install voldikss/LeaderF-floaterm and run:
+ >
+	:Leaderf floaterm
+<
+------------------------------------------------------------------------------
+ASYNCTASKS.VIM                                   *asynctasks.vim*
+
+This plugin can be a runner for |asynctasks.vim| or |asyncrun.vim|. See
+[|asyncrun.extra|](https://github.com/skywind3000/asyncrun.extra) for the
+installation and usage.
+
+==============================================================================
+INTEGRATIONS                                     *floaterm-integrations*
+
+Please refer to
+https://github.com/voldikss/vim-floaterm#use-with-command-line-tools
+
+==============================================================================
+FAQ                                              *floaterm-faq*
+
+https://github.com/voldikss/vim-floaterm/issues?q=label%3AFAQ
+
+==============================================================================
+REPOSITORY                                          *floaterm-repository-page*
+
+vim-floaterm is developed on GitHub. Give me a star if it helps you (^_^)!
+https://github.com/voldikss/vim-floaterm
+
+==============================================================================
+vim:tw=78:ts=4:ft=help:fen:

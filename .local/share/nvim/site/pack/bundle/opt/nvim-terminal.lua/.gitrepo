@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/norcalli/nvim-terminal.lua.git
+	branch = master
+	commit = 095f98aaa7265628a72cd2706350c091544b5602
+	parent = 2c4cd5bdf40cbe97898ac3ababf245754e285cb1
+	method = merge
+	cmdver = 0.4.9

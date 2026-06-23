@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/justinmk/vim-gtfo.git
+	branch = master
+	commit = 21a5e0292dabccba7363a6e508029d078a74504b
+	parent = 35f03af187d72160aa9286f10c29d1aac537d699
+	method = merge
+	cmdver = 0.4.9

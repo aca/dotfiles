@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "checkThirdParty": false,
+    "library": ["$VIMRUNTIME"]
+  },
+  "diagnostics": {
+    "groupSeverity": {
+      "ambiguity": "Information",
+      "await": "Information",
+      "codestyle": "Information",
+      "duplicate": "Information",
+      "global": "Information",
+      "luadoc": "Information",
+      "redefined": "Information",
+      "strict": "Information",
+      "strong": "Information",
+      "type-check": "Information",
+      "unbalanced": "Information",
+      "unused": "Information"
+    },
+    "globals": ["vim"]
+  }
+}

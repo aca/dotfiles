@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kvaps/kubectl-node-shell.git
+	branch = master
+	commit = d9b636df31fd95cb7f346d1f0dfb6f0d7be0ebfb
+	parent = e44d54f909c4add3aa71a3b3e628e7e162a6e46c
+	method = merge
+	cmdver = 0.4.9

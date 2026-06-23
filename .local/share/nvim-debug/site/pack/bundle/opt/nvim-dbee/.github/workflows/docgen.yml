@@ -1,0 +1,78 @@
+name: Documentation Generation
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  readme-docs:
+    runs-on: ubuntu-22.04
+    name: Generate Docs from Readme
+    env:
+      TEMP_README: "__temp_readme.md"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare markdown file
+        run: |
+          TEMP_CONFIG="$(mktemp)"
+          # Retrieve default config and put it in a temp file.
+          {
+            echo '```lua'
+            awk '/DOCGEN_END/{f=0} f; /DOCGEN_START/{f=1}' lua/dbee/config.lua
+            echo '```'
+          } > "$TEMP_CONFIG"
+          # Insert the default config between DOCGEN_CONFIG tags in the README.
+          # And remove stuff between DOCGEN_IGNORE_START and DOCGEN_IGNORE_END tags from README.
+          {
+            sed -e '
+              /DOCGEN_CONFIG_START/,/DOCGEN_CONFIG_END/!b
+              /DOCGEN_CONFIG_START/r '"$TEMP_CONFIG"'
+              /DOCGEN_CONFIG_END:/!d
+            ' <(sed '/DOCGEN_IGNORE_START/,/DOCGEN_IGNORE_END/d' README.md)
+            cat ARCHITECTURE.md
+          } > "$TEMP_README"
+      - name: Generate vimdoc
+        uses: kdheepak/panvimdoc@v3.0.6
+        with:
+          vimdoc: dbee
+          pandoc: "${{ env.TEMP_README }}"
+          toc: true
+          description: "Database Client for NeoVim"
+          treesitter: true
+          ignorerawblocks: true
+          docmappingprojectname: false
+      - name: Commit the Generated Help
+        uses: EndBug/add-and-commit@v9
+        if: github.event_name == 'push'
+        with:
+          add: doc/dbee.txt
+          author_name: Github Actions
+          author_email: actions@github.com
+          message: "[docgen] Update doc/dbee.txt"
+          pull: --rebase --autostash
+
+  reference-docs:
+    name: Generate Reference Docs
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generating help
+        shell: bash
+        run: |
+          curl -Lq https://github.com/numToStr/lemmy-help/releases/latest/download/lemmy-help-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          ./lemmy-help lua/dbee.lua lua/dbee/{config,doc,sources,layouts/init,api/core,api/ui}.lua --expand-opt > doc/dbee-reference.txt
+      - name: Commit the Generated Docs
+        uses: EndBug/add-and-commit@v9
+        if: github.event_name == 'push'
+        with:
+          add: doc/dbee-reference.txt
+          author_name: Github Actions
+          author_email: actions@github.com
+          message: "[docgen] Update doc/dbee-reference.txt"
+          pull: --rebase --autostash

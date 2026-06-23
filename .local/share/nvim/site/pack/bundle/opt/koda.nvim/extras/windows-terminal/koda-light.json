@@ -1,0 +1,23 @@
+{
+  "background": "#FAF9F5",
+  "black": "#E2E2E2",
+  "blue": "#3D3D3D",
+  "brightBlack": "#ABABAB",
+  "brightBlue": "#000000",
+  "brightCyan": "#009797",
+  "brightGreen": "#4F9A00",
+  "brightPurple": "#C301FB",
+  "brightRed": "#F30052",
+  "brightWhite": "#101010",
+  "brightYellow": "#B07700",
+  "cursorColor": "#6A6A6A",
+  "cyan": "#007D7D",
+  "foreground": "#101010",
+  "green": "#407F00",
+  "name": "koda-light",
+  "purple": "#A200D1",
+  "red": "#CA0043",
+  "selectionBackground": "#EBEBEB",
+  "white": "#6A6A6A",
+  "yellow": "#926200"
+}

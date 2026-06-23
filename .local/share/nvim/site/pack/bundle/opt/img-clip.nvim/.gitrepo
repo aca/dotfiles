@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/hakonharnes/img-clip.nvim.git
+	branch = main
+	commit = b6ddfb97b5600d99afe3452d707444afda658aca
+	parent = 8f4c20590aa6ec0c596d28446453180ebbdb8a05
+	method = merge
+	cmdver = 0.4.9

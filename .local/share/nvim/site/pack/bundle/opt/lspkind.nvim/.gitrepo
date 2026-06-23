@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/onsails/lspkind.nvim.git
+	branch = master
+	commit = c7274c48137396526b59d86232eabcdc7fed8a32
+	parent = 37902b3cc382cec2645955adba39843f3a8a8764
+	method = merge
+	cmdver = 0.4.9

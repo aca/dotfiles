@@ -1,0 +1,193 @@
+#!/usr/bin/env sh
+#
+# @file mpvc-chapter
+# @description mpvc chapter helper utils (see mpvc chapter-list instead)
+# @author gmt4 <gmt4 at github.com> (c) Copyright 2022 GPLv2+
+# @url github.com/gmt4/mpvc
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+
+PROGNAME=${0##*/}
+PROGVERSION="v1.8"
+PROGAUTHOR=gmt4
+PROGURL="https://github.com/gmt4/mpvc"
+
+set -euf
+
+# Set defaults
+mpvc_defaults()
+{
+    : "${XDG_CONFIG_HOME:="$HOME/.config"}"
+    : "${MPVC_CONFIG_DIR:=$XDG_CONFIG_HOME/mpvc}"
+    : "${MPVC_CONFIG:=$MPVC_CONFIG_DIR/mpvc.conf}"
+
+    : "${MPVC_CHAPTERS_DIR:=$MPVC_CONFIG_DIR/chapters}"
+
+    [ ! -d "$MPVC_CHAPTERS_DIR" ] && mkdir -p "$MPVC_CHAPTERS_DIR" || true
+}
+
+# See https://ffmpeg.org/ffmpeg-formats.html#ffmetadata
+mpvc_chapter_file()
+{
+    file=$(mpvc get path | sed 's/\//-/g; s/ /_/g; s/[&]//g')
+    echo "$MPVC_CHAPTERS_DIR/${file}"
+}
+
+mpvc_chapter_info()
+{
+    chaptersfile=${1:-$(mpvc_chapter_file)}
+
+    if [ ! -e "$chaptersfile" ]; then usage; fi
+
+    #echo "# $chaptersfile"
+    awk '
+        function cinfo() { printf("%d\t%d\t%s\n", cpos++, end, title); }
+        BEGIN            { cpos=0 }
+        /^title=/        { title=$0; sub("^title=", "", title); }
+        /^START=/        { start=$0; sub("^START=", "", start);}
+        /^END=/          { end=$0; sub("^END=", "", end);}
+        /^\[CHAPTER\]/   { cinfo(); }
+        END              { cinfo(); }
+    ' "$chaptersfile"
+}
+
+mpvc_chapter_merge() # usage: merge in.opus ffmetadata.txt out.opus
+{
+    srcfile="${1:-}"
+    ffmetafile="${2:-}"
+    dstfile="${3:-/tmp/$(basename "$srcfile")}"
+
+    if [ -z "$srcfile" ] || [ ! -e "$srcfile" ]; then usage; fi
+
+    if [ -z "$dstfile" ] || [ ! -e "$ffmetafile" ];
+    then
+        # -map_metadata 0 -map_metadata:s:v 0:s:v -map_metadata:s:a 0:s:a
+        ffmpeg -v quiet -i "$srcfile" -f ffmetadata - > "$ffmetafile"
+        cat "$(mpvc_chapter_file)" >> "$ffmetafile"
+    fi
+    ffmpeg -i "$srcfile" -i "$ffmetafile" -map_metadata 1 -codec copy "$dstfile"
+}
+
+# usage: mpvc_chapter_gen [chapter-file] < chapterlist.txt with entries format: (HH:MM:SS) title (time can be relative or absolute)
+mpvc_chapter_gen() # usage: gen < chapterlist.txt, generates a ffmpeg metadata chapters file
+{
+    chaptersfile=${1:-$(mpvc_chapter_file)}
+    isabsolute=${2:-1}
+
+    path=$(mpvc get path)
+    mediatitle=$(mpvc get media-title)
+
+    if [ -z "$chaptersfile" ] || [ -z "$path" ] || [ -z "$mediatitle" ];
+    then
+        usage;
+    fi
+
+    awk -v isabsolute="$isabsolute" -v mediatitle="$mediatitle" -v path="$path" '
+        BEGIN {
+            print ";FFMETADATA1"
+            print "title="mediatitle
+            print ";path="path
+        }
+
+        /^[0-9]{1,2}:[0-9]{1,2}(:[0-9]{1,2})?/ {
+            title=$0
+            tp=$1
+            n=split(tp, a, ":")
+            if (n == 2) tp = a[1]*60 + a[2]
+            if (n == 3) tp = a[1]*60*60 + a[2]*60 + a[3]
+
+            sub($1" *", "", title);
+
+            tp=(isabsolute ? 0 : otp) + tp
+            stime=otp
+            etime=tp
+
+            if (cpos > 0)
+            {
+                print ""
+                print "#", cpos, stime, etime, title
+                print "[CHAPTER]"
+                print "TIMEBASE=1/1"
+                print "START="stime
+                print "END="etime
+                print "title="otitle
+            }
+
+            cpos++
+            otp=tp
+            otitle=title
+        }
+    ' | tee "$chaptersfile"
+}
+
+# usage mpvc_chapter_load chapters.txt ffmetadata chapter-file
+mpvc_chapter_load()
+{
+    track=$(mpvc get playlist-pos)
+    tpos=$(mpvc get time-pos)
+    mpvc set chapters-file "$(mpvc_chapter_file)"
+    mpvc play "$track"
+    mpvc delay set time-pos "$tpos"
+}
+
+mpvc_chapter_reset()
+{
+    mpvc set chapters-file ''
+}
+
+mpvc_chapter_clear()
+{
+    track=$(mpvc get playlist-pos)
+    tpos=$(mpvc get time-pos)
+    mpvc set chapters-file ''
+    mpvc play "$track"
+    mpvc delay set time-pos "$tpos"
+}
+
+mpvc_chapter_list()
+{
+    ls -ltr "${MPVC_CHAPTERS_DIR}"
+}
+
+mpvc_chapter_edit()
+{
+    ${EDITOR:-vi} "${MPVC_CHAPTERS_DIR}"
+}
+
+usage()
+{
+    cat <<EOF
+usage: $PROGNAME args # @version $PROGVERSION (c) $PROGAUTHOR $PROGURL
+ list : List ffmetadata chapter-files
+ file : Show current ffmetadata chapter-file
+ info : Info current ffmetadata chapter-file
+ reset: Reset current ffmetadata chapter-file
+ load : Load current ffmetadata chapter-file
+ gen  : Gen a ffmetadata chapter-file from a < chapterlist.txt
+ merge: Merge ffmetadata chapter-file to audio file (args: in ffmeta out)
+EOF
+    exit;
+}
+
+main()
+{
+    if [ $# -lt 1 ]; then usage; fi
+
+    mpvc_defaults
+
+    case "$1" in
+    file)   shift; mpvc_chapter_file "$@" ;;
+    info)   shift; mpvc_chapter_info "$@" ;;
+    load)   shift; mpvc_chapter_load "$@" ;;
+    clear)  shift; mpvc_chapter_clear "$@" ;;
+    gen)    shift; mpvc_chapter_gen "$@" ;;
+    merge)  shift; mpvc_chapter_merge "$@" ;;
+    reset)  shift; mpvc_chapter_reset "$@" ;;
+    list)   shift; mpvc_chapter_list "$@" ;;
+    edit)   shift; mpvc_chapter_edit "$@" ;;
+    help)   shift; usage "$@" ;;
+    *)      shift; usage "$@" ;;
+    esac
+}
+
+main "$@"

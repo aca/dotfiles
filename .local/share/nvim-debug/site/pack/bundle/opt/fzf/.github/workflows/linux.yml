@@ -1,0 +1,53 @@
+---
+name: build
+
+on:
+  push:
+    branches: [ master, devel ]
+  pull_request:
+    branches: [ master, devel ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  LANG: C.UTF-8
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: "1.23"
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1
+      with:
+        ruby-version: 3.4.6
+
+    - name: Install packages
+      run: sudo apt-get install --yes zsh fish tmux shfmt
+
+    - name: Install Ruby gems
+      run: bundle install
+
+    - name: Rubocop
+      run: make lint
+
+    - name: Unit test
+      run: make test
+
+    - name: Fuzz test
+      run: |
+        go test ./src/algo/ -fuzz=FuzzIndexByteTwo -fuzztime=5s
+        go test ./src/algo/ -fuzz=FuzzLastIndexByteTwo -fuzztime=5s
+
+    - name: Integration test
+      run: make install && ./install --all && tmux new-session -d && ruby test/runner.rb --verbose

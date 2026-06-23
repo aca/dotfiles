@@ -1,0 +1,265 @@
+*nvim-go.txt* Go development plugin
+
+     __    __  __     __  ______  __       __           ______    ______
+    |  \  |  \|  \   |  \|      \|  \     /  \         /      \  /      \
+    | ##\ | ##| ##   | ## \######| ##\   /  ##        |  ######\|  ######\
+    | ###\| ##| ##   | ##  | ##  | ###\ /  ### ______ | ## __\##| ##  | ##
+    | ####\ ## \##\ /  ##  | ##  | ####\  ####|      \| ##|    \| ##  | ##
+    | ##\## ##  \##\  ##   | ##  | ##\## ## ## \######| ## \####| ##  | ##
+    | ## \####   \## ##   _| ##_ | ## \###| ##        | ##__| ##| ##__/ ##
+    | ##  \###    \###   |   ## \| ##  \# | ##         \##    ## \##    ##
+     \##   \##     \#     \###### \##      \##          \######   \######
+
+==============================================================================
+CONTENTS                                                    *nvim-go-contents*
+
+  Introduction ········································ |nvim-go-introduction|
+  Requirements ········································ |nvim-go-requirements|
+  Limitations and known issues ······························ |nvim-go-issues|
+  Usage ······················································ |nvim-go-usage|
+    Commands ·············································· |nvim-go-commands|
+    Events ·················································· |nvim-go-events|
+    Variables ············································ |nvim-go-variables|
+    Lua API ················································ |nvim-go-lua-api|
+  Configuration ············································· |nvim-go-config|
+  License ·················································· |nvim-go-license|
+
+==============================================================================
+INTRODUCTION                                  *nvim-go* *nvim-go-introduction*
+
+A minimal implementation of Golang development plugin written in Lua for
+Neovim.
+
+Neovim (from v0.5) embeds a built-in Language Server Protocol (LSP) client.
+And Debug Adapter Protocol (DAP) are also brought into Neovim as a general
+debugger. With the power of them, we are able to easily turn Neovim into a
+powerful editor.
+
+nvim-go is designed to collaborate with them, provides additional sufficient
+features, and leverages community toolchains to get Golang development done.
+
+==============================================================================
+REQUIREMENTS                                            *nvim-go-requirements*
+
+nvim-go works only with Neovim and is written in Lua, it requires Neovim
+version 0.7+.
+
+==============================================================================
+LIMITATIONS AND KNOWN ISSUES                                  *nvim-go-issues*
+
+* Upstream Issue: `golangci-lint` may not run linters successfully if your
+  project cannot be built.
+
+==============================================================================
+USAGE                                                          *nvim-go-usage*
+
+                                                              *nvim-go-config*
+For basic setup:
+>
+    require('go').setup({})
+<
+Configuration can be passed to the setup function. Here is the default
+settings:
+>
+    require('go').setup({
+        -- notify: use nvim-notify
+        notify = false,
+        -- auto commands
+        auto_format = true,
+        auto_lint = true,
+        -- linter: revive, staticcheck, errcheck, golangci-lint
+        linter = 'revive',
+        -- linter_flags: e.g., {revive = {'-config', '/path/to/config.yml'}}
+        linter_flags = {},
+        -- lint_prompt_style: qf (quickfix), vt (virtual text)
+        lint_prompt_style = 'qf',
+        -- formatter: goimports, gofmt, gofumpt, lsp
+        formatter = 'goimports',
+        -- maintain cursor position after formatting loaded buffer
+        maintain_cursor_pos = false,
+        -- test flags: -count=1 will disable cache
+        test_flags = {'-v'},
+        test_timeout = '30s',
+        test_env = {},
+        -- show test result with popup window
+        test_popup = true,
+        test_popup_auto_leave = false,
+        test_popup_width = 80,
+        test_popup_height = 10,
+        -- test open
+        test_open_cmd = 'edit',
+        -- struct tags
+        tags_name = 'json',
+        tags_options = {'json=omitempty'},
+        tags_transform = 'snakecase',
+        tags_flags = {'-skip-unexported'},
+        -- quick type
+        quick_type_flags = {'--just-types'},
+        -- gotests
+        gotests_template = '',
+        gotests_template_dir = '',
+    })
+<
+                                                            *nvim-go-commands*
+Commands~
+
+`:GoInstallBinaries`                                      *:GoInstallBinaries*
+    Install dependent binaries for nvim-go. `go` and `yarn` is required in
+    advance. It will not install again if binary exists. And you may also
+    install them manually.
+
+    If you want to install the binaries with different URL or package
+    manager, please use `:nvim-go.update_tool` to change the config.
+
+`:GoUpdateBinaries`                                        *:GoUpdateBinaries*
+    Perform updates for dependent binaries.
+
+`:GoLint([linter])`                                                  *:GoLint*
+    Lint with linter, If linter is not specified, then lint with default
+    linter. Default linter is `revive`, and other linters are `golangci_lint`
+    (use underline when calling with `GoLint`), `errcheck`, `staticcheck` and,
+    `golint` (deprecated). If there are issues, it will be prompt with
+    quickfix or virtual text.
+
+    You may notice that `go vet` is not listed in linters, because Language
+    Server (`gopls`) has done that and it will show on virtual text area as
+    diagnostic issues.
+
+    Notice for `golangci-lint`: We recommend `golangci-lint` if you do not
+    prefer `revive`, because it is highly customizable and capable to run
+    multiple linters including all the linters that supported by nvim-go
+    and a bunch of other linters. It may not run linters successfully if
+    your project cannot be built.
+
+`:GoFormat([formatter])`                                           *:GoFormat*
+    Format with formatter. If formatter is not specified, then format with
+    default formatter. Default formatter is `goimports`, and other formatters
+    are `gofmt` and `gofumpt`. And `lsp` is supported after neovim v0.8 is
+    released, which formats with `textDocument/formatting` method by calling
+    `vim.lsp.buf.format`.
+
+    If `maintain_cursor_pos` is `true`, then nvim-go will take extra steps to
+    keep the cursor where it is after the buffer is formatted. By default,
+    this option is `false`, but users who want this feature can set the option
+    to `true`.
+
+`:GoGet(pkg)`                                                         *:GoGet*
+    Get a Go package in a project.
+
+`:GoImport(pkg)`                                                   *:GoImport*
+    Import a Go package and add it to import statement. `:GoGet` will be
+    performed before import.
+
+`:GoTest`                                                            *:GoTest*
+    Run the test for current package.
+
+`:GoTestAll`                                                      *:GoTestAll*
+    Run all the tests. (`go test ./...`)
+
+`:GoTestFunc`                                                    *:GoTestFunc*
+    Run the test function where the cursor is on.
+
+`:GoTestFile`                                                    *:GoTestFile*
+    Run current `*_test.go` file.
+
+`:GoAddTest`                                                      *:GoAddTest*
+    Generate unit test for current function.
+
+`:GoToTest(cmd)`                                       *:GoTestOpen* *:GoToTest*
+`:GoTestOpen(cmd)`
+    Go from `*.go` to `*_test.go` or go back. It will create new file if
+    `*_test.go` does not exist. The default command is `edit`, you may pass
+    `vsplit`, `split`, `tabedit` or commands like that.
+
+`:{range}GoAddTags([tag, [args...]])`                             *:GoAddTags*
+    Add struct tag to an object or selected fields.
+    Extra arguments would be passed to command line arguments. e.g. `-sort`.
+
+`:{range}GoRemoveTags([args...])`                              *:GoRemoveTags*
+    Remove struct tag from an object or selected fields.
+    Extra arguments would be passed to command line arguments.
+
+`:{range}GoClearTags`                                           *:GoClearTags*
+    Clear struct tag of an object or selected fields.
+
+`:{range}GoAddTagOptions(option_name)`                      *:GoAddTagOptions*
+    Add struct tag options (e.g. json=omitempty) to an object or selected
+    fields.
+    Extra arguments would be passed to command line arguments.
+
+`:{range}GoRemoveTagOptions(option_name)`                *:GoRemoveTagOptions*
+    Remove struct tag options from an object or selected fields.
+    Extra arguments would be passed to command line arguments.
+
+`:{range}GoClearTagOptions`                               *:GoClearTagOptions*
+    Clear struct tag options of an object or selected fields.
+
+`:GoQuickType(src, [package, [top_level]])`                     *:GoQuickType*
+    Generates strongly-typed models and serializers from JSON via quicktype.
+    Other format that supported by quicktype has not been implemented yet.
+
+                                                           *nvim-go-variables*
+Variables~
+
+`g:nvim_go#lint_issues_count`                             *:GoLintIssuesCount*
+    Issues count after executing Go linters.
+
+                                                              *nvim-go-events*
+Events~
+
+`NvimGoTestPopupPre`                                        *NvimGoTestPopupPre*
+    Before popping up location list for |:GoTest|.
+
+`NvimGoTestPopupPost`                                      *NvimGoTestPopupPost*
+    After popping up location list for |:GoTest|.
+
+`NvimGoLintPopupPre`                                        *NvimGoLintPopupPre*
+    Before popping up location list for |:GoLint|.
+
+`NvimGoLintPopupPost`                                      *NvimGoLintPopupPost*
+    After popping up location list for |:GoLint|.
+
+                                                             *nvim-go-lua-api*
+Lua API~
+
+`go.setup(`{opts}`)`                                             *nvim-go.setup*
+    Setup the library with options.
+
+    This functional will setup the Lua API and commands in a way that respects
+    the options you pass.
+
+    The list of available options is available in the |nvim-go-config| section.
+
+`go.config.get_tool(`tool_name`)`                             *nvim-go.get_tool*
+    Get tool info from config by tool name.
+
+
+`go.config.update_tool(`tool_name, callback`)`             *nvim-go.update_tool*
+    Update tool by tool name. The callback will pass tool object and you may
+    modify the info there.
+
+==============================================================================
+LICENSE                                                      *nvim-go-license*
+
+Copyright (c) 2022 David Zhang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+vim:tw=78:sw=4:ts=8:ft=help:norl:

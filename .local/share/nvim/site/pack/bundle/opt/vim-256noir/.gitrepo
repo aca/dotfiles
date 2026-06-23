@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/andreasvc/vim-256noir.git
+	branch = master
+	commit = e8668a18a4a90272c1cae87e655f8bddc5ac3665
+	parent = 8ec3b10e7233e7df279f50397187ea4995be22d1
+	method = merge
+	cmdver = 0.4.9

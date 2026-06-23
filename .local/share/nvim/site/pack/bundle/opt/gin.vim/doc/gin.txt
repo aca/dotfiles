@@ -1,0 +1,1042 @@
+*gin.txt*					Gin makes you drunk with Git
+
+Author:  Alisue <lambdalisue@gmail.com>
+License: MIT License (See LICENSE)
+
+
+=============================================================================
+CONTENTS					*gin-contents*
+
+INTRODUCTION			|gin-introduction|
+REQUIREMENTS			|gin-requirements|
+USAGE				|gin-usage|
+  ACTION			  |gin-action|
+  PROXY				  |gin-proxy|
+INTERFACE			|gin-interface|
+  COMMANDS			  |gin-commands|
+  VARIABLES			  |gin-variables|
+  FUNCTIONS			  |gin-functions|
+  COMPONENTS			  |gin-components|
+  MAPPINGS			  |gin-mappings|
+  ACTIONS			  |gin-actions|
+  AUTOCMDS			  |gin-autocmds|
+
+
+=============================================================================
+INTRODUCTION					*gin-introduction*
+
+Gin ( *vim-gin* ) is a plugin to handle git repository from Vim/Neovim.
+
+
+=============================================================================
+REQUIREMENTS					*gin-requirements*
+
+Gin is written in denops so users need to install denops.vim
+
+denops.vim~
+	An ecosystem for writing Vim/Neovim plugin in Deno.
+	https://github.com/vim-denops/denops.vim
+
+
+=============================================================================
+USAGE						*gin-usage*
+
+-----------------------------------------------------------------------------
+ACTION						*gin-action*
+
+Action is a special mapping that is defined on a gin buffer and is looked like:
+
+	<Plug>(gin-action-{name})
+
+where {name} is a name of the action.
+
+						*gin-action-mapping*
+Gin defines the following mappings for actions:
+
+	"?"	List mappings/actions available
+	"a"	Open a prompt to input action to execute
+	"."	Repeat previous action which has executed from a prompt
+
+See |gin-actions| for details.
+
+-----------------------------------------------------------------------------
+PROXY						*gin-proxy*
+
+Gin proxies prompts and editors used by git commands to running Vim by
+overriding "GIT_ASKPASS" and "GIT_EDITOR" environment variables.
+This means that whether you invoke "git commit" via the "Gin" command or via
+the Vim |terminal|, a new buffer will be opened instead of Vim being launched
+nested.
+
+This feature is almost equivalent to askpass.vim and/or guise.vim, but
+simplified to focus on git.
+
+askpass.vim~
+	https://github.com/lambdalisue/askpass.vim
+
+guise.vim~
+	https://github.com/lambdalisue/guise.vim
+
+It can live together with the plugins mentioned above because the environment
+variable names used are different.
+
+It asks if users want to apply or cancel changes when |:quit| command is
+invoked. Answer "yes" to apply changes and others to cancel changes. Or use
+:Accept or :Cancel buffer local command to directly apply or cancel changes.
+
+Note that this :Accept and :Cancel command are aliased to |:wq| and |:cq| 
+respectively for "gitcommit" and "gitrebase" filetype buffers so that users
+can use the same keybindings even they invoke "git commit" or "git rebase -i"
+outside of Vim.
+
+Use |g:gin_proxy_apply_without_confirm| to apply changes without asking.
+
+Use |g:gin_proxy_editor_opener| to specify the opener command to open the
+buffer.
+
+Use |g:gin_proxy_disable_askpass| and/or |g:gin_proxy_disable_editor| to
+disable this proxy feature.
+
+Use |g:gin_proxy_disable_accept_and_cancel_aliases| to disable the accept and
+cancel aliases in "gitcommit" and "gitrebase" filetype buffers.
+
+
+=============================================================================
+INTERFACE					*gin-interface*
+
+-----------------------------------------------------------------------------
+COMMANDS					*gin-commands*
+
+							*:Gin*
+:Gin [{++option}...] {command} [{args}]
+	Call a git raw {command} with {args} arguments asynchronously and echo
+	the results.
+
+	The following options are valid as {++option}:
+
+	++wait
+		Call the {command} synchronously instead of asynchronously.
+		It should be used when command execution need to be
+		sequential. For example
+>
+		:Gin ++wait add . | Gin commit
+<
+	See |gin-commands-options| for common {++option}.
+
+							*:GinBuffer*
+:GinBuffer[!] [{++option}...] {command} [{args}]
+	Call a git raw {command} with {args} arguments asynchronously and open
+	a "gin" buffer to show the results. Note that it shows error results
+	in the buffer as well.
+
+	The following options are valid as {++option}:
+
+	++monochrome
+		Displays the result in black and white without coloring.
+		Use this option when the resulting data is large and coloring
+		may cause performance problems.
+	
+	++emojify
+		Replace all ":emoji:" with emoji characters.
+
+	++diffjump[={commitish}]
+		Enable diff jump functionality for buffers that contain git
+		diff output (e.g., "git show", "git log -p"). When enabled,
+		diff jump mappings become available in the buffer.
+		If {commitish} is specified, it will be used as the target
+		commit. If omitted, defaults to "HEAD".
+		See |<Plug>(gin-diffjump-smart)| for available mappings.
+		For example:
+>
+		:GinBuffer ++diffjump show HEAD
+		:GinBuffer ++diffjump=abc123 show abc123
+		:GinBuffer ++diffjump log -p -1
+<
+	++difffold
+		Enable automatic folding for file sections in unified diff
+		output. Each file in the diff will be folded separately,
+		making it easier to navigate large diffs with multiple files.
+		For example:
+>
+		:GinBuffer ++difffold show HEAD
+		:GinBuffer ++diffjump ++difffold log -p -1
+<
+	++filetype={filetype}
+		Specifies the filetype to set for the buffer. Defaults to
+		"gin-buffer". This is useful when you want specific ftplugin
+		behavior for certain commands.
+
+	++processor={processor}
+		Specifies the processor program that will process the result.
+		The result is passed to the processor via stdin and the
+		processor's output is used as the result. For example
+>
+		:GinBuffer ++processor=delta blame README.md
+<
+	See |gin-commands-options| for common {++option}.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinBranch*
+:GinBranch[!] [{++option}...] [{flags}] [-- {pattern}...]
+	Open a "gin-branch" buffer to show a branch list. If {pattern} is
+	given, it is used as a shell wildcard to restrict the output to
+	matching branches. If multiple patterns are given, a branch is shown
+	if it matches any of the patterns.
+
+	See |gin-commands-options| for common {++option}.
+
+	The following flags are valid as {flags}:
+
+	-a, --all
+	-r, --remotes
+	-i, --ignore-case
+	--abbrev={n}
+	--no-abbrev
+		
+	See ":man git-branch(1)" for detail about each {flags}.
+
+	Several default mappings are defined in the buffer. Use "help" action
+	to see mappings or disable by |g:gin_branch_disable_default_mappings|.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinBrowse*
+:[range]GinBrowse [{++option}...] [{flags}] [{commitish}] [{path}]
+	Open a system browser to visit the hosting service webpage of the
+	repository. If no {commitish} is given, it defaults to HEAD. If no
+	{path} is given, it defaults to the current buffer or the current
+	working directory if the current buffer is not a file.
+
+	The following options are valid as {++option}:
+
+	++repository
+		Open the repository page instead of the blob or commit page.
+		If this option is given, {path} is ignored.
+
+	++yank={regname}
+		Yank the URL to the clipboard.
+		{regname} is optional and defaults to |v:register|.
+		If non-empty string is given, the value is passed to the
+		{regname} argument of |setreg()|.
+
+	See |gin-commands-options| for common {++option}.
+
+	The following flags are valid as {flags}:
+
+	--commit
+	--home
+	-n, --no-browser
+	--permalink
+	--pr
+	--remote={REMOTE}
+
+	It uses "git-browse" command as a module internally so see usage of
+	that for detail about each {flags}.
+	
+	https://jsr.io/@lambdalisue/git-browse
+
+	See |g:gin_browse_aliases| to define aliases of REMOTE to support
+	arbitrary domain (e.g. GitHub Enterprise).
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+							*:GinCd*
+							*:GinLcd*
+							*:GinTcd*
+:GinCd
+:GinLcd
+:GinTcd
+	Change the current working directory to the git's repository root
+	directory. Commands call |cd|, |lcd|, and |tcd| respectively.
+	
+							*:GinChaperon*
+:GinChaperon[!] [++{option}...] [{path}]
+	Open three main buffers (THEIRS, WORKTREE, and OURS) and three
+	supplemental buffers to solve conflicts on {path}. If no {path} is
+	specified, the default value is the current buffer.
+
+	The following options are valid as {++option}:
+
+	++no-theirs
+		Do NOT open THEIRS buffer.
+	
+	++no-ours
+		Do NOT open OURS buffer.
+
+	See |gin-commands-options| for common {++option}.
+
+	Users can use the following mappings in each buffers or disable
+	default mappings by |g:gin_chaperon_disable_default_mappings|.
+
+	THEIRS~
+	|<Plug>(gin-diffput)|		Assigned to "dp" in default.
+
+	WORKTREE~
+	|<Plug>(gin-diffget)|		Assigned to "do" in default.
+	|<Plug>(gin-diffget-l)|		Assigned to "dol" in default.
+	|<Plug>(gin-diffget-r)|		Assigned to "dor" in default.
+
+	OURS~
+	|<Plug>(gin-diffget)|		Assigned to "do" in default.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+	Use |g:gin_chaperon_supplement_disable| to disable supplemental
+	buffers.
+
+	Use |g:gin_chaperon_supplement_height| to regulate the height of
+	supplemental buffers.
+
+							*:GinDiff*
+:GinDiff[!] [{++option}...] [{flags}] [{commitish}] [-- {path}...]
+	Open a "gin-diff" buffer to show changes between the working tree and
+	the index or a tree, changes between the index and a tree, changes
+	between two trees.
+
+	The following options are valid as {++option}:
+
+	++processor={processor}
+		Specifies the processor program that will process the result.
+		The result is passed to the processor via stdin and the
+		processor's output is used as the result. For example
+>
+		:GinDiff ++processor=diff-highlight HEAD %
+<
+	See |gin-commands-options| for common {++option}.
+
+	The following flags are valid as {flags}:
+
+	--cached
+	--renames/--no-renames
+	--diff-filter={filter}
+	-R
+	--ignore-cr-at-eol
+	--ignore-space-at-eol
+	--ignore-space-change/-b
+	--ignore-all-space/-w
+	--ignore-blank-lines
+	--ignore-matching-lines={regex}/-I={regex}
+	--ignore-submodules[=none/untracked/dirty/all]
+		
+	See ":man git-diff(1)" for detail about each {flags}.
+
+	Users can use the following mappings in each buffers or disable
+	default mappings by |g:gin_diff_disable_default_mappings|.
+
+	|<Plug>(gin-diffjump-smart)|	Assigned to "<CR>" in default.
+	|<Plug>(gin-diffjump-old)|	Assigned to "g<CR>" in default.
+	|<Plug>(gin-diffjump-new)|	Assigned to "<C-g><CR>" in default.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinEdit*
+:GinEdit[!] [{++option}...] [{commitish}] {path}
+	Open a "gin-edit" buffer to show a corresponding content of {path} in
+	the index or the commitish.
+	If no {commitish} is specified, it opens a buffer that shows content
+	in INDEX. The buffer is modifiable and write the buffer to apply 
+	changes on INDEX.
+	If {commitish} is specified, it opens a buffer that shows content
+	in the {commitish}. The buffer is not modifiable.
+
+	See |gin-commands-options| for common {++option}.
+
+	Users can specify default arguments by |g:gin_edit_default_args|.
+	See |gin-commands-default-args| for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinLog*
+:GinLog[!] [{++option}...] [{commitish}] [-- {pathspec}...]
+	Open a "gin-log" buffer to show a git log.
+	
+	The following options are valid as {++option}:
+
+	++emojify
+		Replace all ":emoji:" with emoji characters.
+
+	See |gin-commands-options| for common {++option}.
+		
+	See ":man git-log(1)" for {flags}.
+
+	Several default mappings are defined in the buffer. Use "help" action
+	to see mappings or disable by |g:gin_log_disable_default_mappings|.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinReflog*
+:GinReflog[!] [{++option}...] [{flags}] [{ref}]
+	Open a "gin-reflog" buffer to show a git reflog.
+
+	The following options are valid as {++option}:
+
+	++emojify
+		Replace all ":emoji:" with emoji characters.
+
+	See |gin-commands-options| for common {++option}.
+
+	See ":man git-reflog(1)" for detail about each {flags}.
+
+	The optional {ref} argument specifies which ref to show the reflog
+	for. If omitted, HEAD is used by default.
+
+	Several default mappings are defined in the buffer. Use "help" action
+	to see mappings or disable by |g:gin_reflog_disable_default_mappings|.
+
+	Users can specify default and/or persistent arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinStash*
+:GinStash[!] [{++option}...] [{flags}]
+	Open a "gin-stash" buffer to show a stash list.
+
+	The following options are valid as {++option}:
+
+	++emojify
+		Replace all ":emoji:" with emoji characters.
+
+	See |gin-commands-options| for common {++option}.
+
+	See ":man git-stash(1)" for detail about each {flags}.
+
+	Several default mappings are defined in the buffer. Use "help" action
+	to see mappings or disable by |g:gin_stash_disable_default_mappings|.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinTag*
+:GinTag[!] [{++option}...] [{flags}] [{pattern}...]
+	Open a "gin-tag" buffer to show a tag list.
+
+	The following options are valid as {++option}:
+
+	++emojify
+		Replace all ":emoji:" with emoji characters.
+
+	See |gin-commands-options| for common {++option}.
+
+	See ":man git-tag(1)" for detail about each {flags}.
+
+	The optional {pattern} arguments are shell wildcard patterns. If
+	given, only tags matching the patterns are shown.
+
+	Several default mappings are defined in the buffer. Use "help" action
+	to see mappings or disable by |g:gin_tag_disable_default_mappings|.
+
+	Users can specify default and/or persistent arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinPatch*
+:GinPatch[!] [{++option}...] [{path}]
+	Open three buffers (HEAD, INDEX, and WORKTREE) to patch changes of
+	{path}. If no {path} is specified, the default value is the current
+	buffer.
+
+	The following options are valid as {++option}:
+
+	++no-head
+		Do NOT open HEAD buffer.
+	
+	++no-worktree
+		Do NOT open WORKTREE buffer.
+
+	See |gin-commands-options| for common {++option}.
+
+	Users can use the following mappings in each buffers or disable
+	default mappings by |g:gin_patch_disable_default_mappings|.
+
+	HEAD~
+	|<Plug>(gin-diffput)|		Assigned to "dp" in default.
+
+	INDEX~
+	|<Plug>(gin-diffput)|		Assigned to "dp" in default.
+	|<Plug>(gin-diffget)|		Assigned to "do" in default.
+	|<Plug>(gin-diffget-l)|		Assigned to "dol" in default.
+	|<Plug>(gin-diffget-r)|		Assigned to "dor" in default.
+
+	WORKTREE~
+	|<Plug>(gin-diffput)|		Assigned to "dp" in default.
+	|<Plug>(gin-diffget)|		Assigned to "do" in default.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinStatus*
+:GinStatus[!] [{++option}...] [{flags}] [-- {pathspec}...]
+	Open a "gin-status" buffer to show a status.
+
+	See |gin-commands-options| for common {++option}.
+
+	The following flags are valid as {flags}:
+
+	-u[=no/normal/all], --untracked-files[=no/normal/all]
+	--ignore-submodules[=none/untracked/dirty/all]
+	--ignored[=traditional/no/matching]
+	--renames/--no-renames
+	--find-renames[={n}]
+		
+	See ":man git-status(1)" for detail about each {flags}.
+
+	Several default mappings are defined in the buffer. Use "help" action
+	to see mappings or disable by |g:gin_status_disable_default_mappings|.
+
+	Users can specify default and/or persistemt arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*:GinBlame*
+:GinBlame[!] [{++option}...] [{commitish}] {path}
+	Open a 3-window blame view showing:
+	- Top (10 lines): Commit details for the line under cursor
+	- Bottom-left (60 cols): Line numbers and commit info (ginblamenav)
+	- Bottom-right: File content with commit dividers (ginblame)
+
+	The three windows are synchronized with scrollbind and cursorbind.
+	Moving the cursor in any window updates all windows and the commit
+	detail view.
+
+	The following options are valid as {++option}:
+
+	++emojify
+		Convert :emoji-name: in commit messages to emoji characters.
+>
+		:GinBlame ++emojify HEAD README.md
+<
+	See |gin-commands-options| for common {++option}.
+
+	If {commitish} is specified, shows blame for that commit (e.g., HEAD~3).
+	Otherwise, shows blame for HEAD.
+
+	Several default mappings are defined in both ginblame and ginblamenav
+	buffers:
+
+	<CR>		Jump to the commit under cursor. If already viewing that
+			commit, jump to its parent commit. Tracks file renames
+			automatically using git blame's "previous" information.
+
+	<C-O>		Navigate to older commit in history. Restores exact
+			cursor position from when you were last at that commit.
+
+	<C-I>		Navigate to newer commit in history.
+
+	Users can disable default mappings with:
+>
+	let g:gin_blame_disable_default_mappings = 1
+<
+	And use Plug mappings instead:
+
+	<Plug>(gin-blame-switch-commit)		Switch to commit under cursor
+	<Plug>(gin-blame-navigate-older)	Navigate to older commit
+	<Plug>(gin-blame-navigate-newer)	Navigate to newer commit
+
+	The blame view uses a compound filetype (e.g., "typescript.gin-blame")
+	so syntax highlighting works while gin-blame specific features are
+	available.
+
+	Users can specify default and/or persistent arguments of the command.
+	See |gin-commands-default-args| and/or |gin-commands-persistent-args|
+	for detail.
+
+	Use a bang (!) to forcibly open a buffer.
+
+							*gin-commands-options*
+Gin supports several options starts with double plus signs (++) as:
+
+++worktree={worktree}
+	Specify a particular git working tree. 
+							*gin-worktree*
+	If this option is not specified, gin will find the one from the 
+	current buffer or the current working directory. It tries to find a
+	git working tree from
+
+	1. A target working tree of gin associated buffers (e.g. gindiff://)
+	2. A parent directory of a symlink resolved path of the current buffer
+	3. A parent directory of a path of the current buffer
+	4. A current working directory
+>
+	:GinStatus ++worktree=/home/john/project\ A
+<
+++opener={opener}
+	Specify a command to open the buffer. This option is only available on
+	Gin commands that open buffer(s).
+>
+	:GinEdit ++opener=botright\ vsplit README.md
+<
+++enc={encoding}/++encoding={encoding}
+	Specify 'fileencoding' option of the buffer. This option is only
+	available on Gin commands that open buffer(s).
+>
+	:GinEdit ++enc=sjis README.md
+<
+++ff={fileformat}/++fileformat={fileformat}
+	Specify 'fileformat' option of the buffer. This option is only
+	available on Gin commands that open buffer(s).
+>
+	:GinDiff ++ff=mac README.md
+<
+							*gin-commands-silent*
+Gin has limited support for |:silent| or |:silent!| modifiers to suppress
+messages during command execution. Unlike normal Vim commands, only the silent
+or silent! directly assigned to the command is affected. See the behavior
+example for details.
+>
+	" Messages are suppressed
+	:silent Gin status
+
+	" Error messages are suppressed
+	:silent! GinEdit HEAD README.md
+
+	" No messages are suppressed
+	:silent execute 'Gin status'
+	:silent! execute 'GinEdit HEAD README.md'
+<
+							*gin-commands-file*
+Users can get a proper git path of gin's file like buffer with
+|gin#util#expand()| function. This function is used internally to resolve "%"
+applied to Gin command so users can switch between gin's file like buffers
+like
+>
+	" Open gin-edit buffer
+	:GinEdit --cached %
+
+	" Switch to gin-log buffer
+	:GinLog -- %
+
+	" Switch to gin-diff buffer
+	:GinDiff -- %
+<
+Users can define "GinLocal" buffer local command on those buffers like
+>
+	function! s:define_gin_local() abort
+	  command! -buffer -bar GinLocal execute 'edit' gin#util#expand('%')
+	endfunction
+
+	augroup my-gin-local
+	  autocmd BufReadCmd ginedit://* call s:define_gin_local()
+	  autocmd BufReadCmd gindiff://* call s:define_gin_local()
+	  autocmd BufReadCmd ginlog://* call s:define_gin_local()
+	augroup END
+<
+						*gin-commands-default-args*
+Users can specify default arguments that is used when no arguments are given
+for each Gin commands by variable like "g:gin_{command}_default_args".
+For example, to specify default arguments for |:GinLog|, use
+"g:gin_log_default_args" variable like
+>
+	let g:gin_log_default_args = ['--graph', '--decorate']
+<
+						*gin-commands-persistent-args*
+Users can specify persistent arguments that is always prepended to arguments
+of each Gin commands by variable like "g:gin_{command}_persistent_args".
+For example, to specify persistent arguments for |:GinLog|, use
+"g:gin_log_persistent_args" variable like
+>
+	let g:gin_log_persistent_args = ['++emojify']
+<
+
+-----------------------------------------------------------------------------
+VARIABLES					*gin-variables*
+
+*g:gin_branch_default_args*
+	Specify default arguments of |:GinBranch|.
+
+	Default: []
+
+*g:gin_branch_persistent_args*
+	Specify persistent arguments of |:GinBranch|.
+
+	Default: []
+
+*g:gin_branch_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinBranch|.
+
+	Default: 0
+
+*g:gin_browse_aliases*
+	Define a REMOTE alias for a specific hosting service on |:GinBrowse|
+	command. This is useful for example GitHub Enterprise with a custom
+	domain like
+>
+	let g:gin_browse_aliases = {
+	      \ 'github.on.my.custom.domain.com': 'github.com',
+	      \}
+<
+	Default: {}
+
+*g:gin_browse_default_args*
+	Specify default arguments of |:GinBrowse|.
+
+	Default: []
+
+*g:gin_browse_persistent_args*
+	Specify persistent arguments of |:GinBrowse|.
+
+	Default: []
+
+*g:gin_chaperon_default_args*
+	Specify default arguments of |:GinChaperon|.
+
+	Default: []
+
+*g:gin_chaperon_persistent_args*
+	Specify persistent arguments of |:GinChaperon|.
+
+	Default: []
+
+*g:gin_chaperon_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinChaperon|.
+
+	Default: 0
+
+*g:gin_chaperon_supplement_disable*
+	Disable supplemental buffers on |:GinChaperon|.
+
+	Default: 0
+
+*g:gin_chaperon_supplement_height*
+	|Number| that indicates the height of supplemental buffers of
+	|:GinChaperon| command.
+
+	Default: 10
+
+*g:gin_diff_default_args*
+	Specify default arguments of |:GinDiff|.
+
+	Default: []
+
+*g:gin_diff_persistent_args*
+	Specify persistent arguments of |:GinDiff|.
+
+	Default: []
+
+*g:gin_diff_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinDiff|.
+
+	Default: 0
+
+*g:gin_difffold_prefixes*			*gin-difffold*
+	Customize prefixes shown in diff buffer foldtext. The foldtext
+	displays file status (added/deleted/modified/renamed) and diff
+	statistics (+added -deleted lines).
+
+	The value is a |Dictionary| with the following keys:
+	  - added:    Prefix for newly added files
+	  - deleted:  Prefix for deleted files
+	  - modified: Prefix for modified files
+	  - renamed:  Prefix for renamed files
+
+	Two preset constants are provided:
+	  - |g:gin#difffold#prefixes_ascii|    ASCII symbols (default)
+	  - |g:gin#difffold#prefixes_nerdfont| Nerd Font icons
+
+	Example (using Nerd Font icons):
+>
+	let g:gin_difffold_prefixes = g:gin#difffold#prefixes_nerdfont
+<
+	Example (custom prefixes):
+>
+	let g:gin_difffold_prefixes = {
+	      \ 'added': '[NEW]',
+	      \ 'deleted': '[DEL]',
+	      \ }
+<
+	Partial configuration is supported. Unspecified keys will use the
+	default ASCII values.
+
+	Default: |g:gin#difffold#prefixes_ascii|
+
+*g:gin#difffold#prefixes_ascii*
+	ASCII prefix set for diff foldtext (constant).
+	Values: {'added': '[+]', 'deleted': '[-]', 'modified': '[.]',
+	         'renamed': '[/]'}
+
+*g:gin#difffold#prefixes_nerdfont*
+	Nerd Font icon prefix set for diff foldtext (constant).
+	Uses Codicons nf-cod-diff_* icons.
+
+*g:gin_buffer_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinBuffer| with
+	|++diffjump| option (filetype "gin-buffer").
+
+	Default: 0
+
+*g:gin_edit_default_args*
+	Specify default arguments of |:GinEdit|.
+
+	Default: []
+
+*g:gin_edit_persistent_args*
+	Specify persistent arguments of |:GinEdit|.
+
+	Default: []
+
+*g:gin_log_default_args*
+	Specify default arguments of |:GinLog|.
+
+	Default: []
+
+*g:gin_log_persistent_args*
+	Specify persistent arguments of |:GinLog|.
+
+	Default: []
+
+*g:gin_log_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinLog|.
+
+	Default: 0
+
+*g:gin_reflog_default_args*
+	Specify default arguments of |:GinReflog|.
+
+	Default: []
+
+*g:gin_reflog_persistent_args*
+	Specify persistent arguments of |:GinReflog|.
+
+	Default: []
+
+*g:gin_reflog_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinReflog|.
+
+	Default: 0
+
+*g:gin_patch_default_args*
+	Specify default arguments of |:GinPatch|.
+
+	Default: []
+
+*g:gin_patch_persistent_args*
+	Specify persistent arguments of |:GinPatch|.
+
+	Default: []
+
+*g:gin_patch_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinPatch|.
+
+	Default: 0
+
+*g:gin_stash_default_args*
+	Specify default arguments of |:GinStash|.
+
+	Default: []
+
+*g:gin_stash_persistent_args*
+	Specify persistent arguments of |:GinStash|.
+
+	Default: []
+
+*g:gin_stash_disable_default_mappings*
+	Disable default mappings on buffers shown by |:GinStash|.
+
+	Default: 0
+
+*g:gin_proxy_apply_without_confirm*
+	Apply changes without confirmation on proxy editors.
+
+	Default: 0
+
+*g:gin_proxy_disable_askpass*
+	Disable overriding "GIT_ASKPASS" to proxy prompts.
+
+	Default: 0
+
+*g:gin_proxy_disable_editor*
+	Disable overriding "GIT_EDITOR" to proxy editors.
+
+	Default: 0
+
+*g:gin_proxy_disable_accept_and_cancel_aliases*
+	Disable :Accept and :Cancel aliases in "gitcommit" and "gitrebase"
+	filetype buffers.
+
+	Default: 0
+
+*g:gin_proxy_editor_opener*
+	Opener command (e.g. "split", "vsplit", "tabedit") to open a buffer
+	on proxy editors.
+
+	Default: "tabedit"
+
+*g:gin_status_default_args*
+	Specify default arguments of |:GinStatus|.
+
+	Default: []
+
+*g:gin_status_persistent_args*
+	Specify persistent arguments of |:GinStatus|.
+
+	Default: []
+
+*g:gin_status_disable_default_mappings*
+	Disable default mappings on |:GinStatus| buffer.
+
+	Default: 0
+
+-----------------------------------------------------------------------------
+FUNCTIONS					*gin-functions*
+
+						*gin#util#reload()*
+gin#util#reload([{bufnr}])
+	Reload a content of {bufnr} gin buffer.
+
+						*gin#util#expand()*
+gin#util#expand({expr})
+	Like |expand()| but it extract a target filename if the buffer is
+	gin's file-like buffer.
+
+						*gin#util#worktree()*
+gin#util#worktree([{path}])
+	Return a git worktree path of the {path} or the current buffer.
+
+-----------------------------------------------------------------------------
+COMPONENTS					*gin-components*
+
+Components are |Function| that never fail and always return a string for
+|statusline| and |tabline|. It returns information of a current working tree
+(See |gin-worktree| for detail about how gin find a current working tree.)
+
+Use component functions like:
+>
+	set statusline+=\ %{gin#component#worktree#name()}
+	set statusline+=\ (%{gin#component#branch#ascii()})
+	set statusline+=\ [%{gin#component#traffic#ascii()}]
+<
+Note that components are updated asynchronously in background and it emits
+|GinComponentPost| |User| autocmd when the status is updated. Use this autocmd
+to update |statusline| or |tabline|.
+>
+	augroup my_gin_component
+	  autocmd!
+	  autocmd User GinComponentPost redrawstatus
+	  " Or if you use tabline instead
+	  "autocmd User GinComponentPost redrawtabline
+	augroup END
+<
+
+					*gin#component#branch#ascii()*
+					*gin#component#branch#unicode()*
+gin#component#branch#ascii()
+gin#component#branch#unicode()
+	Return an indicator string of a current and upstream branches.
+
+					*gin#component#traffic#ascii()*
+					*gin#component#traffic#unicode()*
+gin#component#traffic#ascii()
+gin#component#traffic#unicode()
+	Return an indicator string of the number of ahead and behind commits.
+
+					*gin#component#worktree#name()*
+					*gin#component#worktree#full()*
+gin#component#worktree#name()
+gin#component#worktree#full()
+	Return an indicator string of the current working tree.
+
+-----------------------------------------------------------------------------
+MAPPINGS					*gin-mappings*
+
+*<Plug>(gin-diffput)*
+	Put a diff chunk to WORKTREE buffer.
+
+*<Plug>(gin-diffget)*
+	Get a diff chunk from WORKTREE or HEAD buffer (prefer WORKTREE.)
+
+*<Plug>(gin-diffget-l)*
+	Get a diff chunk from HEAD buffer.
+
+*<Plug>(gin-diffget-r)*
+	Get a diff chunk from WORKTREE buffer.
+
+*<Plug>(gin-diffjump-smart)*
+	Jump to the corresponding line of the comparison or comparison source.
+	Available in buffers with diff jump enabled (|:GinDiff|, |:GinBuffer|
+	with |++diffjump| option).
+
+*<Plug>(gin-diffjump-old)*
+	Jump to the corresponding line of the comparison source.
+	Available in buffers with diff jump enabled.
+
+*<Plug>(gin-diffjump-new)*
+	Jump to the corresponding line of the comparison.
+	Available in buffers with diff jump enabled.
+
+-----------------------------------------------------------------------------
+ACTIONS						*gin-actions*
+
+NOTE that we won't list all actions available here because there are too many
+of them and we cannot maintain correct documentation of that.
+Use the "help" action to check what actions are available on each gin buffer.
+
+*<Plug>(gin-action-echo)*
+	Echo active action candidates for debugging.
+
+*<Plug>(gin-action-choice)*
+	Open a prompt to select an action to invoke. It will invoke selected
+	action on active action candidates.
+	It is mapped to "a" in default when no mapping exists.
+
+*<Plug>(gin-action-repeat)*
+	Repeat a previous action triggered from |<Plug>(gin-action-choice)|.
+	Note that previous actions triggered from actual mappings are not
+	repeated.
+	It is mapped to "." in default when no mapping exists.
+
+*<Plug>(gin-action-help)*
+*<Plug>(gin-action-help:all)*
+	Show action help.
+	It is mapped to "?" in default when no mapping exists.
+
+-----------------------------------------------------------------------------
+AUTOCMDS					*gin-autocmds*
+
+Gin provides the following |User| autocmds.
+
+*GinCommandPost*
+	Emitted when |:Gin| command is invoked. Note that the autocmd is not
+	emitted for |:GinBuffer| command.
+
+*GinComponentPost*
+	Emitted when gin components are updated. Use this autocmd to update
+	|statusline| or |tabline|.
+>
+	augroup my_fern_component_update
+	  autocmd!
+	  " Update statusline to show the latest component result
+	  autocmd User GinComponentPost ++nested redrawstatus
+	augroupEND
+<
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

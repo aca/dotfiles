@@ -1,0 +1,1294 @@
+*scrollview.txt*   Plugin that shows interactive vertical scrollbars and signs
+*nvim-scrollview*
+
+Author: Daniel Steinberg - https://www.dannyadam.com
+Web: https://github.com/dstein64/nvim-scrollview
+
+1. Requirements                            |scrollview-requirements|
+2. Installation                            |scrollview-installation|
+3. Usage                                   |scrollview-usage|
+4. Configuration                           |scrollview-configuration|
+5. Sign Extensibility                      |scrollview-signs-extensibility|
+6. Issues                                  |scrollview-issues|
+
+|nvim-scrollview| is a plugin that displays interactive vertical scrollbars and
+signs. The plugin is customizable (see |scrollview-configuration|).
+
+                                    Type |gO| to see the table of contents.
+
+============================================================================
+1. Requirements                            *scrollview-requirements*
+
+* `nvim>=0.6`
+* Scrollbar mouse functionality requires mouse support (see |'mouse'|)
+* Signs require `nvim>=0.9`
+
+============================================================================
+2. Installation                            *scrollview-installation*
+
+Use |packages| or one of the various package managers.
+
+============================================================================
+3. Usage                                   *scrollview-usage*
+
+* |nvim-scrollview| works automatically, displaying interactive scrollbars and
+  signs.
+                                           *scrollview-mouse*
+
+The scrollbars are draggable with a mouse. Signs can be clicked for navigation
+or right-clicked for information. If |'mousemoveevent'| is set, scrollbars and
+signs are highlighted when the mouse pointer hovers.
+
+                                           *scrollview-commands*
+
+                                           *:ScrollViewDisable*
+:ScrollViewDisable     Disable the plugin.
+
+:ScrollViewDisable {group1} ...
+                       Disable the specified sign groups.
+
+                                           *:ScrollViewEnable*
+:ScrollViewEnable      Enable the plugin. This is only necessary if
+                       nvim-scrollview has previously been disabled.
+
+:ScrollViewEnable {group1} ...
+                       Enable the specified sign groups.
+
+                                           *:ScrollViewToggle*
+:ScrollViewToggle      Toggle the plugin.
+
+:ScrollViewToggle {group1} ...
+                       Toggle the specified sign groups.
+
+                                           *:ScrollViewRefresh*
+:ScrollViewRefresh     Refresh the scrollbars and signs. This is relevant when
+                       the state becomes out-of-sync, which can occur e.g., as
+                       a result of some window arrangement actions (see
+                       |scrollview-issues|).
+
+:ScrollViewLegend[!] [{group1} ...]        *:ScrollViewLegend*
+                       Show a legend for the scrollbar and signs. The optional
+                       trailing arguments specify which sign groups are
+                       considered (all groups when not specified). Without
+                       [!], the legend will only contain items that are
+                       currently visible. With [!], the legend will include
+                       the scrollbar and all registered signs (even those from
+                       disabled groups), regardless of their display status.
+
+:[count]ScrollViewNext [{group1} ...]      *:ScrollViewNext*
+                       Move the cursor to the [count]'th next line with a
+                       sign. If the |'wrapscan'| option is set, the movement
+                       wraps around the end of the buffer when necessary.
+                       Otherwise, the movement stops at the last line with a
+                       sign. The optional trailing arguments specify which
+                       sign groups are considered (all groups when not
+                       specified).
+
+:[count]ScrollViewPrev [{group1} ...]      *:ScrollViewPrev*
+                       Move the cursor to the [count]'th previous line with
+                       a sign. If the |'wrapscan'| option is set, the movement
+                       wraps around the beginning of the buffer when
+                       necessary. Otherwise, the movement stops at the first
+                       line with a sign. The optional trailing arguments
+                       specify which sign groups are considered (all groups
+                       when not specified).
+
+:ScrollViewFirst [{group1} ...]            *:ScrollViewFirst*
+                       Move the cursor to the first line with a sign. The
+                       optional trailing arguments specify which sign groups
+                       are considered (all groups when not specified).
+
+:ScrollViewLast [{group1} ...]             *:ScrollViewLast*
+                       Move the cursor to the last line with a sign. The
+                       optional trailing arguments specify which sign groups
+                       are considered (all groups when not specified).
+
+                                           *scrollview-mappings*
+The following |<Plug>| mappings are defined for convenience.
+
+* `<Plug>(ScrollViewDisable)`
+* `<Plug>(ScrollViewEnable)`
+* `<Plug>(ScrollViewFirst)`
+* `<Plug>(ScrollViewLast)`
+* `<Plug>(ScrollViewLegend)`
+* `<Plug>(ScrollViewLegend!)`
+* `<Plug>(ScrollViewNext)`
+* `<Plug>(ScrollViewPrev)`
+* `<Plug>(ScrollViewRefresh)`
+* `<Plug>(ScrollViewToggle)`
+
+                                           *scrollview-enabled-global*
+                                           *scrollview_enabled*
+A global variable, `scrollview_enabled`, is set to |v:true| when the plugin is
+enabled, and |v:false| otherwise. It can be accessed from Lua
+(`vim.g.scrollview_enabled`) or Vimscript (`g:scrollview_enabled`). Do not
+modify its value; it should be treated as read-only. Use |:ScrollViewEnable|,
+|:ScrollViewDisable|, and |:ScrollViewToggle| to enable, disable, or toggle
+the plugin.
+
+                                           *scrollview-refreshing-global*
+                                           *scrollview_refreshing*
+A global variable, `scrollview_refreshing`, is set to |v:true| while scrollbars
+are being refreshed, and |v:false| otherwise. It can be accessed from Lua
+(`vim.g.scrollview_refreshing`) or Vimscript (`g:scrollview_refreshing`).
+
+The plugin executes commands with `:normal!`, which are treated as if they are
+typed. `scrollview_refreshing` may be useful for ignoring the corresponding keys
+when using |vim.on_key()|.
+>
+    vim.on_key(function(char)
+        if vim.g.scrollview_refreshing then return end
+        ...
+    end)
+<
+                                           *scrollview-signs*
+|nvim-scrollview| signs are similar to Neovim's built-in |signs|, but with
+positioning logic matching that of the scrollbar. The plugin includes a set
+of built-in sign groups (e.g., `search` signs show where in the document there
+are search matches).
+
+For configuring signs generally, and the built-in groups specifically, see
+|scrollview-signs-configuration|. For extending sign functionality (e.g., in a
+Neovim configuration file or with a plugin), see
+|scrollview-signs-extensibility|.
+
+When there are multiple signs displayed on the same row, they will be
+positioned based on their priority. The higher the priority of a sign, which
+is configurable, the closer it will be to the scrollbar. When the number of
+signs exceeds the value specified by |scrollview_signs_max_per_row|, the lower
+priority signs will be dropped.
+
+Clicking on a sign will navigate to its associated line. If a sign is linked
+to multiple lines, successive clicks will cycle through these lines.
+Right-clicking a sign reveals additional information, including its sign group
+and the corresponding lines, which can be selected for navigation. Identifying
+the sign group can be helpful if you are unsure what a sign represents.
+
+Built-in Sign Groups ~
+                                           *scrollview-signs-built-in*
+Group         Information
+-----         -----------
+`changelist`    change list items (previous, current, and next)
+`conflicts`     git merge conflicts
+`cursor`        cursor position
+`diagnostics`   errors, warnings, info, and hints via |vim.diagnostic|
+`folds`         closed folds
+`indent`        unexpected indentation characters (e.g., tabs when |expandtab|
+              is set)
+`latestchange`  latest change
+`keywords`      FIX, FIXME, HACK, TODO, WARN, WARNING, and XXX (see
+              |scrollview-signs-keywords| for customization info)
+`loclist`       items on the location list
+`marks`
+`quickfix`      items on the quickfix list
+`search`
+`spell`         spell check items when the |'spell'| option is enabled
+`textwidth`     line lengths exceeding the value of the |'textwidth'| option, when
+              non-zero
+`trail`         trailing whitespace
+
+                                           *scrollview-restricted*
+Under certain scenarios, the plugin enters a restricted mode to prevent a
+slowdown. Under restricted operation, the |scrollview-mode| is set to `simple`
+and signs are not displayed. |scrollview_byte_limit| and |scrollview_line_limit|
+can be set to control when restricted mode is entered.
+
+============================================================================
+4. Configuration                           *scrollview-configuration*
+
+Configuration Variables ~
+                                           *scrollview_base*
+scrollview_base        |String| specifying where the scrollbar is anchored.
+                       Possible values are `'left'` or `'right'` for corresponding
+                       window edges, or `'buffer'`. Defaults to `'right'`.
+
+                                           *scrollview_byte_limit*
+scrollview_byte_limit  |Number| specifying the buffer size threshold (in
+                       bytes) for entering restricted mode, to prevent slow
+                       operation. Defaults to `1,000,000`. Use `-1` for no limit.
+
+                                           *scrollview_character*
+scrollview_character   |String| specifying a character to display on scrollbars.
+                       Defaults to `''`. Scrollbar transparency (via
+                       |scrollview_winblend|) is not possible when a scrollbar
+                       character is used.
+
+                                           *scrollview_column*
+scrollview_column      |Number| specifying the scrollbar column (relative to
+                       |scrollview_base|). Defaults to `1`. Must be an integer
+                       greater than or equal to `1`.
+
+scrollview_consider_border                 *scrollview_consider_border*
+                       |Boolean| specifying whether floating window borders are
+                       taken into account for positioning scrollbars and signs.
+                       When set to |v:true|, borders are considered as part of
+                       the window; scrollbars and signs can be positioned
+                       where there are borders. When set to |v:false|, borders
+                       are ignored. Defaults to |v:false|. The setting is only
+                       applicable for floating windows that have borders, and
+                       only relevant when |scrollview_floating_windows| is
+                       turned on and |scrollview_base| is set to `'left'` or
+                       `'right'`.
+
+scrollview_current_only                    *scrollview_current_only*
+                       |Boolean| specifying whether scrollbars and signs should
+                       only be displayed in the current window. Defaults to
+                       |v:false|.
+
+scrollview_excluded_filetypes              *scrollview_excluded_filetypes*
+                       |List| of |String|s specifying optional file types for
+                       which scrollbars should not be displayed. Defaults to
+                       `[]`.
+
+scrollview_floating_windows                *scrollview_floating_windows*
+                       |Boolean| specifying whether scrollbars and signs are
+                       shown in floating windows. Defaults to |v:false|.
+
+scrollview_hide_bar_for_insert             *scrollview_hide_bar_for_insert*
+                       |Boolean| specifying whether the scrollbar is hidden in
+                       the current window for insert mode. Defaults to |v:false|.
+                       See |scrollview_signs_hidden_for_insert| for hiding signs.
+
+scrollview_hide_on_cursor_intersect        *scrollview_hide_on_cursor_intersect*
+                       |Boolean| specifying whether each scrollbar or sign
+                       becomes hidden (not shown) when it would otherwise
+                       intersect with the cursor. Defaults to |v:false|.
+                       Requires `nvim>=0.7`.
+
+scrollview_hide_on_float_intersect         *scrollview_hide_on_float_intersect*
+                       |Boolean| specifying whether each scrollbar or sign
+                       becomes hidden (not shown) when it would otherwise
+                       intersect with a floating window. Defaults to |v:false|.
+
+scrollview_hide_on_text_intersect          *scrollview_hide_on_text_intersect*
+                       |Boolean| specifying whether each scrollbar or sign
+                       becomes hidden (not shown) when it would otherwise
+                       intersect with text (excluding virtual text). The
+                       functionality may not work for lines where the last
+                       character spans multiple cells (only the first cell of
+                       the character would be considered for intersection).
+                       For lines with concealed text, signs and the scrollbar
+                       can become hidden when they don't intersect text. The
+                       processing demands when enabling this option may result
+                       in noticeable lag under certain environments,
+                       especially on older hardware. Defaults to |v:false|.
+
+scrollview_hover                           *scrollview_hover*
+                       |Boolean| specifying whether the highlighting of
+                       scrollbars and signs should change when hovering with
+                       the mouse. Requires mouse support (see |'mouse'|) with
+                       |'mousemoveevent'| set. Defaults to |v:true|.
+
+scrollview_include_end_region              *scrollview_include_end_region*
+                       |Boolean| specifying whether the region beyond the last
+                       line is considered as containing ordinary lines for the
+                       calculation of scrollbar height and positioning.
+                       Defaults to |v:false|. See Issue #58 for details.
+
+                                           *scrollview_line_limit*
+scrollview_line_limit  |Number| specifying the buffer size threshold (in
+                       lines) for entering restricted mode, to prevent slow
+                       operation. Defaults to `20,000`. Use `-1` for no limit.
+
+                                           *scrollview_mode*
+scrollview_mode        |String| specifying what the scrollbar position and size
+                       correspond to. See |scrollview-modes| for details on the
+                       available modes. Defaults to `'auto'`.
+
+scrollview_mouse_primary                   *scrollview_mouse_primary*
+                       |String| specifying the button for primary mouse
+                       operations (dragging scrollbars and clicking signs).
+                       Possible values include `'left'`, `'middle'`, `'right'`,
+                       `'x1'`, and `'x2'`. These can be prepended with `'c-'` or
+                       `'m-'` for the control-key and alt-key variants (e.g.,
+                       `'c-left'` for control-left). Set to `v:null` to disable
+                       the functionality. Defaults to `'left'`. For `nvim<0.11`,
+                       an existing mapping will not be clobbered, unless `'!'`
+                       is added at the end (e.g., `'left!'`). For `nvim<0.11`,
+                       the option is considered only when the plugin is loaded.
+
+scrollview_mouse_secondary                 *scrollview_mouse_secondary*
+                       |String| specifying the button for secondary mouse
+                       operations (clicking signs for additional information).
+                       See |scrollview_mouse_primary| for the possible values,
+                       including how `'c-'`, `'m-'`, and `v:null` can be utilized,
+                       as well as the behavior specific to `nvim<0.11`. Defaults
+                       to `'right'`.
+
+                                           *scrollview_on_startup*
+scrollview_on_startup  |Boolean| specifying whether scrollbars are enabled on
+                       startup. Defaults to |v:true|. Considered only when the
+                       plugin is loaded.
+
+                                           *scrollview_visibility*
+scrollview_visibility  |String| specifying the visibility level of scrollbars
+                       and signs. Possible values are `'always'`, `'overflow'`,
+                       and `'info'`. Defaults to `'overflow'`.
+                       * `always` Always show scrollbars and signs.
+                       * `overflow` Show scrollbars and signs only when content
+                         overflows the window (when there are lines that are
+                         not visible).
+                       * `info` Show scrollbars and signs when content overflows
+                         the window. Otherwise, show when there are signs to
+                         display (excluding those from sign groups included in
+                         |scrollview_signs_info_excluded|).
+
+                                           *scrollview_winblend*
+scrollview_winblend    |Number| specifying the level of transparency for
+                       scrollbars when a GUI is not running and 'termguicolors'
+                       is not set. Defaults to `50`. Must be between `0` (opaque)
+                       and `100` (transparent). This option is ignored for
+                       scrollview windows whose highlight group has 'reverse'
+                       or 'inverse' specified as a cterm attribute; see
+                       |attr-list|. Such windows will have no transparency, as a
+                       workaround for Neovim #24159. This option is ignored
+                       for scrollview windows shown for floating windows; see
+                       |scrollview_floating_windows|. Such windows will have no
+                       transparency, as a workaround for Neovim #14624.
+
+scrollview_winblend_gui                    *scrollview_winblend_gui*
+                       |Number| specifying the level of transparency for
+                       scrollbars when a GUI is running or 'termguicolors' is
+                       set. Defaults to `0`. Must be between `0` (opaque) and `100`
+                       (transparent). This option is ignored for scrollview
+                       windows whose highlight group has 'reverse' or 'inverse'
+                       specified as a gui attribute; see |attr-list|. Such
+                       windows will have no transparency, as a workaround for
+                       Neovim #24159. This option is ignored for scrollview
+                       windows shown for floating windows; see
+                       |scrollview_floating_windows|. Such windows will have no
+                       transparency, as a workaround for Neovim #14624. This
+                       option can interact with highlight settings
+                       (|scrollview-color-customization|); careful adjustment of
+                       the winblend setting and highlighting may be necessary
+                       to achieve the desired result.
+
+scrollview_zindex                          *scrollview_zindex*
+                       |Number| specifying the z-index for scrollbars and signs.
+                       Must be larger than zero. Defaults to `40`.
+
+                                           *scrollview-signs-configuration*
+Sign Configuration Variables ~
+
+scrollview_signs_hidden_for_insert         *scrollview_signs_hidden_for_insert*
+                       |List| of |String|s specifying sign groups to hide in the
+                       current window for insert mode. Set to `['all']` to hide
+                       all sign groups. Defaults to `[]`. See
+                       |scrollview_hide_bar_for_insert| for hiding the scrollbar.
+
+scrollview_signs_info_excluded             *scrollview_signs_info_excluded*
+                       |List| of |String|s specifying sign groups to exclude from
+                       visibility consideration when |scrollview_visibility| is
+                       set to `'info'` and there is no overflow. Defaults to
+                       `['changelist', 'cursor', 'latestchange']`.
+
+scrollview_signs_max                       *scrollview_signs_max*
+                       |Number| specifying the maximum number of signs in a
+                       window. The highest priority signs are shown when the
+                       limit is reached. Applied after |scrollview_signs_max_per_row|
+                       and |scrollview_signs_max_per_row_by_group|. Set to `-1`
+                       to have no limit. Defaults to `-1`.
+
+scrollview_signs_max_per_row               *scrollview_signs_max_per_row*
+                       |Number| specifying the maximum number of signs per row.
+                       Set to `-1` to have no limit. Defaults to `-1`.
+
+scrollview_signs_max_per_row_by_group      *scrollview_signs_max_per_row_by_group*
+                       |Dictionary| mapping sign groups (|String|) to maximum
+                       number of corresponding signs per row (|Number|). Groups
+                       not present in the dictionary, or that have a value of
+                       `-1`, have no group-specific limit. Use `'all'` to set a
+                       default limit for groups not explicitly specified.
+                       Defaults to `{}`. Example: `{'all': 2, 'diagnostics': 1}`.
+
+scrollview_signs_on_startup                *scrollview_signs_on_startup*
+                       |List| of |String|s specifying built-in sign groups to
+                       enable on startup. Set to `[]` to disable all built-in
+                       sign groups on startup. Set to `['all']` to enable all
+                       sign groups. `['diagnostics', 'search']` is the default
+                       for `nvim<0.10`. `['diagnostics', 'marks', 'search']` is
+                       the default for `nvim>=0.10`. Considered only when the
+                       plugin is loaded.
+
+scrollview_signs_overflow                  *scrollview_signs_overflow*
+                       |String| specifying the sign overflow direction (to
+                       avoid overlapping the scrollbar or other signs).
+                       Possible values are `'left'` or `'right'`. Defaults to
+                       `'left'`.
+
+scrollview_signs_scrollbar_overlap         *scrollview_signs_scrollbar_overlap*
+                       |String| specifying whether/how signs overlap the
+                       scrollbar. Possible values are `'off'`, `'over'`, and `'under'`.
+                       Defaults to `'off'`.
+                       * `off` Signs are positioned to not overlap the scrollbar.
+                       * `over` A sign can be placed over the scrollbar.
+                       * `under` A sign can be placed under the scrollbar.
+
+scrollview_signs_show_in_folds             *scrollview_signs_show_in_folds*
+                       |Boolean| specifying whether signs on lines within hidden
+                       folds should be shown. Sign groups can override this
+                       setting (e.g., the built-in cursor sign group does).
+                       Defaults to |v:false|.
+
+                                           *scrollview-signs-built-in-config*
+Configuration Variables for Built-in Sign Groups ~
+
+scrollview_changelist_previous_priority    *scrollview_changelist_previous_priority*
+                       |Number| specifying the priority for the previous item
+                       changelist sign. Defaults to `15`. Considered only when
+                       the plugin is loaded.
+
+scrollview_changelist_previous_symbol      *scrollview_changelist_previous_symbol*
+                       |String| specifying the symbol for the previous item
+                       changelist sign. Defaults to an upwards arrow with tip
+                       leftwards. Considered only when the plugin is loaded.
+
+scrollview_changelist_current_priority     *scrollview_changelist_current_priority*
+                       |Number| specifying the priority for the current item
+                       changelist sign. Defaults to `10`. Considered only when
+                       the plugin is loaded.
+
+scrollview_changelist_current_symbol       *scrollview_changelist_current_symbol*
+                       |String| specifying the symbol for the current item
+                       changelist sign. Defaults to `'@'`. Considered only when
+                       the plugin is loaded.
+
+scrollview_changelist_next_priority        *scrollview_changelist_next_priority*
+                       |Number| specifying the priority for the next item
+                       changelist sign. Defaults to `5`. Considered only when
+                       the plugin is loaded.
+
+scrollview_changelist_next_symbol          *scrollview_changelist_next_symbol*
+                       |String| specifying the symbol for the next item
+                       changelist sign. Defaults to a downwards arrow with tip
+                       rightwards. Considered only when the plugin is loaded.
+
+scrollview_conflicts_bottom_priority       *scrollview_conflicts_bottom_priority*
+                       |Number| specifying the priority for conflict bottom
+                       signs. Defaults to `80`. Considered only when the
+                       plugin is loaded.
+
+scrollview_conflicts_bottom_symbol         *scrollview_conflicts_bottom_symbol*
+                       |String| specifying the symbol for conflict bottom signs.
+                       Defaults to `'>'`. A |List| of |String|s can also be
+                       used; the symbol is selected using the index equal to
+                       the number of lines corresponding to the sign, or the
+                       last element when the retrieval would be out-of-bounds.
+                       Considered only when the plugin is loaded.
+
+scrollview_conflicts_middle_priority       *scrollview_conflicts_middle_priority*
+                       |Number| specifying the priority for conflict middle
+                       signs. Defaults to `75`. Considered only when the plugin
+                       is loaded.
+
+scrollview_conflicts_middle_symbol         *scrollview_conflicts_middle_symbol*
+                       |String| specifying the symbol for conflict middle signs.
+                       Defaults to `'='`. A |List| of |String|s can also be used;
+                       the symbol is selected using the index equal to the
+                       number of lines corresponding to the sign, or the last
+                       element when the retrieval would be out-of-bounds.
+                       Considered only when the plugin is loaded.
+
+scrollview_conflicts_top_priority          *scrollview_conflicts_top_priority*
+                       |Number| specifying the priority for conflict top signs.
+                       Defaults to `70`. Considered only when the plugin is
+                       loaded.
+
+scrollview_conflicts_top_symbol            *scrollview_conflicts_top_symbol*
+                       |String| specifying the symbol for conflict top signs.
+                       Defaults to `'<'`. A |List| of |String|s can also be used;
+                       the symbol is selected using the index equal to the
+                       number of lines corresponding to the sign, or the last
+                       element when the retrieval would be out-of-bounds.
+                       Considered only when the plugin is loaded.
+
+scrollview_cursor_priority                 *scrollview_cursor_priority*
+                       |Number| specifying the priority for cursor signs.
+                       Defaults to `0`. Considered only when the plugin is
+                       loaded.
+
+scrollview_cursor_symbol                   *scrollview_cursor_symbol*
+                       |String| specifying the symbol for cursor signs. Defaults
+                       to a small square, resembling a block cursor.
+                       Considered only when the plugin is loaded.
+
+scrollview_diagnostics_error_priority      *scrollview_diagnostics_error_priority*
+                       |Number| specifying the priority for diagnostic error
+                       signs. Defaults to `60`. Considered only when the plugin
+                       is loaded.
+
+scrollview_diagnostics_error_symbol        *scrollview_diagnostics_error_symbol*
+                       |String| specifying the symbol for diagnostic error
+                       signs. Defaults to the trimmed sign text for
+                       DiagnosticSignError if defined, or `'E'` otherwise. A
+                       |List| of |String|s can also be used; the symbol is
+                       selected using the index equal to the number of lines
+                       corresponding to the sign, or the last element when the
+                       retrieval would be out-of-bounds. Considered only when
+                       the plugin is loaded.
+
+scrollview_diagnostics_hint_priority       *scrollview_diagnostics_hint_priority*
+                       |Number| specifying the priority for diagnostic hint
+                       signs. Defaults to `30`. Considered only when the
+                       plugin is loaded.
+
+scrollview_diagnostics_hint_symbol         *scrollview_diagnostics_hint_symbol*
+                       |String| specifying the symbol for diagnostic hint signs.
+                       Defaults to the trimmed sign text for DiagnosticSignHint
+                       if defined, or `'H'` otherwise. A |List| of |String|s can
+                       also be used; the symbol is selected using the index
+                       equal to the number of lines corresponding to the sign,
+                       or the last element when the retrieval would be
+                       out-of-bounds. Considered only when the plugin is
+                       loaded.
+
+scrollview_diagnostics_info_priority       *scrollview_diagnostics_info_priority*
+                       |Number| specifying the priority for diagnostic info
+                       signs. Defaults to `40`. Considered only when the plugin
+                       is loaded.
+
+scrollview_diagnostics_info_symbol         *scrollview_diagnostics_info_symbol*
+                       |String| specifying the symbol for diagnostic info signs.
+                       Defaults to the trimmed sign text for DiagnosticSignInfo
+                       if defined, or `'I'` otherwise. A |List| of |String|s can
+                       also be used; the symbol is selected using the index
+                       equal to the number of lines corresponding to the sign,
+                       or the last element when the retrieval would be
+                       out-of-bounds. Considered only when the plugin is
+                       loaded.
+
+scrollview_diagnostics_severities          *scrollview_diagnostics_severities*
+                       |List| of |Number|s specifying the diagnostic severities
+                       for which signs will be shown. The default includes
+                       |vim.diagnostic.severity.ERROR|, |vim.diagnostic.severity.HINT|,
+                       |vim.diagnostic.severity.INFO|, and |vim.diagnostic.severity.WARN|.
+                       Considered only when the plugin is loaded.
+
+scrollview_diagnostics_warn_priority       *scrollview_diagnostics_warn_priority*
+                       |Number| specifying the priority for diagnostic warn
+                       signs. Defaults to `50`. Considered only when the plugin
+                       is loaded.
+
+scrollview_diagnostics_warn_symbol         *scrollview_diagnostics_warn_symbol*
+                       |String| specifying the symbol for diagnostic warn signs.
+                       Defaults to the trimmed sign text for DiagnosticSignWarn
+                       if defined, or `'W'` otherwise. A |List| of |String|s can
+                       also be used; the symbol is selected using the index
+                       equal to the number of lines corresponding to the sign,
+                       or the last element when the retrieval would be
+                       out-of-bounds. Considered only when the plugin is
+                       loaded.
+
+scrollview_folds_priority                  *scrollview_folds_priority*
+                       |Number| specifying the priority for fold signs. Defaults
+                       to `30`. Considered only when the plugin is loaded.
+
+scrollview_folds_symbol                    *scrollview_folds_symbol*
+                       |String| specifying the symbol for fold signs. Defaults
+                       to a right-pointing triangle. A |List| of |String|s can
+                       also be used; the symbol is selected using the index
+                       equal to the number of lines corresponding to the sign,
+                       or the last element when the retrieval would be
+                       out-of-bounds. Considered only when the plugin is
+                       loaded.
+
+scrollview_indent_spaces_condition         *scrollview_indent_spaces_condition*
+                       |String| specifying the condition when signs will be
+                       shown for leading spaces. Possible values are `'always'`
+                       `'never'`, `'expandtab'`, and `'noexpandtab'`. Defaults to
+                       `'noexpandtab'`, which will show signs for leading
+                       spaces when the |expandtab| option is off.
+
+scrollview_indent_spaces_priority          *scrollview_indent_spaces_priority*
+                       |Number| specifying the priority for indent spaces signs.
+                       Defaults to `25`. Considered only when the plugin is
+                       loaded.
+
+scrollview_indent_spaces_symbol            *scrollview_indent_spaces_symbol*
+                       |String| specifying the symbol for indent spaces signs.
+                       Defaults to `'-'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_indent_tabs_condition           *scrollview_indent_tabs_condition*
+                       |String| specifying the condition when signs will be
+                       shown for leading tabs. Possible values are `'always'`
+                       `'never'`, `'expandtab'`, and `'noexpandtab'`. Defaults to
+                       `'expandtab'`, which will show signs for leading
+                       tabs when the |expandtab| option is set.
+
+scrollview_indent_tabs_priority            *scrollview_indent_tabs_priority*
+                       |Number| specifying the priority for indent tabs signs.
+                       Defaults to `25`. Considered only when the plugin is
+                       loaded.
+
+scrollview_indent_tabs_symbol              *scrollview_indent_tabs_symbol*
+                       |String| specifying the symbol for indent tabs signs.
+                       Defaults to `'>'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_built_ins              *scrollview_keywords_built_ins*
+                       |List| of |String|s specifying the enabled built-in
+                       keyword groups for the keyword sign group (see
+                       |scrollview-signs-keywords|). Defaults to `['fix', 'hack',`
+                       `'todo', 'warn', 'xxx']`. Considered only when the plugin
+                       is loaded.
+
+scrollview_keywords_fix_priority           *scrollview_keywords_fix_priority*
+                       |Number| specifying the priority for fix keyword signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_fix_scope              *scrollview_keywords_fix_scope*
+                       |String| specifying the search scope for fix keyword
+                       signs. See |scrollview-signs-keyword-scopes| for details.
+                       Defaults to `'auto'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_fix_symbol             *scrollview_keywords_fix_symbol*
+                       |String| specifying the symbol for fix keyword signs.
+                       Defaults to `'F'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_hack_priority          *scrollview_keywords_hack_priority*
+                       |Number| specifying the priority for hack keyword signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_hack_scope             *scrollview_keywords_hack_scope*
+                       |String| specifying the search scope for hack keyword
+                       signs. See |scrollview-signs-keyword-scopes| for details.
+                       Defaults to `'auto'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_hack_symbol            *scrollview_keywords_hack_symbol*
+                       |String| specifying the symbol for hack keyword signs.
+                       Defaults to `'H'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_todo_priority          *scrollview_keywords_todo_priority*
+                       |Number| specifying the priority for todo keyword signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_todo_scope             *scrollview_keywords_todo_scope*
+                       |String| specifying the search scope for todo keyword
+                       signs. See |scrollview-signs-keyword-scopes| for details.
+                       Defaults to `'auto'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_todo_symbol            *scrollview_keywords_todo_symbol*
+                       |String| specifying the symbol for todo keyword signs.
+                       Defaults to `'T'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_warn_priority          *scrollview_keywords_warn_priority*
+                       |Number| specifying the priority for warn keyword signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_warn_scope             *scrollview_keywords_warn_scope*
+                       |String| specifying the search scope for warn keyword
+                       signs. See |scrollview-signs-keyword-scopes| for details.
+                       Defaults to `'auto'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_warn_symbol            *scrollview_keywords_warn_symbol*
+                       |String| specifying the symbol for warn keyword signs.
+                       Defaults to `'W'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_xxx_priority           *scrollview_keywords_xxx_priority*
+                       |Number| specifying the priority for xxx keyword signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_xxx_scope              *scrollview_keywords_xxx_scope*
+                       |String| specifying the search scope for xxx keyword
+                       signs. See |scrollview-signs-keyword-scopes| for details.
+                       Defaults to `'auto'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_keywords_xxx_symbol             *scrollview_keywords_xxx_symbol*
+                       |String| specifying the symbol for xxx keyword signs.
+                       Defaults to `'X'`. Considered only when the plugin is
+                       loaded.
+
+scrollview_latestchange_priority           *scrollview_latestchange_priority*
+                       |Number| specifying the priority for latestchange signs.
+                       Defaults to `10`. Considered only when the plugin is
+                       loaded.
+
+scrollview_latestchange_symbol             *scrollview_latestchange_symbol*
+                       |String| specifying the symbol for latestchange signs.
+                       Defaults to a Greek uppercase delta. Considered only
+                       when the plugin is loaded.
+
+scrollview_loclist_priority                *scrollview_loclist_priority*
+                       |Number| specifying the priority for loclist signs.
+                       Defaults to `45`. Considered only when the plugin is
+                       loaded.
+
+scrollview_loclist_symbol                  *scrollview_loclist_symbol*
+                       |String| specifying the symbol for loclist signs.
+                       Defaults to a small circle. A |List| of |String|s can also
+                       be used; the symbol is selected using the index equal
+                       to the number of lines corresponding to the sign, or
+                       the last element when the retrieval would be
+                       out-of-bounds. Considered only when the plugin is
+                       loaded.
+
+scrollview_marks_characters                *scrollview_marks_characters*
+                       |List| of |String|s specifying characters for which mark
+                       signs will be shown. Defaults to characters `a-z` and
+                       `A-Z`. Considered only when the plugin is loaded.
+
+scrollview_marks_priority                  *scrollview_marks_priority*
+                       |List| specifying the priority for mark signs. Defaults
+                       to `50`. Considered only when the plugin is loaded.
+
+scrollview_quickfix_priority               *scrollview_quickfix_priority*
+                       |Number| specifying the priority for quickfix signs.
+                       Defaults to `45`. Considered only when the plugin is
+                       loaded.
+
+scrollview_quickfix_symbol                 *scrollview_quickfix_symbol*
+                       |String| specifying the symbol for quickfix signs.
+                       Defaults to a small circle. A |List| of |String|s can also
+                       be used; the symbol is selected using the index equal
+                       to the number of lines corresponding to the sign, or
+                       the last element when the retrieval would be
+                       out-of-bounds. Considered only when the plugin is
+                       loaded.
+
+scrollview_search_priority                 *scrollview_search_priority*
+                       |Number| specifying the priority for search signs.
+                       Defaults to `70`. Considered only when the plugin is
+                       loaded.
+
+scrollview_search_symbol                   *scrollview_search_symbol*
+                       |String| specifying the symbol for search signs. A |List|
+                       of |String|s can also be used; the symbol is selected
+                       using the index equal to the number of lines
+                       corresponding to the sign, or the last element when the
+                       retrieval would be out-of-bounds. Defaults to ['=',
+                       '=', nr2char(0x2261)], where the third element is the
+                       triple bar. Considered only when the plugin is loaded.
+
+scrollview_spell_priority                  *scrollview_spell_priority*
+                       |Number| specifying the priority for spell signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_spell_symbol                    *scrollview_spell_symbol*
+                       |String| specifying the symbol for spell signs. Defaults
+                       to `'~'`. A |List| of |String|s can also be used; the symbol
+                       is selected using the index equal to the number of
+                       lines corresponding to the sign, or the last element
+                       when the retrieval would be out-of-bounds. Considered
+                       only when the plugin is loaded.
+
+scrollview_textwidth_priority              *scrollview_textwidth_priority*
+                       |Number| specifying the priority for textwidth signs.
+                       Defaults to `20`. Considered only when the plugin is
+                       loaded.
+
+scrollview_textwidth_symbol                *scrollview_textwidth_symbol*
+                       |String| specifying the symbol for textwidth signs.
+                       Defaults to a right-pointing double angle quotation
+                       mark. A |List| of |String|s can also be used; the symbol is
+                       selected using the index equal to the number of lines
+                       corresponding to the sign, or the last element when the
+                       retrieval would be out-of-bounds. Considered only when
+                       the plugin is loaded.
+
+scrollview_trail_priority                  *scrollview_trail_priority*
+                       |Number| specifying the priority for trail signs.
+                       Defaults to `50`. Considered only when the plugin is
+                       loaded.
+
+scrollview_trail_symbol                    *scrollview_trail_symbol*
+                       |String| specifying the symbol for trail signs. Defaults
+                       to an outlined square. A |List| of |String|s can also be
+                       used; the symbol is selected using the index equal to
+                       the number of lines corresponding to the sign, or the
+                       last element when the retrieval would be out-of-bounds.
+                       Considered only when the plugin is loaded.
+
+Configuration Example ~
+                                           *scrollview-configuration-example*
+The variables can be customized in your |init.vim|, as shown in the following
+example.
+>
+    let g:scrollview_excluded_filetypes = ['nerdtree']
+    let g:scrollview_current_only = v:true
+    " Position the scrollbar at the 80th character of the buffer
+    let g:scrollview_base = 'buffer'
+    let g:scrollview_column = 80
+    " Enable all sign groups (defaults to ['diagnostics', 'search'])
+    let g:scrollview_signs_on_startup = ['all']
+
+Lua Configuration ~
+                                           *scrollview.setup()*
+A Lua `setup()` function is provided for convenience, to set globally scoped
+options (the 'scrollview_' prefix is omitted). For example:
+>
+    require('scrollview').setup({
+      excluded_filetypes = {'nerdtree'},
+      current_only = true,
+      -- Position the scrollbar at the 80th character of the buffer
+      base = 'buffer',
+      column = 80,
+      signs_on_startup = {'all'}
+    })
+
+Alternatively, configuration variables can be set without calling `setup()`.
+>
+    vim.g.scrollview_excluded_filetypes = {'nerdtree'},
+    vim.g.scrollview_current_only = true,
+    -- Position the scrollbar at the 80th character of the buffer
+    vim.g.scrollview_base = 'buffer',
+    vim.g.scrollview_column = 80,
+    vim.g.scrollview_signs_on_startup = {'all'}
+
+Scrollview Modes ~
+                                           *scrollview-modes*
+The following modes are available for the |scrollview_mode| configuration
+setting (set as a |string|). Without (1) closed |folds|, (2) wrapped lines,
+(3) diff filler, and (4) virtual text lines, all modes work the same way.
+
+Mode       Description
+----       -----------
+`simple`     The scrollbar top position reflects the window's top line number
+           relative to the document's line count. The scrollbar height
+           reflects the size of the window relative to the document's line
+           count. Dragging the scrollbars with the mouse may result in
+           unresponsive scrolling when there are closed folds.
+
+`virtual`    The scrollbar position and height are calculated similarly as for
+           `simple` mode, but line numbers and the document line count are
+           implicitly updated to virtual counterparts that account for closed
+           folds. The scrollbar top position reflects the window's top virtual
+           line number relative to the document's virtual line count. The
+           scrollbar height reflects the size of the window relative to the
+           document's virtual line count. This mode works slower than `simple`
+           mode.
+
+`proper`     The scrollbar position and height are calculated similarly as for
+           `virtual` mode, but wrapped lines are considered in addition to
+           folds. On `nvim>=0.10`, diff filler and virtual text lines are also
+           considered. This mode works slower than `virtual` mode.
+
+`auto`       Under `auto` mode, the effective mode is set to `proper` when there are
+           relatively few buffer lines and luajit is available; `virtual` mode
+           is used otherwise.
+
+Color Customization ~
+                                           *scrollview-color-customization*
+The following highlight groups can be configured to change |nvim-scrollview|'s
+colors.
+
+`Name`
+  Default                     Target
+----                          ------
+`ScrollView`                    scrollbar
+  Visual
+`ScrollViewChangeListPrevious`  changelist previous signs
+  SpecialKey
+`ScrollViewChangeListCurrent`   changelist current signs
+  SpecialKey
+`ScrollViewChangeListNext`      changelist next signs
+  SpecialKey
+`ScrollViewConflictsTop`        top conflict signs
+  DiffAdd
+`ScrollViewConflictsMiddle`     middle conflict signs
+  DiffAdd
+`ScrollViewConflictsBottom`     bottom conflict signs
+  DiffAdd
+`ScrollViewCursor`              cursor signs
+  Identifier
+`ScrollViewDiagnosticsError`    diagnostic error signs
+  The sign text highlight
+  for DiagnosticSignError
+  if defined, or DiagnosticError
+  otherwise
+`ScrollViewDiagnosticsHint`     diagnostic hint signs
+  The sign text highlight
+  for DiagnosticSignHint
+  if defined, or DiagnosticHint
+  otherwise
+`ScrollViewDiagnosticsInfo`     diagnostic info signs
+  The sign text highlight
+  for DiagnosticSignInfo
+  if defined, or DiagnosticInfo
+  otherwise
+`ScrollViewDiagnosticsWarn`     diagnostic warn signs
+  The sign text highlight
+  for DiagnosticSignWarn
+  if defined, or DiagnosticWarn
+  otherwise
+`ScrollViewFolds`               fold signs
+  Directory
+`ScrollViewHover`               scrollbar and signs on hover
+  CurSearch for nvim>=0.9.2
+  and WildMenu otherwise
+`ScrollViewIndentSpaces`        indent spaces signs
+  LineNr
+`ScrollViewIndentTabs`          indent spaces tabs
+  LineNr
+`ScrollViewKeywordsFix`         fix keyword signs
+  ColorColumn
+`ScrollViewKeywordsHack`        hack keyword signs
+  ColorColumn
+`ScrollViewKeywordsTodo`        todo keyword signs
+  ColorColumn
+`ScrollViewKeywordsWarn`        warn keyword signs
+  ColorColumn
+`ScrollViewKeywordsXxx`         xxx keyword signs
+  ColorColumn
+`ScrollViewLatestChange`        latestchange signs
+  SpecialKey
+`ScrollViewLocList`             loclist signs
+  LineNr
+`ScrollViewMarks`               mark signs
+  Identifier
+`ScrollViewQuickFix`            quickfix signs
+  Constant
+`ScrollViewRestricted`          |scrollview-restricted| scrollbar
+  CurSearch for nvim>=0.9.2
+  and MatchParen otherwise
+`ScrollViewSearch`              search signs
+  NonText
+`ScrollViewSpell`               spell signs
+  Statement
+`ScrollViewTextWidth`           textwidth signs
+  Question
+
+The highlight groups can be customized in your |init.vim|, as shown in the
+following example.
+>
+    " Link ScrollView highlight to Pmenu highlight
+    highlight link ScrollView Pmenu
+
+    " Specify custom highlighting for ScrollView
+    highlight ScrollView ctermbg=159 guibg=LightCyan
+
+============================================================================
+5. Sign Extensibility                      *scrollview-signs-extensibility*
+
+The plugin was written so that it's possible to extend the sign functionality
+in a Neovim configuration file or with a plugin.
+
+                                           *scrollview-signs-version-global*
+                                           *scrollview_signs_version*
+A global variable, `scrollview_signs_version`, has an integer representing the
+version of the sign exensibility functionality. This can be accessed from Lua
+(`vim.g.scrollview_signs_version`) or Vimscript (`g:scrollview_signs_version`).
+
+Functions ~
+
+deregister_sign_group({group}, {refresh})  *scrollview.deregister_sign_group()*
+    Deregister a sign group.
+
+    Parameters: ~
+      * {group}    (string) Group name.
+      * {refresh}  (boolean|nil) Optional argument specifying whether
+                   scrollview refreshes afterwards. Defaults to `true`.
+
+                                           *scrollview.deregister_sign_spec()*
+deregister_sign_spec({spec_id}, {refresh})
+    Deregister a sign specification.
+
+    Parameters: ~
+      * {spec_id}  (integer) Specification identifier.
+      * {refresh}  (boolean|nil) Optional argument specifying whether
+                   scrollview refreshes afterwards. Defaults to `true`.
+
+                                           *scrollview-signs-functions*
+Lua code is necessary for adding new sign functionality to `nvim-scrollview`.
+>
+  local scrollview = require('scrollview')
+
+get_sign_eligible_windows()                *scrollview.get_sign_eligible_windows()*
+    Returns |window-ID|s that are eligible for signs to be shown.
+
+    Return: ~
+        (list) a list-like table with |window-ID|s.
+
+is_sign_group_active({group})              *scrollview.is_sign_group_active()*
+    Checks whether a sign group is active. A group is considered active if
+    `nvim-scrollview` is enabled and the sign group is enabled.
+
+    Parameters: ~
+      * {group}  (string) Group name.
+
+    Return: ~
+        (boolean) `true` if active, else `false`.
+
+register_sign_group({group})               *scrollview.register_sign_group()*
+    Register a sign group.
+
+    Parameters: ~
+      * {group}  (string) Group name.
+
+register_sign_spec({spec})                 *scrollview.register_sign_spec()*
+    Register a sign specification.
+
+    Parameters: ~
+      * {spec}  (table) Keyword arguments |kwargs|:
+                + current_only (boolean): Show only in an current window (the
+                  window with the cursor at the time of display). Defaults to
+                  `false`.
+                + extend (boolean): Show each sign on all corresponding rows
+                  of the scrollview column, instead of just a single row. This
+                  is relevant when the window is not scrollable (see
+                  |scrollview_visibility|).
+                + group (string): Defaults to `'other'`.
+                + highlight (string): Defaults to `'Pmenu'`.
+                + priority (integer): Defaults to `50`.
+                + show_in_folds (boolean|nil): Include signs for lines in
+                  closed folds. When non-`nil`, overrides the value of
+                  |scrollview_signs_show_in_folds|. Defaults to `nil`.
+                + symbol (string): Defaults to `''`.
+                + type (string): `'b'` for buffer-local signs, `'w'` for
+                  window-local signs. Defaults to `'b'`.
+                + variant (string|nil): Used for groups that include multiple
+                  variants. Defaults to `nil`.
+
+    Return: ~
+        (table) a table with the following key-value pairs.
+                + id (integer): A unique identifier.
+                + name (string): Variable name that should be used for saving
+                  a list-like table with line numbers corresponding to signs.
+                  The variable should be saved to the buffer if the
+                  registration specified type `'b'`, or to the window if the
+                  registration specified type `'w'`.
+
+                                           *scrollview.set_sign_group_callback()*
+set_sign_group_callback({group}, {callback})
+    Set the refresh callback for a sign group.
+
+    Parameters: ~
+      * {group}     (string) Group name.
+      * {callback}  (function|nil) Callback function or `nil` to unset.
+
+set_sign_group_state({group}, {enable})    *scrollview.set_sign_group_state()*
+    Enable, disable, or toggle a sign group.
+
+    Parameters: ~
+      * {group}   (string) Group name.
+      * {enable}  (boolean|nil) `true` to enable, `false` to disable, `nil` to
+                  toggle.
+
+Example ~
+                                           *scrollview-signs-example*
+The following example shows how to implement sign functionality for showing
+the cursor position. This is for the purpose of illustration; cursor signs are
+already built in to `nvim-scrollview` (enable with `:ScrollViewEnable cursor`).
+>
+    local scrollview = require('scrollview')
+
+    local group = 'cursor'
+    scrollview.register_sign_group(group)
+    local registration = scrollview.register_sign_spec({
+      current_only = true,
+      group = group,
+      highlight = 'SpellCap',
+      show_in_folds = true,
+    })
+    local name = registration.name
+    scrollview.set_sign_group_state(group, true)
+
+    scrollview.set_sign_group_callback(group, function()
+      for _, winid in ipairs(scrollview.get_sign_eligible_windows()) do
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+        vim.b[bufnr][name] = {vim.fn.line('.')}
+      end
+    end)
+
+    vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
+      callback = function()
+        if not scrollview.is_sign_group_active(group) then return end
+        local lines = vim.b[name]
+        if lines == nil or lines[1] ~= vim.fn.line('.') then
+          vim.cmd('silent! ScrollViewRefresh')
+        end
+      end
+    })
+<
+============================================================================
+6. Keyword Signs                           *scrollview-signs-keywords*
+
+The keyword sign group has built-in support for a set of keyword groups
+(not to be confused with sign groups).
+
+Group  Keywords
+-----  --------
+`fix`    FIX, FIXME
+`hack`   HACK
+`todo`   TODO
+`warn`   WARN, WARNING
+`xxx`    XXX
+
+The signs for keywords can be customized. The settings described here are
+considered only when the plugin is loaded (e.g., through an |init.vim| or
+|init.lua| configuration file).
+
+The built-in keyword signs can be customized by modifying their configuration
+variables (see those starting with `'scrollview_keywords_'` under
+|scrollview-signs-built-in-config|). For example, the following code changes the
+symbols for the "fix" and "todo" keyword signs.
+
+Vimscript: >
+    let g:scrollview_keywords_fix_symbol = nr2char(0x1F527)
+    let g:scrollview_keywords_todo_symbol = nr2char(0x2705)
+
+Lua: >
+    vim.g.scrollview_keywords_fix_symbol = vim.fn.nr2char(0x1F527)
+    vim.g.scrollview_keywords_todo_symbol = vim.fn.nr2char(0x2705)
+<
+The built-in keyword signs can be disabled by modifying
+|scrollview_keywords_built_ins|. For example, the following code disables some
+keyword signs by enabling only a specfic subset.
+
+Vimscript: >
+    let g:scrollview_keywords_built_ins = ['fix', 'todo']
+
+Lua: >
+    vim.g.scrollview_keywords_built_ins = {'fix', 'todo'}
+<
+Additional groups of keyword signs can be added by creating a dictionary with
+a specific form for its name, `g:scrollview_keywords_GROUP_spec` (with `GROUP`
+replaced accordingly). It is comprised of the following items.
+
+* `patterns`: a list of strings, each containing a Lua pattern that will be
+  searched for
+* `highlight`: an optional highlight group
+* `priority`: an optional number indicating sign priority
+* `scope`: an optional string to specify the scope for keyword searching (see
+  |scrollview-signs-keyword-scopes|). Defaults to `'auto'`.
+* `symbol`: an optional string to use for the sign symbol
+
+For example, with the following Vimscript code, |nvim-scrollview| will show
+signs for lines that have the text `'NOTE'`.
+>
+    highlight ScrollViewKeywordsNote ctermfg=4 guibg=Blue
+    let g:scrollview_keywords_note_spec = {
+          \   'patterns': ['NOTE'],
+          \   'highlight': 'ScrollViewKeywordsNote',
+          \   'priority': 20,
+          \   'symbol': 'N',
+          \ }
+<
+Keyword Scopes ~
+                                           *scrollview-signs-keyword-scopes*
+The scope settings for keyword signs are described below. The scope setting
+controls the parts of a buffer that will be searched for keywords.
+
+Scope      Description
+-----      -----------
+`full`       Search the entire buffer.
+
+`comments`   Search comments, using |treesitter| or |'commentstring'| to detect
+           comments.
+
+`auto`       Same as `comments` when |treesitter| is available or |'commentstring'| is
+           set; same as `full` otherwise.
+
+============================================================================
+7. Issues                                  *scrollview-issues*
+
+Synchronization Issues ~
+                                           *scrollview-synchronization-issues*
+* For `nvim<0.7`, scrollbars can become out-of-sync after modifying window
+  arrangement with |:wincmd|. For `nvim>=0.7`, this is limited to |<cmd>| mappings
+  and commands executed from Lua (e.g., `vim.cmd('wincmd H')`). |:ScrollViewRefresh|
+  or scrolling can be used to refresh the scrollbars.
+
+* For `nvim<0.7`, scrollbars can become out-of-sync after fold commands when
+  using a |scrollview-mode| that accounts for folds. For `nvim>=0.7`, this is
+  limited to |<cmd>| mappings and commands executed from Lua (e.g., `vim.cmd('foldo')`).
+  |:ScrollViewRefresh|, or scrolling can be used to refresh the scrollbars.
+
+Error Message Issues ~
+                                           *scrollview-error-message-issues*
+* For `nvim<=0.6.1`, when attempting to close the last window in a tab with
+  |:close| or `<ctrl-w>c`, with the scrollbar displayed, and at least one
+  other tab, the following error is shown: >
+    E5601: Cannot close window, only floating window would remain
+<  Neovim Issue #11440 is the corresponding issue, opened November 23, 2019
+  and closed February 11, 2022.
+  + Workaround 1: Use |:quit|, |ZZ|, |ZQ|, or another command that quits the
+    current window (as opposed to a window-closing command).
+  + Workaround 2: Use |:only| or `<ctrl-w>o` on the last window of the tab,
+    which has the side-effect of closing all floating windows (including
+    scrollbars). A subsequent window-closing command works without error.
+  + Workaround 3: Use |:tabclose|.
+  + Workaround 4: Remap the problematic key sequence accordingly. >
+    nnoremap <silent> <c-w>c
+          \ <cmd>silent! ScrollViewDisable<cr>
+          \<cmd>execute "normal! \<c-w>c"<cr>
+          \<cmd>silent! ScrollViewEnable<cr>
+<    This won't resolve the issue in all cases (e.g., when using |:close| or
+    |:wincmd|). |<Plug>| mappings cannot be used, as they require recursive maps,
+    and <c-w>c would infinitely recurse, as its usage on the right-hand-side
+    is not at the beginning (see |recursive_mapping| for details).
+
+* For `nvim<=0.6.1`, deleting a buffer with |:bdelete|, when it's the only visible
+  buffer and there are multiple buffers on the buffer list, results in the
+  following error (with duplicate lines, as shown): >
+    E444: Cannot close last window
+    E444: Cannot close last window
+<  The buffer may not be deleted from the buffer list. Neovim Issue #13628 is
+  the corresponding issue, opened December 28, 2020 and closed March 23, 2022.
+  + Workaround 1: Use |:only| or `<ctrl-w>o`, which has the side-effect of closing
+    all floating windows (including scrollbars). A subsequent |:bdelete| command
+    works without error.
+  + Workaround 2: Create a `Bdelete` command that avoids the issue. >
+    command Bdelete
+          \ silent! ScrollViewDisable
+          \ | bdelete
+          \ | silent! ScrollViewEnable
+<
+Other Issues ~
+                                           *scrollview-other-issues*
+* For `nvim<=0.7.0`, sessions cannot be properly restored by |:mksession| scripts
+  created when the plugin is active (Issue #71). Neovim Issue #18432 is the
+  corresponding issue, opened May 5, 2022.
+  + Workaround: Create a `MkSession` command that avoids the problem. >
+    command -bang -nargs=? MkSession
+          \ silent! ScrollViewDisable
+          \ | mksession<bang> <args>
+          \ | silent! ScrollViewEnable
+
+* For `nvim<0.12`, scrollview windows are included in the window count returned
+  by `winnr('$')`. Neovim PR #34207 addressed the underlying issue.
+  + Workaround 1: Use a Vimscript function that omits external and floating
+    windows in the count. >
+    function! WindowCount()
+      let l:result = 0
+      for l:winnr in range(1, winnr('$'))
+        let l:config = nvim_win_get_config(win_getid(l:winnr))
+        if !get(l:config, 'external', 0)
+              \ && get(l:config, 'relative', '') ==# ''
+          let l:result += 1
+        endif
+      endfor
+      return l:result
+    endfunction
+<  + Workaround 2: Use a Lua function that omits external and floating windows
+    in the count. >
+    local window_count = function()
+      local result = 0
+      for winnr = 1, vim.fn.winnr('$') do
+        local config = vim.api.nvim_win_get_config(vim.fn.win_getid(winnr))
+        local not_external = config.external == nil or not config.external
+        local not_floating = config.relative == nil or config.relative == ''
+        if not_external and not_floating then
+          result = result + 1
+        end
+      end
+      return result
+    end
+
+============================================================================
+ vim:tw=78:ts=4:ft=help:norl:

@@ -1,0 +1,30 @@
+name: panvimdoc
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    name: pandoc to vimdoc
+    steps:
+      - uses: actions/checkout@v2
+      - name: illuminate
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: illuminate
+          pandoc: "README.md"
+          toc: true
+          version: "NVIM v0.8.0"
+      - name: Check for Changes
+        id: changes
+        uses: UnicornGlobal/has-changes-action@v1.0.11
+        with:
+          path: 'doc/'
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.changes.outputs.has_changes == 'true'
+        with:
+          commit_message: 'Auto generate docs'
+          branch: ${{ github.head_ref }}

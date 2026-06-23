@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/voldikss/vim-floaterm.git
+	branch = master
+	commit = 0ab5eb8135dc884bc543a819ac7033c15e72a76b
+	parent = f57b63566a7abdbca8c2e87a850f743711930c9e
+	method = merge
+	cmdver = 0.4.9

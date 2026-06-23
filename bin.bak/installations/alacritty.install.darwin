@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+cd ~/src/github.com/alacritty/alacritty
+git pull --rebase
+make app
+cp -r target/release/osx/Alacritty.app /Applications/

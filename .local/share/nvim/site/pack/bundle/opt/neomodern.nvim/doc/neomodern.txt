@@ -1,0 +1,153 @@
+*neomodern.txt*                                                 neomodern.nvim
+==============================================================================
+
+CONTENTS                                                       *neomodern-toc*
+
+    1. About.................................................|neomodern-about|
+    2. Public Lua API..........................................|neomodern-api|
+    3. Types.................................................|neomodern-types|
+
+==============================================================================
+
+ABOUT                                                        *neomodern-about*
+
+A collection of modern, simple, unintrusive themes.
+
+==============================================================================
+
+PUBLIC LUA API                                                 *neomodern-api*
+
+neomodern.load(...)
+
+    Applies the colorscheme (same as `:colorscheme ...`).
+
+    If `@param theme` is not provided, then uses the value specified in the
+    config table. If overriding the default theme, make sure to call
+    `neomodern.setup(...)` first.
+
+    Note: enforces `vim.opt.termguicolors=true`.
+
+    Parameters:
+        theme    `string?`  (optional)
+
+neomodern.setup(...)
+
+    Overrides the default configuration. Should be called before
+    `neomodern.load(...)`.
+
+    Parameters:
+        cfg    `neomodern.Config`
+
+==============================================================================
+
+TYPES                                                        *neomodern-types*
+
+neomodern.Background
+
+    "default"
+    | "alt"
+    | "transparent"
+
+neomodern.Theme
+
+    "moon"
+    | "iceclimber"
+    | "gyokuro"
+    | "hojicha"
+    | "roseprime"
+
+neomodern.GutterSpec
+
+    cursorline    `boolean`
+    dark          `boolean`
+
+neomodern.DiagnosticSpec
+
+    darker        `boolean`
+    undercurl     `boolean`
+    background    `boolean`
+
+neomodern.DefaultOverride
+
+    table<string, string>
+
+neomodern.HlSpec
+
+    guibg    `string?`
+    guifg    `string?`
+    guisp    `string?`
+    gui      `string?`
+    link     `string?`
+
+neomodern.HlGroupOverride
+
+    table<string, neomodern.HlSpec>
+
+neomodern.Overrides
+
+    default     `neomodern.DefaultOverride`
+    hlgroups    `neomodern.HlGroupOverride`
+
+neomodern.Config
+
+    background?     `neomodern.Background`
+    gutter?         `neomodern.GutterSpec`
+    diagnostics?    `neomodern.DiagnosticSpec`
+    overrides?      `neomodern.Overrides`
+    theme?          `neomodern.Theme`
+
+Highlight
+
+    guifg    `string?`
+    guibg    `string?`
+    guisp    `string?`
+    gui      `string?`
+    link     `string?`
+
+neomodern.Palette.Base16
+
+    black             `string`
+    red               `string`
+    green             `string`
+    yellow            `string`
+    blue              `string`
+    magenta           `string`
+    cyan              `string`
+    white             `string`
+    bright_black      `string`
+    bright_red        `string`
+    bright_green      `string`
+    bright_yellow     `string`
+    bright_blue       `string`
+    bright_magenta    `string`
+    bright_cyan       `string`
+    bright_white      `string`
+
+neomodern.Palette.Spec
+
+    alt            `string`
+    bg             `string`
+    comment        `string`
+    constant       `string`
+    fg             `string`
+    func           `string`
+    keyword        `string`
+    line           `string`
+    number         `string`
+    operator       `string`
+    property       `string`
+    string         `string`
+    type           `string`
+    visual         `string`
+    diag_red       `string`
+    diag_blue      `string`
+    diag_yellow    `string`
+    diag_green     `string`
+
+neomodern.Palette
+
+    base16    `neomodern.Palette.Base16`
+    spec      `neomodern.Palette.Spec`
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

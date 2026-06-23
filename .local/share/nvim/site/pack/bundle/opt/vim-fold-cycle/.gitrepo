@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/arecarn/vim-fold-cycle.git
+	branch = master
+	commit = 23a87f3eb12b1b9d8927207353b0f7a5454d1c0b
+	parent = 385ff171576e5e7c98b899f815b68aef16b3c702
+	method = merge
+	cmdver = 0.4.9

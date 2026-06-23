@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/aileot/ex-colors.nvim.git
+	branch = main
+	commit = 76a20ce29d160a4eb9f275a615dc8257cb15c58c
+	parent = 8a52955790dae2b291da7410955c2fde23c1ad8f
+	method = merge
+	cmdver = 0.4.9

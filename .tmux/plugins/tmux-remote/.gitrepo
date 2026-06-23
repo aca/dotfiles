@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/danyim/tmux-remote.git
+	branch = master
+	commit = 8579e5a490822a833f2d8901a9c654827ecf1d53
+	parent = ac8d9ce90581a93439c83a896ed718218b5c10ab
+	method = merge
+	cmdver = 0.4.9

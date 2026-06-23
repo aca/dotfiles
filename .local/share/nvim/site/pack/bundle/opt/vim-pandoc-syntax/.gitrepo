@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/vim-pandoc/vim-pandoc-syntax.git
+	branch = master
+	commit = 87929100f2497da82f19180ffa49e75a88e7c369
+	parent = e2a25865d0f0a5e18adbe39927effe7c3c0fa780
+	method = merge
+	cmdver = 0.4.9

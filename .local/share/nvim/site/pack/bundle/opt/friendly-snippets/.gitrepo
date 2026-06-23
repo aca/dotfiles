@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rafamadriz/friendly-snippets.git
+	branch = main
+	commit = 6cd7280adead7f586db6fccbd15d2cac7e2188b9
+	parent = 3870eaebc9f3514283d8acc1111ae5851dc8f94f
+	method = merge
+	cmdver = 0.4.9

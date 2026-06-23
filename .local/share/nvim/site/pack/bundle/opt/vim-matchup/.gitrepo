@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/andymass/vim-matchup.git
+	branch = master
+	commit = 0fb1e6b7cea34e931a2af50b8ad565c5c4fd8f4d
+	parent = fdbac54689c2ac014a673c570b8fdea4b1492329
+	method = merge
+	cmdver = 0.4.9

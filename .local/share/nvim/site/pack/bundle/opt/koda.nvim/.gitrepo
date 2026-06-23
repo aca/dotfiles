@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/oskarnurm/koda.nvim.git
+	branch = main
+	commit = a560a332ccc1eb2caacb280a390213bb9f37b3cb
+	parent = 69246ce9eed7c426f0f0bf272d25387d6ea12645
+	method = merge
+	cmdver = 0.4.9

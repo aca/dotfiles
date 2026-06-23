@@ -1,0 +1,1639 @@
+*dial.txt* CTRL-A / CTRL-X を拡張するLua製プラグイン
+
+Vimの標準機能である CTRL-A / CTRL-X を拡張し、英数字に限らない様々な文字列を
+インクリメント/デクリメントできるようにするパッケージです。
+
+Author: Mogami Shinichi (@monaqa) <cmonaqa{at}google.com>
+Version: 0.3.0
+License: MIT license
+		<https://github.com/monaqa/dial.nvim/blob/master/LICENSE>
+
+==============================================================================
+CONTENTS								*dial-contents*
+
+Requirements					|dial-requirements|
+Introduction					|dial-introduction|
+  Features						|dial-features|
+Usage							|dial-usage|
+Configurations					|dial-config|
+  Aliases						|dial-aliases|
+  Augends						|dial-augends|
+    Number						|dial-augends-number|
+    Date						|dial-augends-date|
+    Decimal Fraction			|dial-augends-decimal-fraction|
+    Constant					|dial-augends-constant|
+    Case						|dial-augends-case|
+    Hexcolor					|dial-augends-hexcolor|
+    Semver						|dial-augends-semver|
+    Paren						|dial-augends-paren|
+    Misc						|dial-augends-misc|
+    User						|dial-augends-user|
+Advanced Usage					|dial-advanced-usage|
+  Dot Repeating					|dial-dot-repeating|
+  Additive Dot Repeating		|dial-additive-dot-repeating|
+Interface						|dial-interface|
+  Mapping						|dial-mapping|
+  Command						|dial-command|
+  Lua API						|dial-lua-api|
+
+==============================================================================
+REQUIREMENTS							*dial-requirements*
+
+* Neovim 0.11.0 or later
+
+==============================================================================
+INTRODUCTION							*dial-introduction*
+
+*dial.nvim* は、様々な形式の文字列をインクリメント/デクリメントするパッケージ
+です。標準の CTRL-A や CTRL-X、 g CTRL-A といったコマンドの動作を拡張します。
+
+------------------------------------------------------------------------------
+FEATURES								*dial-features*
+
+多岐にわたる文字列の増減~
+	以下のように、さまざまな文字列を増減できます。
+
+	* n 進数 (`2 <= n <= 36`) の整数
+	* 日付
+	* キーワードや演算子など、所定文字列のトグル
+	  * `true` ⇄ `false`
+	  * `&&` ⇄ `||`
+	  * `a` ⇄ `b` ⇄ ... ⇄ `z`
+	  * `日` ⇄ `月` ⇄ ... ⇄ `土` ⇄ `日` ⇄ ...
+	* 識別子の命名規則 (camelCase, snake_case, etc.)
+	* Hex color
+	* SemVer
+
+	カスタムルールに基づく増減ルールを設定することも可能です。
+
+増減対象の (augend) の柔軟な設定~
+	|dial.nvim| が提供する増減ルールは多岐にわたりますが、ユーザは本当に必要な
+	ものだけを選択して有効化することができます。
+	競合するルール（例: `mm/dd/yyyy`形式の日付と`dd/mm/yyyy`形式の日付）がある
+	場合も、片方だけを有効化することによって取り違えることなく増減操作を行うこ
+	とができます。
+	特定のバッファやファイルタイプでのみ増減対象を変更することも可能です。
+
+カウンタへの対応~
+	通常の CTRL-A / CTRL-X と同様に、 `10<C-a>` のように打つことで加数を変更で
+	きます。
+
+ドットリピートへの対応~
+	通常の CTRL-A / CTRL-X と同様に、|.| を用いて直前の操作を繰り返せます。
+	|dial.nvim| では直前の増減対象を記憶しており、たとえば直前に「`yyyy/mm/dd`
+	形式の月」をインクリメントしていた場合は、たとえより手前に他の増減対象文字
+	列があったとしても「`yyyy/mm/dd`形式の月」を探してインクリメントします。
+
+VISUAL mode での操作に対応~
+	標準の CTRL-A や CTRL-X は VISUAL モードでも用いることができますが、同様
+	の機能を dial.nvim も備えています。 |v_g_CTRL-A| や |v_g_CTRL-X| にも対応
+	しています。NORMAL モードとVISUAL モードで増減対象を変えることもできます。
+
+==============================================================================
+USAGE									*dial-usage*
+
+|dial.nvim|自身はキーマップの設定および上書きを行わないため、プラグインを動作
+させるために以下の設定を追加する必要があります。
+>
+	nnoremap  <C-a> <Plug>(dial-increment)
+	nnoremap  <C-x> <Plug>(dial-decrement)
+	nnoremap g<C-a> <Plug>(dial-g-increment)
+	nnoremap g<C-x> <Plug>(dial-g-decrement)
+	xnoremap  <C-a> <Plug>(dial-increment)
+	xnoremap  <C-x> <Plug>(dial-decrement)
+	xnoremap g<C-a> <Plug>(dial-g-increment)
+	xnoremap g<C-x> <Plug>(dial-g-decrement)
+<
+
+もしくは Lua 上で以下のように設定することもできます。
+>
+	vim.keymap.set("n", "<C-a>", function()
+		require("dial.map").manipulate("increment", "normal")
+	end)
+	vim.keymap.set("n", "<C-x>", function()
+		require("dial.map").manipulate("decrement", "normal")
+	end)
+	vim.keymap.set("n", "g<C-a>", function()
+		require("dial.map").manipulate("increment", "gnormal")
+	end)
+	vim.keymap.set("n", "g<C-x>", function()
+		require("dial.map").manipulate("decrement", "gnormal")
+	end)
+	vim.keymap.set("v", "<C-a>", function()
+		require("dial.map").manipulate("increment", "visual")
+	end)
+	vim.keymap.set("v", "<C-x>", function()
+		require("dial.map").manipulate("decrement", "visual")
+	end)
+	vim.keymap.set("v", "g<C-a>", function()
+		require("dial.map").manipulate("increment", "gvisual")
+	end)
+	vim.keymap.set("v", "g<C-x>", function()
+		require("dial.map").manipulate("decrement", "gvisual")
+	end)
+<
+==============================================================================
+CONFIGURATIONS							*dial-config*
+
+dial.nvim では操作対象を表す被加数 (augend) と、複数の被加数をまとめたグループ
+を用いることで、増減ルールを自由に設定することができます。
+
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  -- グループ名を指定しない場合に用いられる被加数
+	  default = {
+		augend.integer.alias.decimal,   -- nonnegative decimal number
+		augend.integer.alias.hex,       -- nonnegative hex number
+		-- date (2022/02/19, etc.)
+		augend.date.new {
+		  pattern = "%Y/%m/%d",
+		  default_kind = "day",
+		},
+	  },
+
+	  -- `mygroup` というグループ名を使用した際に用いられる被加数
+	  mygroup = {
+		augend.integer.alias.decimal,
+		augend.constant.alias.bool,    -- boolean value (true <-> false)
+		-- date (02/19/2022, etc.)
+		augend.date.new {
+		  pattern = "%m/%d/%Y",
+		  default_kind = "day",
+		},
+	  }
+	}
+<
+
+`"dial.config"` モジュールに存在する `augends:register_group` 関数を用いてグル
+ープを定義することができます。関数の引数には、グループ名をキー、被加数のリスト
+を値とする辞書を指定します。
+
+上の例で `augend` という名前のローカル変数に代入されている `"dial.augend"`
+モジュールにはさまざまな被加数が定義されています。具体的に定義されている被加数
+とエイリアスについては |dial-augends| および |dial-aliases| を参照。
+
+|dial.nvim| では以下のように **expression register** |@=| を用いることで増減対
+象のグループを指定します。
+>
+	"=mygroup<CR><C-a>
+<
+
+増減のたびに expression register を指定するのが面倒であれば、以下のようにマッ
+ピングすることも可能です。
+>
+	nmap <Leader>a "=mygroup<CR><Plug>(dial-increment)
+<
+
+Lua 上で以下のように記述すれば expression register を使わずマッピングを設定で
+きます。
+
+>
+	vim.keymap.set(
+		"n",
+		"<Leader>a",
+		function()
+			require("dial.map").manipulate("increment", "normal", "mygroup")
+		end
+	)
+<
+
+										*dial-config-augends-default*
+デフォルトグループ~
+
+`default` は特殊なグループであり、標準で定義されています。expression register
+などでグループ名を指定しなかった場合は `default` グループにある被加数がかわり
+に用いられます。
+
+何も設定しなかった場合は以下の設定を行っているのと等価となります。
+
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.date.new {
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+		},
+		augend.date.new {
+			pattern = "%Y-%m-%d",
+			default_kind = "day",
+		},
+		augend.date.new {
+			pattern = "%m/%d",
+			default_kind = "day",
+			only_valid = true,
+		},
+		augend.date.new {
+			pattern = "%H:%M",
+			default_kind = "day",
+			only_valid = true,
+		},
+		augend.constant.alias.ja_weekday_full,
+	  },
+	}
+<
+
+VISUAL mode 限定のマッピング~
+
+VISUAL モード用のグループを作成することで可能です。
+
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  visual = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.date.new {
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+		},
+		augend.constant.alias.alpha,
+		augend.constant.alias.Alpha,
+	  },
+	}
+
+	-- VISUAL モードでの被加数を変更する
+	vim.keymap.set(
+		"v",
+		"<C-a>",
+		function()
+			require("dial.map").manipulate("increment", "visual", "visual")
+		end
+	)
+	vim.keymap.set(
+		"v",
+		"<C-x>",
+		function()
+			require("dial.map").manipulate("decrement", "visual", "visual")
+		end
+	)
+<
+
+特定のファイルタイプ限定のルール~
+
+`augends:on_filetype()` 関数を使うことで、特定のファイルタイプのときに有効な被
+加数のルールを定義することができます。
+>
+	lua << EOF
+	local augend = require("dial.augend")
+	require("dial.config").augends:on_filetype {
+	  typescript = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.constant.new { elements = { "true", "false" } },
+		augend.constant.new { elements = {"let", "const"} },
+	  },
+	  lua = {
+		augend.integer.alias.decimal,
+		augend.constant.new { elements = { "true", "false" } },
+	  },
+	  markdown = {
+		augend.integer.alias.decimal,
+		augend.misc.alias.markdown_header,
+	  }
+	}
+	EOF
+<
+------------------------------------------------------------------------------
+ALIASES									*dial-aliases*
+
+被加数のエイリアスとして、デフォルトで以下が提供されています。
+詳しくは |dial-augends| の対応する節を参照。
+
+	integer:
+		`augend.integer.alias.decimal`
+		`augend.integer.alias.decimal_int`
+		`augend.integer.alias.hex`
+		`augend.integer.alias.octal`
+		`augend.integer.alias.binary`
+
+	date:
+		`augend.date.alias["%Y/%m/%d"]`
+		`augend.date.alias["%m/%d/%Y"]`
+		`augend.date.alias["%d/%m/%Y"]`
+		`augend.date.alias["%m/%d/%y"]`
+		`augend.date.alias["%d/%m/%y"]`
+		`augend.date.alias["%m/%d"]`
+		`augend.date.alias["%-m/%-d"]`
+		`augend.date.alias["%Y-%m-%d"]`
+		`augend.date.alias["%Y年%-m月%-d日"]`
+		`augend.date.alias["%Y年%-m月%-d日(%ja)"]`
+		`augend.date.alias["%H:%M:%S"]`
+		`augend.date.alias["%H:%M"]`
+
+	constant:
+		`augend.constant.alias.ja_weekday`
+		`augend.constant.alias.ja_weekday_full`
+		`augend.constant.alias.bool`
+		`augend.constant.alias.alpha`
+		`augend.constant.alias.Alpha`
+
+	semver:
+		`augend.semver.alias.semver`
+
+NOTE: date の alias は deprecated であり、今後のアップデートで削除される可能性
+があります。
+
+------------------------------------------------------------------------------
+AUGENDS									*dial-augends*
+
+以下簡単のため、 `augend` という変数は以下のように定義されているものとします。
+
+>
+	local augend = require("dial.augend")
+<
+
+NUMBER									*dial-augends-number*
+------
+
+n 進数の整数 (`2 <= n <= 36`) を表します。 `augend.integer.new{ ...opts }` で
+使用できます。
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.integer.new{
+		  radix = 16,
+		  prefix = "0x",
+		  natural = true,
+		  case = "upper",
+		},
+	  },
+	}
+<
+
+`augend.integer.new` の引数のテーブルは以下のキーをとることができます。
+		radix (number, default: 10)
+				表記に用いる進数を表します。
+		prefix (string, default: "")
+				数値に前置される文字列を指定できます (e.g. `0x`)。
+		natural (boolean, default: true)
+				true のときは自然数にのみマッチします。
+				つまり、 `-1` のうえにカーソルがあったとしても `1` にマッチし、
+				`-1` にはマッチしません。
+		case ("upper" | "lower", default: "lower")
+				16進数のように10よりも大きな進数のときに用いるアルファベットの
+				大文字/小文字を指定します。
+		delimiter (char, default: "")
+				数値の区切り文字を指定します。たとえば "," を与えると、以下の
+				ような数値にもマッチするようになります。
+>
+					1,234,567
+					1,23,4,5,67
+<
+				いずれも数値を解釈するときは単にカンマが無視されますが、増減時
+				にカンマの位置が n 桁区切りとなるよう整形されます。n の値は後
+				述する `delimiter_digits` の値で制御できます。
+		delimiter_digits (number, default: 3)
+				数値の区切り文字が指定されているとき、数値を何桁区切りで表示す
+				るか指定します。
+				`delimiter` が空文字列のときには意味がありません。
+
+augend.integer.alias.decimal~
+
+十進数の整数。
+>
+	0
+	123
+	3141592
+<
+といった文字列にマッチし、1つインクリメントするごとにその数値を1増加させます。
+標準の CTRL-A と異なり、数字の先頭に `-` が付いていても考慮しません。
+>
+	file-1.jpg
+<
+という文字列の `1` にカーソルがある状態で |<Plug>(dial-increment)| を行うと
+>
+	file-2.jpg
+<
+となります。
+
+augend.integer.alias.decimal_int~
+
+基本的には `augend.integer.alias.decimal` と同じですが、こちらは負の整数にも
+マッチします。
+>
+	file-1.jpg
+<
+という文字列の `1` にカーソルがある状態で |<Plug>(dial-increment)| を行うと
+>
+	file0.jpg
+<
+となります。
+
+augend.integer.alias.hex~
+
+16進数の非負整数にマッチし、16進数の表記でインクリメント・デクリメントが行われ
+ます。
+>
+	0x12
+	0xafbf
+	0xAFBF
+<
+などの文字列にマッチします。
+
+augend.integer.alias.octal~
+
+8進数の非負整数にマッチし、8進数の表記でインクリメント・デクリメントが行われま
+す。
+>
+	0o37
+	0o567
+	0o01212
+<
+などの文字列にマッチします。
+
+augend.integer.alias.binary~
+
+2進数の非負整数にマッチし、2進数の表記でインクリメント・デクリメントが行われま
+す。
+>
+	0b00
+	0b1010
+	0b10100101
+<
+などの文字列にマッチします。
+
+DATE									*dial-augends-date*
+-----
+
+日付や時刻を表します。`augend.date.new{ ...opts }` で使用できます。
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.date.new{
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+			only_valid = true,
+			word = false,
+		},
+	  },
+	}
+<
+
+										*dial-augends-date-arguments*
+`augend.date.new` の引数のテーブルは以下のキーをとることができます。
+		pattern (string, 必須)
+			マッチさせたい日付のパターン。詳細は |dial-augends-date-pattern|
+			参照。
+		default_kind (string, 必須)
+			カーソル位置が日付から離れている場合、または選択モード中で増減操作
+			を行うとき、日付をどの単位で増減させるかを表します。以下の6種類の
+			値から選択します:
+			* `year`
+			* `month`
+			* `day`
+			* `hour`
+			* `min`
+			* `sec`
+		only_valid (boolean, default: false)
+			true のとき、フォーマットには合致するものの現実には存在しない日付
+			や時刻（`2022/13/52` や `27:30`など）にはマッチしなくなります。意
+			図せぬマッチを防ぐのに役立ちます。
+			false のとき、現実には存在しない日付にもマッチし、増減の際に現実に
+			存在する日付へと強制的に修正します。たとえば `2022/06/31` の状態で
+			日付を1だけ増加させると、もともとの文字列は `2022/07/01` という日
+			付と解釈され、最終的に `2022/07/02` となります。
+		word (boolean, default: false)
+			true のとき、フォーマットに一致する文字列が単語の境界にあるときの
+			みマッチします。
+		clamp (boolean, default: false)
+			月や年をインクリメントすることによって日付がその月の末日を超えると
+			きにどう扱うかを制御する。true ならば末日での切り詰めを行う。
+			|dial-augends-date-clamp| 参照。
+		end_sensitive (boolean, default: false)
+			月や年をインクリメントする際に、月の末日のみ特別扱いするかどうかを
+			制御する。true ならば、末日を特別扱いして扱う。
+			|dial-augends-date-end-sensitive| 参照。
+		custom_date_elements (table<string, dateelement>, default: {})
+			ユーザが自分自身で日付の形式を定義する際に用いる発展的なオプション。
+			詳細は |dial-augends-date-custom-format| を参照。
+
+										*dial-augends-date-pattern*
+`pattern` 引数には以下のような文字列を指定することができます。
+>
+	%Y/%m/%d     (e.g. 2022/02/06)
+	%H:%M:%S     (e.g. 15:30:00)
+	%-m/%-d      (e.g. 2/6)
+<
+`%` は日付の要素を表すために用いられるエスケープ文字であり、以下のようにして用
+いることができます。
+
+* `%` とアルファベット1文字。
+		`%Y`	4桁の西暦。 (e.g. `2022`)
+		`%y`	西暦の下2桁。上2桁は `20` として解釈されます。 (e.g. `22`)
+		`%m`	2桁の月。 (e.g. `09`)
+		`%d`	2桁の日。 (e.g. `28`)
+		`%H`	24時間で表示した2桁の時間。 (e.g. `15`)
+		`%I`	12時間で表示した2桁の時間。 (e.g. `03`)
+		`%M`	2桁の分。 (e.g. `05`)
+		`%S`	2桁の秒。 (e.g. `08`)
+		`%a`	英語表記の短い曜日。 (`Sun`, `Mon`, ..., `Sat`)
+		`%A`	英語表記の曜日。 (`Sunday`, `Monday`, ..., `Saturday`)
+		`%b`	英語表記の短い月名。 (`Jan`, ..., `Dec`)
+		`%B`	英語表記の月名。 (`January`, ..., `December`)
+		`%p`	`AM` または `PM`。
+		`%J`	日本語表記の曜日。 (`日`, `月`, ..., `土`)
+* `%-` とアルファベット1文字。
+		`%-y`	西暦の下2桁を1–2桁で表したもの。(e.g. `9` で `2009` 年を表す)
+		`%-m`	1–2桁の月。 (e.g. `9`)
+		`%-d`	1–2桁の日。 (e.g. `28`)
+		`%-H`	24時間で表示した1–2桁の時間。 (e.g. `15`)
+		`%-I`	12時間で表示した1–2桁の時間。 (e.g. `3`)
+		`%-M`	1–2桁の分。 (e.g. `5`)
+		`%-S`	1–2桁の秒。 (e.g. `8`)
+* `%%`。これは `%` 自体を表現するのに用います。
+* `%(element_name)` という形式のテキスト (|dial-augends-date-custom-format|)。
+  `element_name` には `)` という文字が出現しない任意の文字列を入れることができ
+  ます。
+
+NOTE パターンには日付または時刻に関する情報を含める必要があり、曜日単体で使う
+ことはできません。たとえば `%a` をパターンとして指定しても期待通りの動作をしま
+せん。曜日だけでは日付を推定できないためです。
+
+										*dial-augends-date-custom-format*
+日付のパターンにおいて、`%(element_name)` はユーザの手で定義できる特殊なプレー
+スホルダーです。プレースホルダーは `augend.date.new` の `custom_date_elements`
+引数で以下のように与えることができます。
+
+>
+	local WEEKDAYS_FLUSHRIGHT = {
+		"   Sunday",
+		"   Monday",
+		"  Tuesday",
+		"Wednesday",
+		" Thursday",
+		"   Friday",
+		" Saturday",
+	}
+	require("dial.config").augends:register_group {
+		default = {
+			augend.date.new {
+				pattern = "%d/%m/%y %(week_flushright)",
+				default_kind = "day",
+				custom_date_elements = {
+					week_flushright = {
+						kind = nil,
+						regex = common.enum_to_regex(WEEKDAYS_FLUSHRIGHT),
+						update_date = function(_, date)
+							return date
+						end,
+						format = function(time)
+							local wday = os.date("*t", time).wday
+							return WEEKDAYS_FLUSHRIGHT[wday]
+						end,
+					}
+				}
+			}
+		},
+	}
+<
+
+上の例では `week_flushright` という日付の要素を定義し、`%(week_flushright)` と
+してパターン内で使用しています。その結果このルールは
+>
+	18/10/22   Tuesday
+<
+にマッチし、日付の上で <C-a> を実行することで
+>
+	19/10/22 Wednesday
+<
+へとインクリメントできるようになります。
+
+日付の要素に求められるフィールドは以下のとおりです。
+		kind (string | nil, default: nil)
+			その要素が日付のどの情報に紐付いているか。
+			* `year`
+			* `month`
+			* `day`
+			* `hour`
+			* `min`
+			* `sec`
+		regex (string, 必須)
+			その要素を検索する際のパターン文字列。
+		update_date (function, 必須)
+			その要素を読んだことによって、日付がどのようにアップデートされるか。
+			1つ目の引数にはプレースホルダーにマッチした文字列、2つ目の引数には
+			アップデート前の日付の情報 (`os.date("*t")` と同形式のテーブル) が
+			渡されます。
+		format (function, 必須)
+			日付（時刻）が与えられたとき、その要素をどのように文字列に変換する
+			か。1つ目の引数には unix time が integer で渡されます。
+
+非常に柔軟にパターンを定義できるものの、設定が複雑になるため可能な限り `%a` や
+`%y` といった既存の要素を用いることが推奨されます。
+
+										*dial-augends-date-clamp*
+										*dial-augends-date-end-sensitive*
+「1ヶ月後」「1年後」のような増減操作を行うとき、それが表す日付は自明ではない場
+合があります。たとえば `yyyy-mm-dd` 形式で `2022-01-31` という日付を考えると、
+その1ヶ月後は31日を加算した `2022-03-03` だと考える人もいるかもしれませんし、
+「1月の次の月の末日」である `2022-02-28` だと考える人もいるでしょう。様々なケ
+ースに対応するため、 augend.date には `clamp` と `end_sensitive` という2種類の
+オプションが用意されています。
+
+具体例として、 `2022-01-31` の1ヶ月後を考えてみます。素直に考えれば
+`2022-02-31` ですが、残念ながらこの日付は存在しません。`clamp = false` のとき
+は、次の月に繰り越すことで存在する日付へと修正します。
+>
+	2022-01-31  --(+1 month)-->  2022-02-31  (that does not exist)
+	                        ~~>  2022-03-03  (FINAL RESULT)
+<
+一方で`clamp = true` のときは、月を保ちつつ日付を切り詰めることで修正します。
+>
+	2022-01-31  --(+1 month)-->  2022-02-31  (that does not exist)
+	                        ~~>  2022-02-28  (FINAL RESULT)
+<
+
+`end_sensitive` オプションを使うと、末日を特別扱いすることができます。
+`end_sensitive = true` のとき、増減対象の日付がある月の末日だった場合、年月を
+インクリメントすると `clamp` にかかわらず強制的にその月の末日へと変換されます。
+よって
+>
+	2022-01-31  -->  2022-02-28
+<
+となります。
+
+`clamp` と `end_sensitive` はよく似たオプションですが、動作が微妙に異なります。
+自分のユースケースに最も合った値をそれぞれ選択してください。
+
+* `clamp = false, end_sensitive = false` のとき
+>
+	2022-01-30  --(+1 month)-->  2022-03-02
+	2022-01-31  --(+1 month)-->  2022-03-03
+	2022-02-28  --(+1 month)-->  2022-03-28
+	2022-03-31  --(-1 month)-->  2022-03-03
+<
+* `clamp = true, end_sensitive = false` のとき
+>
+	2022-01-30  --(+1 month)-->  2022-02-28  # Clamped!
+	2022-01-31  --(+1 month)-->  2022-02-28  # Clamped!
+	2022-02-28  --(+1 month)-->  2022-03-28
+	2022-03-31  --(-1 month)-->  2022-02-28  # Clamped!
+<
+* `clamp = false, end_sensitive = true` のとき
+>
+	2022-01-30  --(+1 month)-->  2022-03-02
+	2022-01-31  --(+1 month)-->  2022-02-28  # Last day of the month!
+	2022-02-28  --(+1 month)-->  2022-03-31  # Last day of the month!
+	2022-03-31  --(-1 month)-->  2022-02-28  # Last day of the month!
+<
+* `clamp = true, end_sensitive = true` のとき
+>
+	2022-01-30  --(+1 month)-->  2022-02-28  # Clamped!
+	2022-01-31  --(+1 month)-->  2022-02-28  # Last day of the month!
+	2022-02-28  --(+1 month)-->  2022-03-31  # Last day of the month!
+	2022-03-31  --(-1 month)-->  2022-02-28  # Last day of the month!
+<
+
+										*dial-augends-date-aliases*
+`augend.date` には以下のエイリアスが用意されています。
+
+NOTE: 以下のエイリアスは、日付のフォーマットを指定するのが困難であった時代の名
+残です。現在はフォーマットを自由に指定できるため、エイリアスの意義が失われつつ
+あります。互換性のため現在は残していますが、将来的には削除予定です。
+
+augend.date.alias["%Y/%m/%d"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	1970/12/31
+	2021/01/01
+	2021/02/13
+<
+
+カーソルが当該フォーマットより左にある場合は日付単位でのインクリメントが行われ
+ますが、カーソルがフォーマット上にある場合、具体的なカーソルの位置によってイン
+クリメントの対象が変化します。
+
+`1970/12/31` を例に取ってみます。
+
+`1970` の4文字のいずれかの上にカーソルがあるときにインクリメントを行うと
+>
+	1971/12/31
+<
+のように年がインクリメントされます。
+
+`/12` のいずれかの上にカーソルがあるときにインクリメントを行うと
+>
+	1971/01/31
+<
+のように月がインクリメントされます。
+
+`/31` のいずれかの上にカーソルがあるときにインクリメントを行うと
+>
+	1971/01/01
+<
+のように日付がインクリメントされます。
+
+当該フォーマットでは
+>
+	2021/02/29
+	2021/14/59
+<
+のように現実には存在しない日付でもマッチするものの、インクリメントを行う際に現
+実に存在する日付へと強制的に修正されます。
+
+augend.date.alias["%m/%d/%Y"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	12/31/1970
+	01/01/2021
+	02/13/2021
+<
+意図しないマッチを避けるため、存在しない日付にはマッチしません。
+
+augend.date.alias["%d/%m/%Y"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	31/12/1970
+	01/01/2021
+	13/02/2021
+<
+意図しないマッチを避けるため、存在しない日付にはマッチしません。
+
+augend.date.alias["%m/%d/%y"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	12/31/70
+	01/01/21
+	02/13/21
+<
+意図しないマッチを避けるため、存在しない日付にはマッチしません。
+
+augend.date.alias["%d/%m/%y"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	31/12/19
+	01/01/20
+	13/02/20
+<
+意図しないマッチを避けるため、存在しない日付にはマッチしません。
+
+augend.date.alias["%m/%d"]~
+
+以下のような日付にマッチします。
+
+>
+	12/31
+	01/01
+	02/13
+<
+
+`12/31` の例の場合、
+
+* カーソルが `12` より左にある場合：日付
+* カーソルが `12` のいずれかの上にある場合：月
+* カーソルが `/31` のいずれかの上にある場合：日付
+
+がインクリメントされます。
+
+現実に存在しない日付でもマッチし、操作の際に現実に存在する日付へと強制的に修正
+されます。
+
+augend.date.alias["%-m/%-d"]~
+
+基本的に |dial-augends-date#[%m/%d]| と同様ですが、こちらは月日が2桁にパディン
+グされていなくてもマッチします。すなわち、
+>
+	12/31
+	1/1
+	2/13
+<
+などにマッチします。
+意図しないマッチを避けるため、存在しない日付にはマッチしません。
+
+augend.date.alias["%Y-%m-%d"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	1970-12-31
+	2021-01-01
+	2021-02-13
+<
+現実に存在しない日付でもマッチし、操作の際に現実に存在する日付へと強制的に修正
+されます。
+
+augend.date.alias["%Y年%-m月%-d日"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	1970年12月31日
+	2021年1月1日
+	2021年2月13日
+<
+
+augend.date.alias["%Y年%-m月%-d日(%ja)"]~
+
+以下のようなフォーマットの日付にマッチします。
+>
+	1970年12月31日(木)
+	2021年1月1日(金)
+	2021年2月13日(土)
+<
+日付と曜日の整合性が取れていない場合もマッチし、インクリメント・デクリメントの
+際に正しい曜日となるよう自動で修正されます。
+
+augend.date.alias["%H:%M:%S"]~
+
+以下のようなフォーマットの時刻（時:分:秒）にマッチします。
+>
+	00:00:00
+	12:34:56
+<
+
+`12:34:56` の例の場合、
+
+* カーソルが `12` より左にある場合：秒
+* カーソルが `12` のいずれかの上にある場合：時
+* カーソルが `:34` のいずれかの上にある場合：分
+* カーソルが `:56` のいずれかの上にある場合：秒
+
+がインクリメントされます。
+意図しないマッチを避けるため、存在しない時刻にはマッチしません。
+
+augend.date.alias["%H:%M"]~
+
+以下のようなフォーマットの時刻（時:分）にマッチします。
+>
+	00:00
+	12:34
+<
+
+`12:34` の例の場合、
+
+* カーソルが `12` より左にある場合：分
+* カーソルが `12` のいずれかの上にある場合：時
+* カーソルが `:34` のいずれかの上にある場合：分
+
+がインクリメントされます。
+意図しないマッチを避けるため、存在しない時刻にはマッチしません。
+
+DECIMAL FRACTION						*dial-augends-decimal-fraction*
+----------------
+
+小数を増減します。
+`augend.decimal_fraction.new{ ...opts }` で使用できます。
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.decimal_fraction.new{
+			signed = false,
+			point_char = ".",
+		},
+	  },
+	}
+<
+
+以下のパラメータを有します。
+		signed (boolean, default: false)
+				true のとき、小数に前置されたマイナスを加味します。
+		point_char (string, default: `.`)
+				小数点を表す文字。1文字である必要があります。基本的には `.` か
+				`,` のどちらかです。
+
+decimal_fraction は `42.195` や `9.80665` といった小数を見つけたとき、カーソル
+が整数部分の前にあれば整数部分を、小数部分の前にあれば小数部分を増減します。
+
+たとえば
+>
+	42.195
+<
+という文字列の `4` にカーソルがある状態で |<Plug>(dial-increment)| を行うと
+>
+	43.195
+<
+となり、さらに`1` にカーソルがある状態で |<Plug>(dial-increment)| を行うと
+>
+	43.196
+<
+となります。カウンタを指定することもでき、小数部分にカーソルを当てて
+|100<Plug>(dial-increment)| を実行すれば
+>
+	43.296
+<
+となります。
+
+上記の挙動だけ見ると integer を指定したときの挙動とほとんど変わらないと感じら
+れるかも知れません。しかし、integer とは以下の2つの違いがあります。
+
+* 繰り上がりや繰り下がりが発生します。すなわち
+>
+	2.9
+<
+の小数部分にカーソルを当てて |<Plug>(dial-increment)| を行うと、
+>
+	3.0
+<
+となります（integer を指定したときは `2.10` となっていました）。
+これは減算でも同様です。 `signed = true` の設定で
+>
+	0.7
+<
+の整数部分にカーソルを当てて |<Plug>(dial-decrement)| を行うと、
+>
+	-0.3
+<
+となります (`0.7 - 1 = -0.3`)。
+
+* ドットリピートは「増減する実際の値」を記憶し、再現します。`2.8` の小数部分を
+  インクリメントして `2.9` にした直後なら、 `1.73` をドットリピートでインクリ
+  メントしたときの結果は `1.74` ではなく `1.83` となります。
+
+`augend.decimal_fraction` と `augend.integer` を両立することもできます。
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.integer.alias.decimal,
+		augend.decimal_fraction.new{ },
+	  },
+	}
+<
+
+この場合はカーソル下または直後にある数字が小数であるときに限り、
+decimal_fraction による増減ルールが適用されます。
+
+CONSTANT								*dial-augends-constant*
+--------
+
+キーワードなどの決められた文字列をトグルします。
+`augend.constant.new{ ...opts }` で使用できます。
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.constant.new{
+		  elements = {"and", "or"},
+		  word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+		  cyclic = true,  -- "or" is incremented into "and".
+		},
+		augend.constant.new{
+		  elements = {"&&", "||"},
+		  word = false,
+		  cyclic = true,
+		},
+		augend.constant.new{
+		  elements = {"let", "const"},
+		  match_before_cursor = true,
+		},
+	  },
+	}
+<
+
+以下のパラメータを有します。
+		elements (string[], 必須)
+				相互変換したい文字列のリスト。
+		word (boolean, default: true)
+				true のとき、elements に一致する文字列が単語の境界にあるときの
+				みマッチします。
+		cyclic (boolean, default: true)
+				true のとき、増減操作を行う際に巡回します。
+		preserve_case (boolean, default: false)
+				true のとき、アルファベットの大文字・小文字のパターンを保存し
+				ての変換を試みます。
+		pattern_regexp (string, default: `\C\V\<\(%s\)\>`)
+				文字列検索を行う際の正規表現。 elements に指定した文字列を
+				`%s` に指定します。
+		match_before_cursor (boolean, default: false)
+				true のとき、カーソルが対象の単語より後ろにある場合でもマッチ
+				します。ただし、カーソル上またはカーソルの後に他の有効な被加数が
+				存在すればそちらが優先されます。
+
+注意: `&&` と `||` のように、記号からなる文字列を相互変換するときは `cyclic`
+を false にしてください。
+注意: `preserve_case` が true のときは、大文字・小文字を無視して elements に
+指定した文字列にマッチします。このとき、文字列が以下の3パターンのいずれかに該
+当する場合に限り、大文字・小文字のパターンを保存して文字列を切り替えます。
+* 全て小文字の場合（例: `true <-> false`）
+* 全て大文字の場合（例: `TRUE <-> FALSE`）
+* 先頭のみ大文字の場合（例: `True <-> False`）
+それ以外のときは全て小文字に変換します。
+
+augend.constant.alias.ja_weekday~
+
+日本語の曜日名にマッチします。
+>
+	月
+	火
+	水
+	木
+	金
+	土
+	日
+<
+
+それぞれ Vim の意味での単語になっているものに対してマッチするため、「日用品」
+など熟語の一部にはマッチしません。
+
+augend.constant.alias.ja_weekday_full~
+
+日本語の曜日名にマッチします。
+>
+	月曜日
+	火曜日
+	水曜日
+	木曜日
+	金曜日
+	土曜日
+	日曜日
+<
+
+こちらは augend.constant.alias.ja_weekday と異なり、単語ではなく文字列としてマ
+ッチするため、「毎週火曜日」のように漢字が連なっていてもマッチします。
+
+augend.constant.alias.bool~
+
+`true` または `false` という単語にマッチします。
+>
+	true
+	false
+<
+
+augend.constant.alias.alpha~
+
+`a` や `z` など、1つの小文字アルファベットにマッチします。ノーマルモードの場合
+はそれ自身が Vim の意味で単語として独立していない限りマッチしません。例えば
+>
+	(a)
+	a.
+<
+などのように単語として独立した `a` にはマッチしますが、
+>
+	cafe
+	2a
+<
+のように単語として独立していない `a` にはマッチしません。
+
+なお、インクリメント時に巡回は行われません。すなわち `z` をインクリメントして
+も`z` のまま変わらず、 `a` をデクリメントしても `a` のまま変わりません。
+
+augend.constant.alias.Alpha~
+
+`A` や `Z` など、1つの大文字アルファベットにマッチします。
+
+CASE									*dial-augends-case*
+-----
+
+camelCase や snake_case といったプログラミング言語における変数名や関数名の規則
+を変更します。 `augend.case.new { ...opts }` で使用できます。
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.case.new{
+		  types = {"camelCase", "snake_case"},
+		  cyclic = true,
+		},
+	  },
+	}
+<
+
+以下のパラメータを有します。
+		patterns (string[], 必須)
+				相互変換したい命名規則のリスト。以下から選択:
+					- `camelCase`
+					- `snake_case`
+					- `kebab-case`
+					- `PascalCase`
+					- `SCREAMING_SNAKE_CASE`
+		cyclic (boolean, default: true)
+				true のとき、増減操作を行う際に巡回します。
+
+NOTE: 現時点で、1つの単語のみから構成される識別子には反応しません。たとえば
+`dial_nvim` や `dialNvim` には反応しますが、 `dial` という識別子には反応しませ
+ん。これは `dial` という識別子だけを見て、それが camelCase なのか snake_case
+なのか判別することが不可能だからです。これは PascalCase など他の規則を選んだ場
+合も同様であり、 `Dial` や `DIAL` には反応しません。
+
+HEXCOLOR								*dial-augends-hexcolor*
+--------
+
+`#000000` や `#ffffff` といった形式の RGB カラーコードを増減します。
+`augend.hexcolor.new{ ...opts }` で使用できます。
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.hexcolor.new{
+		  case = "lower",
+		},
+	  },
+	}
+<
+
+得られる被加数は以下のような16進数のカラーコード (#rrggbb) にマッチします。
+>
+	#1280af
+	#808080
+	#001351
+<
+
+`#1280af` の例の場合、
+
+* カーソルが `#1280af` より左、もしくは `#` 上にある場合： RGB 全て
+* カーソルが `12` のいずれかの上にある場合：R
+* カーソルが `80` のいずれかの上にある場合：G
+* カーソルが `af` のいずれかの上にある場合：B
+
+がインクリメントの対象となります。
+
+SEMVER									*dial-augends-semver*
+------
+
+Semantic version を増減します。後述のエイリアスを用います。単なる非負整数のイ
+ンクリメントとは以下の点で異なります。
+
+- semver 文字列よりもカーソルが手前にあるときは、パッチバージョンが優先してイ
+  ンクリメントされます。
+- マイナーバージョンの値が増加したとき、パッチバージョンの値は0にリセットされ
+  ます。
+- メジャーバージョンの値が増加したとき、マイナー・パッチバージョンの値は0にリ
+  セットされます。
+
+augend.semver.alias.semver~
+
+以下のようなバージョンを表す数字の三つ組にマッチします。
+>
+	0.3.0
+	3.9.14
+	1.2.3
+<
+
+`1.2.3` の例でインクリメントする場合を考えます。
+
+* カーソルが `1` より手前にある場合
+  パッチバージョンがインクリメントされ、 `1.2.4` となります。
+* カーソルが `1` の上にある場合
+  メジャーバージョンがインクリメントされ、 `2.0.0` となります。
+* カーソルが `.2` の上にある場合
+  マイナーバージョンがインクリメントされ、 `1.3.0` となります。
+* カーソルが `.3` の上にある場合
+  パッチバージョンがインクリメントされ、 `1.2.4` となります。
+
+なお、デクリメントする場合はメジャー・マイナー・パッチどのバージョンにおいても
+下位の数値は変化しません。 `1.2.3` でメジャーバージョンを1デクリメントすると
+`0.2.3` となります。
+
+PAREN									*dial-augends-paren*
+-----
+
+括弧やクオーテーションで囲まれた文字列を対象とし、括弧の種類を変更します。
+`augend.paren.new{ ...opts }` で使用できます。
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.paren.new{
+		  patterns = {
+			{'"', '"'},
+			{"[[", "]]"},
+			{"[=[", "]=]"},
+			{"[==[", "]==]"},
+			{"[===[", "]===]"},
+		  },
+		  nested = false,
+		  cyclic = false,
+		},
+		augend.paren.new{
+		  patterns = { {"'", "'"}, {'"', '"'} },
+		  nested = false,
+		  escape_char = [[\]],
+		  cyclic = true,
+		},
+	  },
+	}
+<
+
+以下のパラメータを有します。
+		patterns (string[][], 必須)
+				相互変換したい括弧のペア。
+				各要素は string の2つ組であり、開き括弧と閉じ括弧を表します。
+		nested (boolean, default: true)
+				true のとき、ネストを検出します。
+				開き括弧と閉じ括弧の文字列が一致する場合は意味を成しません。
+		cyclic (boolean, default: true)
+				true のとき、増減操作を行う際に巡回します。
+		escape_char (string, default: nil)
+				定義されていれば、その文字列を escape char と見做します。
+				escape char の直後では、開き括弧や閉じ括弧の字句が無視されます。
+				ただし、 escape char が2つ連続で並んだ場合はescape char 自体が
+				escape されたものと見做します。
+
+NOTE: 複数行に渡る括弧を検出・操作することはできません。dial.nvim 全体の方針と
+して、CTRL-A や CTRL-X による増減操作は1行で完結するものに制限しています。複数
+行に渡る括弧の操作は、より括弧操作に特化したプラグインの使用をお勧めします。
+
+augend.paren.alias.quote~
+
+single-quoted literal と double-quoted literal を相互変換します。
+`\` はエスケープ文字として扱われます。
+>
+	"foo" -> 'foo'
+	'foo' -> "foo"
+	"foo\"" -> 'foo\"'
+<
+
+augend.paren.alias.brackets~
+
+3種類の括弧 `()`, `[]`, `{}` を相互変換します。ネストも考慮されます。
+>
+	(foo) -> [foo] -> {foo} -> (foo) -> ...
+<
+
+augend.paren.alias.lua_str_literal~
+
+Lua の string literal 記法を相互変換します。
+>
+	"foo" -> [[foo]] -> [=[foo]=] -> [==[foo]==] -> [===[foo]===]
+<
+
+augend.paren.alias.rust_str_literal~
+
+Rust の string literal 記法を相互変換します。
+>
+	"foo" -> r#"foo"# -> r##"foo"## -> r###"foo"###
+<
+
+MISC									*dial-augends-misc*
+-----
+
+`augend.misc.alias` 下に雑多な被加数がまとめて定義されています。
+
+augend.misc.alias.markdown_header~
+
+Markdown のヘッダレベルを増減します。
+>
+	# Header1
+	## Header2
+	###### Header6
+<
+
+NOTE: augend としては珍しく、カーソルが `#` より後ろにある場合でもマッチします。
+ただしその場合、カーソル上またはカーソルの後に他の有効な被加数が存在すればそち
+らが優先されます。確実に markdown_header を増減させたければ、カーソルを行頭に
+移動させてから操作することをお勧めします。
+
+
+USER									*dial-augends-user*
+-----
+
+ユーザ自身が増減ルールを定義したい場合には `augend.user.new{ ...opts }` を使用
+できます。
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.user.new{
+		  find = require("dial.augend.common").find_pattern("%d+"),
+		  add = function(text, addend, cursor)
+			  local n = tonumber(text)
+			  n = math.floor(n * (2 ^ addend))
+			  text = tostring(n)
+			  cursor = #text
+			  return {text = text, cursor = cursor}
+		  end
+		},
+	  },
+	}
+<
+
+==============================================================================
+ADVANCED USAGE							*dial-advanced-usage*
+
+|dial.nvim| のうち、発展的ではあるものの便利な機能を紹介します。
+
+------------------------------------------------------------------------------
+DOT REPEATING							*dial-dot-repeating*
+
+|dial.nvim| が提供するすべてのキーコマンドはドットリピートに対応しています。
+すなわち、"." を押すことによって直前の増減操作を繰り返すことができます。
+ただし標準の <C-a> や <C-x> とは若干挙動が異なり、増減ルールが固定されます。
+
+具体的な例として、以下のような設定を考えます。
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.integer.alias.decimal,
+		augend.date.alias["%Y/%m/%d"],
+	  },
+	}
+<
+これはすなわち、十進数の数値と `yyyy/MM/dd` 形式の日付が <C-a> によって増減可
+能であることを意味します。
+
+さて、以下のような記述が書かれたバッファをイメージしてください。
+>
+	date: 2020/11/08
+	...
+	due date of 1st report: 2020/11/23
+	...
+	due date of 2nd report: 2020/12/21
+	...
+	date of exam: 2021/01/14
+<
+
+このバッファにある全ての期日をちょうど1ヶ月延長しなければならなくなったとしま
+す。日付が大量にある場合この操作はきわめて退屈で面倒ですが、 |dial.nvim| を用
+いればとても Vim らしいアプローチで楽にこの操作を実現することができます。
+
+まずはいつもどおり1行目の `2020/11/08` の `11` のところにジャンプし、 <C-a> を
+タイプして日付を1ヶ月伸ばします。`2020/12/08` となったはずです。
+
+次に "/" コマンドを用いて `date` で検索し、3行目にジャンプします。
+検索文字列はなんでもよいのですが、変更したい日付の前にはいずれも `date` がある
+ことから、`date` にジャンプするのが今回は最も楽だと期待できます。
+ジャンプしたら、その直後で "." コマンドを実行してください。なんの問題もなく、
+`2020/11/23` が1ヶ月延期されるはずです。
+>
+	date: 2020/12/08
+	...
+	Due date (1st lecture): 2020/12/23
+	...
+	Due date (2nd lecture): 2020/12/21
+	...
+	Due date (3rd lecture): 2021/01/14
+<
+ここで重要なのは、もしここで "." ではなく <C-a> を押していた場合、 `1st` と書
+かれた数字が増減の対象となってしまい、 `2st` になってしまっていたという点です。
+仮に `1st` という文字列がなかったとしても、（カーソル位置が `11` にないため）
+日付が1日延長されるだけだったでしょう。
+<C-a> はコマンドが実行されるたびにその行について適切なルールを探すものの、ドッ
+トリピートを行った場合は以前に行ったルールを保持します。ここでは「日付を1ヶ月
+延ばす」という操作を保持していたため、カーソルを適切な位置に移動させずとも、自
+動的に近くにある日付の「月」のところまで移動してから増減操作を実行します。
+したがって上の例では、ひとたび検索を行った後であれば `.n.n.` とするだけですべ
+ての期限を1ヶ月延ばすことができるのです。
+
+------------------------------------------------------------------------------
+ADDITIVE DOT REPEATING					*dial-additive-dot-repeating*
+
+Vim の便利な機能の1つに、VISUAL モードにおける g<C-a> があります
+（|v_g_CTRL-A| 参照）。これは加数を行ごとに1ずつ増やすことができる機能であり、
+番号付きの箇条書きなどを生成する際に重宝します。もちろん |dial.nvim| でも同等
+の機能を備えています (|v_<Plug>(dial-g-increment)|)。この機能は便利ながら、増加
+対象が離れた場所にあると使いづらいという制限がありました。
+これを解決するため、|dial.nvim| ではノーマルモードの g<C-a> に相当する機能を提
+供しています。これを有効にするには、以下の設定を書いておく必要があります:
+>
+	nmap g<C-a> <Plug>(dial-g-increment)
+	nmap g<C-x> <Plug>(dial-g-decrement)
+<
+もしくは Lua 上で以下のように設定することもできます。
+>
+	vim.keymap.set("n", "g<C-a>", function()
+		require("dial.map").manipulate("increment", "gnormal")
+	end)
+	vim.keymap.set("n", "g<C-x>", function()
+		require("dial.map").manipulate("decrement", "gnormal")
+	end)
+
+ノーマルモード上での g<C-a> の動作は通常の <C-a> とほぼ同じですが、ドットリ
+ピートを実行したときの挙動のみが異なります。 <C-a> でドットリピートを実行した
+とき加数は [count] のままですが、 g<C-a> でドットリピートすると加数が [count]
+ずつ増えていきます。
+
+たとえば、以下のようなバッファを考えます。なにか適当な関数を定義し、同じものを
+2回コピーした場面です。このままでは関数名が衝突してしまうため、関数の数字を1つ
+ずつインクリメントして `test_foo_1`, `test_foo_2`, `test_foo_3` という名前に変
+更したいものとします。
+>
+	def test_foo_0():
+	    assert 100 + 100 == 200
+
+	def test_foo_0():
+	    assert 100 + 100 == 200
+
+	def test_foo_0():
+	    assert 100 + 100 == 200
+
+このような関数の命名が良いのかどうかはさておき、テキスト編集を行う上での直近の
+問題は編集対象の行が離れていることです。このままではビジュアルモードでの g<C-a>
+が使えません。
+しかし、ノーマルモードの g<C-a> であれば簡単に解決できます。
+
+1. `test_foo_0` を検索し、g<C-a> を押す。
+2. `n` で次の検索結果に移動し、 `.` を押す（ドットリピート）。
+3. `n` で次の検索結果に移動し、 `.` を押す（ドットリピート）。
+
+これだけで `test_foo_1`, `test_foo_2`, `test_foo_3` という関数名が得られたはず
+です。
+
+これだけ見ると被加数が延々と増加してしまうのではと感じたかもしれませんが、そん
+なことはありません。被加数が増加するのは g<C-a> でドットリピートを実行したとき
+だけであり、<C-a> や g<C-a> を改めて押せば数値はリセットされます。
+
+==============================================================================
+INTERFACE								*dial-interface*
+
+------------------------------------------------------------------------------
+MAPPING									*dial-mapping*
+
+["x]<Plug>(dial-increment)				*<Plug>(dial-increment)*
+	NORMAL モードにおける CTRL-A に相当する機能を提供します。
+	すなわち、カーソル下または後の被加数を [count] だけインクリメントします。
+	カーソルと同じ行にある被加数のみが対象です。カーソルより手前にある被加数に
+	は基本的に反応しないものの、被加数によっては例外的にカーソルの手前にあって
+	もインクリメントを行う場合があります。
+
+	expression register |@=| を指定することができ、その場合は記述したグループ
+	名に基づく被加数が用いられます。指定しなかった場合は `default` という名前
+	のグループに記述された被加数が用いられます(|dial-config-augends-default|)。
+	それ以外のレジスタを指定しても効果はありません。
+
+{VISUAL}["x]<Plug>(dial-increment)		*v_<Plug>(dial-increment)*
+	NORMAL モードにおける CTRL-A に相当する機能を提供します。
+	以下のどのモードに入っているかによって挙動が変化します。
+	* 通常の VISUAL モード (|v|)
+	* 行 VISUAL モード (|V|)
+	* 矩形 VISUAL モード (|CTRL-V|)
+
+	通常のビジュアルモード (|v|) の場合、ビジュアル選択されたテキストの中に含
+	まれる被加数を [count] だけインクリメントします。既存の CTRL-A コマンドの
+	代替です。
+
+	行選択ビジュアルモード (|V|) の場合、ビジュアル行選択されたテキスト中の被
+	加数を、行ごとに [count] だけインクリメントします。各行ごとに被加数の位置
+	を探索し、マッチしたもののうち最も手前の被加数を一つだけ対象とします。
+
+	矩形選択ビジュアルモード (|CTRL-V|) の場合は行選択ビジュアルモードの場合と
+	似ているものの、マッチする対象が矩形選択された範囲に絞られます。
+
+["x]<Plug>(dial-decrement)				*<Plug>(dial-decrement)*
+	NORMAL モードにおける CTRL-X に相当する機能を提供します。
+
+{VISUAL}["x]<Plug>(dial-decrement)		*v_<Plug>(dial-decrement)*
+	VISUAL モードにおける CTRL-X に相当する機能を提供します。
+
+{VISUAL}["x]<Plug>(dial-g-increment)	*v_<Plug>(dial-g-increment)*
+	VISUAL モードにおける |v_g_CTRL-A| に相当する機能を提供します。
+
+	使用方法は|v_<Plug>(dial-increment)| と似ているものの、上から数えてn行目に
+	ある被加数がn * [count] だけ増加します。箇条書きや予定表など、 一定の数値
+	ずつ増加する等差数列を作成したい場合に便利です。たとえば
+>
+		09/12
+		09/12
+		09/12
+		09/12
+<
+	という日付のリストがある時、2番目の `1/1` へと移動して下3行を行選択ビジュ
+	アルモードで選択し、 `7g<C-a>` と押すと
+>
+		09/12
+		09/19
+		09/26
+		10/03
+<
+	のように、1週間ごとの日付が得られます（日付の被加数が有効のときに限る）。
+
+{VISUAL}["x]<Plug>(dial-g-decrement)	*v_<Plug>(dial-g-decrement)*
+	VISUAL モードにおける |v_g_CTRL-X| に相当する機能を提供します。
+
+["x]<Plug>(dial-g-increment)			*<Plug>(dial-g-increment)*
+	基本的に |<Plug>(dial-increment)| と同じですが、ドットリピートを実行したと
+	きの挙動が異なります。 |dial-additive-dot-repeating| 参照。
+
+["x]<Plug>(dial-g-decrement)			*<Plug>(dial-g-decrement)*
+	基本的に |<Plug>(dial-decrement)| と同じですが、ドットリピートを実行したと
+	きの挙動が異なります。 |dial-additive-dot-repeating| 参照。
+
+------------------------------------------------------------------------------
+COMMAND									*dial-command*
+
+:[range]DialIncrement {augend}			*:DialIncrement*
+
+	選択範囲に対して、{augend} で指定された被加数を1だけインクリメントします。
+	行選択ビジュアルモードにおける |v_<Plug>(dial-increment)| と似ていますが、
+	被加数を指定し、そのルールに制限することができます。
+	加数（いくつ増加させるか）を指定することはできないため、 |@:| などを用いて
+	繰り返すことが想定されています。
+
+:[range]DialDecrement {augend}			*:DialDecrement*
+
+	選択範囲に対して、{augend} で指定された被加数を1だけデクリメントします。
+
+------------------------------------------------------------------------------
+LUA API									*dial-lua-api*
+
+										*dial-lua-api-map*
+"dial.map" module~
+
+|dial.nvim| 固有のマッピングに必要な関数を提供するモジュールです。
+
+										*dial.map.manipulate()*
+require("dial.map").manipulate(direction, mode, [group_name, addend])
+
+	キーマッピングの関数内で増減操作を実行します。例えば以下のように設定するこ
+	とで、<C-a> を押したとき dial.nvim に基づく増加が行われるようになります。
+>
+	vim.keymap.set("n", "<C-a>", function()
+		require("dial.map").manipulate("increment", "normal")
+	end)
+<
+	この関数は2種類の必須引数と2種類のオプション引数を持ちます。
+		direction (string, "increment" | "decrement"):
+			"increment" を指定すると値が増加し、逆に"decrement" では減少する。
+		mode (string, "normal" | "visual" | "gvisual"):
+			増減操作を実施する際のモード。
+				normal: NORMAL モードでの増減
+				visual: VISUAL モードでの増減
+				gvisual: VISUAL モードかつ、上から順に被加数が増加する
+		group_name (string?):
+			グループ名。省略した場合は `"default"` が用いられる。
+		addend (integer?):
+			加数。明示的に指定する場合は正の整数でなければならない。
+			省略した場合は |v:count1| の値が用いられる。
+			
+
+										*dial.map.inc_normal()*
+require("dial.map").inc_normal([group_name])
+
+	NORMAL モードにおいて与えられたグループ名をもとにインクリメントを行うため
+	のキーシーケンスを表す文字列を出力します。group_name は省略すると
+	`default` と等価になります。
+>
+	vim.keymap.set(
+		"n", "<C-a>", require("dial.map").inc_normal()
+	)
+<
+
+										*dial.map.dec_normal()*
+require("dial.map").dec_normal([group_name])
+
+	NORMAL モードにおいて与えられたグループ名をもとにデクリメントを行うための
+	キーシーケンスを出力します。
+
+										*dial.map.inc_gnormal()*
+require("dial.map").inc_gnormal([group_name])
+
+	加算的なインクリメントを行うためのキーシーケンスを表す文字列を出力します。
+	|dial-additive-dot-repeating| 参照。
+
+										*dial.map.dec_gnormal()*
+require("dial.map").dec_gnormal([group_name])
+
+	加算的なデクリメントを行うためのキーシーケンスを表す文字列を出力します。
+	|dial-additive-dot-repeating| 参照。
+
+										*dial.map.inc_visual()*
+require("dial.map").inc_visual([group_name])
+
+	VISUAL モードにおいて与えられたグループ名をもとにインクリメントを行うための
+	キーシーケンスを出力します。
+
+										*dial.map.dec_visual()*
+require("dial.map").dec_visual([group_name])
+
+	VISUAL モードにおいて与えられたグループ名をもとにデクリメントを行うための
+	キーシーケンスを出力します。
+
+										*dial.map.inc_gvisual()*
+require("dial.map").inc_gvisual([group_name])
+
+	VISUAL モードにおいて与えられたグループ名をもとにイデクリメントを行うため
+	のキーシーケンスを出力します。被加数は上から順に [count] ずつ増加します。
+
+										*dial.map.dec_gvisual()*
+require("dial.map").dec_gvisual([group_name])
+
+	VISUAL モードにおいて与えられたグループ名をもとにデクリメントを行うための
+	キーシーケンスを出力します。被加数は上から順に [count] ずつ増加します。
+
+"dial.augend" module~
+
+被加数を定義するモジュールです。 |dial-augends| 参照。
+
+"dial.config" module~
+
+									*dial.config.augends:register_group()*
+require("dial.config").augends:register_group(tbl)
+
+	与えられた辞書形式のテーブルに基づいてグループを定義または上書きします。
+	関数の引数には、グループ名をキー、被加数のリストを値とする辞書を指定します。
+
+									*dial.config.augends:on_filetype()*
+require("dial.config").augends:on_filetype(tbl)
+
+	与えられた辞書形式のテーブルに基づいて、特定の filetype における被加数のル
+	ールを定めます。関数の引数には、filetype をキー、被加数のリストを値とする
+	辞書を指定します。
+
+
+									*dial.config.augends:get()*
+require("dial.config").augends:get(group_name)
+
+	登録されているグループのうち、 `group_name` をグループ名にもつものを取得し
+	ます。
+
+vim:tw=78:fo=tcq2mM:ts=4:ft=help:norl:noet:fdm=marker:fen

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+# cd ~/src/github.com/neovim/neovim 
+# sudo make distclean 
+# git pull --rebase
+# sudo make -j8 CMAKE_BUILD_TYPE=Release
+# sudo make install
+# rm -rf ~/.local/state/nvim/shada
+
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSInstallSync all' -c ':q'

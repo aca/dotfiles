@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/slugbyte/lackluster.nvim.git
+	branch = main
+	commit = 70dd682e564784893b984deb51dd5ddd263c8cc7
+	parent = d2a85c7056b1b6c12a3d65888b746f9144279254
+	method = merge
+	cmdver = 0.4.9

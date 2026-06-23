@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kndndrj/nvim-dbee.git
+	branch = master
+	commit = dda517694889a5d238d7aa407403984da9f80cc0
+	parent = f1981b10dd0fb100f6c42c3458e72c870cb46968
+	method = merge
+	cmdver = 0.4.9

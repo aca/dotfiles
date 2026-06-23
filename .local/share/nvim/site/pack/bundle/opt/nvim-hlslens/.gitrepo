@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kevinhwang91/nvim-hlslens.git
+	branch = main
+	commit = be2d7b2be01860b5445a007ff2bc72b29896db6b
+	parent = b9518a9416021e2434fcbf3566411148d574279c
+	method = merge
+	cmdver = 0.4.9

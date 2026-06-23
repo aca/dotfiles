@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/luukvbaal/statuscol.nvim
+	branch = main
+	commit = c46172d0911aa5d49ba5f39f4351d1bb7aa289cc
+	parent = d716ac8441111f2cf52b4c38f2519832ba30c9f6
+	method = merge
+	cmdver = 0.4.9

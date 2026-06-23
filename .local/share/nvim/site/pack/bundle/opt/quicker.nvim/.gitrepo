@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/stevearc/quicker.nvim
+	branch = master
+	commit = 063cc44da1eef8681bbd653b29d3bc961780886a
+	parent = 445e6be4216c0d5585da3f6624adb85b6022a28a
+	method = merge
+	cmdver = 0.4.9

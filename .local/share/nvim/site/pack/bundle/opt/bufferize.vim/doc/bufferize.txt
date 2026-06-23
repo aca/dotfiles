@@ -1,0 +1,147 @@
+*bufferize.txt*	Execute a command and show its output in a buffer
+
+==============================================================================
+CONTENTS                                        *bufferize*   *bufferize-contents*
+
+    Installation................................: |bufferize-installation|
+    Usage.......................................: |bufferize-usage|
+    Settings....................................: |bufferize-settings|
+    Issues......................................: |bufferize-issues|
+
+
+==============================================================================
+INSTALLATION                                            *bufferize-installation*
+
+There are several ways to install the plugin. The recommended one is by using
+Tim Pope's pathogen (http://www.vim.org/scripts/script.php?script_id=2332). In
+that case, you can clone the plugin's git repository like so:
+>
+    git clone git://github.com/AndrewRadev/bufferize.vim.git ~/.vim/bundle/bufferize
+<
+If your vim configuration is under git version control, you could also set up
+the repository as a submodule, which would allow you to update more easily.
+The command is (provided you're in ~/.vim):
+>
+    git submodule add git://github.com/AndrewRadev/bufferize.vim.git bundle/bufferize
+<
+
+Another way is to simply copy all the essential directories inside the ~/.vim
+directory: autoload, doc, plugin.
+
+
+==============================================================================
+USAGE                                                          *bufferize-usage*
+                                                                    *:Bufferize*
+
+The plugin exposes the |:Bufferize| command, which runs the given command and
+shows its output in a temporary buffer. For example:
+>
+    :Bufferize messages
+    :Bufferize digraphs
+    :Bufferize map
+    :Bufferize command
+<
+All of these are examples of useful commands, whose output you can now freely
+explore in a proper Vim buffer.
+
+You can provide any command sequence, with arguments and all. For instance,
+if you run the following command in this file:
+>
+    :Bufferize ilist Bufferize
+<
+you'll get a buffer with all lines that contain "Bufferize". A lot of other
+commands output to the Vim console, and you can just feed them to the
+|:Bufferize| command. If you run `:Bufferize command Bufferize`, you'll see that
+the command is hooked up to the `bufferize#Run` function. You can then
+>
+    :Bufferize function bufferize#Run
+<
+To get a listing of the function in a buffer and explore its source code.
+
+
+                                                               *:BufferizeTimer*
+
+If you have a recent enough Vim that has |+timers| and |+lambda| (Vim 8 will
+do, but you can even use 7.4 with any of the later patches), you can also run
+the |:BufferizeTimer| command, which will do the same thing, but will also
+auto-update the buffer with the contents in the provided time interval. For
+instance:
+>
+    BufferizeTimer 500 messages
+<
+This will run the |:messages| command every 500ms and update its output in
+the bufferize buffer.
+
+                                                              *:BufferizeSystem*
+
+If you'd like to run an external command and get its output, just running
+`Bufferize !command` might not produce good output because of the way Vim
+buffers output in this situation.
+
+For that case, use the |:BufferizeSystem| command:
+>
+    BufferizeSystem man sudoers
+<
+This will wrap the command in a |system()| call.
+
+                                                    *b:bufferize_source_command*
+
+If you'd like to customize something in the bufferize buffer, you can hook
+into the filetype `bufferize`.
+
+The buffer will also hold the variable |b:bufferize_source_command| which is
+the source command that generated this output. For instance, you could define
+a command to regenerate the buffer like so:
+>
+    autocmd FileType bufferize
+            \ command! -buffer Rerun exe 'Bufferize '.b:bufferize_source_command
+<
+
+==============================================================================
+SETTINGS                                                    *bufferize-settings*
+
+                                                           *g:bufferize_command*
+>
+    let g:bufferize_command = 'tabnew'
+<
+Default value: "new"
+
+The command to use when opening a new bufferize buffer. By default, the plugin
+opens a split with "new", but you can also use, for instance, "tabnew" to
+always open it in a new tab, or add modifiers like |:rightbelow| or
+|:vertical|. You can also run the command with those modifiers and they will
+be passed along, for example:
+>
+    vertical botright Bufferize ls
+<
+
+
+                                                      *g:bufferize_keep_buffers*
+>
+    let g:bufferize_keep_buffers = 1
+<
+Default value: 0
+
+If set to 1, will hide the temporary buffer instead of deleting it. This ends
+up creating some garbage, keeping scrap buffers around, but it could be useful
+if you jump off from the buffer into other files and want to go back to it.
+
+                                                      *g:bufferize_focus_output*
+>
+    let g:bufferize_focus_output = 1
+<
+Default value: 0
+
+If set to 1, will focus on the bufferize window when it's created. This can be
+useful, for example, if you're looking to copy the output. Be warned though,
+that it won't work well with a timer, because it'll keep jumping back to it.
+
+
+==============================================================================
+ISSUES                                                        *bufferize-issues*
+
+Any issues and suggestions are very welcome on the github bugtracker:
+https://github.com/AndrewRadev/bufferize.vim/issues
+
+
+vim:tw=78:sw=4:ft=help:norl:

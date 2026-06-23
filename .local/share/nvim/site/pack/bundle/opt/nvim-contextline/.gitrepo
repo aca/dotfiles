@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/aca/nvim-contextline.git
+	branch = main
+	commit = 129aa46b83f4e00a79f3c106b27e72f6c4f1aec9
+	parent = 6d2b84fe863b05ab5116ac957005c8e8936de7e2
+	method = merge
+	cmdver = 0.4.9

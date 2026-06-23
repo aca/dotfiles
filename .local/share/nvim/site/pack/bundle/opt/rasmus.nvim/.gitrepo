@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kvrohit/rasmus.nvim.git
+	branch = main
+	commit = 49f7ee7bf3eb00db52c77f84b15bc69f318bafc1
+	parent = 005d6293a2fac926ffcbbc8b72ca12faadc18266
+	method = merge
+	cmdver = 0.4.9

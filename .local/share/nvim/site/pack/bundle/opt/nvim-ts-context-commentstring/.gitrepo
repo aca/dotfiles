@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/JoosepAlviste/nvim-ts-context-commentstring.git
+	branch = main
+	commit = 1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f
+	parent = 3206b0b7b4289e23726ffb73bbbe0610b3705912
+	method = merge
+	cmdver = 0.4.9

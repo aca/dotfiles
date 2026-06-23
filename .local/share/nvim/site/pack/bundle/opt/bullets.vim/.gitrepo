@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/dkarter/bullets.vim.git
+	branch = master
+	commit = 89294b8930e660936374fb763ac48a1ac51dd29c
+	parent = 31d7b3a3cce709af37e899c3b947f773512b3694
+	method = merge
+	cmdver = 0.4.9

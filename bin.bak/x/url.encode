@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import sys
+import sys, urllib.parse as ul
+
+if len(sys.argv) == 1:
+    data = sys.stdin.readlines()
+    for d in data:
+        print(ul.unquote_plus(d))
+else:
+    data = sys.argv[1]
+    print(ul.unquote_plus(data))
+

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for VAR in "$@"
+do
+  aunpack "$VAR"
+done

@@ -1,0 +1,65 @@
+set encoding=utf-8
+execute 'set runtimepath+=' . expand('<sfile>:p:h:h')
+runtime! plugin/*.vim
+runtime! plugin/**/*.vim
+set noswapfile
+let g:operator_sandwich_no_visualrepeat = 1
+
+let g:assert = themis#helper('assert')
+
+function! TextobjCoord(l1, c1, l2, c2) abort
+  normal! v
+  call cursor(a:l1, a:c1)
+  normal! o
+  call cursor(a:l2, a:c2)
+endfunction
+
+function! TextobjFail() abort
+endfunction
+
+function! TestIndent() abort
+  " always the indent of the previous nonbland line + shiftwidth()
+  return indent(prevnonblank(v:lnum)) + shiftwidth()
+endfunction
+
+function! SandwichExprCancel() abort
+  throw 'OperatorSandwichCancel'
+endfunction
+
+function! SandwichExprEmpty() abort
+  return ''
+endfunction
+
+function! SandwichExprBuns(is_head) abort
+  if a:is_head
+    return 'head'
+  else
+    return 'tail'
+  endif
+endfunction
+
+function! SandwichListexprEmpty(which) abort
+  if a:which ==# 'former'
+    return ['', 'bar']
+  elseif a:which ==# 'latter'
+    return ['foo', '']
+  else
+    return ['', '']
+  endif
+endfunction
+
+function! SandwichListexprBuns(cancel) abort
+  if a:cancel
+    throw 'OperatorSandwichCancel'
+  else
+    return ['foo', 'baz']
+  endif
+endfunction
+
+function! SandwichSkipIntermediate(is_head, pos, ...) abort
+  if a:is_head
+    return !(a:pos[2] == 1)
+  else
+    return !(a:pos[2] == col([a:pos[1], '$'])-1)
+  endif
+endfunction

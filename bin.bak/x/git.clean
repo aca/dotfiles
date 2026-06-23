@@ -1,0 +1,9 @@
+#!/bin/sh
+branch=$1
+git checkout $branch --force
+git clean -ffdx && git reset --hard HEAD
+git fetch origin
+git reset --hard origin/$1
+git clean -ffdx && git reset --hard HEAD
+git submodule update --init --force
+git status

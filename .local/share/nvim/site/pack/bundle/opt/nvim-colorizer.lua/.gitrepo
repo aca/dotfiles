@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/catgoose/nvim-colorizer.lua.git
+	branch = master
+	commit = c8c2c19436d33165ec34fa90c975bc0a739fe3fb
+	parent = 8008956d062f80418a13f31ce26b925c09a5b827
+	method = merge
+	cmdver = 0.4.9

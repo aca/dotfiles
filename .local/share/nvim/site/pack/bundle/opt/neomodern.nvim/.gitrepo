@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/cdmill/neomodern.nvim.git
+	branch = main
+	commit = cf93044775983b71dce31ad3179753b241470d3c
+	parent = d11d27b104ab01d1d8ef51e2f5e8874aaf110b99
+	method = merge
+	cmdver = 0.4.9

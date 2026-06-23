@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/MunsMan/kitty-navigator.nvim.git
+	branch = main
+	commit = 116b88674503edb21481bebdd62212485817fa4a
+	parent = 48d3c7df28db7a7515f5814f62b2996a3ff27345
+	method = merge
+	cmdver = 0.4.9

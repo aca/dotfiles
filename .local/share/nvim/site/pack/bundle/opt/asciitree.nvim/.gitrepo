@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/xorid/asciitree.nvim.git
+	branch = main
+	commit = a979a0c6987e07eaa9f405d90c086105c0a2d99c
+	parent = bb17b12afaddb6a3c66b12d872b518ea8101c40d
+	method = merge
+	cmdver = 0.4.9

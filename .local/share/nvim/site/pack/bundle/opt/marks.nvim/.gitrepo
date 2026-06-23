@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/chentoast/marks.nvim.git
+	branch = master
+	commit = f353e8c08c50f39e99a9ed474172df7eddd89b72
+	parent = 9ec7d040367acdf58c50a6a1cbdd814848f201e0
+	method = merge
+	cmdver = 0.4.9

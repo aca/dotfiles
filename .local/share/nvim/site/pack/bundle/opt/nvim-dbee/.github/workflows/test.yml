@@ -1,0 +1,69 @@
+name: Testing
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: dbee
+
+env:
+  GO_VERSION: "1.23.x"
+
+jobs:
+  go-unit-test:
+    runs-on: ubuntu-22.04
+    name: Go Unit Test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go v${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: v${{ env.GO_VERSION }}
+          check-latest: true
+          cache-dependency-path: ./dbee/go.sum
+      # exclude tests folder (not used for unit tests)
+      - name: Run Unit Tests
+        run: go test $(go list ./... | grep -v tests) -v
+
+  bootstrap-testcontainers:
+    runs-on: ubuntu-22.04
+    name: Bootstrap Testcontainers
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: generate-matrix
+        run: |
+          # create a JSON object with the adapter names to bootstrap matrix with.
+          matrix=$(find tests/integration -name '*_integration_test.go' -exec basename {} \; \
+            | sed 's/_integration_test.go//' \
+            | jq -scR 'split("\n") | map(select(length > 0)) | {adapter: .}')
+          echo "matrix=$matrix" | tee $GITHUB_OUTPUT
+
+  go-integration-test:
+    needs: bootstrap-testcontainers
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      TESTCONTAINERS_RYUK_DISABLED: true
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.bootstrap-testcontainers.outputs.matrix) }}
+    name: Go Integration Test (${{ matrix.adapter }})
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go v${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          check-latest: true
+          cache-dependency-path: ./dbee/go.sum
+      - name: Run Integration Tests
+        run: sudo go test ./tests/integration/${{ matrix.adapter }}_integration_test.go -v

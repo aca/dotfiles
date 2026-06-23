@@ -1,0 +1,23 @@
+{
+    "name": "seoulbones_dark",
+    "selectionBackground": "#777777",
+    "cursorColor": "#E2E2E2",
+    "foreground": "#DDDDDD",
+    "background": "#4B4B4B",
+    "black": "#4B4B4B",
+    "blue": "#97BDDE",
+    "cyan": "#6FBDBE",
+    "green": "#98BD99",
+    "purple": "#A5A6C5",
+    "red": "#E388A3",
+    "white": "#DDDDDD",
+    "yellow": "#FFDF9B",
+    "brightBlack": "#6C6465",
+    "brightBlue": "#A2C8E9",
+    "brightCyan": "#6BCACB",
+    "brightGreen": "#8FCD92",
+    "brightRed": "#EB99B1",
+    "brightPurple": "#B2B3DA",
+    "brightWhite": "#A8A8A8",
+    "brightYellow": "#FFE5B3"
+}

@@ -1,0 +1,913 @@
+*test.txt*  A test wrapper which enables you to run tests at speed of thought
+
+Author: Janko Marohnić <https://github.com/janko-m>
+License: MIT
+
+|test|                            INTRODUCTION
+|test-generic_commands|           GENERIC COMMANDS
+|test-strategies|                 STRATEGIES
+|test-quickfix-strategies|        QUICKFIX STRATEGIES
+|test-custom-strategies|          CUSTOM STRATEGIES
+|test-configuration|              CONFIGURATION
+|test-python|                     PYTHON SPECIFIC CONFIG
+|test-projectionist|              PROJECTIONIST INTEGRATION
+|test-custom-alternate-file|      CUSTOM ALTERNATE FILE
+|test-overriding-test-commands|   OVERRIDING TEST COMMANDS
+|test-unsaved-changes|            UNSAVED CHANGES
+|test-about|                      ABOUT
+|test-credits|                    CREDITS
+
+
+INTRODUCTION                                    *test*
+
+This plugin allows you to:
+
+  * run nearest test (to the cursor)
+  * run nearest test class (to the cursor)
+  * run (current) test file
+  * run test suite
+  * run last test
+
+It comes with most common test runners already built in, so it knows which
+test runner it has to use for the file you're looking at.
+
+Add your preferred mappings to your `.vimrc` file:
+>
+  nmap <silent> <leader>t :TestNearest<CR>
+  nmap <silent> <leader>C :TestClass<CR>
+  nmap <silent> <leader>T :TestFile<CR>
+  nmap <silent> <leader>a :TestSuite<CR>
+  nmap <silent> <leader>l :TestLast<CR>
+  nmap <silent> <leader>g :TestVisit<CR>
+<
+
+GENERIC COMMANDS                                *test-generic_commands*
+
+In all commands [args] are forwarded to the underlying test runner.
+
+                                                *test-:TestNearest*
+:TestNearest [args]          Run a test nearest to the cursor (some test
+                             runners may not support this). If the current
+                             file is not a test file, it reruns a previous
+                             "nearest test" (if present).
+
+                                                *test-:TestClass*
+:TestClass [args]            Run the first test class above or on the same
+                             line as the cursor (some test runners may not
+                             support this).
+
+                                                *test-:TestFile*
+:TestFile [args]             Run tests for the current file. If the current
+                             file is not a test file, it runs tests for a
+                             previously "touched" test file (if present).
+
+                                                *test-:TestSuite*
+:TestSuite [args]            Run test suite of the current file. If the current
+                             file is not a test file, it runs the suite for
+                             the last "touched" test file (if present).
+
+                                                *test-:TestLast*
+:TestLast                    Run the last test.
+
+                                                *test-:TestVisit*
+:TestVisit                   Open the last run test in the current buffer.
+
+RUNNER COMMANDS                                 *test-runner_commands*
+
+In all commands [args] are forwarded to the underlying test runner. To avoid
+pollution they are not defined by default, instead you can choose the ones you want,
+for example:
+
+>
+  let g:test#runner_commands = ['Minitest', 'Mocha']
+<
+                                                *test-:RSpec*
+:RSpec [args]                Uses the `rspec` command.
+
+                                                *test-:Cucumber*
+:Cucumber [args]             Uses the `cucumber` command.
+
+                                                *test-:CucumberJS*
+:CucumberJS [args]           Uses the `cucumber-js` command.
+
+                                                *test-:Minitest*
+:Minitest [args]             Uses the `rake` `test` or `ruby` `-I` `test` command.
+                             It properly translates CLI options:
+>
+                             :Minitest --seed 1234
+                             => rake test TEST="test/**/*_test.rb" TESTOPTS='--seed=1234'
+<
+                                                *test-:Rails*
+:Rails [args]                Uses the `rails` `test` command.
+
+                                                *test-:M*
+:M [args]                    Uses the `m` command.
+
+                                                *test-:Ava*
+:Ava [args]                  Uses the `ava` command.
+
+                                                *test-:BunTest*
+:BunTest [args]              Uses the `bun test` command.
+
+                                                *test-:DenoTest*
+:DenoTest [args]             Uses the `deno test` command.
+
+                                                *test-:Intern*
+:Intern [args]               Uses the `intern-client` or `intern-runner` command.
+
+                                                *test-:TAP*
+:TAP [args]                  Uses the `tap` or `tape` command.
+
+                                                *test-:Teenytest*
+:Teenytest [args]            Uses the `teenytest` command.
+
+                                                *test-:Lab*
+:Lab [args]                  Uses the `lab` command.
+
+                                                *test-:Jest*
+:Jest [args]                 Uses the `jest` command.
+
+                                                *test-:Vitest*
+:Vitest [args]                 Uses the `vitest` command.
+
+                                                *test-:Playwright*
+:Playwright [args]           Uses the `playwright test` command.
+
+                                                *test-:ReactScripts*
+:ReactScripts [args]         Uses the `react-scripts test` command.
+
+                                                *test-:Cypress*
+:Cypress [args]              Uses the `cypress` command.
+
+                                                *test-:Mocha*
+:Mocha [args]                Uses the `mocha` command.
+
+                                                *test-:Ember*
+:Ember [args]                Uses the `ember exam` command.
+
+                                                *test-:Jasmine*
+:Jasmine [args]              Uses the `jasmine` command.
+
+                                                *test-:Karma*
+:Karma [args]                Uses the `karma` command.
+
+                                                *test-:WebdriverIo*
+:WebdriverIo [args]          Uses the `wdio` command.
+
+                                                *test-:Nose*
+:Nose [args]                 Uses the `nosetests` command.
+
+                                                *test-:Nose2*
+:Nose2 [args]                Uses the `nose2` command.
+
+                                                *test-:PyTest*
+:PyTest [args]               Uses the `py.test` command.
+
+                                                *test-:DjangoTest*
+:DjangoTest [args]           Uses the `django` `test` command.
+
+                                                *test-:Behave*
+:Behave [args]               Uses the `behave` `test` command.
+
+                                                *test-:PyUnit*
+:PyUnit [args]               Uses the `unittest` `test` command.
+
+                                                *test-:Mamba*
+:Mamba [args]                Uses the `mamba` `test` command.
+
+                                                *test-:ElmTest*
+:ElmTest [args]              Uses the `elm-test` command.
+
+                                                *test-:ExUnit*
+:ExUnit [args]               Uses the `mix` `test` command.
+
+                                                *test-:ESpec*
+:ESpec [args]                Uses the `mix` `espec` command.
+
+                                                *test-:CommonTest*
+:CommonTest [args]           Uses the `rebar3` `ct` command.
+
+                                                *test-:EUnit*
+:EUnit [args]                Uses the `rebar3` `eunit` command.
+
+                                                *test-:PropEr*
+:PropEr [args]               Uses the `rebar3` `proper` command.
+
+                                                *test-:Xunit*
+:Xunit [args]                Uses the `dotnet` `xunit` command.
+
+                                                *test-:DotnetTest*
+:DotnetTest [args]           Uses the `dotnet` `test` command.
+
+                                                *test-:Catch2*
+:Catch2 [args]               Uses the compiled executable(user defined) from within the build directory
+                                                *test-:GoTest*
+:GoTest [args]               Uses the `go` `test` command.
+
+                                                *test-:Ginkgo*
+:Ginkgo [args]               Uses the `ginkgo` command.
+
+                                                *test-:RichGo*
+:RichGo [args]               Uses the `richgo` `test` command.
+
+                                                *test-:Delve*
+:Delve [args]                Uses the `dlv` `test` command.
+
+                                                *test-:CargoTest*
+:CargoTest [args]            Uses the `cargo` `test` command.
+
+                                                *test-:CargoNextest*
+:CargoNextest [args]         Uses the `cargo` `nextest` command.
+
+                                                *test-:FireplaceTest*
+:FireplaceTest [args]        Uses `Fireplace.vim` to run test commands, and
+                             automatically reloads code.
+
+                             * Without arguments runs all tests.
+                             * With argument /foo/ runs all tests matching
+                               "foo".
+                             * Otherwise accepts a list of filenames (which it
+                               translates to namespaces).
+
+                                                *test-:LeinTest*
+:LeinTest [args]             Uses the `lein` `test` command.
+
+                                                *test-:Bats*
+:Bats [args]                 Uses the `bats` command.
+
+                                                *test-:ZigTest*
+:ZigTest [args]              Uses the `zig` `test` command.
+
+                                                *test-:GleamTest*
+:GleamTest [args]              Uses the `gleam` `test` command.
+
+                                                *test-:ShellSpec*
+:ShellSpec [args]                 Uses the `shellspec` command.
+
+                                                *test-:VSpec*
+:VSpec [args]                Uses the `vim-flavor` `test` command.
+
+                                                *test-:Vader*
+:Vader [args]                Uses the `vader#run()` vim function.
+
+                                                *test-:Themis*
+:Themis [args]               Uses the `themis` command.
+
+                                                *test-:Vroom*
+:Vroom [args]                Uses the `vroom` command.
+
+                                                *test-:Busted*
+:Busted [args]               Uses the `busted` command.
+
+                                                *test-:PHPUnit*
+:PHPUnit [args]              Uses the `phpunit` command.
+
+                                                *test-:Pest*
+:Pest [args]              Uses the `pest` command.
+
+:Sail [args]              Uses the `sail` command.
+                                                *test-:Sail*
+
+                                                *test-:Behat*
+:Behat [args]                Uses the `behat` command.
+
+                                                *test-:Dusk*
+:Dusk [args]                 Uses the `dusk` command.
+
+                                                *test-:PHPSpec*
+:PHPSpec [args]              Uses the `phpspec` command.
+
+                                                *test-:Codeception*
+:Codeception [args]          Uses the `codecept` command.
+
+                                                *test-:Peridot*
+:Peridot [args]              Uses the `peridot` command.
+
+                                                *test-:Kahlan*
+:Kahlan [args]               Uses the `kahlan` command.
+
+                                                *test-:Prove*
+:Prove [args]                Uses the `prove` command.
+
+                                                *test-:MavenTest*
+:MavenTest [args]            Uses the `mvn` `test` command. If the file exists in a multi-module project then appends -am -pl <modulename> and disables `failIfNoSpecifiedTests`, and runs a single module only. There is a different strategy for running tests with the failsafe plugin instead of surefire. It is described in detail in the test-maven-test-differences section.
+                                                *test-:GradleTest*
+:GradleTest [args]           Uses the `gradle` `test` command. If the project is multi module then it uses the -p <modulename> flag.
+
+                                                *test-:SbtTest*
+:SbtTest [args]            Uses the `sbt` `test/testOnly` command.
+
+                                                *test-:BloopTest*
+:BloopTest [args]            Uses the `bloop` `test/test -o` command.
+
+                                                *test-:CrystalSpec*
+:CrystalSpec [args]          Uses the `crystal` `spec` command.
+
+                                                *test-:MintTest*
+:MintTest [args]             Uses the `mint` `test` command.
+
+                                                *test-:SwiftPM*
+:SwiftPM [args]              Uses the `swift test` command.
+
+                                                *test-:StackTest*
+:StackTest [args]            Uses the `stack test` command.
+
+                                                *test-:CabalTest*
+:CabalTest [args]            Uses the `cabal test` command.
+
+                                                *test-:NgTest*
+:NgTest [args]  	         Uses the Angular `ng test` command.
+
+                                                *test-:Nx*
+:Nx [args]                 Uses the `nx test` command.
+
+                                                *test-:TestBench*
+:TestBench [args]  	         Uses the TestBench `bench` command.
+
+                                                *test-:FlutterTest*
+:FlutterTest [args]  	         Uses the `flutter` `test` command.
+
+                                                *test-:DartTest*
+:DartTest [args]  	         Uses the `dart test` command.
+
+                                                *test-:VueTestUtils*
+:VueTestUtils [args]  	         Uses the `vue-cli-service` command.
+
+                                                *test-:UnitTest*
+:UnitTest [args]              Uses the `nim compile --run` command.
+
+                                                *test-:RobotFramework*
+:RobotFramework [args]        Uses the `robot` command.
+
+                                                *test-:NodeTest*
+:NodeTest [args]              Uses the `node` command.
+
+
+MAVEN TEST DIFFERENCES                          *test-maven-test-differences*
+
+As there are different approaches to run tests in a maven project (unit vs integration tests) there is a way to run both. Initially the vim-test runs `mvn` `test`. If you want it to run `mvn` `verify` instead, then you can create your own command invoking vim test directly with the 'integration' parameter:
+>
+  command! -nargs=* -bar IntegrationTest call test#run('integration', split(<q-args>))
+<
+
+With this set up you can run your integration tests with the :IntegrationTest command for that single file and module.
+As there might be some dependencies between the maven modules you might need to pass in other parameters for the tests just like any other commands in vim-test. Here is a mapping with other optional parameters:
+
+>
+  nnoremap <silent><leader>itf :IntegrationTest -Dtest=foo -DfailIfNoTests=false -am -Dpmd.skip=true -Dcheckstyle.skip=true<CR>
+<
+
+If you want to customize the Maven test command, you can set
+`g:test#java#maventest#test_cmd` in your vimrc file.
+
+>
+  let g:test#java#maventest#test_cmd = 'surefire:test -Dtest'
+<
+
+STRATEGIES                                      *test-strategies*
+
+Multiple strategies are supported for running tests.
+
+AsyncRun ~
+
+Runs test commands asynchronously using new APIs in Vim 8 and NeoVim.
+Requires AsyncRun plugin.
+>
+  let test#strategy = 'asyncrun' or 'asyncrun_background'
+<
+Basic (default) ~
+
+Runs test commands with `:!`, which switches your Vim to the Terminal.
+>
+  let test#strategy = 'basic'
+<
+Make ~
+
+Runs test commands with `:make` or `:make!`. If Dispatch.vim plugin is
+available, it will be used to automatically find the correct compiler for the
+command.
+>
+  let test#strategy = 'make' " or 'make_bang'
+<
+Dispatch ~
+
+Runs test commands with `:Dispatch` or `:Dispatch!`. Requires the Dispatch.vim
+plugin.
+>
+  let test#strategy = 'dispatch' " or 'dispatch_background'
+<
+Spawn ~
+
+Runs test commands with `:Spawn` or `:Spawn!`. Requires the Dispatch.vim
+plugin.
+>
+  let test#strategy = 'spawn' " or 'spawn_background'
+<
+VimProc ~
+
+Runs test commands with `:VimProcBang`. Requires the Vimproc.vim plugin.
+>
+  let test#strategy = 'vimproc'
+<
+Neovim ~
+
+Runs test commands with `:terminal`, which spawns a terminal inside Neovim.
+>
+  let test#strategy = 'neovim'
+<
+Neovim sticky~
+
+Runs test commands with `:terminal`, but keeps it open for subsequent runs.
+>
+  let test#strategy = 'neovim_sticky'
+<
+Neovim VS Code~
+
+Runs test commands in with VS Code terminal, keeps the focus to EditorGroup.
+>
+  let test#strategy = 'neovim_vscode'
+<
+
+Vim8 Terminal ~
+
+Runs test commands with `term_start()`, which spawns a terminal inside Vim.
+>
+  let test#strategy = 'vimterminal'
+<
+Neoterm ~
+
+Runs test commands with `:T`. Requires the Neoterm plugin.
+>
+  let test#strategy = 'neoterm'
+<
+Toggleterm ~
+
+Runs test commands with `:TermExec`. Requires the Toggleterm plugin.
+>
+  let test#strategy = 'toggleterm'
+<
+Floaterm ~
+
+Runs test commands within floating/popup terminal. Requires the vim-floaterm plugin.
+>
+  let test#strategy = 'floaterm'
+<
+Neomake ~
+
+Runs test commands with `:NeomakeProject`. Requires the Neomake plugin. If
+Dispatch.vim plugin is available, it will be used to automatically find the
+correct compiler for the command.
+>
+  let test#strategy = 'neomake'
+<
+MakeGreen ~
+
+Runs test commands with `:MakeGreen`. Requires the MakeGreen.vim plugin. If
+Dispatch.vim plugin is available, it will be used to automatically find the
+correct compiler for the command.
+>
+  let test#strategy = 'makegreen'
+<
+Vimux ~
+
+Runs test commands in a small Tmux pane at the bottom of your Terminal.
+Requires the Vimux plugin and Tmux.
+>
+  let test#strategy = 'vimux'
+<
+Tmuxify ~
+
+Runs test commands in a small Tmux pane at the bottom of your Terminal.
+Requires the Tmuxify plugin and Tmux.
+>
+  let test#strategy = 'tmuxify'
+<
+Tslime ~
+
+Runs test commands in a Tmux pane you specify. Requires the Tslime.vim plugin
+and Tmux.
+>
+  let test#strategy = 'tslime'
+<
+Slimux ~
+
+Runs test commands in a Tmux pane you specify. Requires the slimux plugin and
+Tmux.
+>
+  let test#strategy = 'slimux'
+<
+Vim Tmux Runner ~
+
+Runs test commands in a small Tmux pane. Requires the Vim Timux Runner plugin
+and Tmux
+>
+  let test#strategy = 'vtr'
+<
+VimShell ~
+
+Runs test commands in a shell written in VimScript. Requires the VimShell
+plugin.
+>
+  let test#strategy = 'vimshell'
+<
+Terminal.app / iTerm.app ~
+
+If you're in MacVim GUI, you can use this strategy to send the test commands
+to your Terminal.app/iTerm.app (since executing shell commands inside Vim GUIs
+isn't that nice).
+>
+  let test#strategy = 'terminal'
+  " or
+  let test#strategy = 'iterm'
+<
+Kitty ~
+
+If you want to run commands in a Kitty terminal window you can use this
+strategy.
+
+Please make sure:
+
+- you start kitty setting up remote control and specifying a socket for kitty
+  to listen to, like this:
+>
+  $ kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
+<
+  or via `kitty.conf`:
+>
+  allow_remote_control yes
+  listen_on unix:/tmp/mykitty
+<
+- you export an environment variable `$KITTY_LISTEN_ON` with the same socket, like:
+>
+  $ export KITTY_LISTEN_ON=unix:/tmp/mykitty
+<
+  or if via `kitty.conf` (it appends kitty's PID):
+>
+  $ export KITTY_LISTEN_ON=unix:/tmp/mykitty-$PPID
+<
+You can then use this strategy this way:
+>
+  let test#strategy = 'kitty'
+<
+
+Shtuff ~
+
+This strategy lets you run commands in a remote terminal without needing tools
+like tmux or special terminals such as Kitty.
+
+Before you can run tests using this strategy, you will need to have a terminal
+setup as a receiver, and also you'll need to set `g:shtuff_receiver` in your
+vimrc file.
+
+In your terminal of choice:
+
+>
+$ shtuff as devrunner
+<
+
+And in your vimrc:
+
+>
+let g:shtuff_receiver = 'devrunner'
+<
+
+asyncrun_background | asyncrun_background_term ~
+
+These are hardcoded solutions and will not be affected by your global `AsyncRun`
+settings. If you want to switch between them then change `test#strategy`.
+
+Note: that the base `asyncrun` strategy will be affected by your global asyncrun
+settings.
+
+Harpoon ~
+
+This strategy lets you run commands in a neovim terminal using harpoon terminals
+
+Before you can use this strategy you are going to need to have the harpoon plugin installed
+
+By default the commands are sent to the terminal 1, to send the command to another terminal you can set in you vimrc g:test#harpoon_term
+
+For example to send the commands to terminal number 2 you can set in your vimrc:
+
+>
+let g:test#harpoon_term = 2
+<
+
+By default this strategy will also open the terminal in the current window.  To disable
+this behavior set `g:test#harpoon#gototerminal = 0`.
+
+WezTerm ~
+
+This strategy lets you send commands to an adjacent WezTerm pane. You must have
+the `wezterm` CLI available. You can override its location with
+`g:test#wezterm#executable`.
+
+>
+  let test#strategy = 'wezterm'
+<
+
+This strategy will send the command to the pane determined by the output of
+`wezterm cli get-pane-direction next`, or if only one pane exists, it will
+create a new one with `wezterm cli split-pane --right`. The latter can be
+overriden with `g:test#wezterm#split_direction`.
+
+>
+  let g:test#wezterm#split_direction = 'bottom'
+<
+
+The wezterm cli split-pane accepts a --percent option to customize the number
+of cells that the new split will have, expressed as a percentage. The percent
+defaults to 50 unless set to a different value.
+
+>
+  let test#wezterm#split_percent = 30
+<
+
+
+QUICKFIX STRATEGIES                               *test-quickfix-strategies*
+
+If you want your test results to appear in the |quickfix| window, use one of the
+following strategies:
+
+  * Make
+  * Neomake
+  * MakeGreen
+  * Dispatch.vim
+  * asyncrun_background
+
+Regardless of which you pick, it's recommended you have Dispatch.vim installed as the
+strategies will automatically use it to determine the correct |compiler|, ensuring the
+test output is correctly parsed for the quickfix window.
+
+As Dispatch.vim just determines the compiler, you need to make sure the Vim distribution
+or a plugin has a corresponding compiler for your test runner, or you may need to
+|write-compiler-plugin|.
+
+If the test command prefix doesn't match the compiler's |makeprg| then use the
+|g:dispatch_compilers| variable. For example if your test command was './vendor/bin/phpunit'
+but you wanted to use the phpunit2 compiler:
+>
+  let g:dispatch_compilers = {}
+  let g:dispatch_compilers['./vendor/bin/'] = ''
+  let g:dispatch_compilers['phpunit'] = 'phpunit2'
+<
+
+CUSTOM STRATEGIES                               *test-custom-strategies*
+
+Strategy is a function which takes a test command and executes it in some way.
+If none of the built-in strategies suit your needs, you can define your own:
+>
+  function! EchoStrategy(cmd)
+    echo 'It works! Command for running tests: ' . a:cmd
+  endfunction
+
+  let g:test#custom_strategies = {'echo': function('EchoStrategy')}
+  let g:test#strategy = 'echo'
+<
+
+TRANSFORMATIONS                                 *test-transformations*
+
+You can automatically apply transformations of your test commands by
+registering a "transformation" function:
+>
+  function! VagrantTransform(cmd) abort
+    let vagrant_project = get(matchlist(s:cat('Vagrantfile'), '\vconfig\.vm.synced_folder ["''].+[''"], ["''](.+)[''"]'), 1)
+    return 'vagrant ssh --command '.shellescape('cd '.vagrant_project.'; '.a:cmd)
+  endfunction
+
+  let g:test#custom_transformations = {'vagrant': function('VagrantTransform')}
+  let g:test#transformation = 'vagrant'
+<
+
+CONFIGURATION                                   *test-configuration*
+
+You can set up strategies per granularity:
+>
+  let test#strategy = {
+    \ 'nearest': 'neovim',
+    \ 'file':    'dispatch',
+    \ 'suite':   'basic',
+  \}
+<
+of even per command:
+>
+  :TestFile -strategy=neovim
+<
+If you want to disable clearing the screen for strategies, you can do
+>
+  let g:test#preserve_screen = 1
+<
+By default, vim-test will echo the test command before running it. You can
+disable this behavior with
+>
+  let g:test#echo_command = 0
+<
+To have the Neovim sticky strategy abort any currently running tests before
+scheduling a new one, use:
+>
+  let g:test#neovim_sticky#kill_previous = 1
+<
+To have the Neovim sticky strategy open an existing terminal in a new split
+when it is not currently visible, use:
+>
+  let g:test#neovim_sticky#reopen_window = 1
+
+To have the Neovim sticky strategy use an existing terminal it did not open
+on its own, if such exists, use:
+
+  let g:test#neovim_sticky#use_existing = 1
+<
+You may find yourself specifying certain options for your test runners in
+certain situations. You can configure your preferred options with
+>
+  let g:test#ruby#minitest#options = '--verbose'
+  let g:test#javascript#denotest#options = '--quiet'
+<
+Or, if you prefer more granular approach, you can do
+>
+  let g:test#ruby#rspec#options = {
+    \ 'nearest': '--format documentation',
+    \ 'file':    '--format documentation',
+    \ 'suite':   '--tag ~slow',
+  \}
+<
+You can also specify a global option for the test runner to work alongside the
+granular options. Here, all rspec tests will run with the --format documentation
+option and any suite granularities will be run with the --tag ~slow option as
+well
+>
+  let g:test#ruby#rspec#options = {
+    \ 'all':   '--format documentation',
+    \ 'suite': '--tag ~slow',
+  \}
+<
+The cargotest runner lets you specify the test-options argument as follows:
+>
+  let g:test#rust#cargotest#test_options = '-- --nocapture'
+<
+Or using a more granular approach:
+>
+  let test#rust#cargotest#test_options = {
+    \ 'nearest': ['--', '--nocapture', '--exact'],
+    \ 'file':    [],
+  \}
+
+The gotest runner let you specify the -args argument as follows:
+>
+  let g:test#go#gotest#args = 'a=b'
+<
+If you want to manually configure a test runner's executable, you can do
+>
+  let g:test#ruby#rspec#executable = 'foreman run rspec'
+<
+You can instruct test.vim to generate absolute file paths:
+>
+  let test#filename_modifier = ':.' " test/models/user_test.rb (default)
+  let test#filename_modifier = ':p' " /User/janko/Code/my_project/test/models/user_test.rb
+  let test#filename_modifier = ':~' " ~/Code/my_project/test/models/user_test.rb
+<
+To select which runners to load, set this option:
+>
+  let test#enabled_runners = ["mylanguage#myrunner", "ruby#rspec"]
+<
+All other runners will not be loaded.
+
+Note that for your own custom runners, you still need to set `test#custom_runners`.
+
+Test.vim relies on you being cd-ed into the project root. However, sometimes
+you may want to execute tests from a different directory than the current
+working directory. You might have a bigger project with many sub-projects,
+or you might be using |autochdir|. In any case, you can use a different
+working directory for running tests:
+>
+  let test#project_root = "/path/to/your/project"
+<
+Alternatively you can pass in a function that'll be evaluated before each test run:
+>
+  function! CustomPath()
+    return "~/Project"
+  endfunction
+
+  let test#project_root = function('CustomPath')
+<
+Both the `neovim` and `Vim8 Terminal` strategy will open a split window on the
+bottom by default, but you can configure a different position or orientation.
+Whatever you put here is passed to `new` - so, you may also specify size (see
+`:help opening-window` or `:help new` for more info):
+>
+  let test#neovim#term_position = "topleft"
+  let test#neovim#term_position = "vert"
+  let test#neovim#term_position = "vert botright 30"
+<
+for neovim and
+>
+  let test#vim#term_position = "belowright"
+<
+for vim
+
+By default, the `neovim` and `basic` (when using Neovim) strategies will open a
+terminal in insert mode, so that you can press any key to close the split. If
+you would prefer to open the terminal in normal mode:
+>
+  let test#neovim#start_normal = 1 " if using neovim strategy
+  let test#basic#start_normal = 1 " if using basic strategy
+<
+
+
+PYTHON SPECIFIC CONFIG                         *test-python*
+
+If your project has a pytest configuration file, then pytest will automatically be detected.
+For other Python test runners, test.vim has no way of detecting which one did you intend
+to use. By default, the first available will be chosen, but you can force a specific one:
+>
+  let test#python#runner = "pytest"
+<
+Runners available are 'pytest', 'nose', 'nose2', 'djangotest', 'djangonose', 'mamba',
+and Python's built-in unittest as 'pyunit'
+
+The `pytest` and `djangotest` runner optionally supports pipenv. If you have a `Pipfile`,
+it will use `pipenv run pytest` instead of just `python -m pytest`. They also support poetry
+and will use `poetry run pytest` if it detects a `poetry.lock`. The pyunit and nose runner
+supports pipenv as well and will respectively use `pipenv run python -m unittest` or
+`pipenv run python -m nosetests` if there is a `Pipfile`. It also supports pdm as well and will
+use `poetry run pytest` if there is a `pdm.lock` file. All runners except
+`djangotest` support uv and will use `uv run` if there is a `uv.lock` file.
+
+PROJECTIONIST INTEGRATION                       *test-projectionist*
+
+If the |projectionist| plug-in is present, you can run a test command from an
+application file, and test.vim will automatically try to run the
+command on the "alternate" test file.
+
+You can disable this integration by doing
+>
+  let g:test#no_alternate = 1
+<
+
+CUSTOM ALTERNATE FILE                           *test-custom-alternate-file*
+
+If you are using a different library for jumping between implementation and test file
+you can define a custom function that returns the test filename.
+
+>
+function! CustomAlternateFile(cmd)
+  return "test_file_spec.rb"
+endfunction
+
+let g:test#custom_alternate_file = function('CustomAlternateFile')
+<
+
+OVERRIDING TEST COMMANDS                        *test-overriding-test-commands*
+
+This is considered an advanced feature, subject to active development and further changes.
+It overrides the zero configuration approach, and requires you to manually configure the test runners.
+
+Enable the feature by adding this custom runner:
+>
+  let g:test#custom_runners = {'_Generic': ['VimTestJson']}
+<
+To provide middle ground between well-known test runners working out of the box,
+and per-user configuration, test command can also be specifying by adding a `.vimtest.json`
+file:
+
+>
+{
+  "command": "echo 'Hello vim-test!'"
+}
+<
+
+This will override the command run by all of `:TestNearest`,
+`:TestClass`, `:TestFile` and `:TestSuite` in all files in the `.vimtest.json`'s directory
+and subdirectories, recursively. As such, it can be used to quickly bridge the gap
+for non-standard projects and share it with other developers.
+
+
+UNSAVED CHANGES                                 *test-unsaved-changes*
+
+If |'autowrite'| or |'autowriteall'| are set then unsaved changes will be
+written to disk with |:wall| before each test execution.
+
+Prompt for unsaved changes ~
+
+You can enable a user prompt asking whether to write unsaved changes
+prior to executing a test by
+>
+  let g:test#prompt_for_unsaved_changes = 1
+<
+
+ABOUT                                           *test-about*
+
+You can get the latest version, see the changelog, or report a bug on GitHub:
+
+https://github.com/vim-test/vim-test
+
+
+CREDITS                                         *test-credits*
+
+Thanks to Gary Bernhardt, the person who invented this kind of testing.
+I also want to thank vim-rspec (https://github.com/thoughtbot/vim-rspec), from
+which I borrowed GUI support for OS X, and Windows support. Also thanks to
+vim-vroom (https://github.com/skalnik/vim-vroom).
+
+===============================================================================
+vim:tw=78:ts=2:sts=2:sw=2:ft=help:norl:

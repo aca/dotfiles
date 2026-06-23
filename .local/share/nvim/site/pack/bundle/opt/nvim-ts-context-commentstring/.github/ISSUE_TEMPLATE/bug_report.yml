@@ -1,0 +1,53 @@
+name: Bug Report
+description: Report a problem in nvim-ts-context-commentstring
+labels: [bug]
+
+body:
+  - type: textarea
+    attributes:
+      label: "Minimal reproducible full config"
+      description: |
+        Please provide a working config based on [this](https://github.com/JoosepAlviste/nvim-ts-context-commentstring/blob/main/utils/minimal_init.lua).
+
+        1. Clone this plugin somewhere. E.g. `git clone https://github.com/JoosepAlviste/nvim-ts-context-commentstring ~/nvim-repro/nvim-ts-context-commentstring`
+        2. Run `utils/run_minimal.sh` from the cloned repository
+        3. Make the necessary changes to the config file to reproduce your issue
+      value: |
+        ```lua
+        -- Your configuration here
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Description"
+      description: "Describe in detail what happens"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Steps to reproduce"
+      description: "Full reproduction steps. Please include a sample file if your issue relates to a specific filetype."
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Expected behavior"
+      description: "A description of the behavior you expected."
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Actual behavior"
+      description: "A description of the actual behavior."
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Additional context"
+      description: "Any other relevant information"

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kristijanhusak/vim-dadbod-completion.git
+	branch = master
+	commit = a8dac0b3cf6132c80dc9b18bef36d4cf7a9e1fe6
+	parent = 7281222f281301880f6a8a3da386d9690cf6e0ff
+	method = merge
+	cmdver = 0.4.9

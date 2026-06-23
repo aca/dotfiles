@@ -1,0 +1,16 @@
+{
+	"name": "coc-ufo",
+	"version": "0.0.1",
+	"description": "handle folding ranges in coc.nvim",
+	"author": "kevinhwang91 <kevin.hwang@live.com>",
+	"license": "BSD 3-Clause",
+	"main": "coc-extension/index.js",
+	"type": "commonjs",
+	"engines": {
+		"coc": "^0.0.82"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"contributes": {}
+}

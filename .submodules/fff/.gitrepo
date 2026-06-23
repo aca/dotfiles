@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/dylanaraps/fff.git
+	branch = master
+	commit = 6f2dc6f3a003d24e8b3fd48b046241b486022ad5
+	parent = 19197f1e7671dd05950b5003c71b213cd030fd0e
+	method = merge
+	cmdver = 0.4.9

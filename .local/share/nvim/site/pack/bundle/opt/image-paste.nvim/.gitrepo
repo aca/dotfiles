@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/evanpurkhiser/image-paste.nvim.git
+	branch = main
+	commit = 2ea633bdd630588a83183a2ca752ced4286adf5c
+	parent = 183a67ee167e0dcc7891412dbbfba627c69990d5
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,59 @@
+*matchparen.nvim*    matchparen plugin with treesitter support
+
+Author: monkoose <https://github.com/monkoose>
+License: MIT license
+
+==============================================================================
+CONTENTS
+
+    Introduction                   |matchparen.nvim-introduction|
+    Usage                          |matchparen.nvim-usage|
+    Configuration                  |matchparen.nvim-configuration|
+    Credits                        |matchparen.nvim-credits|
+
+==============================================================================
+INTRODUCTION                                    *matchparen.nvim-introduction*
+
+|matchparen.nvim| is alternative to |matchparen| plugin shipped with neovim.
+It is faster, fixes some annoying bugs and properly limit highlighting of
+brackets inside comments and strings in the buffers with enabled treesitter
+highlighting.
+
+==============================================================================
+USAGE                                                  *matchparen.nvim-usage*
+
+                                         *:MatchParenEnable* *:MatchParenDisable*
+To enable highlighting if it was previously disabled or `enabled = false` >
+    :MatchParenEnable
+
+To temporary disable plugin >
+    :MatchParenDisable
+<
+==============================================================================
+CONFIGURATION                                  *matchparen.nvim-configuration*
+
+`setup()` function accepts table with following keys
+    `enabled`~
+        Boolean.
+        If `true` the plugin will highlight brackets at neovim startup.
+    `hl_group`~
+        String.
+        Highlight group of the matched brackets.
+    `debounce_time`~
+        Positive integer or 0.
+        Debounce time in milliseconds for rehighlighting brackets.
+        In theory this option should improve responsiveness of the editor in
+        some seldom situations and remove rehighlighting of the same brackets
+        multiple times because of intersection of the autocommands.
+        If you want to completely disable debouncing and rehighlight brackets
+        instantly set it's value to `0`.
+
+Defaults are >
+    require('matchparen').setup({
+        enabled = true,
+        hl_group = 'MatchParen',
+        debounce_time = 60,
+    })
+
+==============================================================================
+vim:tw=78:ft=help:norl:fen:

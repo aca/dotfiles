@@ -1,0 +1,24 @@
+name: panvimdoc
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "README.md"
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    name: pandoc to vimdoc
+    steps:
+      - uses: actions/checkout@v2
+      - name: panvimdoc
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: symbols
+          version: "NVIM v0.10.0"
+      - name: Strip header
+        run: sed "1,2d" -i doc/symbols.txt
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(vimdoc): Auto update"
+          branch: ${{ github.head_ref }}
+          skip_dirty_check: false

@@ -1,0 +1,136 @@
+/* {{TEST}} */
+.foo { /* {{CONTEXT}} */
+    background-color: #fff;
+    color: #000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+    font-size: 14px; /* {{CURSOR}} */
+
+
+    @supports (font-size: calc(1vw + 1vh + 1vmin)) { /* {{CONTEXT}} */
+
+
+
+        font-size: calc(1vw + 1vh + 1vmin);
+
+
+
+
+
+        /* {{CURSOR}} */
+
+    } /* {{POPCONTEXT}} */
+
+    @color-profile /* {{CONTEXT}} */
+    --swop5c { /* {{CONTEXT}} */
+
+
+
+      src: url("https://example.org/SWOP2006_Coated5v2.icc");
+
+
+
+
+
+
+        /* {{CURSOR}} */
+
+    } /* {{POPCONTEXT}} */
+    /* {{POPCONTEXT}} */
+
+
+
+
+
+
+
+    line-height: 1.42857143; /* {{CURSOR}} */
+}
+
+/* {{TEST}} */
+@keyframes wave { /* {{CONTEXT}} */
+    0% { /* {{CONTEXT}} */
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+
+
+
+
+
+
+
+        /* {{CURSOR}} */
+    } /* {{POPCONTEXT}} */
+    50% { /* {{CONTEXT}} */
+
+
+
+        transform: translateY(-50%) scale(1);
+        opacity: 1; /* {{CURSOR}} */
+    } /* {{POPCONTEXT}} */
+    100% { /* {{CONTEXT}} */
+        transform: translateY(-50%) scale(0);
+
+
+
+        opacity: 0; /* {{CURSOR}} */
+    } /* {{POPCONTEXT}} */
+} /* {{POPCONTEXT}} */
+
+/* {{TEST}} */
+@media ( /* {{CONTEXT}} */
+/* {{CONTEXT}} */
+prefers-reduced-motion: reduce) { /* {{CONTEXT}} */
+
+
+
+
+  /* {{CURSOR}} */
+  *, /* {{CONTEXT}} */
+  *::before, /* {{CONTEXT}} */
+  *::after { /* {{CONTEXT}} */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* {{CURSOR}} */
+
+  } /* {{POPCONTEXT}} */
+  /* {{POPCONTEXT}} */
+  /* {{POPCONTEXT}} */
+
+
+
+
+
+
+
+
+
+
+  /* {{CURSOR}} */
+}
+
+
+
+
+
+
+
+
+

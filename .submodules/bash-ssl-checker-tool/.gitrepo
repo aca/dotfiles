@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/bobbyiliev/bash-ssl-checker-tool
+	branch = master
+	commit = 3ffed804909a343a6ec5fcafff5a5fcdb5829a54
+	parent = 3f35ff00f7cc5ba00c0a99498530022fb98bd9d6
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,88 @@
+---@type { screen_x: number, screen_y: number, screen_cols: number, screen_rows: number, cell_width: number, cell_height: number }|nil
+local cached_size = nil
+local size_warned = false
+
+-- https://github.com/edluffy/hologram.nvim/blob/main/lua/hologram/state.lua#L15
+local update_size = function()
+  local ffi = require("ffi")
+  ffi.cdef([[
+    typedef struct {
+      unsigned short row;
+      unsigned short col;
+      unsigned short xpixel;
+      unsigned short ypixel;
+    } winsize;
+    int ioctl(int, int, ...);
+  ]])
+
+  local TIOCGWINSZ = nil
+  if vim.fn.has("linux") == 1 then
+    TIOCGWINSZ = 0x5413
+  elseif vim.fn.has("mac") == 1 then
+    TIOCGWINSZ = 0x40087468
+  elseif vim.fn.has("bsd") == 1 then
+    TIOCGWINSZ = 0x40087468
+  end
+
+  if not TIOCGWINSZ then
+    if not size_warned then
+      size_warned = true
+      vim.notify("image.nvim: unsupported OS — cannot query terminal size", vim.log.levels.WARN)
+    end
+    return
+  end
+
+  ---@type { row: number, col: number, xpixel: number, ypixel: number }
+  local sz = ffi.new("winsize")
+  if ffi.C.ioctl(1, TIOCGWINSZ, sz) ~= 0 then
+    if not size_warned then
+      size_warned = true
+      vim.notify("image.nvim: cannot query terminal size (non-terminal environment?)", vim.log.levels.WARN)
+    end
+    return
+  end
+
+  local xpixel = sz.xpixel
+  local ypixel = sz.ypixel
+
+  -- Fallback when pixel dimensions are unavailable (common over SSH)
+  -- TIOCGWINSZ returns xpixel=0, ypixel=0 in SSH sessions because the
+  -- SSH protocol does not propagate client pixel dimensions. Without this
+  -- fallback, cell_width/cell_height become 0, causing integer overflow
+  -- in image geometry calculations (width becomes INT64_MIN).
+  if xpixel == 0 or ypixel == 0 then
+    xpixel = sz.col * 8
+    ypixel = sz.row * 16
+  end
+
+  cached_size = {
+    screen_x = xpixel,
+    screen_y = ypixel,
+    screen_cols = sz.col,
+    screen_rows = sz.row,
+    cell_width = xpixel / sz.col,
+    cell_height = ypixel / sz.row,
+  }
+end
+
+update_size()
+vim.api.nvim_create_autocmd("VimResized", {
+  callback = update_size,
+})
+
+local get_tty = function()
+  local handle = io.popen("tty 2>/dev/null")
+  if not handle then return nil end
+  local result = handle:read("*a")
+  handle:close()
+  result = vim.fn.trim(result)
+  if result == "" then return nil end
+  return result
+end
+
+return {
+  get_size = function()
+    return cached_size
+  end,
+  get_tty = get_tty,
+}

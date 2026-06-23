@@ -1,0 +1,30 @@
+name: Contributing Proposal
+description: Contribution Proposal Discussion Ticket
+title: "proposal: "
+labels: [enhancement]
+body:
+  - type: checkboxes
+    attributes:
+      label: Did you read the Contributing Guide?
+      description: Make sure you have read the Contributing guide
+      options:
+        - label: I have read the Contributing Guide
+          required: true
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Description
+      description: What do you want to add to lackluster and why?
+  - type: input
+    validations:
+      required: false
+    attributes:
+      label: "Link"
+      description: "If relevant privide a link to the plugin/tool you are working on adding support for!"
+  - type: textarea
+    validations:
+      required: false
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.

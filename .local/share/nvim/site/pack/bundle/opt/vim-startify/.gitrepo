@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mhinz/vim-startify.git
+	branch = master
+	commit = 4e089dffdad46f3f5593f34362d530e8fe823dcf
+	parent = 63e45ba60be3d41821f6f4d7a8e6b7cac45997e3
+	method = merge
+	cmdver = 0.4.9

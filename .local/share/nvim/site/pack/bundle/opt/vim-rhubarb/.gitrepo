@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tpope/vim-rhubarb.git
+	branch = master
+	commit = 5496d7c94581c4c9ad7430357449bb57fc59f501
+	parent = 1991730cd2e708ef3dee4b6f3758819f59092245
+	method = merge
+	cmdver = 0.4.9

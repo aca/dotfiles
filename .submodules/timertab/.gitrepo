@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/amlamarra/timertab
+	branch = master
+	commit = 32a687a5f102ee79132c123e27b3c5e77c124865
+	parent = 362c0d1d53d1db320415c83d203f93aa875d694d
+	method = merge
+	cmdver = 0.4.9

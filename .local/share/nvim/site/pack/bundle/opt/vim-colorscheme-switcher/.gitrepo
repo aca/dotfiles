@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/xolox/vim-colorscheme-switcher.git
+	branch = master
+	commit = 4d9807a5a8948c18b5f3f278685269565c8e2508
+	parent = f249ae40461ba35d4cfd01e9ca5a8e49f2f4caad
+	method = merge
+	cmdver = 0.4.9

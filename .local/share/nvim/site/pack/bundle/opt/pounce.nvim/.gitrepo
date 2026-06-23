@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rlane/pounce.nvim.git
+	branch = master
+	commit = 2e36399ac09b517770c459f1a123e6b4b4c1c171
+	parent = 631718878972d066b29cc9cf0ab4b7c10efadb00
+	method = merge
+	cmdver = 0.4.9

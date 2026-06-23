@@ -1,0 +1,7 @@
+build/
+public/
+Config.mk
+lua-gumbo-*.tar.gz
+gumbo-*.rockspec
+gumbo-*.rock
+tags

@@ -1,0 +1,147 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/inline"
+gemfile do
+  gem "amazing_print"
+  gem "async"
+  gem "open3"
+  gem "tty-spinner"
+  gem "pastel"
+  gem "debug"
+end
+
+require "async"
+require "async/barrier"
+require "async/semaphore"
+
+COLOR = Pastel.new
+def now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+class Runner # rubocop:disable Style/Documentation
+  def initialize(test, spinner, length)
+    @test    = test
+    @spinner = spinner
+    @length  = length
+    @title   = test.gsub("spec/", "")
+    @retries = 0
+    @failed_lines = []
+  end
+
+  def register
+    spinner.update(test: title, padding: " " * (length - test.length))
+    spinner.auto_spin
+    self
+  end
+
+  def call(results, failures) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    start!
+
+    loop do
+      output, wait = run
+      results[test] = JSON.parse(output)
+
+      time = results[test].dig("summary", "duration").round(3)
+
+      if wait.value.success?
+        register_success!(time)
+        break
+      elsif retries < 5
+        @failed_lines = JSON.parse(output)["examples"]
+                            .select { _1["status"] == "failed" }
+                            .map { _1["line_number"] }
+                            .uniq
+
+        @retries += 1
+        register_retry!
+      else
+        failures << test
+        register_failure!(time)
+        break
+      end
+    end
+  end
+
+  private
+
+  attr_reader :title, :spinner, :test, :length, :retries
+
+  def start!
+    spinner.update(test: COLOR.blue(title))
+  end
+
+  def run
+    failed = @failed_lines.empty? ? "" : "[#{@failed_lines.join(',')}]"
+    stdin, stdout, wait = Open3.popen2(
+      { "CI" => "1" },
+      "bundle exec rspec #{test}#{failed} --format json --order random"
+    )
+
+    stdin.close
+    output = stdout.read.lines.last
+    stdout.close
+
+    [output, wait]
+  end
+
+  def register_success!(time)
+    spinner.update(test: COLOR.green(title))
+    spinner.success(COLOR.green(time))
+  end
+
+  def register_retry!
+    spinner.update(test: "#{COLOR.yellow(title)} (#{retries})")
+  end
+
+  def register_failure!(time)
+    spinner.update(test: COLOR.red(title))
+    spinner.error(COLOR.red(time))
+  end
+end
+
+tests    = Dir["spec/**/*_spec.rb"]
+length   = tests.max_by(&:size).size
+spinners = TTY::Spinner::Multi.new(
+  COLOR.blue(":spinner Running #{tests.size} specs"),
+  format: :bouncing_ball,
+  hide_cursor: true
+)
+
+results = {}
+failures = []
+
+start = now
+
+barrier = Async::Barrier.new
+Sync do
+  semaphore = Async::Semaphore.new(Etc.nprocessors - 2, parent: barrier)
+
+  runners = tests.map do |test|
+    spinner = spinners.register(
+      ":test:padding\t",
+      success_mark: COLOR.green.bold("+"),
+      error_mark: COLOR.red.bold("x")
+    )
+
+    Runner.new(test, spinner, length).register
+  end
+
+  runners.map do |runner|
+    semaphore.async { runner.call(results, failures) }
+  end.map(&:wait)
+end
+
+puts "\nDone in #{(now - start).round(3)}s"
+
+if failures.any?
+  failures.each do |test|
+    output = results[test]
+
+    puts "\nFail: #{output.dig('examples', 0, 'full_description')}"
+    puts "      #{test}:#{output.dig('examples', 0, 'line_number')}"
+    puts "      #{output.dig('examples', 0, 'exception', 'class')}"
+    puts "      #{output.dig('examples', 0, 'exception', 'message')}"
+  end
+
+  abort("\n#{failures.size} Failed specs")
+end

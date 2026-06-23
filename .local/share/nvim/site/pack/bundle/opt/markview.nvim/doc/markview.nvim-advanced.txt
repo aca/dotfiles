@@ -1,0 +1,50 @@
+*markview.nvim-advanced*             🔥 Advanced usage guide for `markview.nvim`
+
+This page has been moved to Usage {1}
+
+--------------------------------------------------------------------------------
+📂 Header folding
+
+See Usage {2}
+
+✨ Custom header text ~
+
+See Usage {3}
+
+--------------------------------------------------------------------------------
+🎨 Single highlight group for all links
+
+See Usage {4}
+
+--------------------------------------------------------------------------------
+📐 Changing indentation level of list items
+
+See Usage {5}
+
+--------------------------------------------------------------------------------
+✨ No nerd font
+
+See Usage {6}
+
+--------------------------------------------------------------------------------
+🔳 Toggling table borders
+
+See Usage {7}
+
+--------------------------------------------------------------------------------
+⏱️ Heading numbers
+
+See Usage {8}
+
+Links ~
+
+1: https://github.com/OXY2DEV/markview.nvim/wiki/Usage
+2: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#-header-folding
+3: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#-custom-header-text
+4: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#-single-highlight-group-for-all-links
+5: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#-changing-indentation-level-of-list-items
+6: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#-no-nerd-font
+7: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#-toggling-table-borders
+8: https://github.com/OXY2DEV/markview.nvim/wiki/Usage#%EF%B8%8F-heading-numbers
+
+vim:ft=help:textwidth=80:tabstop=4:noexpandtab:

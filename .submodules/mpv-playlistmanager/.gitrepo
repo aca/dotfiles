@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/jonniek/mpv-playlistmanager.git
+	branch = master
+	commit = 2eb09e1e7a2f66549145b728d570fda83703ed86
+	parent = 75f1f353b4015186ff827cd23d9a22ffd61e7276
+	method = merge
+	cmdver = 0.4.9

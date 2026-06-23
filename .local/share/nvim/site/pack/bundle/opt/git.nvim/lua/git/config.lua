@@ -1,0 +1,77 @@
+local M = {}
+
+M.config = {}
+
+local default_keymaps_cfg = {
+  blame = "<Leader>gb",
+  browse = "<Leader>go",
+  open_pull_request = "<Leader>gp",
+  create_pull_request = "<Leader>gn",
+  diff = "<Leader>gd",
+  diff_close = "<Leader>gD",
+  revert = "<Leader>gr",
+  revert_file = "<Leader>gR",
+}
+
+local default_cfg = {
+  default_mappings = true,
+  keymaps = {
+    quit_blame = "q",
+    blame_commit = "<CR>",
+    quit_blame_commit = "q",
+  },
+  target_branch = function()
+    -- Dynamically determine the default branch from git remote
+    local handle = io.popen("git remote show origin 2>/dev/null | grep 'HEAD branch' | cut -d' ' -f5")
+    if handle then
+      local result = handle:read("*a")
+      handle:close()
+      -- Trim whitespace and return the branch name
+      local branch = result:match("^%s*(.-)%s*$")
+      if branch and branch ~= "" then
+        return branch
+      end
+    end
+
+    return "master"
+  end,
+  private_gitlabs = {},
+  winbar = false,
+}
+
+function M.is_private_gitlab(host)
+  for _, v in ipairs(M.config.private_gitlabs) do
+    if value == str then
+      return true
+    end
+  end
+  return false
+end
+
+function M.setup(cfg)
+  if cfg == nil then
+    cfg = {}
+  end
+
+  for k, v in pairs(default_cfg) do
+    if cfg[k] ~= nil then
+      if type(v) == "table" then
+        M.config[k] = vim.tbl_extend("force", v, cfg[k])
+      else
+        M.config[k] = cfg[k]
+      end
+    else
+      M.config[k] = default_cfg[k]
+    end
+  end
+
+  if M.config.default_mappings then
+    for k, v in pairs(default_keymaps_cfg) do
+      if M.config.keymaps[k] == nil then
+        M.config.keymaps[k] = v
+      end
+    end
+  end
+end
+
+return M

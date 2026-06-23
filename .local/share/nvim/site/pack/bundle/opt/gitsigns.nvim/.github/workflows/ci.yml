@@ -1,0 +1,242 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  commit_lint:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install gitlint
+        run: make gitlint
+
+      - name: Lint PR commits
+        run: make commitlint RANGE='${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}'
+
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+
+    strategy:
+      # Nightly can often fail as it is a moving target so disable fail-fast so
+      # we can always see if the other versions pass or not.
+      fail-fast: false
+
+      matrix:
+        include:
+          - name: test linux (v0.10.4)
+            os: ubuntu-latest
+            neovim_branch: 'v0.10.4'
+            setup: linux
+          - name: test linux (v0.11.7)
+            os: ubuntu-latest
+            neovim_branch: 'v0.11.7'
+            setup: linux
+          - name: test linux (v0.12.0)
+            os: ubuntu-latest
+            neovim_branch: 'v0.12.0'
+            setup: linux
+          - name: test linux (nightly)
+            os: ubuntu-latest
+            neovim_branch: 'nightly'
+            setup: linux
+          - name: test windows-native (v0.12.0)
+            os: windows-latest
+            neovim_branch: 'v0.12.0'
+            setup: windows-native
+          - name: test windows-msys2 (v0.12.0)
+            os: windows-latest
+            neovim_branch: 'v0.12.0'
+            setup: windows-msys2
+          - name: test windows-msys2 (nightly)
+            os: windows-latest
+            neovim_branch: 'nightly'
+            setup: windows-msys2
+
+    env:
+      NVIM_TEST_VERSION: ${{ matrix.neovim_branch }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install native Windows test tools
+        if: matrix.setup == 'windows-native'
+        shell: pwsh
+        run: choco install make wget unzip --no-progress -y
+
+      - name: Setup MSVC
+        if: matrix.setup == 'windows-native'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - if: matrix.setup != 'windows-msys2'
+        uses: lewis6991/gh-actions-lua@master
+        with:
+          luaVersion: "5.1.5"
+
+      - if: matrix.setup == 'linux'
+        uses: leafo/gh-actions-luarocks@v4
+
+      - name: Install LuaRocks
+        if: matrix.setup == 'windows-native'
+        shell: pwsh
+        run: ./.github/scripts/install-native-luarocks.ps1
+
+      - name: Setup MSYS2
+        if: matrix.setup == 'windows-msys2'
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git
+            make
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-lua-luarocks
+            mingw-w64-ucrt-x86_64-luajit
+            mingw-w64-ucrt-x86_64-neovim
+
+      - name: Configure LuaRocks for LuaJIT
+        if: matrix.setup == 'windows-msys2'
+        shell: msys2 {0}
+        run: bash .github/scripts/configure-msys2-luarocks.sh
+
+      - name: Set XDG_DATA_HOME
+        if: matrix.setup != 'windows-msys2'
+        shell: bash
+        run: |
+          workspace=$GITHUB_WORKSPACE
+          github_env=$GITHUB_ENV
+          if [ "${{ runner.os }}" = 'Windows' ]; then
+            workspace=$(cygpath --unix "$workspace")
+            github_env=$(cygpath --unix "$github_env")
+          fi
+          printf 'XDG_DATA_HOME=%s/.data\n' "$workspace" >> "$github_env"
+
+      - name: Set XDG_DATA_HOME
+        if: matrix.setup == 'windows-msys2'
+        shell: msys2 {0}
+        run: |
+          printf 'XDG_DATA_HOME=%s/.data\n' "$(cygpath --unix "$GITHUB_WORKSPACE")" >> "$(cygpath --unix "$GITHUB_ENV")"
+
+      - name: Prepare native LuaRocks shims
+        if: matrix.setup == 'windows-native'
+        id: native_luarocks
+        shell: bash
+        run: bash .github/scripts/prepare-native-luarocks.sh
+
+      - name: Set nvim-test cache epoch
+        id: nvim_test_cache
+        shell: bash
+        run: |
+          if [ "${{ matrix.neovim_branch }}" = "nightly" ]; then
+            echo "epoch=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          else
+            echo "epoch=stable" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Cache nvim-test
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps/nvim-test
+            .data/nvim-test
+          key: nvim-test-${{ runner.os }}-${{ matrix.setup }}-${{ matrix.neovim_branch }}-${{ steps.nvim_test_cache.outputs.epoch }}-${{ hashFiles('Makefile') }}
+          restore-keys: |
+            nvim-test-${{ runner.os }}-${{ matrix.setup }}-${{ matrix.neovim_branch }}-
+            nvim-test-${{ runner.os }}-${{ matrix.setup }}-
+            nvim-test-${{ runner.os }}-
+
+      - name: Run Test
+        if: matrix.setup != 'windows-msys2'
+        shell: bash
+        env:
+          NATIVE_LUAROCKS_BIN: ${{ steps.native_luarocks.outputs.bin }}
+        run: |
+          if [ -n "$NATIVE_LUAROCKS_BIN" ]; then
+            export PATH="$NATIVE_LUAROCKS_BIN:$PATH"
+          fi
+          make test
+
+      - name: Run Test
+        if: matrix.setup == 'windows-msys2'
+        shell: msys2 {0}
+        run: make test
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download stylua
+        run: make stylua
+
+      - name: Format
+        run: make format-check
+
+  emmylua:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: lewis6991/gh-actions-lua@master
+        with:
+          luaVersion: "5.1.5"
+
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - name: Install nvim-test
+        run: make nvim-test
+
+      - name: Cache EmmyLua
+        id: cache-emmylua
+        uses: actions/cache@v4
+        with:
+          path: deps/emmylua_analyzer-rust-*
+          key: emmylua-${{ hashFiles('Makefile') }}
+
+      - name: Install EmmyLua
+        if: steps.cache-emmylua.outputs.cache-hit != 'true'
+        run: make emmylua
+
+      - name: Lint
+        run: make emmylua-check NVIM_TEST_VERSION=nightly
+
+  doc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: lewis6991/gh-actions-lua@master
+        with:
+          luaVersion: "5.1.5"
+
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - name: Download nvim-test
+        run: make nvim-test
+
+      - name: Doc Check
+        run: make doc-check

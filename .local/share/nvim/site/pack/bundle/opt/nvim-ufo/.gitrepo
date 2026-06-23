@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kevinhwang91/nvim-ufo.git
+	branch = main
+	commit = ab3eb124062422d276fae49e0dd63b3ad1062cfc
+	parent = 1d5207c4b981bd7cea08375c670bed59f10764f6
+	method = merge
+	cmdver = 0.4.9

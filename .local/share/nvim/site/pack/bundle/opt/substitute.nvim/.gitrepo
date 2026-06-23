@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/gbprod/substitute.nvim
+	branch = main
+	commit = 0d2077398552f069abccbd964a26dd7cd26882cd
+	parent = cf0c340ee629ae6ad4ad03d8df293130cee7eb4a
+	method = merge
+	cmdver = 0.4.9

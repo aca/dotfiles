@@ -1,0 +1,98 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Unit tests
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        neovim: [true, false]
+        version: [stable, nightly]
+        # Exclude Neovim nightly since Neovim's release workflow is fairly unstable: https://github.com/neovim/neovim/actions/workflows/release.yml
+        exclude:
+          - neovim: true
+            version: nightly
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set Git user for running Git commands in unit tests
+        run: |
+          git config --global user.email "users@noreply.github.com"
+          git config --global user.name "github-action"
+      - name: Fetch Git history for unit tests
+        run: git fetch --no-tags --prune --unshallow
+      - name: Checkout themis.vim
+        uses: actions/checkout@v4
+        with:
+          repository: thinca/vim-themis
+          path: vim-themis
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          version: ${{ matrix.version }}
+          neovim: ${{ matrix.neovim }}
+      - name: Run unit tests
+        env:
+          THEMIS_VIM: ${{ steps.vim.outputs.executable }}
+          THEMIS_PROFILE: profile.txt
+        run: ./vim-themis/bin/themis ./test/all.vimspec
+
+      # Covimerage no longer seems to work with the latest version of Vim.
+      # I need to dig into the reason and determine to continue or stop using it.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+        if: false
+      - name: Report coverage
+        run: |
+          pip install covimerage
+          covimerage write_coverage profile.txt
+          coverage report
+          coverage xml
+        if: false
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+        if: false
+
+  test-windows:
+    name: Unit tests on Windows
+    strategy:
+      matrix:
+        neovim: [true, false]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set Git user for running Git commands in unit tests
+        run: |
+          git config --global user.email "users@noreply.github.com"
+          git config --global user.name "github-action"
+      - name: Fetch Git history for unit tests
+        run: git fetch --no-tags --prune --unshallow
+      - name: Checkout themis.vim
+        uses: actions/checkout@v4
+        with:
+          repository: thinca/vim-themis
+          path: vim-themis
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          version: stable
+          neovim: ${{ matrix.neovim }}
+      - name: Run unit tests
+        env:
+          THEMIS_VIM: ${{ steps.vim.outputs.executable }}
+        run: ./vim-themis/bin/themis ./test/all.vimspec
+
+  vint:
+    name: Run vint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+      - run: pip install setuptools vim-vint
+      - run: vint --warning --verbose --enable-neovim ./autoload ./plugin

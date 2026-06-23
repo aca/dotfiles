@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+echo 0 > /sys/class/backlight/intel_backlight/brightness

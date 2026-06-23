@@ -1,0 +1,28 @@
+local vim = vim
+
+-- -- open last file in cwd on start
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	callback = function()
+-- 		if vim.fn.argc() > 0 then
+-- 			return
+-- 		end
+--
+-- 		vim.schedule(function()
+-- 			local cwd_prefix = vim.uv.cwd() .. "/"
+-- 			local src_prefix = "/home/rok/src/"
+-- 			local cwd_len = #cwd_prefix
+-- 			local src_len = #src_prefix
+-- 			local oldfiles = vim.v.oldfiles
+-- 			for i = 1, math.min(10, #oldfiles) do
+-- 				local path = vim.fn.fnamemodify(oldfiles[i], ":p")
+-- 				if path:sub(1, cwd_len) == cwd_prefix and path:sub(1, src_len) == src_prefix then
+-- 					vim.cmd("edit " .. vim.fn.fnameescape(path))
+-- 					-- vim.cmd("filetype detect")
+-- 					-- vim.api.nvim_feedkeys([[g`"]], "nx", false)
+-- 					return
+-- 				end
+-- 			end
+-- 		end)
+-- 	end,
+-- })
+--

@@ -1,0 +1,47 @@
+[colors]
+foreground = "#AFB0A6"
+background = "#1b1c1d"
+cursor_bg = "#AFB0A6"
+cursor_border = "#6B6B67"
+cursor_fg = "#1b1c1d"
+selection_bg = "#2D2E2F"
+selection_fg = "#AFBFAC"
+split = "#6B6B67"
+compose_cursor = "#94A991"
+scrollbar_thumb = "#232425"
+
+ansi = ["#232425", "#AB878F", "#61765E", "#857E59", "#5D7285", "#6B7191", "#8D7064", "#696A64"]
+brights = ["#6B6B67", "#d6a9b3", "#799475", "#a69e6f", "#748fa6", "#868db5", "#b08c7d", "#AFB0A6"]
+
+[colors.tab_bar]
+inactive_tab_edge = "#696A64"
+background = "#1b1c1d"
+
+[colors.tab_bar.active_tab]
+fg_color = "#94A991"
+bg_color = "#2D2E2F"
+
+[colors.tab_bar.inactive_tab]
+fg_color = "#6B6B67"
+bg_color = "#232425"
+
+[colors.tab_bar.inactive_tab_hover]
+fg_color = "#6B6B67"
+bg_color = "#232425"
+# intensity = "Bold"
+
+[colors.tab_bar.new_tab_hover]
+fg_color = "#94A991"
+bg_color = "#2D2E2F"
+intensity = "Bold"
+
+[colors.tab_bar.new_tab]
+fg_color = "#94A991"
+bg_color = "#1b1c1d"
+
+[metadata]
+aliases = []
+name = "gyokuro"
+url = "https://wezfurlong.org/wezterm/config/files.html"
+upstream = "https://github.com/cdmill/neomodern.nvim/raw/main/extras/"
+author = "Casey Miller"

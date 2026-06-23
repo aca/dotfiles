@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# 12:01 λ seq.alpha a c
+# a
+# b
+# c
+
+bash -c "echo {a..z}" | tr ' ' '\n'

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/NFrid/due.nvim.git
+	branch = main
+	commit = 70a93319fa0345c116f2b57cf1f99e0d20026c5e
+	parent = 2d6a0d0f67ad92df898b657e381bce66fe809784
+	method = merge
+	cmdver = 0.4.9

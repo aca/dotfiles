@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/jake-stewart/auto-cmdheight.nvim
+	branch = main
+	commit = 82619eab0268f27024e1e0981ec3721a003ab2b7
+	parent = 2b0e83fa8ab2e1b279bdcdac0ae6bb0323382d65
+	method = merge
+	cmdver = 0.4.9

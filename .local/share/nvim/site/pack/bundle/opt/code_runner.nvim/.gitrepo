@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/CRAG666/code_runner.nvim.git
+	branch = main
+	commit = eed10eb4953bc172d7652f30d289a4e575028a98
+	parent = b49258595db4249f1967c0cd6b8428507a1711b9
+	method = merge
+	cmdver = 0.4.9

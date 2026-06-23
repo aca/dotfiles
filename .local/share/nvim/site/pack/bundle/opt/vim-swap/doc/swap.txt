@@ -1,0 +1,739 @@
+*swap.txt*	Reorder delimited items.
+						Last change:07-Jun-2019.
+
+Author  : machakann <mckn{at}outlook.jp>
+License : NYSL license
+          Japanese <http://www.kmonos.net/nysl/>
+          English (Unofficial) <http://www.kmonos.net/nysl/index.en.html>
+
+Requirement:	Vim 7.4 or higher
+		|+reltime| feature (optional)
+		|+float| feature (optional)
+
+==============================================================================
+INDEX					*swap-index*
+
+INTRODUCTION				|swap-introduction|
+KEYMAPPINGS				|swap-keymappings|
+FUNCTIONS				|swap-functions|
+  SORT FUNCTIONS			|swap-sort-function-examples|
+CUSTOMIZATION				|swap-customization|
+HIGHLIGHT GROUPS			|swap-highlight-groups|
+CONFIGURATION				|swap-configuration|
+
+==============================================================================
+INTRODUCTION				*swap-introduction*
+
+*swap.vim* is an plugin to reorder delimited items. It works as it swaps two
+items in a delimited string. For example, considering the following code
+snippet, it is easy to swap "arg2" and "arg3" but is annoying work that swaps
+"arg1" and "arg2" since user have to manage a word and a delimiter separately.
+>
+	call foo(arg1, arg2, arg3)
+<
+This plugin serves mappings to make easier to do that kind of operations. This
+plugin defines three mappings in default, `g<`, `g>`, `gs`. `g<` swaps the
+item under the cursor with the former item. Moving cursor on the "arg2" and
+pressing `g<`, then it swaps "arg2" and the former one, "arg1", to get:
+>
+	call foo(arg2, arg1, arg3)
+<
+`g>` swaps the item under the cursor with the latter item. Moving cursor on
+the "arg2" and pressing `g>`, then it swaps "arg2" and the latter one, "arg3",
+to get:
+>
+	call foo(arg1, arg3, arg2)
+<
+`g<` and `g>` take [count].
+`gs` works more interactive. It starts "swap mode", as if there was the
+sub-mode of vim editor. In the mode, use `h`/`l` to swap items, `j`/`k` to
+choose item, numbers `1` ~ `9` to select `n`th item, `u`/`<C-r>` to
+undo/redo, and as you know `<Esc>` to exit "swap mode". `gs` function can be
+used also in |visual-mode|. In |linewise-visual| and |blockwise-visual| mode,
+this plugin always swaps in each line. For example, assume that the three
+lines were in a buffer:
+>
+	foo
+	bar
+	baz
+<
+Select the three lines and press `gsl<Esc>`, then swaps the first line and the
+second line.
+>
+	bar
+	foo
+	baz
+<
+
+------------------------------------------------------------------------------
+This plugin treats the regions like:
+>
+	(foo, bar, baz)
+	[foo, bar, baz]
+	{foo, bar, baz}
+	foo, bar, baz
+	foo bar baz
+<
+As for the first three patterns, groupings by parenthesis and quotes are taken
+into account. That is, the items in the line
+>
+	(foo, 'bar, baz', qux)
+<
+are "foo", "'bar, baz'", "qux".
+
+------------------------------------------------------------------------------
+These all functions can be repeated by |.| command. `g<` and `g>` would takes
+effect on an item under cursor also in repeatings. `gs` is repeated by
+absolute positions, for example if 1st and 2nd items were swapped at first
+then it would repeat swapping 1st and 2nd items regardless of cursor position.
+
+------------------------------------------------------------------------------
+This plugin also provide textobjects to select those "swappable" items. Add
+following lines in your vimrc.
+>
+	omap i, <Plug>(swap-textobject-i)
+	xmap i, <Plug>(swap-textobject-i)
+	omap a, <Plug>(swap-textobject-a)
+	xmap a, <Plug>(swap-textobject-a)
+<
+==============================================================================
+KEYMAPPINGS				*swap-keymappings*
+
+This plugin defines three keymappings |<Plug>(swap-prev)|, |<Plug>(swap-next)|
+and |<Plug>(swap-interactive)|. These keymappings are mapped to `g<`, `g>` and
+`gs` respectively in default. If you do not need default keymappings, define a
+variable named g:swap_no_default_key_mappings in your vimrc.
+>
+	let g:swap_no_default_key_mappings = 1
+<
+
+keymappings			default keymappings
+--------------------------------------------------------------------------
+|<Plug>(swap-prev)|		`g<`
+|<Plug>(swap-next)|		`g>`
+|<Plug>(swap-interactive)|	`gs`
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+keymappings~
+*<Plug>(swap-prev)*
+	The keymappings swaps the item under the cursor with the former item
+	in a delimited string. This is mapped to `g<` in default. This
+	keymapping takes [count].
+
+*<Plug>(swap-next)*
+	The keymappings swaps the item under the cursor with the next item
+	in a delimited string. This is mapped to `g>` in default. This
+	keymapping takes [count].
+
+*<Plug>(swap-interactive)*
+	The keymappings starts "swap mode" to reorder items interactively.
+	It is mapped to `gs` in default.
+
+textobjects~
+*<Plug>(swap-textobject-i)*
+	The textobject keymapping to select swappable items without ended
+	delimiter. This keymapping accepts [count] assignment.
+
+*<Plug>(swap-textobject-a)*
+	The textobject keymapping to select swappable items with an ended
+	delimiter. This keymapping accepts [count] assignment.
+
+--------------------------------------------------------------------------
+operation in swap mode~
+
+`h`/`l`
+	Swap the current item with a neighbor.
+
+`j`/`k`
+	Change the current item to a neighbor.
+
+`s`/`S`
+	Sort all the items. `s` sorts the items in ascending order, while `S`
+	does in descending.
+
+`r`
+	Reverse all the items.
+
+ `g`/`G`
+	Make a grouped item. `g` makes a grouped item of the current and the
+	next item. It behaves like an item. `G` ungroups a grouped item.
+
+Numbers `1` to `9`
+	Set `n`th item as the current.
+
+`u`/`<C-r>`
+	Simple undo/redo functions.
+
+`<Esc>`
+	Exit from swap mode to normal mode.
+
+
+
+If user wants to use numbers over 9, write the line in your vimrc.
+>
+	let g:swap#keymappings = g:swap#key_layout_discreet
+<
+Then numbers would not be fixed immediately, use `<CR>` to fix the number and
+`<BS>` to delete the last input.
+
+`<CR>`
+	Fix the inputting number. If nothing has been input, then fix to the
+	current item.
+
+`<BS>`
+	Correct the last input.
+
+
+
+The default layout is available with g:swap#key_layout_impatient again.
+>
+	let g:swap#keymappings = g:swap#key_layout_impatient
+<
+
+==============================================================================
+FUNCTIONS				*swap-functions*
+
+					*swap#region()*
+swap#region({start}, {end}, {type}, {orders}[, {rules}])
+	Swap items in the specific region on the current buffer.
+
+	{start} and {end} are the positions of both edges of the region. These
+	positions should be the same format either with the first argument of
+	|getpos()| or with the second argument of |setpos()|.
+
+	{type} represents the shape of the region;
+	  "char" (|characterwise|),
+	  "line" (|linewise|) or
+	  "block" (|blockwise-visual|).
+	A return value of |visualmode()| is also acceptable.
+
+	{orders} is a |List| of orders to swap items. An operation is a
+	|List| of 2 |Number|s, for example [1, 2]. Thus, if an {orders}
+	[[1, 2]] is given, this operation swap the 1st and the 2nd item.
+>
+	(foo, bar, baz) -> (bar, foo, baz)
+<
+	Multiple orders can be used; like [[1, 2], [2, 3]].
+>
+	(foo, bar, baz) -> (bar, foo, baz) -> (bar, baz, foo)
+<
+	An |expression| as a |String| is acceptable instead of a |Number|. The
+	expression should be a |Number| after evaluation. Some characters are
+	substituted to a |Number| before the evaluation.
+	  '^' : the index of the first non-blank item
+	  '#' : the index of the item under the cursor
+	  '$' : the index of the last item
+	For example, the operation ['#', '#-1'] swaps the item under the
+	cursor with the previous one.
+
+	There are additional special orders.
+
+	To sort items, pass a |List| which first item is a |String| "sort",
+	that is, ["sort"]. All after the first item are optional. The second
+	and third items are the start and end of sort range. 1 and '$' are
+	used if omitted. The fourth and fifth items are passed to |sort()|
+	built-in function as the second and third arguments.
+
+	To group items, pass a |List| which first item is a |String| "group"
+	and the next two item are |Number| which represents the positions of
+	the first and the last item grouped, for example, ["group", 1, 2]. To
+	ungroup the grouped item, use another input like ["ungroup", 1].
+
+	{rules} is a |List| of rules. If it is assigned, the {rules} are used
+	instead of |g:swap#rules|.
+>
+	" swap the second and third items in the region from 1st to 10th
+	" column of the 1st line
+	call swap#region([0, 1, 1, 0], [0, 1, 10, 0], 'char', [[2, 3]])
+
+	" swap the first and the last item in the selected region
+	call swap#region("'<", "'>", visualmode(), [[1, '$']])
+<
+
+
+					*swap#region_interactively()*
+swap#region_interactively({start}, {end}, {type}[, {rules}])
+	Start swap mode to swap items interactively. The arguments are same as
+	those of |swap#region()|.
+
+
+
+					*swap#around_pos()*
+swap#around_pos({pos}, {orders}[, {rules}])
+	Search swappable items around the assigned position and swap them.
+
+	{pos} should be the same format either with the first argument of
+	|getpos()| or with the second argument of |setpos()|.
+
+	See |swap#region()| for {orders} and {rules}.
+
+
+
+					*swap#around_pos_interactively()*
+swap#around_pos_interactively({pos}[, {rules}])
+	Search swappable items around the assigned position and start swap
+	mode to swap items interactively.
+
+	{pos} should be the same format either with the first argument of
+	|getpos()| or with the second argument of |setpos()|.
+
+	See |swap#region()| for {rules}.
+
+
+
+------------------------------------------------------------------------------
+SORT FUNCTIONS				*swap-sort-function-examples*
+
+A special operation for sorting is customizable via its second and third
+optional factors. See |swap#region()|. The second factor should be a |Funcref|
+accepting two arguments and returning 0, 1 or -1, as same as the second
+argument of |sort()| function.
+
+A |List| of items are given to |sort()| function internally, an item is a
+|Dictionary| which has the following keys:
+  "str"  : The string of the item
+  "head" : The start position of the item on the buffer
+  "tail" : The end position of the item on the buffer
+  "type" : The shape of the item; "char", "line" or "block"
+
+NOTE: Do not change the items in the sort function!
+
+
+					*g:swap#mode#sortfunc*
+					*g:swap#mode#SORTFUNC*
+Similarly, the behavior of `s`/`S` keys in swap mode can be changed via
+|g:swap#mode#sortfunc| / |g:swap#mode#SORTFUNC|. Assign a |List| containing
+one or two factors which corresponds to the second and third arguments of
+the built-in |sort()| function.
+
+
+ Using swap#region()~
+
+ `*` Sort items in ascending order >
+  call swap#region({start}, {end}, {type},
+  \[['sort', 1, '$', {x, y -> x.str is# y.str ? 0 : x.str < y.str ? -1 : 1}]])
+<
+ `*` Sort items in descending order >
+  call swap#region({start}, {end}, {type},
+  \[['sort', 1, '$', {x, y -> x.str is# y.str ? 0 : x.str > y.str ? -1 : 1}]])
+<
+ `*` Sort items by its length >
+  call swap#region({start}, {end}, {type},
+  \[['sort', 1, '$', {x, y -> strlen(x.str) - strlen(y.str)}]])
+<
+
+
+ s key in swap mode~
+
+ `*` Sort items in ascending order >
+  let g:swap#mode#sortfunc =
+  \ [{x, y -> x.str is# y.str ? 0 : x.str < y.str ? -1 : 1}]
+<
+ `*` Sort items in descending order >
+  let g:swap#mode#sortfunc =
+  \ [{x, y -> x.str is# y.str ? 0 : x.str > y.str ? -1 : 1}]
+<
+ `*` Sort items by its length >
+  let g:swap#mode#sortfunc =
+  \ [{x, y -> strlen(x.str) - strlen(y.str)}]
+<
+
+
+==============================================================================
+CUSTOMIZATION				*swap-customization*
+
+					*g:swap#rules*
+To recognize/parse a target string exactly, a plugin should have a
+particular implementation for each language. However, it is too cumbersome to
+write tons of language-dependent codes. Thus |swap.vim| makes use of common
+features among many languages in default.
+
+Some features may need to be taken into account but others may not; the
+set of those essential features makes a "rule." |swap.vim| works based on
+the rules to swap delimited items on a buffer, thus, it is possible to extend
+the behavior by adding the "rule"s.
+
+The "rule" is, actually, a |Dictionary| which has the keys described below.
+At least, it should have a "delimiter" key to define the delimiter pattern.
+In addition, either "body" or "surrounds" key is required to search a target
+string from the buffer in |Normal| mode, although it is not necessary in
+|Visual| mode since the selected text is immediately regarded as the target.
+
+Given that you want to reorder a comma-delimited string.
+>
+	(foo,bar,baz)
+<
+In this case, "delimiter" key should represent a comma ',' character. Either
+"body" or "surrounds" keys are employed to extract the target string
+`foo,bar,baz` from the buffer in different ways.
+
+If you have difficulty to make a custom rule, feel free to ask at
+<https://github.com/machakann/vim-swap/issues>.
+
+					*g:swap#default_rules*
+The user-defined rules are added to |g:swap#rules| to take effect. At first,
+It would be better to copy default settings first.
+>
+	let g:swap#rules = deepcopy(g:swap#default_rules)
+<
+
+
+delimiter~
+This is essential key for all rules. Its value is a list of regular expression
+patterns to match delimiters in a target string.
+
+
+
+body~
+Either this "body" key or the "surrounds" key, described next, is essential
+for |Normal| mode rules, but not necessary for |Visual| mode rules. See "mode"
+key also. The value of "body" key is a regular expression pattern to match a
+target string including delimiter strings.
+
+A snake case string consists of words '\h\w*' bridged by underbars '_'. The
+"delimiter" key is only '_', and the "body" key is a regular expression
+pattern matched to a whole body of a snake_case_word.
+
+  * Example 1: snake_case_strings, like `foo_bar_baz` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['_'],
+	  \   "body": '\h\w*\(_\h\w*\)\+',
+	  \ }]
+<
+
+
+surrounds~
+Either this "surrounds" key or the "body" key is essential for |Normal| mode
+rules, but not necessary for |Visual| mode rules. See "mode" key also. The
+value of "surround" key is a |list| with two or three items. The first two
+elements are the regular expression patterns to match the strings which
+surrounds the target string. The optional third element represents whether the
+surroundings make nests (1) or not (0). If it is omitted, it would not
+consider nesting.
+
+For example, let's think on the case to reorder the comma-delimited items in
+parenthesis.
+>
+	(foo,bar,baz)
+<
+The target string `foo,bar,baz` is surrounded by parenthesis `(`, `)`. In
+addition, sometimes the target string itself may include another pair of
+parenthesis.
+>
+	(foo,bar,(baz,qux),quux)
+<
+In this case the expected target string should be `foo,bar,(baz,qux),quux`,
+not `foo,bar,(baz,qux` because parentheses make the nest. Thus the rule for
+the comma-delimited items is like this:
+
+  * Example 2: comma-delimited items wrapped by (), like `(foo,bar,baz)` >
+	let g:swap#rules += [{
+	  \   "delimiter": [','],
+	  \   "surrounds": ['(', ')', 1],
+	  \ }]
+<
+If the surrounding strings are a pair of quotes, it doesn't make any nest.
+>
+	'foo,bar',baz,qux,'quux'
+<
+Thus the target string should be `foo,bar`, not `foo,bar',baz,qux,'quux`.
+
+  * Example 3: comma-delimited items wrapped by quotes, like `foo,bar` >
+	let g:swap#rules += [{
+	  \   "delimiter": [','],
+	  \   "surrounds": ["'", "'", 0],
+	  \ }]
+<
+If you do not explicitly add the third item of "surrounds" value, this plugin
+regards it as 0.
+
+
+NOTE: Using ',' as a delimiter, it might be more useful to include adjacent
+      spaces.
+
+  * Example 2': comma-delimited items wrapped by (), like `(foo, bar, baz)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \ }]
+<
+
+
+mode~
+the "mode" key is useful to make a rule for a particular mode.
+Its value is a |string| which includes "n" for |Normal| mode and "x" for
+|Visual| mode. If a rule does not have "mode" key, it will be valid in both
+modes.
+
+In case of the example 2'', the "mode" key could be omitted.
+
+  * Example 2'': comma-delimited items wrapped by (), like `(foo, bar, baz)` >
+	let g:swap#rules += [{
+	  \   "mode": 'nx',
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \ }]
+<
+The following rule is valid only in |Visual| mode.
+
+  * Example 4: a selected comma-including string in visual mode >
+	let g:swap#rules += [{
+	  \   "mode": 'x',
+	  \   "delimiter": ['\s*,\s*'],
+	  \ }]
+<
+
+
+filetype~
+Similar to the "mode" key, "filetype" key is useful to make a rule for a
+particular filetype. It has a |list| of filetype names.
+
+  * Example 5: a sharp-including word in vim script >
+	let g:swap#rules += [{
+	  \   "filetype": ['vim'],
+	  \   "delimiter": ['#'],
+	  \   "body": '\<\h\w*\(#\h\w*\)\+\>',
+	  \ }]
+<
+
+
+braket~
+"braket"s are the strings to make a grouped item in a target text.
+>
+	(foo, (bar, baz), qux)
+<
+For example, if the cursor on `foo` in the text, the above example rule 2 will
+split the text into four items; `foo`, `(bar`, `baz)` and `qux`, because the
+plugin does not know about the language at all. Just simply split the text by
+delimiters `,`. However, probably, what we want is the three items;
+`foo`, `(bar, baz)` and `qux`. It would be better to treat `(bar, baz)` as an
+item. The "braket" key is useful for the cases.
+
+  * Example 6: comma-delimited items, like `(foo, (bar, baz), qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "braket": [['(', ')']],
+	  \ }]
+<
+This rule takes into account the grouping by (), and thus it works as expected
+even in the cases like the above.
+
+NOTE that the value of the "braket" key is a |list| of |list|s. Each list have
+a pair of strings to make a group. Unlike the "body" and "surround" keys,
+those are not regular expressions. They are interpreted literally.
+
+NOTE: It is useful to add (), [], {} pairs in many cases.
+
+  * Example 6': comma-delimited items, like `(foo, (bar, baz), qux)`
+                                            `(foo, [bar, baz], qux)`
+                                            `(foo, {bar, baz}, qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "braket": [['(', ')'], ['[', ']'], ['{', '}']],
+	  \ }]
+<
+As for the grouping by quotes, see next "quotes" and "literal_quotes" keys.
+
+
+
+quotes~
+"quotes" is the strings to make a grouped item in a target text, similar to
+the "braket" key. For example, delimiters may be included in string literals.
+>
+	(foo, "bar, baz", qux)
+<
+If the cursor is on `foo` in the text, the above example rule 3 will split the
+text into four items; `foo`, `"bar`, `baz"` and `qux`. However, probably, what
+we want would be the three items; `foo`, `"bar, baz"` and `qux`. It would be
+better to treat `"bar, baz"` as an item. "quotes" key is useful for the cases.
+
+  * Example 7: comma-delimited items, like `(foo, "bar, baz", qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "quotes": [['"', '"']],
+	  \ }]
+<
+The grouping by "quotes" does not consider nesting, unlike "braket" key.
+It makes difference when several pairs are in a target.
+>
+	(foo, (bar, (baz, qux), quux))
+	(foo, "bar", baz, qux," quux")
+<
+If the cursors are on `foo`, two items `foo` and `(bar, (baz, qux), quux)` are
+expected in the upper case. In contrast, five items, `foo`, `"bar"`, `baz`,
+`qux` and `" quux"`, are expected in the lower case since "braket" makes
+nesting while "quotes" does not.
+
+NOTE that the value of the "quotes" key is a |list| of |list|s. Each list have
+a pair of strings to make a group. Unlike the "body" and "surround" keys,
+those are not regular expressions. They are interpreted literally.
+
+NOTE: It is useful to add '', "" pairs in many cases.
+
+  * Example 7': comma-delimited items, like `(foo, 'bar, baz', qux)`
+                                            `(foo, "bar, baz", qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "quotes": [["'", "'"], ['"', '"']],
+	  \ }]
+<
+
+
+literal_quotes~
+"literal_quotes" is almost same as the above "quotes" key. Thus, read the
+above description about "quotes" first. The only difference is the handling of
+escape characters. "quotes" key considers a character in the Vim's default
+option 'quoteescape' as a escape character, while "literal_quotes" does not.
+
+For example, a backslash \ is assigned to the 'quoteescape' option, using
+"quotes" and "literal_quotes" behave differently for the following text.
+>
+	(foo, "bar\", baz)
+<
+An above example rule 7 using "quotes" cannot take care of this text since the
+string initiated by double quote in front of `bar` is not closed. The double
+quote after `bar` is regarded as a double quote character in the string
+because of an escape character. In contrast, the "literal_quotes" just ignore
+'quoteescape' option.
+
+  * Example 7'': comma-delimited items, like `(foo, "bar\", baz)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "literal_quotes": [['"', '"']],
+	  \ }]
+<
+With this, swap.vim doesn't consider about escaping for double quotes string.
+Probably "quotes" is enough for many cases. If you found any problem with
+escape character, you may give it a try.
+
+
+
+priority~
+"priority" key is employed to determine the priorities of rules. A target
+delimited string would be searched from the items which have higher priorities
+first. If it is omitted, the priority of the rule is 0.
+
+If the priority was same, the rule which has the shortest length of the target
+text would be prior. If lengths of the target text was also same, the later
+rule in |g:swap#rules| would be prior.
+
+  * Example 8: use of priority >
+	let g:swap#rules += [{
+	  \   "surrounds": ['\\(', '\\)', 1],
+	  \   "delimiter": [','],
+	  \   "priority": 10,
+	  \ },
+	  \ {
+	  \   "surrounds": ['(', ')', 1],
+	  \   "delimiter": [','],
+	  \   "priority": 0,
+	  \ }]
+<
+It searches a pair of `\(` and `\)` first, and if it does not find the pair
+then it searches a pair of `(` and `)`.
+
+
+
+immutable~
+"immutable" key is to define a something neither a swapped string nor a
+delimiter string. This is, indeed, similar to "delimiter" which can separate
+swapped items. Thus it is not necessarily to use currently. Only the
+difference is re-ordering text would not be placed between a delimiter and a
+immutable. For example, regarding ',' as delimiter and ';' as immutable.
+
+  * Example 9: use of immutable >
+	let g:swap#rules += [{
+	  \   "surrounds": ['(', ')', 1],
+	  \   "delimiter": [','],
+	  \   "immutable": [';'],
+	  \ }]
+<
+Given that the cursor is on `foo` in the text;
+>
+	(foo,,;bar)
+<
+This text could be `(,text1,;text2)`, but never be `(,,text1;text2)`.
+
+The "immutable" key can be used to ignore indentation.
+>
+	call func(foo, bar,
+	          baz, qux)
+	^^^^^^^^^^ Indent is not included to a swapped item.
+<
+The third swapped item is not "          baz" but "baz". To ignore indent like
+this, add the pattern '\n\s\+' to the key. Similar as "delimiter" key, the
+pattern '^' is matched only to the head of a target string.
+
+  * Example 10: ignoring indentations in a multi-line expression >
+	let g:swap#rules += [{
+	  \   "surrounds": ['(', ')', 1],
+	  \   "delimiter": [','],
+	  \   "immutable": ['\n\s\+'],
+	  \ }]
+<
+
+==============================================================================
+HIGHLIGHT GROUPS			*swap-highlight-groups*
+
+This plugin highlights items in swap mode. If you don't like this feature,
+write the line in your vimrc.
+>
+	let g:swap#highlight = 0
+<
+If you want to change the highlighting, re-define the following highlight
+groups.
+
+SwapCurrentItem				*hl-SwapCurrentItem*
+	The highlight group is to define the highlight for current item. It is
+	linked to a default highlight group IncSearch |hl-IncSearch| in
+	default.
+>
+	highlight link SwapCurrentItem IncSearch
+<
+
+SwapSelectedItem			*hl-SwapSelectedItem*
+	The highlight group is to define the highlight for an item which will
+	be swapped, the `nth` item fixed by <CR> in swap mode. It is linked to
+	a default highlight group Visual |hl-Visual| in default.
+>
+	highlight link SwapSelectedItem Visual
+<
+
+SwapItem				*hl-SwapItem*
+	The highlight group is to define the highlight for items. It is linked
+	to a default highlight group Underlined (see |group-name|) in default.
+>
+	highlight link SwapItem Underlined
+<
+==============================================================================
+CONFIGURATION				*swap-configuration*
+
+There are a few variables to configure the behavior of this plugin.
+
+*g:swap#highlight*
+	Switch the highlighting on and off in swap mode. If the value is 1,
+	then the swapped items would be highlighted, this is default. If the
+	value is 0, then the highlighting would not be done. See
+	|swap-highlight-groups| also.
+
+*g:swap#timeoutlen*
+	This value controls the waiting time for following key strokes in swap
+	mode when overlapped mappings exist. This is similar as the Vim
+	intrinsic option 'timeoutlen' and the default value is set as the same
+	value. The value is interpreted in millisecond.
+
+*g:swap#stimeoutlen*
+	This value controls the time to give up text searching for a rule. Not
+	really accurate, but if user makes the value smaller then the response
+	might be better although long candidate text might be ignored. If user
+	used less-powerful computer, it would be better to make it larger. The
+	default value is 50. The value is interpreted in millisecond.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:

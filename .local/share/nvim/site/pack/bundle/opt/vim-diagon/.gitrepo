@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/willchao612/vim-diagon.git
+	branch = main
+	commit = 026a599e8038949edec4c383da09adb04f71c804
+	parent = 473e7285559e4f92313e1edc4b958e2b17f05140
+	method = merge
+	cmdver = 0.4.9

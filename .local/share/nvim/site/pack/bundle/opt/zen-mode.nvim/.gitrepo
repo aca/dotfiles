@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/folke/zen-mode.nvim.git
+	branch = main
+	commit = 8564ce6d29ec7554eb9df578efa882d33b3c23a7
+	parent = dd20a8007c6cbd5ffd9ef01306317ea7052257f1
+	method = merge
+	cmdver = 0.4.9

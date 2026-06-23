@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/TimUntersberger/neogit.git
+	branch = master
+	commit = 4681c1fdac1b730592ae195576e87406f7255750
+	parent = c6495b2c8f3962d647ec318c1d4188871608c168
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/petertriho/nvim-scrollbar.git
+	branch = main
+	commit = f8e87b96cd6362ef8579be456afee3b38fd7e2a8
+	parent = c52be000bcea821dd4fffedbc3fc07c187e48955
+	method = merge
+	cmdver = 0.4.9

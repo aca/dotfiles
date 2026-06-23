@@ -1,0 +1,55 @@
+local M = {}
+
+function M.set(hl, colors)
+    local shader = require("mellifluous.utils.shader")
+
+    hl.set("BlinkCmpMenu", { bg = hl.get("Pmenu").bg })
+    hl.set("BlinkCmpMenuBorder", { bg = hl.get("Pmenu").bg })
+    hl.set("BlinkCmpMenuSelection", { bg = hl.get("PmenuSel").bg, fg = hl.get("PmenuSel").fg })
+    hl.set("BlinkCmpScrollBarThumb", { fg = hl.get("PmenuThumb").fg })
+    hl.set("BlinkCmpScrollBarGutter", { fg = hl.get("PmenuSbar").fg })
+    hl.set("BlinkCmpLabel", { fg = hl.get("Pmenu").fg })
+    hl.set("BlinkCmpLabelDeprecated", { fg = hl.get("Pmenu").fg, style = { strikethrough = true } })
+    hl.set("BlinkCmpLabelMatch", { fg = colors.fg })
+    hl.set("BlinkCmpGhostText", { fg = hl.get("NonText").fg })
+    hl.set("BlinkCmpKind", { fg = hl.get("Type").fg })
+    hl.set("BlinkCmpKindText", { fg = hl.get("String").fg })
+    hl.set("BlinkCmpKindMethod", { fg = hl.get("Function").fg })
+    hl.set("BlinkCmpKindFunction", { fg = hl.get("Function").fg })
+    hl.set("BlinkCmpKindConstructor", { fg = hl.get("Function").fg })
+    hl.set("BlinkCmpKindField", { fg = hl.get("Identifier").fg })
+    hl.set("BlinkCmpKindVariable", { fg = hl.get("Identifier").fg })
+    hl.set("BlinkCmpKindClass", { fg = hl.get("Type").fg })
+    hl.set("BlinkCmpKindInterface", { fg = hl.get("Type").fg })
+    hl.set("BlinkCmpKindModule", { fg = hl.get("Function").fg })
+    hl.set("BlinkCmpKindProperty", { fg = hl.get("Identifier").fg })
+    hl.set("BlinkCmpKindUnit", { fg = hl.get("Structure").fg })
+    hl.set("BlinkCmpKindValue", { fg = hl.get("Constant").fg })
+    hl.set("BlinkCmpKindEnum", { fg = hl.get("Constant").fg })
+    hl.set("BlinkCmpKindKeyword", { fg = hl.get("Keyword").fg })
+    hl.set("BlinkCmpKindSnippet", { fg = hl.get("Special").fg })
+    hl.set("BlinkCmpKindColor", { fg = hl.get("Label").fg })
+    hl.set("BlinkCmpKindFile", { fg = hl.get("Directory").fg })
+    hl.set("BlinkCmpKindReference", { fg = hl.get("StorageClass").fg })
+    hl.set("BlinkCmpKindFolder", { fg = hl.get("Directory").fg })
+    hl.set("BlinkCmpKindEnumMember", { fg = hl.get("Constant").fg })
+    hl.set("BlinkCmpKindConstant", { fg = hl.get("Constant").fg })
+    hl.set("BlinkCmpKindStruct", { fg = hl.get("Structure").fg })
+    hl.set("BlinkCmpKindEvent", { fg = hl.get("Repeat").fg })
+    hl.set("BlinkCmpKindOperator", { fg = hl.get("Operator").fg })
+    hl.set("BlinkCmpKindTypeParameter", { fg = hl.get("Type").fg })
+    hl.set("BlinkCmpSource", { fg = hl.get("NonText").fg })
+    hl.set("BlinkCmpDoc", { bg = hl.get("NormalFloat").bg })
+    hl.set("BlinkCmpDocBorder", { link = "FloatBorder" })
+    hl.set("BlinkCmpDocCursorLine", {
+        bg = shader.replicate_shade(
+            colors.bg,
+            hl.get("CursorLine").bg,
+            hl.get("NormalFloat").bg)
+    })
+    hl.set("BlinkCmpSignatureHelp", { bg = hl.get("NormalFloat").bg })
+    hl.set("BlinkCmpSignatureHelpBorder", { bg = hl.get("NormalFloat").bg })
+    hl.set("BlinkCmpSignatureHelpActiveParameter", { bg = hl.get("LspSignatureActiveParameter").bg })
+end
+
+return M

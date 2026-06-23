@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/kevinhwang91/promise-async.git
+	branch = main
+	commit = 119e8961014c9bfaf1487bf3c2a393d254f337e2
+	parent = 56b0b54bc19d5b6080e5e110771e5757a3e7ef9c
+	method = merge
+	cmdver = 0.4.9

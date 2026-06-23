@@ -1,0 +1,119 @@
+.TH "ZOXIDE" "1" "2021-04-12" "" "zoxide"
+.SH NAME
+\fBzoxide-init\fR - generate shell configuration for zoxide
+.SH SYNOPSIS
+.B zoxide init SHELL [OPTIONS]
+.SH DESCRIPTION
+To initialize zoxide on your shell:
+.TP
+.B bash
+Add this to the \fBend\fR of your config file (usually \fB~/.bashrc\fR):
+.sp
+.nf
+    \fBeval "$(zoxide init bash)"\fR
+.fi
+.TP
+.B elvish
+Add this to the \fBend\fR of your config file (usually \fB~/.elvish/rc.elv\fR):
+.sp
+.nf
+    \fBeval $(zoxide init elvish | slurp)\fR
+.fi
+.sp
+Note: zoxide only supports elvish v0.18.0 and above.
+.TP
+.B fish
+Add this to the \fBend\fR of your config file (usually
+\fB~/.config/fish/config.fish\fR):
+.sp
+.nf
+    \fBzoxide init fish | source\fR
+.fi
+.TP
+.B nushell
+Add this to the \fBend\fR of your env file (find it by running
+\fB$nu.env-path\fR in Nushell):
+.sp
+.nf
+    \fBzoxide init nushell | save -f ~/.zoxide.nu\fR
+.fi
+.sp
+Now, add this to the \fBend\fR of your config file (find it by running
+\fB$nu.config-path\fR in Nushell):
+.sp
+.nf
+    \fBsource ~/.zoxide.nu\fR
+.fi
+.sp
+Note: zoxide only supports Nushell v0.89.0+.
+.TP
+.B powershell
+Add this to the \fBend\fR of your config file (find it by running \fBecho
+$profile\fR in PowerShell):
+.sp
+.nf
+    \fBInvoke-Expression (& { (zoxide init powershell | Out-String) })\fR
+.fi
+.TP
+.B tcsh
+Add this to the \fBend\fR of your config file (usually \fB~/.tcshrc\fR):
+.sp
+.nf
+    \fBzoxide init tcsh > ~/.zoxide.tcsh\fR
+    \fBsource ~/.zoxide.tcsh\fR
+.fi
+.TP
+.B xonsh
+Add this to the \fBend\fR of your config file (usually \fB~/.xonshrc\fR):
+.sp
+.nf
+    \fBexecx($(zoxide init xonsh), 'exec', __xonsh__.ctx, filename='zoxide')\fR
+.fi
+.TP
+.B zsh
+Add this to the \fBend\fR of your config file (usually \fB~/.zshrc\fR):
+.sp
+.nf
+    \fBeval "$(zoxide init zsh)"\fR
+.fi
+.TP
+.B any POSIX shell
+.sp
+Add this to the \fBend\fR of your config file:
+.sp
+.nf
+    \fBeval "$(zoxide init posix --hook prompt)"\fR
+.fi
+.SH OPTIONS
+.TP
+.B --cmd
+Changes the prefix of the \fBz\fR and \fBzi\fR commands.
+.br
+\fB--cmd j\fR would change the commands to (\fBj\fR, \fBji\fR).
+.br
+\fB--cmd cd\fR would replace the \fBcd\fR command (doesn't work on Nushell /
+POSIX shells).
+.TP
+.B -h, --help
+Print help information.
+.TP
+.B --hook HOOK
+Changes how often zoxide increments a directory's score:
+.TS
+tab(|);
+l l.
+    \fBnone\fR|Never
+    \fBprompt\fR|At every shell prompt
+    \fBpwd\fR|Whenever the directory is changed
+.TE
+.TP
+.B --no-cmd
+Prevents zoxide from defining the \fBz\fR and \fBzi\fR commands. These functions
+will still be available in your shell as \fB__zoxide_z\fR and \fB__zoxide_zi\fR,
+should you choose to redefine them.
+.SH REPORTING BUGS
+For any issues, feature requests, or questions, please visit:
+.sp
+\fBhttps://github.com/ajeetdsouza/zoxide/issues\fR
+.SH AUTHOR
+Ajeet D'Souza \fB<98ajeet@gmail.com>\fR

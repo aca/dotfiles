@@ -1,0 +1,14 @@
+GitWorktreeConfig	git-worktree.txt	/*GitWorktreeConfig*
+M.create_worktree	git-worktree.txt	/*M.create_worktree*
+M.delete_worktree	git-worktree.txt	/*M.delete_worktree*
+M.emit	git-worktree.txt	/*M.emit*
+M.register	git-worktree.txt	/*M.register*
+M.switch_worktree	git-worktree.txt	/*M.switch_worktree*
+git-worktree	git-worktree.txt	/*git-worktree*
+git-worktree.config	git-worktree.txt	/*git-worktree.config*
+git-worktree.contents	git-worktree.txt	/*git-worktree.contents*
+git-worktree.hooks	git-worktree.txt	/*git-worktree.hooks*
+git-worktree.hooks.cb.create	git-worktree.txt	/*git-worktree.hooks.cb.create*
+git-worktree.hooks.cb.delete	git-worktree.txt	/*git-worktree.hooks.cb.delete*
+git-worktree.hooks.cb.switch	git-worktree.txt	/*git-worktree.hooks.cb.switch*
+intro	git-worktree.txt	/*intro*

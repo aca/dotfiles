@@ -1,0 +1,40 @@
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-- This config is DEPRECATED.
+-- Use the configs in `lsp/` instead (requires Nvim 0.11).
+--
+-- ALL configs in `lua/lspconfig/configs/` will be DELETED.
+-- They exist only to support Nvim 0.10 or older.
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+return {
+  default_config = {
+    cmd = { 'perlnavigator' },
+    filetypes = { 'perl' },
+    root_dir = function(fname)
+      return vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
+    end,
+    single_file_support = true,
+  },
+  docs = {
+    description = [[
+https://github.com/bscan/PerlNavigator
+
+A Perl language server. It can be installed via npm:
+
+```sh
+npm i -g perlnavigator-server
+```
+
+At minimum, you will need `perl` in your path. If you want to use a non-standard `perl` you will need to set your configuration like so:
+```lua
+settings = {
+  perlnavigator = {
+    perlPath = '/some/odd/location/my-perl'
+  }
+}
+```
+
+The `contributes.configuration.properties` section of `perlnavigator`'s `package.json` has all available configuration settings. All
+settings have a reasonable default, but, at minimum, you may want to point `perlnavigator` at your `perltidy` and `perlcritic` configurations.
+]],
+  },
+}

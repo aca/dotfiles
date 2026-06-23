@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ojroques/nvim-bufdel
+	branch = main
+	commit = 523d58e94e7212fff3e05c247b962dc8f93bcfde
+	parent = 2c1c2312800b4df91660808785b99b60feb303dc
+	method = merge
+	cmdver = 0.4.9

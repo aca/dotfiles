@@ -1,0 +1,62 @@
+name: tests
+
+on:
+  push:
+    branches:
+    - main
+    - develop
+  pull_request:
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        version:
+          - stable
+          - nightly
+          - v0.10.0
+          - v0.10.4
+          - v0.11.0
+          - v0.11.1
+          - v0.11.2
+          - v0.11.3
+          - v0.11.4
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.0"
+          check-latest: false
+
+      - name: Install NeoVim
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.version }}
+
+      - uses: actions/checkout@v4
+
+      - name: Cache .tests
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/.tests
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-tests-${{ hashFiles('${{ github.workspace }}/.tests') }}
+
+      - name: Install Go bins
+        run: task install-deps
+
+      - name: Run Tests
+        run: |
+          nvim --version
+          task test

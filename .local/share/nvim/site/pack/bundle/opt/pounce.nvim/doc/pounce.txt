@@ -1,0 +1,41 @@
+*pounce.txt*
+
+Commands~
+
+`:Pounce`                                                             *:Pounce*
+    Begin an incremental search. Type the character at the destination and
+    Pounce will highlight all matches on screen. Next, refine the matches by
+    typing more characters (in order) that are present after the destination.
+    The first letter of the match will be replaced with an uppercase "accept
+    key". You can hit that key to jump to the match, or continue refining the
+    search. Escape cancels the motion and leaves the cursor at its previous
+    position.
+
+`:PounceRepeat`                                                 *:PounceRepeat*
+    Start a new Pounce motion with the input from the previous one.
+
+Highlights~
+
+    * `PounceMatch`: Characters that match the fuzzy search pattern.
+    * `PounceUnmatched`: Characters that don't match the fuzzy search pattern.
+    * `PounceGap`: Characters inside a match that are not part of the pattern.
+    * `PounceAccept`: "Accept keys" that can be used to jump to the match.
+    * `PounceAcceptBest`: Highlights the accept key for the best match.
+
+Configuration~
+
+  Configuration is done with the `setup` function. It's optional to call
+  `setup`. Here are the defaults:
+
+  >
+  require'pounce'.setup{
+    accept_keys = "JFKDLSAHGNUVRBYTMICEOXWPQZ",
+    accept_best_key = "<enter>",
+    multi_window = true,
+    debug = false,
+  }
+<
+
+  The `accept_best_key` option can be set to a key (default "<enter>") which
+  when pressed accepts the best match. If nil, the extra highlighting of the
+  best match is also disabled.

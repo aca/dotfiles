@@ -1,0 +1,23 @@
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+
+[*.lua]
+indent_style = space
+indent_size = 4
+
+
+[*.vim]
+indent_style = space
+indent_size = 4
+
+[*.snippets]
+indent_style = tab
+indent_size = 4
+
+[*.yml]
+indent_size = 2
+indent_style = space

@@ -1,0 +1,156 @@
+source spec/support/helpers.vim
+
+describe "Ginkgo"
+
+  before
+    cd spec/fixtures/ginkgo
+  end
+
+  after
+    call Teardown()
+    cd -
+  end
+
+  describe "TestNearest"
+    it "runs nearest test identified by 'It'"
+      view +17 normal_test.go
+      TestNearest
+
+      Expect g:test#last_command == "ginkgo --focus='should paginate the result' ./."
+    end
+
+    it "runs nearest tests identified by 'When'"
+      view +29 normal_test.go
+      TestNearest
+
+      Expect g:test#last_command == "ginkgo --focus='user is not logged in' ./."
+    end
+
+    it "runs nearest tests identified by 'Context'"
+      view +11 normal_test.go
+      TestNearest
+
+      Expect g:test#last_command == "ginkgo --focus='when the request is authenticated' ./."
+    end
+
+    it "runs nearest tests identified by 'Describe'"
+      view +9 normal_test.go
+      TestNearest
+
+      Expect g:test#last_command == "ginkgo --focus='posts API' ./."
+    end
+
+  end
+
+  it "runs nearest tests in subdirectory"
+    view +17 mypackage/normal_test.go
+    TestNearest
+
+    Expect g:test#last_command == "ginkgo --focus='should paginate the result' ./mypackage"
+  end
+
+  it "runs file test if nearest test couldn't be found"
+    view +1 mypackage/normal_test.go
+    TestNearest
+    Expect g:test#last_command == "ginkgo --focus-file=mypackage/normal_test.go ./mypackage"
+  end
+
+  it "runs file tests"
+    view normal_test.go
+    TestFile
+
+    Expect g:test#last_command == "ginkgo --focus-file=normal_test.go ./."
+  end
+
+  it "runs tests in subdirectory"
+    view mypackage/normal_test.go
+    TestFile
+
+    Expect g:test#last_command == "ginkgo --focus-file=mypackage/normal_test.go ./mypackage"
+  end
+
+  it "runs test suites"
+    view normal_test.go
+    TestSuite
+
+    Expect g:test#last_command == "ginkgo ./."
+  end
+
+  it "runs test suites for a package"
+    view mypackage/normal_test.go
+    TestSuite
+
+    Expect g:test#last_command == "ginkgo ./mypackage"
+  end
+
+  describe "when test#go#runner is set"
+    " make sure test#go#test_file doesn't have side-effect on cursor position
+    it "runs nearest test"
+      let g:test#go#runner = 'ginkgo'
+      view +17 normal_test.go
+      TestNearest
+
+      Expect g:test#last_command == "ginkgo --focus='should paginate the result' ./."
+    end
+  end
+
+  describe "version 1 support"
+    describe "TestNearest"
+      it "runs nearest test identified by 'It'"
+        view +17 version1_test.go
+        TestNearest
+
+        Expect g:test#last_command == "ginkgo --focus='should paginate the result' ./."
+      end
+
+      it "runs nearest tests identified by 'When'"
+        view +29 version1_test.go
+        TestNearest
+
+        Expect g:test#last_command == "ginkgo --focus='user is not logged in' ./."
+      end
+
+      it "runs nearest tests identified by 'Context'"
+        view +11 version1_test.go
+        TestNearest
+
+        Expect g:test#last_command == "ginkgo --focus='when the request is authenticated' ./."
+      end
+
+      it "runs nearest tests identified by 'Describe'"
+        view +9 version1_test.go
+        TestNearest
+
+        Expect g:test#last_command == "ginkgo --focus='posts API' ./."
+      end
+
+    end
+
+    it "runs nearest tests in subdirectory"
+      view +17 mypackage/version1_test.go
+      TestNearest
+
+      Expect g:test#last_command == "ginkgo --focus='should paginate the result' ./mypackage"
+    end
+
+    it "runs file test if nearest test couldn't be found"
+      view +1 mypackage/version1_test.go
+      TestNearest
+      Expect g:test#last_command == "ginkgo --regexScansFilePath=true --focus=mypackage/version1_test.go ./mypackage"
+    end
+
+    it "runs file tests"
+      view version1_test.go
+      TestFile
+
+      Expect g:test#last_command == "ginkgo --regexScansFilePath=true --focus=version1_test.go ./."
+    end
+
+    it "runs tests in subdirectory"
+      view mypackage/version1_test.go
+      TestFile
+
+      Expect g:test#last_command == "ginkgo --regexScansFilePath=true --focus=mypackage/version1_test.go ./mypackage"
+    end
+  end
+end

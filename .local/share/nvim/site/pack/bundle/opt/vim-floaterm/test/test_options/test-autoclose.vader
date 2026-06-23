@@ -1,0 +1,53 @@
+" vim:ft=vim
+
+Execute(test-autoclose):
+  Log '# Set autoclose to 0 with normal exit'
+    FloatermNew --autoclose=0 ls
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertEqual bufnr, bufnr('%')
+
+    let g:floaterm_autoclose = 0
+    FloatermNew ls
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertEqual bufnr, bufnr('%')
+
+  Log '# Set autoclose to 1 with normal exit'
+    FloatermNew --autoclose=1 ls
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertNotEqual bufnr, bufnr('%')
+
+    let g:floaterm_autoclose = 1
+    FloatermNew ls
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertNotEqual bufnr, bufnr('%')
+
+  Log '# Set autoclose to 1 with unnormal exit'
+    FloatermNew --autoclose=1 xxx
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertEqual bufnr, bufnr('%')
+
+    let g:floaterm_autoclose = 1
+    FloatermNew xxx
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertEqual bufnr, bufnr('%')
+
+  Log '# Set autoclose to 2 with unnormal exit'
+    FloatermNew --autoclose=2 xxx
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertNotEqual bufnr, bufnr('%')
+
+    let g:floaterm_autoclose = 2
+    FloatermNew xxx
+    let bufnr = bufnr('%')
+    sleep 100m
+    AssertNotEqual bufnr, bufnr('%')
+
+  FloatermKill!
+  stopinsert

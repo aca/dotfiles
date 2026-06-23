@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/nvim-telescope/telescope.nvim.git
+	branch = master
+	commit = cfb85dcf7f822b79224e9e6aef9e8c794211b20b
+	parent = a54eea5e7b76376b40e980cf82b1972ec57cc9b4
+	method = merge
+	cmdver = 0.4.9

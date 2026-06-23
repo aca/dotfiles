@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/stsewd/gx-extended.vim.git
+	branch = master
+	commit = 6a338c93449ad972d0148396cefbc95ccbe6c653
+	parent = 2c266d73fba217f5885c0b3b4ce89d881a6ed267
+	method = merge
+	cmdver = 0.4.9

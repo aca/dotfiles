@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# find pane(tmux) with nvim on current window(tmux)
+find_target_pane() {
+  for i in $(tmux list-pane | grep -v active | awk '{print $NF}' | sort -V); do
+     [[ -e "/tmp/nvim$i" ]] && echo "$i"
+     return
+  done
+}
+
+target_pane=$(find_target_pane)
+
+if [[ -z $TMUX ]]; then
+  # not inside tmux
+  nvim "$@"
+elif [[ -z $target_pane ]]; then 
+  # tmux send-keys "Enter"
+  tmux send-keys -X cancel
+  tmux send-keys "nvim $@"
+  tmux send-keys 'Enter'
+else
+  # inside tmux
+  NVIM_LISTEN_ADDRESS="/tmp/nvim$target_pane" nvr "$@"
+  tmux select-pane -t $target_pane
+fi

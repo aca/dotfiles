@@ -1,0 +1,63 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        nvim_version:
+          - v0.10.4
+          - stable
+          - nightly
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get date
+        id: get-date
+        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+      - name: Restore test dependencies if available
+        uses: actions/cache/restore@v4
+        id: cache-test-deps
+        with:
+          path: |
+            ${{ runner.temp }}/nvim
+            /usr/bin/lua5.1
+            /usr/local/fennel
+            /usr/local/vusted
+          key: ${{ runner.os }}-nvim-${{ matrix.nvim_version }}-${{ steps.get-date.outputs.date }}
+      - name: Install nvim
+        if: steps.cache-test-deps.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl -L "https://github.com/neovim/neovim/releases/download/${{ matrix.nvim_version }}/nvim-linux-x86_64.appimage" -o ${{ runner.temp }}/nvim.appimage
+          chmod a+x ${{ runner.temp }}/nvim.appimage
+          ${{ runner.temp }}/nvim.appimage --appimage-extract
+          mv ./squashfs-root ${{ runner.temp }}/nvim
+      - name: Install luarocks
+        if: steps.cache-test-deps.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.1 luarocks
+      - name: Install test dependencies in Luarocks
+        if: steps.cache-test-deps.outputs.cache-hit != 'true'
+        run: |
+          sudo luarocks --lua-version=5.1 install fennel
+          sudo luarocks --lua-version=5.1 install vusted
+      - name: Cache test dependencies
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ runner.temp }}/nvim
+            /usr/bin/lua5.1
+            /usr/local/fennel
+            /usr/local/vusted
+          key: ${{ steps.cache-test-deps.outputs.cache-primary-key }}
+      - name: Run tests
+        env:
+          VUSTED_EXTRA_FLAGS: "--defer-print --suppress-pending"
+          VUSTED_NVIM: ${{ runner.temp }}/nvim/usr/bin/nvim
+        run: make test
+        timeout-minutes: 5

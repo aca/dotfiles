@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/folke/lazy.nvim
+	branch = main
+	commit = 306a05526ada86a7b30af95c5cc81ffba93fef97
+	parent = 903042b6a847d4174a4e58c4cc154ce7282c9bb6
+	method = merge
+	cmdver = 0.4.9

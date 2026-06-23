@@ -1,0 +1,66 @@
+#+OPTIONS: H:9 ^:nil
+* Troubleshooting
+💡 TIP: Run ~:checkhealth orgmode~ to check if Orgmode is correctly installed and configured.
+
+** Indentation is not working
+
+Make sure you are not overriding indentexpr in Org buffers with [[https://github.com/nvim-treesitter/nvim-treesitter#indentation][nvim-treesitter indentation]]
+
+** I get ~treesitter/query.lua~ errors when opening agenda/capture prompt or org files
+
+Tree-sitter parser might not be installed.
+Try running ~:Org install_treesitter_grammar~ to reinstall it.
+
+** I get =.../orgmode/parser/org.so is not a valid Win32 application= on Windows
+
+This issue can happen due to wrong C compiler being used for building the parser.
+By default, first one available from this list is chosen: =cc, gcc, clang, cl, zig=
+If you want to use a specific parser, you can override the =compilers= list
+before calling the =setup()= like this:
+#+begin_src lua
+require('orgmode.utils.treesitter.install').compilers = { 'clang' }
+require('orgmode').setup()
+#+end_src
+After that, restart Neovim and run =:Org install_treesitter_grammar= to reinstall the parser.
+
+[[https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support#which-c-compiler-will-be-used][nvim-treesitter]] mentions the similar issue as part of their Windows troubleshooting section.
+
+** Dates are not in English
+Dates are generated with Lua native date support, and it reads your current locale when creating them.
+#+HTML: <br/>
+To use different locale you can add this to your ~init.lua~:
+
+#+BEGIN_SRC lua
+vim.cmd('language en_US.utf8')
+#+END_SRC
+
+Just make sure you have ~en_US~ locale installed on your system. To see what you have available on the system you can
+start the command ~:language~ and press ~<TAB>~ to autocomplete possible options.
+
+** Chinese characters are not displayed correctly in agenda
+In case you use chinese characters in your Neovim, and characters appear as encoded,
+try setting the language to =zh_CN.UTF-8= with the same command as above:
+
+#+begin_src lua
+vim.cmd('language zh_CN.utf8')
+#+end_src
+
+See related issue: [[https://github.com/nvim-orgmode/orgmode/issues/879]]
+
+** Links are not concealed
+Links are concealed with Vim's conceal feature (see ~:help conceal~). To enable concealing, add this to your ~init.lua~:
+
+#+BEGIN_SRC lua
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'
+#+END_SRC
+
+** Jumping to file path is not working for paths with forward slash
+If you are using Windows, paths are by default written with backslashes.
+To use forward slashes, you must enable ~shellslash~ option
+(see ~:help shellslash~).
+
+#+BEGIN_SRC lua
+vim.opt.shellslash = true
+#+END_SRC
+More info on issue [[https://github.com/nvim-orgmode/orgmode/issues/281#issuecomment-1120200775][#281]]

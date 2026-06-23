@@ -1,0 +1,3 @@
+[run]
+plugins = covimerage
+data_file = cov.tmp/coverage_covimerage

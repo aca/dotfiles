@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/gyim/vim-boxdraw.git
+	branch = master
+	commit = b7f789f305b1c5b0b4623585e0f10adb417f2966
+	parent = 31aa181501cf8ebde6feddf01420db4cc51a8745
+	method = merge
+	cmdver = 0.4.9

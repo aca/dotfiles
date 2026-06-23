@@ -1,0 +1,584 @@
+*vista.txt*   --  View and search LSP symbols, tags in Vim and NeoVim.
+*vista*
+
+================================================================================
+CONTENTS                                                          *vista-contents*
+
+1. Vista.vim.....................................................|vista-vista.vim|
+    1.1. Introduction.........................................|vista-introduction|
+    1.2. Features.................................................|vista-features|
+    1.3. Requirement...........................................|vista-requirement|
+    1.4. Usage.......................................................|vista-usage|
+        1.4.1. Commands...........................................|vista-commands|
+        1.4.2. Options.............................................|vista-options|
+        1.4.3. Key Mappings...................................|vista-key-mappings|
+    1.5. Contributing.........................................|vista-contributing|
+    1.6. License...................................................|vista-license|
+
+================================================================================
+VISTA.VIM                                                        *vista-vista.vim*
+
+View and search LSP symbols, tags in Vim/NeoVim.
+
+================================================================================
+INTRODUCTION                                                  *vista-introduction*
+
+I initially started {vista.vim}{1} with an intention of replacing {tagbar}{2} as
+it seemingly does not have a plan to support the promising
+{Language Server Protocol}{3} and async processing.
+
+Vista.vim can also be a symbol navigator similar to {ctrlp-funky}{4}. Last but
+not least, one important goal of vista.vim is to support LSP symbols, which
+understands the semantics instead of the regex only.
+
+{1} https://github.com/liuchengxu/vista.vim
+{2} https://github.com/majutsushi/tagbar
+{3} https://github.com/Microsoft/language-server-protocol
+{4} https://github.com/tacahiroy/ctrlp-funky
+
+================================================================================
+FEATURES                                                          *vista-features*
+
+[x] View tags and LSP symbols in a sidebar.
+    [x] universal-ctags (https://github.com/universal-ctags/ctags)
+    [x] ale (https://github.com/w0rp/ale)
+    [x] vim-lsp (https://github.com/prabirshrestha/vim-lsp)
+    [x] coc.nvim (https://github.com/neoclide/coc.nvim)
+    [x] LanguageClient-neovim (https://github.com/autozimu/LanguageClient-neovim)
+    [x] vim-lsc (https://github.com/natebosch/vim-lsc)
+    [x] nvim-lsp (https://github.com/neovim/neovim)
+    [x] yegappan lsp (https://github.com/yegappan/lsp)
+[x] Finder for tags and LSP symbols.
+    [x] fzf (https://github.com/junegunn/fzf)
+[x] Display decent detailed symbol info in cmdline.
+[x] Jump to the tag/symbol from vista sidebar with a blink.
+[x] Update automatically when switching between buffers.
+[x] Update asynchonously in the background when `+job` avaliable.
+[x] Find the nearest method or function to the cursor, which could be
+    integrated into the statusline.
+[x] Highlight current tag/symbol.
+[x] Show the visibility (public/private) of tags.
+[x] Tree viewer for hierarchy data, only works for ctags for now.
+
+Notes:
+
+*   The feature of finder in vista.vim is a bit like `:BTags` or `:Tags` in {fzf.vim}{5},
+    `:CocList` in coc.nvim, `:LeaderfBufTag` in {leaderf.vim}{6}, etc. You can choose
+    whichever you like.
+
+*   I personally don't use all the features I have listed. Hence some of them
+    may be on the TODOs forever :(.
+
+{5} https://github.com/junegunn/fzf.vim
+{6} https://github.com/Yggdroot/LeaderF
+
+================================================================================
+REQUIREMENT                                                    *vista-requirement*
+
+I don't know the mimimal supported version. But if you only care about the ctags
+related feature, vim 7.4.1154+ should be enough.
+
+Otherwise, if you want to try any LSP related features, then you certainly need
+some plugins to retrive the LSP symbols, e.g., coc.nvim. When you have these
+LSP plugins setted up, vista.vim should be ok to go as well.
+
+In addition, if you want to search the symbols via fzf, you will have to install
+it first.
+
+{7} https://github.com/junegunn/fzf
+
+================================================================================
+USAGE                                                                *vista-usage*
+
+--------------------------------------------------------------------------------
+COMMANDS                                                          *vista-commands*
+
+Vista                                                                      *Vista*
+
+  Open vista window for viewing tags or LSP symbols.
+
+  `:Vista`           same with `:Vista ctags` .
+
+  `:Vista show`      jump to the tag nearby the current cursor in vista window.
+                   This is for ctags `default` renderer only.
+
+  `:Vista toc`       show table of contents of the markdown file.
+
+                                                                     *vista-focus*
+
+  `:Vista focus`     jump back and forth between the vista sidebar and the source
+                   code window.
+
+                                                                 *vista-executive*
+
+  `:Vista coc`       open vista window based on coc.nvim.
+
+  `:Vista ale`       open vista window based on ale.
+
+  `:Vista lcn`       open vista window based on LanguageClient-neovim.
+
+  `:Vista ctags`     open vista window based on ctags.
+
+  `:Vista vim_lsp`   open vista window based on vim-lsp.
+
+  `:Vista vim_lsc`   open vista window based on vim-lsc.
+
+  `:Vista nvim_lsp`  open vista window based on nvim-lsp.
+
+  `:Vista yegappan_lsp`  open vista window based on yeagappan lsp.
+
+                                                                    *vista-finder*
+
+  `:Vista finder`   same with `:Vista finder fzf:ctags` .
+
+  `:Vista finder!`  search tags recursively.
+                  Note: it's still experimental.
+                  What's more, it may be very slow to generate all tags
+                  in a whole project.
+
+  `:Vista finder [finder:executive]`
+                  You can specify either the finder or the
+                  executive, or the both, e.g., `:Vista finder skim:ctags` .
+
+                  Specify the finder or executive, e.g.,:
+
+                  `:Vista finder fzf`  same with `:Vista finder fzf:ctags` .
+
+                  `:Vista finder coc`  same with `:Vista finder fzf:coc` .
+
+  `:Vista finder clap` synonysm for `:Clap tags`
+                                                                      *vista-info*
+
+  `:Vista info`     print information about vista.vim, including the explicit
+                  global variables, autocmds.
+
+  `:Vista info+`    copy the output of `:Vista info` to your clipboard, may
+                  fail in some cases.
+
+Vista!                                                                    *Vista!*
+
+  Close the vista view window if already opened.
+
+Vista!!                                                                  *Vista!!*
+
+  Toggle the vista view window.
+
+--------------------------------------------------------------------------------
+OPTIONS                                                            *vista-options*
+
+g:vista_sidebar_position                                *g:vista_sidebar_position*
+
+  Type: |String|
+  Default: `vertical botright`
+
+  This variable controls the position to open the vista sidebar only.
+  On the right by default. Change to `vertical topleft` to open on the left.
+
+  Please use |g:vista_sidebar_open_cmd| if you want to have a full control of
+  the window opening.
+
+g:vista_sidebar_width                                      *g:vista_sidebar_width*
+
+  Type: |Number|
+  Default: `30`
+
+  This variable controls the width of vista sidebar only.
+
+  Please use |g:vista_sidebar_open_cmd| if you want to have a full control of
+  the window opening.
+
+g:vista_sidebar_open_cmd                                *g:vista_sidebar_open_cmd*
+
+  Type: |String|
+  Default: `undefined`
+
+  This variable controls the command used for openning the vista sidebar
+  window.
+
+  Open the sidebar in current split with width 30:
+>
+  let g:vista_sidebar_open_cmd = '30vsplit'
+<
+g:vista_sidebar_keepalt                                  *g:vista_sidebar_keepalt*
+
+  Type: |Number|
+  Default: `0`
+
+  Set this option to `1` to keep the alternate buffer when opening vista
+  sidebar. See `:h keepalt` for more information.
+
+g:vista_fold_toggle_icons                              *g:vista_fold_toggle_icons*
+
+  Type: |List|
+  Default: `['▼', '▶']`
+
+  This variable controls the icons used to indicate open or close folds.
+
+g:vista_echo_cursor                                          *g:vista_echo_cursor*
+
+  Type: |Number|
+  Default: `1`
+
+  Set this option to `0` to disable echoing when the cursor moves.
+>
+g:vista_cursor_delay                                        *g:vista_cursor_delay*
+
+  Type: |Number|
+  Default: `400`
+
+  Time delay for showing detailed symbol info at current cursor.
+
+g:vista_echo_cursor_strategy                        *g:vista_echo_cursor_strategy*
+
+  Type: |String|
+  Default: `echo`
+
+  How to show the detailed formation of current cursor symbol. Avaliable
+  options:
+
+  `echo`         - echo in the cmdline.
+  `scroll`       - make the source line of current tag at the center of the
+                 window.
+  `floating_win` - display in neovim's floating window or vim's popup window.
+                 See if you have neovim's floating window support via
+                 `:echo exists('*nvim_open_win')` or vim's popup feature
+                 via `:echo exists('*popup_create')`
+  `both`         - both `echo` and `floating_win` if it's avaliable otherwise
+                 `scroll` will be used.
+
+g:vista_update_on_text_changed                    *g:vista_update_on_text_changed*
+
+  Type: |Number|
+  Default: `0`
+
+  Update the vista on |TextChanged| and |TextChangedI|.
+
+g:vista_update_on_text_changed_delay         *g:vista_update_on_text_changed_delay*
+
+  Type: |Number|
+  Default: `500`
+
+  Time delay for updating the vista on |TextChanged| and |TextChangedI|.
+
+g:vista_close_on_jump                                      *g:vista_close_on_jump*
+
+  Type: |Number|
+  Default: `0`
+
+  Set this option to `1` to close the vista window automatically
+  close when you jump to a symbol.
+
+g:vista_close_on_fzf_select                          *g:vista_close_on_fzf_select*
+
+  Type: |Number|
+  Default: `0`
+
+  Close the vista window when you select an item from the fzf search window.
+>
+g:vista_stay_on_open                                        *g:vista_stay_on_open*
+
+  Type: |Number|
+  Default: `1`
+
+  Move to the vista window when it is opened. Set this option to `0` to stay
+  in current windown when opening the vista sidebar.
+>
+g:vista_blink                                                      *g:vista_blink*
+
+  Type: |List|
+  Default: `[2, 100]`
+
+  By default blinking cursor 2 times with 100ms interval after jumping to
+  the source line of tag.Disable blinking by setting it to `[0, 0]` .
+>
+g:vista_top_level_blink                                  *g:vista_top_level_blink*
+
+  Type: |List|
+  Default: `[2, 100]`
+
+  By default blinking cursor 2 times with 100ms interval after
+  jumping to top-level tag. Disable blinking by setting it to `[0, 0]` .
+>
+g:vista_icon_indent                                          *g:vista_icon_indent*
+
+  Type: |List|
+  Default: `['└ ', '│ ']`
+
+  How each level is indented and what to prepend. This could make
+  the display more compact or more spacious.
+
+  Note: this option only works the LSP executives, doesn't work for `:Vista ctags` .
+>
+g:vista_default_executive                              *g:vista_default_executive*
+
+  Type: |String|
+  Default: `ctags`
+
+  Executive used when opening vista sidebar without specifying it. This also
+  applys to the vista finder.
+
+  See all the avaliable executives via `:echo g:vista#executives` .
+
+g:vista_executive_for                                      *g:vista_executive_for*
+
+  Type: |Dict|
+  Default: `{}`
+
+  Set the executive for some filetypes explicitly, which is useful for setting
+  `ctags` as the default executive, whereas you prefer to use LSP for some
+  filetypes when you ensure that the related LSP server has been installed.
+
+  The rationale is the LSP server has to be installed first explicitly and
+  people normally only install a few frequently used ones, but ctags supports
+  much more languages by default.
+  >
+  let g:vista_default_executive = 'ctags'
+
+  let g:vista_executive_for = {
+      \ 'cpp': 'vim_lsp',
+      \ 'php': 'vim_lsp',
+      \ }
+<
+  You can also set `toc` or some extension name for markdown like document to
+  use the builtin toc extension in vista.vim. For `toc`, it actuallys derives
+  the extension using the `&filetype`.
+  >
+  " Use the markdown extension for vimwiki and pandoc filetype.
+  let g:vista_executive_for = {
+      \ 'vimwiki': 'markdown',
+      \ 'pandoc': 'markdown',
+      \ 'markdown': 'toc',
+      \ }
+
+g:vista_{&filetype}_executive                   *g:vista_{&filetype}_executive*
+
+  Type: |String|
+  Default: `''`
+
+  The goal of this option is similar to |g:vista_executive_for|, but with
+  higher priority if you set the same filetype in `g:vista_executive_for`.
+  vista.vim will check `g:vista_{&filetype}_executive` first and then
+  `g:vista_executive_for`. >
+
+  let g:vista_cpp_executive = 'vim_lsp'
+
+  " Use the markdown extension for vimwiki as if you are using the
+  " standard markdown syntax in vimwiki.
+  let g:vista_vimwiki_executive = 'markdown'
+
+g:vista_ctags_executable                                *g:vista_ctags_executable*
+
+  Type: |String|
+  Default: `ctags`
+
+  The executable to run ctags.
+
+g:vista_ctags_cmd                                              *g:vista_ctags_cmd*
+
+  Type: |Dictionary|
+  Default: `{}`
+
+  Declare the command including the executable and options
+  used to generate ctags output for some certain filetypes.
+  The file path will be appened to your custom command.
+  For example:
+  >
+  let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -o - -c',
+      \ }
+
+g:vista_ctags_project_opts                                *g:vista_ctags_project_opts*
+
+  Type: |String|
+  Default: ''
+
+  ctags options to use when generating project tags.
+  Note: it's still experimental.
+
+g:vista_fzf_preview                                          *g:vista_fzf_preview*
+
+  Type: |List|
+  Default: `[]`
+
+  To enable fzf's preview window set g:vista_fzf_preview.
+  The elements of g:vista_fzf_preview will be passed as arguments
+  to `fzf#vim#with_preview()` .
+  For example:
+  >
+  let g:vista_fzf_preview = ['right:50%']
+
+g:vista_fzf_opt                                                  *g:vista_fzf_opt*
+
+  Type: |List|
+  Default: `[]`
+
+  Append options to `fzf#run()`.
+
+g:vista_keep_fzf_colors                                   *g:vista_keep_fzf_colors*
+
+  Type: |Number|
+  Default: `0`
+
+  Set this variable to `1` to keep the original |g:fzf_colors| when using fzf
+  finder in vista.vim.
+
+g:vista_finder_alternative_executives      *g:vista_finder_alternative_executives*
+
+  Type: |List|
+  Default: `['coc']`
+
+  Fall back to other executives if the specified one gives empty data.
+  This is useful if you want to switch to `ctags` when LSP is not usable.
+  By default it's all the provided executives excluding the tried one.
+
+g:vista_disable_statusline                            *g:vista_disable_statusline*
+
+  Type: |Number|
+  Default: `exists('g:loaded_airline') || exists('g:loaded_lightline')`
+
+  Vista.vim has a builtin statusline renderer, which may cause some problems
+  if you use other statusline plugins at the same time. Hence it's disabled
+  by default if you have installed airline or lightline.
+
+g:vista_highlight_whole_line                        *g:vista_highlight_whole_line*
+
+  Type: |Number|
+  Default: `0`
+
+  By default vista.vim will try to highlight the tag precisely in the vista window.
+  Set this to `1` to always higlight the whole line.
+
+
+g:vista_floating_border                      *g:vista_floating_border*
+
+  Type: |String|
+  Default: `none`
+
+  See `nvim_open_win` for border options that may be used.
+
+g:vista_floating_delay                                    *g:vista_floating_delay*
+
+  Type: |Number|
+  Default: 100
+
+  Given any integer, this option controls the number of milliseconds before
+  vista will show a popup or floating win of the target line context near the cursor.
+
+g:vista#renderer#enable_icon                        *g:vista#renderer#enable_icon*
+
+  Type: |Number|
+  Default: `exists('g:vista#renderer#icons') || exists('g:airline_powerline_fonts')`
+
+  Add pretty symbols for the kind of tags or LSP symbols.
+
+g:vista#renderer#enable_kind                        g:vista#renderer#enable_kind
+
+  Type: |Number|
+  Default: !g:vista#renderer#enable_icon
+
+  Show textual kind of tags or LSP symbols.
+
+g:vista_enable_markdown_extension              *g:vista_enable_markdown_extension*
+
+  Type: |Number|
+  Default: `1`
+
+  Use markdown extension instead of the ctags executive.
+
+g:vista_ignore_kinds                                        *g:vista_ignore_kinds*
+
+  Type: |List|
+  Default: `[]`
+
+  Ignore some kinds of tags or symbols.
+
+g:vista#renderer#icons                                    *g:vista#renderer#icons*
+
+  Type: |Dict|
+  Default: See `autoload/vista/renderer.vim` .
+
+g:vista#renderer#ctags                                    *g:vista#renderer#ctags*
+
+  Type: |String|
+  Default: `default`
+
+  Options:
+
+  `default` - render tags in nested structure.
+  `kind`    - render tags kindwise.
+  `line`    - render tags linewise.
+
+g:vista_no_mappings                                          *g:vista_no_mappings*
+
+  Type: |Number|
+  Default: `0`
+
+  Disable the default mappings.
+
+g:vista_log_file                                                *g:vista_log_file*
+
+  Type: |String|
+  Default: `Undefined`
+
+  Enable the logging feature for debugging. For example:
+  >
+  let g:vista_log_file = expand('~/vista.log')
+<
+  Note: Do not enable this unless you want to debug vista.vim as this may have
+  a side effect on the performance!
+
+g:vista_enable_centering_jump                      *g:vista_enable_centering_jump*
+
+  Type: |Number|
+  Default: `1`
+
+  Set this variable to `0` to not make the line at center of window when you
+  jump to the tag.
+
+--------------------------------------------------------------------------------
+Key Mappings                                                  *vista-key-mappings*
+
+The following mappings are defined by default in the vista window.
+
+<CR>          - jump to the tag under the cursor.
+<2-LeftMouse> - Same as <CR>.
+p             - preview the tag under the context via the floating window if
+                it's avaliable.
+s             - sort the symbol alphabetically or the location they are
+                declared.
+q             - close the vista window.
+
+You can add a mapping to `/` in order to open the vista finder for
+searching by adding the following autocommand in your vimrc:
+ >
+ autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \
+             / :<c-u>call vista#finder#fzf#Run()<CR>
+
+--------------------------------------------------------------------------------
+Highlights                                                      *vista-highlights*
+
+Use |:hi| command in your vimrc to change the default highlights in vista.vim,
+e.g.:
+  >
+  hi VistaFloat ctermbg=237 guibg=#3a3a3a
+
+VistaFloat                                                            *VistaFloat*
+
+  Default: `hi default link VistaFloat Pmenu`
+
+  The highlight used for the floating window.
+
+================================================================================
+CONTRIBUTING                                                  *vista-contributing*
+
+Vista.vim is still in beta, if you run into any trouble or have any sugguestions,
+please file an issue (https://github.com/liuchengxu/vista.vim/issues/new).
+
+================================================================================
+LICENSE                                                            *vista-license*
+
+MIT
+
+Copyright (c) 2019 Liu-Cheng Xu
+
+vim:tw=78:ts=2:sts=2:sw=2:ft=help:norl:

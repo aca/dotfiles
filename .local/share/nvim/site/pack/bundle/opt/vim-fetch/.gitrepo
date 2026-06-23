@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/wsdjeg/vim-fetch.git
+	branch = master
+	commit = b88bc5c4a8652b73bcdb577e0c90700a5064fd00
+	parent = 4e5b6b6ddebae10c18a0f6319e473e2839dde974
+	method = merge
+	cmdver = 0.4.9

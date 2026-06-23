@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/github/copilot.vim.git
+	branch = release
+	commit = a12fd5672110c8aa7e3c8419e28c96943ca179be
+	parent = 4adc52b503a3b942b493b136008b9a164e0218e9
+	method = merge
+	cmdver = 0.4.9

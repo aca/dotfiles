@@ -1,0 +1,1024 @@
+*dadbod-ui.txt*
+
+        Simple UI for https://github.com/tpope/vim-dadbod
+
+Author: Kristijan <husakkristijan at gmail.com>
+License: MIT
+
+vim-dadbod-ui			    *vim-dadbod-ui*
+
+1. Introduction				    |vim-dadbod-ui-introduction|
+2. Install				    |vim-dadbod-ui-install|
+3. Commands 		    		    |vim-dadbod-ui-commands|
+4. Connections 			            |vim-dadbod-ui-connections|
+  4.1 Through environment variables 	    |vim-dadbod-ui-connections-env|
+  4.2 Via `g:db` and `g:dbs` global variable|vim-dadbod-ui-connections-g:dbs|
+  4.3 Using `DBUIAddConnection` comand 	    |vim-dadbod-ui-connections-add|
+5. Mappings				    |vim-dadbod-ui-mappings|
+6. Table helpers 		   	    |vim-dadbod-ui-table-helpers|
+7. Bind parameters 		   	    |vim-dadbod-ui-bind-parameters|
+8. Settings				    |vim-dadbod-ui-settings|
+9. Functions				    |vim-dadbod-ui-functions|
+10. Autocommands 			    |vim-dadbod-ui-autocommands|
+11. Highlights 			            |vim-dadbod-ui-highlights|
+
+==============================================================================
+1. Introduction					*vim-dadbod-ui-introduction*
+
+Vim dadbod UI is simple UI for tpope's awesome vim-dadbod plugin.
+
+Main features:
+
+1. Navigate through multiple databases and it's tables
+2. Several ways to define your connections
+3. Save queries on single location for later use
+4. Define custom table helpers
+5. Bind parameters
+
+==============================================================================
+2. Install					*vim-dadbod-ui-install*
+
+Requirements:
+- https://github.com/tpope/vim-dadbod
+
+Install with your favorite package manager. If you don't have one, I suggest
+
+Configuration with lazy.nvim (https://github.com/folke/lazy.nvim)
+>
+    return {
+      'kristijanhusak/vim-dadbod-ui',
+      dependencies = {
+        { 'tpope/vim-dadbod', lazy = true },
+        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
+      },
+      cmd = {
+        'DBUI',
+        'DBUIToggle',
+        'DBUIAddConnection',
+        'DBUIFindBuffer',
+      },
+      init = function()
+        -- Your DBUI configuration
+        vim.g.db_ui_use_nerd_fonts = 1
+      end,
+    }
+<
+
+Or vim-plug (https://github.com/junegunn/vim-plug)
+>
+    Plug 'tpope/vim-dadbod'
+    Plug 'kristijanhusak/vim-dadbod-ui'
+    Plug 'kristijanhusak/vim-dadbod-completion' "Optional
+<
+
+Define a connection |vim-dadbod-ui-connections|
+Execute `:DBUI` command
+
+==============================================================================
+3. Commands 					*vim-dadbod-ui-commands*
+
+					      *DBUI*
+DBUI
+		Open drawer with available connections, or an option to add
+		connection if there isn't any. Supports `<mods>`, which means
+		that you can open the drawer for example in new tab like this:
+		`:tab DBUI`
+
+		`:DBUI`
+
+					      *DBUIToggle*
+DBUIToggle
+		Toggle the drawer. When closed, same as calling `DBUI`. When
+		opened, same as doing `q` in drawer.
+
+		`:DBUIToggle`
+
+					      *DBUIAddConnection*
+DBUIAddConnection
+		Open a prompt to enter new connection, by providing database
+		url and connection name. Once entered, it will be saved in
+		connections file located in |g:db_ui_save_location| folder.
+		This can also be triggered using key `A` from the drawer. See
+		|<Plug>(DBUI_AddConnection)|
+
+		`:DBUIAddConnection`
+
+					      *DBUIFindBuffer*
+DBUIFindBuffer
+		Find currently opened buffer in DBUI drawer, or if it wasn't
+		opened from DBUI, assigns the buffer to specified db.
+
+		`:DBUIFindBuffer`
+
+					      *DBUIRenameBuffer*
+DBUIRenameBuffer
+		Rename currently opened buffer or saved query. If it's buffer,
+		it must be written first.
+
+		`:DBUIRenameBuffer`
+
+					      *DBUILastQueryInfo*
+DBUILastQueryInfo
+		Print information about last query that was ran.
+		It prints the query, and the time it took to finish.
+
+		`:DBUILastQueryInfo`
+
+					      *DBUIHideNotifications*
+DBUIHideNotifications
+		Hide all floating notifications that are currently shown.
+		Does not work with `vim.notify` and `echo` mode
+
+		`:DBUIHideNotifications`
+
+==============================================================================
+4. Connections 					*vim-dadbod-ui-connections*
+
+There are multiple ways to set up your database connections:
+
+1. Through environment variables |vim-dadbod-ui-connections-env|
+2. Via `g:db` and `g:dbs` global variable |vim-dadbod-ui-connections-g:dbs|
+3. Via |DBUIAddConnection| command
+
+It is possible to combine all 3 types, but it's not possible to have same
+connection name from same source.
+
+==============================================================================
+4.1 Through environment variables		*vim-dadbod-ui-connections-env*
+
+There are 2 ways to define connections using environment variables:
+
+1. Using regular environment variable
+This option reads environment variable(s) called `$DBUI_URL` and `$DBUI_NAME`.
+`$DBUI_URL` contains connection url
+`$DBUI_NAME` contains connection name
+if only `$DBUI_URL` is defined,`$DBUI_NAME` is parsed from connection url.
+To change name of the variables that are read, change
+|g:db_ui_env_variable_url| and |g:db_ui_env_variable_name|.
+Note that this option can also leverage `dotenv.vim` since it exports dotenv
+variables as regular environment variables.
+
+2. Using https://github.com/tpope/vim-dotenv
+This option allows defining multiple connections with multiple env variables
+inside your `.env`. For example, this would create two connections:
+
+* `DB_UI_DEV=postgres://postgres:rootpw@localhost:5432/dev-db`
+* `DB_UI_PRODUCTION=postgres://postgres:rootpw@localhost:5432/dev-db`
+
+One will be called `dev`, and another one `production`. Connection name is
+parsed from the variable name (everything after `DB_UI_` lowercased). To
+change the prefix, change `g:db_ui_dotenv_variable_prefix` value.
+
+
+==============================================================================
+4.2 Via `g:db` and `g:dbs` global variable	*vim-dadbod-ui-connections-g:dbs*
+
+This option gives a bit more flexibility, but it's harder to keep it out of
+version control.
+vim-dadbod `g:db` variable is read first.
+`g:dbs` can be defined as an object, or as an array of objects:
+
+Object example:
+>
+  function s:resolve_production_url()
+    return system('get-prod-url')
+  end
+
+  let g:dbs = {
+  \ 'dev': 'postgres://postgres:mypassword@localhost:5432/my-dev-db',
+  \ 'staging': 'postgres://postgres:mypassword@localhost:5432/my-staging-db',
+  \ 'wp': 'mysql://root@localhost/wp_awesome',
+  \ 'production': function('s:resolve_production_url')
+  \ }
+<
+Array of objects example:
+>
+  let g:dbs = [
+  \ { 'name': 'dev', 'url': 'postgres://postgres:mypassword@localhost:5432/my-dev-db' }
+  \ { 'name': 'staging', 'url': 'postgres://postgres:mypassword@localhost:5432/my-staging-db' },
+  \ { 'name': 'wp', 'url': 'mysql://root@localhost/wp_awesome' },
+  \ { 'name': 'production', 'url': function('s:resolve_production_url') },
+  \ ]
+<
+
+If you use Neovim, you can also use lua to define the connections:
+>
+  vim.g.dbs = {
+    {
+      { name = 'dev', url = 'postgres://postgres:mypassword@localhost:5432/my-dev-db' }
+      { name = 'staging', url = 'postgres://postgres:mypassword@localhost:5432/my-staging-db' },
+      { name = 'wp', url = 'mysql://root@localhost/wp_awesome' },
+      {
+        name = 'production',
+        url = function()
+          return vim.fn.system('get-prod-url')
+        end
+      },
+    }
+  }
+<
+
+
+Currently, only difference between these two methods is that array ensures
+order, while order of connections with g:dbs as object has arbitrary order.
+
+If you use this method, make sure to `keep it out of version control` .
+One way to ensure it's not commited is to use `exrc` option, which allows
+creating project level vimrc to hold this configuration. After that, add that
+file to your global gitignore file, and you're safe.
+Other solution is to have it as a function that resolves a value dynamically.
+
+==============================================================================
+4.3 Using `DBUIAddConnection` command	*vim-dadbod-ui-connections-add*
+
+Executing |DBUIAddConnection| opens up a prompt to enter connection that will
+be saved in a `connections.json` file in |g:db_ui_save_location| folder. These
+connections will be available from everywhere. If you want to delete certain
+connection, open up DBUI drawer and press `d` (|<Plug>(DBUI_DeleteLine|) on
+the connection you want to delete.
+
+==============================================================================
+
+5. Mappings					*vim-dadbod-ui-mappings*
+
+					      *<Plug>(DBUI_SelectLine)*
+<Plug>(DBUI_SelectLine)
+		This mapping is used for toggling and opening everything in
+		the DBUI drawer.
+
+		By default, mapped to `o`, `Enter` and `Double click` .
+
+					      *<Plug>(DBUI_SelectLineVsplit)*
+<Plug>(DBUI_SelectLineVsplit)
+		This mapping is used for opening all non-toggle items from
+		DBUI drawer in a vertical split.
+
+		By default, mapped to `S`.
+
+					      *<Plug>(DBUI_DeleteLine)*
+<Plug>(DBUI_DeleteLine)
+		This mapping is used deleting certain items from the DBUI
+		drawer. It will work on these:
+		1. Buffers
+		2. Saved queries
+		3. Connections added via |DBUIAddConnection|
+		Confirm prompt is opened before deleting to avoid accidents.
+
+		By default, mapped to `d`.
+
+					      *<Plug>(DBUI_JumpToForeignKey)*
+<Plug>(DBUI_JumpToForeignKey)
+		This mapping is used to jump to foreign key in a table from
+		dbout buffer. Currently supported for MySQL, Sqlserver and
+		Postgres. Here's an example:
+
+		Having table called "Users":
+>
+		_____________________________
+		| id   | username | password |
+		-------+----------+----------
+		| 1    | test     | test1    |
+		| 2    | john     | johntest |
+		------------------------------
+<
+		And table "Posts" with a defined foreign key to table "Users":
+>
+		_____________________________
+		| id   | userId   | subject  |
+		-------+----------+----------
+		| 1    | 1        | hello    |
+		| 2    | 2        | world    |
+		------------------------------
+<
+		After doing a query to fetch "Posts", and in `.dbout` preview
+		window going to the cell with user id of 1 (Note the cursor
+		in middle of cell where userId is 1)
+>
+		___________________________________
+		| id   | userId         | subject  |
+		-------+----------------+----------
+		| 1    | 1  |<- cursor  | hello    |
+		| 2    | 2              | world    |
+		------------------------------------
+<
+		And then executing this mapping (by default `<C-]>`), it will
+		do a query behind the scenes to fetch the user from table
+		"Users" with that id. After executing the mapping, you should
+		get this result
+>
+		_____________________________
+		| id   | username | password |
+		-------+----------+----------
+		| 1    | test     | test1    |
+		------------------------------
+<
+		pressing `r` (dadbods mapping for populating cmd line with
+		last query), will give you this:
+
+		`:DB select * from Users where id = 1`
+
+					      *vim-dadbod-ic*
+ic
+		Operator pending mapping that works on cell value in results
+		buffer.  For example, to yank cell value under cursor, do `yic`.
+		To visually select it, do `vic`. Also supports custom
+		registers.
+
+		Mapped to `ic`.
+
+					      *<Plug>(DBUI_AddConnection)*
+<Plug>(DBUI_AddConnection)
+		This mapping is used adding a new connection. It is same as
+		executing |DBUIAddConnection| command.
+
+		By default, mapped to `A`.
+
+					      *<Plug>(DBUI_ToggleDetails)*
+<Plug>(DBUI_ToggleDetails)
+		This mapping is used for toggling small note beside all
+		connections to see where this connection is defined.
+		For example, if you have connection called `dev` in `g:dbs`
+		variable, and connection called `production` in your
+		connections file, you will see something like this:
+>
+		    > dev (g:dbs)
+		    > production (file)
+<
+		By default, mapped to `H`.
+
+					      *<Plug>(DBUI_Redraw)*
+<Plug>(DBUI_Redraw)
+		This mapping is used for redrawing the DBUI drawer. It will
+		refresh the tables on all connections that were opened. This
+		is usually not needed, only when tables are
+		added/edited/deleted via query.
+
+		By default, mapped to `R`.
+
+					      *<Plug>(DBUI_RenameLine)*
+<Plug>(DBUI_RenameLine)
+		Rename buffer or saved query under cursor, or edit a
+		connection added via |DBUIAddConnection|. If it's a buffer,
+		it must be written (executed) at least once. Alternative is to
+		use |DBUIRenameBuffer| from the buffer.
+
+		By default, mapped to `r`.
+
+					      *<Plug>(DBUI_SaveQuery)*
+<Plug>(DBUI_SaveQuery)
+		This mapping is used in `sql` files to save the query in
+		`g:db_ui_save_location` for later use, since all queries are
+		written to temp folder by default. Once saved, it will be
+		available in the connection tree under `Saved queries` .
+
+		By default, mapped to `<Leader>W`.
+
+					      *<Plug>(DBUI_ExecuteQuery)*
+<Plug>(DBUI_ExecuteQuery)
+		Execute query in sql buffer. Supports normal and visual mode.
+		Normal mode executes all content in a file, where visual mode
+		executes only the selected content.
+
+		By default, mapped to `<Leader>S`.
+
+					      *<Plug>(DBUI_ToggleResultLayout)*
+<Plug>(DBUI_ToggleResultLayout)
+		Toggle expanded view in the results buffer (column and value
+		per line). Currently supported only for MySQL and PostgreSQL.
+
+		By default, mapped to `<Leader>R`.
+
+					      *<Plug>(DBUI_EditBindParameters)*
+<Plug>(DBUI_EditBindParameters)
+		This mapping is used in `sql` files to edit bind parameters if
+		there are any. See |vim-dadbod-ui-bind-parameters|.
+
+		By default, mapped to `<Leader>E`.
+
+					      *?*
+?
+		This mapping is used to show help in the DBUI drawer, that
+		contains mappings that are available. To hide
+		`Press ? for help`, see |g:db_ui_show_help|
+
+					      *<Plug>(DBUI_Quit)*
+<Plug>(DBUI_Quit)
+		Mapping for closing the drawer.
+
+		By default, mapped to `q`.
+
+					      *<Plug>(DBUI_GotoFirstSibling)*
+<Plug>(DBUI_GotoFirstSibling)
+		Go to first sibling in current context.
+
+		By default, mapped to `<C-k>`.
+
+					      *<Plug>(DBUI_GotoLastSibling)*
+<Plug>(DBUI_GotoLastSibling)
+		Go to last sibling in current context.
+
+		By default, mapped to `<C-j>`.
+
+					      *<Plug>(DBUI_GotoPrevSibling)*
+<Plug>(DBUI_GotoPrevSibling)
+		Go to previous sibling in current context.
+
+		By default, mapped to `K`.
+
+					      *<Plug>(DBUI_GotoNextSibling)*
+<Plug>(DBUI_GotoNextSibling)
+		Go to previous sibling in current context.
+
+		By default, mapped to `J`.
+
+					      *<Plug>(DBUI_GotoParentNode)*
+<Plug>(DBUI_GotoParentNode)
+		Go to parent node from current context.
+
+		By default, mapped to `<C-p>`.
+
+					      *<Plug>(DBUI_GotoChildNode)*
+<Plug>(DBUI_GotoChildNode)
+		Go to child node from current context. It works only on
+		entries that can be toggled (dbs, schemas, tables, ...)
+
+		By default, mapped to `<C-n>`.
+
+==============================================================================
+6. Table helpers				*vim-dadbod-ui-table-helpers*
+
+Table helper is a predefined query that is easily available for each table.
+By default, all database schemes available in `vim-dadbod` have a `List` table
+helper, which is just a simple query to list the data from the table.
+Certain schemes (postgesql, mysql, sqlite) have few more helpers, like
+`Indexes`, `Forein Keys`, `Primary Keys`, etc.
+
+To define your own helper for a specific scheme, add it through
+`g:db_ui_table_helpers` variable like this:
+
+>
+ 	let g:db_ui_table_helpers = {
+	\ 	'postgresql': {
+	\ 		'Count': 'select count(*) from {optional_schema}{table}'
+	\ 		'Explain': 'EXPLAIN ANALYZE {last_query}'
+	\ 	}
+ 	\ }
+<
+This will make `Count` table helper available for all postgresql connections
+for each table. Five variables are available as part of the table helper
+content: `{table}`, `{schema}`, `{optional_schema}`, `{dbname}` and `{last_query}`. You can also override the
+defaults by passing in the matching helper name. To override `List`, do this:
+
+>
+ 	let g:db_ui_table_helpers = {
+	\ 	'postgresql': {
+	\ 		'List': 'select * from {table} order by id asc'
+	\ 	}
+ 	\ }
+
+Overriding a default helper with an empty string will remove it:
+
+>
+ 	let g:db_ui_table_helpers = {
+	\ 	'postgresql': {
+	\ 		'List': ''
+	\ 	}
+ 	\ }
+
+
+Note that `{last_query}` will be empty if no queries were ran before opening
+that helper. Also, in the `EXPLAIN` example above, running the explain helper
+and then running it again for another table will print double `EXPLAIN ANALYZE`
+because first explain query is also considered a valid query for `{last_query}`.
+
+`{optional_schema}`is provided only when the current table schema is not the
+default one. If provided, it goes in format `schemaname.`, so if you need to
+write select queries, add it like this:
+`select * from {optional_schema}{table}`, which will expand into for example:
+`select * from information_schema.columns`, or for public schema in postgres,
+`select * from mytable`
+
+==============================================================================
+7. Bind parameters				*vim-dadbod-ui-bind-parameters*
+
+Bind parameters are variables that can be injected into the query at execution
+time. For example, when executing this query
+>
+	select * from contacts where id = :contactId
+<
+A prompt will pop up to enter a value for `:contactId`. Once you enter the
+value, it will execute the query with that value injected. It will not modify
+the content of the buffer, but replace the parameter with value on execution
+time. This will happen for every other time that you run the query from this
+buffer with that parameter name. Values for parameters are saved in the buffer
+variable.
+To edit or delete a bind parameter, use |<Plug>(DBUI_EditBindParameters)|
+mapping (by default `<Leader>E`). It will open a list of all parameters
+defined, where you can selecting and then edit/delete it.
+In cases where a certain value from query is read as bind parameter (For
+example, your sql contains a string that really needs to check for some value
+with a colon prefix), just leave the bind parameter empty, and it will be
+considered a raw value (not replaced).
+For example, if you have this query:
+>
+	select * from posts where body LIKE '%:thething%'
+<
+`:thething` will be considered a bind parameter. Do not define a value, and it
+will be ignored.
+
+To pass an empty string, use two single quotes as value. Example:
+>
+	select * from posts where subject != :subject
+<
+On prompt, entering `''` will run this query:
+>
+	select * from posts where subject != ''
+<
+
+Certain values are parsed so they are injected as right type:
+
+1. Numbers - If the content of parameter is only a number, it will not be
+quoted
+2. Booleans - `true` and `false` are not quoted
+
+Every other value is automatically quoted. If you want to force quotes on a
+certain value (for example, to check the number as a string), just add quotes
+when defining the value and it will be treated as string.
+
+==============================================================================
+
+8. Settings					*vim-dadbod-ui-settings*
+
+					      *g:db_ui_save_location*
+g:db_ui_save_location
+		Path to folder where all connections and saved queries will be
+		stored. It can be ralative or absolute path. Do not add a
+		leading slash.
+
+		Default value: `~/.local/share/db_ui`
+
+					      *g:db_ui_tmp_query_location*
+g:db_ui_tmp_query_location
+		By default, all queries are created in temp folder, which is
+		cleared on vim quit. If you want all your queries to be
+		persisted in different location and read after vim restart
+		as buffers, set this value to some folder location.
+		For example, if you want to keep all your queries in folder
+		named `queries` in your home folder, you would add this:
+		`let g:db_ui_tmp_query_location = '~/queries'`
+
+		Default value: `''`
+
+					      *g:db_ui_table_helpers*
+g:db_ui_table_helpers
+		Dictionary containing custom table helpers. For more, see
+		|vim-dadbod-ui-table-helpers|
+
+		Default value: `{}`
+
+					   *g:db_ui_execute_on_save*
+g:db_ui_execute_on_save
+		If this is set to `1`, queries are automatically executed on
+		sql buffer save.
+
+		Default value: `1`
+
+					   *g:db_ui_auto_execute_table_helpers*
+g:db_ui_auto_execute_table_helpers
+		If this is set to `1`, opening any table helper will
+		automatically write the query and execute it.
+
+		Default value: `0`
+
+					      *g:db_ui_env_variable_url*
+g:db_ui_env_variable_url
+		This value defines which environment variable is read for
+		|vim-dadbod-ui-connections-env| connection url.
+
+		Default value: `DBUI_URL`
+
+					      *g:db_ui_env_variable_name*
+g:db_ui_env_variable_name
+		This value defines which environment variable is read for
+		|vim-dadbod-ui-connections-env| connection name.
+
+		Default value: `DBUI_NAME`
+
+					      *g:db_ui_dotenv_variable_prefix*
+g:db_ui_dotenv_variable_prefix
+		This value defines a prefix that is read for
+		|vim-dadbod-ui-connections-env| `dotenv.vim` method.
+
+		Default value: `DB_UI_`
+
+					      *g:db_ui_notification_width*
+g:db_ui_notification_width
+		Number of columns used for default notification width.
+
+		Default value: `40`
+
+					      *g:db_ui_winwidth*
+g:db_ui_winwidth
+		Number of columns used for default DBUI drawer width.
+
+		Default value: `40`
+
+					      *g:db_ui_win_position*
+g:db_ui_win_position
+		On which side of the screen should DBUI drawer open.
+		Possible values: `left` and `right`
+
+		Default value: `left`
+
+					      *g:db_ui_disable_mappings*
+g:db_ui_disable_mappings
+		If this is set to `1`, no default mappings are defined.
+
+		Default value: `0`
+
+					      *g:db_ui_disable_mappings_dbui*
+g:db_ui_disable_mappings_dbui
+		If this is set to `1`, no default mappings for DBUI drawer
+		are defined.
+
+		Default value: `0`
+
+					      *g:db_ui_disable_mappings_dbout*
+g:db_ui_disable_mappings_dbout
+		If this is set to `1`, no default mappings for dbout buffers
+		are defined.
+
+		Default value: `0`
+
+					      *g:db_ui_disable_mappings_sql*
+g:db_ui_disable_mappings_sql
+		If this is set to `1`, no default mappings for SQL buffers
+		are defined.
+
+		Default value: `0`
+
+					      *g:db_ui_disable_mappings_javascript*
+g:db_ui_disable_mappings_javascript
+		If this is set to `1`, no default mappings for Javascript buffers
+		are defined.
+		Note that these mappings are set only when buffer is created
+		with vim-dadbod-ui, to not interfere with default javascript
+		behavior.
+
+		Default value: `0`
+
+					      *g:db_ui_bind_param_pattern*
+g:db_ui_bind_param_pattern
+		Change the regex pattern used to match bind params.
+		By default, it matches format `:variable_name`.
+		To use `$1`,`$2` format, you would set it to: `\$\d\+`
+
+		Default value: `:\w\+`
+
+  					      *g:db_ui_show_database_icon*
+g:db_ui_show_database_icon
+		If this is set to 1, will add an icon on database name. Notice
+		this option depends on nerdfonts. So if you want enable it,you
+		need install nerdfonts.
+
+		Default value: `0`
+
+					      *g:db_ui_icons*
+g:db_ui_icons
+		This value holds the icons that are used in drawer. You can
+		override all or only some of them by passing the values you
+		want to override. For example:
+>
+			let g:db_ui_icons = {
+			  \ 'expanded': {
+		          \   'db': '-',
+		          \   'buffers': '-',
+		          \   'saved_queries': '-',
+		          \   'schemas': '-',
+		          \   'schema': '-',
+		          \   'tables': '-',
+		          \   'table': '-',
+			  \ },
+			  \ 'collapsed': {
+		          \   'db': '+',
+		          \   'buffers': '+',
+		          \   'saved_queries': '+',
+		          \   'schemas': '+',
+		          \   'schema': '+',
+		          \   'tables': '+',
+		          \   'table': '+',
+			  \ },
+			\ }
+<
+		Default value:
+>
+		>{
+		  'expanded': {
+		    'db': '▾',
+		    'buffers': '▾',
+		    'saved_queries': '▾',
+		    'schemas': '▾',
+		    'schema': '▾',
+		    'tables': '▾',
+		    'table': '▾',
+		  },
+		  'collapsed': {
+		    'db': '▸',
+		    'buffers': '▸',
+		    'saved_queries': '▸',
+		    'schemas': '▸',
+		    'schema': '▸',
+		    'tables': '▸',
+		    'table': '▸',
+		  },
+		  'saved_query': '*',
+		  'new_query': '+',
+		  'tables': '~',
+		  'buffers': '»',
+		  'add_connection': '[+]',
+		  'connection_ok': '✓',
+		  'connection_error': '✕',
+		}
+<
+					      *g:db_ui_use_nerd_fonts*
+g:db_ui_use_nerd_fonts
+		When set to `1`, Uses nerd fonts. They can be overriden in the
+		same way as regular icons. These are the default nerd icons:
+
+>
+		 {
+		  'expanded': {
+		    'db': '▾ ',
+		    'buffers': '▾ ',
+		    'saved_queries': '▾ ',
+		    'schemas': '▾ ',
+		    'schema': '▾ פּ',
+		    'tables': '▾ 藺',
+		    'table': '▾ ',
+		  },
+		  'collapsed': {
+		    'db': '▸ ',
+		    'buffers': '▸ ',
+		    'saved_queries': '▸ ',
+		    'schemas': '▸ ',
+		    'schema': '▸ פּ',
+		    'tables': '▸ 藺',
+		    'table': '▸ ',
+		  },
+		  'saved_query': '',
+		  'new_query': '璘',
+		  'tables': '離',
+		  'buffers': '﬘',
+		  'add_connection': '',
+		  'connection_ok': '✓',
+		  'connection_error': '✕',
+		}
+<
+
+		Default value: `0`
+
+					      *g:db_ui_show_help*
+g:db_ui_show_help
+		When set to `0`, hides `Press ? for help` from the DBUI
+		drawer. Mapping will continue to work no matter of this value.
+
+		Default value: `1`
+
+					      *g:db_ui_debug*
+g:db_ui_debug
+		Set this to `1` to enable debug mode. This will print out some
+		additional information in the command line about the executed
+		query.
+
+		Default value: `0`
+
+					      *g:db_ui_force_echo_notifications*
+g:db_ui_force_echo_notifications
+		Notifications are shown via popups when supported. To force
+		echoing messages to command line set this value to 1.
+
+		Default value: `0`
+
+					      *g:db_ui_disable_info_notifications*
+g:db_ui_disable_info_notifications
+		Disable all notifications with "info" severity.
+
+		Default value: `0`
+
+					     *g:db_ui_use_postgres_views*
+g:db_ui_use_postgres_views
+    Toggle showing postgres views in the drawer.
+    This option must be disabled (set to 0) for Redshift.
+
+    Default value: 1
+
+					     *g:db_ui_disable_progress_bar*
+g:db_ui_disable_progress_bar
+    Toggle query execution progress bar.
+    This option is available to prevent conflict with a custom progress bar
+    or if you want to disable the progress entirely set to 1.
+
+    Default value: 0
+
+					      *g:db_ui_use_nvim_notify*
+g:db_ui_use_nvim_notify
+		Use Neovim's `vim.notify` API for notifications.
+
+		Default value: `0`
+
+					      *g:db_ui_hide_schemas*
+g:db_ui_hide_schemas
+		Hide specific schemas from the drawer. Useful for `postgres`
+		connections to hide `pg_temp` tables. Each items is checked
+		with |match()| function.
+		Example:
+>
+		let g:db_ui_hide_schemas = ['pg_catalog', 'pg_toast_temp.*']
+<
+		Default value: `[]`
+
+					      *g:Db_ui_buffer_name_generator*
+g:Db_ui_buffer_name_generator
+		Custom function for generating buffer names from drawer.
+		Function accepts the option with three properties:
+		* label - label of the entry you selected.
+		  Example: "New Query", "List", "Indexes"
+		* table - table name if buffer was created from table helper,
+		  or empty string
+		* schema - schema name if buffer was created from table
+		  helper, or empty string
+		* filetype - filetype that will be used for the buffer
+		Note the uppercase `D`, which is required by vim for
+		functions.
+		Also, `make sure that name is always unique` to avoid any issues
+		with overlapping names.
+		Example:
+>
+		function s:buffer_name_generator(opts)
+		  if empty(a:opts.table)
+		    return 'myquery-'.localtime()
+		  endif
+		  return 'myquery-fortable-'.a:opts.table.'-'.localtime()
+		endfunction
+
+		let g:Db_ui_buffer_name_generator = function('s:buffer_name_generator')
+<
+
+		Default value: `0`
+
+					      *g:Db_ui_table_name_sorter
+g:Db_ui_table_name_sorter
+		Custom function for sorting table names.
+		Function accepts the table name list and return the sorted
+		table name list.
+		Note the uppercase `D`, which is required by vim for
+		functions.
+		Also, `make sure that name is always unique` to avoid any issues
+		with overlapping names.
+		Example:
+>
+		function s:table_name_sorter(tables)
+		  return sort(tables)
+		endfunction
+
+		let g:Db_ui_table_name_sorter = function('s:table_name_sorter')
+<
+
+		Default value: `0`
+
+					      *g:db_ui_drawer_sections*
+g:db_ui_drawer_sections
+		This value defines which sections appear in the drawer and in
+		what order. Available sections are: 'new_query', 'buffers',
+		'saved_queries', and 'schemas'. If not set, all sections
+		are shown in the default order.
+
+		Example to only show schemas/tables and new query:
+>
+		let g:db_ui_drawer_sections = ['schemas', 'new_query']
+<
+		Default value: `['new_query', 'buffers', 'saved_queries', 'schemas']`
+
+					      *g:db_ui_dbout_list_sort*
+g:db_ui_dbout_list_sort
+		Controls the sort order of the "Query results" list in the
+		drawer. Set to 'asc' to sort from oldest to latest, or
+		'desc' to sort from latest to oldest.
+
+		Example to show latest query results first:
+>
+		let g:db_ui_dbout_list_sort = 'desc'
+<
+		Default value: `'asc'`
+
+					      *g:db_ui_default_query*
+g:db_ui_default_query (DEPRECATED)
+		This value was intially used as a default value for the table
+		queries. It is still used as a default value for certain
+		schemes. It is deprecated in favor of |g:db_ui_table_helpers|
+
+		Default value: `SELECT * from "{table}" LIMIT 200;`
+
+==============================================================================
+
+9. Functions					*vim-dadbod-ui-functions*
+
+					      *db_ui#statusline()*
+db_ui#statusline({opts})
+		Return statusline information. For example, when table `posts`
+		is opened from schema named `public` in database named `my-blog-db`,
+		result will be this:
+>
+		DBUI: my_blog -> public -> posts
+<
+		Function accepts optional dictionary with these properties set
+		as default:
+>
+		{
+		  'prefix': 'DBUI: ',
+		  'separator': ' -> ',
+		  'show': ['db_name', 'schema', 'table']
+		}
+<
+		For example, just to show DB name and table without prefix
+		separated by a dash (`my_blog - posts`), you would call statusline like this:
+>
+		call db_ui#statusline({
+		  \ 'show': ['db_name', 'table'],
+		  \ 'separator' : ' - ',
+		  \ 'prefix': ''
+		  \ })
+<
+
+					      *db_ui#query()*
+db_ui#query({query})
+		Execute query and return results as array of arrays.
+		Works only for `PostgreSQL`, `MySQL` and `Sqlserver`.
+		Requires valid dbui sql buffer, or a `b:db` connection variable.
+		There are also 2 more buffer vars available:
+		* `b:dbui_table_name` - Name of the table for current buffer
+		* `b:dbui_schema_name` - Name of the schema for current buffer
+
+		For example, to generate an `INSERT` query with a mapping for
+		current dbui sql buffer, you would have something like this in
+		your vimrc:
+>
+		function! s:populate_query() abort
+		  let rows = db_ui#query(printf(
+		    \ "select column_name, data_type from information_schema.columns where table_name='%s' and table_schema='%s'",
+		    \ b:dbui_table_name,
+		    \ b:dbui_schema_name
+		    \ ))
+		  let lines = ['INSERT INTO '.b:dbui_table_name.' (']
+		  for [column, datatype] in rows
+		    call add(lines, column)
+		  endfor
+		  call add(lines, ') VALUES (')
+		  for [column, datatype] in rows
+		    call add(lines, printf('%s <%s>', column, datatype))
+		  endfor
+		  call add(lines, ')')
+		  call setline(1, lines)
+		endfunction
+
+		autocmd FileType sql nnoremap <buffer><leader>i :call <sid>populate_query()
+<
+					      *db_ui#connections_list()*
+db_ui#connections_list()
+		Return list of all available connections. These properties are
+		returned:
+
+		* name - Connection name
+		* source - Where is connection defined (file, g:dbs, env, dotenv)
+		* url - Connection url
+		* is_connected - Is DBUI connected to this database
+
+==============================================================================
+10. Autocommands				*vim-dadbod-ui-autocommands*
+
+					      *DBUIOpened*
+DBUIOpened
+		This autocommand is triggered when dbui drawer is opened, and
+		everything is set up. For example, to load additional
+		connections from custom env file using `vim-dotenv`, you could
+		do have something like this in your vimrc to load them:
+
+		`autocmd User DBUIOpened let b:dotenv = DotenvRead('.envrc') | norm R`
+
+==============================================================================
+11. Highlights					*vim-dadbod-ui-highlights*
+
+To customize the colors of the notifications, add these custom hl groups:
+* `NotificationInfo`
+* `NotificationWarning`
+* `NotificationError`
+
+For example, to use white text on blue(info) / yellow(warning) / red(error) background,
+add this to your vimrc/init.vim:
+>
+    hi NotificationInfo guifg=#FFFFFF guibg=#0000FF
+    hi NotificationWarning guifg=#FFFFFF guibg=#FFFF00
+    hi NotificationError guifg=#FFFFFF guibg=#FF0000
+<
+
+vim:tw=78:ts=8:ft=help:norl:noet:fen:noet:

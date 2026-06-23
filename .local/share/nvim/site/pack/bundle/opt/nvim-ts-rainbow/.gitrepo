@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/p00f/nvim-ts-rainbow.git
+	branch = master
+	commit = ef95c15a935f97c65a80e48e12fe72d49aacf9b9
+	parent = 24aa1e493930df0c6fd52c40048ac7feb368ca3b
+	method = merge
+	cmdver = 0.4.9

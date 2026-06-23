@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o pipefail
+set -o nounset
+set -o xtrace
+
+cd $(mktemp -d)
+
+export GO111MODULE=on 
+go get github.com/sanity-io/litter@latest
+go install github.com/cweill/gotests/gotests@latest
+go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest
+go install golang.org/x/tools/gopls@latest
+go install github.com/sachaos/viddy@latest
+go install github.com/aca/yaml2json/y2j@latest
+go install mvdan.cc/gofumpt@latest
+go install mvdan.cc/gofumpt/gofumports@latest
+go install mvdan.cc/xurls/v2/cmd/xurls@latest
+go install mvdan.cc/sh/cmd/shfmt@latest
+go install github.com/ericchiang/pup@latest
+go install github.com/kisielk/errcheck@latest
+go install github.com/rogpeppe/gohack@latest
+
+[[ "$OSTYPE" == "darwin"* ]] && npm install -g bundle-id-cli@latest
+npm install -g bash-language-server@latest
+npm install -g dockerfile-language-server-nodejs@latest
+npm install -g neovim@latest
+npm install -g npm@latest
+npm install -g swagger-ui-watcher@latest
+npm install -g tldr@latest
+npm install -g typescript-language-server@latest
+npm install -g typescript@latest
+npm install -g vim-language-server@latest
+npm install -g vscode-css-languageserver-bin@latest
+npm install -g vscode-html-languageserver-bin@latest
+npm install -g vscode-json-languageserver@latest
+npm install -g @tailwindcss/language-server
+npm install -g pnpm
+npm install -g yarn
+yarn global add yaml-language-server@latest
+yarn global upgrade
+npm update -g
+
+python3 -m pip install --upgrade pip setuptools wheel
+pip3 install --upgrade BeautifulSoup4
+pip3 install --upgrade requests
+pip3 install --upgrade lxml
+pip3 install --upgrade cfscrape
+pip install --upgrade BeautifulSoup4
+pip install --upgrade ansible
+pip install --upgrade black
+pip install --upgrade lxml
+pip install --upgrade neovim-remote
+pip install --upgrade pandas
+pip install --upgrade pynvim
+pip install --upgrade pytest
+pip install --upgrade requests
+pip install --upgrade youtube-dl
+pip3 install --upgrade ansible
+pip3 install --upgrade ipython
+pip3 install --upgrade jupyterlab
+pip3 install --upgrade neovim
+pip3 install --upgrade numpy scipy matplotlib ipython jupyter pandas sympy nose
+# pip3 install --upgrade python-openstackclient
+# pip3 install --upgrade neutron-lbaas
+python3 -m pip install --upgrade git+https://github.com/yt-dlp/yt-dlp
+pip install -U $(pip freeze | awk '{split($0, a, "=="); print a[1]}')
+
+cargo install stylua
+
+# asdf reshim

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rafcamlet/nvim-luapad.git
+	branch = master
+	commit = 918c60ae919d96df1dc201cbf69eb09090148cdd
+	parent = a4481b11b456a06a3ba42775fb6f1151a51ca493
+	method = merge
+	cmdver = 0.4.9

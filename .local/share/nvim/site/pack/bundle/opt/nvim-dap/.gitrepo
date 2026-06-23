@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mfussenegger/nvim-dap.git
+	branch = master
+	commit = 4f5deb110d9ff8994d96c21df95e2271d11214f9
+	parent = 1923313ce1f34d3eda0bf6af1364ee9e9391c539
+	method = merge
+	cmdver = 0.4.9

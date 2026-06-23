@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/RREthy/vim-illuminate.git
+	branch = master
+	commit = 0d1e93684da00ab7c057410fecfc24f434698898
+	parent = 21cef7c49eedb8701e932c3bf6332a4cd66f9c98
+	method = merge
+	cmdver = 0.4.9

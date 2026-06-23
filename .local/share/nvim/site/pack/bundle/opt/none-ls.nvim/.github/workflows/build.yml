@@ -1,0 +1,29 @@
+name: Build
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  test:
+    name: Run tests (${{ matrix.version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version:
+          - stable
+          - nightly
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: none-ls.nvim
+      - uses: actions/checkout@v5
+        with:
+          repository: nvim-lua/plenary.nvim
+          path: none-ls.nvim/.tests/site/pack/deps/start/plenary.nvim
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.version }}
+      - run: make test
+        working-directory: none-ls.nvim
+        timeout-minutes: 1

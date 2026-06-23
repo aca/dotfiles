@@ -1,0 +1,11 @@
+# See https://github.com/crate-ci/typos/blob/master/docs/reference.md to configure typos
+[default.extend-words]
+ba = "ba"
+fo = "fo"
+enew = "enew"
+tabe = "tabe"
+Iterm = "Iterm"
+ser = "ser"
+
+[files]
+extend-exclude = ["README.md", "*.s"]

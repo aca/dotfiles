@@ -1,0 +1,1486 @@
+Describe git-messenger.vim
+    Before all
+        syntax enable
+        " Ensure to load autoload/gitmessenger.vim
+        call gitmessenger#close_popup(-1)
+    End
+
+    Before each
+        view! README.md
+        normal! gg0
+
+        " Move to introduction paragraph
+        normal! }2j27l
+    End
+
+    After each
+        pclose!
+        let w = 2
+        while w <= winnr('$')
+            silent! execute w . 'close!'
+            let w += 1
+        endwhile
+        silent! execute 'bwipeout!' join(range(1, bufnr('$')), ' ')
+    End
+
+    Describe :GitMessenger
+        It opens popup with floating window
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+            Assert KeyExists(p, 'bufnr')
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let msg = string(lines)
+            Assert True(len(lines) >= 6, msg)
+
+            let history = lines[1]
+            Assert Match(history, '^ History: \+#0$', msg)
+
+            let commit = lines[2]
+            Assert Match(commit, '^ Commit: \+[[:xdigit:]]\{7,}$', msg)
+
+            let author = lines[3]
+            Assert Match(author, '^ Author: \+\S\+ <[^>]\+>$', msg)
+
+            let date = lines[4]
+            Assert Match(date, '^ Date: \+.\+$', msg)
+
+            let summary = lines[6]
+            Assert NotEmpty(summary, msg)
+
+            let hash = matchstr(commit, '^ Commit: \+\zs[[:xdigit:]]\{7,}$')
+            let out = system('git show -s ' . hash)
+            Assert Falsy(v:shell_error, out)
+            Assert True(stridx(out, summary) >= 0, string(out) . ' should contain ' . string(summary))
+        End
+
+        It moves cursor into popup and close it within the popup
+            let opener_id = win_getid()
+
+            GitMessenger
+            " Wait for popup
+            Assert IsNotNone(GetPopup())
+
+            Assert Equals(win_getid(), opener_id)
+
+            " Move cursor into popup
+            GitMessenger
+
+            let popup_id = win_getid()
+            Assert NotEquals(popup_id, opener_id)
+            Assert Exists('b:__gitmessenger_popup')
+
+            " Close popup
+            GitMessenger
+
+            Assert Equals(win_getid(), opener_id)
+            Assert IsNone(GetPopupNoWait())
+        End
+
+        It shows an error message when commit is not found
+            " Open empty buffer so it's not managed by Git
+            enew!
+
+            GitMessenger
+            Assert IsNone(GetPopup())
+
+            let mes = execute('message')
+            Assert Match(mes, '\<git-messenger: ', mes)
+        End
+
+        It works under .github directory (#70)
+            " Close README.md
+            bwipeout!
+
+            view! .github/workflows/ci.yml
+            GitMessenger
+            let p = GetPopup()
+            Assert IsNotNone(p)
+            Assert KeyExists(p, 'bufnr')
+        End
+    End
+
+    Describe Popup window
+        It is closed on CursorMoved
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            " Add this check for fd4feb03edf3b0b659a3a0722e333ec312642daf
+            doautocmd CursorMoved
+            Assert IsNotNone(GetPopup())
+
+            normal! h
+            doautocmd CursorMoved
+
+            Assert IsNone(GetPopupNoWait())
+        End
+
+        It is not closed on CursorHold
+            " Test for fd4feb03edf3b0b659a3a0722e333ec312642daf
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            doautocmd CursorHold
+            Assert IsNotNone(GetPopup())
+        End
+
+        It is closed on BufEnter
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            new!
+
+            Assert IsNone(GetPopupNoWait())
+        End
+
+        It is closed on BufEnter
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            vnew
+            wincmd p
+
+            Assert IsNone(GetPopupNoWait())
+        End
+
+        It is closed on WinEnter but not on BufEnter
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            " Creates another window, but it contains the same buffer as
+            " current one.
+            vsplit
+
+            " Move to another window causes WinEnter, but buffer is the same
+            " so BufEnter won't be triggered
+            wincmd p
+
+            Assert IsNone(GetPopupNoWait())
+        End
+
+        It is closed on BufLeave in popup window (#13)
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            let prev_bufnr = bufnr('%')
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            bnext
+
+            Assert False(exists('b:__gitmessenger_popup'))
+            Assert IsNone(GetPopupNoWait())
+            Assert Equals(prev_bufnr, bufnr('%'))
+        End
+
+        It is closed on q
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal q
+
+            Assert IsNone(GetPopupNoWait())
+        End
+
+        It shows older commit on o
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            Assert Match(getline(2), '^ History: \+#0$')
+
+            normal o
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+            Assert True(found, 'Expected #1 but got line: ' . string(getline(2)))
+
+            normal o
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#2$'})
+            Assert True(found, 'Expected #2 but got line: ' . string(getline(2)))
+        End
+
+        It shows newer commit on O
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            Assert Match(getline(2), '^ History: \+#0$')
+
+            normal o
+            call WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+
+            normal o
+            call WaitUntil({-> getline(2) =~# '^ History: \+#2$'})
+
+            normal O
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+            Assert True(found, 'Got line: ' . string(getline(2)))
+
+            normal O
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+            Assert True(found, 'Got line: ' . string(getline(2)))
+
+            " Check older again
+            normal o
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+            Assert True(found, 'Got line: ' . string(getline(2)))
+        End
+
+        It does not cause #23 again
+            " 1. Open the same buffer with multiple window
+            " 2. Move cursror to the second window which opens the same
+            " buffer
+            vsplit
+            wincmd p
+
+            let prev_win_id = win_getid()
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal q
+
+            Assert IsNone(GetPopupNoWait())
+
+            Assert Equal(win_getid(), prev_win_id)
+        End
+
+        Describe #63
+            Before all
+                augroup gitmessenger-test-issue-63
+                    autocmd!
+                    autocmd FileType gitmessengerpopup nunmap <buffer>d
+                augroup END
+            End
+
+            After all
+                autocmd! gitmessenger-test-issue-63
+            End
+
+            It is not reproducible
+                GitMessenger
+
+                let p = GetPopup()
+                Assert IsNotNone(p)
+
+                " Enter popup
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                " 'd' mapping should be unmapped by hook at gitmessengerpopup
+                " filetype event
+                let output = execute('nmap d')
+                " Example of `output` content:
+                "   n  d           *@:<C-U>call b:__gitmessenger_popup.opts.mappings["d"][0]()<CR>
+                Assert NotMatch(output, 'gitmessenger', string(output))
+            End
+        End
+
+        Describe diff support
+            " LICENSE and README.md was added at the same commit.
+            " So 'current' diffs in LICENSE only shows changes of LICENSE.
+            " And 'all' diffs in LICENSE shows changes of both LICENSE and README.md
+            Before all
+                let LicenseDiffExists = {-> index(getline(1, '$'), ' diff --git a/LICENSE b/LICENSE') !=# -1}
+                let ReadmeDiffExists = {-> index(getline(1, '$'), ' diff --git a/README.md b/README.md') !=# -1}
+            End
+
+            Before each
+                view! LICENSE
+                normal! gg0
+            End
+
+            It shows diff hunks of current file on d
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                " Check diff is not shown
+                let lines = getline(1, '$')
+                Assert False(LicenseDiffExists(), string(lines))
+
+                normal d
+
+                let found = WaitUntil(LicenseDiffExists)
+                Assert True(found, 'Got lines: ' . string(getline(1, '$')))
+            End
+
+            It shows all diff hunks on D
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                " Check diff is not shown
+                let lines = getline(1, '$')
+                Assert False(LicenseDiffExists(), string(lines))
+
+                normal D
+
+                let found = WaitUntil(LicenseDiffExists)
+                Assert True(found, 'Got lines: ' . string(getline(1, '$')))
+            End
+
+            It switches diff from 'current' to 'all' by d -> D
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                normal d
+
+                let found = WaitUntil(LicenseDiffExists)
+                let lines = 'Got lines: ' . string(getline(1, '$'))
+
+                Assert True(found, lines)
+                Assert False(ReadmeDiffExists(), lines)
+
+                normal D
+
+                let found = WaitUntil(ReadmeDiffExists)
+                let lines = 'Got lines: ' . string(getline(1, '$'))
+                Assert True(found, lines)
+                Assert True(LicenseDiffExists(), lines)
+            End
+
+            It switches diff from 'all' to 'current' by D -> d
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                normal D
+
+                let found = WaitUntil(LicenseDiffExists)
+                let lines = 'Got lines: ' . string(getline(1, '$'))
+                Assert True(found, lines)
+                Assert True(ReadmeDiffExists(), lines)
+
+                normal d
+
+                let removed = WaitWhile(ReadmeDiffExists)
+                let lines = 'Got lines: ' . string(getline(1, '$'))
+                Assert True(removed, lines)
+                Assert True(LicenseDiffExists(), lines)
+            End
+
+            It toggles file diff on d -> d
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                let expected = v:true
+                for i in range(3)
+                    normal d
+                    let found = WaitUntil(LicenseDiffExists)
+                    let lines = 'Got lines (' . i . '): ' . string(getline(1, '$'))
+                    Assert Equal(found, expected, lines)
+                    Assert False(ReadmeDiffExists(), lines)
+                    " Flip expectation because d toggles file diff
+                    let expected = !expected
+                endfor
+            End
+
+            It toggles commit diff on D -> D
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                let expected = v:true
+                for i in range(3)
+                    normal D
+                    let found = WaitUntil(ReadmeDiffExists)
+                    let lines = 'Got lines (' . i . '): ' . string(getline(1, '$'))
+                    Assert Equal(found, expected, lines)
+                    Assert Equal(LicenseDiffExists(), expected, lines)
+                    " Flip expectation because D toggles commit diff
+                    let expected = !expected
+                endfor
+            End
+
+            It switches diff between 'all' and 'current' repeatedly
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                let idx = 0
+                for m in repeat(['D', 'd'], 3)
+                    execute 'normal' m
+                    if m ==# 'd'
+                        let ok = WaitWhile(ReadmeDiffExists)
+                    else
+                        let ok = WaitUntil(ReadmeDiffExists)
+                    endif
+                    let lines = printf('Got lines #%d (%s): %s', idx, m, string(getline(1, '$')))
+                    Assert True(ok, lines)
+                    Assert True(LicenseDiffExists(), lines)
+                    let idx += 1
+                endfor
+            End
+
+            Describe g:git_messenger_include_diff
+                Before each
+                    let saved_include_diff = g:git_messenger_include_diff
+                End
+
+                After each
+                    let g:git_messenger_include_diff = saved_include_diff
+                End
+
+                It shows 'all' diff after 'current' diff is shown by g:git_messenger_include_diff
+                    let g:git_messenger_include_diff = 'current'
+                    GitMessenger
+                    Assert IsNotNone(GetPopup())
+                    GitMessenger
+                    Assert Exists('b:__gitmessenger_popup')
+
+                    let lines = 'Got lines: ' . string(getline(1, '$'))
+                    Assert True(LicenseDiffExists(), lines)
+                    Assert False(ReadmeDiffExists(), lines)
+
+                    normal D
+
+                    let found = WaitUntil(ReadmeDiffExists)
+                    let lines = 'Got lines: ' . string(getline(1, '$'))
+                    Assert True(found, lines)
+                    Assert True(LicenseDiffExists(), lines)
+                End
+
+                It shows 'current' diff after 'all' diff is shown by g:git_messenger_include_diff
+                    let g:git_messenger_include_diff = 'all'
+                    GitMessenger
+                    Assert IsNotNone(GetPopup())
+                    GitMessenger
+                    Assert Exists('b:__gitmessenger_popup')
+
+                    let lines = 'Got lines: ' . string(getline(1, '$'))
+                    Assert True(LicenseDiffExists(), lines)
+                    Assert True(ReadmeDiffExists(), lines)
+
+                    normal d
+
+                    let removed = WaitWhile(ReadmeDiffExists)
+                    let lines = 'Got lines: ' . string(getline(1, '$'))
+                    Assert True(removed, lines)
+                    Assert True(LicenseDiffExists(), lines)
+                End
+            End
+
+            Describe Issue #29
+                Before all
+                    let root_dir = './issue-29'
+                    let file = 'foo.txt'
+                    let path = root_dir . '/' . file
+
+                    call mkdir(root_dir)
+                    call Git(root_dir, 'init', '.')
+                    call writefile(['aaa'], path)
+                    call Git(root_dir, 'add', file)
+                    call Git(root_dir, 'commit', '-m', 'init')
+                End
+
+                After all
+                    if delete(root_dir, 'rf') != 0
+                        throw 'delete() failed'
+                    endif
+                End
+
+                It is not reproduced again
+                    execute 'view!' path
+                    normal! gg
+
+                    GitMessenger
+                    Assert IsNotNone(GetPopup())
+
+                    GitMessenger
+                    Assert Exists('b:__gitmessenger_popup')
+
+                    normal d
+
+                    let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/foo.txt b/foo.txt') !=# -1})
+                    Assert True(found, 'Lines: ' . string(getline(1, '$')) . ' Messages: ' . execute('message'))
+                End
+            End
+
+            It reveals word diffs with r and dismisses it with r again
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                " Check diff is not shown
+                Assert False(LicenseDiffExists(), string(getline(1, '$')))
+
+                normal r
+
+                let found = WaitUntil(LicenseDiffExists)
+                let lines = getline(1, '$')
+                let msg = 'Got lines: ' . string(lines)
+                Assert True(found, msg)
+                Assert False(ReadmeDiffExists(), lines)
+
+                let add_lines = filter(copy(lines), 'v:val =~# "{+.\\++}"')
+                Assert NotEmpty(add_lines, msg)
+
+                normal r
+
+                let removed = WaitWhile(LicenseDiffExists)
+                Assert True(removed, 'Got lines: ' . string(getline(1, '$')))
+            End
+
+            It reveals all word diffs with R and dismisses it with R again
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                " Check diff is not shown
+                Assert False(LicenseDiffExists(), string(getline(1, '$')))
+
+                normal R
+
+                let found = WaitUntil(LicenseDiffExists)
+                let lines = getline(1, '$')
+                let msg = 'Got lines: ' . string(lines)
+                Assert True(found, msg)
+                Assert True(ReadmeDiffExists(), msg)
+
+                let add_lines = filter(copy(lines), 'v:val =~# "{+.\\++}"')
+                Assert NotEmpty(add_lines, msg)
+
+                normal R
+
+                let removed = WaitWhile(LicenseDiffExists)
+                Assert True(removed, 'Got lines: ' . string(getline(1, '$')))
+            End
+
+            It switches between normal diffs and word diffs
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                " Check diff is not shown
+                Assert False(LicenseDiffExists(), string(getline(1, '$')))
+
+                let WordDiffMarkerExists = {-> !empty(filter(getline(1, '$'), 'v:val =~# "{+.\\++}"'))}
+
+                " none -> word diff
+                normal r
+
+                let found = WaitUntil(LicenseDiffExists)
+                let msg = 'Got lines: ' . string(getline(1, '$'))
+                Assert True(found, msg)
+                Assert True(LicenseDiffExists(), msg)
+
+                Assert WordDiffMarkerExists()
+
+                " word diff -> diff
+                normal d
+
+                let marker_removed = WaitWhile(WordDiffMarkerExists)
+                let msg = 'Got lines: ' . string(getline(1, '$'))
+                Assert True(marker_removed, msg)
+                Assert True(LicenseDiffExists(), msg)
+
+                " diff -> word diff
+                normal r
+
+                let found = WaitUntil(WordDiffMarkerExists)
+                let msg = 'Got lines: ' . string(getline(1, '$'))
+                Assert True(found, msg)
+            End
+
+            Describe g:git_messenger_popup_content_margins
+                Before
+                    let content_margins_saved = g:git_messenger_popup_content_margins
+                End
+
+                After
+                    let g:git_messenger_popup_content_margins = content_margins_saved
+                End
+
+                It removes margins on toggling diff when v:false is set (#85)
+                    let g:git_messenger_popup_content_margins = v:false
+
+                    let LicenseDiffNoMarginsExists = {-> index(getline(1, '$'), 'diff --git a/LICENSE b/LICENSE') !=# -1}
+                    let ReadmeDiffNoMarginsExists = {-> index(getline(1, '$'), 'diff --git a/README.md b/README.md') !=# -1}
+
+                    GitMessenger
+
+                    let p = GetPopup()
+                    Assert IsNotNone(p)
+
+                    GitMessenger
+                    Assert Exists('b:__gitmessenger_popup')
+
+                    let num_lines = len(getbufline(p.bufnr, 1, '$'))
+                    let expected = v:true
+                    for i in range(3)
+                        normal d
+                        let found = WaitUntil(LicenseDiffNoMarginsExists)
+                        let lines = 'Got lines (' . i . '): ' . string(getline(1, '$'))
+                        Assert Equal(found, expected, lines)
+                        Assert False(ReadmeDiffNoMarginsExists(), lines)
+                        " Repeated toggling should not grow the buffer size
+                        if !expected
+                            Assert Equal(len(getline(1, '$')), num_lines, lines)
+                        endif
+                        " Flip expectation because d toggles file diff
+                        let expected = !expected
+                    endfor
+                End
+            End
+        End
+
+        It preserves diff hunks after going back to older commit
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal d
+
+            let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/README.md b/README.md') !=# -1})
+            Assert True(found, 'Got lines: ' . string(getline(1, '$')))
+
+            for i in range(3)
+                normal o
+                Assert WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+
+                let lines = getline(1, '$')
+                let idx = index(lines, ' diff --git a/README.md b/README.md')
+                Assert Equals(idx, -1, string(lines))
+
+                normal O
+                Assert WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+
+                " Check diff is restored
+                let lines = getline(1, '$')
+                let idx = index(lines, ' diff --git a/README.md b/README.md')
+                Assert NotEqual(idx, -1, string(lines))
+            endfor
+        End
+
+        It preserves previous diff content after changing content repeatedly
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            let expected = v:false
+            for i in range(3)
+                if i > 0
+                    " Toggle diff to update content
+                    normal d
+                    " Flip expectation since diff was toggled
+                    let expected = !expected
+                endif
+
+                let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/README.md b/README.md') !=# -1})
+                let msg = 'Got lines: (' . i . ') ' . string(getline(1, '$'))
+                Assert Equal(found, expected, msg)
+
+                normal o
+                Assert WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+
+                normal O
+                Assert WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+
+                let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/README.md b/README.md') !=# -1})
+                let msg = 'Got lines: (' . i . ') ' . string(getline(1, '$'))
+                Assert Equal(found, expected, msg)
+            endfor
+        End
+
+        It preserves word diff hunks after going back to older commit
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal r
+
+            let WordDiffMarkerExists = {-> !empty(filter(getline(1, '$'), 'v:val =~# "{+.\\++}"'))}
+            let found = WaitUntil(WordDiffMarkerExists)
+            Assert True(found, 'Got lines: ' . string(getline(1, '$')))
+
+            for i in range(3)
+                normal o
+                Assert WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+                Assert False(WordDiffMarkerExists(), string(getline(1, '$')))
+
+                normal O
+                Assert WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+
+                " Check diff is restored
+                Assert True(WordDiffMarkerExists(), string(getline(1, '$')))
+            endfor
+        End
+
+        It highlights popup content with gitmessengerpopup filetype
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            Assert Equal(&filetype, 'gitmessengerpopup')
+
+            " Highlight name at 'H' of 'History:' header
+            let [line, col] = [2, 2]
+            let name = synIDattr(synID(line, col, 1), 'name')
+            Assert Equal(name, 'gitmessengerHeader')
+        End
+
+        It shows author date and committer date separately when they are different
+            " Move to Screenshot title. At point of f1e133c, author date and committer date are
+            " different for this line's commit
+            call search('## Screenshot')
+
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+            Assert KeyExists(p, 'bufnr')
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let msg = string(lines)
+
+            Assert Match(lines[4], '^ Author Date: \+\S\+', msg)
+            Assert Match(lines[5], '^ Committer Date: \+\S\+', msg)
+        End
+
+        Describe lines not committed yet
+            Before all
+                let root_dir = './not-committed-yet-test'
+                call mkdir(root_dir)
+                call Git('.', 'init', root_dir)
+
+                let file_before_add = 'before_add.txt'
+                let file_before_commit = 'before_commit.txt'
+                let before_add = root_dir . '/' . file_before_add
+                let before_commit = root_dir . '/' . file_before_commit
+
+                call writefile(['aaa'], before_add)
+                call Git(root_dir, 'add', file_before_add)
+                call writefile(['aaa'], before_commit)
+                call Git(root_dir, 'add', file_before_commit)
+
+                call Git(root_dir, "commit -m init")
+                call writefile(['bbb', 'ccc'], before_add, 'a')
+                call writefile(['bbb', 'ccc'], before_commit, 'a')
+                call Git(root_dir, 'add', file_before_commit)
+
+                let DiffExists = {ls, f -> index(ls, printf(' diff --git a/%s b/%s', f, f)) >= 0}
+            End
+
+            After all
+                if delete(root_dir, 'rf') != 0
+                    throw 'delete() failed'
+                endif
+            End
+
+            It shows 'Not committed yet' popup
+                for file in [before_add, before_commit]
+                    execute 'view!' file
+                    normal! G
+
+                    GitMessenger
+                    let p = GetPopup()
+                    Assert IsNotNone(p)
+
+                    let lines = getbufline(p.bufnr, 1, '$')
+                    let msg = file . ': ' . string(lines)
+
+                    Assert True(len(lines) >= 6, msg)
+
+                    let commit = lines[2]
+                    Assert Match(commit, '^ Commit: \+0\{7,}$', msg)
+
+                    let summary = lines[6]
+                    Assert Equals(summary, ' This line is not committed yet', msg)
+                endfor
+            End
+
+            It shows current diffs which are not committed on 'd'
+                for path in [before_add, before_commit]
+                    execute 'view!' path
+                    normal! G
+
+                    GitMessenger
+                    Assert IsNotNone(GetPopup())
+                    GitMessenger
+
+                    let lines = getline(1, '$')
+                    let msg = path . ': ' . string(lines)
+
+                    Assert False(DiffExists(lines, file_before_add), msg)
+                    Assert False(DiffExists(lines, file_before_commit), msg)
+
+                    let len_lines = len(lines)
+                    normal d
+
+                    Assert WaitUntil({-> len(getline(1, '$')) > len_lines})
+
+                    let lines = getline(1, '$')
+                    let msg = path . ': ' . string(lines)
+
+                    if path == before_add
+                        let file = file_before_add
+                        let other_file = file_before_commit
+                    else
+                        let file = file_before_commit
+                        let other_file = file_before_add
+                    endif
+
+                    Assert True(DiffExists(lines, file), msg)
+                    Assert False(DiffExists(lines, other_file), msg)
+                endfor
+            End
+
+            It shows all diffs which are not committed on 'D'
+                for path in [before_add, before_commit]
+                    execute 'view!' path
+                    normal! G
+
+                    GitMessenger
+                    Assert IsNotNone(GetPopup())
+                    GitMessenger
+
+                    let lines = getline(1, '$')
+                    let msg = path . ': ' . string(lines)
+
+                    Assert False(DiffExists(lines, file_before_add), msg)
+                    Assert False(DiffExists(lines, file_before_commit), msg)
+
+                    let len_lines = len(lines)
+                    normal D
+
+                    Assert WaitUntil({-> len(getline(1, '$')) > len_lines})
+
+                    let lines = getline(1, '$')
+                    let msg = path . ': ' . string(lines)
+
+                    Assert True(DiffExists(lines, file_before_add), msg)
+                    Assert True(DiffExists(lines, file_before_commit), msg)
+                endfor
+            End
+
+            " Edge cases
+            Describe g:git_messenger_include_diff
+                Before all
+                    let saved = g:git_messenger_include_diff
+                End
+
+                After all
+                    let g:git_messenger_include_diff = saved
+                End
+
+                It shows diffs not committed yet of 'current' file on popup open
+                    let g:git_messenger_include_diff = 'current'
+                    execute 'view!' before_add
+                    normal! G
+
+                    GitMessenger
+                    let p = GetPopup()
+                    Assert IsNotNone(p)
+
+                    let lines = getbufline(p.bufnr, 1, '$')
+                    let msg = string(lines)
+
+                    Assert True(DiffExists(lines, file_before_add), msg)
+                    Assert False(DiffExists(lines, file_before_commit), msg)
+                End
+
+                It shows 'all' diffs not committed yet on popup open
+                    let g:git_messenger_include_diff = 'all'
+                    execute 'view!' before_commit
+                    normal! G
+
+                    GitMessenger
+                    let p = GetPopup()
+                    Assert IsNotNone(p)
+
+                    let lines = getbufline(p.bufnr, 1, '$')
+                    let msg = string(lines)
+
+                    Assert True(DiffExists(lines, file_before_add), msg)
+                    Assert True(DiffExists(lines, file_before_commit), msg)
+                End
+            End
+        End
+    End
+
+    Describe g:git_messenger_include_diff
+        Before all
+            let saved = g:git_messenger_include_diff
+        End
+
+        After all
+            let g:git_messenger_include_diff = saved
+        End
+
+        It shows diff hunks of current file in opened popup
+            let g:git_messenger_include_diff = 'current'
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let idx = index(lines, ' diff --git a/README.md b/README.md')
+
+            Assert NotEqual(idx, -1, string(lines))
+        End
+
+        It shows diff hunks of current file for older/newer commits
+            let g:git_messenger_include_diff = 'current'
+
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal o
+            call WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let idx = index(lines, ' diff --git a/README.md b/README.md')
+            Assert NotEqual(idx, -1, string(lines))
+
+            normal O
+            call WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let idx = index(lines, ' diff --git a/README.md b/README.md')
+            Assert NotEqual(idx, -1, string(lines))
+        End
+
+        It shows all diff hunks in opened popup
+            let g:git_messenger_include_diff = 'all'
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let idx = index(lines, ' diff --git a/README.md b/README.md')
+
+            Assert NotEqual(idx, -1, string(lines))
+        End
+
+        It shows all diff hunks for older/newer commits
+            let g:git_messenger_include_diff = 'all'
+
+            GitMessenger
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal o
+            call WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let idx = index(lines, ' diff --git a/README.md b/README.md')
+            Assert NotEqual(idx, -1, string(lines))
+
+            normal O
+            call WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+
+            let lines = getbufline(p.bufnr, 1, '$')
+            let idx = index(lines, ' diff --git a/README.md b/README.md')
+            Assert NotEqual(idx, -1, string(lines))
+        End
+    End
+
+    Describe <Plug>(git-messenger)
+        It is mapped to <Leader>gm by default
+            let m = mapcheck('<Leader>gm')
+            Assert Equal(m, '<Plug>(git-messenger)')
+        End
+
+        It invokes :GitMessenger
+            execute 'normal' "\<Plug>(git-messenger)"
+
+            let p = GetPopup()
+            Assert IsNotNone(p)
+            Assert KeyExists(p, 'bufnr')
+        End
+    End
+
+    Describe g:git_messenger_max_popup_height
+        Before all
+            let saved = g:git_messenger_max_popup_height
+        End
+
+        After all
+            let g:git_messenger_max_popup_height = saved
+        End
+
+        It limits height of popup window
+            let g:git_messenger_max_popup_height = 4
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            Assert Equal(winheight(0), 4)
+        End
+
+        It does not affect height when content has less height
+            let g:git_messenger_max_popup_height = 20
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            let h = winheight(0)
+            Assert True(h < 20, h)
+        End
+    End
+
+    Describe g:git_messenger_max_popup_width
+        Before all
+            let saved = g:git_messenger_max_popup_width
+        End
+
+        After all
+            let g:git_messenger_max_popup_width = saved
+        End
+
+        It limits width of popup window
+            if !has('nvim-0.4')
+                Skip width of preview window cannot be changed
+            endif
+
+            let g:git_messenger_max_popup_width = 4
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            Assert Equal(winwidth(0), 4)
+        End
+
+        It does not affect width when content has less width
+            if !has('nvim-0.4')
+                Skip width of preview window cannot be changed
+            endif
+
+            " Use first line of LICENSE file because commit message of the
+            " line is smaller. In this test case, it is important that width
+            " of content is small.
+            view! LICENSE
+            normal! gg0
+
+            let g:git_messenger_max_popup_width = winwidth(0)
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            let w = winwidth(0)
+            Assert True(w < g:git_messenger_max_popup_width, w . ' v.s. ' . g:git_messenger_max_popup_width)
+        End
+    End
+
+    Describe Issue #25
+        Before all
+            let root_dir = './issue-25'
+            call mkdir(root_dir)
+            call Git('.', 'init', root_dir)
+
+            let filename = 'foo.txt'
+            let filepath = root_dir . '/' . filename
+            let renamename = 'renamed.txt'
+            let renamepath = root_dir . '/' . renamename
+
+            let lines = [
+                        \ 'aaa',
+                        \ 'bbb',
+                        \ 'ccc',
+                        \ 'ddd',
+                        \ 'eee',
+                        \ 'fff',
+                        \ 'ggg',
+                        \ 'hhh',
+                        \ 'iii',
+                        \ 'jjj',
+                        \ 'hhh',
+                        \ ]
+            call writefile(lines, filepath)
+            call Git(root_dir, 'add', filename)
+            call Git(root_dir, 'commit -m init')
+
+            let lines[0] = 'xxx'
+            let lines += ['kkk']
+
+            call Git(root_dir, 'mv', filename, renamename)
+            call writefile(lines, renamepath)
+            call Git(root_dir, 'add', renamename)
+
+            call Git(root_dir, 'commit -m rename')
+
+        End
+
+        After all
+            if delete(root_dir, 'rf') != 0
+                throw 'delete() failed'
+            endif
+        End
+
+        Before each
+            execute 'view!' renamepath
+        End
+
+        It should no longer be reproduced on exploring older commits
+            normal! gg0
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+            Assert Match(getline(2), '^ History: \+#0$')
+
+            normal o
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+            Assert True(found, 'Got line: ' . string(getline(2) . ' with messeage:' . execute('message')))
+        End
+
+        It should no longer be reproduced on revealing diff
+            " Test case 1: Before rename (foo.txt)
+            2
+            normal! 0
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal d
+
+            let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/foo.txt b/foo.txt') !=# -1})
+            let lines = getline(1, '$')
+            Assert True(found, 'Popup lines: ' . string(lines) . ' with message:' . execute('message'))
+            Assert True(index(lines, ' +aaa') > 0, string(lines))
+            Assert True(index(lines, ' +bbb') > 0, string(lines))
+
+            quit
+
+            " Test case 2: While renaming
+            normal! gg0
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal d
+
+            let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/foo.txt b/renamed.txt') !=# -1})
+            let lines = getline(1, '$')
+            Assert True(found, 'Popup lines: ' . string(lines) . ' with message:' . execute('message'))
+            " Should show diff of files even while renaming
+            Assert True(index(lines, ' -aaa') > 0, string(lines))
+            Assert True(index(lines, ' +xxx') > 0, string(lines))
+            Assert True(index(lines, '  bbb') > 0, string(lines))
+        End
+
+        It should no longer be reproduced at initial diff
+            normal! gg0
+
+            let saved_include_diff = g:git_messenger_include_diff
+            let g:git_messenger_include_diff = 'current'
+            try
+                GitMessenger
+                Assert IsNotNone(GetPopup())
+
+                GitMessenger
+                Assert Exists('b:__gitmessenger_popup')
+
+                let lines = getline(1, '$')
+                let msg = string(lines)
+                Assert True(index(lines, ' diff --git a/foo.txt b/renamed.txt') > 0, msg)
+                Assert True(index(lines, ' -aaa') > 0, msg)
+                Assert True(index(lines, ' +xxx') > 0, msg)
+                Assert True(index(lines, '  bbb') > 0, msg)
+            finally
+                let g:git_messenger_include_diff = saved_include_diff
+            endtry
+        End
+
+        It should show diff of commit renaming the file after backing with O
+            " Note: This test case is follow up of 4caef1d
+
+            normal! gg0
+
+            GitMessenger
+            Assert IsNotNone(GetPopup())
+
+            GitMessenger
+            Assert Exists('b:__gitmessenger_popup')
+
+            normal o
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#1$'})
+            Assert True(found, 'Got line: ' . string(getline(2) . ' with messeage: ' . execute('message')))
+
+            normal O
+
+            let found = WaitUntil({-> getline(2) =~# '^ History: \+#0$'})
+            Assert True(found, 'Got line: ' . string(getline(2) . ' with messeage: ' . execute('message')))
+
+            normal d
+
+            let found = WaitUntil({-> index(getline(1, '$'), ' diff --git a/foo.txt b/renamed.txt') !=# -1})
+            let lines = getline(1, '$')
+            let msg = string(lines)
+
+            Assert True(found, msg)
+            Assert True(index(lines, ' -aaa') > 0, msg)
+            Assert True(index(lines, ' +xxx') > 0, msg)
+            Assert True(index(lines, '  bbb') > 0, msg)
+        End
+    End
+
+    Describe gitmessenger#git#root_dir()
+        Before all
+            let root_dir = './my git root with space'
+            let file = 'file.txt'
+            let path = root_dir . '/' . file
+
+            call mkdir(root_dir)
+            call writefile(['123'], path)
+
+            call Git(root_dir, 'init', '.')
+            call Git(root_dir, 'add', file)
+            call Git(root_dir, 'commit', '-m', 'init')
+        End
+
+        After all
+            if delete(root_dir, 'rf') != 0
+                throw 'delete() failed'
+            endif
+        End
+
+        It returns correct root when pathname contains space
+            " call fnamemodify here the same way
+            " gitmessenger#blame#new() does to get our absolute path
+            let file = './my git root with space/file.txt'
+            let expected_root_dir = fnamemodify(file, ':p:h')
+            let actual_root_dir = gitmessenger#git#root_dir(file)
+
+            " Failure will return the repo root instead of our created
+            " ad-hoc root directory
+            Assert Equal(actual_root_dir, expected_root_dir)
+        End
+    End
+
+    Describe g:git_messenger_date_format
+        Before all
+            let saved_date_format = g:git_messenger_date_format
+        End
+
+        After all
+            let g:git_messenger_date_format = saved_date_format
+        End
+
+        It changes date format
+            " e.g. '2020'
+            let g:git_messenger_date_format = '%Y'
+
+            GitMessenger
+
+            let p = GetPopup()
+            let date = getbufline(p.bufnr, 1, '$')[4]
+            Assert Match(date, '^ Date: \+\d\{4\}$', date)
+        End
+    End
+
+    Describe g:git_messenger_popup_content_margins
+        Before all
+            let saved_popup_content_margins = g:git_messenger_popup_content_margins
+        End
+
+        After all
+            let g:git_messenger_popup_content_margins = saved_popup_content_margins
+        End
+
+        It adds margins when v:true is set
+            let g:git_messenger_popup_content_margins = v:true
+
+            GitMessenger
+
+            let p = GetPopup()
+            let lines = getbufline(p.bufnr, 1, '$')
+            Assert True(len(lines) > 3)
+
+            " Check margins exist
+            Assert Equal(lines[0], '')
+            Assert Equal(lines[len(lines)-1], '')
+            for line in lines[1:-2]
+                if line !=# ''
+                    Assert Match(line, '^ ')
+                endif
+            endfor
+
+            " With diffs
+            GitMessenger
+            normal d
+
+            " Check margins exist
+            Assert Equal(lines[0], '')
+            Assert Equal(lines[len(lines)-1], '')
+            for line in lines[1:-2]
+                if line !=# ''
+                    Assert Match(line, '^ ')
+                endif
+            endfor
+        End
+
+        It removes margins when v:false is set
+            let g:git_messenger_popup_content_margins = v:false
+
+            GitMessenger
+
+            let p = GetPopup()
+            let lines = getbufline(p.bufnr, 1, '$')
+            Assert True(len(lines) > 3)
+
+            " Check margins don't exist
+            Assert NotEqual(lines[0], '')
+            Assert NotEqual(lines[len(lines)-1], '')
+            for line in lines[1:-2]
+                if line !=# ''
+                    Assert NotMatch(line, '^ ')
+                endif
+            endfor
+
+            " With diffs
+            GitMessenger
+            normal d
+
+            " Check margins don't exist
+            Assert NotEqual(lines[0], '')
+            Assert NotEqual(lines[len(lines)-1], '')
+            for line in lines[1:-2]
+                if line !=# ''
+                    Assert NotMatch(line, '^ ')
+                endif
+            endfor
+        End
+    End
+
+    Describe g:git_messenger_floating_win_opts
+        Before all
+            let saved_floating_win_opts = g:git_messenger_floating_win_opts
+        End
+
+        After all
+            let g:git_messenger_floating_win_opts = saved_floating_win_opts
+        End
+
+        It overrides floating window options
+            if !has('nvim')
+                Skip g:git_messenger_floating_win_opts is effective only on Neovim
+            endif
+
+            let g:git_messenger_floating_win_opts = {'height': 10000}
+            GitMessenger
+            let p = GetPopup()
+            let c = nvim_win_get_config(p.win_id)
+            Assert Equal(c.height, 10000)
+        End
+    End
+
+    Describe gitmessenger#git#new
+        It runs Git command at specified directory using -C
+            let git = gitmessenger#git#new('echo', '.')
+            let state = {}
+            let OnExit = {g -> extend(state, {'exit': g.exit_status})}
+
+            call git.spawn([], OnExit)
+            call WaitUntil({-> has_key(state, 'exit')})
+
+            Assert True(len(git.stdout) > 0, string(git.stdout))
+            let stdout = git.stdout[0]
+            Assert True(stridx(stdout, '-C .') >= 0, string(stdout))
+        End
+
+        It trims trailing \r (#75)
+            let git = gitmessenger#git#new('echo', '.')
+            let state = {}
+            let OnExit = {g -> extend(state, {'exit': g.exit_status})}
+
+            if has('win32')
+                " 'echo' command on Windows use \r\n for newlines. So `echo "foo\r"` outputs
+                " "foo\r\r\n" at terminal
+                let input = "this\nis\ntest"
+            else
+                let input = "this\r\nis\r\ntest"
+            endif
+
+            call git.spawn([input], OnExit)
+            call WaitUntil({-> has_key(state, 'exit')})
+
+            Assert Equals(state.exit, 0)
+            Assert True(len(git.stdout) > 0, string(git.stdout))
+
+            let stdout = substitute(substitute(string(git.stdout), '\r', '\\r', 'g'), '\n', '\\n', 'g')
+
+            for n in range(len(git.stdout))
+                let l = git.stdout[n]
+                Assert NotMatch(l, '\r$', stdout . ' at ' . n)
+            endfor
+        End
+    End
+End
+
+" vim: set ft=vim:

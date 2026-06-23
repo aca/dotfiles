@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tzachar/local-highlight.nvim
+	branch = master
+	commit = bdf0e15df9164b507cb9e9ba781ba29f2dd3f4a6
+	parent = 707fb8e6acca3a8f1577924505a9cdaaefe80659
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,254 @@
+*statuscol.txt*                  Status column plugin providing click handlers
+
+==============================================================================
+Table of Contents                                *statuscol-table-of-contents*
+
+1. statuscol.nvim                                   |statuscol-statuscol.nvim|
+  - Usage                                     |statuscol-statuscol.nvim-usage|
+  - Configuration                     |statuscol-statuscol.nvim-configuration|
+  - Default click actions     |statuscol-statuscol.nvim-default-click-actions|
+
+==============================================================================
+1. statuscol.nvim                                   *statuscol-statuscol.nvim*
+
+Status column plugin that provides a configurable |'statuscolumn'| and click
+handlers. Requires Neovim >= 0.10.
+
+
+USAGE                                         *statuscol-statuscol.nvim-usage*
+
+By default, the `setup()` function will configure the `'statuscolumn'` option
+for you. This will yield a clickable 'statuscolumn' that looks the same as
+default neovim, still obeying most of neovim’s options that modify the way
+the status column looks. Further customization is possible through various
+configuration variables in the `setup()` table.
+
+
+CONFIGURATION                         *statuscol-statuscol.nvim-configuration*
+
+
+DEFAULT OPTIONS ~
+
+>lua
+    local builtin = require("statuscol.builtin")
+    local cfg = {
+      setopt = true,         -- Whether to set the 'statuscolumn' option, may be set to false for those who
+                             -- want to use the click handlers in their own 'statuscolumn': _G.Sc[SFL]a().
+                             -- Although I recommend just using the segments field below to build your
+                             -- statuscolumn to benefit from the performance optimizations in this plugin.
+      -- builtin.lnumfunc number string options
+      thousands = false,     -- or line number thousands separator string ("." / ",")
+      relculright = false,   -- whether to right-align the cursor line number with 'relativenumber' set
+      -- Builtin 'statuscolumn' options
+      ft_ignore = nil,       -- Lua table with 'filetype' values for which 'statuscolumn' will be unset
+      bt_ignore = nil,       -- Lua table with 'buftype' values for which 'statuscolumn' will be unset
+      -- Default segments (fold -> sign -> line number + separator), explained below
+      segments = {
+        { text = { "%C" }, click = "v:lua.ScFa" },
+        { text = { "%s" }, click = "v:lua.ScSa" },
+        {
+          text = { builtin.lnumfunc, " " },
+          condition = { true, builtin.not_empty },
+          click = "v:lua.ScLa",
+        }
+      },
+      clickmod = "c",         -- modifier used for certain actions in the builtin clickhandlers:
+                              -- "a" for Alt, "c" for Ctrl and "m" for Meta.
+      clickhandlers = {       -- builtin click handlers, keys are pattern matched
+        Lnum                    = builtin.lnum_click,
+        FoldClose               = builtin.foldclose_click,
+        FoldOpen                = builtin.foldopen_click,
+        FoldOther               = builtin.foldother_click,
+        DapBreakpointRejected   = builtin.toggle_breakpoint,
+        DapBreakpoint           = builtin.toggle_breakpoint,
+        DapBreakpointCondition  = builtin.toggle_breakpoint,
+        ["diagnostic/signs"]    = builtin.diagnostic_click,
+        gitsigns                = builtin.gitsigns_click,
+      },
+    }
+<
+
+
+CUSTOM SEGMENTS ~
+
+The statuscolumn can be customized through the `segments` table. Each segment
+can contain the following elements:
+
+>lua
+    {
+      text = { "%C" },       -- table of strings or functions returning a string
+      click = "v:lua.ScFa",  -- %@ click function label, applies to each text element
+      hl = "FoldColumn",     -- %# highlight group label, applies to each text element
+      condition = { true },  -- table of booleans or functions returning a boolean
+      sign = {               -- table of fields that configure a sign segment
+        -- at least one of "name", "text", and "namespace" is required
+        -- legacy signs are matched against the defined sign name e.g. "DapBreakpoint"
+        -- extmark signs can be matched against either the namespace or the sign text itself
+        name = { ".*" },     -- table of Lua patterns to match the legacy sign name against
+        text = { ".*" },     -- table of Lua patterns to match the extmark sign text against
+        namespace = { ".*" },-- table of Lua patterns to match the extmark sign namespace against
+        -- below values list the default when omitted:
+        maxwidth = 1,        -- maximum number of signs that will be displayed in this segment
+        colwidth = 2,        -- number of display cells per sign in this segment
+        auto = false,        -- boolean or string indicating what will be drawn when no signs
+                             -- matching the pattern are currently placed in the buffer.
+        wrap = false,        -- when true, signs in this segment will also be drawn on the
+                             -- virtual or wrapped part of a line (when v:virtnum != 0).
+        fillchar = " ",      -- character used to fill a segment with less signs than maxwidth
+        fillcharhl = nil,    -- highlight group used for fillchar (SignColumn/CursorLineSign if omitted)
+        foldclosed = false,  -- when true, show signs from lines in a closed fold on the first line
+      }
+    }
+<
+
+- The `text` and `sign` elements are mutually exclusive, except when `text` contains `builtin.lnumfunc`. In this case a sign segment can be added to control what is displayed in the number segment for `'signcolumn' == "number"`.
+- The `text` and `condition` elements should have the same length.
+- `text` and `condition` functions are passed an `args` table with the following elements:
+
+>lua
+    {
+      lnum = 43,             -- v:lnum
+      relnum = 5,            -- v:relnum
+      virtnum = 0,           -- v:virtnum
+      buf = 1,               -- buffer handle of drawn window
+      win = 1000,            -- window handle of drawn window
+      actual_curbuf = 1,     -- buffer handle of |g:actual_curwin|
+      actual_curwin = 1000,  -- window handle of |g:actual_curbuf|
+      nu = true,             -- 'number' option value
+      rnu = true,            -- 'relativenumber' option value
+      empty = true,          -- statuscolumn is currently empty
+      fold = {
+        width = 1,           -- current width of the fold column
+        -- 'fillchars' option values:
+        close = "",         -- foldclose
+        open = "",          -- foldopen
+        sep = " "            -- foldsep
+      },
+      -- FFI data:
+      tick = 251ULL,         -- display_tick value
+      wp = cdata<struct 112 *>: 0x560b56519a50 -- win_T pointer handle
+    }
+<
+
+The values stored in this table are only updated when necessary and are used in
+the builtin segments for performance reasons. For custom `text` and `condition`
+functions it is recommended to use them as well rather than e.g. accessing
+`vim.v.lnum` or `vim.api.nvim_get_option_value()` directly:
+
+>lua
+    local builtin = require("statuscol.builtin")
+    require("statuscol").setup({
+      segments = {
+        {
+          text = {
+            " ",                -- whitespace padding
+            function(args)      -- custom line number highlight function
+              return ((args.lnum % 2 > 0) and "%#DiffDelete#%=" or "%#DiffAdd#%=").."%l"
+            end,
+            " ",                -- whitespace padding
+          },
+          condition = {
+            true,               -- always shown
+            function(args)      -- shown only for the current window
+              return args.actual_curwin == args.win
+            end,
+            builtin.not_empty,  -- only shown when the rest of the statuscolumn is not empty
+          },
+        }
+      }
+    })
+<
+
+
+BUILTIN SEGMENTS ~
+
+This plugin provides a few builtin functions that can be used as segment
+elements.
+
+
+BUILTIN.LNUMFUNC
+
+This is the line number function used by default that obeys
+`'(relative)number'` and can be configured through a few options.
+
+
+BUILTIN.FOLDFUNC
+
+This is a fold column replacement that does not print the fold depth digits.
+
+
+BUILTIN.NOT_EMPTY
+
+This is a helper function that will return true or false depending on whether
+the status column is currently empty. It can be used to conditionally print
+static `text` elements. The default segments uses it for a `" "` separator.
+
+Feature requests/additions for the builtin providers are welcome if they can
+reasonably be made to be configurable.
+
+
+CUSTOM CLICK ACTIONS ~
+
+Custom sign/click action pairs can be passed through the `clickhandlers` table.
+Each element is the name or pattern matching a sign (namespace), or `Lnum` and
+`FoldClose/Open/Other` for the number and fold columns. To modify the default
+actions, pass a table with the actions you want to overwrite to the `setup()`
+function:
+
+>lua
+    local cfg = {
+      --- The click actions have the following signature:
+      ---@param args (table): {
+      ---   minwid = minwid,            -- 1st argument to 'statuscolumn' %@ callback
+      ---   clicks = clicks,            -- 2nd argument to 'statuscolumn' %@ callback
+      ---   button = button,            -- 3rd argument to 'statuscolumn' %@ callback
+      ---   mods = mods,                -- 4th argument to 'statuscolumn' %@ callback
+      ---   mousepos = f.getmousepos()  -- getmousepos() table, containing clicked line number/window id etc.
+      --- }
+      clickhandlers = {
+        FoldOther = false,  -- Disable builtin clickhandler
+        Lnum = function(args)
+          if args.button == "l" and args.mods:find("c") then
+            print("I Ctrl-left clicked on line "..args.mousepos.line)
+          end
+        end,
+      }
+    }
+    
+    require("statuscol").setup(cfg)
+<
+
+
+DEFAULT CLICK ACTIONS         *statuscol-statuscol.nvim-default-click-actions*
+
+Note that some of the default actions are for optional dependencies, and that
+right click requires |`'mousemodel' == "extend"`| Below follows a list of
+builtin click actions. **Sign/click action pair suggestions are welcome!**
+
+  Sign/Namespace     Button     Modifier   Action
+  ------------------ ---------- ---------- -----------------------------------
+  Lnum               Left                  Toggle DAP breakpoint
+  Lnum               Left       clickmod   Toggle DAP conditional breakpoint
+  Lnum               Middle                Yank line
+  Lnum               Right                 Paste line
+  Lnum               Right x2              Delete line
+  FoldClose          Left                  Open fold
+  FoldClose          Left       clickmod   Open fold recursively
+  FoldOpen           Left                  Close fold
+  FoldOpen           Left       clickmod   Close fold recursively
+  FoldClose/Other    Right                 Delete fold
+  FoldClose/Other    Right      clickmod   Delete fold recursively
+  Fold*              Middle                Create fold in range(click twice)
+  diagnostic/signs   Left                  Open diagnostic float
+  diagnostic/signs   Middle                Select available code action
+  gitsigns           Left                  Preview hunk
+  gitsigns           Middle                Reset hunk
+  gitsigns           Right                 Stage hunk
+Optional dependencies:
+
+- nvim-dap <https://github.com/mfussenegger/nvim-dap>
+- gitsigns.nvim <https://github.com/lewis6991/gitsigns.nvim>
+
+Generated by panvimdoc <https://github.com/kdheepak/panvimdoc>
+
+vim:tw=78:ts=8:noet:ft=help:norl:

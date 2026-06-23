@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/machakann/vim-sandwich.git
+	branch = master
+	commit = 74cf93d58ccc567d8e2310a69860f1b93af19403
+	parent = 089fa6cc7fe36faf892d50d1a9b178db0834aca5
+	method = merge
+	cmdver = 0.4.9

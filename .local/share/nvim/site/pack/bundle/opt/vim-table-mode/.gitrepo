@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/dhruvasagar/vim-table-mode.git
+	branch = master
+	commit = bb025308a45c67c7c8f0763ba37bc2ee3f534df0
+	parent = b27133a65b984d8423c6201a1affda054b1b6076
+	method = merge
+	cmdver = 0.4.9

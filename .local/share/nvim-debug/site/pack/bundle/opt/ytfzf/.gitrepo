@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/pystardust/ytfzf.git
+	branch = master
+	commit = 8637bc3929a34be1e21afcf89ddd9d84fc421645
+	parent = 87c7fb5f4871b12996c1a36526b529d33ead4cf2
+	method = merge
+	cmdver = 0.4.9

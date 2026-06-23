@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# ~/.config/polybar/launch.sh
+
+# if [[ "$(hostname)" == "rok-te3" ]]; then
+#         if [[ $(bspc query -M --names | wc -l) -gt 1 ]]; then
+#           bspc monitor HDMI-0 -d 1 2 3
+#           bspc monitor DP-1 -d 4 5 6 
+#         else
+#           bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
+#         fi
+# fi
+
+bspc monitor HDMI-0 -d 1 2 3
+bspc monitor DP-1 -d 4 5 6
+
+# bspc monitor -d 1 2 3 4 5 6 7 8 9
+ 
+bspc config border_width         0
+bspc config window_gap          0
+# bspc config focus_follows_pointer false
+bspc config pointer_follows_focus false
+bspc config pointer_follows_monitor false
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# xprop | grep WM_CLASS
+# bspc rule -a Gimp desktop='^8' state=floating follow=on
+# bspc rule -a Chromium desktop='^2'
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
+
+# bspc config remove_unplugged_monitors true
+# bspc config remove_disabled_monitors true
+
+bspc config pointer_modifier mod4
+bspc config pointer_action1 resize_corner # left click
+bspc config pointer_action2 move # right click
+bspc config pointer_action3 move
+
+# bspc rule -a kakaotalk.exe border=off focus=off follow=off manage=on state=tiled 
+bspc rule -a kakaotalk.exe border=off focus=off follow=off manage=off
+bspc rule -a mpv follow=off
+# bspc rule -a KakaoTalkEdgeWnd border=off follow=off follow=off manage=on state=pseudo_tiled
+# bspc rule -a KakaoTalkShadowWnd border=off follow=off follow=off manage=on state=pseudo_tiled
+# bspc rule -a KakaoTalk.exe border=off focus=off state=floating follow=off manage=on
+
+bspc rule -a kakaotalk.exe border=off follow=off manage=on
+bspc rule -a KakaoTalk.exe border=off follow=off manage=on
+bspc rule -a explorer.exe border=off focus=off hidden=on
+bspc rule -a motion_recorder border=off hidden=on focus=off
+bspc rule -a xdg-desktop-portal-gtk state=floating manage=off hidden=on

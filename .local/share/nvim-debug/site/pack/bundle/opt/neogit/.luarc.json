@@ -1,0 +1,14 @@
+{
+    "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+    "diagnostics.disable": [
+        "redefined-local"
+    ],
+    "diagnostics.globals": [
+        "vim",
+        "it",
+        "describe",
+        "before_each"
+    ],
+    "workspace.checkThirdParty": false,
+    "runtime.version": "LuaJIT"
+}

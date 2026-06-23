@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/karb94/neoscroll.nvim.git
+	branch = master
+	commit = c8d29979cb0cb3a2437a8e0ae683fd82f340d3b8
+	parent = 95263f0948dab80136e7f6983177dfce0135651e
+	method = merge
+	cmdver = 0.4.9

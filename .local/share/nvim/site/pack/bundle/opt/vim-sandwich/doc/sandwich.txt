@@ -1,0 +1,699 @@
+*sandwich.txt*				Last change:03-Jul-2022.
+
+The set of operator and textobject plugins to edit sandwiched textobjects.
+
+Author  : machakann <mckn{at}outlook.jp>
+License : NYSL license
+          Japanese <http://www.kmonos.net/nysl/>
+          English (Unofficial) <http://www.kmonos.net/nysl/index.en.html>
+
+Requirement:	Vim 7.4 or higher
+		|+reltime| feature (optional)
+		|+float| feature (optional)
+
+==============================================================================
+CONTENTS				*sandwich-contents*
+
+QUICK START			|sandwich-quick-start|
+INTRODUCTION			|sandwich-introduction|
+KEYMAPPINGS			|sandwich-keymappings|
+CONFIGURATION			|sandwich-configuration|
+MAGICCHARACTERS			|sandwich-magiccharacters|
+FILETYPE RECIPES		|sandwich-filetype-recipes|
+FUNCTIONS			|sandwich-functions|
+MISCELLANEOUS			|sandwich-miscellaneous|
+  Introduce vim-surround keymappings
+  Customize the behavior of magicchar-f
+  Any way to make a recipe deletes kinds of parentheses and brackets?
+
+==============================================================================
+QUICK START				*sandwich-quick-start*
+
+*sandwich.vim* is the set of operator and textobject plugins to
+add/delete/replace surroundings of a sandwiched textobject, like (foo), "bar".
+
+add~
+Press sa{motion/textobject}{addition}.
+For example, saiw( makes foo to (foo).
+
+delete~
+Press sdb or sd{deletion}.
+For example, sdb or sd( makes (foo) to foo.
+sdb searchs a set of surrounding automatically.
+
+replace~
+Press srb{addition} or sr{deletion}{addition}.
+For example, srb" or sr(" makes (foo) to "foo".
+
+Now you already know enough about sandwich.vim. If you want more,
+read this help and each help documents of operator/textobject,
+|operator-sandwich| and |textobj-sandwich|.
+
+
+
+==============================================================================
+INTRODUCTION				*sandwich-introduction*
+
+This plugin provides functions to add/delete/replace surroundings of
+sandwiched texts. These functions are implemented genuinely by utilizing
+operator/textobject framework. Their action can be repeated by |.| command
+without any dependency.
+
+Refer to the |sandwich-keymappings| for the key mappings supplied by
+|sandwich.vim|. It also explains how to change key mappings for your
+preference.
+
+Refer to the |operator-sandwich| for the details of the genuine operators.
+It also explains how to customize the functions to edit surroundings.
+
+Refer to the |textobj-sandwich| for the details of the genuine textobjects.
+It also explains how to customize the behavior of textobjects.
+
+
+
+==============================================================================
+KEYMAPPINGS				*sandwich-keymappings*
+
+This plugin defines the following keymappings.
+
+function	default keymappings
+--------------------------------------------------------------------------
+add		sa{motion/textobject}{addition}	(normal and visual mode)
+			-> |<Plug>(sandwich-add)|
+
+delete
+		sd{deletion}			(normal mode)
+		sd				(visual mode)
+			-> |<Plug>(sandwich-delete)|
+
+		sdb				(normal mode)
+			-> |<Plug>(sandwich-delete-auto)|
+
+replace
+		sr{deletion}{addition}		(normal mode)
+		sr{addition}			(visual mode)
+			-> |<Plug>(sandwich-replace)|
+
+		srb{addition}			(normal mode)
+			-> |<Plug>(sandwich-replace-auto)|
+
+textobjct
+		ib			(operator-pending and visual mode)
+			-> |<Plug>(textobj-sandwich-auto-i)|
+		ab			(operator-pending and visual mode)
+			-> |<Plug>(textobj-sandwich-auto-a)|
+
+		is			(operator-pending and visual mode)
+			-> |<Plug>(textobj-sandwich-query-i)|
+		as			(operator-pending and visual mode)
+			-> |<Plug>(textobj-sandwich-query-a)|
+
+--------------------------------------------------------------------------
+
+NOTE: To prevent unintended operation, the following setting is strongly
+      recommended to add to your vimrc.
+>
+	nmap s <Nop>
+	xmap s <Nop>
+<
+      |s| could be easily replaced by |c|l| commands.
+
+If you don't need the default mappings, define
+*g:sandwich_no_default_key_mappings* in your vimrc.
+>
+	let g:sandwich_no_default_key_mappings = 1
+<
+The following code snippet shows how to change the trigger key from s to z.
+>
+	let g:sandwich_no_default_key_mappings = 1
+
+	" add
+	nmap za <Plug>(sandwich-add)
+	xmap za <Plug>(sandwich-add)
+	omap za <Plug>(sandwich-add)
+
+	" delete
+	nmap zd <Plug>(sandwich-delete)
+	xmap zd <Plug>(sandwich-delete)
+	nmap zdb <Plug>(sandwich-delete-auto)
+
+	" replace
+	nmap zr <Plug>(sandwich-replace)
+	xmap zr <Plug>(sandwich-replace)
+	nmap zrb <Plug>(sandwich-replace-auto)
+<
+Additionally, map textobjects if you need.
+>
+	" text-objects (if you need)
+	omap ib <Plug>(textobj-sandwich-auto-i)
+	xmap ib <Plug>(textobj-sandwich-auto-i)
+	omap ab <Plug>(textobj-sandwich-auto-a)
+	xmap ab <Plug>(textobj-sandwich-auto-a)
+
+	omap is <Plug>(textobj-sandwich-query-i)
+	xmap is <Plug>(textobj-sandwich-query-i)
+	omap as <Plug>(textobj-sandwich-query-a)
+	xmap as <Plug>(textobj-sandwich-query-a)
+<
+
+
+					*<Plug>(sandwich-add)*
+ [count1] <Plug>(sandwich-add) [count2] {motion} {addition}
+	Wrap an assigned text on the buffer.
+	This key mapping handles [count] uniquely.
+	[count1] is given to |<Plug>(sandwich-add)| and thus surround the text
+	[count1] times. On the other hand, [count2] is passed to {motion} as
+	usually. Both of those [count]s are optional. The {addition} is the
+	key to specify the surroundings; for example, an input saiw( wraps a
+	word by parentheses().
+
+{Visual} [count] <Plug>(sandwich-add) {addition}
+	Wrap the visual-selected text [count] times.
+
+	<Plug>(sandwich-add) is available in normal, visual, and
+	operator-pending mode. It is mapped at sa in default.
+>
+	nmap sa <Plug>(sandwich-add)
+	xmap sa <Plug>(sandwich-add)
+	omap sa <Plug>(sandwich-add)
+<
+
+
+					*<Plug>(sandwich-delete)*
+[count] <Plug>(sandwich-delete) {deletion}
+	Delete a pair of surroundings nearest to the cursor specified by
+	{deletion}. For example, an input sd( deletes a pair of parentheses()
+	nearest to the cursor.
+>
+	(foo)    ->    foo
+<
+	Delete the [count]th closest surroundings if [count] is given.
+>
+	(foo(bar)baz)  cursor is on "bar"
+
+	--  sd( --> (foobarbaz)
+	-- 2sd( --> foo(bar)baz
+<
+
+{Visual} [count] <Plug>(sandwich-delete)
+	Delete the successive surroundings at the both ends of the visually
+	selected text. Delete [count] times if [count] is given.
+
+	<Plug>(sandwich-delete) is available in normal and visual mode. It is
+	mapped at sd in default.
+>
+	nmap sd <Plug>(sandwich-delete)
+	xmap sd <Plug>(sandwich-delete)
+<
+
+
+					*<Plug>(sandwich-delete-auto)*
+[count] <Plug>(sandwich-delete-auto)
+	Delete the [count]th closest surroundings from the cursor.
+>
+	[foo(bar)baz]  cursor is on "bar"
+
+	--  sdb --> [foobarbaz]
+	-- 2sdb --> foo(bar)baz
+<
+	<Plug>(sandwich-delete-auto) is available in normal mode. It is mapped
+	at sdb in default.
+>
+	nmap sdb <Plug>(sandwich-delete-auto)
+<
+
+
+					*<Plug>(sandwich-replace)*
+[count] <Plug>(sandwich-replace) {deletion} {addition}
+	Replace the closest surroundings from the cursor specified by
+	{deletion} to another surroundings specified by {addition}. For
+	example, an input sr([ replaces a pair of parentheses() to a pair of
+	square brackets[].
+>
+	(foo)    ->    [foo]
+<
+	Replace the [count]th closest surroundings if [count] is given.
+>
+	(foo(bar)baz)  cursor is on "bar"
+
+	--  sr([ --> (foo[bar]baz)
+	-- 2sr([ --> [foo(bar)baz]
+<
+
+{Visual} [count] <Plug>(sandwich-replace) {addition}
+	Replace the successive surroundings at the both ends of the visually
+	selected text to another surroundings specified by {addition}.
+	Replace [count] times if [count] is given.
+
+	<Plug>(sandwich-replace) is available in normal and visual mode. It is
+	mapped at sr in default.
+>
+	nmap sr <Plug>(sandwich-replace)
+	xmap sr <Plug>(sandwich-replace)
+<
+
+
+					*<Plug>(sandwich-replace-auto)*
+[count] <Plug>(sandwich-replace-auto) {addition}
+	Replace the [count]th closest surroundings from the cursor to another
+	surroundings specified by {addition}.
+>
+	[foo(bar)baz]  cursor is on "bar"
+
+	--  srb{ --> [foo{bar}baz]
+	-- 2srb{ --> {foo(bar)baz}
+<
+	<Plug>(sandwich-replace-auto) is available in normal mode. It is
+	mapped at srb in default.
+>
+	nmap srb <Plug>(sandwich-replace-auto)
+<
+
+
+==============================================================================
+CONFIGURATION				*sandwich-configuration*
+
+A set of surroundings and options for it is called "recipe". Each recipe is a
+dictionary and the |list|s of recipes determines the operator's behavior and
+textobject's behavior.  |g:sandwich#default_recipes| is one of the |list|s of
+recipes. This is shared to be used by |operator-sandwich| and
+|textobj-sandwich| since it is convenient in many cases. If
+|g:sandwich#recipes| is defined by user, it is employed alternatively. The
+default recipes |g:sandwich#default_recipes| can be checked by |:echo|
+command.
+>
+	:echo g:sandwich#default_recipes
+<
+Besides them, |g:operator#sandwich#recipes| and |g:textobj#sandwich#recipes|
+can be used. They are used only by |operator-sandwich| and |textobj-sandwich|
+respectively.
+
+About the contents of a recipe, please see |operator-sandwich-configuration|
+and |textobj-sandwich-configuration|.
+
+
+
+g:sandwich#recipes			*g:sandwich#recipes*
+	This is one of the lists of recipes which is referred from both
+	|operator-sandwich| and |textobj-sandwich|. If this list does not
+	exist, |g:sandwich#default_recipes| is used.
+					*b:sandwich_recipes*
+	If |b:sandwich_recipes| exists, it would be used instead of
+	|g:sandwich#recipes|. This is buffer local, thus it might be
+	convenient to manage too many filetype-specific recipes.
+
+
+
+g:sandwich#default_recipes		*g:sandwich#default_recipes*
+	This is a list of recipes which is prepared in default. If
+	|g:sandwich#recipes| exists, it will be used instead.
+
+	This variable is locked usually, but it can be copied when you declare
+	|g:sandwich#recipes| if you need.
+>
+	:let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+<
+
+Notes on default recipes~
+`(`, `)`
+`[`, `]`
+`{`, `}`
+`<`, `>`
+	Both open/close braces behave as same. For example, `saiw(` and `saiw)`
+	result in the same text.
+>
+		foo -> (foo)
+<
+	`sd(` and `sd)` do the opposite.
+
+------------------------------------------------------------------------------
+`'`
+`"`
+	Wrap a text by quotes.
+>
+		foo -> 'foo'
+<
+	When deleting a pair of quotes, 'quoteescape' option is considered.
+	The pair of quotes are searched only in a same line.
+
+------------------------------------------------------------------------------
+`<Space>`
+	When deleting a pair of spaces, successive spaces are deleted at a
+	time.
+
+------------------------------------------------------------------------------
+`t`, `T`
+`f`, `F`
+`i`, `I`
+	See |sandwich-magiccharacters|.
+
+
+
+------------------------------------------------------------------------------
+Global options~
+g:sandwich#timeout			*g:sandwich#timeout*
+	If this option is a falsy value, the operators and the
+	query-textobject will wait for subsequent inputs until the complete
+	key sequence has been received to specify a recipe. For example, with
+	the following recipes,
+>
+	let g:sandwich#recipes = [
+	  \   {'buns': ['for {', '}'],  'nesting': 1, 'input': ['bf']}
+	  \   {'buns': ['if {', '}'],   'nesting': 1, 'input': ['bi']}
+	  \   {'buns': ['else {', '}'], 'nesting': 1, 'input': ['be']}
+	  \ ]
+<
+	type `saiwb` and a while later the operator eagerly wrap a word with
+	`b` if this option is true. The operators wait next input until a
+	recipe is specified if this option is false. This option takes effect
+	both on the operators and the query-textobject.
+	|g:operator#sandwich#timeout| or |g:textobj#sandwich#timeout| takes
+	priority over this option if it exists. If this has not been defined,
+	'timeout' option is referred. See |g:sandwich#timeoutlen| also.
+
+
+
+g:sandwich#timeoutlen			*g:sandwich#timeoutlen*
+	The time in milli seconds that waits for a key code or mapped key
+	sequence to complete. If there are recipes overlapped, this option is
+	used. Assume that the following recipes are prepared:
+>
+	let g:sandwich#recipes = [
+	  \   {'buns': ['(', ')']}
+	  \   {'buns': ['((', '))']}
+	  \ ]
+<
+	after pressing saiw(, the operator waits in the time. If you press one
+	more ( in the time, then a recipe for '((' and '))' is decided to use.
+	No keypress has come through the time a recipe for '(' and ')' is
+	settled. This option takes effect both on the operators and the
+	query-textobject. |g:operator#sandwich#timeoutlen| or
+	|g:textobj#sandwich#timeoutlen| takes priority over this option if it
+	exists. If this variable has not been defined, 'timeoutlen' option is
+	referred.
+
+	When the timeout option (|g:operator#sandwich#timeout|,
+	|g:textobj#sandwich#timeout|, |g:sandwich#timeout|, 'timeout') is off,
+	this option is ignored.
+
+
+
+g:sandwich#input_fallback		*g:sandwich#input_fallback*
+	This bool option controls the behavior when no recipe matches with
+	user input to add/delete/replace surroundings. If this option is true
+	and no recipe matches with user input, the user input character itself
+	is used as the surroundings for add/delete/replace. For example, even
+	if there is no recipe associated with input `a` the key sequence
+	`saiwa` wraps a word with `a`.
+>
+	foo -> afooa
+<
+	Set falthy value to this option if this behavior is not desired.
+>
+	let g:sandwich#input_fallback = 0
+<
+
+
+
+==============================================================================
+MAGICCHARACTERS				*sandwich-magiccharacters*
+
+Sandwich.vim requests user to input keys for determination of
+{addtion}/{deletion}. Usually it is something like `(` for `()` pair or
+`"` for `""` pair, but there is several functional inputs for cumbersome
+editings. It might be helpful for your work, give it a try!
+
+f~
+F~
+	Press `saiwf` to surround a word by function. After inputting `f` key,
+	user would be requested to input function name and press <CR>, then
+	the target textobject would be surrounded by parenthesis with the
+	function name. <Tab> key completes function names from the current
+	buffer in input.
+>
+	          arg      -- saiwffunc<CR> -->     func(arg)
+<
+	The key sequence `sdf`, conversely, deletes function surrounding.
+>
+	       func(arg)       -- sdf -->             arg
+<
+	In case of nested functions, `sdf` deletes the function under the
+	cursor while `sdF` deletes the function surrounding.
+>
+	cursor is on 'func2':
+	    func1(func2(arg))  -- sdf -->   func1(arg)
+	                       -- sdF -->   func2(arg)
+<
+
+i~
+I~
+	It realizes to define `I`nstant surroundings. `saiwi` ask user for
+	inputting former and latter surroundings. For example,
+	`saiwifoo<CR>bar<CR>` makes a word surrounded by `foo` and `bar`.
+	<Tab> key completes words from the current buffer, just simply.
+	On the other hand `sdi` deletes arbitrary surroundings. For example,
+	`sdifoo<CR>bar<CR>` makes `foowordbar` to `word`, the inputs would be
+	interpreted as regular expressions. This is useful when a lot of
+	targets are there because the action could be repeated by |.| command.
+	`sa{textobj}I`, `sdI` reuse the last inputs.
+
+
+t~
+T~
+	The inputs `t` and `T` support to edit HTML style tags. `saiwt` ask
+	user to input a name of element, then a textobject would be surrounded
+	by the tag. `saiwT` works as same.
+>
+	       word      -- saiwtp<CR> -->   <p>word</p>
+<
+	 `sdt` deletes the nearest tag surroundings. `sdT` works as same.
+>
+	    <p>word</p>  -- sdt -->             word
+<
+	`t` and `T` works differently only when replacing surroundings.
+	`srtt` replaces only the name of element, does not touch attributes.
+	`srTT` replaces the whole body of tags.
+
+
+
+
+==============================================================================
+FILETYPE RECIPES			*sandwich-filetype-recipes*
+
+Sandwich.vim has filetype specific settings. They will be available when
+'filetype' option was set to a certain value. User settings are not
+overwrittern by them, use only the recipes helpful for you. These recipes are
+written in ftplugin/{filetype}/sandwich.vim.
+
+If you don't want vim to load these files, set
+`g:sandwich_no_{filetype}_ftplugin` as true in advance. For example, add the
+following line to your vimrc in case you don't need tex specific recipes.
+>
+	let g:sandwich_no_tex_ftplugin = 1
+<
+
+------------------------------------------------------------------------------
+plaintex~
+tex~
+>
+ Surroundings		Input
+ “{text}”		u"
+ „{text}“		U"
+ 			ug
+ 			u,
+ «{text}»		u<
+ 			uf
+ `{text}'		l'
+ 			l`
+ ``{text}''		l"
+ "`{text}"'		L"
+ ,,{text}``		l,
+ <<{text}>>		l<
+ \{{text}\}		\{
+ \[{text}\]		\[
+
+ \left({text}\right)				m(
+ \left[{text}\right]				m[
+ \left|{text}\right|				m|
+ \left\{{text}\right\}				m{
+ \left\langle {text}\right\rangle		m<
+<	The surroundings its input starting from 'm' could be removed/replaced
+	by a input `ma`, for example press `sdma`.
+>
+ \big({text}\big)				M(
+ \big[{text}\big]				M[
+ \big|{text}\big|				M|
+ \big\{{text}\big\}				M{
+ \big\langle {text}\big\rangle			M<
+
+ \begingroup{text}\endgroup			gr
+ 						\gr
+ \toprule{text}\bottomrule			tr
+ 						br
+ 						\tr
+ 						\br
+
+ \{input}{{text}}				c
+<	This recipe asks user to input a string and then {input} is
+	substituted by the input string.
+>
+ \begin{{input}}{text}\end{{input}}		e
+<	This recipe asks user to input a string and then {input} is
+	substituted by the input string.
+	Use <Tab> to complete {input}, the completion items are loaded from
+	`g:sandwich#filetype#tex#environments`
+	(or `b:sandwich#filetype#tex#environments` if exists).
+
+
+==============================================================================
+FUNCTIONS				*sandwich-functions*
+
+sandwich#util#addlocal({recipes})	*sandwich#util#addlocal()*
+	This function appends the list of recipes {recipes} as buffer-local
+	settings with inheritance of the global settings. This is useful when
+	one wants to add filetype specific settings with keeping global
+	setting |g:sandwich#recipes| clean. Note that {recipe} is a |List| of
+	recipes.
+>
+	autocmd FileType python call sandwich#util#addlocal([
+	  \   {'buns': ['"""', '"""'], 'nesting': 0, 'input': ['3"']},
+	  \ ])
+<
+
+==============================================================================
+MISCELLANEOUS				*sandwich-miscellaneous*
+
+Introduce vim-surround keymappings~
+	If you want to use with vim-surround (vim script #1697) keymappings,
+	add the following line to your vimrc.
+>
+	runtime macros/sandwich/keymap/surround.vim
+<
+	NOTE: Unlike surround.vim, the inputs `(` and `)` behave as same.
+	      If you want the spaces inside braces with `(` input, add the
+	      lines.
+>
+	runtime macros/sandwich/keymap/surround.vim
+	let g:sandwich#recipes += [
+	\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,
+	\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
+	\
+	\   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1,
+	\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
+	\
+	\   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1,
+	\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
+	\
+	\   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1,
+	\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+	\    'action': ['delete'], 'input': ['{']},
+	\
+	\   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1,
+	\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+	\    'action': ['delete'], 'input': ['[']},
+	\
+	\   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1,
+	\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+	\    'action': ['delete'], 'input': ['(']},
+	\ ]
+<
+
+
+	`ys`, `yss`, `yS`, `ds`, `cs` in normal mode and `S` in visual mode
+	are available. Not in vim-surround but `dss` and `css` are also
+	available, these are similar as `ds` and `cs` but determine
+	deleted/replaced texts automatically. See the file directly for
+	detail.
+
+	Additionally, vim-sandwich provides several textobjects. They would
+	also be helpful, give it a try!
+
+	* Textobjects to select a text surrounded by braket or same characters
+	  user input.
+	|<Plug>(textobj-sandwich-query-i)|, |<Plug>(textobj-sandwich-query-a)|
+>
+	xmap is <Plug>(textobj-sandwich-query-i)
+	xmap as <Plug>(textobj-sandwich-query-a)
+	omap is <Plug>(textobj-sandwich-query-i)
+	omap as <Plug>(textobj-sandwich-query-a)
+<
+	* Textobjects to select the nearest surrounded text automatically.
+	|<Plug>(textobj-sandwich-auto-i)|, |<Plug>(textobj-sandwich-auto-a)|.
+>
+	xmap iss <Plug>(textobj-sandwich-auto-i)
+	xmap ass <Plug>(textobj-sandwich-auto-a)
+	omap iss <Plug>(textobj-sandwich-auto-i)
+	omap ass <Plug>(textobj-sandwich-auto-a)
+<
+	* Textobjects to select a text surrounded by same characters user
+	  input.
+	|<Plug>(textobj-sandwich-literal-query-i)|,
+	|<Plug>(textobj-sandwich-literal-query-a)|
+>
+	xmap im <Plug>(textobj-sandwich-literal-query-i)
+	xmap am <Plug>(textobj-sandwich-literal-query-a)
+	omap im <Plug>(textobj-sandwich-literal-query-i)
+	omap am <Plug>(textobj-sandwich-literal-query-a)
+<
+
+------------------------------------------------------------------------------
+Customize the behavior of magicchar-f~
+
+`magicchar-f` can delete simple function-call like syntax:
+>
+	     func(arg)          -- sdf -->             arg
+<
+If you want to delete more advanced patterns, for example:
+>
+	     obj.method(arg)    -- sdf -->             arg
+<
+You can use `g:sandwich#magicchar#f#patterns` or
+`b:sandwich_magicchar_f_patterns` for the purpose. Each of those are a list of
+patterns like:
+>
+	let g:sandwich#magicchar#f#patterns = [
+	\   {
+	\     'header' : '\<\h\k*',
+	\     'bra'    : '(',
+	\     'ket'    : ')',
+	\     'footer' : '',
+	\   },
+	\ ]
+<
+Those four values are all regex patterns, which match with something before
+open parenthesis, open & close parentheses, something after close parenthesis.
+Therefore, you can delete a method with an object by the following setting.
+>
+	let g:sandwich#magicchar#f#patterns = [
+	\   {
+	\     'header' : '\<\%(\h\k*\.\)*\h\k*',
+	\     'bra'    : '(',
+	\     'ket'    : ')',
+	\     'footer' : '',
+	\   },
+	\ ]
+<
+`b:sandwich_magicchar_f_patterns` can be used to define filetype specific
+setting.
+>
+	augroup sandwich-ft-python
+	  autocmd Filetype python let b:sandwich_magicchar_f_patterns = [
+	                              \   {
+	                              \     'header' : '\<\%(\h\k*\.\)*\h\k*',
+	                              \     'bra'    : '(',
+	                              \     'ket'    : ')',
+	                              \     'footer' : '',
+	                              \   },
+	                              \ ]
+	augroup END
+<
+The default settings is in `g:sandwich#magicchar#f#default_patterns`.
+
+
+------------------------------------------------------------------------------
+Any way to make a recipe deletes kinds of parentheses and brackets?~
+
+See |sandwich-compound-recipes|.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:

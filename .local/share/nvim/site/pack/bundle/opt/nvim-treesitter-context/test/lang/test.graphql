@@ -1,0 +1,102 @@
+# {{TEST}}
+interface # {{CONTEXT}}
+  Foo # {{CONTEXT}}
+{ # {{CONTEXT}}
+  id: ID!
+  name: String
+
+  # {{CURSOR}}
+}
+# {{TEST}}
+input # {{CONTEXT}}
+  Stuff { # {{CONTEXT}}
+  limit: Int
+  since_id: ID
+
+
+  # {{CURSOR}}
+}
+# {{TEST}}
+type Bar # {{CONTEXT}}
+  implements Foo { # {{CONTEXT}}
+  age: Int
+
+
+  # {{CURSOR}}
+}
+# {{TEST}}
+type Mutation { # {{CONTEXT}}
+  addBar(name: String, age: int): Bar
+
+
+  # {{CURSOR}}
+}
+# {{TEST}}
+query Stuff { # {{CONTEXT}}
+  name
+  foo {
+
+
+
+    name # {{CURSOR}}
+  }
+}
+# {{TEST}}
+query GetSearchResults { # {{CONTEXT}}
+  search(contains: "Shakespeare") { # {{CONTEXT}}
+    __typename
+
+
+    # {{CURSOR}}
+    # inline fragment
+    ... on Book { # {{CONTEXT}}
+      title
+
+
+      # {{CURSOR}}
+    } # {{POPCONTEXT}}
+    ... on Author { # {{CONTEXT}}
+      name
+
+
+      # {{CURSOR}}
+    }
+  }
+}
+# {{TEST}}
+mutation # {{CONTEXT}}
+  CreateBar { # {{CONTEXT}}
+  addBar(name: "AAAA", # {{CONTEXT}}
+    age: 42) { # {{CONTEXT}}
+    name
+    foo {
+      age
+
+
+      # {{CURSOR}}
+    }
+  }
+}
+# {{TEST}}
+type Root { # {{CONTEXT}}
+  name: String
+
+
+  # {{CURSOR}}
+}
+# {{TEST}}
+schema { # {{CONTEXT}}
+  query: Root
+
+
+  # {{CURSOR}}
+}
+
+
+
+
+
+
+
+
+

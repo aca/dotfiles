@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/quarto-dev/quarto-nvim
+	branch = main
+	commit = d923bb7cfc2bde41143e1c531c28190f0fade3a2
+	parent = 0fdef435cce2043a02be7774058847ada35b3af6
+	method = merge
+	cmdver = 0.4.9

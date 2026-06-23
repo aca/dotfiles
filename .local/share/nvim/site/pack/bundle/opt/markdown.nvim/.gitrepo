@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/MeanderingProgrammer/markdown.nvim.git
+	branch = main
+	commit = c7188a8f9d2953696b6303caccbf39c51fa2c1b1
+	parent = 3d9e94cd1683616b3044d0ca15cf129cbe211175
+	method = merge
+	cmdver = 0.4.9

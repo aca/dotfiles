@@ -1,0 +1,4 @@
+[qbittorrent]
+addr       = "http://seedbox-impx:8080" # qbittorrent webui-api hostname/ip
+# login      = "admin"                  # qbittorrent webui-api user
+# password   = "adminadmin"              # qbittorrent webui-api password

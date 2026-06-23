@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ap/vim-buftabline
+	branch = master
+	commit = 6cdb6ae69a0dbccbed5683adfe79be810df6d661
+	parent = 89b8467a7ab96d8b10d963f63569c1d5a76683cf
+	method = merge
+	cmdver = 0.4.9

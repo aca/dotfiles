@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/dmtrKovalenko/fff.nvim
+	branch = main
+	commit = bca71efb32e208d0498369197303954b15e91b63
+	parent = 2f5b0373edc993ec42c7b75020a360ec05b3e27d
+	method = merge
+	cmdver = 0.4.9

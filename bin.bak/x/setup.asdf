@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# vim: set ft=bash:
+
+# asdf
+# https://github.com/asdf-vm/asdf
+
+set -o errexit
+set -o pipefail
+set -o nounset
+set -x
+
+source _utils.bash
+
+asdf-clean(){
+  asdf list $1 | grep -v $(asdf current $1 | awk '{print $1}') | xargs -I{} asdf uninstall $1 {} || true
+}
+
+asdf-default() {
+  asdf install $1 $2
+  asdf global $1 $2
+}
+
+if [[ ! -d "$HOME/.asdf" ]]; then 
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+else
+  asdf update --head
+fi
+
+if darwin; then
+  brew install gpg2 || true
+fi
+
+asdf plugin-update --all
+asdf plugin-add golang || true
+asdf plugin-add java || true
+asdf plugin-add ruby || true
+asdf plugin-add rust || true
+asdf plugin-add python || true
+asdf plugin-add nodejs || true
+asdf plugin-add deno || true
+asdf plugin-add elixir || true
+asdf plugin-add erlang || true
+
+asdf install
+asdf reshim
+
+command tree ~/.asdf/installs/ -L 2

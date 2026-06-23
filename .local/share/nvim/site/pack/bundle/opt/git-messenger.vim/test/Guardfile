@@ -1,0 +1,21 @@
+def run(target)
+  target = target.to_s
+  success = if target.endwith? 'nvim.vimspec'
+    system({ 'THEMIS_VIM' => 'nvim' }, '../vim-themis/bin/themis', target)
+  else
+    system('../vim-themis/bin/themis', target)
+  end
+  puts(success ? 'OK' : 'NG')
+end
+
+guard :shell do
+  watch /^.+\.vim$/ do |m|
+    puts "Changed #{m[0]}. Run all tests."
+    run './test/'
+  end
+
+  watch /^.+\.vimspec$/ do |m|
+    puts "Changed #{m[0]}"
+    run m[0]
+  end
+end

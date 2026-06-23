@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lukas-reineke/headlines.nvim.git
+	branch = master
+	commit = bf17c96a836ea27c0a7a2650ba385a7783ed322e
+	parent = 5c147b8ca06bb77eb42d24e28b51194480c5cd01
+	method = merge
+	cmdver = 0.4.9

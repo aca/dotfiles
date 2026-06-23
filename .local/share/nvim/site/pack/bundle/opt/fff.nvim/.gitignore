@@ -1,0 +1,26 @@
+doc/tags
+big-repo
+target/
+.archive.lua
+_*.lua
+.lazy.lua
+dual/
+result
+.direnv
+.devenv
+.repro/
+.wrangler/
+*.so
+*.dylib
+# all the perf like utility files
+*.data
+node_modules/
+crates/fff-notify-debouncer-full/
+
+dist/
+scripts/benchmark-results/
+
+# Native binaries (downloaded at install)
+*.dylib
+*.so
+*.dll

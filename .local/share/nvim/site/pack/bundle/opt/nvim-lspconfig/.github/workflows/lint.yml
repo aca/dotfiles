@@ -1,0 +1,72 @@
+name: lint
+on:
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: |
+          if ! bash .github/ci/lint.sh ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}; then
+            exit 1
+          fi
+
+  luals:
+    runs-on: ubuntu-latest
+    env:
+      LUALS_VERSION: 3.15.0
+    steps:
+      - uses: actions/checkout@v6
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: nightly # Remove this to use stable.
+      - name: Install lua-language-server
+        run: |
+          mkdir -p build/luals
+          curl -L -o build/luals.tar.gz https://github.com/LuaLS/lua-language-server/releases/download/${LUALS_VERSION}/lua-language-server-${LUALS_VERSION}-linux-x64.tar.gz
+          tar -xzf build/luals.tar.gz -C build/luals
+      - name: Run luals
+        run: |
+          export VIMRUNTIME="$(nvim --headless --cmd 'echo $VIMRUNTIME' +q 2>&1)"
+          ./build/luals/bin/lua-language-server --configpath=$(pwd)/.luarc.json --check=lsp/ --check=lua/lspconfig/types/lsp/ --checklevel=Hint
+
+
+  stylua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
+
+  codespell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: pip install codespell
+      - run: codespell --quiet-level=2 --check-hidden --skip=./doc/configs.md,./doc/configs.txt,./lua/lspconfig/types/lsp --ignore-words=.codespellignorewords
+
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: npm install --save-dev @commitlint/{cli,config-conventional}
+      - run: |
+          echo "module.exports = { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
+      - run: npx commitlint --from HEAD~1 --to HEAD --verbose

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/greole/sway-alternating-layout.git
+	branch = master
+	commit = 291d74cc9aadcd20e148ac0d70a9ba29e32ab7e3
+	parent = a7d769f63501426440e96b18b5fd77839badedcb
+	method = merge
+	cmdver = 0.4.9

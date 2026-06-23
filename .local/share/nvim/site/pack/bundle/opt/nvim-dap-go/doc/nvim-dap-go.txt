@@ -1,0 +1,271 @@
+========================================================================
+INTRODUCTION                                                  *dap-go*
+
+nvim-dap-go is an extension for nvim-dap (see |dap.txt|) providing
+configurations for launching go debugger (delve) and debugging
+individual tests. As such, it requires nvim-dap go to be installed.
+For more details see
+https://github.com/mfussenegger/nvim-dap#installation
+
+========================================================================
+CONTENTS                                                  *dap-go-toc*
+
+    1. Features .............................. |dap-go-features|
+    2. Configuration ......................... |dap-go-configuration|
+    3. Usage ................................. |dap-go-usage|
+    4. Debugging Individual Tests ............ |dap-go-debug-test|
+    5. Debugging With Command-Line Arguments . |dap-go-debug-cli-args|
+    6. Debugging With Build Flags ............ |dap-go-debug-cli-args|
+    7. Debugging With dlv in Headless Mode ... |dap-go-debug-headless|
+    8. VSCode launch config .................. |dap-go-vscode-launch|
+    9. Mappings .............................. |dap-go-mappings|
+
+========================================================================
+FEATURES                                             *dap-go-features*
+
+- Auto launch Delve. No configuration needed. You just have to have
+  `dlv` in your path.
+
+- Run just the closest test from the cursor in debug mode (uses
+  |treesitter|). See [debugging individual
+  tests](#debugging-individual-tests) section bellow for more details.
+
+- Configuration to attach nvim-dap and Delve into a running process
+  and start a debug session.
+
+- Configuration to start a debug session in the main function.
+
+- Configuration to run tests in a debug session.
+
+- Final Delve configuration is resolved when a debug session starts.
+  This allows to use different addresses and ports for each project or
+  launch configs in a project.
+
+This plugin makes usage of treesitter to find the nearest test to
+debug. Make sure you have the Go treesitter parser installed. If using
+|nvim-treesitter| plugin you can install with `:TSInstall go`.
+
+========================================================================
+CONFIGURATION                                   *dap-go-configuration*
+
+Register the plugin by calling the setup function in your `init.lua`:
+
+>lua
+    require('dap-go').setup()
+<
+
+This will apply all default configurations which is all you need for
+normal use-cases. It is possible to customize nvim-dap-go by passing a
+config table in the setup function.
+
+The example bellow shows all the possible configurations:
+
+>lua
+    require('dap-go').setup {
+      -- Additional dap configurations can be added.
+      -- dap_configurations accepts a list of tables where each entry
+      -- represents a dap configuration. For more details see:
+      -- |dap-configuration|
+      dap_configurations = {
+        {
+          -- Must be "go" or it will be ignored by the plugin
+          type = "go",
+          name = "Attach remote",
+          mode = "remote",
+          request = "attach",
+        },
+      },
+      -- delve configurations
+      delve = {
+        -- the path to the executable dlv which will be used for debugging.
+        -- by default, this is the "dlv" executable on your PATH.
+        path = "dlv",
+        -- time to wait for delve to initialize the debug session.
+        -- default to 20 seconds
+        initialize_timeout_sec = 20,
+        -- a string that defines the port to start delve debugger.
+        -- default to string "${port}" which instructs nvim-dap
+        -- to start the process in a random available port.
+        -- if you set a port in your debug configuration, its value will be
+        -- assigned dynamically.
+        port = "${port}",
+        -- additional args to pass to dlv
+        args = {},
+        -- the build flags that are passed to delve.
+        -- defaults to empty string, but can be used to provide flags
+        -- such as "-tags=unit" to make sure the test suite is
+        -- compiled during debugging, for example.
+        -- passing build flags using args is ineffective, as those are
+        -- ignored by delve in dap mode.
+        build_flags = "",
+        -- whether the dlv process to be created detached or not. there is
+        -- an issue on delve versions < 1.24.0 for Windows where this needs to be
+        -- set to false, otherwise the dlv server creation will fail.
+        detached = vim.fn.has("win32") == 0,
+      },
+      -- options related to running closest test
+      tests = {
+        -- enables verbosity when running the test.
+        verbose = false,
+      },
+    }
+<
+
+========================================================================
+USAGE                                                   *dap-go-usage*
+
+Once the plugin is registered, use nvim-dap as usual:
+
+- Call `:lua require('dap').continue()` to start debugging.
+- All pre-configured debuggers will be displayed for you to choose
+  from.
+- See |dap-mappings| and |dap-api|.
+
+-----------------------------------------------------------------------
+Debugging Individual Tests                        *dap-go-debug-test*
+
+To debug the closest method above the cursor use you can run:
+>
+    :lua require('dap-go').debug_test()`
+<
+
+The |dap-configuration| in use can be customized by passing an optional
+table argument to `debug-test`. For example, you can override default
+build flags as follows:
+>lua
+    require("dap-go").debug_test({
+      buildFlags = "-tags=integration",
+    })
+<
+
+Once a test runs, you can simply run it again from anywhere:
+>
+    :lua require('dap-go').debug_last_test()`
+<
+
+It is better to define mappings to invoke these commands. See the
+|dap-go-mappings| section bellow.
+
+-----------------------------------------------------------------------
+Debugging With Command-Line Arguments         *dap-go-debug-cli-args*
+
+    1. Select the option `Debug (Arguments)`.
+    2. Enter each argument separated by a space (i.e. `option1 option2
+    option3`).
+    3. Press enter.
+
+-----------------------------------------------------------------------
+Debugging With Build Flags                  *dap-go-debug-build-flags*
+
+    1. Register a new option to debug with build flags:
+>lua
+    require('dap-go').setup {
+      dap_configurations = {
+        {
+            type = "go",
+            name = "Debug (Build Flags)",
+            request = "launch",
+            program = "${file}",
+            buildFlags = require("dap-go").get_build_flags,
+        },
+      },
+    })
+<
+
+    2. To prompt for both build flags and arguments register the 
+    following:
+>lua
+    require("dap-go").setup({
+        dap_configurations = {
+            {
+                type = "go",
+                name = "Debug (Build Flags & Arguments)",
+                request = "launch",
+                program = "${file}",
+                args = require("dap-go").get_arguments,
+                buildFlags = require("dap-go").get_build_flags,
+            },
+        }
+    })
+<
+
+    3. To create a custom debugging configuration that requires an 
+    interactive prompt the following functions can be attached to 
+    the args and buildFlags fields of dap_configurations.
+    
+    `require('dap-go').get_arguments`
+    `require('dap-go').get_buid_flags`
+
+-----------------------------------------------------------------------
+Debugging With dlv in Headless Mode           *dap-go-debug-headless*
+
+    1. Register a new option to attach to a remote debugger:
+>lua
+    require('dap-go').setup {
+      dap_configurations = {
+        {
+          type = "go",
+          name = "Attach remote",
+          mode = "remote",
+          request = "attach",
+        },
+      },
+    }
+<
+
+    2. Start `dlv` in headless mode. You can specify subcommands and
+    flags after `--`, e.g.,
+
+>sh
+    dlv debug -l 127.0.0.1:38697 --headless ./main.go -- subcommand --myflag=xyz
+<
+
+    3. Call `:lua require('dap').continue()` to start debugging.
+    4. Select the new registered option `Attach remote`.
+
+-----------------------------------------------------------------------
+VSCode launch config                           *dap-go-vscode-launch
+
+    1. Create in your Go project a VSCode launch config file (by
+    default its path must be `.vscode/launch.json` relative to your
+    project's root directory):
+>json
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Remote debug API server",
+                "type": "go",
+                "request": "attach",
+                "mode": "remote",
+                "port": 4444,
+                "host": "127.0.0.1",
+                "substitutePath": [
+                    {
+                        "from": "${workspaceFolder}", "to": "/usr/src/app"
+                    }
+                ]
+            }
+        ]
+    }
+<
+
+    2. A debug session `Remote debug API server` will appear in the choices,
+    and the Delve port will be dynamically set to `4444`.
+
+Please see `:h dap-launch.json` for more information.
+
+========================================================================
+MAPPINGS                                             *dap-go-mappings*
+
+nvim-dap-go doesn't provide any pre-configured keymaps. It does
+provide lua functions that you can easly use to define your own
+mappings. You can do this by adding the lines bellow to your
+`init.lua`:
+
+>lua
+    local dapgo = require('dap-go')
+    vim.keymap.set("n", "<leader>dt", dapgo.debug_test)
+    vim.keymap.set("n", "<leader>dl", dapgo.debug_last_test)
+<
+vim:tw=78:et:ft=help:norl:

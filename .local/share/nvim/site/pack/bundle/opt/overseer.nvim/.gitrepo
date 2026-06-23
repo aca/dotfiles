@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/stevearc/overseer.nvim.git
+	branch = master
+	commit = a2194447f4c5a1baf95139c5c7b539fa7b0d012f
+	parent = 5fd09279a0b261320c3ba33c1fa0db2433ddd8d2
+	method = merge
+	cmdver = 0.4.9

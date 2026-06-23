@@ -1,0 +1,167 @@
+*vim-dadbod-completion*
+
+================================================================================
+CONTENTS                                          *vim-dadbod-completion-contents*
+
+1. vim-dadbod-completion.............|vim-dadbod-completion-vim-dadbod-completion|
+    1.1. Install...................................|vim-dadbod-completion-install|
+    1.2. Features.................................|vim-dadbod-completion-features|
+    1.3. How it works.........................|vim-dadbod-completion-how_it_works|
+    1.4. Settings.................................|vim-dadbod-completion-settings|
+    1.5. Todo.........................................|vim-dadbod-completion-todo|
+
+================================================================================
+VIM-DADBOD-COMPLETION                *vim-dadbod-completion-vim-dadbod-completion*
+
+Database auto completion powered by vim-dadbod (https://github.com/tpope/vim-dadbod).
+Supports:
+* coc.nvim (https://github.com/neoclide/coc.nvim)
+* deoplete.nvim (https://github.com/Shougo/deoplete.nvim)
+* completion-nvim (https://github.com/haorenW1025/completion-nvim)
+* nvim-compe (https://github.com/hrsh7th/nvim-compe)
+* ddc.vim (https://github.com/Shougo/ddc.vim)
+* Built in `omnifunc`
+
+
+
+--------------------------------------------------------------------------------
+INSTALL                                            *vim-dadbod-completion-install*
+
+Dependencies:
+* vim-dadbod (https://github.com/tpope/vim-dadbod)
+
+For coc.nvim (https://github.com/neoclide/coc.nvim)
+>
+    :CocInstall coc-db
+<
+
+For `deoplete`, `completion-nvim`, `nvim-compe`, `ddc` and `omnifunc`, install it with your favorite plugin manager.
+
+>
+    Plug 'tpope/vim-dadbod'
+    Plug 'kristijanhusak/vim-dadbod-ui' "Optional
+    Plug 'kristijanhusak/vim-dadbod-completion'
+
+    " For built in omnifunc
+    autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
+
+    " hrsh7th/nvim-compe
+    let g:compe.source.vim_dadbod_completion = v:true
+
+    " hrsh7th/nvim-cmp
+      autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+
+    " Shougo/ddc.vim
+    call ddc#custom#patch_filetype(['sql', 'mysql', 'plsql'], 'sources', 'dadbod-completion')
+    call ddc#custom#patch_filetype(['sql', 'mysql', 'plsql'], 'sourceOptions', {
+    \ 'dadbod-completion': {
+    \   'mark': 'DB',
+    \   'isVolatile': v:true,
+    \ },
+    \ })
+<
+
+Configuration using lazy.nvim (https://github.com/folke/lazy.nvim) with vim-dadbod-ui (https://github.com/kristijanhusak/vim-dadbod-ui)
+>
+    return {
+      'kristijanhusak/vim-dadbod-ui',
+      dependencies = {
+        { 'tpope/vim-dadbod', lazy = true },
+        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      },
+      cmd = {
+        'DBUI',
+        'DBUIToggle',
+        'DBUIAddConnection',
+        'DBUIFindBuffer',
+      },
+      init = function()
+        -- Your DBUI configuration
+        vim.g.db_ui_use_nerd_fonts = 1
+      end,
+    }
+<
+
+--------------------------------------------------------------------------------
+FEATURES                                          *vim-dadbod-completion-features*
+
+*   Autocomplete table names, with automatic quoting where needed. Works for all schemes that vim-dadbod (https://github.com/tpope/vim-dadbod) supports.
+*   Autocomplete table columns, context aware. Also knows to read aliases (). Currently works for `PostgreSQL`, `MySQL`, `Oracle`, `SQLite` (requires version `3.37.0 (2021-11-27)`) and `SQLserver/MSSQL`.
+*   Out of the box integration with vim-dadbod-ui (https://github.com/kristijanhusak/vim-dadbod-ui)
+
+--------------------------------------------------------------------------------
+HOW IT WORKS                                  *vim-dadbod-completion-how_it_works*
+
+*   If an sql buffer is created by vim-dadbod-ui (https://github.com/kristijanhusak/vim-dadbod-ui), it reads all the configuration from there. It should work out of the box.
+*   If `vim-dadbod-ui` is not used, vim-dadbod (https://github.com/tpope/vim-dadbod) environment variable `$DATABASE_URL` or `w:db`, `t:db`, `b:db`, `g:db` used, whichever is found first. If you want, you can also add `b:db_table` to limit autocompletions to that table only.
+
+--------------------------------------------------------------------------------
+SETTINGS                                          *vim-dadbod-completion-settings*
+
+:
+					      *g:vim_dadbod_completion_mark*
+g:vim_dadbod_completion_mark
+		Mark for completion items. To change it, add this to vimrc
+>
+		let g:vim_dadbod_completion_mark = 'MYMARK'
+<
+
+		Default value: `[DB]`
+
+					      *g:vim_dadbod_completion_source_limits*
+g:vim_dadbod_completion_source_limits
+		Completion items are fetched from multiple sources.
+		Each source is by default limited to maximum of `200` entries.
+		Example configuration:
+>
+		let g:vim_dadbod_completion_source_limits = {
+		    \ 'schemas': 150,
+		    \ 'tables': 100,
+		    \ 'columns': 120,
+		    \ 'reserved_words': 140,
+		    \ 'functions': 50
+		    \ }
+<
+		NOTE: `functions` source is currently available only for `PostgreSQL`
+		and it returns list of sql functions available in the
+		database.
+		Source type that is not in the configuration variable defaults
+		to `200`.
+
+		Default value: `{}`
+
+					      *g:vim_dadbod_completion_lowercase_keywords*
+g:vim_dadbod_completion_lowercase_keywords
+		Use lower case for keywords completions. Add this to vimrc
+>
+		let g:vim_dadbod_completion_lowercase_keywords = 1
+<
+
+		Default value: `0`
+
+					      *g:vim_dadbod_completion_disable_notifications*
+g:vim_dadbod_completion_disable_notifications
+		Disable notifications.
+>
+		let g:vim_dadbod_completion_disable_notifications = 1
+<
+
+		NOTE: vim-dadbod-ui configuration option `let g:db_ui_disable_info_notifications = 1`
+		also disables the notification in this plugin.
+
+		Default value: `0`
+
+--------------------------------------------------------------------------------
+COMMANDS                                          *vim-dadbod-completion-commands*
+
+This plugin caches the database tables and columns to leverage maximum performance. If you want to clear the cache at any point just run:
+>
+    :DBCompletionClearCache
+<
+
+--------------------------------------------------------------------------------
+TODO                                                  *vim-dadbod-completion-todo*
+
+*   [ ] Integration for column autocompletion with more database types
+
+vim:tw=78:ts=8:ft=help:norl:noet:fen:noet:

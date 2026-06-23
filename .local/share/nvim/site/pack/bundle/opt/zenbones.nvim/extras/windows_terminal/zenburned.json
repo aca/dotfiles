@@ -1,0 +1,23 @@
+{
+    "name": "zenburned",
+    "selectionBackground": "#746956",
+    "cursorColor": "#F3EADB",
+    "foreground": "#F0E4CF",
+    "background": "#404040",
+    "black": "#404040",
+    "blue": "#6099C0",
+    "cyan": "#66A5AD",
+    "green": "#819B69",
+    "purple": "#B279A7",
+    "red": "#E3716E",
+    "white": "#F0E4CF",
+    "yellow": "#B77E64",
+    "brightBlack": "#625A5B",
+    "brightBlue": "#61ABDA",
+    "brightCyan": "#65B8C1",
+    "brightGreen": "#8BAE68",
+    "brightRed": "#EC8685",
+    "brightPurple": "#CF86C1",
+    "brightWhite": "#C0AB86",
+    "brightYellow": "#D68C67"
+}

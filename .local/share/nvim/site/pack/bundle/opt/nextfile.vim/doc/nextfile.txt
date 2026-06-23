@@ -1,0 +1,143 @@
+*nextfile.txt* open the next or previous file
+
+Author:
+  tyru <tyru.exe@gmail.com>
+Version: 0.0.3
+License:
+NEW BSD LICENSE {{{
+  Copyright (c) 2009, tyru
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+      * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+      * Neither the name of the tyru nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+}}}
+
+==============================================================================
+CONTENTS						*nextfile-contents*
+
+Introduction		|nextfile-introduction|
+Requirements		|nextfile-requirements|
+Interface			|nextfile-interface|
+  Keymappings		|nextfile-keymappings|
+  Variables			|nextfile-variables|
+  Commands			|nextfile-commands|
+TODO				|nextfile-todo|
+Changelog			|nextfile-changelog|
+
+
+==============================================================================
+INTRODUCTION						*nextfile-introduction* {{{
+}}}
+==============================================================================
+INTERFACE				*nextfile-interface* {{{
+------------------------------------------------------------------------------
+KEYMAPPINGS					*nextfile-keymappings* {{{
+
+
+Default keymappings
+--------------------
+
+<Leader>n
+	open the next file.
+
+<Leader>p
+	open the previous file.
+
+
+}}}
+------------------------------------------------------------------------------
+VARIABLES					*nextfile-variables* {{{
+
+g:nf_map_next (default: '<Leader>n')	*g:nf_map_next*
+    open the next file.
+
+g:nf_map_previous (default: '<Leader>p')	*g:nf_map_previous*
+    open the previous file.
+
+g:nf_include_dotfiles (default: 0)	*g:nf_include_dotfiles*
+    if true, open the next dotfile.
+    if false, skip the next dotfile.
+
+g:nf_open_command (default: 'edit')	*g:nf_open_command*
+    open the (next|previous) file with this command.
+
+g:nf_loop_files (default: 0)	*g:nf_loop_files*
+    if true, loop when reached the end.
+
+g:nf_ignore_dir (default: 1)	*g:nf_ignore_dir*
+    if true, skip directory.
+
+g:nf_ignore_ext (default: [])	*g:nf_ignore_ext*
+    ignore files of these extensions.
+    e.g.: "o", "obj", "exe"
+
+g:nf_disable_if_empty_name (default: 0)	*g:nf_disable_if_empty_name*
+    do not run mapping if current file name is empty.
+    behave like old version if this is true.
+
+g:nf_commands (default: see below)	*g:nf_commands*
+    command's names.
+    if you do not want to define some commands,
+    please leave '' in command's value.
+        e.g.: let g:nf_commands = {'NFLoadGlob': ''}
+
+    default value:
+        let g:nf_commands = {
+        \   'NFLoadGlob' : 'NFLoadGlob',
+        \ }
+
+g:nf_sort_funcref (default: '<SID>sort_compare')	*g:nf_sort_funcref*
+    function string or Funcref passed to sort().
+
+    default function's definition:
+        func! s:sort_compare(a, b)
+            let [a, b] = [string(a:a), string(a:b)]
+            return a ==# b ? 0 : a > b ? 1 : -1
+        endfunc
+
+}}}
+------------------------------------------------------------------------------
+COMMANDS					*nextfile-commands* {{{
+:NFLoadGlob				*:NFLoadGlob*
+    Load globbed files.
+    This command just load files to buffers, does not edit them.
+    options do NOT influence globbed file's list.
+        :NFLoadGlob *   " to load all files in current directory.
+        :NFLoadGlob .*  " to load all dotfiles in current directory.
+}}}
+}}}
+==============================================================================
+TODO						*nextfile-todo* {{{
+
+- add option of list of patterns to skip specified files
+- mappings to open the first/last file.
+}}}
+==============================================================================
+CHANGELOG						*nextfile-changelog* {{{
+
+0.0.0:
+- Initial upload.
+
+0.0.1:
+- add g:nf_ignore_dir
+
+0.0.2:
+- implement g:nf_ignore_ext.
+
+0.0.3:
+- fix edge case bug
+- add command :NFLoadGlob
+- mappings support range
+  ('10<Leader>n' opens a file which is 10 files away from current file.
+   '10<Leader>p' is reverse sequence)
+- add options g:nf_disable_if_empty_name, g:nf_sort_funcref, g:nf_commands
+- etc.
+
+}}}
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=4:ft=help:norl:noet:fdm=marker:fen

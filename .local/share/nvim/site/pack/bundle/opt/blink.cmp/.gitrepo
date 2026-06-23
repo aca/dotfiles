@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Saghen/blink.cmp.git
+	branch = main
+	commit = 5e088706d92da09949e081cc4d49e2c9ba8cfc8c
+	parent = 536b4f845ed3bb8707a107748f0ada3755e1dab7
+	method = merge
+	cmdver = 0.4.9

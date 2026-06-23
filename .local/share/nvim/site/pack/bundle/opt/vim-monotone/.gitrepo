@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Lokaltog/vim-monotone
+	branch = master
+	commit = 5393343ff2d639519e4bcebdb54572dfe5c35686
+	parent = b36932ce903924bcf15242914c4b37dfac9712ae
+	method = merge
+	cmdver = 0.4.9

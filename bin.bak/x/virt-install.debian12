@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# sudo virt-install --osinfo list
+# aria2c "https://cloud.debian.org/images/cloud/bookworm/daily/latest/debian-12-genericcloud-amd64-daily.qcow2"
+
+set -euxo pipefail
+
+VM_NAME="$1"
+VM_HOME="$HOME/archive/vm"
+VM_FILE="$VM_HOME/$1.qcow2"
+BASE="$VM_HOME/templates/debian-12-genericcloud-amd64-daily.qcow2"
+
+cp -v $BASE $VM_HOME/$VM_NAME.qcow2
+
+key="$(realpath $HOME/.ssh/id_rsa.pub)"
+
+qemu-img resize $VM_HOME/$VM_NAME.qcow2 +10G
+virt-customize \
+    -a "$VM_FILE" \
+    --root-password password:toor \
+    --ssh-inject "root:file:$key" \
+    --run-command '/usr/bin/ssh-keygen -A' \
+    --run-command 'growpart /dev/sda 1' \
+    --run-command 'resize2fs /dev/sda1' \
+    --hostname $VM_NAME \
+    --write '/etc/systemd/network/enp1s0.network:[Match]
+Name=enp1s0
+[Network]
+DHCP=ipv4
+' 
+
+sudo virt-install --name $VM_NAME \
+    --virt-type kvm --memory 3000 --vcpus 2 \
+    --osinfo debiantesting --boot hd \
+    --network network=default,model=virtio \
+    --disk "$VM_FILE" \
+    --graphics none \
+    --console pty,target_type=serial --import
+
+# sudo growpart /dev/vda 1
+# sudo resize2fs /dev/vda1

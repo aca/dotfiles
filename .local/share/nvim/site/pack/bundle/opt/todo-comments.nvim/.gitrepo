@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/folke/todo-comments.nvim.git
+	branch = main
+	commit = 31e3c38ce9b29781e4422fc0322eb0a21f4e8668
+	parent = 6fbdc8b9155899473fdce79cf198e00310d19e1a
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/AndrewRadev/bufferize.vim.git
+	branch = main
+	commit = ec7c4445a97f19e5784a6fb6ad3c3d4a8ff505ac
+	parent = e6b9277f039b9a7780f35146225d48adf8103a35
+	method = merge
+	cmdver = 0.4.9

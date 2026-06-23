@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/j-hui/fidget.nvim.git
+	branch = main
+	commit = 7fa433a83118a70fe24c1ce88d5f0bd3453c0970
+	parent = 299c68ec238dc281b2c1ce74e9716ba4c0beda99
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+case "$1" in
+"get")
+  mkdir $HOME/.cache/lcache 2>/dev/null || true
+  cat "$HOME/.cache/lcache/$2"
+  ;;
+
+"set")
+  tmpf=$(mktemp)
+  mkdir $HOME/.cache/lcache 2>/dev/null || true
+  cat - > $tmpf
+  mv $tmpf "$HOME/.cache/lcache/$1"
+  ;;
+
+*)
+  exit 1
+  ;;
+esac

@@ -1,0 +1,198 @@
+*suda.txt*			Use sudo to read/write files in Vim/Neovim
+
+Author:  Alisue <lambdalisue@hashnote.net>
+License: MIT license
+
+=============================================================================
+CONTENTS					*suda-contents*
+
+Introduction			|suda-introduction|
+Usage				|suda-usage|
+  Smart-edit			|suda-usage-smart-edit|
+  Windows			|suda-usage-windows|
+Interface			|suda-interface|
+  Command			|suda-interface-command|
+  Function			|suda-interface-function|
+  Variable			|suda-interface-variable|
+
+
+=============================================================================
+INTRODUCTION					*suda-introduction*
+
+*suda* is a plugin to read or write files with "sudo" command.
+
+This plugin was built while ":w !sudo tee % > /dev/null" trick does not work
+on Neovim.
+
+https://github.com/neovim/neovim/issues/1716
+
+This plugin is strongly inspired by sudo.vim but the interfaces was
+aggressively modified for modern Vim script.
+
+For Windows users, install mattn/sudo command to enable this plugin.
+
+https://github.com/mattn/sudo
+
+Make sure that the following shows 1.
+>
+	: echo executable('sudo')
+<
+|suda| will ask for a password each time sudo is used for reading or writing.
+However, you can set global timestamps in your sudoers configuration, if you
+have sudo version 1.8.21 or higher. This will enable |suda| to reuse an
+existing sudo authentication token. In this case, it will not ask for a
+password if not needed. To enable, configure sudo with this option:
+>
+        Defaults timestamp_type = global
+<
+The other types 'ppid', 'kernel' or 'tty' will not allow |suda| to use sudo
+credential caching. Please make sure this is in line with your security
+requirements.
+
+=============================================================================
+USAGE						*suda-usage*
+
+Use |:SudaRead| to open unreadable files like:
+>
+	" Re-open a current file with sudo
+	:SudaRead
+
+	" Open /etc/sudoers with sudo
+	:SudaRead /etc/sudoers
+<
+Or use |:SudaWrite| to write unwritable files like:
+>
+	" Forcedly save a current file with sudo
+	:SudaWrite
+
+	" Write contents to /etc/profile with sudo
+	:SudaWrite /etc/profile
+<
+Or directly use "suda://" prefix on |read|, |edit|, |write|, or |saveas| like:
+>
+	" Open a current file with sudo
+	:e suda://%
+
+	" Save a current file with sudo
+	:w suda://%
+
+	" Edit /etc/sudoers
+	:e suda:///etc/sudoers
+
+	" Read /etc/sudoers (insert content under the cursor)
+	:r suda:///etc/sudoers
+
+	" Read /etc/sudoers at the end
+	:$r suda:///etc/sudoers
+
+	" Write contents to /etc/profile
+	:w suda:///etc/profile
+
+	" Save contents to /etc/profile
+	:saveas suda:///etc/profile
+<
+You can change the prompt string by |g:suda#prompt| like:
+>
+	" 'Password' in french
+	let g:suda#prompt = 'Mot de passe: '
+<
+-----------------------------------------------------------------------------
+SMART-EDIT					*suda-usage-smart-edit*
+
+When |g:suda_smart_edit| is true, suda automatically switch a buffer name when
+the target file is not readable or writable.
+
+In short,
+>
+	$ vim /etc/hosts
+<
+or
+>
+	:e /etc/shadow
+<
+Will open "suda:///etc/hosts" or "suda:///etc/shadow" instead of "/etc/hosts"
+or "/etc/shadow" because that files are not writable or not readable.
+
+-----------------------------------------------------------------------------
+WINDOWS						*suda-usage-windows*
+
+Install https://github.com/mattn/sudo to enable this plugin in Windows.
+Make sure that the following shows 1.
+>
+	: echo executable('sudo')
+<
+
+=============================================================================
+INTERFACE					*suda-interface*
+
+-----------------------------------------------------------------------------
+COMMAND						*suda-interface-command*
+
+						*:SudaRead*
+:SudaRead [{path}]
+	Edit the {path} or re-open the current buffer with sudo.
+	It is equivalent to ":e suda://{path}"
+
+						*:SudaWrite*
+:SudaWrite [{path}]
+	Save content of the current buffer or save it to the {path} with sudo.
+	It is equivalent to ":w suda://{path}"
+
+-----------------------------------------------------------------------------
+FUNCTION					*suda-interface-function*
+
+						*suda#system()*
+suda#system({cmd} [, {input}])
+	Like |system()| but execute {cmd} with "sudo".
+
+						*suda#read()*
+suda#read({expr} [, {options}])
+	Insert contents of {expr} below the cursor.
+	The following attributes are available on {options}
+
+	"cmdarg"	|v:cmdarg| passed to |read| command
+	"range"		{range} passed to |read| command
+
+	A tempfile and |read| command is used to load the content of the
+	{expr} internally.
+
+						*suda#write()*
+suda#write({expr} [, {options}])
+	Write contents of current buffer to {expr}.
+	The following attributes are available on {options}
+
+	"cmdarg"	|v:cmdarg| passed to |write| command
+	"cmdbang"	|v:cmdbang|| passed to |write| command
+	"range"		{range} passed to |write| command
+
+	A tempfile and |write| command is used to dump the content of the
+	buffer internally.
+
+-----------------------------------------------------------------------------
+VARIABLE					*suda-interface-variable*
+
+*g:suda#executable*
+	A executable of "sudo" command.
+	Default: "sudo"
+
+*g:suda#noninteractive*
+	If set, suda will not prompt you for a password before saving a file.
+	It is suppossed to support a setup with passwordless sudo or doas.
+	Use with care.
+	Default: 0
+
+*g:suda#prompt*
+	A prompt string used to ask password.
+	Default: "Password: "
+
+*g:suda_smart_edit*
+	If set, an |autocmd| is created that performs a heuristic check on
+	every buffer and decides whether to replace it with a suda buffer.
+	The check is done only once for every buffer and it is designed to be
+	optimized as possible so you shouldn't feel any slowdown when openning
+	buffers.
+	Default: 0
+
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

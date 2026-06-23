@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/matze/vim-move.git
+	branch = master
+	commit = 267fd1cff61fc643dfb5f9b188c434906f5214aa
+	parent = 24879f6e7f6328755c55b80a3a4342bd4f5bf321
+	method = merge
+	cmdver = 0.4.9

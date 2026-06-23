@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$#" -eq 0 ]; then
+    project_dir="$(date +%Y/%m%d/%H%M%S)"
+else
+    project_dir="$(date +%Y/%m%d/%H%M%S)_$1"
+fi
+
+mkdir -p "$project_dir"

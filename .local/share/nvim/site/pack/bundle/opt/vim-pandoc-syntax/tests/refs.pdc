@@ -1,0 +1,69 @@
+# this is a test for links, references and footnotes. 
+
+a link to [the example.com website](http://www.example.com "example") 
+
+well, [the example.com website](http://www.example.com) 
+
+testing footnotes[^footnote1]. this is kinda silly.^[another footnote.] 
+^superscrips^ are ok, but be careful to keep spaces between the inline
+footnotes and the superscripts.^[inline footnotes-- *test*]
+
+[^footnote1]: this is a footnote --.
+
+[see @Lovejoy, pp. 12]
+
+Mister @Lovejoy95, at [-@Lovejoy], cites @Lovejoy [pp. 12-12].
+
+Some printable characters might not be matched (in @Krämer, `ä` caused
+issues). @Krámer @Kraßmer @Kràmer
+
+*[PCL]: P C L
+
+[hello][welcome] aaaaaa this with [inline link](http://site.com) gets messed up
+
+[hello][hello]aaaaaa this
+
+[hello] [hello] this is a test.
+
+[hello][]
+
+[hello1]: www.google.com
+
+[hello2]: www.google.com "pandoc"
+
+[hello3]: www.google.com
+  "pandoc"
+this is no longer part of the reference definition
+
+![test](test.png)
+
+![testimg][]
+
+[testimg]: test.png
+
+What follows are some notes on algorithms I've been reviewing from [Algorithms](http://amzn.com/032157351X) by Robert Sedgewick and Kevin Wayne, [The Algorithm Design Manual](http://amzn.com/1849967202) by Steven S. Skiena, and other sources around the Internet [^mit] [^umd] [^umgd]. I wanted to write some notes on the material so that I could easily look back on it, but mainly so that I could be sure that I understand the material --- since I have to understand it to explain it.
+
+[Convolution](http://en.wikipedia.org/wiki/Convolution) is a mathematical
+method of combining two signals to form a third signal. Passing the [Dirac
+delta function](http://en.wikipedia.org/wiki/Dirac_delta_function) (unit
+impulse) $\delta[n]$ through a linear system results in the impulse response
+$h[n]$. The impulse response is simply the signal resulting from passing the
+unit impulse (Dirac delta function) through a linear system.
+
+# issue 25 
+
+[[abc]](xxx)
+
+[[abc]][]
+
+[[abc]]: x
+
+# issue 107 (vim-pandoc)
+
+[`]`](http://foo.com) foo
+
+[Why isn't `ListT []`{.haskell} a monad](http://blog.sigfpe.com/2006/11/why-isnt-listt-monad.html)
+
+# code in ref with more code in same line
+
+1. [`link`](link) and more text `with code` and a [`link`](link)

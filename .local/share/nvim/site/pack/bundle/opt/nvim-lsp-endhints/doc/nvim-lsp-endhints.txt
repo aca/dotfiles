@@ -1,0 +1,272 @@
+*nvim-lsp-endhints.txt*        For Neovim        Last change: 2026 February 06
+
+==============================================================================
+Table of Contents                        *nvim-lsp-endhints-table-of-contents*
+
+1. Nvim-lsp-endhints                    |nvim-lsp-endhints-nvim-lsp-endhints-|
+  - Table of contents |nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents|
+  - Installation           |nvim-lsp-endhints-nvim-lsp-endhints--installation|
+  - Configuration         |nvim-lsp-endhints-nvim-lsp-endhints--configuration|
+  - Usage                         |nvim-lsp-endhints-nvim-lsp-endhints--usage|
+  - Background               |nvim-lsp-endhints-nvim-lsp-endhints--background|
+  - FAQ                             |nvim-lsp-endhints-nvim-lsp-endhints--faq|
+  - About the author   |nvim-lsp-endhints-nvim-lsp-endhints--about-the-author|
+
+==============================================================================
+1. Nvim-lsp-endhints                    *nvim-lsp-endhints-nvim-lsp-endhints-*
+
+
+
+Minimal plugin that displays LSP inlay hints at the end of the line, rather
+than within the line.
+
+
+
+_Color scheme: nightfox.nvim, dawnfox variant_
+
+
+TABLE OF CONTENTS     *nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents*
+
+- |nvim-lsp-endhints-installation|
+- |nvim-lsp-endhints-configuration|
+- |nvim-lsp-endhints-usage|
+- |nvim-lsp-endhints-background|
+- |nvim-lsp-endhints-faq|
+    - |nvim-lsp-endhints-how-to-display-hints-only-for-the-current-line?|
+    - |nvim-lsp-endhints-compatibility-with-other-inlay-hints-plugins|
+    - |nvim-lsp-endhints-how-to-enable-inlay-hints-for-an-lsp?|
+    - |nvim-lsp-endhints-how-to-change-the-formatting-just-for-a-specific-filetype-or-lsp?|
+- |nvim-lsp-endhints-about-the-author|
+
+
+INSTALLATION               *nvim-lsp-endhints-nvim-lsp-endhints--installation*
+
+**Requirements** - nvim 0.10+ - LSP that supports inlay hints
+(`textDocument/inlayHint`) - Inlay hints
+|nvim-lsp-endhints-enabled-in-the-config-of-that-lsp|
+
+>lua
+    -- lazy.nvim
+    {
+        "chrisgrieser/nvim-lsp-endhints",
+        event = "LspAttach",
+        opts = {}, -- required, even if empty
+    },
+    
+    -- packer
+    use {
+        "chrisgrieser/nvim-lsp-endhints",
+        config = function()
+            require("lsp-endhints").setup() -- required, even if empty
+        end,
+    }
+<
+
+
+CONFIGURATION             *nvim-lsp-endhints-nvim-lsp-endhints--configuration*
+
+The `.setup()` call is **required**.
+
+>lua
+    -- default settings
+    require("lsp-endhints").setup {
+        autoEnableHints = true,
+        icons = {
+            type = "󰜁 ",
+            parameter = "󰏪 ",
+            offspec = " ", -- hint kind not defined in official LSP spec
+            unknown = " ", -- hint kind is nil
+        },
+        label = {
+            truncateAtChars = 20,
+            padding = 1,
+            marginLeft = 0,
+            sameKindSeparator = ", ",
+        },
+        extmark = {
+            priority = 50,
+        },
+    
+        ---Function that overrides how hints are displayed.
+        ---expects as output a table for `virt_text` from `nvim_buf_set_extmark`,
+        ---that is a table of string tuples (text & highlight group)
+        ---To use filetype-specific formatting, get the filetype via
+        ---`vim.bo[bufnr].filetype`, to conditionally use the default formatting 
+        ---function, use `defaultHintFormatFunc(hints)`.
+        ---@type function(hints: {label: string, col: number, kind: string}[], bufnr: number, defaultHintFormatFunc: func): {[1]: string, [2]: string}[]
+        hintFormatFunc = nil,
+    }
+<
+
+The hints use the default highlight group `LspInlayHint`.
+
+
+USAGE                             *nvim-lsp-endhints-nvim-lsp-endhints--usage*
+
+By default, the plugin automatically enables inlay hints when attaching to an
+LSP, there is nothing to do other than loading the plugin.
+
+All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
+same as before. Use them |as described in the Neovim documentation| to
+enable/disable/toggle hints manually.
+
+You can switch between displaying inlay hints at the end of the line (this
+plugin) and within the line (Neovim default) by using the `enable`, `disable`
+and `toggle` functions:
+
+>lua
+    -- inlay hints will show at the end of the line (default)
+    require("lsp-endhints").enable()
+    
+    -- inlay hints will show as if the plugin was not installed
+    require("lsp-endhints").disable()
+    
+    -- toggle between the two
+    require("lsp-endhints").toggle()
+<
+
+
+BACKGROUND                   *nvim-lsp-endhints-nvim-lsp-endhints--background*
+
+- The LSP specification stipulates that inlay hints have a fixed position in
+    the line, which Neovim core follows. <https://github.com/neovim/neovim/issues/28261#issuecomment-2194659088>
+- However, for many people, hints being positioned within the line disturbs the
+    flow of vim motions. This is particularly troublesome for languages with long
+    type hints, such as TypeScript.
+- nvim-inlayhint <https://github.com/lvimuser/lsp-inlayhints.nvim> did pretty
+    much the same thing for nvim < 0.10, but it is archived by now. Other than
+    being maintained, `nvim-lsp-endhints` only overrides the
+    `textDocument/inlayHint` handler introduced in nvim 0.10, resulting in a much
+    simpler and more maintainable implementation (~250 LOC instead of ~1000 LOC).
+
+
+FAQ                                 *nvim-lsp-endhints-nvim-lsp-endhints--faq*
+
+
+HOW TO DISPLAY HINTS ONLY FOR THE CURRENT LINE? ~
+
+That is not supported by the plugin. However, it only takes a small snippet to
+implement it yourself.
+<https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921> (Note
+that the linked snippet is not compatible with this plugin.)
+
+
+COMPATIBILITY WITH OTHER INLAY HINTS PLUGINS ~
+
+Since this plugin overrides the nvim handler for `"textDocument/inlayHint"`,
+other plugins that interact with inlay hints may be incompatible with it.
+
+However, if the other plugin is using specific commands related to inlay hints
+rather than permanently displaying them like `nvim-lsp-endhints`, you can
+temporarily disable `endhints`, trigger the other plugin, and then re-enable
+`endhints`. Binding that to a custom function should allow you to use the other
+plugin without issues then.
+
+
+HOW TO ENABLE INLAY HINTS FOR AN LSP? ~
+
+Not all LSPs support inlay hints. The following list is not exhaustive, there
+are more LSPs that support inlay hints. Please refer to your LSP’s
+documentation.
+
+>lua
+    -- lua-ls
+    vim.lsp.config("lua_ls", {
+        settings = {
+            Lua = {
+                hint = { enable = true },
+            },
+        },
+    }
+    
+    -- typescript
+    local inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+    }
+    vim.lsp.config("ts_ls", {
+        settings = {
+            typescript = {
+                inlayHints = inlayHints,
+            },
+            javascript = {
+                inlayHints = inlayHints,
+            },
+        },
+    }
+    
+    -- gopls
+    vim.lsp.config("gopls", {
+        settings = {
+            hints = {
+                rangeVariableTypes = true,
+                parameterNames = true,
+                constantValues = true,
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                functionTypeParameters = true,
+            },
+        },
+    }
+    
+    -- clangd
+    vim.lsp.config("clangd", {
+        settings = {
+            clangd = {
+                InlayHints = {
+                    Designators = true,
+                    Enabled = true,
+                    ParameterNames = true,
+                    DeducedTypes = true,
+                },
+                fallbackFlags = { "-std=c++20" },
+            },
+        },
+    }
+<
+
+
+HOW TO CHANGE THE FORMATTING JUST FOR A SPECIFIC FILETYPE OR LSP? ~
+
+Use the `opts.hintFormatFunc` like this:
+
+>lua
+    require("lsp-endhints").setup {
+        hintFormatFunc = function(hints, bufnr, defaultHintFormatFunc)
+            local lsp = vim.lsp.get_clients({ bufnr = bufnr })[1].name
+            if lsp == "rust_analyzer" then
+                return "..." -- use your own formatting here
+            else
+                return defaultHintFormatFunc(hints) -- fallback to default formatting
+            end
+        end
+    }
+<
+
+
+ABOUT THE AUTHOR       *nvim-lsp-endhints-nvim-lsp-endhints--about-the-author*
+
+In my day job, I am a sociologist studying the social mechanisms underlying the
+digital economy. For my PhD project, I investigate the governance of the app
+economy and how software ecosystems manage the tension between innovation and
+compatibility. If you are interested in this subject, feel free to get in
+touch.
+
+- Website <https://chris-grieser.de/>
+- Mastodon <https://pkm.social/@pseudometa>
+- ResearchGate <https://www.researchgate.net/profile/Christopher-Grieser>
+- LinkedIn <https://www.linkedin.com/in/christopher-grieser-ba693b17a/>
+
+If you find this project helpful, you can support me via GitHub Sponsors
+<https://github.com/sponsors/chrisgrieser?frequency=one-time>.
+
+Generated by panvimdoc <https://github.com/kdheepak/panvimdoc>
+
+vim:tw=78:ts=8:noet:ft=help:norl:

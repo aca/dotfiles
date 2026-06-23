@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lambdalisue/gin.vim.git
+	branch = main
+	commit = 726a2eede0f03e97507ec99ea20cba83f8eb086e
+	parent = f5859faa511c09c6dc098f50049794ebdd870b08
+	method = merge
+	cmdver = 0.4.9

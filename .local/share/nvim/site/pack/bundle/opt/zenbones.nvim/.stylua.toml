@@ -1,0 +1,2 @@
+syntax = "LuaJIT"
+call_parentheses = "None"

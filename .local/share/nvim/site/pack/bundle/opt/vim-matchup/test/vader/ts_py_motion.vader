@@ -1,0 +1,67 @@
+Given python (A python script):
+  def F(x, y):
+    if x == 1:
+      return 1
+    elif x == 2:
+      if y == 5:
+        pass
+      elif y == 7:
+        return 9
+      else:
+        return x
+    else:
+      return 3
+    return 2
+
+Execute (Logs):
+  Log b:matchup_active_engines
+
+# ----- outer if/elif/else -----
+
+Before (Cursor):
+  normal! 2gg^
+
+Do (Move %):
+  %
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 4 : 2), line('.') 
+
+Do (Move % twice):
+  %%
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 11 : 2), line('.') 
+
+Do (Move % 3 times):
+  %%%
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 2 : 2), line('.') 
+
+Do (Move % 4 times):
+  %%%%
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 4 : 2), line('.') 
+
+# ----- inner if/elif/else -----
+
+Before (Cursor):
+  normal! 5gg^
+
+Do (Inner: Move %):
+  %
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 7 : 5), line('.') 
+
+Do (Inner: % 2 times):
+  %%
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 9 : 5), line('.') 
+
+Do (Inner: % 3 times):
+  %%%
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 5 : 5), line('.') 
+
+Do (Inner: % 4 times):
+  %%%%
+Then (Verify line):
+  AssertEqual (len(b:matchup_active_engines.delim_all) == 2 ? 7 : 5), line('.') 

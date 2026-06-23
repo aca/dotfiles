@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/justinmk/vim-dirvish.git
+	branch = master
+	commit = 6be56227a4207c93cd8b607f52f567a1e13dddb1
+	parent = de0c4d4903a4007fc524b783d883ace05c71b84c
+	method = merge
+	cmdver = 0.4.9

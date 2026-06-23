@@ -1,0 +1,208 @@
+" vim:ft=vim
+
+Before(Define universal function used to test command completion):
+  function! CmdlineCompleteTestWrapperFunc(command, expected, handler) abort
+    let commands = split(a:command)
+    let arg_lead = a:command[-1:] == ' ' ? '' : commands[-1]
+    let command = a:command
+    let cursor_pos = len(a:command)
+    let result = a:handler(arg_lead, command, cursor_pos)
+    if a:expected != result
+      Log printf('Command:  `:%s`', a:command)
+      Log printf("Actual:   %s", result)
+      Log printf('Expected: %s', string(a:expected))
+    endif
+    AssertEqual a:expected, result
+  endfunction
+
+Execute(Test floaterm#cmdline#parse):
+  let argstr ='--height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft --autoclose=2 ranger --cmd="cd ~"'
+  let [cmd, config] = floaterm#cmdline#parse(argstr)
+  AssertEqual 'ranger --cmd="cd ~"', cmd
+  AssertEqual {
+        \ 'wintype': 'float',
+        \ 'name': 'floaterm1',
+        \ 'autoclose': 2,
+        \ 'width': 0.4,
+        \ 'height': 0.6,
+        \ 'position': 'topleft'
+        \ }, config
+
+Execute(Test floaterm#cmdline#parse expand feature):
+  silent !touch test.txt && echo first.line > test.txt
+  edit ./test.txt
+  normal! gg0
+
+  " %<
+  AssertEqual expand('%<'), floaterm#cmdline#parse('%<')[0]
+  " %\(:[phtreS8\~\.]\)
+  AssertEqual expand('%'), floaterm#cmdline#parse('%')[0]
+  AssertEqual expand('%:p'), floaterm#cmdline#parse('%:p')[0]
+  AssertEqual expand('%:h'), floaterm#cmdline#parse('%:h')[0]
+  AssertEqual expand('%:t'), floaterm#cmdline#parse('%:t')[0]
+  AssertEqual expand('%:r'), floaterm#cmdline#parse('%:r')[0]
+  AssertEqual expand('%:e'), floaterm#cmdline#parse('%:e')[0]
+  AssertEqual expand('%:S'), floaterm#cmdline#parse('%:S')[0]
+  AssertEqual expand('%:8'), floaterm#cmdline#parse('%:8')[0]
+  AssertEqual expand('%:~'), floaterm#cmdline#parse('%:~')[0]
+  AssertEqual expand('%:.'), floaterm#cmdline#parse('%:.')[0]
+  " %\(:g\=s?.*?.*?\)
+  AssertEqual expand('%:s?test?main?'), floaterm#cmdline#parse('%:s?test?main?')[0]
+  AssertEqual expand('%:gs?test?main?'), floaterm#cmdline#parse('%:gs?test?main?')[0]
+  AssertEqual '%', floaterm#cmdline#parse('\%')[0]
+  AssertEqual '%:p', floaterm#cmdline#parse('\%:p')[0]
+  " %\(\(:g\=s?.*?.*?\)\|\(:[phtreS8\~\.]\)\)*
+  AssertEqual expand('%:p:h'), floaterm#cmdline#parse('%:p:h')[0]
+  AssertEqual expand('%:p:s?test?main?'), floaterm#cmdline#parse('%:p:s?test?main?')[0]
+
+  " <cfile><
+  AssertEqual expand('<cfile><'), floaterm#cmdline#parse('<cfile><')[0]
+  " <cfile>\(:[phtreS8\~\.]\)
+  AssertEqual expand('<cfile>'), floaterm#cmdline#parse('<cfile>')[0]
+  AssertEqual expand('<cfile>:p'), floaterm#cmdline#parse('<cfile>:p')[0]
+  AssertEqual expand('<cfile>:h'), floaterm#cmdline#parse('<cfile>:h')[0]
+  AssertEqual expand('<cfile>:t'), floaterm#cmdline#parse('<cfile>:t')[0]
+  AssertEqual expand('<cfile>:r'), floaterm#cmdline#parse('<cfile>:r')[0]
+  AssertEqual expand('<cfile>:e'), floaterm#cmdline#parse('<cfile>:e')[0]
+  AssertEqual expand('<cfile>:S'), floaterm#cmdline#parse('<cfile>:S')[0]
+  AssertEqual expand('<cfile>:8'), floaterm#cmdline#parse('<cfile>:8')[0]
+  AssertEqual expand('<cfile>:~'), floaterm#cmdline#parse('<cfile>:~')[0]
+  AssertEqual expand('<cfile>:.'), floaterm#cmdline#parse('<cfile>:.')[0]
+  " <cfile>\(:g\=s?.*?.*?\)
+  AssertEqual expand('<cfile>:s?test?main?'), floaterm#cmdline#parse('<cfile>:s?test?main?')[0]
+  AssertEqual expand('<cfile>:gs?test?main?'), floaterm#cmdline#parse('<cfile>:gs?test?main?')[0]
+  AssertEqual '<cfile>', floaterm#cmdline#parse('\<cfile>')[0]
+  AssertEqual '<cfile>:p', floaterm#cmdline#parse('\<cfile>:p')[0]
+  " <cfile>\(\(:g\=s?.*?.*?\)\|\(:[phtreS8\~\.]\)\)*
+  AssertEqual expand('<cfile>:p:h'), floaterm#cmdline#parse('<cfile>:p:h')[0]
+  AssertEqual expand('<cfile>:p:s?test?main?'), floaterm#cmdline#parse('<cfile>:p:s?test?main?')[0]
+
+  silent !rm test.txt
+
+Execute(Test floaterm#cmdline#complete):
+  function! Test__floaterm_cmdline_complete(command, expected)
+    call CmdlineCompleteTestWrapperFunc(a:command, a:expected, function('floaterm#cmdline#complete'))
+  endfunction
+  let all_candidates = [
+        \ '--cwd=',
+        \ '--name=',
+        \ '--title=',
+        \ '--width=',
+        \ '--height=',
+        \ '--opener=',
+        \ '--wintype=',
+        \ '--position=',
+        \ '--autoclose=',
+        \ '--borderchars=',
+        \ '--titleposition=',
+        \ '--silent',
+        \ '--disposable',
+        \ ]
+  call Test__floaterm_cmdline_complete('FloatermNew ', all_candidates)
+  call Test__floaterm_cmdline_complete('FloatermNew -', all_candidates)
+  call Test__floaterm_cmdline_complete('FloatermNew --', all_candidates)
+  call Test__floaterm_cmdline_complete('FloatermNew nv', sort(getcompletion('nv', 'shellcmd')))
+  call Test__floaterm_cmdline_complete('FloatermNew --n', ['--name='])
+  call Test__floaterm_cmdline_complete('FloatermNew --w', ['--width=', '--wintype='])
+  call Test__floaterm_cmdline_complete('FloatermNew --name=', [])
+  call Test__floaterm_cmdline_complete('FloatermNew --title=', [])
+  call Test__floaterm_cmdline_complete('FloatermNew --width=', [])
+  call Test__floaterm_cmdline_complete('FloatermNew --height=', [])
+  call Test__floaterm_cmdline_complete('FloatermNew --silent', [])
+  call Test__floaterm_cmdline_complete('FloatermNew --wintype=', [
+        \ '--wintype=float',
+        \ '--wintype=split',
+        \ '--wintype=vsplit',
+        \ ])
+  call Test__floaterm_cmdline_complete('FloatermNew --wintype=f', [
+        \ '--wintype=float'
+        \ ])
+  call Test__floaterm_cmdline_complete('FloatermNew --position=', [
+        \ '--position=auto',
+        \ '--position=center',
+        \ '--position=random',
+        \ '--position=top',
+        \ '--position=topleft',
+        \ '--position=topright',
+        \ '--position=bottom',
+        \ '--position=bottomleft',
+        \ '--position=bottomright',
+        \ '--position=left',
+        \ '--position=right',
+        \ ])
+  call Test__floaterm_cmdline_complete('FloatermNew --wintype=split --position=', [
+        \ '--position=random',
+        \ '--position=leftabove',
+        \ '--position=aboveleft',
+        \ '--position=rightbelow',
+        \ '--position=belowright',
+        \ '--position=topleft',
+        \ '--position=botright',
+        \ ])
+  call Test__floaterm_cmdline_complete('FloatermNew --position=t', [
+        \ '--position=top',
+        \ '--position=topleft',
+        \ '--position=topright'
+        \ ])
+  call Test__floaterm_cmdline_complete('FloatermNew --opener=', [
+        \ '--opener=edit',
+        \ '--opener=split',
+        \ '--opener=vsplit',
+        \ '--opener=tabe',
+        \ '--opener=drop'
+        \ ])
+  call Test__floaterm_cmdline_complete('FloatermNew '.
+        \ '--cwd=1 '.
+        \ '--name=1 '.
+        \ '--title=1 '.
+        \ '--width=1 '.
+        \ '--height=1 '.
+        \ '--opener=edit '.
+        \ '--silent '.
+        \ '--disposable '.
+        \ '--wintype=1 '.
+        \ '--position=1 '.
+        \ '--autoclose=1 '.
+        \ '--borderchars=1 '.
+        \ '--titleposition=1 ', sort(getcompletion('', 'shellcmd')))
+  call Test__floaterm_cmdline_complete('FloatermUpdate ', all_candidates)
+  call Test__floaterm_cmdline_complete('FloatermUpdate -', all_candidates)
+  call Test__floaterm_cmdline_complete('FloatermUpdate --', all_candidates)
+  call Test__floaterm_cmdline_complete('FloatermUpdate nv', ['  '])
+  call Test__floaterm_cmdline_complete('FloatermUpdate '.
+        \ '--cwd=1 '.
+        \ '--name=1 '.
+        \ '--title=1 '.
+        \ '--width=1 '.
+        \ '--height=1 '.
+        \ '--opener=edit '.
+        \ '--silent '.
+        \ '--disposable '.
+        \ '--wintype=1 '.
+        \ '--position=1 '.
+        \ '--autoclose=1 '.
+        \ '--borderchars=1 '.
+        \ '--titleposition=1 ', [])
+
+Execute(Test floaterm#cmdline#complete_names1):
+  FloatermNew --name=floaterm
+  function! Test__floaterm_cmdline_complete_names1(command, expected)
+    call CmdlineCompleteTestWrapperFunc(a:command, a:expected, function('floaterm#cmdline#complete_names1'))
+  endfunction
+  call Test__floaterm_cmdline_complete_names1('abc', ['floaterm'])
+  FloatermKill!
+
+Execute(Test floaterm#cmdline#complete_names2):
+  FloatermNew --name=floaterm1
+  FloatermNew --name=floaterm2
+  function! Test__floaterm_cmdline_complete_names2(command, expected)
+    call CmdlineCompleteTestWrapperFunc(a:command, a:expected, function('floaterm#cmdline#complete_names2'))
+  endfunction
+  call Test__floaterm_cmdline_complete_names2('FloatermUpdate -', ['--name='])
+  call Test__floaterm_cmdline_complete_names2('FloatermSend ', ['--name='])
+  call Test__floaterm_cmdline_complete_names2('FloatermSend --name=', ['--name=floaterm1', '--name=floaterm2'])
+
+  FloatermKill!
+  stopinsert
+
+

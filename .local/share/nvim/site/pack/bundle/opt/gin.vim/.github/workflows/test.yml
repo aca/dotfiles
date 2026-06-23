@@ -1,0 +1,139 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "**.md"
+      - "**.ts"
+      - "deno.jsonc"
+      - ".github/workflows/test.yml"
+  workflow_dispatch:
+    inputs:
+      denops_branch:
+        description: "Denops branch to test"
+        required: false
+        default: "main"
+
+# Use 'bash' as default shell even on Windows
+defaults:
+  run:
+    shell: bash --noprofile --norc -eo pipefail {0}
+
+env:
+  DENOPS_BRANCH: ${{ github.event.inputs.denops_branch || 'main' }}
+
+jobs:
+  check:
+    strategy:
+      matrix:
+        runner:
+          - ubuntu-latest
+        deno_version:
+          - "2.x"
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - run: git config --global core.autocrlf false
+        if: runner.os == 'Windows'
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: "${{ matrix.deno_version }}"
+      - uses: actions/cache@v4
+        with:
+          key: deno-${{ hashFiles('**/*') }}
+          restore-keys: deno-
+          path: |
+            /home/runner/.cache/deno/deps/https/deno.land
+      - name: Lint check
+        run: deno lint
+      - name: Format check
+        run: deno fmt --check
+      - name: Type check
+        run: deno task check
+
+  test:
+    strategy:
+      matrix:
+        runner:
+          - windows-latest
+          - macos-latest
+          - ubuntu-latest
+        deno_version:
+          - "2.x"
+        host_version:
+          - vim: "v9.1.0448"
+            nvim: "v0.10.0"
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - run: git config --global core.autocrlf false
+        if: runner.os == 'Windows'
+
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno_version }}
+
+      - name: Get denops
+        run: |
+          git clone https://github.com/vim-denops/denops.vim /tmp/denops.vim
+          echo "DENOPS_TEST_DENOPS_PATH=/tmp/denops.vim" >> "$GITHUB_ENV"
+
+      - name: Try switching denops branch
+        run: |
+          git -C /tmp/denops.vim switch ${{ env.DENOPS_BRANCH }} || true
+          git -C /tmp/denops.vim branch
+
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          version: ${{ matrix.host_version.vim }}
+
+      - uses: rhysd/action-setup-vim@v1
+        id: nvim
+        with:
+          neovim: true
+          version: ${{ matrix.host_version.nvim }}
+
+      - name: Export executables
+        run: |
+          echo "DENOPS_TEST_VIM_EXECUTABLE=${{ steps.vim.outputs.executable }}" >> "$GITHUB_ENV"
+          echo "DENOPS_TEST_NVIM_EXECUTABLE=${{ steps.nvim.outputs.executable }}" >> "$GITHUB_ENV"
+
+      - name: Check versions
+        run: |
+          deno --version
+          ${DENOPS_TEST_VIM_EXECUTABLE} --version
+          ${DENOPS_TEST_NVIM_EXECUTABLE} --version
+
+      - name: Perform pre-cache
+        run: |
+          deno cache --config ${DENOPS_TEST_DENOPS_PATH}/denops/@denops-private/deno.jsonc ${DENOPS_TEST_DENOPS_PATH}/denops/@denops-private/mod.ts
+          deno cache ./denops/gin/main.ts
+
+      - name: Test
+        run: deno task test:coverage
+        if: runner.os != 'Windows'
+        timeout-minutes: 15
+
+      # SEE: https://github.com/denoland/deno/issues/30924
+      - name: Test (without coverage)
+        run: deno task test
+        if: runner.os == 'Windows'
+        timeout-minutes: 15
+
+      - run: |
+          deno task coverage --lcov > coverage.lcov
+        if: runner.os != 'Windows'
+
+      - uses: codecov/codecov-action@v4
+        if: runner.os != 'Windows'
+        with:
+          os: ${{ runner.os }}
+          files: ./coverage.lcov
+          token: ${{ secrets.CODECOV_TOKEN }}

@@ -1,0 +1,44 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  # - type: input
+  #   id: plugin-manager
+  #   attributes:
+  #     label: Plugin Manager
+  #     description: What plugin manager are you using?
+  #   validations:
+  #     required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? How were you expecting the plugin to behave?
+      description: Include any details you think might be relevant.
+    validations:
+      required: true
+  # - type: dropdown
+  #   id: browsers
+  #   attributes:
+  #     label: What browsers are you seeing the problem on?
+  #     multiple: true
+  #     options:
+  #       - Firefox
+  #       - Chrome
+  #       - Safari
+  #       - Microsoft Edge
+  #       - Other
+  #   validations:
+  #     required: true
+  - type: textarea
+    id: health
+    attributes:
+      label: ":checkhealth"
+      description: Please copy and paste the output of the neovim command ":checkhealth github-preview". This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: true

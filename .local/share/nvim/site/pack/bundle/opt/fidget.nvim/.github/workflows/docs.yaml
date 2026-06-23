@@ -1,0 +1,45 @@
+name: Docs
+
+on:
+  push:
+    branches:
+    - main
+    - 'docs-*'
+    paths:
+    - '.github/**'
+    - 'doc/**'
+    - 'lua/**'
+    - 'scripts/**'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    name: Generate Fidget documentation
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install luajit
+      run: sudo apt install -y luajit
+
+    - name: Options docs from code
+      run: ./scripts/build-options-docs.sh
+
+    - name: API docs from code
+      run: ./scripts/build-api-docs.sh
+
+    - name: Usage docs from README (panvimdoc)
+      uses: kdheepak/panvimdoc@main
+      with:
+        pandoc: README.md
+        vimdoc: fidget
+        description: Extensible UI for Neovim notifications and LSP progress messages.
+        version: "NVIM v0.8.0"
+        demojify: true
+        treesitter: true
+        shiftheadinglevelby: -1
+
+    - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "chore(doc): auto-generate help docs"
+        branch: ${{ github.head_ref }}
+        file_pattern: 'doc/*.txt'

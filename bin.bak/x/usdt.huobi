@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+const puppeteer = require('puppeteer');
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://www.huobi.co.kr/ko-kr/exchange/usdt_krw/');
+  await page.waitForSelector(".recent-price");
+
+  // Get the "viewport" of the page, as reported by the page.
+  const dimensions = await page.evaluate(() => {
+    return  {
+      now: document.querySelector(".recent-price").textContent,
+      high: document.querySelector("div > div.exchange-main > div.r-box > div.exchange-center.exchange-kline > div > div > div.el-card__header > div > div > div > ul.fr.kline-info-list.info-right > li.li-left.border-nav-right > p:nth-child(1) > span.fr > span").textContent,
+      low: document.querySelector("#app > div > div.l-main > div > div.exchange-main > div.r-box > div.exchange-center.exchange-kline > div > div > div.el-card__header > div > div > div > ul.fr.kline-info-list.info-right > li.li-left.border-nav-right > p.bottom.bot-box.clear-fix.text-subtitle > span.fr > span").textContent,
+    }
+  });
+
+  console.log("now ", dimensions.now.trim());
+  console.log("high", dimensions.high.trim());
+  console.log("low ", dimensions.low.trim());
+
+  await browser.close();
+})();

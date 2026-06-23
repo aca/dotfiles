@@ -1,0 +1,10 @@
+profile desk {
+    output "LG Electronics LG TV SSCR2 0x01010101" enable mode 3840x2160 position 0,0 scale 1.5
+    output "LG Electronics LG HDR 4K 104NTLE5N480" enable mode 3840x2160 position 2560,0 scale 1.5
+    output "Dell Inc. DELL P2421D 9XJVQ33" disable
+
+    exec swaymsg workspace 1 output "LG Electronics LG TV SSCR2 0x01010101"
+    exec swaymsg workspace 2 output "LG Electronics LG TV SSCR2 0x01010101"
+    exec swaymsg workspace 3 output "LG Electronics LG HDR 4K 104NTLE5N480"
+    exec swaymsg workspace 4 output "LG Electronics LG HDR 4K 104NTLE5N480"
+}

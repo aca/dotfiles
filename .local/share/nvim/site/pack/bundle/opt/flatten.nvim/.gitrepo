@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/willothy/flatten.nvim
+	branch = main
+	commit = 72527798e75b5e34757491947c2cb853ce21dc0e
+	parent = c28517f0a330b0da3af4a2a35f9e2151dc97f3cc
+	method = merge
+	cmdver = 0.4.9

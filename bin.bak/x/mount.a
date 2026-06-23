@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# sudo mount /dev/sda1
+sudo mount /dev/sdb1
+sudo mount /dev/sdc1
+sudo mount /dev/sdd1
+sudo mount /dev/sde1
+sudo mount /dev/sdf1
+sudo mount /dev/sdg1
+sudo mount /dev/nvme0n1p1
+sudo mount /dev/nvme1n1p1

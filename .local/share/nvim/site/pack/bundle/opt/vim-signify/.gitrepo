@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mhinz/vim-signify.git
+	branch = master
+	commit = 3b5ae37eb2b77c3ae58d60dfdc3fc30258078663
+	parent = cc87d1d17cf10b576a367b887f92e54293649b16
+	method = merge
+	cmdver = 0.4.9

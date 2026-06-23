@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mattn/vim-goaddtags.git
+	branch = master
+	commit = 18cfa47cbcd9a8da9d022f0cd2f9f4075a1a7ae0
+	parent = 8abf67ec53952dc6ce6c148887b09f146b375628
+	method = merge
+	cmdver = 0.4.9

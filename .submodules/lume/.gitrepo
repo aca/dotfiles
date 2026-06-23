@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rxi/lume.git
+	branch = master
+	commit = 98847e7812cf28d3d64b289b03fad71dc704547d
+	parent = 56c051f60b4f9a7f19dedc65ed838c948f02ebd0
+	method = merge
+	cmdver = 0.4.9

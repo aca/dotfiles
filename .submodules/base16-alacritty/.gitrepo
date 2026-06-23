@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/aarowill/base16-alacritty.git
+	branch = master
+	commit = c95c200b3af739708455a03b5d185d3d2d263c6e
+	parent = c82303da4ac1ab186d52818630f7623d8703692d
+	method = merge
+	cmdver = 0.4.9

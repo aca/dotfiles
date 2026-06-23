@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/jmbuhr/otter.nvim
+	branch = main
+	commit = a455e68a99d395889ab30a25ac3846a135e93c46
+	parent = 140f3705366e2bf07b8929a7bb8c6fb26f357d80
+	method = merge
+	cmdver = 0.4.9

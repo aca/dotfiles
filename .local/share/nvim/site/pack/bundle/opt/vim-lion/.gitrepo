@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tommcdo/vim-lion.git
+	branch = master
+	commit = ce46593ecd60e6051fb6e4d3986d2fc9f5a618b1
+	parent = c8adb08e9bc0738476455ca7b749ce09c10eb925
+	method = merge
+	cmdver = 0.4.9

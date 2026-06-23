@@ -1,0 +1,6 @@
+pre-commit:
+  commands:
+    lint:
+      run: deno lint
+    fmt:
+      run: deno fmt

@@ -1,0 +1,242 @@
+*dadbod.txt*
+
+Author:  Tim Pope <http://tpo.pe/>
+Repo:    https://github.com/tpope/vim-dadbod
+License: Same terms as Vim itself (see |license|)
+
+USAGE                                           *dadbod* *:DB*
+
+:DB [url]               Start an interactive database console.  Uses
+                        dispatch.vim's |:Start| if available.
+
+:DB [url] {cmd}         Run {cmd} on the selected database and show the
+                        results in a preview window.
+
+:{range}DB [url]        Run the lines referenced by {range} on the selected
+                        database and show the results in a preview window.
+
+:DB [url] < {file}      Run the given {file} on the selected database and show
+                        the results in a preview window.
+
+:DB {var} = {url}       Assign the canonicalization of {url} to a |g:|, |w:|,
+                        |t:|, |b:|, or environment variable.
+
+:DB [url] :{command}    Run the Vim command {command} with the given URL set
+                        as the default.  This is mainly useful with
+                        |g:dadbod_manage_dbext|.
+
+In the preview window, you can press "R" to rerun, "r" to interactively rerun,
+or "gq" to close the window.
+
+URLS                                            *dadbod-urls*
+
+URLs are adapter specific but generally take one of two formats:
+>
+    adapter://[user[:password]@][host][:port]/[database]
+    adapter:[database]
+
+A complete reference is below under |dadbod-adapters|, but a few examples should
+mostly get the point across:
+>
+    postgresql://postgres:secret@remote-host/test
+    mysql://root@localhost/test
+    sqlite:db.sqlite3
+    mongodb:///admin
+    redis:///
+<
+Special characters in URL fields must be URL escaped.  For example, if the
+user is "me@example.com", and the password is "my#password?", the URL might
+look like this:
+>
+    mysql://me%40example.com:my%23password%3F@localhost/database
+<
+Additionally, one can give:
+
+* A Vim variable (e.g., g:foo, w:bar, t:baz, b:quux) or environment variable
+  (e.g., $DATABASE_URL) containing a URL.
+* File name of a supported database file (e.g. ~/db.sqlite3). Relative paths
+  must start with "./", and spaces must be %20 URL encoded (NOT backslash
+  escaped).
+
+VARIABLES                                       *dadbod-variables*
+
+If a |w:|, |t:|, |b:|, |g:|, or $ENVIRONMENT variable is given as a URL, its
+value will be used.  Additionally, if no URL is given, the first of w:db,
+t:db, b:db, $DATABASE_URL, and g:db will be used.  Suggested uses:
+
+* w:db is best set interactively.
+* b:db is most useful when set from an |autocommand|.
+* g:db and other globals can be set in your |vimrc| or other startup file.
+* $DATABASE_URL and other environment variables are easy to set externally.
+
+Set a variable with |:let|, or use |:DB| to normalize the URL first:
+>
+    :DB w:db = adapter://...
+<
+ADAPTERS                                        *dadbod-adapters*
+
+All hierarchical URLs (those that contain ://) support optional query
+parameters using the standard URL syntax: `?param1=value1&param2=value2`.
+Handling these parameters is up to the individual adapters.  By default,
+unrecognized parameters are ignored.  Pass Boolean parameters as the literal
+strings "true" and "false" (e.g., `?ssl=true`).
+
+                                                *dadbod-bigquery*
+bigquery ~
+>
+    bigquery:[<project_id>[:<dataset_id>]][?...]
+    bigquery:?project_id=<project_id>&dataset_id=<dataset_id>[&...]
+<
+
+The first form of the URL assumes your default dataset belongs to your default
+project.  If it doesn't, use the second form.
+
+Additional query parameters can be any valid global flag, for example,
+`&disable_ssl_validation=true`.  Subcommand flags are not supported as query
+parameters, but they can be specified in `~/.bigqueryrc`.
+
+                                                *dadbod-dbext*
+dbext ~
+>
+    dbext:type=<type>[:<attr>=<value>][...]
+    dbext:profile=<profile>[...]
+<
+For supported adapters, dbext modelines and profiles can be used directly.
+
+                                                *dadbod-clickhouse*
+ClickHouse ~
+>
+    clickhouse://[<host>[:port]]/[<database>]
+    clickhouse:[database]
+<
+Use the `secure` query parameter to enable TLS.
+
+                                                *dadbod-duckdb*
+DuckDB ~
+>
+    duckdb:relative/path
+    duckdb:/absolute/path
+    duckdb:C:/windows/path
+<
+An empty path portion uses an in-memory database, which is occasionally useful
+for an interactive invocation.
+
+                                                *dadbod-impala*
+Impala ~
+>
+    impala://[<host>[:<port>]]/[<database>]
+<
+                                                *dadbod-jq*
+jq ~
+>
+    jq:relative/path
+    jq:/absolute/path
+    jq:C:/windows/path
+<
+An empty path runs jq without input, see the --null-input parameter.
+
+                                                *dadbod-mongodb*
+MongoDB ~
+>
+    mongodb://[<user>[:<password>]@][<host>[:<port>]]/[<database>]
+    mongodb:[<database>]
+<
+Any valid MongoDB connection string URI can be used.
+
+                                                *dadbod-mysql*
+MySQL ~
+>
+    mysql://[<user>[:<password>]@][<host>[:<port>]]/[database]
+    mysql://[<user>[:<password>]@][<%2Fsocket%2Fpath>]/[<database>]
+    mysql:[<database>]
+<
+Query parameters such as `login-path`, `protocol`, `ssl-ca`, `ssl-cert`, and
+`ssl-key` are passed as the corresponding command line options.
+
+                                                *dadbod-oracle*
+Oracle ~
+>
+    oracle://[<user>[:<password>]@][<host>][:<port>]/[<database>]
+    oracle:<user>/<password>@[//]<host>[:<port>]/<database>
+<
+                                                *dadbod-osquery*
+osquery ~
+>
+    osquery:relative/path
+    osquery:/absolute/path
+    osquery:C:/windows/path
+<
+An empty path portion uses an in-memory database, which is how osquery is
+typically invoked.
+
+                                                *dadbod-postgresql*
+PostgreSQL ~
+>
+    postgresql://[<user>[:<password>]@][<host>[:<port>]]/[<database>]
+    postgresql://[<user>[:<password>]@][<%2Fsocket%2Fpath>]/[<database>]
+    postgresql:[<database>]
+<
+Any valid PostgreSQL connection URI can be used.  The postgres:// variant is
+also accepted.
+
+                                                *dadbod-presto*
+Presto ~
+>
+    presto://[<host>[:<port>]]/[<catalog>[/<schema>]]
+<
+                                                *dadbod-redis*
+Redis ~
+>
+    redis:[<database-number>]
+    redis://[:<password>@][<host>[:port]]/[<database-number>]
+    redis://[<user>[:<password>]@][<host>[:port]]/[<database-number>]
+    rediss://[<user>[:<password>]@][<host>[:port]]/[<database-number>]
+<
+Use the redis: scheme to enable TLS.
+
+                                                *dadbod-snowflake*
+Snowflake ~
+>
+    snowflake://[<user>[:<password>]@[<accountname>]]/[<database>]
+<
+Query parameters can be used to set additional command line options (e.g.,
+`?warehouse=foo`).
+
+                                                *dadbod-sqlserver*
+SQL Server ~
+>
+    sqlserver://[<user>[:<password>]@][<host>][:<port>]/[<database>]
+    sqlserver://[<host>[:<port>]][;user=<user>][;...]
+<
+Supported query parameters are `authentication`, `secure` and
+`trustServerCertificate`, which correspond to connection properties of the
+same name. The `authentication` property is only supported when using
+`go-sqlcmd`.
+
+To set the `integratedSecurity` connection property and use a trusted
+connection, omit the user and password.
+
+                                                *dadbod-sqlite*
+SQLite ~
+>
+    sqlite:relative/path
+    sqlite:/absolute/path
+    sqlite:C:/windows/path
+    sqlite:///relative/or/absolute/path
+<
+In the wild, uses of sqlite:///path vary on whether the path is relative or
+absolute, so both are checked.  The preferred form is sqlite:path, which
+avoids this ambiguity.
+
+An empty path portion uses an in-memory database, which is occasionally useful
+for an interactive invocation.
+
+DBEXT MANAGEMENT                                *g:dadbod_manage_dbext*
+
+If you like Dadbod's configuration but need some of dbext's functionality, set
+the following variable to enable an experimental mode where dbext's
+configuration always mirrors Dadbod's default.
+>
+  let g:dadbod_manage_dbext = 1
+<
+ vim:tw=78:et:ft=help:norl:

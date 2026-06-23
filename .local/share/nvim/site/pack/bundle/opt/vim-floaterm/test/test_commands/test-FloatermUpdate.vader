@@ -1,0 +1,10 @@
+" vim:ft=vim
+
+Execute(FloatermUpdate):
+  Log '# Basic'
+    FloatermNew
+    FloatermUpdate --name=ft
+    AssertEqual 'ft', b:floaterm_name
+
+  FloatermKill!
+  stopinsert

@@ -1,0 +1,5 @@
+#!/usr/bin/env elvish
+
+# to-lines | order &less-than={|a b| > 0 (compare (basename $a) (basename $b)) } | 
+from-lines | order &less-than={|a b| > 0 (compare (basename $a) (basename $b)) } | to-lines | mpv --playlist=- --msg-level=file=no $@args
+# to-lines | order &less-than={|a b| > 0 (compare (basename $a) (basename $b)) } | mpv --playlist=- --msg-level=file=no $@args

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tpope/vim-sleuth.git
+	branch = master
+	commit = be69bff86754b1aa5adcbb527d7fcd1635a84080
+	parent = de5c3b2d5df7acb506009ef664d8071ce63a3a60
+	method = merge
+	cmdver = 0.4.9

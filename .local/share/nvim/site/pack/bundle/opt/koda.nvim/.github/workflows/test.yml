@@ -1,0 +1,36 @@
+name: tests
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  unit_tests:
+    name: test (${{ matrix.os }}, ${{ matrix.nvim-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false # Keep running other jobs if one fails
+      matrix:
+        os: [ubuntu-latest, macos-latest] # TODO: add windows
+        nvim-version: [stable, nightly]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Neovim (${{ matrix.nvim-version }})
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.nvim-version }}
+
+      - name: Install Plenary
+        shell: bash
+        run: |
+          mkdir -p pack/vendor/start
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim pack/vendor/start/plenary.nvim
+
+      - name: Run Tests
+        shell: bash
+        run: |
+          nvim --headless -u tests/init.lua -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/init.lua'}"

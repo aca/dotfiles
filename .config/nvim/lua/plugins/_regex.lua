@@ -1,0 +1,4 @@
+-- vim.cmd.packadd "nvim-rip-substitute"
+--
+--
+-- require("rip-substitute").setup {}

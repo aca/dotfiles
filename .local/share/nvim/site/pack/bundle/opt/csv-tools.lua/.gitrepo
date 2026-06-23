@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Decodetalkers/csv-tools.lua.git
+	branch = master
+	commit = e11c322178d4ff9fdc0418a657e8f1f74f1ce247
+	parent = be612a0c064474b0613f22022307e4054ec2a3da
+	method = merge
+	cmdver = 0.4.9

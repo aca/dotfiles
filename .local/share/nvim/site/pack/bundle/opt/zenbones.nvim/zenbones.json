@@ -1,0 +1,55 @@
+[
+    {
+        "name": "zenbones",
+        "description": "A contrast-based colorscheme."
+    },
+    {
+        "name": "neobones",
+        "description": "A zenbones variant inspired by neovim.io."
+    },
+    {
+        "name": "vimbones",
+        "background": "light",
+        "description": "A zenbones variant inspired by vim.org."
+    },
+    {
+        "name": "forestbones",
+        "description": "A zenbones variant inspired by Everforest."
+    },
+    {
+        "name": "nordbones",
+        "background": "dark",
+        "description": "A zenbones variant inspired by Nord."
+    },
+    {
+        "name": "rosebones",
+        "description": "A zenbones variant inspired by Rosé Pine."
+    },
+    {
+        "name": "tokyobones",
+        "description": "A zenbones variant inspired by Tokyo Night."
+    },
+    {
+        "name": "seoulbones",
+        "description": "A zenbones variant inspired by Seoul256."
+    },
+    {
+        "name": "duckbones",
+        "background": "dark",
+        "description": "A zenbones variant inspired by Spaceduck."
+    },
+    {
+        "name": "zenburned",
+        "background": "dark",
+        "description": "A zenbones variant inspired by Zenburn."
+    },
+    {
+        "name": "zenwritten",
+        "description": "A zenbones variant with zero hue and saturation."
+    },
+    {
+        "name": "kanagawabones",
+        "background": "dark",
+        "description": "A zenbones variant inspired by Kanagawa."
+    }
+]

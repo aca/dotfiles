@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tpope/vim-characterize.git
+	branch = master
+	commit = a8bffac6cead6b2869d939ecad06312b187a4c79
+	parent = 4e29f044bc31573394433cd27d753e5843d989b1
+	method = merge
+	cmdver = 0.4.9

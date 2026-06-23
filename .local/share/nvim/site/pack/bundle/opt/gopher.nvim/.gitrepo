@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/olexsmir/gopher.nvim.git
+	branch = main
+	commit = 27ba078f14dd39fcd5e8a57d7009cdd77450ebbb
+	parent = d3a2fdd17fc552568b781059a329e07bdf5ce390
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/hrsh7th/vim-searchx.git
+	branch = main
+	commit = 4e22e05cb2d487d9191d3d6480342f02cb9a37e8
+	parent = 47f13c9c32f4c9047564f6e34996f61403855f82
+	method = merge
+	cmdver = 0.4.9

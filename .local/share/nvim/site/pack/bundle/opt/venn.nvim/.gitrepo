@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/jbyuki/venn.nvim.git
+	branch = main
+	commit = b09c2f36ddf70b498281845109bedcf08a7e0de0
+	parent = 01759f53b1d60911eae1766c565cec13f521d223
+	method = merge
+	cmdver = 0.4.9

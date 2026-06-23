@@ -1,0 +1,36 @@
+name: 💡 Feature Request
+description: Tell about a problem you'd like to solve with nvim-dap
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Describe your problem
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Possible Solutions
+      description: |-
+        Describe how a solution could look like.
+
+        Please focus on how you'd use the feature, this isn't about
+        implementation details.
+      placeholder: |-
+        🤷
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Considered Alternatives
+      description: |-
+        If you tried alternatives and they didn't work or were insufficient,
+        please mention them here.
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |-
+        ## Thanks 🙏

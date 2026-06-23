@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/RyanMillerC/better-vim-tmux-resizer.git
+	branch = master
+	commit = a791fe5b4433ac43a4dad921e94b7b5f88751048
+	parent = ecea983d7ad77801977edadb2236712079d16fa1
+	method = merge
+	cmdver = 0.4.9

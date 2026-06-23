@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+docker run \
+   -it --rm \
+   -u $(id -u):$(id -g) \
+   -v "$(pwd)":"$(pwd)" \
+   -w "$(pwd)" \
+   -e PROJECT_ROOT="$(pwd)" \
+   -e PATH="$(pwd)/vendor/bin/:${PATH}" \
+   -e PYTHONUSERBASE="$(pwd)"/vendor \
+   -e PYTHONDONTWRITEBYTECODE=1 \
+   -e PIP_NO_CACHE_DIR=1 \
+   --net=host \
+   -h $(hostname) \
+   python:3-slim \
+   /bin/bash -c '/bin/bash --rcfile <(echo "PS1=\"[$(python --version)]:: \"") -i'
+
+   # --name python_$(pwd | sed 's#/home/##g' | sed 's#/#.#g')_$(date +"%H%M%S") \

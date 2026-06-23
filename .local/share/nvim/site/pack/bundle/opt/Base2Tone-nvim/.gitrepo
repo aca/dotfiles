@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/atelierbram/Base2Tone-nvim.git
+	branch = main
+	commit = c32c1d3dfdc8fb6e91cbf6078c078d6c3eaaa673
+	parent = 1cdca25fdc95791babe9df5da0cc92f95acf35c3
+	method = merge
+	cmdver = 0.4.9

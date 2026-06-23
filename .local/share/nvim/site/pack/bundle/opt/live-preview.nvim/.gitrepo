@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/aca/live-preview.nvim.git
+	branch = main
+	commit = 4a11bece3fbe898569da72800f101e86f2241bcf
+	parent = 9c5bcaf39feaf0ab90da1ae45d07b9b55da50146
+	method = merge
+	cmdver = 0.4.9

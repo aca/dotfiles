@@ -1,0 +1,198 @@
+*vim-searchx* *searchx*
+
+A plugin that provides extended search motion.
+
+==============================================================================
+CONTENTS                                                      *searchx-contents*
+
+Usage                                                            |searchx-usage|
+Function                                                      |searchx-function|
+Variable                                                      |searchx-variable|
+Highlight                                                    |searchx-highlight|
+Autocmd                                                        |searchx-autocmd|
+
+
+
+==============================================================================
+Usage                                                            *searchx-usage*
+
+>
+  " Overwrite / and ?.
+  nnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  nnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  xnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  xnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  cnoremap ; <Cmd>call searchx#select()<CR>
+
+  " Move to next/prev match.
+  nnoremap N <Cmd>call searchx#prev_dir()<CR>
+  nnoremap n <Cmd>call searchx#next_dir()<CR>
+  xnoremap N <Cmd>call searchx#prev_dir()<CR>
+  xnoremap n <Cmd>call searchx#next_dir()<CR>
+  nnoremap <C-k> <Cmd>call searchx#prev()<CR>
+  nnoremap <C-j> <Cmd>call searchx#next()<CR>
+  xnoremap <C-k> <Cmd>call searchx#prev()<CR>
+  xnoremap <C-j> <Cmd>call searchx#next()<CR>
+  cnoremap <C-k> <Cmd>call searchx#prev()<CR>
+  cnoremap <C-j> <Cmd>call searchx#next()<CR>
+
+  " Clear highlights
+  nnoremap <C-l> <Cmd>call searchx#clear()<CR>
+<
+
+
+==============================================================================
+Function                                                      *searchx-function*
+
+                                                               *searchx#start()*
+searchx#start([opts])~
+
+  Start / or ? like command.
+
+  The `opts` argument can have the following properties.
+    - `dir`
+      - The search direction. 0 is prev. 1 is next.
+    - `convert`
+      - A function which converts input to search pattern.
+        Default value is |g:searchx.convert|.
+
+                                                            *searchx#next_dir()*
+searchx#next_dir()~
+
+  Move to next match considering |v:searchforward|, see |n|.
+
+                                                            *searchx#prev_dir()*
+searchx#prev_dir()~
+
+  Move to prev match considering |v:searchforward|, see |N|.
+
+                                                                *searchx#next()*
+searchx#next()~
+
+  Move to next match.
+
+                                                                *searchx#prev()*
+searchx#prev()~
+
+  Move to prev match.
+
+                                                              *searchx#redraw()*
+searchx#redraw()~
+
+  Redraw immediately.
+
+                                                               *searchx#clear()*
+searchx#clear()~
+
+  Clear all highlights.
+
+
+
+==============================================================================
+Variable                                                      *searchx-variable*
+
+                                                         *g:searchx.auto_accept*
+g:searchx.auto_accept~
+
+  Specify check the marker jump on every input or not.
+
+                                                             *g:searchx.markers*
+g:searchx.markers~
+
+  The array of characters for markers.
+
+                                                             *g:searchx.convert*
+g:searchx.convert~
+
+  The function to convert input to search pattern.
+  The recommended settings are the below.
+
+>
+  let g:searchx = {}
+  function g:searchx.convert(input) abort
+    if a:input !~# '\k'
+      return '\V' .. a:input
+    endif
+    return a:input[0] .. substitute(a:input[1:], '\\\@<! ', '.\\{-}', 'g')
+  endfunction
+<
+                                                           *g:searchx.scrolloff*
+g:searchx.scrolloff~
+
+  The scrolloff value for moving by |searchx#next|, |searchx#prev|,
+  |searchx#next_dir|, |searchx#prev_dir|.
+
+                                                          *g:searchx.scrolltime*
+g:searchx.scrolltime~
+
+  The scrolling animation time. 0 to disable animation.
+
+                                                          *g:searchx.nohlsearch*
+g:searchx.nohlsearch~
+
+  The dictionay to enable auto nohlsearch after cursor is moved.
+  In the keys, only `jump` is supported now.
+
+
+==============================================================================
+Highlight                                                    *searchx-highlight*
+
+                                                            *hi-SeachxIncSearch*
+SearchxIncSearch~
+
+  The incsearch hilights.
+
+                                                               *hi-SeachxMarker*
+SearchxMarker~
+
+  The marker highlights.
+
+                                                       *hi-SearchxMarkerCurrent*
+SearchxMarkerCurrent~
+
+  The current maker highlights.
+
+
+
+==============================================================================
+Autocmd                                                        *searchx-autocmd*
+
+                                                                  *SearchxEnter*
+SearchxEnter~
+
+  Enter searchx prompt.
+
+                                                                  *SearchxLeave*
+SearchxLeave~
+
+  Leave searchx prompt.
+
+                                                           *SearchxInputChanged*
+SearchxInputChanged~
+
+  Changed searchx prompt.
+
+                                                                 *SearchxAccept*
+SearchxAccept~
+
+  Accept some jump point.
+
+                                                           *SearchxAcceptReturn*
+SearchxAcceptReturn~
+
+  Accept some jump point via <CR>.
+
+                                                           *SearchxAcceptMarker*
+SearchxAcceptMarker~
+
+  Accept some jump point via marker.
+
+                                                                 *SearchxCancel*
+SearchxCancel~
+
+  Cancel searchx prompt.
+
+
+==============================================================================
+vim:tw=78:ts=4:et:ft=help:norl:
+

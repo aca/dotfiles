@@ -1,0 +1,23 @@
+{
+  "background": "#101010",
+  "black": "#101010",
+  "blue": "#B3B3B3",
+  "brightBlack": "#50585D",
+  "brightBlue": "#FFFFFF",
+  "brightCyan": "#5ABFB5",
+  "brightGreen": "#86CD82",
+  "brightPurple": "#F2A4DB",
+  "brightRed": "#FF5733",
+  "brightWhite": "#B5BFE2",
+  "brightYellow": "#D9BA73",
+  "cursorColor": "#B0B0B0",
+  "cyan": "#FAFAFA",
+  "foreground": "#FFFFFF",
+  "green": "#A3D6A3",
+  "name": "koda-dark",
+  "purple": "#F4B8E4",
+  "red": "#FF7676",
+  "selectionBackground": "#272727",
+  "white": "#A5ADCE",
+  "yellow": "#FFFFFF"
+}

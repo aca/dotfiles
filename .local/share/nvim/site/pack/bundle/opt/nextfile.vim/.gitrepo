@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tyru/nextfile.vim.git
+	branch = master
+	commit = 3bef469967c950880a97c9bad38540d02e2f4a5e
+	parent = 864d9547d28be3a6847fc9fe6e1cb77b6d1241ae
+	method = merge
+	cmdver = 0.4.9

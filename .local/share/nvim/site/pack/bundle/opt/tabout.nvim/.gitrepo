@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/abecodes/tabout.nvim
+	branch = master
+	commit = 9a3499480a8e53dcaa665e2836f287e3b7764009
+	parent = f20e29a48fd3d2618900bfcb8173a74963316486
+	method = merge
+	cmdver = 0.4.9

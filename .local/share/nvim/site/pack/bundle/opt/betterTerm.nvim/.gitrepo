@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/CRAG666/betterTerm.nvim
+	branch = main
+	commit = 08f06962b46628033d73a78e3cf7c99de9c5f3a1
+	parent = fad6c33335c376e807f78ff9f83f08e25f482c97
+	method = merge
+	cmdver = 0.4.9

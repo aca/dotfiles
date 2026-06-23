@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/notomo/cmdbuf.nvim.git
+	branch = main
+	commit = 9de81b38786b3039063998fc67351dc38a7f66f1
+	parent = f02138f8f90679b2ca579061bc1f09f031b28a23
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/vim-test/vim-test.git
+	branch = master
+	commit = 8fe182032e4c7c933e2e598fe402d24cbf782b8d
+	parent = 4526110b3390590535745e07539239a51a5cf22c
+	method = merge
+	cmdver = 0.4.9

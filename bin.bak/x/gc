@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# git add -A
+
+# use str
+# var msg = (git status --porcelain | awk '{$1=""; print substr($0,2)}' | str:join ', ' | echo Update (one))
+# echo $msg | git commit --allow-empty-message -F -
+
+git commit --allow-empty-message -m ""

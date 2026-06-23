@@ -1,0 +1,63 @@
+" vim:ft=vim
+
+Execute(Include base):
+  source test/base_vader.vim
+
+Execute(FloatermToggle):
+  Log '# FloatermToggle'
+    FloatermToggle
+    Assert IsInFloatermBuffer()
+    FloatermToggle
+    AssertEqual '', &filetype
+
+  Log '# FloatermToggle!'
+    FloatermKill!
+    Assert empty(floaterm#buflist#gather())
+    FloatermToggle! " FloatermToggle! should open floaterm if there are no floaterms opened yet.
+    Assert IsInFloatermBuffer()
+    " NOTE: the 2 floaterms must have different positions can `:FloatermShow!
+    " ` take effect
+    FloatermNew --position=left
+    let bufnr1 = bufnr('%')
+    FloatermNew --position=right
+    let bufnr2 = bufnr('%')
+
+    if has('nvim')
+      Log '  * FloatermToggle! to hide'
+      FloatermToggle!
+      Assert !BufWinExists(bufnr1)
+      Assert !BufWinExists(bufnr2)
+
+      Log '  * FloatermToggle! to show'
+      FloatermToggle!
+      Assert BufWinExists(bufnr1)
+      Assert BufWinExists(bufnr2)
+    endif
+
+  Log '# [N]FloatermToggle'
+    FloatermNew
+    let bufnr1 = bufnr('%')
+    FloatermToggle
+    FloatermNew
+    let bufnr2 = bufnr('%')
+    FloatermToggle
+    execute bufnr1 . 'FloatermToggle'
+    AssertEqual bufnr1, bufnr('%')
+    execute bufnr2 . 'FloatermToggle'
+    AssertEqual bufnr2, bufnr('%')
+
+  Log '# FloatermToggle name, named floaterm exists'
+    FloatermNew --name=ft1
+    FloatermToggle
+    FloatermNew --name=ft2
+    FloatermToggle
+
+    FloatermToggle ft1
+    AssertEqual 'ft1', b:floaterm_name
+    FloatermToggle ft2
+    AssertEqual 'ft2', b:floaterm_name
+    FloatermToggle ft3
+    AssertEqual 'ft3', b:floaterm_name
+
+  FloatermKill!
+  stopinsert

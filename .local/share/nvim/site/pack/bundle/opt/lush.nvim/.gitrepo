@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rktjmp/lush.nvim.git
+	branch = main
+	commit = 9c60ec2279d62487d942ce095e49006af28eed6e
+	parent = 1b1f0b4d03f9f694431a438a883c8f52347b06de
+	method = merge
+	cmdver = 0.4.9

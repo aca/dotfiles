@@ -1,0 +1,23 @@
+{
+    "name": "duckbones",
+    "selectionBackground": "#37382D",
+    "cursorColor": "#EDF2C2",
+    "foreground": "#EBEFC0",
+    "background": "#0E101A",
+    "black": "#0E101A",
+    "blue": "#00A3CB",
+    "cyan": "#00A3CB",
+    "green": "#5DCD97",
+    "purple": "#795CCC",
+    "red": "#E03600",
+    "white": "#EBEFC0",
+    "yellow": "#E39500",
+    "brightBlack": "#2B2F46",
+    "brightBlue": "#00B4E0",
+    "brightCyan": "#00B4E0",
+    "brightGreen": "#58DB9E",
+    "brightRed": "#FF4821",
+    "brightPurple": "#B3A1E6",
+    "brightWhite": "#B3B692",
+    "brightYellow": "#F6A100"
+}

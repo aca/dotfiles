@@ -1,0 +1,78 @@
+name: CI
+on: [push]
+
+jobs:
+  vader-tests:
+    name: Vader tests
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        neovim: [true, false]
+        version: [nightly, stable]
+        exclude:
+          - neovim: false
+            version: stable
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Install Neovim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: ${{ matrix.neovim }}
+          version: ${{ matrix.version }}
+      - name: Install python
+        uses: actions/setup-python@v1
+      - name: Config git
+        run: |
+          git config --global user.email "dyzplus@gmail.com"
+          git config --global user.name "voldikss"
+      - name: Checkout vim-floaterm
+        uses: actions/checkout@v2
+      - name: Checkout clap-floaterm
+        uses: actions/checkout@v2
+        with:
+          repository: voldikss/clap-floaterm
+          path: clap-floaterm
+      - name: Checkout fzf-floaterm
+        uses: actions/checkout@v2
+        with:
+          repository: voldikss/fzf-floaterm
+          path: fzf-floaterm
+      - name: Checkout LeaderF-floaterm
+        uses: actions/checkout@v2
+        with:
+          repository: voldikss/LeaderF-floaterm
+          path: LeaderF-floaterm
+      - name: Checkout asyncrun.vim
+        uses: actions/checkout@v2
+        with:
+          repository: skywind3000/asyncrun.vim
+          path: asyncrun.vim
+      - name: Checkout asyncrun.extra
+        uses: actions/checkout@v2
+        with:
+          repository: skywind3000/asyncrun.extra
+          path: asyncrun.extra
+      - name: Checkout vader.vim
+        uses: actions/checkout@v2
+        with:
+          repository: junegunn/vader.vim
+          path: vader.vim
+      - name: Run vader tests
+        env:
+          VIM_EXEC: ${{ steps.vim.outputs.executable }}
+        run: |
+          $VIM_EXEC --version
+          for f in `find test/*/*.vader`
+          do
+              $VIM_EXEC -u test/vimrc -c "Vader! $f"
+          done
+
+  vint:
+    name: Run vint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - run: pip install vim-vint
+      - run: vint --error --verbose --enable-neovim --color --style ./autoload ./plugin

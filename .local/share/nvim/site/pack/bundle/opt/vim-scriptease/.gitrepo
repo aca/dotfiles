@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tpope/vim-scriptease.git
+	branch = master
+	commit = 4cc639dd70061bb1489f4d3655861ebd9bc896fa
+	parent = f466204758bdbddc5de3db5632f8e30367a57e91
+	method = merge
+	cmdver = 0.4.9

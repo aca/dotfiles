@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ruby -rsecurerandom -e "puts SecureRandom.hex($1)"

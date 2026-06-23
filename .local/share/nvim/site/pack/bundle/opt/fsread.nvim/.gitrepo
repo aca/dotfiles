@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/nullchilly/fsread.nvim.git
+	branch = main
+	commit = a637bf048f733def7c5c46f5bf482f93a8311b29
+	parent = b64751464d4f9309db5eb5b9ee490e5d2ce3575a
+	method = merge
+	cmdver = 0.4.9

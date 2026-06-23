@@ -1,0 +1,49 @@
+skip_output:
+  - meta
+pre-push:
+  files: "rg --files"
+  parallel: true
+  commands:
+    rubocop:
+      glob: "*.rb"
+      run: bundle exec rubocop {files}
+    selene:
+      glob: "{lua,plugin}/**/*.lua"
+      run: selene --config selene/config.toml {files}
+    stylua:
+      glob: "*.lua"
+      run: stylua --check {files}
+    typos:
+      run: typos {files}
+    lua-types:
+      glob: "*.lua"
+      run: llscheck lua/ || echo {files}
+    lua-test:
+      glob: "tests/specs/**/*_spec.lua"
+      run: nvim --headless -S "./tests/init.lua" || echo {files}
+      env:
+        - CI: 1
+        - GIT_CONFIG_GLOBAL: /dev/null
+        - GIT_CONFIG_SYSTEM: /dev/null
+        - NVIM_APPNAME: neogit-test
+    rspec:
+      only:
+      - ref: master
+      run: bin/specs {files}
+pre-commit:
+  parallel: true
+  commands:
+    rubocop:
+      glob: "*.rb"
+      run: bundle exec rubocop {staged_files}
+    selene:
+      glob: "{lua,plugin}/**/*.lua"
+      run: selene --config selene/config.toml {staged_files}
+    stylua:
+      glob: "*.lua"
+      run: stylua --check {staged_files}
+    typos:
+      run: typos {staged_files}
+    lua-types:
+      glob: "*.lua"
+      run: llscheck lua/

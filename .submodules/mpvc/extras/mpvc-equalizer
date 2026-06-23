@@ -1,0 +1,247 @@
+#!/usr/bin/env sh
+#
+# @file mpvc-equalizer
+# @description mpvc equalizer based on firequalizer15.lua
+# @author gmt4 <gmt4 at github.com> (c) Copyright 2022 GPLv2+
+# @url github.com/gmt4/mpvc
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+
+PROGNAME=${0##*/}
+PROGDIR=${0%/*}
+PROGVERSION="v1.8"
+PROGAUTHOR=gmt4
+PROGURL="https://github.com/gmt4/mpvc"
+
+set -euf
+
+MPVC_LABEL="${MPVC_LABEL:-mpvc-equalizer}"
+MPVC_FREQ_TABLE="0  65 157 288 472 733 1k1 1k6 2k4 3k4 4k9 7k0 10k 14k 20k"
+MPVC_GAIN_TABLE="0   0   0   0   0   0   0   0   0   0   0   0   0   0   0"
+
+mpvc() { "$PROGDIR/mpvc" "$@"; } # mpvc-web?
+
+mpvc_genfilter()
+{
+    # Validate gain inputs are numeric
+    for i in $*; do
+        case "$i" in -[.0-9]*|[.0-9]*) ;; *) usage ;; esac
+    done
+
+    awk -v quote="'" -v gain_curr="$*" -v freq_table_str="MPVC_FREQ_TABLE" -v gain_table_str="$MPVC_GAIN_TABLE" \
+    '
+    BEGIN {
+      num_entry=15
+      min_val = -360
+      max_val = 120
+
+      n=split(freq_table_str, freq_table)
+      n=split(gain_table_str, gain_table)
+      if (gain_curr)
+          n=split(gain_curr, gain_table)
+    }
+
+    function min(a,b) {return (a<b)?a:b;}
+    function max(a,b) {return (a>b)?a:b;}
+    function gen_gain_entry(gain_table)
+    {
+        str = ""
+        for (x=1; x<=num_entry; x++)
+        {
+            v = min(max(gain_table[x], min_val), max_val)
+            str = str sprintf("entry(%d,%.1f)", x-1, v)
+            if (x < num_entry) str = str ";"
+        }
+        return str
+    }
+
+    function gen_filter(gain)
+    {
+
+        filter=\
+        "firequalizer = "\
+        "wfunc      = tukey:"\
+        "delay      = 0.028:"\
+        "scale      = linlog:"\
+        "zero_phase = on:"\
+        "gain_entry = "quote gain quote":"\
+        "gain       = " quote "cubic_interpolate(2.8853900817779269*log(f/157.48+1))" quote
+        return filter
+    }
+
+    END {
+        gain_entry = gen_gain_entry(gain_table)
+        gain_filter = gen_filter(gain_entry)
+        print gain_filter
+    }
+  ' /dev/null
+}
+
+mpvc_presets()
+{
+    cmd=${1:-list}
+    case "$cmd" in
+    reset)      echo "0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0" ;; #preset: flat
+    fullbass)   echo "4.8  5.7  5.7  3.3  1.0  -2.4 -4.8 -6.3 -6.7 -6.7";; #preset: fullbass
+    fulltreble) echo "5.8  -5.8 -5.8 -2.4 1.4  6.7  9.6  9.6  9.6  10.1";; #preset: fulltreble
+    fullbastre) echo "4.3  3.3  0.0  -4.4 -2.9 1.0  4.8  6.7  7.2  7.2" ;; #preset: fullbastre
+    headphones) echo "2.8  6.7  3.3  -2.0 -1.4 1.0  2.8  5.7  7.7  8.6" ;; #preset: headphones
+    largehall)  echo "6.2  6.2  3.3  3.3  0.0  -2.9 -2.9 -2.9 0.0  0.0" ;; #preset: largehall
+    live)       echo "2.9  0.0  2.4  3.3  3.3  3.3  2.4  1.4  1.4  1.4" ;; #preset: live
+    party)      echo "4.3  4.3  0.0  0.0  0.0  0.0  0.0  0.0  4.3  4.3" ;; #preset: party
+    soft)       echo "2.8  1.0  0.0  -1.4 0.0  2.4  4.8  5.7  6.7  7.2" ;; #preset: soft
+    classical)  echo "0.0  0.0  0.0  0.0  0.0  -4.4 -4.4 -4.4 -5.8 0.0" ;; #preset: classical
+    club)       echo "0.0  0.0  4.8  3.3  3.3  3.3  1.9  0.0  0.0  0.0" ;; #preset: club
+    dance)      echo "5.7  4.3  1.4  0.0  0.0  -3.4 -4.4 -4.3 0.0  0.0" ;; #preset: dance
+    pop)        echo "1.0  2.8  4.3  4.8  3.3  0.0  -1.4 -1.4 -1.0 -1.0";; #preset: pop
+    reggae)     echo "0.0  0.0  0.0  -3.4 0.0  3.8  3.8  0.0  0.0  0.0" ;; #preset: reggae
+    ska)        echo "1.4  -2.9 -2.4 0.0  2.4  3.3  5.3  5.7  6.7  5.8" ;; #preset: ska
+    softrock)   echo "2.4  2.4  1.4  0.0  -2.4 -3.4 -2.0 0.0  1.4  5.3" ;; #preset: softrock
+    rock)       echo "4.8  2.8  -3.4 -4.8 -2.0 2.4  5.3  6.7  6.7  6.7" ;; #preset: rock
+    techno)     echo "4.8  3.3  0.0  -3.4 -2.9 0.0  4.8  5.7  5.8  5.3" ;; #preset: techno
+
+    ''|help|list) awk '/#preset: [a-z]/ { print }' "$0";;
+    esac
+}
+
+
+mpvc_values()
+{
+    mpvc getr af |
+        jq '.data | .[] | .params.graph' |
+        grep -o "gain_entry = '.*':" |
+        sed -n 's/gain_entry = .//; s/.:$//; s|entry([0-9]\{1,2\},\([-.0-9]*\));*|\n\1 |gp' |
+        sed '/^$/d'
+}
+
+mpvc_setvals()
+{
+    filter=$(mpvc_genfilter "$*")
+    mpvc cmdr af add "@$MPVC_LABEL:lavfi=[$filter]"
+}
+
+mpvc_bars()
+{
+    mpvc_values="$(mpvc_values)"
+    if [ -z "$mpvc_values" ]; then usage; fi
+    freq_table="$MPVC_FREQ_TABLE"
+    gain_table="$(printf "$mpvc_values")"
+    pattern=$(echo "$gain_table" | awk 'NR<10{s=s" *"$0} END{sub(" $","",s); print s}')
+    preset=$(awk "/$pattern/"' {print $NF}' "$0")
+    gain_table=$(echo $gain_table)
+
+    awk -v freq="$freq_table" -v gain="$gain_table" -v cols="$(mpvc ttycols)" -v preset="$preset" '
+    function mpvc_bar_line(val)
+    {
+        valf=val
+        min_val=-360
+        max_val=770
+        inc_val=(max_val - min_val) / cols
+
+        inc=inc_val
+        val=valf - min_val
+        x=inc
+
+        str=""
+        while (x < val)
+        {
+            str=str"="
+            x=x + inc
+        }
+
+        return str
+    }
+
+    END {
+        printf "# Linear Phase 15-Bands Equalizer (%s)\n", preset
+        nf=split(freq, fa)
+        ng=split(gain, ga)
+        for (i=1; i <= 15; i++)
+        {
+            bar=mpvc_bar_line(ga[i])
+            printf "%3s Hz: %6.1f dB %s\n", fa[i], ga[i], bar
+        }
+    }
+    ' /dev/null
+}
+
+mpvc_save()
+{
+    mpvc_vals
+}
+
+mpvc_load()
+{
+    case "${1:-}" in
+    '') mpvc_setvals "$(cat)" ;;
+    *)  mpvc_setvals "$(mpvc_presets "$1")" ;;
+    esac
+}
+
+mpvc_reset()  { mpvc_setvals "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"; }
+mpvc_clear()  { mpvc set af ""; }
+mpvc_toggle() { mpvc cmd af toggle '@mpvc-equalizer:lavfi=[firequalizer]'; }
+mpvc_change() { mpvc_setvals $(mpvc_values | sed "$@"); }
+mpvc_vals()   { echo "$(mpvc_values)"; }
+mpvc_json()   { mpvc getr af | jq -C .data | sed '/graph/ s/:/:\n\t/g'; }
+
+mpvc_add()
+{
+    mpvc-equalizer save |
+        awk -v f="$1" -v g="$2" '
+            BEGIN {
+                n=split("0  65 157 288 472 733 1k1 1k6 2k4 3k4 4k9 7k0 10k 14k 20k", freq_table)
+                for (i=0; i < n; i++) if (freq_table[i] == f) break;
+            }
+            {
+                nr=(i+1)
+                if (length($0)) print $0 + ((NR == nr) ? g : 0)
+            }
+            ' |
+            mpvc-equalizer load
+}
+
+usage()
+{
+    cat <<EOF
+usage: $PROGNAME opts # @version $PROGVERSION (c) $PROGAUTHOR $PROGURL
+ save   : Saves equalizer settings
+ load   : Loads equalizer settings
+ reset  : Resets equalizer settings (set af gains to 0)
+ clear  : Clears equalizer settings (clear af)
+ toggle : toggle equalizer settings (toggle af)
+ preset : Show/Set equalizer settings preset
+ values : Show equalizer settings as float values
+ bars   : Show equalizer settings as graph bars
+ json   : Show equalizer settings as JSON
+*tips: If unsure about where to begin, start with: $PROGNAME preset
+EOF
+    exit;
+}
+
+main()
+{
+    if [ $# -lt 1 ]; then usage; fi
+
+    case "$1" in
+    save)   shift; mpvc_save "$@";;
+    load)   shift; mpvc_load "$@";;
+    reset)  shift; mpvc_reset;;
+    clear)  shift; mpvc_clear;;
+    toggle) shift; mpvc_toggle;;
+    change) shift; mpvc_change "$@";;
+    preset) shift; mpvc_presets "$@";;
+    values) shift; mpvc_values;;
+    vals)   shift; mpvc_vals;;
+    bars)   shift; mpvc_bars;;
+    json)   shift; mpvc_json;;
+
+    inc) shift; mpvc_add "$1"  "${2:-0.1}" ;;
+    dec) shift; mpvc_add "$1" "-${2:-0.1}" ;;
+
+    help)  usage;;
+    *)     usage;;
+    esac
+}
+
+main "$@"

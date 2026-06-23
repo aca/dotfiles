@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  ci:
+    uses: folke/github/.github/workflows/ci.yml@main
+    secrets: inherit
+    with:
+      plugin: lazy.nvim
+      repo: folke/lazy.nvim
+      docs: false

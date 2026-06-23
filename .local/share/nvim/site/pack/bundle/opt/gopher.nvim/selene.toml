@@ -1,0 +1,2 @@
+std = "nvim+lua52"
+exclude = [".tests/*"]

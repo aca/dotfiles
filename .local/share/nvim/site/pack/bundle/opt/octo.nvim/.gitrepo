@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/pwntester/octo.nvim.git
+	branch = master
+	commit = b51e52888e678441a266bfd5ae2dc0a02a21d67e
+	parent = 09ae2816f9d52ee21e570bc40c0c70ee35b9baff
+	method = merge
+	cmdver = 0.4.9

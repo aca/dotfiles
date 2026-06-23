@@ -1,0 +1,737 @@
+*swap.txt*	いれかえたりする。
+						Last change:07-Jun-2019.
+
+書いた人   : machakann <mckn{at}outlook.jp>
+ライセンス : NYSL ライセンス
+          日本語版 <http://www.kmonos.net/nysl/>
+          英語版 (非公式) <http://www.kmonos.net/nysl/index.en.html>
+
+必要要件:	Vim 7.4 かそれ以降の Vim エディタであること
+		|+reltime| オプション (任意)
+		|+float| オプション (任意)
+
+==============================================================================
+INDEX					*swap-index*
+
+INTRODUCTION				|swap-introduction|
+KEYMAPPINGS				|swap-keymappings|
+FUNCTIONS				|swap-functions|
+  SORT FUNCTIONS			|swap-sort-function-examples|
+CUSTOMIZATION				|swap-customization|
+HIGHLIGHT GROUPS			|swap-highlight-groups|
+CONFIGURATION				|swap-configuration|
+
+==============================================================================
+INTRODUCTION				*swap-introduction*
+
+*swap.vim* は区切られた要素を並べ替えるための機能を提供します。基本的には二つ
+の要素を入れ替えることの繰り返しによって再配列を行います。例えば、次のような行
+について考えると、 "arg2" と "arg3" を入れ替えるのはそう難しくありません。しか
+し "arg1" と "arg2" を入れ替えるのは少し面倒な作業になります。なぜなら単語とコ
+ンマを別々に編集せねばならないためです。
+>
+	call foo(arg1, arg2, arg3)
+<
+このプラグインはこの手の作業をより簡単に済ませるために、三つのキーマッピング、
+`g<`, `g>`, `gs` を定義します。 `g<` はカーソル下の要素と直前の要素を入れ替え
+ます。カーソルを "arg2" に合わせ、 `g<` と入力すると "arg2" と直前の要素
+"arg1" が入れ替えられます。
+>
+	call foo(arg2, arg1, arg3)
+<
+また `g>` はカーソル下の要素と直前の要素を入れ替えます。カーソルを "arg2" に
+合わせ、 `g>` と入力すると "arg2" と直後の要素 "arg3" が入れ替えられます。
+>
+	call foo(arg1, arg3, arg2)
+<
+`g<` と `g>` は [count] が与えられた場合、その回数繰り返します。
+`gs` は入れ替えに際して、より対話的なインターフェースを提供します。これはあた
+かも Vim エディタに新しいモード "swap mode" があるかのように働きます。このモー
+ドでは `h`/`l` により要素を入れ替え、 `j`/`k` により要素間を移動し、また数字の
+`1` ~ `9` により `n` 番目の要素を選択し、 `u`/`<C-r>` により undo/redo し、お
+そらくご存知のように `<Esc>` で "swap mode" を抜けノーマルモードに戻ります。
+`gs` はビジュアルモードでもご使用できます。
+>
+	foo
+	bar
+	baz
+<
+三行を選択し、 `gsl<Esc>` と入力すると最初の行と二行目が入れ替えられます。
+>
+	bar
+	foo
+	baz
+<
+
+------------------------------------------------------------------------------
+このプラグインは次に示されるようなテキストを取り扱います。
+>
+	(foo, bar, baz)
+	[foo, bar, baz]
+	{foo, bar, baz}
+	foo, bar, baz
+	foo bar baz
+<
+最初の三つについては、内部に括弧やクオーテーションによるグループ化がある場合こ
+れを考慮します。つまり、次のような例では要素は、"foo", "'bar, baz'", "qux" の
+三つになります。
+>
+	(foo, 'bar, baz', qux)
+<
+
+------------------------------------------------------------------------------
+以上の機能は |.| コマンドによって繰り返すことができます。`g<` および `g>` は常
+にカーソルとの相対位置によって入れ替え対象を決めますが、 `gs` の場合は絶対位置
+にって決めます。すなわち、最初に一番目と二番目に位置する要素を入れ替えていた場
+合、ドットリピートはカーソル位置にかかわらず、その時の対象テキストの一番目と二
+番目の要素を入れ替えます。
+
+------------------------------------------------------------------------------
+このプラグインは入れ替え対象となる文字列を選択するテキストオブジェクトも提供し
+ています。次の行を vimrc に加えることで利用することができます。
+>
+	omap i, <Plug>(swap-textobject-i)
+	xmap i, <Plug>(swap-textobject-i)
+	omap a, <Plug>(swap-textobject-a)
+	xmap a, <Plug>(swap-textobject-a)
+<
+==============================================================================
+KEYMAPPINGS				*swap-keymappings*
+
+このプラグインは |<Plug>(swap-prev)|, |<Plug>(swap-next)|,
+|<Plug>(swap-interactive)| の三つのキーマッピングを定義しそれぞれ `g<`, `g>`,
+`gs` に割り当てます。このデフォルトの割り当てが必要ない場合は
+g:swap_no_default_key_mappings を vimrc で定義してください。
+>
+	let g:swap_no_default_key_mappings = 1
+<
+
+キーマッピング			デフォルトキーマッピング
+--------------------------------------------------------------------------
+|<Plug>(swap-prev)|		`g<`
+|<Plug>(swap-next)|		`g>`
+|<Plug>(swap-interactive)|	`gs`
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+キーマッピング~
+*<Plug>(swap-prev)*
+	カーソル下の要素と直前の要素を入れ替えます。 `g<` に割り当てられます。
+	[count] が与えられた場合、その回数繰り返します。
+
+*<Plug>(swap-next)*
+	カーソル下の要素と直後の要素を入れ替えます。 `g>` に割り当てられます。
+	[count] が与えられた場合、その回数繰り返します。
+
+*<Plug>(swap-interactive)*
+	"swap mode" を開始します。 `gs` に割り当てられます。
+
+テキストオブジェクト~
+*<Plug>(swap-textobject-i)*
+	入れ替え対象となる文字列を選択するテキストオブジェクトです。選択領域の
+	端に区切り文字列を含みません。 [count] 指定は有効です。
+
+*<Plug>(swap-textobject-a)*
+	入れ替え対象となる文字列を選択するテキストオブジェクトです。選択領域の
+	一端に区切り文字列を含みます。 [count] 指定は有効です。
+
+--------------------------------------------------------------------------
+swap mode における操作~
+
+`h`/`l`
+	選択中の要素と隣接する要素を入れ替えます。
+
+`j`/`k`
+	隣接する要素へ選択を移します。
+
+`s`/`S`
+	要素の順番を並べ替えます。 `s` は要素を昇順に `S` は降順に並べ替えま
+	す。
+
+`r`
+	要素の順序を反転します。
+
+ `g`/`G`
+	要素をまとめます。(グループ化) `g` 現在の要素とその次の要素をまとめて
+	一つの要素にします。`G` はまとめられた要素を分解します。
+
+`1` から `9` の数字キー
+	`n` 番目の要素へ選択状態を移します。
+
+`u`/`<C-r>`
+	単純な undo/redo 機能を提供します。
+
+`<Esc>`
+	Swap mode を終了しノーマルモードへ戻ります。
+
+
+
+9以上の数字を使いたいのであれば、次の行を vimrc に書き加えましょう。
+>
+	let g:swap#keymappings = g:swap#key_layout_discreet
+<
+こうすると数字はただちには選択状態を移さないようになり、 `<CR>` で決定、
+`<BS>` で修正できるようになります。
+
+`<CR>`
+	入力中の数字を決定します。なにも入力されていないと、現在選択中の要素に
+	決定されます。
+
+`<BS>`
+	入力中の数値を一文字修正します。
+
+
+
+デフォルトのキー配置は g:swap#key_layout_impatient に格納されています。
+>
+	let g:swap#keymappings = g:swap#key_layout_impatient
+<
+
+==============================================================================
+FUNCTIONS				*swap-functions*
+
+					*swap#region()*
+swap#region({start}, {end}, {type}, {orders}[, {rules}])
+	バッファ上の特定の範囲を対象に要素の順番の入れ替えを行います。
+
+	{start} と {end} はバッファ上の範囲の開始と終了位置です。これらは
+	|getpos()| 関数の第一引数か、あるいは |setpos()| 関数の第二引数と同じ
+	形式を取ります。
+
+	{type} はバッファ上の範囲の形状を指定します。
+	  "char" は文字単位 (|characterwise|)
+	  "line" は行単位 (|linewise|)
+	  "block" は矩形 (|blockwise-visual|) の範囲を指定します。
+	また、|visualmode()| の返り値を替わりに使うこともできます。
+
+	{orders} は要素入れ替え命令のリスト |List| です。ひとつの入れ替え命
+	令は二つの整数 |Number| を要素に持つリスト |List| です。
+	例えば [[1, 2]] という {orders} を与えると、最初の二つの要素を入れ
+	替えます。
+>
+	(foo, bar, baz) -> (bar, foo, baz)
+<
+	[[1, 2], [2, 3]] のように複数の命令を指定することもできます。
+>
+	(foo, bar, baz) -> (bar, foo, baz) -> (bar, baz, foo)
+<
+	整数の替わりに式 |expression| として文字列を渡すことも可能です。評価さ
+	れて整数を返すような式を指定してください。いくつかの文字は評価の前に対
+	応する整数に置換されます。
+	  '^' : 先頭から最初に現れる空でない要素の位置
+	  '#' : カーソル下の要素の位置
+	  '$' : 最後の要素の位置
+	例えば ['#', '#-1'] という命令はカーソル下の要素をその直前の要素と入れ
+	替えます。
+
+	さらにいくつかの特別な命令が存在します。
+
+	要素をソートするには最初の要素が "sort" であるリスト |List| 、すなわち
+	["sort"] を使います。二つ目以降の要素は省略可能です。第二及び第三要素
+	にはソートする範囲を指定します。省略された場合は、1 及び '$' が使われ
+	ます。第四及び第五要素は組み込み関数 |sort()| に第二第三引数として与え
+	られます。 |swap-sort-function-examples| にいくつかの例があります。
+
+	要素をまとめる (グループ化する) には、最初の要素が "group" であるリス
+	ト |List| を使います。続く二つの要素がまとめられる最初と最後の要素の位
+	置を示す数字 |Number| です。例えば、["group", 1, 2] のようになります。
+	これは最初の二つの要素をまとめます。このようにまとめられた要素を分解す
+	るためには ["ungroup", 1] のような命令を使います。これは最初のまとめら
+	れた要素を分解します。
+
+	{rules} はルールのリスト |List| です。{rules} が与えられると、
+	|g:swap#rules| のかわりに使われます。
+	ルールについては |swap-configuration| をご覧ください。
+>
+	" バッファ上 1 行目の 1 から 10 桁目の範囲を対象に二つ目と三つ目の要素
+	" を入れ替える
+	call swap#region([0, 1, 1, 0], [0, 1, 10, 0], 'char', [[2, 3]])
+
+	" 選択範囲の最初と最後の要素を入れ替える
+	call swap#region("'<", "'>", visualmode(), [[1, '$']])
+<
+
+
+					*swap#region_interactively()*
+swap#region_interactively({start}, {end}, {type}[, {rules}])
+	|swap#region()| と同様ですが、swap mode に入り対話的に入れ替えを行いま
+	す。
+
+
+
+					*swap#around_pos()*
+swap#around_pos({pos}, {orders}[, {rules}])
+	{pos} 付近で入れ替え可能な範囲を検索し、順番の入れ替えを実行すします。
+
+	{pos} は |getpos()| 関数の第一引数か、あるいは |setpos()| 関数の第二引
+	数と同じ形式を取ります。
+
+	{orders} と {rules} については |swap#region()| と同様です。
+
+
+
+					*swap#around_pos_interactively()*
+swap#around_pos_interactively({pos}[, {rules}])
+	|swap#around_pos()| と同様ですが、 swap mode に入り対話的に順番の入れ
+	替えを行います。
+
+
+
+------------------------------------------------------------------------------
+SORT FUNCTIONS				*swap-sort-function-examples*
+
+|swap#region()| の項にあるとおり並べ替えのための命令はその第二第三要素を使って
+挙動を変更することができます。この第二項は関数参照 |Funcref| であり、二つの引
+数を取って 0, 1 あるいは -1 を返します。つまり、|sort()| の第二引数と同じ仕様
+です。
+
+バッファ上の要素のリストが内部で |sort()| に渡されて処理されます。この要素は
+以下のキーと値を持つ辞書 |Dictionary| です。
+  "str"  : 要素の文字列
+  "head" : 要素の先頭位置
+  "tail" : 要素の終端位置
+  "type" : 要素の形状; "char", "line" あるいは "block"
+
+NOTE: sort() 関数の中で要素を変更しないように注意してください
+
+
+					*g:swap#mode#sortfunc*
+					*g:swap#mode#SORTFUNC*
+同様に、スワップモードにおける `s`/`S` キーの挙動も変更することができます。
+|g:swap#mode#sortfunc| / |g:swap#mode#sortfunc| に 1 あるいは 2 要素のリストを
+設定してください。それぞれの要素が |sort()| の第二第三引数に対応しています。
+
+
+ swap#region() を使った場合~
+
+ `*` 昇順 >
+  call swap#region({start}, {end}, {type},
+  \[['sort', 1, '$', {x, y -> x.str is# y.str ? 0 : x.str < y.str ? -1 : 1}]])
+<
+ `*` 降順 >
+  call swap#region({start}, {end}, {type},
+  \[['sort', 1, '$', {x, y -> x.str is# y.str ? 0 : x.str > y.str ? -1 : 1}]])
+<
+ `*` 文字列の長さの順 >
+  call swap#region({start}, {end}, {type},
+  \ [['sort', 1, '$', {x, y -> strlen(x.str) - strlen(y.str)}]])
+<
+
+
+ スワップモードにおける s キーを使う場合~
+
+ `*` 昇順 >
+  let g:swap#mode#sortfunc =
+  \ [{x, y -> x.str is# y.str ? 0 : x.str < y.str ? -1 : 1}]
+<
+ `*` 降順 >
+  let g:swap#mode#sortfunc =
+  \ [{x, y -> x.str is# y.str ? 0 : x.str > y.str ? -1 : 1}]
+<
+ `*` 文字列の長さの順 >
+  let g:swap#mode#sortfunc =
+  \ [{x, y -> strlen(x.str) - strlen(y.str)}]
+<
+
+
+==============================================================================
+CUSTOMIZATION				*swap-customization*
+
+					*g:swap#rules*
+ソースコードの中の対象文字列を厳密に認識し解釈するためには、プラグインが言語ご
+との実装を持つ必要があります。しかし、当然多くの言語依存の実装を書くのは困難な
+ため、 |swap.vim| は基本的に多くの言語に共通する特徴を利用して動作します。
+
+言語や対象となる文字列によってはその特徴に違いがあり、その組み合わせがひとつの
+"rule" を作ります。 |swap.vim| はこの一般化・単純化された "rule" に基づいて文
+字列要素の入れ替えを行います。そのため、この "rule" を追加することによって機能
+を拡張することができます。
+
+ここでいう "rule" の実体は Vim script における |Dictionary| であり、以下の条件
+を満たします。まず、最低限 "delimiter" キーをもち、区切り文字にマッチするパ
+ターンを値として持たなければいけません。また、 |Normal| モードで有効な "rule"
+であるためには "body" キーか "surrounds" キーによって対象文字列をバッファから
+検索する方法を持たなければなりません。 |Visual| モードにおいては選択文字列を
+対象とするのでそれらは必須ではありません。
+
+例えば、もし次の文字列中の丸括弧 () 内の文字列を入れ替えるとします。
+>
+	(foo,bar,baz)
+<
+この場合、 "delimiter" キーの値は `,` にマッチする正規表現になります。 "body"
+あるいは "surrounds" はバッファから対象文字列 `foo,bar,baz` を抽出するのに使わ
+れます。
+
+新しいルールの定義は簡単ではないかもしれません、その場合は気軽に
+<https://github.com/machakann/vim-swap/issues>
+にてご相談ください。
+
+					*g:swap#default_rules*
+新しいルールは g:swap#rules に追加されることで効力を発揮します。必要ならまずデ
+フォルトの設定をコピーし、さらに追加していくとよいでしょう。
+>
+	let g:swap#rules = deepcopy(g:swap#default_rules)
+<
+
+
+delimiter~
+"delimiter" キーはすべての "rule" に必須です。その値は対象内の区切り文字にマッ
+チする正規表現パターンです。
+
+
+
+body~
+この "body" キーか次の "surrounds" キーのどちらかが |Normal| モードで動作する
+"rule" に必要です。 "mode" キーの項も参照してください。 "body" キーにの値は
+区切り文字を含む対象文字列全体にマッチする正規表現パターンです。
+
+スネークケースの変数名などはアンダーバー _ によってつながれた単語とみなされま
+す。この単語をアンダーバー区切りで入れ替えたい場合、 "delimiter" に '_' を、
+"body" にはアンダーバーを含む全体にマッチする正規表現を指定します。
+
+  * Example 1: snake case strings, like `foo_bar_baz` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['_'],
+	  \   "body": '\h\w*\(_\h\w*\)\+',
+	  \ }]
+<
+
+
+surrounds~
+この "surrounds" キーか上記の "body" キーのどちらかが |Normal| モードで動作す
+る "rule" に必要です。 "mode" キーの項も参照してください。 "surrounds" キーの
+値は二つか三つの要素を持つリスト |list| です。最初の二つの要素は必須で、対象文
+字列を囲む文字列にマッチする正規表現です。三つ目の要素は省略可能で、最初の二つ
+の要素がネスト構造をつくるか (1) 否か (0) です。ネスト構造をつくる場合は真値、
+すなわち 1 を、つくらない場合は 0 を指定してください。三つ目の要素が省略された
+場合、ネストを作らないものとして考えます。
+
+例えば、次のようなコンマによって区切られた文字列の入れ替えについて考えます。
+>
+	(foo,bar,baz)
+<
+入れ替え対象文字列 `foo,bar,baz` は丸括弧 () に囲まれています。さらに、もう少
+し複雑な場合も考えられます。
+>
+	(foo,bar,(baz,qux),quux)
+<
+この場合、対象文字列として予期するのは `foo,bar,(baz,qux` ではなく、
+`foo,bar,(baz,qux),quux` でしょう。なぜなら、一般的に丸括弧はネストをつくるこ
+とを期待するためです。このようなテキストのための "rule" の例は次のようになりま
+す。
+
+  * Example 2: comma-delimited items wrapped by (), like `(foo,bar,baz)` >
+	let g:swap#rules += [{
+	  \   "delimiter": [','],
+	  \   "surrounds": ['(', ')', 1],
+	  \ }]
+<
+丸括弧ではなくクオーテーションであればどうでしょう。
+>
+	'foo,bar',baz,qux,'quux'
+<
+クオーテーションは一般的にネストはつくらないことを期待します。対象文字列は
+`foo,bar',baz,qux,'quux` ではなく `foo,bar` でしょう。
+
+  * Example 3: comma-delimited items wrapped by quotes, like `foo,bar` >
+	let g:swap#rules += [{
+	  \   "delimiter": [','],
+	  \   "surrounds": ["'", "'", 0],
+	  \ }]
+<
+三つ目の要素を省略した場合、 0 を指定した場合と同じになります。
+
+NOTE: コンマ ',' を区切り文字にする場合、隣接するスペースを含めた方が便利かも
+      しれません。
+
+  * Example 2': comma-delimited items wrapped by (), like `(foo, bar, baz)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \ }]
+<
+
+
+mode~
+"mode" キーは特定のモードで有効な "rule" を定義する場合に使います。 "mode"
+キーの値は 'n' あるいは 'x'、 もしくは両方を含む文字列です。 'n' を含む場合、
+その "rule" は |Normal| モードで有効となり、 'x' を含む場合、 |Visual| モード
+で有効となります。 "mode" キーを持たない "rule" は両方のモードで有効です。
+
+以下のの場合は、 "mode" キーは省略できます。
+
+  * Example 2'': comma-delimited items wrapped by (), like `(foo, bar, baz)` >
+	let g:swap#rules += [{
+	  \   "mode": 'nx',
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \ }]
+<
+また、次の場合は |Visual| モードでのみ有効になります。
+
+  * Example 4: a selected comma-including string in visual mode >
+	let g:swap#rules += [{
+	  \   "mode": 'x',
+	  \   "delimiter": ['\s*,\s*'],
+	  \ }]
+<
+
+
+filetype~
+"mode" キーと同様に "filetype" キーがファイルタイプ特有の "rule" の定義に使え
+ます。 "filetype" キーの値はファイルタイプ名のリスト |list| です。
+
+  * Example 5: a sharp-including word in vim script >
+	let g:swap#rules += [{
+	  \   "filetype": ['vim'],
+	  \   "delimiter": ['#'],
+	  \   "body": '\<\h\w*\(#\h\w*\)\+\>',
+	  \ }]
+<
+
+
+braket~
+"braket" キーはまとまった要素を認識するために使われます。
+>
+	(foo, (bar, baz), qux)
+<
+例えば上のテキストの `foo` にカーソルがあるとき、上記の例2の "rule" を使うと四
+つの文字列を入れ替えることになります、すなわち、 `foo`, `(bar`, `baz)`, `qux`
+です。なぜなら、このプラグイン自体は言語に関する知識はなく、何も指定がなければ
+単純に区切り文字 `,` ごとに文字列を分解するためです。しかし、実際には、私たち
+が望むのは次の三つの文字列へ分解することでしょう、すなわち、 `foo`,
+`(bar, baz)`, `qux` ですね。このように、括弧によってまとめられた要素を考慮する
+ために "braket" キーを使います。
+
+  * Example 6: comma-delimited items, like `(foo, (bar, baz), qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "braket": [['(', ')']],
+	  \ }]
+<
+
+NOTE: "braket" キーの値はリストのリストです。ひとつのリストは、括弧のペアとな
+      る二つの文字列を格納しています。 "body" キーや "surrounds" キーと違い、
+      これらの文字列は正規表現ではありません。
+
+NOTE: ほとんどの場合、ただ単純に三種の括弧を指定しておけばよいでしょう。
+
+  * Example 6': comma-delimited items, like `(foo, (bar, baz), qux)`
+                                            `(foo, [bar, baz], qux)`
+                                            `(foo, {bar, baz}, qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "braket": [['(', ')'], ['[', ']'], ['{', '}']],
+	  \ }]
+<
+
+
+quotes~
+文字列のような要素が区切り文字を含む可能性がある場合 "quotes" キーを使うとよい
+でしょう。例えば、次のように文字列が区切り文字 `,` を含む場合を考えます。
+>
+	(foo, "bar, baz", qux)
+<
+カーソルが `foo` にあるとき、上記の例3の "rule" を使うと、括弧内の文字列は次の
+四つへ分解されます、すなわち、 `foo`, `"bar`, `baz"` and `qux` です。特に何も
+指定しない限り引用符による文字列の開始を考慮しないため、区切り文字 `,` によっ
+て文字列を分解したためです。しかし、実際に私たちが望む動作は次の三つの文字列へ
+の分解でしょう、すなわち、 `foo`, `"bar, baz"`, `qux` です。 このように 文字列
+`"bar, baz"` はひとつの要素として扱われるのが望ましいでしょう。 "quotes" キー
+はこれを可能にします。
+
+  * Example 7: comma-delimited items, like `(foo, "bar, baz", qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "quotes": [['"', '"']],
+	  \ }]
+<
+機能は "braket" キーに似ていますが、 "quotes" キーはネストがないことを期待しま
+す。これは複数のペアが対象文字列に現れる場合に違いを生みます。
+>
+	(foo, (bar, (baz, qux), quux))
+	(foo, "bar", baz, qux," quux")
+<
+カーソルが `foo` にある場合、上の文字列は二つに分解されることを期待します、す
+なわち、 `foo` と `(bar, (baz, qux), quux)` です。これに対し下の文字列では五つ
+の文字列へ分解されることを期待します、すなわち、 `foo`, `"bar"`, `baz`, `qux`,
+`" quux"` です。この違いは通常、括弧がネスト構造をつくるのに対し、引用符はつく
+らないことに起因しています。
+
+NOTE: "quotes" キーの値はリストのリストです。ひとつのリストは、括弧のペアとな
+      る二つの文字列を格納しています。 "body" キーや "surrounds" キーと違い、
+      これらの文字列は正規表現ではありません。
+
+NOTE: ほとんどの場合、ただ単純に二種の引用符を指定しておけばよいでしょう。
+
+  * Example 7': comma-delimited items, like `(foo, 'bar, baz', qux)`
+                                            `(foo, "bar, baz", qux)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "quotes": [["'", "'"], ['"', '"']],
+	  \ }]
+<
+
+
+literal_quotes~
+"literal_quotes" キーは上の "quotes" キーとほとんど同じ機能を持ちます、このた
+めまず "quotes" キーの説明を先に読んでください。 "quotes" キーとの唯一の違いは
+エスケープ文字の扱いです。 "quotes" キーは Vim の組み込みオプション
+'quoteescape' に指定された文字をエスケープ文字として考えますが、
+"literal_quotes" はこれを考慮しません。
+
+例えばバックスラッシュ '\' が 'quoteescape' に指定されている場合、 "quotes" と
+"literal_quotes" は以下のような文字列で異なる動作をします。
+>
+	(foo, "bar\", baz)
+<
+"quotes" を使っている例7の rule はこの文字列を正しく解釈できません。なぜなら、
+エスケープ文字 '\' のために bar から始まる文字列が閉じられていないためです。
+対して、"literal_quotes" は'quoteescape' オプションを無視します。
+
+  * Example 7'': comma-delimited items, like `(foo, "bar\", baz)` >
+	let g:swap#rules += [{
+	  \   "delimiter": ['\s*,\s*'],
+	  \   "surrounds": ['(', ')', 1],
+	  \   "literal_quotes": [['"', '"']],
+	  \ }]
+<
+"literal_quotes" オプションを使うことにより、上の文字列を `foo`, `"bar\"`,
+`baz` に分解できます。
+
+多くの場合は "quotes" オプションを使えば問題ないでしょう。エスケープ文字回りで
+何か意図しない挙動をしたときに "literal_quotes" の使用を検討してください。
+
+
+
+priority~
+"priority" キーは各 rule の優先度を制御するために使います。 "priority" キーの
+値は整数値で、大きな値を持つ rule が優先されます。優先度の高い rule から検索を
+始めて見つかれば検索を打ち切り、見つからなければ次に大きな rule の検索に移りま
+す。 "priority" キーを持たない rule の優先度は 0 になります。
+
+もし優先度の等しい複数のルールにマッチした場合、最も内側、すなわち短い文字列に
+マッチしたものが優先されます。さらに、マッチした文字列の長さも同じ場合は
+|g:swap#rules| の中で後方に位置するルールが優先されます。
+
+  * Example 8: use of priority >
+	let g:swap#rules += [{
+	  \   "surrounds": ['\\(', '\\)', 1],
+	  \   "delimiter": [','],
+	  \   "priority": 10,
+	  \ },
+	  \ {
+	  \   "surrounds": ['(', ')', 1],
+	  \   "delimiter": [','],
+	  \   "priority": 0,
+	  \ }]
+<
+この場合、 `\(` と `\)` のペアを先に探し、見つからなければ `(` と `)` のペアを
+探します。優先度の設定がなければ、マッチする文字列の長さの関係で `\(` と `\)`
+のペアにマッチすることはないでしょう。
+
+
+
+immutable~
+"immutable" キーは入れ替え文字列でも区切り文字列でもない文字列の指定に使いま
+す。値は正規表現のリストになります。これは "delimiter" に似ており、今のところ
+必ずしも必要とはなりません。一点だけ "delimiter" と違うのは連続する
+"delimiter" の間に入れ替えにより文字列が配置されることがあるのに対し、
+"delimiter" と "immutable" が隣接する場合また "immutable" が連続する場合にその
+境界へ入れ替え文字列が配置されることはありません。例えば、 ',' を "delimiter"
+に ';' を "immutable" に設定したとします。
+
+  * Example 9: use of immutable >
+	let g:swap#rules += [{
+	  \   "surrounds": ['(', ')', 1],
+	  \   "delimiter": [','],
+	  \   "immutable": [';'],
+	  \ }]
+<
+次のような文字列の `foo` にカーソルがある場合、
+>
+	(foo,,;bar)
+<
+これは、 `(,text1,;text2)` とはなりますが、 `(,,text1;text2)` とはなりません。
+
+非明示的な行継続を含む場合にインデントを無視することなどにも使えます。
+>
+	call func(foo, bar,
+	          baz, qux)
+	^^^^^^^^^^ Indent is not included to a swapped item.
+<
+三つ目の入れ替え文字列は "          baz" ではなく "baz" です。このようにインデ
+ントを"immutable" としたい場合は、 '\n\s+' のような正規表現を使ってください。
+"delimiter" と同じように '^' は対象文字列の先頭のみにしかマッチしません。
+
+  * Example 10: ignoring indentations in a multi-line expression >
+	let g:swap#rules += [{
+	  \   "surrounds": ['(', ')', 1],
+	  \   "delimiter": [','],
+	  \   "immutable": ['\n\s\+'],
+	  \ }]
+<
+
+
+==============================================================================
+HIGHLIGHT GROUPS			*swap-highlight-groups*
+
+Swap mode では入れ替え対象の要素をハイライトします。もしこの機能がお気に召さな
+ければ次の行を vimrc に書くことで停止できます。
+>
+	let g:swap#highlight = 0
+<
+また、ハイライトの色を変更したければ次のハイライトグループが使えます。
+
+SwapCurrentItem				*hl-SwapCurrentItem*
+	Swap mode で選択中の要素のハイライトを定義するためのハイライトグループ
+	です。デフォルトでは IncSearch |hl-IncSearch| にリンクされています。
+>
+	highlight link SwapCurrentItem IncSearch
+<
+
+SwapSelectedItem			*hl-SwapSelectedItem*
+	入れ替えられるべく <CR> キーで選択された要素のハイライトを定義するため
+	のハイライトグループです。デフォルトでは Visual |hl-Visual| にリンクさ
+	れています。
+>
+	highlight link SwapSelectedItem Visual
+<
+
+SwapItem				*hl-SwapItem*
+	Swap mode で入れ替え対象の要素のハイライトを定義するためのハイライトグ
+	ループです。デフォルトでは Underlined (参考: |group-name|) にリンクさ
+	れています。
+>
+	highlight link SwapItem Underlined
+<
+==============================================================================
+CONFIGURATION				*swap-configuration*
+
+プラグインの挙動を制御するためのいくつかの変数が存在します。
+
+*g:swap#highlight*
+	スワップモードにおけるハイライト機能のオン・オフを切り替えます。値が 1
+	ならハイライトを行い、 0 ならハイライトを行いません。デフォルト値は 1
+	です。 |swap-highlight-groups| もあわせてご覧ください。
+
+*g:swap#timeoutlen*
+	この変数はスワップモードにおいて、重複するキーマッピングがある場合に次
+	のキー入力があるかどうか待つ時間を制御します。これは Vim の組み込みオ
+	プション 'timeoutlen' とほぼ同じ働きであり、デフォルト値はこれと同じ値
+	になります。値はミリセカンド単位で解釈されます。
+
+*g:swap#stimeoutlen*
+	この変数は各 rule について対象テキストの検索を諦めるまでの時間を制御し
+	ます。これは実際あまり正確ではありません、しかし値を小さくすることでプ
+	ラグインの反応はよくなることでしょう。対象テキストが長くなれば無視され
+	てしまうかもしれませんが。もしあなたのコンピュータが非力であれば大きく
+	した方がよいかもしれません。デフォルト値は 50 です。値はミリセカンド単
+	位で解釈されます。
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:

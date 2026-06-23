@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/aca/tmux.nvim
+	branch = main
+	commit = 1c6a5eedca594005a9f97fee07c23b00dfa6b100
+	parent = ec017ebe3628d648940ad3fb0c8f8aef5cea8110
+	method = merge
+	cmdver = 0.4.9

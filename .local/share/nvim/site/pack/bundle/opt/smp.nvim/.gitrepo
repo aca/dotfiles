@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/cnshsliu/smp.nvim.git
+	branch = main
+	commit = a8582271388b47c4bbc8f419b5a6cb97253b6d5a
+	parent = 83d14e9bd738533335127a4c61b4dc57bd084b6e
+	method = merge
+	cmdver = 0.4.9

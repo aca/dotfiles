@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/crispgm/nvim-go.git
+	branch = main
+	commit = d06df0cd6d8a7847a3edd40d1f150adde1e05980
+	parent = 9377e3bbecf438d034777a0f3e4c6931c7ffa880
+	method = merge
+	cmdver = 0.4.9

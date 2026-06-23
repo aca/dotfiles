@@ -1,0 +1,38 @@
+name: Continuous Integration
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  StyLua:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install asdf & tools
+      uses: asdf-vm/actions/install@v2
+    - name: Run StyLua
+      run: stylua --check .
+  Tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          # For all versions see https://github.com/neovim/neovim/tags
+          - neovim: 0.10.0
+          - neovim: 0.9.4
+          - neovim: 0.8.3
+    name: "Test with Neovim ${{ matrix.neovim }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install asdf & tools
+      uses: asdf-vm/actions/install@v2
+      with:
+        tool_versions: |
+          neovim ${{ matrix.neovim }}
+          nodejs
+    - run: npm install -g typescript-language-server typescript
+    - name: Run tests
+      run: |
+        nvim --version
+        ./tests/run.sh

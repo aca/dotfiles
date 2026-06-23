@@ -1,0 +1,424 @@
+*git-messenger.txt*           Reveal the hidden message by git under the cursor quickly
+
+Author : rhysd <https://rhysd.github.io>
+
+CONTENTS                *git-messenger-contents*
+
+Introduction            |git-messenger-introduction|
+Screenshot              |git-messenger-screenshot|
+Install                 |git-messenger-install|
+Commands                |git-messenger-commands|
+Mappings                |git-messenger-mappings|
+Variables               |git-messenger-variables|
+Highlights              |git-messenger-highlights|
+Popup Window Config     |git-messenger-popup-window-config|
+Health Check            |git-messenger-health-check|
+Known Issues            |git-messenger-known-issues|
+Repository              |git-messenger-repository-page|
+License                 |git-messenger-license|
+
+
+==============================================================================
+INTRODUCTION                                        *git-messenger-introduction*
+
+*git-messenger.vim* is a Vim/Neovim plugin to reveal the hidden message under
+the cursor quickly. It shows the last commit message under the cursor in popup
+window.
+
+When you modifying unfamiliar codes, you would sometimes wonder 'why was this
+line added?' or 'why this value was chosen?' in the source code. The answer
+sometimes lays in a commit message, especially in message of the last commit
+which modifies the line.
+
+This plugin shows the message of the last commit in a 'popup window'. The
+popup window is implemented in
+
+- Floating window on Neovim 0.4 or later
+- Preview window on Vim 8+ or Neovim 0.3 or earlier
+
+The floating window is definitely recommended since it can shows the
+information near the cursor.
+
+If you see some error message, please try |git-messenger-health-check|.
+
+
+==============================================================================
+SCREENSHOT                                            *git-messenger-screenshot*
+
+1. Show popup window with Neovim v0.4.0-dev
+
+https://github.com/rhysd/ss/blob/master/git-messenger.vim/demo.gif
+
+2. Exploring older commits
+
+https://github.com/rhysd/ss/blob/master/git-messenger.vim/history.gif
+
+3. Exploring diff of the commit
+
+https://github.com/rhysd/ss/blob/master/git-messenger.vim/diff.gif
+
+You may be also interested in |g:git_messenger_include_diff|
+
+
+==============================================================================
+INSTALL                                                  *git-messenger-install*
+
+Please ensure the following requirement before installing this plugin.
+
+- Git v1.8.5 (for -C option of "git" command)
+
+If you use any package manager, please follow its instruction.
+
+With vim-plug:
+>
+  Plug 'rhysd/git-messenger.vim'
+<
+With dein.vim:
+>
+  call dein#add('rhysd/git-messenger.vim', {
+              \   'lazy' : 1,
+              \   'on_cmd' : 'GitMessenger',
+              \   'on_map' : '<Plug>(git-messenger-',
+              \ })
+<
+With minpac:
+>
+  call minpac#add('rhysd/git-messenger.vim')
+<
+If you're using Vim's builtin packager, please follow instruction at |pack-add|.
+
+vim-plug: https://github.com/junegunn/vim-plug
+dein.vim: https://github.com/Shougo/dein.vim
+minpac: https://github.com/k-takata/minpac
+
+To enable a floating window support, you need to install Neovim 0.4 or later.
+Please follow the official instruction.
+
+https://github.com/neovim/neovim/wiki/Installing-Neovim
+
+
+==============================================================================
+COMMANDS                                                *git-messenger-commands*
+
+*:GitMessenger*
+
+  It opens a popup window with the last commit message which modified the line
+  at cursor. The popup window shows following contents:
+
+  - History: Number of history. In popup window, h/l navigates to previous or
+    next commit.
+  - Commit: The commit hash
+  - Author: Author name and mail address of the commit
+  - Committer: Committer name and mail address of the commit when
+    committer is different from author
+  - Date: Author date of the commit in system format
+    - When a committer date and an author date are different, both
+      'Author Date' and 'Committer Date' are shown
+  - Summary: First line after a date header line is a summary of commit
+  - Body: After summary, commit body is put (if the commit has body)
+
+  The popup window will be automatically closed when you move the cursor so
+  you don't need to close it manually.
+
+  Running command again after the popup window shows up moves the cursor into
+  the window. This behavior is useful when the commit message is too long and
+  window cannot show the whole content. By moving the cursor into the popup
+  window, you can see the rest of contents by scrolling it. This behavior can
+  be suppressed with |g:git_messenger_into_popup_after_show|.
+
+  Following mappings are defined within popup window.
+
+  | Mapping | Description                                                  |
+  | ------- | ------------------------------------------------------------ |
+  |    q    | Close the popup window                                       |
+  |    o    | "o"lder. Back to older commit at the line                    |
+  |    O    | Opposite to older. Forward to newer commit at the line       |
+  |    d    | Toggle unified diff hunks only in current file of the commit |
+  |    D    | Toggle all unified diff hunks of the commit                  |
+  |    r    | Toggle word diff hunks only in current file of the commit    |
+  |    R    | Toggle all word diff hunks of the commit                     |
+  |    ?    | Show mappings help                                           |
+
+*:GitMessengerClose*
+
+  Though a popup window is automatically closed by default, it closes the
+  popup window explicitly. It is useful when you set
+  |g:git_messenger_close_on_cursor_moved| to |v:false|.
+
+
+==============================================================================
+MAPPINGS                                                *git-messenger-mappings*
+
+Some <Plug> mappings are available to operate a popup window. They can be
+mapped to your favorite key sequences. For example:
+
+*<Plug>(git-messenger)*
+
+  The same as running |:GitMessenger| command.
+
+*<Plug>(git-messenger-close)*
+
+  The same as running |:GitMessengerClose| command.
+
+*<Plug>(git-messenger-into-popup)*
+
+  Moves the cursor into the popup window. It's useful when you want to scroll
+  the content and close the window.
+
+*<Plug>(git-messenger-scroll-down-1)*
+
+  Scroll down the popup window by 1 line directly.
+
+*<Plug>(git-messenger-scroll-up-1)*
+
+  Scroll up the popup window by 1 line directly.
+
+*<Plug>(git-messenger-scroll-down-page)*
+
+  Scroll down the popup window by 1 page directly.
+
+*<Plug>(git-messenger-scroll-up-page)*
+
+  Scroll up the popup window by 1 page directly.
+
+*<Plug>(git-messenger-scroll-down-half)*
+
+  Scroll down the popup window by half page directly.
+
+*<Plug>(git-messenger-scroll-up-half)*
+
+  Scroll up the popup window by half page directly.
+
+
+==============================================================================
+VARIABLES                                              *git-messenger-variables*
+
+Some global variables are available to configure the behavior of this plugin.
+
+
+*g:git_messenger_close_on_cursor_moved* (Default: |v:true|)
+
+  When this value is set to |v:false|, a popup window is no longer closed
+  automatically when moving a cursor after the window is shown up.
+
+*g:git_messenger_include_diff* (Default: "none")
+
+  When this value is set to |v:true|, a popup window includes diff hunks of the
+  commit by default.
+  Note: Typing "d" or "r" in popup window reveals diff hunks even if this
+  value is set to |v:false|.
+
+  One of "none", "current", "all".
+
+  When this value is NOT set to "none", a popup window includes diff hunks of
+  the commit at showing up. "current" includes diff hunks of only current file
+  in the commit. "all" includes all diff hunks in the commit.
+
+  Note: Typing d/D or r/R mappings in popup window reveal diff hunks even if
+  this value is set to "none".
+
+*g:git_messenger_git_command* (Default: "git")
+
+  "git" command to retrieve commit messages. If your "git" executable is not
+  in "$PATH" directories, please specify the path to the executable.
+
+*g:git_messenger_no_default_mappings* (Default: |v:false|)
+
+  When this value is set to |v:true|, it does not define any key mappings.
+  <Plug> mappings are still defined since they don't make any conflicts with
+  existing mappings.
+
+*g:git_messenger_into_popup_after_show* (Default: |v:true|)
+
+  When this value is set to |v:false|, run |:GitMessenger| or
+  |<plug>(git-messenger)| again after showing a popup does not move the cursor
+  in the window.
+
+*g:git_messenger_always_into_popup* (Default: |v:false|)
+
+  When this value is set to |v:true|, the cursor goes into a popup window when
+  running |:GitMessenger| or |<Plug>(git-messenger)|.
+
+*g:git_messenger_extra_blame_args* (Default: "")
+
+  When this variable is set the contents will be appended to the git blame
+  command. Use it to add options (like -w).
+
+*g:git_messenger_preview_mods* (Default: "")
+
+Command modifiers for opening preview window. The value will be passed as
+prefix of |:pedit| command.
+For example, setting "botright" to the variable opens a preview window at
+bottom of the current window. Please see |<mods>| for more details.
+
+NOTE: This variable is effective only when opening preview window (on Neovim
+      (0.3.0 or earlier) or Vim).
+
+*g:git_messenger_max_popup_height* (Default: |v:null|)
+
+Max lines of popup window in an integer value. Setting |v:null| means no
+limit.
+
+*g:git_messenger_max_popup_width* (Default: |v:null|)
+
+Max characters of popup window in an integer value. Setting |v:null| means no
+limit.
+
+*g:git_messenger_date_format* (Default: "%c")
+
+String value to format dates in popup window. Please see |strftime()| to know
+the details of the format.
+>
+  " Example: '2019 May 26 03:27:43'
+  let g:git_messenger_date_format = "%Y %b %d %X"
+<
+*g:git_messenger_conceal_word_diff_marker* (Default: |v:true|)
+
+When this value is set to |v:true|, markers for word diffs like "[-", "-]",
+"{+", "+}" are concealed. Set |v:false| when you don't want to hide them.
+
+Note: Word diff is enabled by typing "r" in a popup window.
+
+*g:git_messenger_floating_win_opts* (Default: {})
+
+Options passed to |nvim_open_win| on opening a popup window. This is useful
+when you want to override some window options.
+The following example will add single border line to the window.
+>
+  let g:git_messenger_floating_win_opts = { 'border': 'single' }
+<
+*g:git_messenger_popup_content_margins* (Default: |v:true|)
+
+Setting |v:true| means adding margins in popup window. Blank lines at the top
+and bottom of popup content are inserted. And every line is indented with one
+whitespace character.
+
+Setting |v:false| to this variable removes all the margins. Removing margins
+might be useful when you enable borders of popup window with
+|g:git_messenger_floating_win_opts|.
+
+==============================================================================
+HIGHLIGHTS                                            *git-messenger-highlights*
+
+|git-messenger.vim| uses color definitions from your colorscheme for
+highlighting stuffs in popup window by default. This is done by linking
+highlight groups on "gitmessengerpopup" filetype.
+Highlights for diff are common with normal |diff| filetype syntax highlighting.
+
+If the groups don't fit, please rearrange the highlight with |:hi-link|.
+For example:
+>
+  " Normal color in popup window with 'CursorLine'
+  hi link gitmessengerPopupNormal CursorLine
+
+  " Header such as 'Commit:', 'Author:' with 'Statement' highlight group
+  hi link gitmessengerHeader Statement
+
+  " Commit hash at 'Commit:' header with 'Special' highlight group
+  hi link gitmessengerHash Special
+
+  " History number at 'History:' header with 'Title' highlight group
+  hi link gitmessengerHistory Title
+
+  " Email address at 'Author:' header with 'Comment' highlight group
+  hi link gitmessengerEmail Comment
+<
+For another example, if you want to define colors directly, defining the
+colors with |:hi| works fine as follows.
+>
+  hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#333333 ctermfg=255 ctermbg=234
+  hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111
+  hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229
+  hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210
+  hi gitmessengerEmail term=None guifg=#999999 ctermfg=245
+<
+Note: If your colorscheme does not allocate proper color for |hl-NormalFloat|,
+you may need to set proper color to "gitmessengerPopupNormal". For example, if
+your colorscheme use the same color for both normal background color and popup
+background color, linking "gitmessengerPopupNormal" to different background
+color like |hl-CursorLine| would be better.
+
+Note: "gitmessengerPopupNormal" is only available on Neovim since
+'winhighlight' option is used. On Vim, simply |hl-Normal| is used for normal
+color.
+
+
+==============================================================================
+CONFIGURATION IN POPUP WINDOW                *git-messenger-popup-window-config*
+
+Filetype *gitmessengerpopup* is set in the popup window. Please hook |FileType|
+event to do some local setup within a popup window.
+
+For example:
+>
+  function! s:setup_gitmessengerpopup() abort
+      " For example, set go back/forward history to <C-o>/<C-i>
+      nmap <buffer><C-o> o
+      nmap <buffer><C-i> O
+  endfunction
+  autocmd FileType gitmessengerpopup call <SID>setup_gitmessengerpopup()
+<
+
+==============================================================================
+HEALTH CHECK                                        *git-messenger-health-check*
+
+|git-messenger.vim| supports a health checker on Neovim. When you see some
+error, please run `:checkhealth` to check your environment is ready for use
+of this plugin.
+>
+  :checkhealth
+<
+On Vim, please install vim-healthcheck and run `:CheckHealth`. It's a plugin to
+run `:checkhealth` on Vim.
+>
+  :CheckHealth
+<
+https://github.com/rhysd/vim-healthcheck
+
+
+==============================================================================
+KNOWN ISSUES                                        *git-messenger-known-issues*
+
+1.
+On Windows, `git` command installed via MSYS does not work. Please use
+Git for Windows for now. This issue is tracked at
+https://github.com/rhysd/git-messenger.vim/issues/57
+
+
+==============================================================================
+REPOSITORY                                       *git-messenger-repository-page*
+
+|git-messenger.vim| is developed at GitHub. Please make a new issue or PR to
+join development.
+
+https://github.com/rhysd/git-messenger.vim
+
+
+==============================================================================
+LICENSE                                                  *git-messenger-license*
+
+|git-messenger.vim| is distributed under The MIT license.
+
+  Copyright (c) 2019 rhysd
+
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:et:fen:fdl=0:

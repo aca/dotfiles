@@ -1,0 +1,96 @@
+*vim-rfc*  Handling RFCs like a boss.
+*rfc*
+                                                    ___
+                  __                              /'___\
+          __  __ /\_\    ___ ___            _ __ /\ \__/  ____
+         /\ \/\ \\/\ \ /' __` __`\  _______/\`'__\ \ ,__\/'___\
+         \ \ \_/ |\ \ \/\ \/\ \/\ \/\______\ \ \/ \ \ \_/\ \__/
+          \ \___/  \ \_\ \_\ \_\ \_\/______/\ \_\  \ \_\\ \____\
+           \/__/    \/_/\/_/\/_/\/_/         \/_/   \/_/ \/____/
+
+  by Marco Hinz~
+
+  Twitter: https://twitter.com/_mhinz_
+  Github:  http://github.com/mhinz
+  IRC:     mhi^ (Freenode)
+>
+  If you use any of my plugins, please star them on github. It's a great way
+  of getting feedback and gives me the kick to put more time into their
+  development.
+
+  If you encounter any bugs or have feature requests, just open an issue
+  report on Github.
+
+  Thank you for flying mhi^ airlines. Get the Vim on!
+<
+==============================================================================
+CONTENTS                                                          *rfc-contents*
+
+    INTRO ........................................|rfc-intro|
+    USAGE ........................................|rfc-usage|
+    COLORS .......................................|rfc-colors|
+    INTERNALS ....................................|rfc-implementation|
+
+==============================================================================
+INTRO                                                                *rfc-intro*
+
+vim-rfc lists all existing RFCs and opens the selected one in a new buffer.
+
+Works in Vim and Nvim, but it requires python3 support: `:echo has('python3')`
+
+==============================================================================
+USAGE                                                                *rfc-usage*
+
+List documents:
+>
+    :RFC <vim regexp>
+<
+Rebuild cache and list documents:
+>
+    :RFC! <vim regexp>
+<
+Use `<cr>` to open an entry or `q` to quit.
+
+Examples: `:RFC`, `:RFC 100`, `:RFC http/2`, `:RFC ipv4 addresses`
+
+Within a RFC document, if you are on a line from the table of contents,
+`<c-]>`/`<cr>` will jump to the referenced section.
+
+On a string like `STD 10` or `RFC 1234` (which should also be highlighted), it
+opens the referenced document instead. Use `<c-o>` to jump back.
+
+==============================================================================
+COLORS                                                              *rfc-colors*
+
+You can overwrite the highlight groups used by vim-rfc.
+
+Example: "RFC0123: Nice RFC, yo."
+
+    Hi group  |  Part          |  Default
+    --------------------------------------------------
+    RFCType   |  RFC           |  linked to Identifier
+    RFCID     |  0123          |  linked to Number
+    RFCDelim  |  :             |  linked to Delimiter
+    RFCTitle  |  Nice RFC, yo. |  linked to Normal
+
+Example: (my terminal emulator supports 256 colors)
+>
+    highlight RFCType  ctermfg=240 ctermbg=NONE cterm=NONE
+    highlight RFCID    ctermfg=215 ctermbg=NONE cterm=NONE
+    highlight RFCTitle ctermfg=255 ctermbg=NONE cterm=NONE
+    highlight RFCDelim ctermfg=240 ctermbg=NONE cterm=NONE
+<
+==============================================================================
+IMPLEMENTATION                                              *rfc-implementation*
+
+This first time this plugin is used, it downloads an index file containing all
+existing RFC documents (~12M). That XML file is parsed and all RFC and STD
+entries get cached in `~/.vim-rfc.txt`.
+
+The second time this plugin is used, the cachefile will be used right away.
+
+If you select an entry, it gets downloaded and immediately put into a new
+buffer. There is no temporary file created on the drive.
+
+==============================================================================
+vim: tw=78

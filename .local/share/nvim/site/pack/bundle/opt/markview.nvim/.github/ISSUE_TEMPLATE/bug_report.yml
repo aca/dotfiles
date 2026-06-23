@@ -1,0 +1,93 @@
+name: 🐞 Bug report
+description: "Report a bug in markview."
+title: "🐞 Bug: "
+labels: [ "bug" ]
+body:
+  - type: checkboxes
+    id: branch
+    attributes:
+      label: "🤖 Which branch are you using?"
+      options:
+        - label: "dev"
+        - label: "main"
+
+  - type: textarea
+    id: desc
+    attributes:
+      label: "📜 Issue description:"
+      description: "Describe the issue in a *clear* and *concise* way. You should also attach `images`/`gifs` if it's a visual bug."
+      placeholder: "Fenced code blocks don't render when..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: "📑 Reproduction steps:"
+      description: "Give step by step instructions on how to recreate the issue using the `minimal init`."
+      placeholder: "1. Open Neovim."
+    validations:
+      required: true
+
+  - type: textarea
+    id: minit
+    attributes:
+      label: "💻 Minimal init:"
+      description: |
+        The minimal config file to reproduce the issue.
+
+        Put this in a file(e.g. `minit.lua`) and do `nvim -u minit.lua` to run it.
+      value: |
+        ```lua
+        vim.env.LAZY_STDPATH = ".repro"
+        load(vim.fn.system("curl -s https://raw.githubusercontent.com/folke/lazy.nvim/main/bootstrap.lua"))()
+
+        require("lazy.minit").repro({
+            spec = {
+                {
+                    "nvim-treesitter/nvim-treesitter",
+                    build = ":TSUpdate",
+
+                    ensure_installed = { "html", "latex", "markdown", "markdown_inline", "typst", "yaml" }
+                },
+                {
+                    "OXY2DEV/markview.nvim",
+                    -- branch = "dev",
+                    lazy = false
+                }
+            },
+        });
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "📜 Logs:"
+      description: |
+        After Reproducing the bug, run `:Markview traceExport`. You will see a new file `trace.log` has been created in your current directory.
+
+        Copy it's contents here.
+      placeholder: "Logs..."
+    validations:
+      required: true
+
+  - type: input
+    id: nvim-ver
+    attributes:
+      label: "Neovim version:"
+      description: "Neovim version."
+      placeholder: "nvim -v"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "✅ Expected behavior:"
+      description: "The expected behavior."
+      placeholder: "Markview should..."
+    validations:
+      required: true
+

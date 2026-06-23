@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/stevearc/dressing.nvim
+	branch = master
+	commit = 2d7c2db2507fa3c4956142ee607431ddb2828639
+	parent = a6a30c1f10f8fca906abbfb17c72c0f8aa598339
+	method = merge
+	cmdver = 0.4.9

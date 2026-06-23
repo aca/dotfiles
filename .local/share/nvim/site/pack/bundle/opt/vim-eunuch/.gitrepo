@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/tpope/vim-eunuch.git
+	branch = master
+	commit = e86bb794a1c10a2edac130feb0ea590a00d03f1e
+	parent = c39af8d19b38991752616f9c253f5715ca11b010
+	method = merge
+	cmdver = 0.4.9

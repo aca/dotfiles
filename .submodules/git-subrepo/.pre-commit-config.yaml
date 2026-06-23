@@ -1,0 +1,21 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: check-illegal-windows-names
+    -   id: check-merge-conflict
+    -   id: trailing-whitespace
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+        exclude: \.t$
+-   repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+    -   id: shellcheck
+        args: [-x]
+        exclude: |
+             (?x)^(ext/.*|
+                 share/git-completion.bash
+             )$

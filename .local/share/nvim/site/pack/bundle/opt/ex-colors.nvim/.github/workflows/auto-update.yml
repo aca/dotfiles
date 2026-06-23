@@ -1,0 +1,39 @@
+name: Update Default Colors Monthly on Neovim Nightly
+on:
+  schedule:
+    - cron: '0 0 1-7 * 6'
+  workflow_dispatch:
+jobs:
+  update-default-colors:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # To access HEAD~ in the script.
+      - name: Install neovim nightly
+        uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: nightly
+      - name: Update default colors
+        run: make default-colors
+      - name: Sync lua/ to fnl/
+        run: |
+          git add -A
+          scripts/sync-staged-lua-to-staged-fnl.sh
+      - name: PR default-colors update
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.CREATE_PR_TOKEN }}
+          title: "feat(default-colors): auto update on nvim nightly"
+          branch: create-pull-request--branches--main--update-default-colors
+          commit-message: "feat(default-colors): auto update on nvim nightly"
+          committer: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          delete-branch: true
+          add-paths: |
+            fnl/ex-colors/default-colors.lua
+            lua/ex-colors/default-colors.lua

@@ -1,0 +1,42 @@
+AllCops:
+  NewCops: enable
+Layout/LineLength:
+  Enabled: false
+Metrics:
+  Enabled: false
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+Lint/NestedMethodDefinition:
+  Enabled: false
+Style/MethodCallWithArgsParentheses:
+  Enabled: true
+  AllowedMethods:
+    - assert
+    - exit
+    - paste
+    - puts
+    - raise
+    - refute
+    - require
+    - send_keys
+  AllowedPatterns:
+    - ^assert_
+    - ^refute_
+Style/NumericPredicate:
+  Enabled: false
+Style/StringConcatenation:
+  Enabled: false
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/WordArray:
+  MinSize: 1
+Minitest/AssertEqual:
+  Enabled: false
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Lint/EmptyBlock:
+  Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: false

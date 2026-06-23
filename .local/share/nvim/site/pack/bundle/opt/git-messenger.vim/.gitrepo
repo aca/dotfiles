@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rhysd/git-messenger.vim.git
+	branch = master
+	commit = fd124457378a295a5d1036af4954b35d6b807385
+	parent = cdff99bf7e61b6a3fa1bc19339a217a19540ce5c
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+indexof() {
+    sort | grep -n "^$1$" | cut --delimiter=":" --fields=1
+}
+
+cd ~/.config/kanshi
+STDIN=$(ls config.* | sort)
+killall kanshi 2>/dev/null || true
+
+cur=$(printf "$STDIN" | indexof $(basename $(realpath config)))
+cur=$((cur+1))
+nextline=$(printf "${STDIN}\n${STDIN}" | sed "${cur}q;d")
+ln -sf "$nextline" config
+sway reload
+# kanshi >> /tmp/kanshi.log 2>&1

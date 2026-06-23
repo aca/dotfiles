@@ -1,0 +1,60 @@
+{
+  "name": "coc-db",
+  "version": "0.0.44",
+  "description": "db source for coc.nvim",
+  "scripts": {},
+  "main": "src/index.js",
+  "engines": {
+    "coc": ">=0.0.57"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristijanhusak/vim-dadbod-completion.git"
+  },
+  "keywords": [
+    "coc.nvim",
+    "db"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "coc.source.db.enable": {
+          "type": "boolean",
+          "default": true
+        },
+        "coc.source.db.shortcut": {
+          "type": "string",
+          "default": "DB"
+        },
+        "coc.source.db.triggerCharacters": {
+          "type": "array",
+          "default": ["\"", ".", "`", "["]
+        },
+        "coc.source.db.priority": {
+          "type": "integer",
+          "default": 95
+        },
+        "coc.source.db.filetypes": {
+          "type": ["array"],
+          "default": ["sql", "mysql", "plsql"],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "author": "husakkristijan@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kristijanhusak/vim-dadbod-completion/issues"
+  },
+  "homepage": "https://github.com/kristijanhusak/vim-dadbod-completion#readme",
+  "devDependencies": {
+    "coc.nvim": ">=0.0.57"
+  }
+}

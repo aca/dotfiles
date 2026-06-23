@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rcarriga/nvim-notify.git
+	branch = master
+	commit = 8701bece920b38ea289b457f902e2ad184131a5d
+	parent = f0953e08ca8f48f7008775c4d041dd5a6cde69be
+	method = merge
+	cmdver = 0.4.9

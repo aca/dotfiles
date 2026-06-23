@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ray-x/lsp_signature.nvim.git
+	branch = master
+	commit = af7e4074d85d785cf6614352ba9ad3b28a1f8a56
+	parent = 50937008b5d9e3f0f72123648c32d71f6914558f
+	method = merge
+	cmdver = 0.4.9

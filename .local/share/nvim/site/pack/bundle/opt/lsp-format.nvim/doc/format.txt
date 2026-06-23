@@ -1,0 +1,176 @@
+*lsp-format.txt*                A wrapper around Neovims native LSP formatting
+
+
+Author: Lukas Reineke <lukas@reineke.jp>
+
+==============================================================================
+CONTENTS                                                          *lsp-format*
+
+  1. Introduction                          |lsp-format-introduction|
+  2. Setup                                 |lsp-format-setup|
+  3. Special Format Options                |lsp-format-special-format-options|
+  4. Commands                              |lsp-format-commands|
+  5. License                               |lsp-format-license|
+
+==============================================================================
+ 1. INTRODUCTION                                     *lsp-format-introduction*
+
+LSP-format.nvim is a wrapper around Neovims native LSP formatting.
+
+It does
+
+1. Asynchronous or synchronous formatting on save
+2. Sequential formatting with all attached LSP server
+3. Add commands for disabling formatting (globally or per filetype)
+4. Make it easier to send format options to the LSP
+5. Allow you to exclude specific LSP servers from formatting.
+
+It does not
+
+1. Provide any formatting by itself You still need to use an LSP server
+
+==============================================================================
+ 2. SETUP                                                   *lsp-format-setup*
+
+To use LSP-format, you have to run the setup function, and register a
+`LspAttach` autocmd: >
+
+    require("lsp-format").setup {}
+
+    vim.api.nvim_create_autocmd('LspAttach', {
+      callback = function(args)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+        require("lsp-format").on_attach(client, args.buf)
+      end,
+    })
+
+The setup functions takes one optional argument that maps |filetypes| to
+format options.
+Format options can be strings, numbers, booleans, or functions that resolve
+to strings, numbers, or booleans.
+
+
+==============================================================================
+ 3. SPECIAL FORMAT OPTIONS                 *lsp-format-special-format-options*
+
+exclude                                                   *lsp-format-exclude*
+
+  `exclude` is a table of client names to exclude from formatting.
+
+  Example: >
+
+      require "lsp-format".setup {
+          go = {
+              exclude = { "gopls" }
+          },
+          typescript = {
+              tab_width = function()
+                  return vim.opt.shiftwidth:get()
+              end,
+          },
+      }
+
+
+------------------------------------------------------------------------------
+order                                                       *lsp-format-order*
+
+  `order` is a table of client names. Formatting is requested from clients in
+  the following order: first all clients that are not in the `order` table,
+  then the remaining clients in the order as they occur in the `order` table.
+  (same logic as |vim.lsp.buf.formatting_seq_sync()|)
+
+  Example: >
+
+      require "lsp-format".setup {
+          go = {
+              order = { "gopls", "efm" }
+          }
+      }
+
+------------------------------------------------------------------------------
+sync                                                         *lsp-format-sync*
+
+  `sync` is a boolean flag to turn on synchronous formatting. The editor will
+  block until formatting is done.
+
+  Example: >
+
+      require "lsp-format".setup {
+          go = {
+              sync = true
+          }
+      }
+
+------------------------------------------------------------------------------
+force                                                       *lsp-format-force*
+
+  `force` is a boolean flag. When on the format result will always be written
+  to the buffer, even if the buffer changed.
+
+  Example: >
+
+      require "lsp-format".setup {
+          go = {
+              force = true
+          }
+      }
+
+==============================================================================
+ 4. COMMANDS                                             *lsp-format-commands*
+
+:Format [{format_options}]                                            *Format*
+
+    Formats and saves the current buffer.
+    Optional takes format options separated by space.
+    Format options can be a key value pair separated by `=` `hello=world`,
+    just a value `foobar`, or a comma separated list for the order `efm,gopls`
+ >
+    :Format indent_width=2 no_call_parentheses order=efm,gopls
+
+------------------------------------------------------------------------------
+:FormatDisable [{filetype}]                                    *FormatDisable*
+
+    Disables formatting.
+    If no filetype is given, it disables formatting globally.
+
+------------------------------------------------------------------------------
+:FormatEnable[!] [{filetype}]                                   *FormatEnable*
+
+    Enables formatting.
+    If no filetype is given, it enables formatting globally.
+    If called with bang, it clears all disalbed filetypes as well.
+
+------------------------------------------------------------------------------
+:FormatToggle [{filetype}]                                      *FormatToggle*
+
+    Toggles between formatting enabled and disabled.
+    If no filetype is given, it uses the global state.
+
+==============================================================================
+ 5. LICENSE                                               *lsp-format-license*
+
+The MIT Licence
+http://www.opensource.org/licenses/mit-license.php
+
+Copyright (c) 2022 Lukas Reineke
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl

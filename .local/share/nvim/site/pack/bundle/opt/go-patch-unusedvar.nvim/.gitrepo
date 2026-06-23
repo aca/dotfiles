@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/aca/go-patch-unusedvar.nvim.git
+	branch = master
+	commit = 3b414c594bbf9eb3877ed8b77b1423b62c92975a
+	parent = 6c627b0c77034184d05b58cf988e15a98005dc90
+	method = merge
+	cmdver = 0.4.9

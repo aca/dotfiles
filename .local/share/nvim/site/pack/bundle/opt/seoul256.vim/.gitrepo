@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/junegunn/seoul256.vim.git
+	branch = master
+	commit = d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7
+	parent = 08408aac27462c4f869a658d851fc428f278cf3f
+	method = merge
+	cmdver = 0.4.9

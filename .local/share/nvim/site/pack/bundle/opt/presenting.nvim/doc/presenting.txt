@@ -1,0 +1,126 @@
+==============================================================================
+------------------------------------------------------------------------------
+*presenting.nvim*
+*Presenting*
+
+MIT License Copyright (c) 2024 Stefan Otte
+
+==============================================================================
+
+Present your markdown, org-mode, or asciidoc files in a nice way,
+i.e. directly in nvim.
+
+------------------------------------------------------------------------------
+                                                            *Presenting.setup()*
+                          `Presenting.setup`({config})
+Module setup
+
+Parameters ~
+{config} `(table|nil)`
+Usage ~
+`require('presenting').setup({})`
+
+------------------------------------------------------------------------------
+                                                             *Presenting.config*
+                              `Presenting.config`
+Module config
+
+Default values:
+>lua
+  Presenting.config = {
+    options = {
+      -- The width of the slide buffer.
+      width = 60,
+    },
+    separator = {
+      -- Separators for different filetypes.
+      -- You can add your own or oberwrite existing ones.
+      -- Note: separators are lua patterns, not regexes.
+      markdown = "^#+ ",
+      org = "^*+ ",
+      adoc = "^==+ ",
+      asciidoctor = "^==+ ",
+    },
+    -- Keep the separator, useful if you're parsing based on headings.
+    -- If you want to parse on a non-heading separator, e.g. `---` set this to false.
+    keep_separator = true,
+    --- Parse first section of frontmatter, from first `---` to second `---`
+    parse_frontmatter = false,
+    keymaps = {
+      -- These are local mappings for the open slide buffer.
+      -- Disable existing keymaps by setting them to `nil`.
+      -- Add your own keymaps as you desire.
+      ["n"] = function() Presenting.next() end,
+      ["p"] = function() Presenting.prev() end,
+      ["q"] = function() Presenting.quit() end,
+      ["f"] = function() Presenting.first() end,
+      ["l"] = function() Presenting.last() end,
+      ["<CR>"] = function() Presenting.next() end,
+      ["<BS>"] = function() Presenting.prev() end,
+    },
+    -- A function that configures the slide buffer.
+    -- If you want custom settings write your own function that accepts a buffer id as argument.
+    configure_slide_buffer = function(buf) H.configure_slide_buffer(buf) end,
+  }
+<
+------------------------------------------------------------------------------
+==============================================================================
+# Core functionality
+
+------------------------------------------------------------------------------
+                                                           *Presenting.toggle()*
+                        `Presenting.toggle`({separator})
+Toggle presenting mode on/off for the current buffer.
+Parameters ~
+{separator} `(string|nil)`
+
+------------------------------------------------------------------------------
+                                                            *Presenting.start()*
+                        `Presenting.start`({separator})
+Start presenting the current buffer.
+Parameters ~
+{separator} `(string|nil)` Overwrite the default separator if specified.
+
+------------------------------------------------------------------------------
+                                                             *Presenting.quit()*
+                              `Presenting.quit`()
+Quit the current presentation and go back to the normal buffer.
+By default this is mapped to `q`.
+
+------------------------------------------------------------------------------
+                                                             *Presenting.next()*
+                              `Presenting.next`()
+Go to the next slide.
+By default this is mapped to `<CR>` and `n`.
+
+------------------------------------------------------------------------------
+                                                             *Presenting.prev()*
+                              `Presenting.prev`()
+Go to the previous slide.
+By default this is mapped to `<BS>` and `p`.
+
+------------------------------------------------------------------------------
+                                                            *Presenting.first()*
+                              `Presenting.first`()
+Go to the first slide.
+By default this is mapped to `f`.
+
+------------------------------------------------------------------------------
+                                                             *Presenting.last()*
+                              `Presenting.last`()
+Go to the last slide.
+By default this is mapped to `l`.
+
+------------------------------------------------------------------------------
+                                                           *Presenting.resize()*
+                             `Presenting.resize`()
+the slide window.
+
+------------------------------------------------------------------------------
+                                                        *H.in_presenting_mode()*
+                            `H.in_presenting_mode`()
+Return ~
+`(boolean)`
+
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

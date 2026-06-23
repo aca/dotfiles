@@ -1,0 +1,166 @@
+#!/usr/bin/env sh
+#
+# @file mpvc-mpris
+# @description mpvc-mpris speaks MPRIS to control mplayer through key-bindings
+# @author gmt4 <gmt4 at github.com> (c) Copyright 2022 GPLv2+
+# @url github.com/gmt4/mpvc
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+
+PROGNAME=${0##*/}
+PROGVERSION="v1.8"
+PROGAUTHOR=gmt4
+PROGURL="https://github.com/gmt4/mpvc"
+
+set -euf
+
+# globals really
+mpris_defaults()
+{
+    DBUS=$(command -v dbus-send)
+    PACTL=$(command -v pactl)
+
+    PULSE_SOCKET="/run/user/$(id -u)/pulse/native"
+    if [ -z "${PULSE_SERVER:-}" ] && [ -S "$PULSE_SOCKET" ]
+    then
+        export PULSE_SERVER="unix:$PULSE_SOCKET"
+    fi
+    playerPath=org.mpris.MediaPlayer2.Player
+    MPVC_MPRIS_PLAYERS=${MPVC_MPRIS_PLAYERS:-"mpv mpd vlc"}
+
+    if [ -z "${DBUS:-}" ]; then usage "$PROGNAME: Error no dbus-send found (required)"; fi
+    if [ -z "${PACTL:-}" ]; then usage "$PROGNAME: Error no pactl found (required)"; fi
+}
+
+mpris_cmd()
+{
+    "$DBUS" \
+        --print-reply \
+        --type=method_call \
+        --dest="org.mpris.MediaPlayer2.${mpris_name}" /org/mpris/MediaPlayer2 \
+        "$@"
+}
+
+mpris_method(){ mpris_cmd "org.mpris.MediaPlayer2.Player.$*"; }
+mpris_get(){ mpris_cmd org.freedesktop.DBus.Properties.Get "string:${playerPath}" "$@"; }
+mpris_set(){ mpris_cmd org.freedesktop.DBus.Properties.Set "string:${playerPath}" "$@"; }
+
+mpris_get_volume()
+{
+    mpris_get string:Volume | awk '/^   variant/ {print $3}'
+}
+
+mpris_set_volume()
+{
+    local cVolume=$(mpris_get_volume)
+    local pVolume=$cVolume
+
+    case "$1" in
+    volmute) pVolume=$(awk "END { print ($pVolume == 0)? 0.5: 0; }" /dev/null );;
+    voldown) pVolume=$(awk "END { print $cVolume - 0.02 }" /dev/null );;
+    volup)   pVolume=$(awk "END { print $cVolume + 0.02 }" /dev/null );;
+    volset)  pVolume=$2;;
+    *)       usage;;
+    esac
+
+    mpris_set string:Volume "variant:double:$pVolume"
+}
+
+mpris_get_status()
+{
+    #mpris_get string:Volume | awk '/^   variant / {print $3}'
+    mpris_get string:PlaybackStatus | awk '/^   variant / {print $3}'
+    mpris_get string:Metadata | awk '/^ *variant +/ && ! /\[/ {gsub("^ *"$1" *"$2" ",""); print}'
+}
+
+mpris_set_shuffle()
+{
+    local current=$(mpris_get string:Shuffle | awk '/^   variant / {print $3}')
+    if [ "$current" = "true" ]; then other=false; else other=false; fi
+    mpris_set string:Shuffle variant:boolean:$other
+}
+
+mpris_detect_player()
+{
+    local name=""
+    for name in $MPVC_MPRIS_PLAYERS "";
+    do
+        mpris_name="$name"
+        if mpris_get string:PlaybackStatus >/dev/null 2>&1;
+        then
+            break
+        fi
+    done
+    echo "$name"
+}
+
+usage()
+{
+    cat <<EOF
+usage: $PROGNAME opts # @version $PROGVERSION (c) $PROGAUTHOR $PROGURL
+ prev     : Jump to previous track
+ next     : Jump to next track
+ toggle   : Toggle MPRIS playing status
+ stop     : Pause MPRIS playing status
+ status   : Get MPRIS status
+ volstatus: Get pactl volume status
+*tips: If unsure about where to begin, start with: $PROGNAME status
+EOF
+    if [ $# -gt 0 ]; then echo "$@" 1>&2; fi
+    exit;
+}
+
+pactl_quiet()
+{
+    "$PACTL" "$@" 2>/dev/null
+}
+
+main()
+{
+    mpris_defaults
+    if [ $# -lt 1 ]; then usage; fi
+
+    local cmd="$1"
+    local volincr=0.1
+    local sink=@DEFAULT_SINK@
+    mpris_name="$(mpris_detect_player)"
+
+    case "$cmd" in
+        volstatus|volget|volset|volup|voldown|volon|voloff|volmute) ;; # ignore
+        *)
+        if [ -z "${mpris_name}" ]; then
+            usage "$PROGNAME: Error no player found that speaks MPRIS. Check mpv started with mpris.so in ~/.config/mpv/scripts/";
+        fi
+    esac
+
+    case "$cmd" in
+    get)       shift; mpris_get "$@" ;;
+    set)       shift; mpris_set "$@" ;;
+    method)    shift; mpris_method "$@" ;;
+
+    prev)      shift; mpris_method Previous ;;
+    next)      shift; mpris_method Next ;;
+    toggle)    shift; mpris_method PlayPause ;;
+    stop)      shift; mpris_method Pause ;;
+    seek)      shift; mpris_method Seek "int64:$1"; ;;
+    status)    shift; mpris_get_status ;;
+    vol)       shift; mpris_get_volume ;;
+    shuffle)   shift; mpris_set_shuffle "$*" ;;
+    open)      shift; mpris_method OpenUri "string:$1" ;;
+    #loop)      shift; mpris_get "string:LoopStatus" ;;
+
+    volon)     pactl_quiet set-sink-mute $sink off ;;
+    voloff)    pactl_quiet set-sink-mute $sink on  ;;
+    volmute)   pactl_quiet set-sink-mute $sink toggle || mpris_set_volume "$cmd" ;;
+    voldown)   pactl_quiet set-sink-volume $sink "-${2:-$volincr}" || mpris_set_volume "$cmd" ;;
+    volup)     pactl_quiet set-sink-volume $sink "+${2:-$volincr}" || mpris_set_volume "$cmd" ;;
+    volset)    pactl_quiet set-sink-volume $sink "${2:-}" || mpris_set_volume "$cmd" "${2:-}";;
+    volget)    pactl_quiet list sinks | awk '/^\t+Volume:/{print $5}';;
+    volstatus) pactl_quiet list sinks | awk '/^\t+Mute:/{print "mute:"$2}';;
+
+    help)      usage ;;
+    *)         usage "$PROGNAME: unknown command: $cmd" ;;
+    esac
+}
+
+main "$@"

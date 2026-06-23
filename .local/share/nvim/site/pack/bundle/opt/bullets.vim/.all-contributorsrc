@@ -1,0 +1,172 @@
+{
+  "projectName": "bullets.vim",
+  "projectOwner": "dkarter",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "gitmoji",
+  "contributors": [
+    {
+      "login": "dkarter",
+      "name": "Dorian Karter",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/551858?v=4",
+      "profile": "https://doriankarter.com",
+      "contributions": [
+        "code",
+        "test",
+        "doc",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "cormacrelf",
+      "name": "Cormac Relf",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/378760?v=4",
+      "profile": "https://github.com/cormacrelf",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "kaymmm",
+      "name": "Keith Miyake",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2266804?v=4",
+      "profile": "http://keithmiyake.info",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "yous",
+      "name": "Chayoung You",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/853977?v=4",
+      "profile": "https://yous.be",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "adriaanzon",
+      "name": "Adriaan Zonnenberg",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4326420?v=4",
+      "profile": "https://github.com/adriaanzon",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "eater",
+      "name": "eater",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/106199?v=4",
+      "profile": "https://github.com/eater",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "hut",
+      "name": "hut",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/90548?v=4",
+      "profile": "https://github.com/hut",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "mykoza",
+      "name": "mykoza",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/48719773?v=4",
+      "profile": "https://github.com/mykoza",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "noodlor",
+      "name": "noodlor",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/49209345?v=4",
+      "profile": "https://github.com/noodlor",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "harshad1",
+      "name": "Harshad Srinivasan",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1940940?v=4",
+      "profile": "https://github.com/harshad1",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "ErickChacon",
+      "name": "Erick A. Chacón Montalván",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7862458?v=4",
+      "profile": "https://erickchacon.github.io/",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "samgriesemer",
+      "name": "Sam Griesemer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19940657?v=4",
+      "profile": "https://samgriesemer.com",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "cpence",
+      "name": "Charles Pence",
+      "avatar_url": "https://avatars.githubusercontent.com/u/297075?v=4",
+      "profile": "https://codeberg.org/cpence",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mstojanovic",
+      "name": "Marko Stojanovic",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3449343?v=4",
+      "profile": "https://github.com/mstojanovic",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "clarkshaeffer",
+      "name": "Clark",
+      "avatar_url": "https://avatars.githubusercontent.com/u/58539767?v=4",
+      "profile": "https://github.com/clarkshaeffer",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "wenzel-hoffman",
+      "name": "Wenzel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/111205756?v=4",
+      "profile": "https://github.com/wenzel-hoffman",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true
+}

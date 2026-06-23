@@ -1,0 +1,288 @@
+*neoscroll.txt*  Smooth scrolling
+
+Author: Carles Rafols i Belles
+
+
+===============================================================================
+INTRODUCTION                                             *neoscroll-introduction*
+
+The default mappings substitute most of the |scrolling| commands (see
+|neoscroll-default-mappings| for a list of supported motions) to provide
+smooth window scrolling. You can create your own scrolling commands using
+|neoscroll-functions|. You can customize the scrolling behaviour by changing
+the |neoscroll-options| as needed.
+
+
+===============================================================================
+QUICKSTART                                                 *neoscroll-quickstart*
+
+Add the `setup()` function in your init file: >lua
+    -- In init.lua:
+    require('neoscroll').setup()
+>vim
+    " In init.vim:
+    lua require('neoscroll').setup()
+
+
+===============================================================================
+FUNCTIONS                                                   *neoscroll-functions*
+
+neoscroll.setup({opts})                                       *neoscroll-setup()*
+    Overwrites the default options with the options in the `opts` table and
+    defines the default mappings. See |neoscroll-options| for a detailed
+    description of each option.
+
+    Example with all the default options: >lua
+        require('neoscroll').setup({
+          mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+            '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+          hide_cursor = true,
+          stop_eof = true,
+          respect_scrolloff = false,
+          cursor_scrolls_alone = true,
+          easing = 'linear',
+          pre_hook = nil,
+          post_hook = nil,
+          performance_mode = false,
+          ignored_events = {'WinScrolled', 'CursorMoved'},
+        })
+<
+    Example disabling <C-y> and <C-e> default mappings: >lua
+        require('neoscroll').setup({
+          mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', 'zt', 'zz', 'zb'}
+        })
+<
+    Example disabling all default mappings: >lua
+        require('neoscroll').setup({
+          mappings = {}
+        })
+<
+
+neoscroll.scroll({lines}, {opts})                            *neoscroll.scroll()*
+    Scroll a number of lines or a fraction of the current window optionally
+    using an easing function to smooth the start and the end of the scrolling
+    animation.
+
+    Parameters: ~
+      • {lines} (type: `integer|float`)
+          - If `integer`: number of lines to scroll.
+          - If `float`: number of "windows" to scroll (e.g. 0.1 = 10% of the
+              current window's height.
+          - A positive number scrolls downwards (mnemonic: increase line
+              number). A negative number scrolls upwards (mnemonic: decrease
+              line number).
+      • {opts} (type: `table`)
+          Scrolling behaviour options.
+          • {move_cursor} (type: `boolean` default: `true`)
+              Scroll and move the cursor simultaneously. When `true` scrolling
+              downwards will stop when the cursor line is the last line of the
+              file unless |stop_eof| is set to `true`.
+          • {duration} (type: `integer`)
+              Duration of the scrolling animation in milliseconds.
+          • {easing} (type: `string`)
+              name of the easing function to use for the scrolling animation.
+              If no name is passed the easing function defined in `easing`
+              option defined in |neoscroll-setup| will be used. Check
+              |neoscroll-easing-functions| for a list of supported easing
+              function names.
+          • {info} (type: `table`)
+              Optional parameter that will be passed to the |pre_hook| and
+              |post_hook| functions. Useful to differentiate different
+              scrolling animations or to pass additional information to the
+              hook functions.
+          • {winid} (type: `integer`)
+              Identifier of the window to scroll.
+
+    Examples: >lua
+        local scroll = require('neoscroll').scroll
+        -- Scroll 10 lines upwards mimicking <C-d>
+        scroll(-10, {move_cursor=true, duration=300})
+        -- Scroll 'w:scroll' lines downwards mimicking <C-u>
+        scroll(vim.wo.scroll, {move_cursor=true, duration=300})
+        -- Scroll 10% of the window height downwards
+        scroll(0.1, {move_cursor=true, duration=200})
+        -- Scroll only the screen 10% of the window height downwards
+        scroll(0.1, {move_cursor=false, duration=200})
+        -- Scroll 20 lines upwards using the "sine" easing function.
+        scroll(-20, {move_cursor=true, duration=400, easing="sine"})
+<
+
+HELPER FUNCTIONS                                     *neoscroll-helper-functions*
+
+The following functions are |neoscroll.scroll()| wrapper functions that
+emulate (neo)vim scrolling motions.
+
+                                                             *neoscroll.ctrl_u()*
+                                                             *neoscroll.ctrl_d()*
+                                                             *neoscroll.ctrl_b()*
+                                                             *neoscroll.ctrl_f()*
+neoscroll.{ctrl_u, ctrl_d, ctrl_b, ctrl_f}({opts})
+    |neoscroll.scroll()| wrapper functions that injects the number of `lines`
+    corresponding to the <C-u>, <C-d>, <C-b> and <C-f> respectively.
+    Parameters: ~
+      • {opts} (type: `table`)
+          Scrolling behaviour options.
+          • {move_cursor} (type: `boolean` default: `true`)
+              Scroll and move the cursor simultaneously. When `true` scrolling
+              downwards will stop when the cursor line is the last line of the
+              file unless |stop_eof| is set to `true`.
+          • {duration} (type: `integer`)
+              Duration of the scrolling animation in milliseconds.
+          • {easing} (type: `string`)
+              name of the easing function to use for the scrolling animation.
+              If no name is passed the easing function defined in `easing`
+              option defined in |neoscroll-setup| will be used. Check
+              |neoscroll-easing-functions| for a list of supported easing
+              function names.
+          • {info} (type: `table`)
+              Optional parameter that will be passed to the |pre_hook| and
+              |post_hook| functions. Useful to differentiate different
+              scrolling animations or to pass additional information to the
+              hook functions.
+          • {winid} (type: `integer`)
+              Identifier of the window to scroll.
+
+
+                                                                 *neoscroll.zt()*
+                                                                 *neoscroll.zz()*
+                                                                 *neoscroll.zb()*
+neoscroll.{zt,zz,zb}({opts})
+    |neoscroll.scroll()| wrapper functions to mimic |zt|, |zz| and |zb| scrolling
+    commands.
+    Parameters: ~
+      • {opts} (type: `table`)
+          Scrolling behaviour options.
+          • {half_win_duration} (`integer|float`)
+              The `half_win_duration` argument is the time it would take to
+              scroll half of the window. The `time` argument passed to the
+              `scroll()` function is calculated as: >
+                  half_screen_time * (lines_to_scroll/(window_lines/2))
+<              where `lines_to_scroll` is the number of lines to be scrolled and
+              `window_lines` is the number of lines of the window. This ensures
+              that when there are very few lines to scroll the duration of the
+              scrolling animation is proportionately shorter.
+          • {easing}: name of the easing function to use for the scrolling
+              animation. If no name is passed the easing function defined in
+              `easing` option defined in |neoscroll-setup| will be used. Check
+              |neoscroll-easing-functions| for a list of supported easing
+              function names.
+          • {info} (type: `table`)
+              Optional parameter that will be passed to the |pre_hook| and
+              |post_hook| functions. Useful to differentiate different
+              scrolling animations or to pass additional information to the
+              hook functions.
+          • {winid} (type: `integer`)
+              Identifier of the window to scroll.
+
+
+===============================================================================
+COMMANDS                                                     *neoscroll-commands*
+
+|NeoscrollEnablePM| / |NeoscrollDisablePM|
+    Enable/disable "Performance Mode" which disables Tree-sitter and regular
+    syntax highlighting while scrolling. Particularly useful for large files,
+    slow machines or heavy regex syntax highlighting.
+    These commands are the same as |NeoscrollEnableBufferPM| and
+    |NeoscrollDisableBufferPM|.
+
+|NeoscrollEnableBufferPM| / |NeoscrollDisableBufferPM|
+    Enable/disable "Performance Mode" for the current buffer.
+
+|NeoscrollEnableGlobalPM| / |NeoscrollDisableGlobalePM|
+    Enable/disable "Performance Mode" for all buffers.
+
+
+===============================================================================
+OPTIONS                                                       *neoscroll-options*
+
+|mappings| (
+    type: `table`,
+    default: `{'<C-u>', '<C-d>', '<C-b>', '<C-f>',`
+              `'<C-y>', '<C-e>', 'zt', 'zz', 'zb'}`
+)
+    All the keys defined in this option will be mapped to their corresponding
+    default scrolling animation. To no map any key pass an empty table (`{}`).
+
+|hide_cursor| (type: `boolean`, default: `true`)
+    If 'termguicolors' is set hide the cursor while scrolling.
+
+|stop_eof| (type: `boolean`, default: `true`)
+    When `move_cursor` is `true` scrolling downwards will stop when the bottom
+    line of the window is the last line of the file.
+
+|use_local_scrolloff| (type: `boolean`, default: `false`)
+    Due to the Neovim #13964 bug if the local 'scrolloff' option is not
+    explicitly set it doesn't inherit the global value of the option, instead
+    it stores a garbage (random) value. Therefore Neoscroll cannot make
+    assumptions about what scope to use so it will use the global scope by
+    default unless this option is set to `true`.
+
+|respect_scrolloff| (type: `boolean`, default: `false`)
+    The cursor stops at the scrolloff margin. Try combining this option with
+    either |stop_eof| or |cursor_scrolls_alone| (or both).
+
+|cursor_scrolls_alone| (type: `boolean`, default: `true`)
+    The cursor will keep on scrolling even if the window cannot scroll
+    further.
+
+|duration_multiplier| (type: `float`, default: `1.0`)
+  The duration of all animations will be multiplied by this factor.
+  Increasing/decreasing this value results in slower/faster animations.
+
+|easing| (type: `string`, default: `nil`)
+    Name of the easing function to use by default in all scrolling animamtions.
+    `scroll()` that don't provide the optional `easing` argument will use this
+    easing function. If set to `nil` (the default) no easing function will be
+    used in the scrolling animation (constant scrolling speed).
+
+|pre_hook| (type: `function`, default: `nil`)
+    Function to run before the scrolling animation starts. The function will
+    be called with the `info` parameter which can be optionally passed to
+    `scroll()` (or any of the provided wrappers). This can be used to
+    conditionally run different hooks for different types of scrolling
+    animations.
+
+|post_hook| (type: `function`, default: `nil`)
+    Equivalent to |pre_hook| but the function will run after the scrolling
+    animation ends.
+
+|performance_mode| (type: `boolean`, default: `false`)
+    Enables "Performance Mode" on all buffers.
+
+|ignored_events| (type: `table`, default: `{'WinScrolled', 'CursorMoved'}`)
+    Neoscroll ignores the events in this list during the scrolling animation.
+    Pass an empty table (`{}`) if you do not want any events to be ignored.
+    Note: `WinScrolled` and `CursorMoved` will still trigger a single time at
+    the end of the scrolling animation.
+
+===============================================================================
+EASING FUNCTIONS                                     *neoscroll-easing-functions*
+
+Neoscroll supports the following easing functions:
+  • `quadratic`
+  • `cubic`
+  • `quartic`
+  • `quintic`
+  • `circular`
+  • `sine`
+
+
+===============================================================================
+DEFAULT MAPPINGS                                     *neoscroll-default-mappings*
+
+The following mappings are valid for normal, visual and select mode.
+
+      Key     Function ~
+     <C-u>    scroll(-vim.wo.scroll, true, 350)
+     <C-d>    scroll( vim.wo.scroll, true, 350)
+     <C-b>    scroll(-vim.api.nvim_win_get_height(0), true, 550)
+     <C-f>    scroll( vim.api.nvim_win_get_height(0), true, 550)
+     <C-y>    scroll(-0.10, false, 100)
+     <C-e>    scroll( 0.10, false, 100)
+      zt      zt(200)
+      zz      zz(200)
+      zb      zb(200)
+
+
+===============================================================================
+vim:tw=78:ts=4:et:ft=help:norl:

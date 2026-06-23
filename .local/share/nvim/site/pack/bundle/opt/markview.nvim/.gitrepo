@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/OXY2DEV/markview.nvim
+	branch = main
+	commit = 1861f959599ae03cfd59f56222a542035b0cd947
+	parent = 7de6f6be4a5f0c94d789ac1e03e10c35258d0d0c
+	method = merge
+	cmdver = 0.4.9

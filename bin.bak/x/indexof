@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# sort | awk "{print index(\$0, \"$1\")}"
+sort | grep -n "^$1$" | cut --delimiter=":" --fields=1

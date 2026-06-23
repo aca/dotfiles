@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/yehuohan/hop.nvim.git
+	branch = main
+	commit = 2b53ab8f88800a21c60b728d64cdb4fd1f8a6cc0
+	parent = 3203b03e24f63a7f2228fc3e8a9eb0986283d839
+	method = merge
+	cmdver = 0.4.9

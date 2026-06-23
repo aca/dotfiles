@@ -1,0 +1,48 @@
+name: documents
+
+on:
+  push:
+    branches:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-sources:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Neovim
+        run: |
+          sudo snap install nvim --classic
+          nvim --version
+
+      - name: Install dependencies
+        run: |
+          mkdir -p ~/.local/share/nvim/site/pack/vendor/start
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+          ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
+
+      # - name: Generating docs
+      #   run: |
+      #     make gendoc 
+      #
+      # - name: Commit and push documentation
+      #   uses: ./.github/actions/commit-and-push
+      #   with:
+      #     commit-message: 'Update Vimdoc based on Lua source'
+      #     files: 'doc/*'
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update README
+        run: |
+          make update_readme
+
+      - name: Commit and push README
+        uses: ./.github/actions/commit-and-push
+        with:
+          commit-message: 'Update README based on pkg.json'
+          files: 'README.*md'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

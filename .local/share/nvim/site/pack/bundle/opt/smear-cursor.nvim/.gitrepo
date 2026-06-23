@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/sphamba/smear-cursor.nvim.git
+	branch = main
+	commit = c85bdbb25db096fbcf616bc4e1357bd61fe2c199
+	parent = 38a84403a398d9afbe9c3d5eac7e719e357dfef1
+	method = merge
+	cmdver = 0.4.9

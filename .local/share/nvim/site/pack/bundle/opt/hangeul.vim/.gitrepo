@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lifthrasiir/hangeul.vim
+	branch = master
+	commit = cb09dcb53e91be89b6367065b8fa64a3ef0dd783
+	parent = 8c07d12fd2c8e543dd0fc518a5a49920a7ade340
+	method = merge
+	cmdver = 0.4.9

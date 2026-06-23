@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/hrsh7th/nvim-cmp.git
+	branch = main
+	commit = a1d504892f2bc56c2e79b65c6faded2fd21f3eca
+	parent = 5f92f445c126b9887dbbccf1b6871f18114fc84e
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ojroques/nvim-osc52
+	branch = main
+	commit = 04cfaba1865ae5c53b6f887c3ca7304973824fb2
+	parent = d0141368a57492e0b07deb3f0483e580abfcfaa2
+	method = merge
+	cmdver = 0.4.9

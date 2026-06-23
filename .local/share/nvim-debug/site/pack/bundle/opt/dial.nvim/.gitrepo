@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/monaqa/dial.nvim.git
+	branch = master
+	commit = f2634758455cfa52a8acea6f142dcd6271a1bf57
+	parent = ab8b7665c5c3d75a31542b3c0efb83ff7e6c63cb
+	method = merge
+	cmdver = 0.4.9

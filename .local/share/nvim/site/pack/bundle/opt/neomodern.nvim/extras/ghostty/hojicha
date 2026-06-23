@@ -1,0 +1,26 @@
+# name: hojicha colors for ghostty
+# url: https://github.com/ghostty-org/ghostty
+# upstream: https://github.com/cdmill/neomodern.nvim/raw/main/extras/
+# author: Casey Miller
+
+palette = 0=#1F1E1C
+palette = 1=#6E665E
+palette = 2=#5A6458
+palette = 3=#8D8468
+palette = 4=#666C78
+palette = 5=#6E6C7D
+palette = 6=#896956
+palette = 7=#68605F
+palette = 8=#68605F
+palette = 9=#8a7f76
+palette = 10=#717d6e
+palette = 11=#b0a582
+palette = 12=#808796
+palette = 13=#8a879c
+palette = 14=#ab836c
+palette = 15=#AEA09F
+background = #171614
+foreground = #AEA09F
+cursor-color = #AEA09F
+selection-background = #2A2927
+selection-foreground = #8a879c

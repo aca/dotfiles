@@ -1,0 +1,1007 @@
+.TH YTFZF 1 "2021 September" "ytfzf 2.0"
+
+.SH NAME
+ytfzf \- search and play videos
+
+.SH SYNOPSIS
+.SY ytfzf
+.RI [ options ]
+.RI [ search\-query ]
+
+.SY ytfzf
+.RI [ options ]
+.RI \-
+
+.SH DESCRIPTION
+.PP
+.B ytfzf
+is a POSIX script that helps you find videos
+from Youtube, Peertube or Odysee
+(without API)
+and opens/downloads them using mpv/youtube\-dl.
+
+.SH SEARCH OPERATORS
+
+.PP
+Search operators are special search queries.
+.PP
+Standard search operators include:
+.RS
+.TP
+.IR :help
+Prints a possibly brief description of how to use the scraper.
+.RE
+.PP
+Addon scrapers may have more or less search operators
+
+.SH SHORTCUTS
+
+.PP
+These shortcuts will apply in any menu that supports it.
+.br
+The only menu that currently supports it is fzf.
+.br
+Shortcuts starting with alt, will exit the menu, shortcuts starting with ctrl will not.
+.br
+To change any of the defaults set the corresponding variable in your configuration file.
+
+.TP
+.BR download
+alt-d (download_shortcut)
+
+.TP
+.BR "watch video"
+alt-v (video_shortcut)
+
+.TP
+.BR "audio only"
+alt-m (audio_shortcut)
+
+.TP
+.BR "detatch"
+alt-e (detach_shortcut)
+
+.TP
+.BR "print link"
+alt-l (print_link_shortcut)
+
+.TP
+.BR "show formats"
+alt-f (show_formats_shortcut)
+
+.TP
+.BR "show all info"
+alt-i (info_shortcut)
+
+.TP
+.BR "new search"
+alt-s (search_again_shortcut)
+
+.TP
+.BR "scrape next page"
+ctrl-p (next_page_action_shortcut)
+
+.SH OPTIONS
+
+.PP
+Information
+.RS
+.TP
+.BR \-h ", " \-\-help
+Show help text.
+.TP
+.BR \-\-version
+Show ytfzf's version.
+.RE
+
+.PP
+How to play the selected videos.
+.RS
+.TP
+.BR \-d ", " \-\-download
+Download the selected videos.
+This can also be set in the config file with
+.BR is_download .
+.TP
+.BR \-m ", " \-\-audio\-only
+Play audio only.
+This can also be set in the config file with
+.BR is_audio_only .
+.TP
+.BR \-f ", " \-\-formats
+Show available formats before proceeding.
+.TP
+.BR \-\-format\-selection=\fIscreen\fR
+The format selection screen type to use.
+.PP
+.RS
+Types:
+.RS
+.TP
+.IR normal
+.TP
+.IR simple
+.RE
+.RE
+.RS
+This can also be set in the config file with
+.BR format_selection_screen .
+.RE
+.TP
+.BR \-\-format\-sort=\fIsort\fR
+The \-\-format\-sort to use in ytdl.
+This can also be set in the config file with
+.BR format_selection_sort .
+.TP
+.BR \-\-video\-pref=pref
+Set the ytdl video format to pref.
+This can also be set in the config file with
+.BR video_pref .
+.TP
+.BR \-\-audio\-pref=pref
+Set the ytdl audio format to pref.
+This can also be set in the config file with
+.BR audio_pref .
+.TP
+.BR \-\-ytdl\-pref=pref
+Set the ytdl format to pref.
+This can also be set in the config file with
+.BR ytdl_pref .
+.TP
+.BR \-\-detach
+Detach the video player from the terminal.
+This can also be set in the config file with
+.BR is_detach .
+.TP
+.BR \-u ", " \-\-url\-handler=handler
+The function/program to use as a url handler.
+This can also be set in the config file by adding
+.BR load_url_handler " <handler>" .
+.TP
+.BI \-I " option"
+Instead of playing the selected videos,
+get information about them in the selected format.
+The available options are:
+.RS
+.TP
+.IR L | l | link
+Prints the URL of the selected videos.
+.TP
+.IR VJ | vj | video\-json
+Prints the json of the selected videos.
+.TP
+.IR J | j | json
+Prints the json of all the videos in the search results.
+.TP
+.IR F | f | format
+Prints the video format being used.
+.TP
+.IR R | r | raw
+Prints the data of the selected videos, as appears in the menu.
+.RE
+.TP
+.B \-L
+Alias for \-I L
+.TP
+.BR \-\-info\-action=\Iaction
+The action to do when \-\-info\-wait is 1.
+.BR info_wait_action .
+.TP
+.BR \-\-info\-wait=\fInumber
+Whether or not to wait after printing info requested with \-I or \-L.
+This can also be set in the config file with
+.BR info_wait .
+.RE
+.TP
+.BR \-\-url\-handler\-opts=opts
+Opts to pass to the url handler, by default this will pass extra opts to mpv.
+This can also be set in the config file with
+.BR url_handler_opts .
+.RE
+
+.PP
+Menu options
+.RS
+.TP
+.BR \-l ", " \-\-loop
+Reopen the menu when the video stops playing.
+This can also be set in the config file with
+.BR is_loop .
+.TP
+.BR \-s ", " \-\-search\-again
+After closing fzf make another search.
+This can also be set in the config file with
+.BR search_again .
+.TP
+.BR \-t ", " \-\-show\-thumbnails
+Show thumbnails.
+Doesn't work with \fB\-D\fR or \fB\-H\fR.
+This can also be set in the config file with
+.BR show_thumbnails .
+.TP
+.BR \-\-async\-thumbnails
+Whether or not to download thumbnails asynchronously.
+.br
+Downloading asynchronously will open the menu before all thumbnails are downloaded.
+This can also be set in the config file with
+.BR async_thumbnails .
+.TP
+.BR \-\-skip\-thumb\-download
+Whether or not to skip the thumbnail download.
+This is used if you want to not have thumbnails, or use custom thumbnails in $YTFZF_CUSTOM_THUMBNAILS_DIR.
+.br
+For more info see CUSTOM THUMBNAILS in ytfzf(5)
+.br
+This can also be set in the config file with
+.BR skip_thumb_download .
+.TP
+.BR \-\-notify-playing
+Show notifications when a video is about to be played, and other notifications relating to playing videos.
+This can also be set in the config file with
+.BR notify_playing .
+.TP
+.BR \-\-preview\-side=side
+The preview side in fzf.
+.br
+Options:
+.RS
+.TP
+.IR left
+.TP
+.IR right
+.TP
+.IR up
+.TP
+.IR down
+.RE
+This can also be changed in the config file with
+.BR fzf_preview_side .
+.TP
+.BR \-T ", " \-\-thumb\-viewer=program
+Use program for displaying thumbnails.
+.br
+Built-in programs:
+.RS
+.TP
+.IR chafa, chafa-16, chafa-tty
+chafa, chafa with 16 colors, chafa with 4 colors.
+.TP
+.IR catimg, catimg-256
+catimg, catimg with 256 colors.
+.TP
+.IR imv
+Good with tiling window managers.
+.TP
+.IR mpv
+Similar to imv.
+.TP
+.IR swayimg
+Only works on the sway wayland compositor.
+.TP
+.IR swayimg-hyprland
+Only works on the hyprland compositor.
+Uses swayimg to render an image.
+.TP
+.IR <custom>
+Additional viewers can be put into $YTFZF_THUMBNAIL_VIEWERS_DIR.
+.RE
+This can also be changed in the config file by adding
+.br
+.BR load_thumbnail_viewer " <viewer>" .
+.TP
+.BR \-D ", " \-\-external\-menu
+Use an external menu instead of fzf.
+The default is \fIdmenu\fR.
+This can also be set in the config file with
+.BR interface="ext" .
+.TP
+.BR \-i ", " \-\-interface=interface
+Use a custom interface script, which would be in $YTFZF_CUSTOM_INTERFACES_DIR.
+This can also be set in the config file by adding
+.BR load_interface " <interface>" .
+.TP
+.BR \-\-sort
+Sorts videos (after scraping) by upload date.
+This can also be set in the config file by adding
+.BR is_sort .
+.TP
+.BR \-\-sort\-name=name
+Calls a function set in $YTFZF_CONFIG_FILE. Or sources a script in $YTFZF_SORT_NAMES_DIR (if it exists).
+See SORT NAMES in ytfzf(5) for more information.
+.TP
+.BR \-\-fancy\-subs
+Whether or not to have a separator between each subscription.
+When this option is used it automatically disables \-\-sort as it will mess up this option.
+.br
+This can also be set in the config file with
+.BR fancy_subs .
+.TP
+.BR \-\-disable\-back
+Whether or not to disable the back button in submenus.
+.br
+This can also be set in the config file with
+.BR enable_back_button .
+.BR \-\-disable\-actions
+Whether or not to disable actions such as submenus and the back button.
+.br
+This can also be set in the config file with
+.BR enable_actions .
+.TP
+.BR \-\-disable\-submenus
+Whether or not to disable submenus.
+.br
+Submenus are the menus that happen after a playlist or channel (currently only supported by youtube/invidious) is selected
+.br
+This can also be set in the config file with
+.BR enable_submenus .
+.TP
+.BR \-\-keep\-vars
+Whether or not options passed into ytfzf also get passed into submenus.
+This can also be set in the config file with
+.BR keep_vars .
+.TP
+.BR \-\-submenu\-opts=opts
+The opts to use in the submenu.
+.br
+This can also be set in the config file with
+.BR submenu_opts .
+.TP
+.BR \-\-submenu\-scraping\-opts=opts
+.B DEPRECATED "(use \-\-submenu\-opts instead)"
+Does the same thing as \-\-submenu\-opts.
+.br
+This can also be set in the config file with
+.BR submenu_scraping_opts .
+.RE
+
+.PP
+Auto selecting
+.RS
+.TP
+.BR \-a ", " \-\-auto\-select
+Auto\-play the first result.
+.TP
+.BR \-A ", " \-\-select\-all
+Select all results.
+.TP
+.BR \-r ", " \-\-random\-select
+Auto\-play a random result.
+.TP
+.BR \-S " \fIsed address\fR" ", " "\-\-select=\fIsed address\fR"
+Auto\-play a specific video.
+.PP
+.RS
+Examples:
+.RS
+.TP
+.IR 2
+Select the second video
+.TP
+.IR $
+Select the last video
+.TP
+.IR /^h/
+Select all videos starting with h
+.RE
+.RE
+
+.TP
+.BR \-n " \fInumber\fR" ", " \-\-link\-count=\fInumber
+The \fInumber\fR of videos to select with \fB\-a\fR or \fB\-r\fR.
+.RE
+
+
+.PP
+Scrapers
+.RS
+.TP
+.BI \-c " scrapers" ", " "\-\-scrape=scrapers"
+Set which scraper to use.
+Multiple scrapers can be separated by comma (,).
+The currently supported builtin scrapers are:
+.RS
+.TP
+.IR youtube | Y
+Scrapes invidious' api with a search query
+.TP
+.IR youtube-channel
+Scrapes a youtube channel with youtube
+.TP
+.IR invidious-channel
+Scrapes a youtube channel with $invidious_instance
+.br
+When this scrape is active the search query is the link to a channel.
+.TP
+.IR video-recommended | R
+Scrapes recommended videos from an invidious video link
+.TP
+.IR youtube-playlist | invidious-playlist
+Scrapes a youtube playlist
+.br
+When this scrape is active the search query is the link to a playlist.
+.TP
+.IR youtube\-trending | T
+Scrapes invidious' api to get youtube trending.
+.br
+When this scrape is active the search query is the tab of trending to scrape.
+.TP
+.IR from\-cache
+Scrapes a previous scrape that happened using \-\-keep\-cache from the saved cache.
+.TP
+.IR M | multi
+Uses ytfzf recursively to scrape multiple things with multiple different options
+.br
+See \fIytfzf -c M :help\fR for more info
+.br
+Tabs:
+.RS
+.TP
+.IR gaming
+.TP
+.IR music
+.TP
+.IR movies
+.RE
+.TP
+.IR youtube\-subscriptions | S | SI
+.I SI
+Scrapes invidious for channels instead of youtube. Scraping youtube may result in rate limiting.
+.TP
+.IR scrape\-list | SL
+uses your $YTFZF_SCRAPELIST_FILE as scrape and search input.
+See "scrape lists" ytfzf(5) for more information.
+.TP
+.IR peertube | P
+.TP
+.IR odysee | lbry | O
+.TP
+.IR history | H
+(Only if $enable_hist is enabled)
+.TP
+.IR url | U
+Opens the url in the video player and exits
+.TP
+.IR u
+Treats the url as an item, and will open fzf, or the external menu.
+.TP
+.IR comments
+Scrapes the comments of a video link from youtube
+.RE
+.TP
+.BR \-H ", " \-\-history
+Alias for \-c H.
+.br
+Scrapes history file.
+.TP
+.BI "\-\-scrape+=scrapers"
+Same as \-c, but keeps the default scrape as well.
+.TP
+.BI \-\-scraper-=scrapers
+Removes scraper from list of scrapers to use
+.TP
+.BR \-\-multi\-search
+Whether or not to use multi search.
+.br
+To use multi search, separate each search with a comma, this works well when using multiple scrapers.
+.br
+This can also be set in the config file with
+.BR multi_search .
+.TP
+.B \-\-force\-youtube
+When using the \fIyoutube\fR scraper,
+convert the invidious links to youtube links before playing/downloading.
+.TP
+.B \-\-force\-invidious
+When using the \fIyoutube\fR scraper,
+use whatever invidious instance was chosen instead of converting to youtube links.
+.RE
+
+.PP
+Scraper Options
+.RS
+.PP
+Currently, \-\-video\-duration, \-\-type, \-\-thumbnail\-quality, and \-\-features only applies to the scrape: youtube/Y
+.TP
+.BI "\-\-pages=amount"
+Amount of pages to scrape on youtube/invidious, and the comments scraper.
+This can also be set in the config file with
+.BR pages_to_scrape .
+.TP
+.BI "\-\-pages-start=page"
+The page to start on.
+This can also be set in the config file with
+.BR pages_start .
+.TP
+.BI "\-\-max\-threads=amount"
+Amount of threads that can be used to scrape youtube search, playlists, and channels.
+(this does not apply to the subscription scraper).
+.br
+This can also be set in the config file with
+.BR max_thread_count .
+.TP
+.BI "\-\-single\-threaded"
+Set the max_thread_count to 1, this has the same effect as making everything single threaded.
+(this does not apply to the subscription scraper).
+.br
+This can also bet set in the config file with
+.BR max_thread_count=1 .
+.TP
+.BI "\-\-odysee\-video\-count=amount"
+Amount of videos to scrape on odysee.
+This can also be set in the config file with
+.BR odysee_video_search_count .
+.TP
+.BR "\-\-nsfw"
+Whether or not to search for nsfw videos.
+.br
+Only works with odysee/O
+This can also be set in the config file with
+.BR nsfw .
+.TP
+.BI "\-\-sort\-by=sort"
+Works with youtube/Y and odysee/O.
+.br
+To use a different sort for each scrape, use comma (,) to separate the sorts.
+.br
+As apposed to \-\-sort, this happens during the search, not after.
+Results should sort by:
+.RS
+.TP
+.IR relevance
+.TP
+.IR rating " (youtube only)"
+.TP
+.IR upload_date
+.TP
+.IR oldest_first " (odysee only)"
+.TP
+.IR view_count " (youtube only)"
+.RE
+.TP
+.BI "\-\-upload\-date=time\-frame"
+Works with youtube/Y and odysee/O
+.br
+To use a different sort for each scrape, use comma (,) to separate the dates.
+.br
+Search for videos within the last:
+.RS
+.TP
+.IR hour
+.TP
+.IR today
+.TP
+.IR week
+.TP
+.IR month
+.TP
+.IR year
+.RE
+.TP
+.BI "\-\-video\-duration=duration"
+Whether or not to search for long or short videos.
+Possible options:
+.RS
+.TP
+.IR short
+.TP
+.IR long
+.RE
+.TP
+.BI "\-\-type=type"
+The type of results to get.
+.RS
+.TP
+.IR video
+.TP
+.IR playlist
+.TP
+.IR channel
+.TP
+.IR all
+.RE
+.TP
+.BI \-\-thumbnail\-quality= quality
+Select the quality of the thumbnails.
+Available options:
+.RS
+.TP
+.IR maxres
+.TP
+.IR maxresdefault
+.TP
+.IR sddefault
+.TP
+.IR high " (default)"
+.TP
+.IR medium
+.TP
+.IR default
+.TP
+.IR start
+The first frame of the video (low quality)
+.TP
+.IR middle
+The middle frame of the video (low quality)
+.TP
+.IR end
+The end frame of the video (low quality)
+.RE
+.TP
+.BI "\-\-features=features"
+The features to have on a video (comma separated).
+.RS
+.TP
+.IR hd
+.TP
+.IR subtitles
+.TP
+.IR creative_commons
+.TP
+.IR 3d
+.TP
+.IR live
+.TP
+.IR 4k
+.TP
+.IR 360
+.TP
+.IR location
+.TP
+.IR hdr
+.RE
+.TP
+.BI "\-\-region"
+The region (country code) to search.
+.br
+Supported by the scrapes youtube/Y and youtube-trending/T
+.RE
+
+.PP
+Miscellaneous
+.RS
+.TP
+.BI "\-\-ii=instance", "\-\-invidious\-instance=instance"
+Use a different invidious instance.
+.TP
+.BI "\-\-rii", "\-\-refresh\-inv-instance"
+If this flag is provided, refresh instance cache with healthy instances using Invidious API
+.TP
+.BI "\-\-available\-inv\-instances"
+Prints the invidious instances that may be used and exits.
+.TP
+.BI "\-\-channel\-link=link"
+Converts channel links from 'https://youtube.com/c/name' to 'https://youtube.com/channel/id'
+.TP
+.BR \-q
+Use search history instead of a search.
+This can also be set in the config file with
+.BR search_source=hist .
+.TP
+.BR \-\-search\-source
+The source to use for the search query. Valid values include:
+.RS
+.TP
+.RB args
+Use commandline arguments as the search (default)
+.TP
+.RB prompt
+Ask for a search via a prompt
+.TP
+.RB hist
+Use search history.
+.TP
+.RB next
+Used internally to use the next search in the list when \fBmulti_search\fR is enabled.
+.TP
+.RB fn-args
+Used internally to use the function arguments passed to the function as the source.
+.TP
+.RB <custom>
+A custom search source may be used if a function called get_search_from_<source> exists.
+The function must set the _search variable to a search.
+.RE
+.TP
+.BR \-x ", " \-\-history\-clear=<search|watch>
+Clear search and watch history (if \-x or \-\-history\-clear is used)
+.br
+To specify either search or watch history use \-\-history\-clear=<search|watch>
+.TP
+.BR \-\-keep\-cache
+Whether or not to keep cache after
+.I ytfzf
+exists.
+This can also be set in the config file with
+.BR keep_cache .
+.TP
+.BI \-\-ytdl\-opts= option
+Pass command\-line options to youtube\-dl when downloading.
+.EX
+.RB "example: " \-\-ytdl\-opts= "\fI\"\-o ~/Videos/%(title)s.%(ext)s\""
+.EE
+.TP
+.BI \-\-ytdl\-path= path
+Specify the path to youtube\-dl or a fork of youtube\-dl for downloading.
+.br
+This can also be set in the config file with
+.BR ytdl_path .
+.TP
+.BI \-e ", " \-\-ext=extension
+Load an extension.
+.br
+You may also add
+.I "load_extension extension"
+to your config file.
+.TP
+.BI \-\-list\-addons
+Lists all addons and exits.
+.TP
+.BI \-\-thumbnail\-log
+Sets the file to log thumbnail debug info to.
+This can also be set in the config file with
+.BR thumbnail_debug_log .
+.RE
+
+.SH CONFIGURATION
+The default behaviour of \fBytfzf\fR can be changed by modifying the config file.
+See \fBytfzf\fR(5) for more information.
+
+.SH ADDONS
+.PP
+There are a few types of addons,
+.br
+.B interfaces (\-i, \-\-interface)
+.br
+.B scrapers (\-c, \-\-scrape)
+.br
+.B sort-names (\-\-sort\-name)
+.br
+.B thumbnail-viewers (\-T, \-\-thumb\-viewer)
+.br
+.B url-handlers (\-u, \-\-url_handler)
+.br
+.B extensions (\-e, \-\-ext)
+
+.PP
+To install an addon, place the addon in
+.I $YTFZF_SYSTEM_ADDON_DIR/<addon-type>/addon-name
+.PP
+To use an addon, use one of the options listed above, or add
+.br
+.B load_interface <interface>
+.br
+.B scrape=<scraper>
+.br
+.B load_sort_name <sort-name>
+.br
+.B load_thumbnail_viewer <viewer>
+.br
+.B load_url_handler <url-handler>
+.br
+.B load_extension <ext>
+.br
+In your configuration file
+
+
+.SH EXIT CODES
+.TP
+.B 0
+Success
+.TP
+.B 1
+General error
+.TP
+.B 2
+Invalid \-\-option, option value, or configuration error.
+.TP
+.B 3
+Missing dependency
+.TP
+.B 5
+Empty search
+
+.SH ENVIRONMENT
+.TP
+.B $YTFZF_CONFIG_DIR
+The directory to store config files.
+The default is
+.I "$XDG_CONFIG_HOME/ytfzf (or ~/.config/ytfzf)"
+.TP
+.B $YTFZF_CONFIG_FILE
+The configuration file to use.
+The default is
+.I $YTFZF_CONFIG_DIR/conf.sh
+.TP
+.B $YTFZF_SUBSCRIPTIONS_FILE
+The subscriptions file to use.
+The default is
+.I $YTFZF_CONFIG_DIR/subscriptions
+.TP
+.B $YTFZF_SCRAPELIST_FILE
+The scrapelist file to use.
+The default is
+.I $YTFZF_CONFIG_DIR/scrapelist
+.TP
+.B $YTFZF_THUMBNAIL_VIEWERS_DIR
+The directory to keep additional thumbnail viewers.
+The default is
+.I $YTFZF_CONFIG_DIR/thumbnail-viewers
+.TP
+.B $YTFZF_CUSTOM_SCRAPERS_DIR
+The directory to store custom scraper scripts in
+The default is
+.I $YTFZF_CONFIG_DIR/scrapers
+.TP
+.B $YTFZF_CUSTOM_INTERFACES_DIR
+The directory to store custom interface scripts in
+the default is
+.I $YTFZF_CONFIG_DIR/interfaces
+.TP
+.B $YTFZF_SORT_NAMES_DIR
+The directory to store custom sort-name scripts in
+the default is
+.I $YTFZF_CONFIG_DIR/sort-names
+.TP
+.B $YTFZF_URL_HANDLERS_DIR
+The directory to store custom url handlers in
+the default is
+.I $YTFZF_CONFIG_DIR/url-handlers
+.TP
+.B $YTFZF_CUSTOM_THUMBNAILS_DIR
+The directory to store custom thumbnails
+the default is
+.I $YTFZF_CONFIG_DIR/thumbnails
+.TP
+.B $YTFZF_EXTENSIONS_DIR
+The directory to store extensions
+the default is
+.I $YTFZF_CONFIG_DIR/extensions
+.TP
+.B $YTFZF_SYSTEM_ADDON_DIR
+The directory to store system installed addons.
+The default may vary depending on how you installed ytfzf.
+.TP
+.B $YTFZF_CHECK_VARS_EXISTS
+Whether or not to check if variables are set in the environment before setting default values.
+The default is
+.I 1
+.TP
+.B $YTFZF_TEMP_DIR
+The temporary directory
+The default is is
+.I $TMPDIR/ytfzf-$user-id.
+.br
+If $TMPDIR is not defined it will use /tmp
+
+.SH FILES
+.TP
+.I ~/.config/ytfzf/conf.sh
+The configuration file. If submenu-conf.sh does not exist, this will also be used as the config in submenus
+.TP
+.I ~/.config/ytfzf/submenu-conf.sh
+The submenu configuration file
+.TP
+.I ~/.config/ytfzf/subscriptions
+The subscriptions file.
+
+.SH CACHE
+.PP
+Each instance of ytfzf has its own directory in $YTFZF_TEMP_DIR, if $keep_cache is enabled, it uses $cache_dir instead.
+.br
+The structure of each instance folder looks like this: (<> represents a placeholder, ? means optional)
+.br
+If an addon scraper is used, it may use undocumented files.
+.RS
+.EX
+$cache_dir
+| \-\- watch_hist
+| \-\- <search>\-<pid>
+|  | \-\- created-at
+|  | \-\- searches.list
+|  | \-\- post-scrape
+|  | \-\- <submenu-search>-<submenu-pid>?
+|  | \-\- thumbnails?
+|  | \-\- environment
+|  | \-\- tmp
+|  |  | \-\- curl_config
+|  |  | \-\- <scrape>.html
+|  |  | \-\- <scrape>.json
+|  |  | \-\- <scrape>.json.final?
+|  |  | \-\- menu_keypress
+|  |  | \-\- all-ids.list
+|  |  | \-\- downloaded-ids.list
+|  | \-\- ids
+|  | \-\- videos_json
+.EE
+.RE
+.PP
+An explanation of each directory/file:
+.RS
+.TP
+.IR created-at
+Contains the unix timestamp when the folder was created
+.TP
+.IR searches.list
+A list of all searches
+.br
+If \-\-multi\-search is enabled, each search is separated by a new line
+.TP
+.IR watch_hist
+The watch history file.
+.TP
+.IR <search>\-<pid>
+An instance's parent folder.
+.br
+If no search was given it uses the name "SCRAPE\-<scrape>\-<pid>" instead.
+.TP
+.IR post-scrape
+A folder that contains files relating to the scraping of a selected result.
+.TP
+.IR <submenu\-search>\-<submenu\-pid>
+Created when a submenu is opened (eg: when a channel/playlist is selected).
+.TP
+.IR thumbnails
+Stores the thumbnails for the instance (only with \-t).
+.TP
+.IR environment
+Every variable that is set and it's value, in that instance of ytfzf
+.TP
+.IR tmp
+Stores less important temporarily used files.
+.TP
+.IR curl_config
+The configuration file for curl for downloading thumbnails (only with \-t).
+.TP
+.IR <scrape>.html
+For scrapers that need to scrape websites, this is the output of curl.
+.TP
+.IR <scrape>.json
+The json scraped from a website.
+.TP
+.IR <scrape>.json.final
+The final json scraped from a website. (Is used when multiple threads are used for scraping)
+.TP
+.IR menu_keypress
+The key pressed in fzf.
+.TP
+.IR all-ids.json
+File that contains all scraped ids. Mainly to compare against downloaded-ids.json
+.TP
+.IR downloaded-ids.json
+File that contains which thumbnails have been downloaded
+.TP
+.IR ids
+The file that stores the id of each selected video.
+.TP
+.IR videos_json
+The file that stores a json of all videos displayed in fzf.
+.br
+This file is very helpful for making playlists as it is in the same format.
+
+.SH AUTHOR
+Originally written by pystardust.
+.IR < https://github.com/pystardust >
+
+.SH BUGS
+Report bugs on github
+.IR < https://github.com/pystardust/ytfzf/issues >
+
+.SH SEE ALSO
+.BR ytfzf (5)
+.BR youtube\-dl (1),
+.BR mpv (1)
+.BR fzf (1)
+.BR dmenu (1)
+
+.SH COPYRIGHT
+.PP
+\fBytfzf\fR is free software:
+you can redistribute it and/or modify it under the terms of the
+\fIGNU General Public License version 3\fR as published by the Free Software Foundation.
+.PP
+\fBytfzf\fR is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License along with \fBytfzf\fR.
+If not, see
+.IR < https://www.gnu.org/licenses/ >.

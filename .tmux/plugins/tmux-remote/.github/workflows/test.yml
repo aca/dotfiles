@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tmux expect
+
+      - name: Setup test framework
+        run: |
+          git clone https://github.com/tmux-plugins/tmux-test.git lib/tmux-test
+          lib/tmux-test/setup
+
+      - name: Run tests
+        run: |
+          exit_val=0
+          for test_file in tests/test_*.sh; do
+            echo "--- Running: $test_file ---"
+            bash "$test_file"
+            if [ $? -ne 0 ]; then
+              exit_val=1
+            fi
+          done
+          exit $exit_val

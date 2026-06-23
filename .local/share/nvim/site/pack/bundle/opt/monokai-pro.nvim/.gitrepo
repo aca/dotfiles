@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/loctvl842/monokai-pro.nvim.git
+	branch = master
+	commit = d8884d4473667c48bd17a68d08383d38839136a3
+	parent = d1cb7b8b72856c6dc63548aef28f6c271c2e12f1
+	method = merge
+	cmdver = 0.4.9

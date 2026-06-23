@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lukas-reineke/indent-blankline.nvim.git
+	branch = master
+	commit = d28a3f70721c79e3c5f6693057ae929f3d9c0a03
+	parent = bb736264d4ecc2928d3bd1422f7898c7b0bd4208
+	method = merge
+	cmdver = 0.4.9

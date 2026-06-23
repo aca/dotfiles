@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/b0o/incline.nvim.git
+	branch = main
+	commit = 8b54c59bcb23366645ae10edca6edfb9d3a0853e
+	parent = 9da042b160a3f47a9e2763a0cfd483e6795a9e80
+	method = merge
+	cmdver = 0.4.9

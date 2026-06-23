@@ -1,0 +1,489 @@
+*fidget-api.txt*     For Neovim version 0.8+            Last change: see Git log
+
+==============================================================================
+Table of Contents                                               *fidget.api.toc*
+
+Notification subsystem ··································· |fidget.notification|
+LSP progress subsystem ······································· |fidget.progress|
+Neovim LSP shim layer ···································· |fidget.progress.lsp|
+Non-LSP progress messages ····························· |fidget.progress.handle|
+Spinner animations ············································ |fidget.spinner|
+
+                                                                    *fidget.api*
+ This file contains generated documentation for Fidget's Lua API, though of
+ course you will also find plenty more detail documented in the source code.
+
+ For help setting up this plugin, see |fidget.txt| and |fidget-option.txt|.
+
+fidget.setup({opts})                                              *fidget.setup*
+     Set up Fidget plugin.
+
+
+    Parameters: ~
+        {opts}  (table)  Plugin options. See |fidget-options| or |fidget-option.txt|.
+
+
+fidget.notify({msg}, {level}, {opts})                            *fidget.notify*
+     Alias for |fidget.notification.notify|.
+
+    Parameters: ~
+        {msg}    (string|nil)   Content of the notification to show to the user.
+        {level}  (Level|nil)    How to format the notification.
+        {opts}   (Options|nil)  Optional parameters (see |fidget.notification.Options|).
+
+
+==============================================================================
+Notification subsystem                                     *fidget.notification*
+
+Key                                                    *fidget.notification.Key*
+     Used to determine the identity of notification items and groups.
+
+    Type: ~
+        any
+
+
+Level                                                *fidget.notification.Level*
+     Second (level) parameter passed to |fidget.notification.notify|.
+
+     `string` indicates highlight group name; otherwise, `number` indicates
+     the |vim.log.levels| value (that will resolve to a highlight group as
+     determined by the |fidget.notification.Config|).
+
+    Type: ~
+        number|string
+
+
+Options                                            *fidget.notification.Options*
+     Third (opts) parameter passed to |fidget.notification.notify|.
+
+    Fields: ~
+        {key}           (Key|nil)      Replace existing notification item of the same key
+        {group}         (Key|nil)      Group that this notification item belongs to
+        {annote}        (string|nil)   Optional single-line title that accompanies the message
+        {hidden}        (boolean|nil)  Whether this item should be shown
+        {ttl}           (number|nil)   How long after a notification item should exist; pass 0 to use default value
+        {update_only}   (boolean|nil)  If true, don't create new notification items
+        {skip_history}  (boolean|nil)  If true, don't include in notifications history
+        {data}          (any|nil)      Arbitrary data attached to notification item
+
+
+Display                                            *fidget.notification.Display*
+     Something that can be displayed in a |fidget.notification.Group|.
+
+     If false, this content is not rendered.
+
+     If a callable `function`, it is invoked every render cycle with the items
+     list; useful for rendering animations and other dynamic content.
+
+    Type: ~
+        string|false|fun(now:number,items:Item[]):string|false|nil
+
+
+Config                                              *fidget.notification.Config*
+     Used to configure the behavior of notification groups.
+
+     If both name and icon are nil, then no group header is rendered.
+
+     The `update_hook` function can be used to dynamically adjust fields of
+     a |fidget.notification.Item|, e.g., to set the `hidden` field according to
+     the message. If set to `false`, nothing is done when an item is updated.
+
+     Note that the actual |fidget.notification.default_config| defines a few
+     more defaults than what is documented here, which pertain to the fallback
+     used if the corresponding field in the `default` config table is `nil`.
+
+
+    Fields: ~
+        {name}              (Display|nil)               Name of the group
+        {icon}              (Display|nil)               Icon of the group
+        {icon_on_left}      (boolean|nil)               If `true`, icon is rendered on the left instead of right
+        {annote_separator}  (string|nil)                Separator between message from annote; defaults to `" "`
+        {ttl}               (number|nil)                How long a notification item should exist; defaults to `5`
+        {render_limit}      (number|nil)                How many notification items to show at once
+        {group_style}       (string|nil)                Style used to highlight group name; defaults to `"Title"`
+        {icon_style}        (string|nil)                Style used to highlight icon; if nil, use `group_style`
+        {annote_style}      (string|nil)                Default style used to highlight item annotes; defaults to `"Question"`
+        {debug_style}       (string|nil)                Style used to highlight debug item annotes
+        {info_style}        (string|nil)                Style used to highlight info item annotes
+        {warn_style}        (string|nil)                Style used to highlight warn item annotes
+        {error_style}       (string|nil)                Style used to highlight error item annotes
+        {debug_annote}      (string|nil)                Default annotation for debug items
+        {info_annote}       (string|nil)                Default annotation for info items
+        {warn_annote}       (string|nil)                Default annotation for warn items
+        {error_annote}      (string|nil)                Default annotation for error items
+        {priority}          (number|nil)                Order in which group should be displayed; defaults to `50`
+        {skip_history}      (boolean|nil)               Whether messages should be preserved in history
+        {update_hook}       (fun(item:Item)|false|nil)  Called when an item is updated; defaults to `false`
+
+
+Item                                                  *fidget.notification.Item*
+     Notification element containing a message and optional annotation.
+
+
+    Fields: ~
+        {key}           (Key)         Identity of this item (for in-place updates)
+        {content_key}   (Key)         What to deduplicate items by (do not deduplicate if `nil`)
+        {message}       (string)      Displayed message for the item
+        {annote}        (string|nil)  Optional title that accompanies the message
+        {style}         (string)      Style used to render the annote/title, if any
+        {hidden}        (boolean)     Whether this item should be shown
+        {expires_at}    (number)      What time this item should be removed; math.huge means never
+        {last_updated}  (number)      What time this item was last updated
+        {skip_history}  (boolean)     Whether this item should be included in history
+        {data}          (any|nil)     Arbitrary data attached to notification item
+
+
+HistoryItem : Item                             *fidget.notification.HistoryItem*
+     A notification element in the notifications history.
+
+
+    Fields: ~
+        {removed}       (boolean)     Whether this item is deleted
+        {group_key}     (Key)         Key of the group this item belongs to
+        {group_name}    (string|nil)  Title of the group this item belongs to
+        {group_icon}    (string|nil)  Icon of the group this item belongs to
+        {last_updated}  (number)      What time this item was last updated, in seconds since Jan 1, 1970
+
+
+HistoryFilter                                *fidget.notification.HistoryFilter*
+     Filter options when querying for notifications history.
+
+     Note that filters are conjunctive; all specified predicates need to be true.
+
+
+    Fields: ~
+        {group_key}        (Key|nil)      Items from this group
+        {before}           (number|nil)   Only items last updated at least this long ago
+        {since}            (number|nil)   Only items last updated at most this long ago
+        {include_removed}  (boolean|nil)  Include items that have been removed (default: true)
+        {include_active}   (boolean|nil)  Include items that have not been removed (default: true)
+
+
+notification.default_config                 *fidget.notification.default_config*
+     Default notification configuration.
+
+     Exposed publicly because it might be useful for users to integrate for when
+     they are adding their own configs.
+
+     To see the default values, run:
+
+    >vim
+     :lua print(vim.inspect(require("fidget.notification").default_config))
+    <
+
+     Note that the default `update_hook` function performs a few book-keeping
+     tasks, e.g., calling |fidget.notification.set_content_key| to keep its
+     `content_key` up to date. You may want to do the same if writing your own;
+     check the source code to see what it's doing.
+
+     See also:~
+         |fidget.notification.Config|
+
+
+    Type: ~
+        (Config)
+
+
+notification.set_content_key({item})       *fidget.notification.set_content_key*
+     Sets a |fidget.notification.Item|'s `content_key`, for deduplication.
+
+     This default implementation sets an item's `content_key` to its `message`,
+     appended with its `annote` (or a null byte if it has no `annote`), a rough
+     "hash" of its contents. You can write your own `update_hook` that "hashes"
+     the message differently, e.g., only considering the `message`, or taking the
+     `data` or style fields into account.
+
+     If you would like to disable message deduplication, don't call this
+     function, leaving the `content_key` field as `nil`. Assuming you're not
+     using the `update_hook` for anything else, you can achieve this by simply
+     the option to `false`, e.g.:
+
+    >lua
+     { -- In options table
+       notification = {
+         configs = {
+           -- Opt out of deduplication by default, i.e., in default config
+           default = vim.tbl_extend("force", require('fidget.notification').default_config, {
+             update_hook = false,
+           },
+         },
+       },
+     }
+    <
+
+
+    Parameters: ~
+        {item}  (Item)
+
+
+                                                    *fidget.notification.notify*
+notification.notify({msg}, {level}, {opts})
+     Send a notification to the Fidget notifications subsystem.
+
+     Can be used to override `vim.notify()`, e.g.,
+    >lua
+         vim.notify = require("fidget.notification").notify
+    <
+
+
+    Parameters: ~
+        {msg}    (string|nil)   Content of the notification to show to the user.
+        {level}  (Level|nil)    How to format the notification.
+        {opts}   (Options|nil)  Optional parameters (see |fidget.notification.Options|).
+
+
+notification.close()                                 *fidget.notification.close*
+     Close the notification window.
+
+     Note that it the window will pop open again as soon as there is any reason
+     to (e.g., if another notification or LSP progress message is received).
+
+     To temporarily stop the window from opening, see |fidget.notification.suppress|.
+
+
+    Returns: ~
+        (boolean)  Whether the window closed successfully.
+
+
+notification.clear({group_key})                      *fidget.notification.clear*
+     Clear active notifications.
+
+     If the given `group_key` is `nil`, then all groups are cleared. Otherwise,
+     only that notification group is cleared.
+
+
+    Parameters: ~
+        {group_key}  (Key|nil)  Which group to clear
+
+
+notification.clear_history({filter})         *fidget.notification.clear_history*
+     Clear notifications history, according to the specified filter.
+
+
+    Parameters: ~
+        {filter}  (HistoryFilter|Key|nil)  What to clear
+
+
+notification.reset()                                 *fidget.notification.reset*
+     Reset notification subsystem state.
+
+     Note that this function does not set any Fidget notification window state,
+     in particular, the `x_offset`.
+
+
+                                                *fidget.notification.set_config*
+notification.set_config({key}, {config}, {overwrite})
+     Dynamically add, overwrite, or delete a notification configuration.
+
+     Inherits missing keys from the default config.
+
+
+    Parameters: ~
+        {key}        (Key)         Which config to set.
+        {config}     (Config|nil)  What to set as config.
+        {overwrite}  (boolean)     Whether to overwrite existing config, if any.
+
+
+    See: ~
+        |fidget.notification.Config|
+
+
+notification.suppress({suppress})                 *fidget.notification.suppress*
+     Suppress whether the notification window is shown.
+
+     Pass `true` as argument to turn on suppression, or `false` to turn it off.
+
+     If no argument is given, suppression state is toggled.
+
+
+    Parameters: ~
+        {suppress}  (boolean|nil)  Whether to suppress or toggle suppression
+
+
+                                                    *fidget.notification.remove*
+notification.remove({group_key}, {item_key})
+     Remove an item from a particular group.
+
+
+    Parameters: ~
+        {group_key}  (Key)
+        {item_key}   (Key)
+
+    Returns: ~
+        (boolean)  successfully_removed
+
+
+notification.get_history({filter})             *fidget.notification.get_history*
+     Query notifications history, according to an optional filter.
+
+     Note that this function may return more than |fidget.options.history_size|
+     items, since it will also include current notifications, unless
+     `filter.include_active` is set to `false`.
+
+
+    Parameters: ~
+        {filter}  (HistoryFilter|Key|nil)  options or group_key for filtering history
+
+    Returns: ~
+        (HistoryItem[])  history
+
+
+notification.show_history({filter})           *fidget.notification.show_history*
+     Show the notifications history in the |nvim_echo()| buffer.
+
+
+    Parameters: ~
+        {filter}  (HistoryFilter|Key|nil)  options or group_key for filtering history
+
+
+notification.group_keys()                       *fidget.notification.group_keys*
+     Get list of active notification group keys.
+
+
+    Returns: ~
+        (Key[])  keys
+
+
+==============================================================================
+LSP progress subsystem                                         *fidget.progress*
+
+progress.poll()                                           *fidget.progress.poll*
+     Poll for progress messages once.
+
+     Potentially useful if you're planning on "driving" Fidget yourself.
+
+
+progress.suppress({suppress})                         *fidget.progress.suppress*
+     Suppress consumption of progress messages.
+
+     Pass `false` as argument to turn off suppression.
+
+     If no argument is given, suppression state is toggled.
+
+    Parameters: ~
+        {suppress}  (boolean|nil)  Whether to suppress or toggle suppression
+
+
+==============================================================================
+Neovim LSP shim layer                                      *fidget.progress.lsp*
+
+ProgressMessage                            *fidget.progress.lsp.ProgressMessage*
+
+    Fields: ~
+        {token}        (Key)         Unique identifier used to accumulate updates
+        {title}        (string|nil)  Name of the task in progress
+        {message}      (string|nil)  Message describing the progress
+        {percentage}   (number|nil)  How much of the progress is complete (out of 100)
+        {done}         (boolean)     Whether this progress completed; ignore `percentage` if `done` is `true`
+        {cancellable}  (boolean)     Whether this task can be canceled (though doing so is unsupported with Fidget)
+        {lsp_client}   (table)       LSP client table this message came from
+
+
+M.poll_for_messages()                    *fidget.progress.lsp.poll_for_messages*
+     Consumes LSP progress messages from each client.progress ring buffer.
+
+     Based on vim.lsp.status(), except this implementation does not format the
+     reports into strings.
+
+
+    Returns: ~
+        (ProgressMessage[])  progress_messages
+
+    See: ~
+        |fidget.progress.lsp.ProgressMessage|
+
+
+==============================================================================
+Non-LSP progress messages                               *fidget.progress.handle*
+
+ProgressHandle : ProgressMessage         *fidget.progress.handle.ProgressHandle*
+     A handle for a progress message, reactive to changes
+
+    Fields: ~
+        {cancel}  (fun(self:ProgressHandle))                                        Cancel the task
+        {finish}  (fun(self:ProgressHandle))                                        Mark the task as complete
+        {report}  (fun(self:ProgressHandle,msg:ProgressMessage|table<string,any>))  Update one or more properties of the progress message
+
+
+handle.create({message})                         *fidget.progress.handle.create*
+     Create a new progress message, and return a handle to it for updating.
+     The handle is a reactive object, so you can update its properties and the
+     message will be updated accordingly. You can also use the `report` method to
+     update multiple properties at once.
+
+     Example:
+
+    >lua
+     local progress = require("fidget.progress")
+
+     local handle = progress.handle.create({
+       title = "My Task",
+       message = "Doing something...",
+       lsp_client = { name = "my_fake_lsp" },
+       percentage = 0,
+     })
+
+     -- You can update properties directly and the
+     -- progress message will be updated accordingly
+     handle.message = "Doing something else..."
+
+     -- Or you can use the `report` method to bulk-update
+     -- properties.
+     handle:report({
+       title = "The task status changed"
+       message = "Doing another thing...",
+       percentage = 50,
+     })
+
+     -- You can also cancel the task (errors if not cancellable)
+     handle:cancel()
+
+     -- Or mark it as complete (updates percentage to 100 automatically)
+     handle:finish()
+    <
+
+
+    Parameters: ~
+        {message}  (ProgressMessage|table<string,any>)  The initial progress message
+
+    Returns: ~
+        (ProgressHandle)  @nodiscard
+
+
+==============================================================================
+Spinner animations                                              *fidget.spinner*
+
+Manga                                                     *fidget.spinner.Manga*
+     A Manga is a table specifying an Anime to generate.
+
+     The period is specified in seconds; if omitted, it defaults to 1.
+
+
+    Type: ~
+        {pattern:string[]|string,period:number|nil}|
+
+
+Anime                                                     *fidget.spinner.Anime*
+     An Anime is a function that takes a timestamp and renders a frame (string).
+
+     Note that Anime is a subtype of Display.
+
+    Type: ~
+        fun(now:number):string
+
+
+spinner.animate({pattern}, {period})                    *fidget.spinner.animate*
+     Generate an Anime function that can be polled for spinner animation frames.
+
+     The period is specified in seconds; if omitted, it defaults to 1.
+
+
+    Parameters: ~
+        {pattern}  (string[]|string)  Either an array of frames, or the name of a known pattern
+        {period}   (number|nil)       How long one cycle of the animation should take, in seconds
+
+    Returns: ~
+        (Anime)  Call this function to compute the frame at some timestamp
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:

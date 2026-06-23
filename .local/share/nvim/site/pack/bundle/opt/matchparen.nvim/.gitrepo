@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/monkoose/matchparen.nvim.git
+	branch = main
+	commit = 1a2dcbd026bf99b20b89345883d54823f80a2bee
+	parent = 4c61306582ffc0a268f5d0f9ee2b7d6d99f5b843
+	method = merge
+	cmdver = 0.4.9

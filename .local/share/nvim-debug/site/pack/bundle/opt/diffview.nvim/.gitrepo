@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/sindrets/diffview.nvim.git
+	branch = main
+	commit = 4516612fe98ff56ae0415a259ff6361a89419b0a
+	parent = cdb514776502b0decdcf349e791ff328d04f0a0d
+	method = merge
+	cmdver = 0.4.9

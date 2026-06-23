@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# bashsupport disable=BP5004
+
+curl -LfsS https://git.io/libguestfsw | sed 's|docker run|docker run -v /home/rok:/home/rok/|g' | bash -s -- virt-customize "$@"

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rlue/vim-barbaric.git
+	branch = master
+	commit = bad594b90aed9726ddd947782358321cce0cf610
+	parent = 707c3076fcd0ebe1b195c581de2734419e732688
+	method = merge
+	cmdver = 0.4.9

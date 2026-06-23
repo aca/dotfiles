@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/FredeEB/tardis.nvim.git
+	branch = main
+	commit = f050686a6c299dba95d07990550174c20aba56dd
+	parent = e4ced94c5d94aa1734efdbac38c8454c1fd85a8a
+	method = merge
+	cmdver = 0.4.9

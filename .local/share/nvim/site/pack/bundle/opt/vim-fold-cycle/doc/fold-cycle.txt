@@ -1,0 +1,58 @@
+*fold-cycle.txt*                                                      *fold-cycle*
+                        Cycle the visibility of folds
+
+                        Fold Cycle    By Ryan Carney~
+
+Description ......................................... |fold-cycle-description|
+Usage ............................................... |fold-cycle-usage|
+Configuration ....................................... |fold-cycle-configuration|
+
+==============================================================================
+DESCRIPTION                                          *fold-cycle-description*
+
+This plugin provides the ability to cycle open and closed folds and their
+nested folds. It could also be described as a type of visibility cycling
+similar to Emacs org-mode.
+
+==============================================================================
+USAGE                                                      *fold-cycle-usage*
+
+
+<CR>                    Cycle open folds starting at the top level fold.
+                        Subsequent invocations will open folds nested one
+                        level under the top level fold. When all folds are
+                        open, the next invocation will close the current fold
+                        recursively. This mapping does override the default
+                        behavior of <CR>.
+
+                        Plug mapping: `<Plug>(fold-cycle-open)`
+
+
+<BS>                    Cycle close folds starting at the lowest nested fold.
+                        Subsequent invocations will close the next level of
+                        nested folds. When all folds are closed the next
+                        invocation will open the fold opened recursively. This
+                        mapping does override the default behavior of <BS>.
+
+                        Plug mapping: `<Plug>(fold-cycle-close)`
+
+==============================================================================
+CONFIGURATION                                      *fold-cycle-configuration*
+
+g:fold_cycle_default_mapping                   *g:fold_cycle_default_mapping*
+                       If set to 0 disables the default mappings.
+                       Defaults to 1.
+
+                       Example of alternate mappings: >
+
+                       let g:fold_cycle_default_mapping = 0 "disable default mappings
+                       nmap <Tab><Tab> <Plug>(fold-cycle-open)
+                       nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)
+                       " Won't close when max fold is opened
+                       let g:fold_cycle_toggle_max_open  = 0
+                       " Won't open when max fold is closed
+                       let g:fold_cycle_toggle_max_close = 0
+<
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:fdm=manual:

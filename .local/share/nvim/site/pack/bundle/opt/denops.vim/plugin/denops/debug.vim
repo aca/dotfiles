@@ -1,0 +1,16 @@
+if exists('g:loaded_denops_debug')
+  finish
+endif
+let g:loaded_denops_debug = 1
+
+augroup denops_debug_plugin_internal
+  autocmd!
+  autocmd User DenopsReady,DenopsClosed
+        \  call denops#_internal#echo#debug(expand('<amatch>:t'))
+  autocmd User DenopsStarted,DenopsListen:*,DenopsStopped:*
+        \  call denops#_internal#echo#debug(expand('<amatch>:t'))
+  autocmd User DenopsPluginPre:*,DenopsPluginPost:*,DenopsPluginFail:*
+        \  call denops#_internal#echo#debug(expand('<amatch>:t'))
+  autocmd User DenopsPluginUnloadPre:*,DenopsPluginUnloadPost:*,DenopsPluginUnloadFail:*
+        \  call denops#_internal#echo#debug(expand('<amatch>:t'))
+augroup END

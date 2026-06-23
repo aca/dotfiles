@@ -1,0 +1,50 @@
+# Todo
+
+- [x] create keymaps in register()
+- [x] distinction between actual keymap and just a desc
+- [x] virtual mappings wihtout real children?
+- [x] registers / counts?
+- [x] presets / plugins
+- [x] config?
+- [x] auto blacklist single keys for default keymaps (for mappings like `aa`, a hook would be created for `a` and `a` would be ignored)
+- [x] custom sorting
+- [x] gr doesn't work because of grn and friends
+- [x] same for gc opmode and gc normal mode
+- [x] yank and shift-paste hangs
+- [x] macro recording / macro execution
+- [x] spell
+- [x] spell with count, like `1z=`
+- [x] which-key-ignore
+- [x] empty groups?
+- [x] timeoutlen and nowait
+- [x] ui presets
+- [x] ui opts & columns etc
+- [x] scroll window
+- [x] help text?
+- [x] plugin layout?
+- [x] ✅ 🔥🔥🚀
+- [x] minimize attach
+- [x] sometimes incorrectly attached `gcc` not working
+- [x] error handling for view
+- [x] spelling layout
+- [x] better mappings parser? Especially needs typings
+- [x] Mappings with mode `v`
+- [x] allow register from opts
+- [x] auto gen docs
+- [x] health
+- [x] `<leader>gh_`
+- [x] devicons support
+- [x] nowait, timeoutlen and delay
+- [x] new mappings DSL
+- [x] News
+- [x] normal mode mappings in terminal mode?
+- [x] dynamic size
+- [x] situation with visual mode
+- [x] fix timeoutlen
+- [x] document hydra mode
+- [x] floating help text?
+- [x] move old option check to checkhealth
+- [x] show scrolling hint when can't fit all mappings
+- [ ] more tests
+- [ ] hint characters in desc
+- [ ] intgerate with lazy.nvim. Get description there if set

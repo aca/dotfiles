@@ -1,0 +1,97 @@
+*barbaric.txt*                     Intelligent, automatic input method switching
+
+==============================================================================
+INTRODUCTION						*barbaric*
+
+Barbaric facilitates the use of non-Latin input methods in vim (since Normal
+mode commands are nearly all mapped to Latin characters). It automatically
+detects and switches between input methods as appropriate, and requires no
+user interaction.
+
+This plugin supports various IMEs for UNIX-like systems like macOS and Linux.
+For other platforms, consider built-in support for X11 (|mbyte-XIM|) and
+Windows (|mbyte-IME|) IMEs.
+
+Technical Reference ~
+
+    * Dependencies......................................|barbaric-dependencies|
+    * Options................................................|barbaric-options|
+    * Troubleshooting................................|barbaric-troubleshooting|
+    * About....................................................|barbaric-about|
+
+
+==============================================================================
+DEPENDENCIES						*barbaric-dependencies*
+
+This plugin supports the fcitx and ibus IMEs out of the box,
+as well as third-party utilities grwlf/xkb-switch for Linux
+and laishulu/macism or myshov/xkbswitch-macosx for macOS.
+
+See each project's homepage for installation instructions:
+- https://github.com/grwlf/xkb-switch
+- https://github.com/laishulu/macism
+- https://github.com/myshov/xkbswitch-macosx
+
+==============================================================================
+OPTIONS							*barbaric-options*
+
+							*g:barbaric_ime*
+Active IME		string (default: auto-detected)
+	Defines the IME or third-party utility to be invoked to manage the
+	current input language.
+	Options are "macism", "mac-xkbswitch", "fcitx", "ibus", or "xkb-switch".
+
+							*g:barbaric_default*
+Default input method	number (default: auto-detected)
+	Specifies the input method to activate when returning to Normal mode.
+	Be sure to set this if you think you might ever have a non-Latin input
+	method active when launching vim.
+	Options depend on your IME; try one of the following:
+		$ macism
+		$ xkbswitch -g
+		$ ibus engine
+		$ xkb-switch -p
+
+							*g:barbaric_scope*
+Persistence scope	string (default: "buffer")
+	Sets the scope across which remembered input methods will persist.
+	For example, when "buffer" is used, remembered input methods are local
+	to a each buffer.
+	Options are "global", "tab", "window", or "buffer".
+
+							*g:barbaric_timeout*
+Persistence timeout	number (default: -1)
+	Forget remembered input methods if this many seconds have elapsed
+	since the last time you entered Insert mode.
+	Useful if you only need input method persistence for short bursts of
+	active work.
+	Disabled by default.
+
+                                                        *g:barbaric_fcitx_cmd*
+fcitx-remote binary	string (default: auto-detected)
+	Used to distinguish between binaries for fcitx and fcitx5.
+	Options are "fcitx-remote" or "fcitx5-remote".
+
+                                                        *g:barbaric_libxkbswitch*
+xkb-switch path		string (default: auto-detected)
+	File path to the libxkbswitch.so library file, for the Linux utility
+        grwlf/xkb-switch.
+        This setting implicitly sets g:barbaric_ime to "xkb-switch".
+
+==============================================================================
+TROUBLESHOOTING						*barbaric-troubleshooting*
+
+Some users have reported latency between leaving insert mode
+and the automatic switching of input methods.
+If you experience this problem, try setting 'ttimeoutlen' to 0.
+
+==============================================================================
+ABOUT							*barbaric-about*
+
+This project is hosted on GitHub.
+	https://github.com/rlue/vim-barbaric  
+ 
+							*barbaric-license*
+Copyright © Ryan Lue. Distributed under the MIT License.
+
+ vim:tw=78:ts=8:et:ft=help:norl:

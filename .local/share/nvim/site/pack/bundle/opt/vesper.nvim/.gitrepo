@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/datsfilipe/vesper.nvim
+	branch = main
+	commit = 1717b1ad657c94bec3fc2bdebb0c55452d9fe46d
+	parent = 7d35a3b3033c892a165270680fc919a3467c3056
+	method = merge
+	cmdver = 0.4.9

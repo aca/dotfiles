@@ -1,0 +1,213 @@
+---@meta
+
+--- Preview options.
+---@class markview.config.preview
+---
+---@field enable? boolean Enables *preview* when attaching to new buffers.
+---@field enable_hybrid_mode? boolean Enables `hybrid mode` when attaching to new buffers.
+---
+---@field map_gx? boolean Re-maps `gx` to custom URL opener.
+---
+---@field callbacks? markview.config.preview.callbacks Callback functions.
+---
+--- Icon provider.
+---@field icon_provider?
+---| "" Disable icons.
+---| "internal" Internal icon provider.
+---| "devicons" `nvim-web-devicons` as icon provider.
+---| "mini" `mini.icons` as icon provider.
+---
+---@field debounce? integer Debounce delay for updating previews.
+---@field filetypes? string[] Buffer filetypes where the plugin should attach.
+---@field ignore_buftypes? string[] Buftypes that should be ignored(e.g. nofile).
+---@field raw_previews? markview.config.preview.raw Options that will show up as raw in hybrid mode.
+---
+---@field condition? fun(buffer: integer): boolean? Condition to check if a buffer should be attached or not. Overrides `preview.filetypes` & `preview.ignore_buftypes`. If `nil` is returned, `preview.filetypes` & `preview.ignore_buftypes` are checked.
+---
+---@field modes? string[] Vim-modes where previews will be shown.
+---@field hybrid_modes? string[] Vim-modes where `hybrid mode` is enabled. Options that should/shouldn't be previewed in `hybrid_modes`.
+---
+---@field linewise_hybrid_mode? boolean Clear lines around the cursor in `hybrid mode`, instead of nodes.
+---@field max_buf_lines? integer Maximum number of lines a buffer can have before switching to partial rendering.
+---
+---@field draw_range? [ integer, integer ] Lines above & below the cursor to show preview.
+---@field edit_range? [ integer, integer ] Lines above & below the cursor to not preview in `hybrid mode`.
+---
+---@field splitview_winopts? table Window options for the `splitview` window. See `:h nvim.open_win()`.
+
+
+--- Callback functions for specific events.
+---@class markview.config.preview.callbacks
+---
+---@field on_attach? fun(buf: integer, wins: integer[]): nil Called when attaching to a buffers.
+---@field on_detach? fun(buf: integer, wins: integer[]): nil Called when detaching from a buffer.
+---
+---@field on_disable? fun(buf: integer, wins: integer[]): nil Called when disabling preview of a buffer. Also called when using `splitOpen`.
+---@field on_enable? fun(buf: integer, wins: integer[]): nil Called when enabling preview of a buffer. Also called when using `splitClose`.
+---
+---@field on_hybrid_disable? fun(buf: integer, wins: integer[]): nil Called when disabling hybrid mode in a buffer.
+---@field on_hybrid_enable? fun(buf: integer, wins: integer[]): nil Called when enabling hybrid mode in a buffer.
+---
+---@field on_mode_change? fun(buf: integer, wins: integer[], mode: string): nil Called when changing VIM-modes(only on active buffers).
+---
+---@field on_splitview_close? fun(source: integer, preview_buf: integer, preview_win: integer): nil Called before closing splitview.
+---@field on_splitview_open? fun(source: integer, preview_buf: integer, preview_win: integer): nil Called when opening splitview.
+
+
+--- Elements that should be shown as raw when hovering
+--- in `hybrid mode`.
+---@class markview.config.preview.raw
+---
+---@field comment? markview.config.preview.raw.comment[]
+---@field html? markview.config.preview.raw.html[]
+---@field latex? markview.config.preview.raw.latex[]
+---@field markdown? markview.config.preview.raw.markdown[]
+---@field markdown_inline? markview.config.preview.raw.markdown_inline[]
+---@field typst? markview.config.preview.raw.typst[]
+---@field yaml? markview.config.preview.raw.yaml[]
+
+---@alias markview.config.preview.raw.comment
+---| "!autolinks"
+---| "!code_blocks"
+---| "!inline_codes"
+---| "!issues"
+---| "!mentions"
+---| "!taglinks"
+---| "!task_scopes"
+---| "!tasks"
+---| "!urls"
+---
+---| "autolinks"
+---| "code_blocks"
+---| "inline_codes"
+---| "issues"
+---| "mentions"
+---| "taglinks"
+---| "task_scopes"
+---| "tasks"
+---| "urls"
+
+---@alias markview.config.preview.raw.html
+---| "!container_elements"
+---| "!headings"
+---| "!void_elements"
+---
+---| "container_elements"
+---| "headings"
+---| "void_elements"
+
+---@alias markview.config.preview.raw.latex
+---| "!blocks"
+---| "!commands"
+---| "!escapes"
+---| "!fonts"
+---| "!inlines"
+---| "!parenthesis"
+---| "!subscripts"
+---| "!superscripts"
+---| "!symbols"
+---| "!texts"
+---
+---| "blocks"
+---| "commands"
+---| "escapes"
+---| "fonts"
+---| "inlines"
+---| "parenthesis"
+---| "subscripts"
+---| "superscripts"
+---| "symbols"
+---| "texts"
+
+---@alias markview.config.preview.raw.markdown
+---| "!block_quotes"
+---| "!code_blocks"
+---| "!headings"
+---| "!horizontal_rules"
+---| "!list_items"
+---| "!metadata_minus"
+---| "!metadata_plus"
+---| "!reference_definitions"
+---| "!tables"
+---
+---| "block_quotes"
+---| "code_blocks"
+---| "headings"
+---| "horizontal_rules"
+---| "list_items"
+---| "metadata_minus"
+---| "metadata_plus"
+---| "reference_definitions"
+---| "tables"
+---
+---| "checkboxes"
+
+---@alias markview.config.preview.raw.markdown_inline
+---| "!block_references"
+---| "!checkboxes"
+---| "!emails"
+---| "!embed_files"
+---| "!entities"
+---| "!escapes"
+---| "!footnotes"
+---| "!highlights"
+---| "!hyperlinks"
+---| "!images"
+---| "!inline_codes"
+---| "!internal_links"
+---| "!uri_autolinks"
+---
+---| "block_references"
+---| "checkboxes"
+---| "emails"
+---| "embed_files"
+---| "entities"
+---| "escapes"
+---| "footnotes"
+---| "highlights"
+---| "hyperlinks"
+---| "images"
+---| "inline_codes"
+---| "internal_links"
+---| "uri_autolinks"
+
+---@alias markview.config.preview.raw.typst
+---| "!code_blocks"
+---| "!code_spans"
+---| "!escapes"
+---| "!headings"
+---| "!labels"
+---| "!list_items"
+---| "!math_blocks"
+---| "!math_spans"
+---| "!raw_blocks"
+---| "!raw_spans"
+---| "!reference_links"
+---| "!subscripts"
+---| "!superscripts"
+---| "!symbols"
+---| "!terms"
+---| "!url_links"
+---
+---| "code_blocks"
+---| "code_spans"
+---| "escapes"
+---| "headings"
+---| "labels"
+---| "list_items"
+---| "math_blocks"
+---| "math_spans"
+---| "raw_blocks"
+---| "raw_spans"
+---| "reference_links"
+---| "subscripts"
+---| "superscripts"
+---| "symbols"
+---| "terms"
+---| "url_links"
+
+---@alias markview.config.preview.raw.yaml
+---| "!properties"
+---
+---| "properties"
+

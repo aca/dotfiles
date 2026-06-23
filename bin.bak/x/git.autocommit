@@ -1,0 +1,7 @@
+#!/usr/bin/env fish
+
+# stage all
+git add -A
+
+set msg (git status --porcelain | awk '{$1=""}1' |string trim | string join ', ')
+echo "[auto] $msg" | git commit -F -

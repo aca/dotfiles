@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/yioneko/nvim-vtsls.git
+	branch = main
+	commit = 0b5f73c9e50ce95842ea07bb3f05c7d66d87d14a
+	parent = ec8b8ca39d2b9e9d83046d8716e93273dd87eca5
+	method = merge
+	cmdver = 0.4.9

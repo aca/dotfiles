@@ -1,0 +1,1728 @@
+*dial.txt* Lua plugin that extends CTRL-A / CTRL-X
+
+A package that extends the standard Vim commands CTRL-A / CTRL-X to allow
+increment/decrement of various strings, not limited to alphanumeric
+characters.
+
+Author: Mogami Shinichi (@monaqa) <cmonaqa{at}google.com>
+Version: 0.3.0
+License: MIT license
+		<https://github.com/monaqa/dial.nvim/blob/master/LICENSE>
+
+==============================================================================
+CONTENTS								*dial-contents*
+
+Requirements					|dial-requirements|
+Introduction					|dial-introduction|
+  Features						|dial-features|
+Usage							|dial-usage|
+Configurations					|dial-config|
+  Aliases						|dial-aliases|
+  Augends						|dial-augends|
+    Number						|dial-augends-number|
+    Date						|dial-augends-date|
+    Decimal Fraction			|dial-augends-decimal-fraction|
+    Constant					|dial-augends-constant|
+    Case						|dial-augends-case|
+    Hexcolor					|dial-augends-hexcolor|
+    Semver						|dial-augends-semver|
+    Paren						|dial-augends-paren|
+    Misc						|dial-augends-misc|
+    User						|dial-augends-user|
+Advanced Usage					|dial-advanced-usage|
+  Dot Repeating					|dial-dot-repeating|
+  Additive Dot Repeating		|dial-additive-dot-repeating|
+Interface						|dial-interface|
+  Mapping						|dial-mapping|
+  Command						|dial-command|
+  Lua API						|dial-lua-api|
+
+==============================================================================
+REQUIREMENTS							*dial-requirements*
+
+* Neovim 0.11.0 or later
+
+==============================================================================
+INTRODUCTION							*dial-introduction*
+
+*dial.nvim* is a package that increments/decrements strings of various
+formats. It extends the standard Vim commands such as CTRL-A, CTRL-X, and g
+CTRL-A in VISUAL mode. For example, the following strings are covered.
+
+------------------------------------------------------------------------------
+FEATURES								*dial-features*
+
+Increment/Decrement of various type of string~
+	You can increment/decrement a wide variety of strings, as follows:
+
+	* n-ary (`2 <= n <= 36`) integers
+	* date
+	* constant (toggle a specific string, such as a keyword or operator)
+	  * `true` ⇄ `false`
+	  * `&&` ⇄ `||`
+	  * `a` ⇄ `b` ⇄ ... ⇄ `z`
+	* hex colors
+	* semantic version
+
+	You can also define new increment/decrement rules.
+
+Flexible configuration of target (augends)~
+	|dial.nvim| provides a lot of rules, and you can select and activate only
+	the ones you really need.
+	Although some rules of |dial.nvim| have conflicts, such as dates in
+	`mm/dd/yyyy` format and dates in `dd/mm/yyyy` format, you can enable only
+	one of them to perform operations without conflicts.
+	It is also possible to change the target only for a specific buffer or
+	|filetype|.
+
+Support counter~
+	You can change addends (the number of additions) by typing `10<C-a>` as
+	well as the usual CTRL-A / CTRL-X.
+
+Support dot repeating~
+	You can repeat the previous operation with |.|.
+	|dial.nvim| remembers the last increment or decrement target type. For
+	example, if the last increment was "month in `yyyy/mm/dd` format",
+	dot-repeat will find and increment the same type, "month in `yyyy/mm/dd`
+	format", even if there is another string to increment or decrement before
+	it.
+
+Support VISUAL mode~
+	You can also use |dial.nvim|'s operation in VISUAL mode.
+
+==============================================================================
+USAGE									*dial-usage*
+
+Since this plugin does not replace the default key-mapping, you need to add
+the following description to the configuration file after installing the
+plugin.
+>
+	nnoremap  <C-a> <Plug>(dial-increment)
+	nnoremap  <C-x> <Plug>(dial-decrement)
+	nnoremap g<C-a> <Plug>(dial-g-increment)
+	nnoremap g<C-x> <Plug>(dial-g-decrement)
+	xnoremap  <C-a> <Plug>(dial-increment)
+	xnoremap  <C-x> <Plug>(dial-decrement)
+	xnoremap g<C-a> <Plug>(dial-g-increment)
+	xnoremap g<C-x> <Plug>(dial-g-decrement)
+<
+
+Alternatively, you can configure with Lua as follows:
+>
+	vim.keymap.set("n", "<C-a>", function()
+		require("dial.map").manipulate("increment", "normal")
+	end)
+	vim.keymap.set("n", "<C-x>", function()
+		require("dial.map").manipulate("decrement", "normal")
+	end)
+	vim.keymap.set("n", "g<C-a>", function()
+		require("dial.map").manipulate("increment", "gnormal")
+	end)
+	vim.keymap.set("n", "g<C-x>", function()
+		require("dial.map").manipulate("decrement", "gnormal")
+	end)
+	vim.keymap.set("x", "<C-a>", function()
+		require("dial.map").manipulate("increment", "visual")
+	end)
+	vim.keymap.set("x", "<C-x>", function()
+		require("dial.map").manipulate("decrement", "visual")
+	end)
+	vim.keymap.set("x", "g<C-a>", function()
+		require("dial.map").manipulate("increment", "gvisual")
+	end)
+	vim.keymap.set("x", "g<C-x>", function()
+		require("dial.map").manipulate("decrement", "gvisual")
+	end)
+<
+==============================================================================
+CONFIGURATIONS							*dial-config*
+
+In this plugin, flexible increment/decrement rules can be set by using augend
+and group, where augend represents the target of the increment/decrement
+operation, and group represents a group of multiple augends.
+
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  -- default augends used when no group name is specified
+	  default = {
+		augend.integer.alias.decimal,   -- nonnegative decimal number
+		augend.integer.alias.hex,       -- nonnegative hex number
+		-- date (2022/02/19, etc.)
+		augend.date.new {
+		  pattern = "%Y/%m/%d",
+		  default_kind = "day",
+		},
+	  },
+
+	  -- augends used when group with name `mygroup` is specified
+	  mygroup = {
+		augend.integer.alias.decimal,
+		augend.constant.alias.bool,    -- boolean value (true <-> false)
+		-- date (02/19/2022, etc.)
+		augend.date.new {
+		  pattern = "%m/%d/%Y",
+		  default_kind = "day",
+		},
+	  }
+	}
+<
+
+To define a group, use the `augends:register_group` function in the
+`"dial.config"` module. The arguments is a dictionary whose keys are the group
+names and whose values are the list of augends.
+
+Various augends are defined `"dial.augend"` by default. See also:
+|dial-augends| and |dial-aliases|.
+
+To specify the group of augends, you can use expression register |@=| as follows:
+>
+	"=mygroup<CR><C-a>
+<
+
+If it is tedious to specify the expression register for each increase or
+decrease, you can "map" it:
+>
+	nmap <Leader>a "=mygroup<CR><Plug>(dial-increment)
+<
+
+Alternatively, you can set the same mapping without expression register:
+>
+	vim.keymap.set(
+		"n",
+		"<Leader>a",
+		function()
+			require("dial.map").manipulate("increment", "normal", "mygroup")
+		end
+	)
+<
+
+										*dial-config-augends-default*
+Default Augend Group~
+
+`default` group is a special group, which is specified by default.
+If you don't specify the group name with expression register or other, the
+augends in the `default` group is used instead.
+
+If no settings are made, it is equivalent to having the following settings:
+
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.date.new {
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+		},
+		augend.date.new {
+			pattern = "%Y-%m-%d",
+			default_kind = "day",
+		},
+		augend.date.new {
+			pattern = "%m/%d",
+			default_kind = "day",
+			only_valid = true,
+		},
+		augend.date.new {
+			pattern = "%H:%M",
+			default_kind = "day",
+			only_valid = true,
+		},
+		augend.constant.alias.ja_weekday_full,
+	  },
+	}
+<
+
+Augends Only Valid in VISUAL Mode~
+
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  visual = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.date.new {
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+		},
+		augend.constant.alias.alpha,
+		augend.constant.alias.Alpha,
+	  },
+	}
+
+	-- change augends in VISUAL mode
+	vim.keymap.set(
+		"v",
+		"<C-a>",
+		function()
+			require("dial.map").manipulate("increment", "visual", "visual")
+		end
+	)
+	vim.keymap.set(
+		"v",
+		"<C-x>",
+		function()
+			require("dial.map").manipulate("decrement", "visual", "visual")
+		end
+	)
+<
+
+Augends Only Valid in Specific File Type~
+
+The `augends:on_filetype()` function can be used to change the augends used
+for a particular filetype.
+>
+	lua << EOF
+	local augend = require("dial.augend")
+	require("dial.config").augends:on_filetype {
+	  typescript = {
+		augend.integer.alias.decimal,
+		augend.integer.alias.hex,
+		augend.constant.new { elements = { "true", "false" } },
+		augend.constant.new { elements = {"let", "const"} },
+	  },
+	  lua = {
+		augend.integer.alias.decimal,
+		augend.constant.new { elements = { "true", "false" } },
+	  },
+	  markdown = {
+		augend.integer.alias.decimal,
+		augend.misc.alias.markdown_header,
+	  }
+	}
+	EOF
+
+------------------------------------------------------------------------------
+ALIASES									*dial-aliases*
+
+The following aliases are provided by default (See |dial-augends| for detail):
+
+	integer:
+		`augend.integer.alias.decimal`
+		`augend.integer.alias.decimal_int`
+		`augend.integer.alias.hex`
+		`augend.integer.alias.octal`
+		`augend.integer.alias.binary`
+
+	date:
+		`augend.date.alias["%Y/%m/%d"]`
+		`augend.date.alias["%m/%d/%Y"]`
+		`augend.date.alias["%d/%m/%Y"]`
+		`augend.date.alias["%m/%d/%y"]`
+		`augend.date.alias["%d/%m/%y"]`
+		`augend.date.alias["%m/%d"]`
+		`augend.date.alias["%-m/%-d"]`
+		`augend.date.alias["%Y-%m-%d"]`
+		`augend.date.alias["%Y年%-m月%-d日"]`
+		`augend.date.alias["%Y年%-m月%-d日(%ja)"]`
+		`augend.date.alias["%H:%M:%S"]`
+		`augend.date.alias["%H:%M"]`
+
+	constant:
+		`augend.constant.alias.ja_weekday`
+		`augend.constant.alias.ja_weekday_full`
+		`augend.constant.alias.bool`
+		`augend.constant.alias.Bool`
+		`augend.constant.alias.alpha`
+		`augend.constant.alias.Alpha`
+
+	semver:
+		`augend.semver.alias.semver`
+
+	paren:
+		`augend.paren.alias.quote`
+		`augend.paren.alias.brackets`
+		`augend.paren.alias.lua_str_literal`
+		`augend.paren.alias.rust_str_literal`
+
+	misc:
+		`augend.misc.alias.markdown_header`
+
+NOTE: aliases in `augend.date.alias` are deprecated. These will be removed in
+future release.
+
+------------------------------------------------------------------------------
+AUGENDS									*dial-augends*
+
+For simplicity, we define the variable `augend` as follows.
+
+>
+	local augend = require("dial.augend")
+<
+
+NUMBER									*dial-augends-number*
+------
+
+Represents n-ary integer.
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.integer.new{
+		  radix = 16,
+		  prefix = "0x",
+		  natural = true,
+		  case = "upper",
+		},
+	  },
+	}
+<
+
+The argument table of `augend.integer.new` can take the following keys:
+		radix (number, default: 10)
+				represents radix of the number, e.g., 10 in decimal system and
+				2 in binary system.
+		prefix (string, default: "")
+				can be used to specify a string to be prepended to a number,
+				e.g., `0x`.
+		natural (boolean, default: true)
+				toggles whether or not a number should be treated as a natural
+				number. If true, the augend matches only natural numbers. That
+				is, if the cursor is on `-1`, it does not match `-1` but `1`.
+		case ("upper" | "lower", default: "lower")
+				represents the case of the alphabet used for numbers with
+				radix larger than 10, such as hexadecimal numbers.
+		delimiter (char, default: "")
+				represents a numerical separator. For example, giving ",", the
+				augend will match the following numbers:
+>
+					1,234,567
+					1,23,4,5,67
+<
+				In every situation, the separator is simply ignored when
+				evaluating the number, but when incrementing/decrementing, the
+				position of the separator is formatted as an n-digit
+				separator. The value of n can be controlled by the value of
+				`delimiter_digits`, described below.
+		delimiter_digits (number, default: 3)
+				specifies how many digits to split a number when `delimiter`
+				is specified.
+				It is meaningless if `delimiter` is an empty string.
+
+augend.integer.alias.decimal~
+
+Increments/decrements a non-negative decimal number. It matches such as
+>
+	0
+	123
+	3141592
+<
+and each increment increases that number by one.  Unlike the standard CTRL-A
+command, it does not consider any `-` at the beginning oc the number.  If you
+perform |<Plug>(dial-increment)| with the cursor at `1` of the following
+string:
+>
+	file-1.jpg
+<
+then you will get the following result.
+>
+	file-2.jpg
+<
+
+augend.integer.alias.decimal_int~
+
+Basically the same as augend.integer.alias.decimal, but this one also matches
+negative integers.  If you perform |<Plug>(dial-increment)| with the cursor at
+`1` of the following string:
+>
+	file-1.jpg
+<
+then you will get the following result.
+>
+	file0.jpg
+<
+
+augend.integer.alias.hex~
+
+Matches a hexadecimal non-negative integer and increments/decrements in
+hexadecimal notation. It matches strings such as:
+>
+	0x12
+	0xafbf
+	0xAFBF
+<
+
+augend.integer.alias.octal~
+
+Matches a octal non-negative integer and increments/decrements in octal
+notation. It matches strings such as:
+>
+	0o37
+	0o567
+	0o01212
+<
+
+augend.integer.alias.binary~
+
+Matches a binary non-negative integer and increments/decrements in binary
+notation. It matches strings such as:
+>
+	0b00
+	0b1010
+	0b10100101
+<
+
+DATE									*dial-augends-date*
+-----
+
+Matches dates and times.
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.date.new{
+			pattern = "%Y/%m/%d",
+			default_kind = "day",
+			only_valid = true,
+			word = false,
+		},
+	  },
+	}
+<
+
+The argument table of `augend.date.new` can take the following keys:
+		pattern (string, required)
+			date pattern to match. See |dial-augends-date-pattern| for
+			details.
+		default_kind (string, required)
+			represents in which unit the date to be incremented/decremented
+			when the cursor position is far from the date or in VISUAL mode.
+			Choose from the following values:
+			* `year`
+			* `month`
+			* `day`
+			* `hour`
+			* `min`
+			* `sec`
+		only_valid (boolean, default: false)
+			When true, it doesn't match non-existent dates or times, such as
+			`2022/13/52` and `27:30`. It is useful to avoid matching an
+			unintended range.
+			When false, it matches non-existent dates or times, and corrects
+			them to the existent ones. For example, when you increment the
+			date `2022/06/31` by one day, the original string is interpreted
+			as the date `2022/07/01` and the final date becomes `2022/07/02`.
+		word (boolean, default: false)
+			If true, the augend matches only if the string matching
+			elements is on a word boundary.
+		clamp (boolean, default: false)
+			See |dial-augends-date-clamp|.
+		end_sensitive (boolean, default: false)
+			See |dial-augends-date-end-sensitive|.
+		custom_date_elements (table<string, dateelement>, default: {})
+			Advanced option to define the custom date elements by user.
+			Refer to |dial-augends-date-custom-format| for detail.
+
+										*dial-augends-date-pattern*
+The argument `pattern` can be a string like the following:
+>
+	%Y/%m/%d     (e.g. 2022/02/06)
+	%H:%M:%S     (e.g. 15:30:00)
+	%-m/%-d      (e.g. 2/6)
+<
+`%` is an escape character to represent a date elements and can be used by the
+following pattern.
+
+* `%` + a single alphabetical character.
+		`%Y`	4-digit year. (e.g. `2022`)
+		`%y`	Last 2 digits of year.
+				The upper 2 digits are interpreted as `20`. (e.g. `22`)
+		`%m`	2-digit month. (e.g. `09`)
+		`%d`	2-digit day. (e.g. `28`)
+		`%H`	2-digit hour, expressed in 24 hours. (e.g. `15`)
+		`%I`	2-digit hour, expressed in 12 hours. (e.g. `03`)
+		`%M`	2-digit minute. (e.g. `05`)
+		`%S`	2-digit second. (e.g. `08`)
+		`%a`	English weekdays (`Sun`, `Mon`, ..., `Sat`)
+		`%A`	English full weekdays (`Sunday`, `Monday`, ..., `Saturday`)
+		`%b`	English month names (`Jan`, ..., `Dec`)
+		`%B`	English month full names (`January`, ..., `December`)
+		`%p`	`AM` or `PM`.
+		`%J`	Japanese weekdays (`日`, `月`, ..., `土`)
+
+* `%-` + a single alphabetical character.
+		`%-y`	1- or 2-digit year. (e.g. `9` represents 2009)
+		`%-m`	1- or 2-digit month. (e.g. `9`)
+		`%-d`	1- or 2-digit day. (e.g. `28`)
+		`%-H`	1- or 2-digit hour, expressed in 24 hours. (e.g. `15`)
+		`%-I`	1- or 2-digit hour, expressed in 12 hours. (e.g. `3`)
+		`%-M`	1- or 2-digit minute. (e.g. `5`)
+		`%-S`	1- or 2-digit second. (e.g. `8`)
+
+* `%%`. This is used to represent `%` itself.
+
+* Text of the form `%(element_name)` (|dial-augends-date-custom-format|),
+  where `element_name` can be any string in which the `)` character does not
+  appear.
+
+NOTE: patterns must contain information about date or time. For example, the
+string that only contains `%a` cannot be a pattern, because the day of the
+week alone is not enough to infer the date.
+
+										*dial-augends-date-custom-format*
+In date patterns, `%(element_name)` is a special placeholder that can be
+defined by the user. The placeholder can be given in the
+`custom_date_elements` argument of `augend.date.new`.
+
+For example, consider the following configuration:
+>
+	local WEEKDAYS_FLUSHRIGHT = {
+		"   Sunday",
+		"   Monday",
+		"  Tuesday",
+		"Wednesday",
+		" Thursday",
+		"   Friday",
+		" Saturday",
+	}
+	require("dial.config").augends:register_group {
+		default = {
+			augend.date.new {
+				pattern = "%d/%m/%y %(week_flushright)",
+				default_kind = "day",
+				custom_date_elements = {
+					week_flushright = {
+						kind = nil,
+						regex = common.enum_to_regex(WEEKDAYS_FLUSHRIGHT),
+						update_date = function(_, date)
+							return date
+						end,
+						format = function(time)
+							local wday = os.date("*t", time).wday
+							return WEEKDAYS_FLUSHRIGHT[wday]
+						end,
+					}
+				}
+			}
+		},
+	}
+<
+This example defines a custom date element named `week_flushright` and uses
+the element with `%(week_flushright)`. As the result, this rule matches the
+following string:
+>
+	18/10/22   Tuesday
+<
+and pressing <C-a> on the date increments it to the following string:
+>
+	19/10/22 Wednesday
+<
+
+The following fileds are required in the custom_date_elements value:
+		kind (string | nil, default: nil)
+			which information is tied to the element on the date.
+			* `year`
+			* `month`
+			* `day`
+			* `hour`
+			* `min`
+			* `sec`
+		regex (string, required)
+			regular expression to search the element.
+		update_date (function, required)
+			How the date is updated by reading the element: the first argument
+			is a string matching the placeholder, and the second argument is
+			information about the date before the update (a table of the same
+			form as `os.date("*t")`).
+		format (function, required)
+			Given a date (and time), how the element should be converted to a
+			string. unix time is passed as an integer for the first argument.
+
+Yes, it is really flexible! Flexible, but complicated. We recommend to use
+existing elements such as `%a` and `%y`, if possible.
+
+										*dial-augends-date-clamp*
+										*dial-augends-date-end-sensitive*
+When operating increment/decrement such as "1 month later" or "1 year later",
+the date it represents may not be obvious. For example, given the date
+`2022-01-31` in `yyyy-mm-dd` format, one might think that 1 month later of
+`2022-01-31` is `2022-03-31` with 31 days added, or `2022-02-28`, tha last day
+of the month following January. To accomodate various cases, augend.date has
+two options `clamp` and `end_sensitive.`
+
+For example, consider one month after `2022-01-31`. The straightforward answer
+is `2022-02-31`, but such a date does not exist. When `clamp = false`, it is
+automatically corrected to a date that exists by carrying forward to the next
+month:
+>
+	2022-01-31  --(+1 month)-->  2022-02-31  (that does not exist)
+	                        ~~>  2022-03-03  (FINAL RESULT)
+<
+On the other hand, when `clamp = false`, it is automatically corrected by
+truncating it preserving the month.
+>
+	2022-01-31  --(+1 month)-->  2022-02-31  (that does not exist)
+	                        ~~>  2022-02-28  (FINAL RESULT)
+<
+
+By using `end_sensitive` option, the last day of the month is treated
+specially.
+When `end_sensitive = true` and the date to operate is the last day of the
+month, incrementing/decrementing the year or month will force the conversion
+to the last day of the month, regardless of the `clamp` option.
+>
+	2022-01-31  --(+1 month)-->  2022-02-28
+<
+
+`clamp` and `end_sensitive` are very similar, but work slightly differently.
+Choose the best value that fits your use case, respectively.
+
+* When `clamp = false, end_sensitive = false`
+>
+	2022-01-30  --(+1 month)-->  2022-03-02
+	2022-01-31  --(+1 month)-->  2022-03-03
+	2022-02-28  --(+1 month)-->  2022-03-28
+	2022-03-31  --(-1 month)-->  2022-03-03
+<
+* When `clamp = true, end_sensitive = false`
+>
+	2022-01-30  --(+1 month)-->  2022-02-28  # Clamped!
+	2022-01-31  --(+1 month)-->  2022-02-28  # Clamped!
+	2022-02-28  --(+1 month)-->  2022-03-28
+	2022-03-31  --(-1 month)-->  2022-02-28  # Clamped!
+<
+* When `clamp = false, end_sensitive = true`
+>
+	2022-01-30  --(+1 month)-->  2022-03-02
+	2022-01-31  --(+1 month)-->  2022-02-28  # Last day of the month!
+	2022-02-28  --(+1 month)-->  2022-03-31  # Last day of the month!
+	2022-03-31  --(-1 month)-->  2022-02-28  # Last day of the month!
+<
+* When `clamp = true, end_sensitive = true`
+>
+	2022-01-30  --(+1 month)-->  2022-02-28  # Clamped!
+	2022-01-31  --(+1 month)-->  2022-02-28  # Last day of the month!
+	2022-02-28  --(+1 month)-->  2022-03-31  # Last day of the month!
+	2022-03-31  --(-1 month)-->  2022-02-28  # Last day of the month!
+<
+
+										*dial-augends-date-aliases*
+There are some aliases in `augend.date`.
+
+NOTE: the following aliases are remnants of a time when it was hard and
+tedious to specify date formats. Now that you can freely specify the date
+format, the aliases are losing their value. They are currently retained for
+compatibility, but will be removed in the future.
+
+augend.date.alias["%Y/%m/%d"]~
+
+Matches dates with the following format (year/month/day):
+>
+	1970/12/31
+	2021/01/01
+	2021/02/13
+<
+
+If the cursor is to the left of the format, the increment is always done in
+date units, but if the cursor is on the format, the increment depends on the
+specific position of the cursor.
+
+Let's take `1970/12/31` as an example.
+
+When the cursor is over any of the four `1970` characters, the year will be
+incremented as shown below.
+>
+	1971/12/31
+<
+
+When the cursor is over any of the three `/12` characters, the month will be
+incremented as shown below.
+>
+	1971/01/31
+<
+
+When the cursor is over any of the three `/31` characters, the day will be
+incremented as shown below.
+>
+	1971/01/01
+<
+
+The format matches dates that do not exist in reality such as:
+>
+	2021/02/29
+	2021/14/59
+<
+The date is corrected to a date that actually exists when incrementing.
+
+augend.date.alias["%m/%d/%Y"]~
+
+Matches dates with the following format:
+>
+	12/31/1970
+	01/01/2021
+	02/13/2021
+<
+To avoid matching an unintended range, it doesn't match non-existent dates.
+
+augend.date.alias["%m/%d/%y"]~
+
+Matches dates with the following format:
+>
+	12/31/70
+	01/01/21
+	02/13/21
+<
+To avoid matching an unintended range, it doesn't match non-existent dates.
+
+augend.date.alias["%d/%m/%y"]~
+
+Matches dates with the following format:
+>
+	31/12/19
+	01/01/20
+	13/02/20
+<
+To avoid matching an unintended range, it doesn't match non-existent dates.
+
+augend.date.alias["%m/%d"]~
+
+Matches dates with the following format:
+>
+	12/31
+	01/01
+	02/13
+<
+
+`12/31` の例の場合、
+
+* カーソルが `12` より左にある場合：日付
+* カーソルが `12` のいずれかの上にある場合：月
+* カーソルが `/31` のいずれかの上にある場合：日付
+
+がインクリメントされます。
+
+現実に存在しない日付でもマッチし、操作の際に現実に存在する日付へと強制的に修正
+されます。
+
+augend.date.alias["%-m/%-d"]~
+
+Matches dates with the following format:
+>
+	12/31
+	1/1
+	2/13
+<
+To avoid matching an unintended range, it doesn't match non-existent dates.
+
+augend.date.alias["%Y-%m-%d"]~
+
+Matches dates with the following format:
+>
+	1970-12-31
+	2021-01-01
+	2021-02-13
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%d.%m.%Y"]~
+
+Matches dates with the following format:
+>
+	31.12.1970
+	01.01.2021
+	13.02.2021
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%d.%m.%y"]~
+
+Matches dates with the following format:
+>
+	31.12.70
+	01.01.21
+	13.02.21
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%d.%m."]~
+
+Matches dates with the following format:
+>
+	31.12.
+	01.01.
+	13.02.
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%-d.%-m."]~
+
+Matches dates with the following format:
+>
+	31.12.
+	1.1.
+	13.2.
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%Y年%-m月%-d日"]~
+
+Matches dates with the following format:
+>
+	1970年12月31日
+	2021年1月1日
+	2021年2月13日
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%Y年%-m月%-d日(%ja)"]~
+
+Matches dates with the following format:
+>
+	1970年12月31日(木)
+	2021年1月1日(金)
+	2021年2月13日(土)
+<
+It matches non-existent dates and corrects them to the existent ones.
+
+augend.date.alias["%H:%M:%S"]~
+
+Matches times with the following format:
+>
+	00:00:00
+	12:34:56
+<
+
+If we take `12:34:56` as an example, the following rules will determine the
+target of the increment.
+
+* If the cursor is to the left of `12`: second
+* If the cursor is over any of `12`: hour
+* If the cursor is over any of `:34`: minute
+* If the cursor is over any of `:56`: second
+
+The format matches times that do not exist in reality such as `52:27:93`, and
+the time is corrected to a date that actually exists when incrementing.
+
+augend.date.alias["%H:%M"]~
+
+Matches times with the following format:
+>
+	00:00
+	12:34
+<
+
+If we take `12:34` as an example, the following rules will determine the
+target of the increment.
+
+* If the cursor is to the left of `12`: minute
+* If the cursor is over any of `12`: hour
+* If the cursor is over any of `:34`: minute
+
+The format matches times that do not exist in reality such as `52:99`, and
+the time is corrected to a date that actually exists when incrementing.
+
+DECIMAL FRACTION						*dial-augends-decimal-fraction*
+----------------
+
+Represents decimal fraction number, such as `42.195` and `-9.80665`.
+`augend.decimal_fraction.new{ ...opts }` で使用できます。
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.decimal_fraction.new{
+			signed = false,
+			point_char = ".",
+		},
+	  },
+	}
+<
+
+The argument table of `augend.decimal_fraction.new` can take the following
+keys:
+		signed (boolean, default: false)
+			If true, add the minus prefixed to the decimal.
+		point_char (string, default: `.`)
+			A decimal point character, which must be a single character.
+			Either "." or "," in most cases.
+
+When decimal_fraction augend finds a fraction such as `42.195` or `9.80665`,
+it increments/decrements:
+* the integer part if the cursor is on/before the integer part,
+* the fractional part if the cursor is on/before the fractional part.
+
+For instance, if you perform |<Plug>(dial-increment)| with the cursor at `4`
+of the following string:
+>
+	42.195
+<
+then you will get the following result.
+>
+	43.195
+<
+And if you perform |<Plug>(dial-increment)| with the cursor at `1` in
+succession, you will get the following result.
+>
+	43.196
+<
+You can specify the [count]. By performing |100<Plug>(dial-increment)| on the
+fractional part, you will get:
+>
+	43.296
+<
+
+You may feel that the behavior is almost the same as when an integer is
+specified. However, there are two important differences from integer:
+
+* the value is carried across the decimal point. e.g., if you perform
+  |<Plug>(dial-increment)| on the fractional part of the following:
+>
+	2.9
+<
+you will get:
+>
+	3.0
+<
+If you had specified `integer` augend, you would have got `2.10`.
+
+* Dot repeat remembers and reproduces the "actual value to be increased or
+  decreased." Immediately after incrementing the decimal portion of `2.8`
+  to `2.9,` the result of dot repeat incrementing `1.73` would be `1.83`,
+  not `1.74`.
+
+You can also use both `augend.decimal_fraction` and `augend.integer`:
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.integer.alias.decimal,
+		augend.decimal_fraction.new{ },
+	  },
+	}
+<
+
+In this case, the increment/decrement rule by `decimal_fraction` is applied
+only when the number after/on the cursor is a decimal fraction number.
+
+CONSTANT								*dial-augends-constant*
+--------
+
+Predefined sequence of strings. You can use this rule with
+`augend.constant.new{ ...opts }` .
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.constant.new{
+		  elements = {"and", "or"},
+		  word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+		  cyclic = true,  -- "or" is incremented into "and".
+		},
+		augend.constant.new{
+		  elements = {"&&", "||"},
+		  word = false,
+		  cyclic = true,
+		},
+		augend.constant.new{
+		  elements = {"let", "const"},
+		  match_before_cursor = true,
+		},
+	  },
+	}
+<
+
+The argument table of `augend.constant.new` can take the following keys:
+		elements (string[], required)
+				An array of strings you want to cross-convert.
+		word (boolean, default: true)
+				If true, the augend matches only if the string matching
+				elements is on a word boundary.
+		cyclic (boolean, default: true)
+				If true, the augend circulates the patterns for
+				increment/decrement operations.
+		preserve_case (boolean, default: false)
+				If true, the augend attempts to preserve the pattern of
+				uppercase/lowercase letters for conversion.
+		pattern_regexp (string, default: `\C\V\<\(%s\)\>`)
+				A regular expression used in search. `%s` represents the string
+				specified in `elements.`
+		match_before_cursor (boolean, default: false)
+				If true, it matches even when the cursor is positioned after
+				the target word. In that case, however, any other valid augend
+				on or after the cursor will take precedence.
+
+NOTE: Set `cyclic` to false when cross-converting strings consisting of
+symbols, such as `&&` and `||`.
+NOTE: When `preserve_case` is true, it matches the string specified for
+elements, ignoring case. The case pattern is preserved only if the string
+matches one of the following three patterns:
+* All lowercase (e.g.: `true <-> false`)
+* All uppercase (g.g.: `TRUE <-> FALSE`)
+* Only the first letter is uppercase (e.g.: `True <-> False`)
+Otherwise the string is converted to lowercase.
+
+augend.constant.alias.ja_weekday~
+
+Matches Japanese day names:
+>
+	月
+	火
+	水
+	木
+	金
+	土
+	日
+<
+Each of these matches a |word| in the Vim sense, so some Japanese idioms such
+as `日用品` will not match.
+
+augend.constant.alias.ja_weekday_full~
+
+Matches Japanese day names:
+>
+	月曜日
+	火曜日
+	水曜日
+	木曜日
+	金曜日
+	土曜日
+	日曜日
+<
+
+Unlike |augend.constant.alias.ja_weekday|, this simply matches a string (not a
+|word|), so even if you have a series of kanji characters, such as `毎週火曜日
+`, it will match.
+
+augend.constant.alias.en_weekday~
+
+Matches English day names:
+>
+	Mon
+	Tue
+	Wed
+	Thu
+	Fri
+	Sat
+	Sun
+<
+Each of these matches a |word| in the Vim sense.
+
+augend.constant.alias.en_weekday_full~
+
+Matches English day names:
+>
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Saturday
+	Sunday
+<
+Each of these matches a |word| in the Vim sense.
+
+augend.constant.alias.de_weekday~
+
+Matches German day names:
+>
+	Mo
+	Di
+	Mi
+	Do
+	Fr
+	Sa
+	So
+<
+Each of these matches a |word| in the Vim sense.
+
+augend.constant.alias.de_weekday_full~
+
+Matches German day names:
+>
+	Montag
+	Dienstag
+	Mittwoch
+	Donnerstag
+	Freitag
+	Samstag
+	Sonntag
+<
+Each of these matches a |word| in the Vim sense.
+
+augend.constant.alias.bool~
+
+Matches a word `true` or `false`.
+>
+	true
+	false
+<
+
+augend.constant.alias.alpha~
+
+Matches a single lowercase alphabet, such as `a` or `z`. In NORMAL mode, it
+will not match unless it is a separate |word| in the Vim sense. For example,
+this will match the following `a`:
+>
+	(a)
+	a.
+<
+while this will not match the following `a`:
+>
+	cafe
+	2a
+<
+
+Note that the incrementing/decrementing is performed in the non-cyclic way.
+That is, incrementing `z` will not change the value to `z`, and decrementing
+`a` will not change the value to `a`.
+
+augend.constant.alias.Alpha~
+
+Matches a single lowercase alphabet, such as `a` or `z`.
+
+CASE									*dial-augends-case*
+-----
+
+This rule changes identifier (variable, function, and others) name conventions
+in programming languages such as "camelCase" and "snake_case". You can use
+this rule with `augend.case.new { ...opts }`.
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.case.new{
+		  types = {"camelCase", "snake_case"},
+		  cyclic = true,
+		},
+	  },
+	}
+<
+
+The argument table of `augend.case.new` can take the following keys:
+		patterns (string[], required)
+				An array of naming conventions you want to corss-convert.
+				Select from the following:
+					- `camelCase`
+					- `snake_case`
+					- `kebab-case`
+					- `PascalCase`
+					- `SCREAMING_SNAKE_CASE`
+		cyclic (boolean, default: true)
+				If true, the augend circulates the patterns for
+				increment/decrement operations.
+
+NOTE: Currently, this augend does NOT recognize identifiers that consist of
+only one word. For example, it can recognize `dial_nvim` and `dialNvim`,
+but not `dial`. This is because it is impossible to determine whether an
+identifier `dial` is camelCase or snake_case based on the identifier `dial`
+alone. The same applies to other naming conventions, such as PascalCase or
+SCREAMING_SNAKE_CASE, which do not recognize `Dial` or `DIAL`.
+
+HEXCOLOR								*dial-augends-hexcolor*
+--------
+
+Matches hexadecimal color codes (#RRGGBB) such as the following:
+>
+	#1280af
+	#808080
+	#001351
+<
+
+You can use it with `augend.hexcolor.new{ ...opts }` .
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.hexcolor.new{
+		  case = "lower",
+		},
+	  },
+	}
+<
+
+If we take `#1280af` as an example, the following rules will determine the
+target of the increment.
+
+* If the cursor is to the left of `#1280af` or over `#` : R, G and B
+* If the cursor is over any of `12`: R
+* If the cursor is over any of `80`: G
+* If the cursor is over any of `af`: B
+
+SEMVER									*dial-augends-semver*
+------
+
+Matches semantic versions. You can use it with the alias described below. It
+differs from a simple nonnegative integer increment/decrement in these ways:
+
+* When the cursor is before the semver string, the patch version is
+  incremented.
+* When the minor version is incremented, the patch version is reset to zero.
+* When the major version is incremented, the minor and patch versions are
+  reset to zero.
+
+augend.semver.alias.semver~
+
+Matches following triplet of natural integers:
+>
+	0.3.0
+	3.9.14
+	1.2.3
+<
+
+PAREN									*dial-augends-paren*
+-----
+
+Matches strings surrounded by brackets or quotations and changes the type of
+what surrounds it. You can use it with `augend.paren.new{ ...opts }` .
+
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.paren.new{
+		  patterns = {
+			{'"', '"'},
+			{"[[", "]]"},
+			{"[=[", "]=]"},
+			{"[==[", "]==]"},
+			{"[===[", "]===]"},
+		  },
+		  nested = false,
+		  cyclic = false,
+		},
+		augend.paren.new{
+		  patterns = { {"'", "'"}, {'"', '"'} },
+		  nested = false,
+		  escape_char = [[\]],
+		  cyclic = true,
+		},
+	  },
+	}
+<
+
+Function `new` has these parameters:
+		patterns (string[][], required)
+				List of the pairs of parens you want to interconvert. Each
+				element of a pair represents an opening bracket and closing
+				bracket, respectively.
+		nested (boolean, default: true)
+				If true, the augend detects nested parens.
+				It does not make sense if the opening and closing bracket
+				strings are same.
+		cyclic (boolean, default: true)
+				If true, the augends circulates the patterns  for
+				increment/decrement operations.
+		escape_char (string, default: nil)
+				If defined, regards the string as the escape character.
+				Immediately following the escape char, the opening and closing
+				bracket characters are ignored. However, if two escape chars
+				appears in succession, the escape char itself is considered
+				to be escaped.
+
+NOTE: It is not possible to detect or manipulate parentheses across multiple
+lines. dial.nvim's overall policy is to limit operations with CTRL-A and
+CTRL-X to those that fits within a single line. For multi-line parenthesis
+manipulation, we recommend the use of plugins that specialize more in
+parenthesis manipulation.
+
+augend.paren.alias.quote~
+
+Interconverts single-quoted literal and double-quoted literal.
+`\` is treated as escape character.
+>
+	"foo" -> 'foo'
+	'foo' -> "foo"
+	"foo\"" -> 'foo\"'
+<
+
+augend.paren.alias.brackets~
+
+Interconverts `()`, `[]`, `{}`. It considers nestings.
+>
+	(foo) -> [foo] -> {foo} -> (foo) -> ...
+<
+
+augend.paren.alias.lua_str_literal~
+
+Interconverts Lua string literals.
+>
+	"foo" -> [[foo]] -> [=[foo]=] -> [==[foo]==] -> [===[foo]===]
+<
+
+augend.paren.alias.rust_str_literal~
+
+Interconverts Rust-style string literals.
+>
+	"foo" -> r#"foo"# -> r##"foo"## -> r###"foo"###
+<
+
+MISC									*dial-augends-misc*
+-----
+
+Miscellaneous augends are defined together under `augend.misc.alias`.
+
+augend.misc.alias.markdown_header~
+
+Increment/decrement header levels in Markdown.
+>
+	# Header1
+	## Header2
+	###### Header6
+<
+
+NOTE: unusually for an augend, it matches even when the cursor is positioned
+after `#`.
+In that case, however, any other valid augend on or after the cursor will take
+precedence. If you want to increment/decrement `markdown_header` with
+certainty, it is recommended that you move the cursor to the beginning of the
+line before operating.
+
+USER									*dial-augends-user*
+-----
+
+If you define custom augends, you can use `augend.user.new{ ...opts }` .
+>
+	require("dial.config").augends:register_group{
+	  default = {
+		-- uppercase hex number (0x1A1A, 0xEEFE, etc.)
+		augend.user.new{
+		  find = require("dial.augend.common").find_pattern("%d+"),
+		  add = function(text, addend, cursor)
+			  local n = tonumber(text)
+			  n = math.floor(n * (2 ^ addend))
+			  text = tostring(n)
+			  cursor = #text
+			  return {text = text, cursor = cursor}
+		  end
+		},
+	  },
+	}
+<
+
+==============================================================================
+ADVANCED USAGE							*dial-advanced-usage*
+
+------------------------------------------------------------------------------
+DOT REPEATING							*dial-dot-repeating*
+
+All key commands in |dial.nvim| support dot repeat (|.|). That is, pressing
+"." to repeat the previous increment or decrement operation. However, the
+behavior is slightly different from the standard <C-a> or <C-x>, where the
+increment/decrement in dot repeat is based on the previous operation.
+
+As a concrete example, let's consider the following configuration.
+>
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group{
+	  default = {
+		augend.integer.alias.decimal,
+		augend.date.alias["%Y/%m/%d"],
+	  },
+	}
+<
+
+Now, imagine a buffer with the following text.
+>
+	date: 2020/11/08
+	...
+	due date of 1st report: 2020/11/23
+	...
+	due date of 2nd report: 2020/12/21
+	...
+	date of exam: 2021/01/14
+<
+
+Suppose you need to extend all the due dates in this buffer by one month. If
+there are a lot of dates, this operation can be quite tedious and cumbersome,
+but with |dial.nvim|, you can easily accomplish this operation in a very
+Vim-ish approach.
+
+First, jump to `11` of `2020/11/08` in the first line as usual, and type <C-a>
+to increment the date by one month. It should now be `2020/12/08`.
+
+Next, use the "/" command to search for `date` and jump to the third line.
+(The search string does not necessary have to be `date`, but we expect that
+jumping to `date` seems to be the easiest this time, since `date` is always in
+front of the date we want to change.)
+After the jump, run the |.| command right after it. You should see
+`2020/11/23` postponed by one month.
+>
+	date: 2020/12/08
+	...
+	Due date (1st lecture): 2020/12/23
+	...
+	Due date (2nd lecture): 2020/12/21
+	...
+	Due date (3rd lecture): 2021/01/14
+<
+The important thing here is that if you had pressed <C-a> instead of |.| here,
+the number written as `1st` would have been incremented and become `2st`. Even
+if the string `1st` had not been there, the date would have only been extended
+by one day (since the cursor position is not at `11`).
+While <C-a> looks for the appropriate rule each time the command is executed,
+dot-repeat retains the rule it has done before. In this case, it holds the
+operation "Extend date by one month", so the cursor will automatically move to
+the nearest "month" of the date and then the same increment operation is
+performed. Thus, in the above example, once you have done the search, you can
+extend all the due dates by one month just by typing `.n.n.`.
+
+------------------------------------------------------------------------------
+ADDITIVE DOT REPEATING					*dial-additive-dot-repeating*
+
+One convenient feature of Vim is g<C-a> in VISUAL mode (see |v_g_CTRL-A|).
+This allows you to increase the addend by one per line, which is useful for
+generating numbered list, etc. Of course, |dial.nvim| provides the same
+functionality (|v_<Plug>(dial-g-increment)|). However, this feature had the
+limitation that it was difficult to use when the increase targets were located
+far away.
+To solve this, |dial.nvim| provides the equivalent of g<C-a> in normal mode.
+To enable it, the following configuration must be written: .
+>
+	nmap g<C-a> <Plug>(dial-g-increment)
+	nmap g<C-x> <Plug>(dial-g-decrement)
+
+Alternatively, you can configure with Lua as follows:
+>
+	vim.keymap.set("n", "g<C-a>", function()
+		require("dial.map").manipulate("increment", "gnormal")
+	end)
+	vim.keymap.set("n", "g<C-x>", function()
+		require("dial.map").manipulate("decrement", "gnormal")
+	end)
+
+The behavior of g<C-a> in normal mode is almost the same as normal <C-a>, but
+only the behavior during dot repeating is different. While the addend remains
+[count] in dot repeating of <C-a>, the addend is increased by [count] in dot
+repeating of g<C-a>.
+
+For example, consider the following buffer, where you have defined some
+function and copied it twice. Since the function names conflict, we want to
+rename the functions test_foo_1, test_foo_2, and test_foo_3 by incrementing
+the function number by one.
+
+>
+	def test_foo_0():
+	    assert 100 + 100 == 200
+
+	def test_foo_0():
+	    assert 100 + 100 == 200
+
+	def test_foo_0():
+	    assert 100 + 100 == 200
+
+We do not consider whether such function naming is a good idea. Anyway, the
+most immediate problem is that the lines to be edited are far apart. As it is,
+you cannot use g<C-a> in VISUAL mode.
+However, this can be easily resolved with g<C-a> in NORMAL mode.
+
+1. Search for `test_foo_0`, jump, and press g<C-a>.
+2. Press `n` to move to the next result and press `.` (dot repeat).
+3. Press `n` to move to the next result and press `.` (dot repeat).
+
+This should be enough to obtain the function names `test_foo_1`, `test_foo_2`,
+and `test_foo_3`.
+
+You may think that the number of addend will increase endlessly, but this is
+not true. The addend increases only when you execute a dot repeat, and the
+number is reset when you press <C-a> or g<C-a> again.
+
+==============================================================================
+INTERFACE								*dial-interface*
+
+------------------------------------------------------------------------------
+MAPPING									*dial-mapping*
+
+["x]<Plug>(dial-increment)				*<Plug>(dial-increment)*
+	Increments the number of addends under or after the cursor by [count].
+	This is an alternative to the existing CTRL-A command in NORMAL mode.
+	It responds only to addends that are on the same line as the cursor.
+	Basically, it is not applied to addends that are before the cursor, but
+	some types of addends may allow incrementing even if they are before the
+	cursor.
+
+	If the expression register |@=| is specified, the augend group written in
+	the register is used. If not, `default` group is used
+	(|dial-config-augends-default|). Specifying any other register has no
+	effect.
+
+{VISUAL}["x]<Plug>(dial-increment)		*v_<Plug>(dial-increment)*
+	An alternative to the existing CTRL-A command in VISUAL mode.
+
+	The behavior changes depending on which of the following modes you are in.
+	* character-wise VISUAL mode (|v|)
+	* linweise VISUAL mode (|V|)
+	* blockwise VISUAL mode (|CTRL-V|)
+
+	In character-wise VISUAL mode, this command increments the number of
+	addends in the visually selected text by [count]. This is an alternative
+	to the existing CTRL-A command in VISUAL mode.
+
+	In linweise VISUAL mode (|V|), this command increments the addends in the
+	selected text by [count] per line. For each line, it searches for the
+	position of the addend and targets only the one addend that is most
+	left-hand.
+
+	In linweise VISUAL mode (|V|), this command works similarly in linewise
+	VISUAL mode, but the target is narrowed down to the selection.
+
+["x]<Plug>(dial-decrement)				*<Plug>(dial-decrement)*
+	An alternative to the existing CTRL-X command in NORMAL mode.
+
+{VISUAL}["x]<Plug>(dial-decrement)		*v_<Plug>(dial-decrement)*
+	An alternative to the existing CTRL-X command in VISUAL mode.
+
+{VISUAL}["x]<Plug>(dial-g-increment)	*v_<Plug>(dial-g-increment)*
+	An alternative to the existing |v_g_CTRL-A| command in VISUAL mode.
+	Its usage is similar to |v_<Plug>(dial-increment)|, but the number of
+	addends on line n, counting from the top, is increased by n * [count]. It
+	is useful when you want to create an equidistant sequence of numbers that
+	increases by a fixed number, such as a bullet list or calendar.
+	For example, consider you have the following list of dates:
+>
+		09/12
+		09/12
+		09/12
+		09/12
+<
+	If you move the cursor to the second `09/12`, select the bottom three
+	lines in line selection visual mode, and press `7g<C-a>`, you get:
+>
+		09/12
+		09/19
+		09/26
+		10/03
+<
+
+{VISUAL}["x]<Plug>(dial-g-decrement)	*v_<Plug>(dial-g-decrement)*
+	An alternative to the existing |v_g_CTRL-X| command in VISUAL mode.
+
+["x]<Plug>(dial-g-increment)			*<Plug>(dial-g-increment)*
+	Almost the same as |<Plug>(dial-increment)|, but but the behavior differs
+	during dot repeating. See |dial-additive-dot-repeating|.
+
+["x]<Plug>(dial-g-decrement)			*<Plug>(dial-g-decrement)*
+	Almost the same as |<Plug>(dial-decrement)|, but but the behavior differs
+	during dot repeating. See |dial-additive-dot-repeating|.
+
+------------------------------------------------------------------------------
+COMMAND									*dial-command*
+
+:[range]DialIncrement {augend}			*:DialIncrement*
+
+	Increments the augend specified by {augend} by 1 for the selected range.
+	It is similar to |v_<Plug>(dial-increment)| in linewise visual mode, but
+	allows you to specify and limit the objective augend.  Since it is not
+	possible to specify the addend (i.e., how many to increment), it is
+	assumed to be repeated using |@:|.
+
+:[range]DialDecrement {augend}			*:DialDecrement*
+
+	Decrements the augend specified by {augend} by 1 for the selected range.
+
+------------------------------------------------------------------------------
+LUA API									*dial-lua-api*
+
+										*dial-lua-api-map*
+"dial.map" module~
+
+A module that provides specific mappings.
+
+										*dial.map.manipulate()*
+require("dial.map").manipulate(direction, mode, [group_name, addend])
+
+	Perform the increment/decrement operation in a Lua keymapping function.
+	For example, the following configuration assigns dial-based increment to
+	<C-a>.
+>
+	vim.keymap.set("n", "<C-a>", function()
+		require("dial.map").manipulate("increment", "normal")
+	end)
+<
+	This function has two required arguments and two optional arguments.
+		direction (string, "increment" | "decrement"):
+			"increment" increases the value, while "decrement" decreases it.
+		mode (string, "normal" | "visual" | "gvisual"):
+			The mode in which the operation is performed.
+				normal: in NORMAL mode
+				visual: in VISUAL mode
+				gvisual: in VISUAL mode, with addends increasing by line
+		group_name (string?):
+			Group name. If omitted, `"default"` is used.
+		addend (integer?):
+			If you specify this argument explicitly, it must be a positive
+			integer. If omitted, it defaults to |v:count1|.
+
+										*dial.map.inc_normal()*
+require("dial.map").inc_normal([group_name])
+
+	Outputs a key sequence for incrementing based on the given `group_name` in
+	NORMAL mode. If `group_name` is omitted, it is equivalent to `default`. 
+>
+	vim.keymap.set(
+		"n", "<C-a>", require("dial.map").inc_normal()
+	)
+<
+
+										*dial.map.dec_normal()*
+require("dial.map").dec_normal([group_name])
+
+	Outputs a key sequence for decrementing based on the given `group_name` in
+	NORMAL mode.
+
+										*dial.map.inc_gnormal()*
+require("dial.map").inc_gnormal([group_name])
+
+	Outputs a key sequence for additive incrementing. See
+	|dial-additive-dot-repeating|.
+
+										*dial.map.dec_gnormal()*
+require("dial.map").dec_gnormal([group_name])
+
+	Outputs a key sequence for additive decrementing. See
+	|dial-additive-dot-repeating|.
+
+										*dial.map.inc_visual()*
+require("dial.map").inc_visual([group_name])
+
+	Outputs a key sequence for incrementing based on the given `group_name` in
+	VISUAL mode.
+
+										*dial.map.dec_visual()*
+require("dial.map").dec_visual([group_name])
+
+	Outputs a key sequence for decrementing based on the given `group_name` in
+	VISUAL mode.
+
+										*dial.map.inc_gvisual()*
+require("dial.map").inc_gvisual([group_name])
+
+	Outputs a key sequence for incrementing based on the given `group_name` in
+	VISUAL mode. The number of addends on line n, counting from the top, is
+	increased by n * [count].
+
+										*dial.map.dec_gvisual()*
+require("dial.map").dec_gvisual([group_name])
+
+	Outputs a key sequence for decrementing based on the given `group_name` in
+	VISUAL mode. The number of addends on line n, counting from the top, is
+	decreased by n * [count].
+
+"dial.augend" module~
+
+A module that defines augends. See |dial-augends|.
+
+"dial.config" module~
+
+A module for configuration.
+
+									*dial.config.augends:register_group()*
+require("dial.config").augends:register_group(tbl)
+
+	Defines or overrides a group based on a given table in the dictionary
+	format. The function argument is a dictionary whose keys are the group
+	names and whose values are the list of augends.
+
+									*dial.config.augends:on_filetype()*
+require("dial.config").augends:on_filetype(tbl)
+
+	Defines augends on particular filetype based on a given table in the
+	dictionary format. The function argument is a dictionary whose keys are
+	the filetype names and whose values are the list of augends.
+
+									*dial.config.augends:get()*
+require("dial.config").augends:get(group_name)
+
+	Get the registered groups which have `group_name` as their group name.
+
+
+vim:tw=78:fo=tcq2mM:ts=4:ft=help:norl:noet:fdm=marker:fen

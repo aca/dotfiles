@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+TZ="Etc/GMT" date '+%H:%M %Z'

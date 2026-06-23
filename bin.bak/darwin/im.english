@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# /opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then hs.execute("/usr/bin/osascript -e \"tell application \"System Events\" to key code 105\""); print(1); end' 
+/opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then hs.execute("/opt/homebrew/bin/macism com.apple.keylayout.US"); print(1); end' 
+# /opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then hs.keycodes.currentSourceID("com.apple.keylayout.US"); print(1); end' 
+# result=$(/opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then print(1); end')
+# if [ "$result" = "1" ]; then
+#  
+# fi
+# /opt/homebrew/bin/hs -c 'if hs.keycodes.currentSourceID() ~= "com.apple.keylayout.US" then hs.eventtap.keyStroke({}, "f13", 0); print(1); end' 

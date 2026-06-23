@@ -1,0 +1,687 @@
+*sandwich.jax*	日本語ヘルプ		Last change:14-May-2022.
+
+“挟まれた”テキストを編集するためのオペレータとテキストオブジェクトの詰め合わせ
+です。
+
+書いた人   : machakann <mckn{at}outlook.jp>
+ライセンス : NYSL license
+          日本語 <http://www.kmonos.net/nysl/>
+          English (Unofficial) <http://www.kmonos.net/nysl/index.en.html>
+
+必須要件:	Vim 7.4 かそれ以降のバージョン
+		|+reltime| 機能 (任意)
+		|+float| 機能 (任意)
+
+==============================================================================
+CONTENTS				*sandwich-contents*
+
+QUICK START			|sandwich-quick-start|
+INTRODUCTION			|sandwich-introduction|
+KEYMAPPINGS			|sandwich-keymappings|
+CONFIGURATION			|sandwich-configuration|
+MAGICCHARACTERS			|sandwich-magiccharacters|
+FILETYPE RECIPES		|sandwich-filetype-recipes|
+FUNCTIONS			|sandwich-functions|
+MISCELLANEOUS			|sandwich-miscellaneous|
+  vim-surround のキ－マッピングを使う
+  magicchar-f の挙動を変更する
+
+==============================================================================
+QUICK START				*sandwich-quick-start*
+
+*sandwich.vim* は文字列を括弧などで囲む/囲みを外す/囲みを置き換えることを目的
+としたオペレータとテキストオブジェクトのセットです。例えば、(foo) や "bar" の
+ような文字列が処理の対象になります。
+
+囲む~
+sa{motion/textobject}{addition} と、キー入力します。
+例えば、 foo という単語にカーソルを合わせて saiw( と入力すると (foo) となりま
+す。
+
+囲みを外す~
+sdb あるいは sd{deletion} とキー入力します。
+例えば、 (foo) というテキストにカーソルを合わせて sdb あるいは sd( と入力する
+と foo となります。 sdb という入力は自動的に囲まれたテキストを検索します。
+
+囲みを置き換える~
+srb{addition} あるいは sr{deletion}{addition} キー入力します。
+例えば、 (foo) というテキストにカーソルを合わせて srb" あるいは sr(" と入力す
+ると "foo" となります。
+
+これだけ読めばこのプラグインを使うのに十分でしょう。もし、さらに興味がわいた方
+、挙動を細かく変更したい方は続く記述およびオペレータとテキストオブジェクトそれ
+ぞれのヘルプ |operator-sandwich| 、 |textobj-sandwich| をご覧ください。
+
+
+
+==============================================================================
+INTRODUCTION				*sandwich-introduction*
+
+このプラグインは文字列を括弧などで囲む/囲みを外す/囲みを置き換えるための機能を
+提供します。オペレータ部分 |operator-sandwich| とテキストオブジェクト部分
+|textobj-sandwich| の二つの部分からなり、これらが共働することにより機能を実現
+します。また、同時にそれぞれが独立したオペレータ/テキストオブジェクトであるの
+で、ほかのあらゆるオペレータ/テキストオブジェクトと組み合わせることもできます
+。これらの機能は純粋にオペレータ及びテキストオブジェクトの枠組みを使って実装さ
+れているので、いかなるライブラリにも依存することなく |.| コマンドによって繰り
+返すことができます。
+
+|sandwich.vim| の提供するキーマッピングおよびマッピング変更のための情報につい
+ては|sandwich-keymappings|を参照してください。
+
+|sandwich.vim|を構成する部品としての純粋なオペレータについての情報は
+|operator-sandwich|のヘルプを参照してください。囲みを編集する機能をカスタマイ
+ズするための情報もこちらのヘルプに詳細があります。
+
+|sandwich.vim|を構成する部品としての純粋なテキストオブジェクトについての情報は
+|textobj-sandwich| のヘルプを参照してください。テキストオブジェクトの挙動をカ
+スタマイズするための情報もこちらのヘルプに詳細があります。
+
+
+
+==============================================================================
+KEYMAPPINGS				*sandwich-keymappings*
+
+このプラグインは以下のキーマッピングを提供します。
+
+機能		デフォルトキーマッピング
+--------------------------------------------------------------------------
+囲む		sa{motion/textobject}{addition}	(ノーマル、ビジュアルモード)
+			-> |<Plug>(sandwich-add)|
+
+囲みを外す
+		sd{deletion}			(ノーマルモード)
+		sd				(ビジュアルモード)
+			-> |<Plug>(sandwich-delete)|
+
+		sdb				(ノーマルモード)
+			-> |<Plug>(sandwich-delete-auto)|
+
+囲みを置き換える
+		sr{deletion}{addition}		(ノーマルモード)
+		sr{addition}			(ビジュアルモード)
+			-> |<Plug>(sandwich-replace)|
+
+		srb{addition}			(ノーマルモード)
+			-> |<Plug>(sandwich-replace-auto)|
+
+テキストオブジェクト
+		ib			(オペレータ待機、ビジュアルモード)
+			-> |<Plug>(textobj-sandwich-auto-i)|
+		ab			(オペレータ待機、ビジュアルモード)
+			-> |<Plug>(textobj-sandwich-auto-a)|
+
+		is			(オペレータ待機、ビジュアルモード)
+			-> |<Plug>(textobj-sandwich-query-i)|
+		as			(オペレータ待機、ビジュアルモード)
+			-> |<Plug>(textobj-sandwich-query-a)|
+
+--------------------------------------------------------------------------
+
+NOTE: 誤操作を防ぐため以下の設定を vimrc に追加することを強く推奨します。
+>
+	nmap s <Nop>
+	xmap s <Nop>
+<
+|s| コマンドは |c|l| コマンドによって代替できます。
+
+デフォルトのマッピングがお気に召さなければ*g:sandwich_no_default_key_mappings*
+をあなたの vimrc で定義しておいてください。
+>
+	let g:sandwich_no_default_key_mappings = 1
+<
+以下のコードはキーマッピングの開始キーを s から z に変える例です。
+>
+	let g:sandwich_no_default_key_mappings = 1
+
+	" add
+	nmap za <Plug>(sandwich-add)
+	xmap za <Plug>(sandwich-add)
+	omap za <Plug>(sandwich-add)
+
+	" delete
+	nmap zd <Plug>(sandwich-delete)
+	xmap zd <Plug>(sandwich-delete)
+	nmap zdb <Plug>(sandwich-delete-auto)
+
+	" replace
+	nmap zr <Plug>(sandwich-replace)
+	xmap zr <Plug>(sandwich-replace)
+	nmap zrb <Plug>(sandwich-replace-auto)
+<
+必要ならテキストオブジェクトもマッピングしましょう。
+>
+	" text-objects (if you need)
+	omap ib <Plug>(textobj-sandwich-auto-i)
+	xmap ib <Plug>(textobj-sandwich-auto-i)
+	omap ab <Plug>(textobj-sandwich-auto-a)
+	xmap ab <Plug>(textobj-sandwich-auto-a)
+
+	omap is <Plug>(textobj-sandwich-query-i)
+	xmap is <Plug>(textobj-sandwich-query-i)
+	omap as <Plug>(textobj-sandwich-query-a)
+	xmap as <Plug>(textobj-sandwich-query-a)
+<
+
+
+					*<Plug>(sandwich-add)*
+ [count1] <Plug>(sandwich-add) [count2] {motion} {addition}
+	指定されたテキストを囲みます。
+	このキーマッピングは[count]を独特なルールで扱います。
+	[count1] は|<Plug>(sandwich-add)|に渡され [count1] 回囲みます。他方で
+	[count2] は通常通り {motion} に渡されます。どちらの[count]も省略可能で
+	す。{addition}は囲みを指定するキーで、例えば saiw( と入力すると単語を
+	丸括弧()で囲みます。
+
+{Visual} [count] <Plug>(sandwich-add) {addition}
+	[count]回ヴィジュアル選択した範囲を囲みます。
+
+	<Plug>(sandwich-add)はノーマルモード、ヴィジュアルモード、オペレータ待
+	機モードにマップ可能です。デフォルトでは sa にマップされています。
+>
+	nmap sa <Plug>(sandwich-add)
+	xmap sa <Plug>(sandwich-add)
+	omap sa <Plug>(sandwich-add)
+<
+
+
+					*<Plug>(sandwich-delete)*
+[count] <Plug>(sandwich-delete) {deletion}
+	カーソルから最も近い{deletion}に指定される囲みを外します。例えば、
+	sd( と入力するとカーソルから最も近い対応する丸括弧()を削除します。
+>
+	(foo)    ->    foo
+<
+	[count]を指定するとカーソルから[count]番目に近い囲みを削除します。
+>
+	(foo(bar)baz)  cursor is on "bar"
+
+	--  sd( --> (foobarbaz)
+	-- 2sd( --> foo(bar)baz
+<
+
+{Visual} [count] <Plug>(sandwich-delete)
+	ヴィジュアル選択範囲の両端にある連続した囲みを[count]回外します。
+
+	<Plug>(sandwich-delete)はノーマルモード、ヴィジュアルモードにマップ可
+	能です。デフォルトでは sd にマップされています。
+>
+	nmap sd <Plug>(sandwich-delete)
+	xmap sd <Plug>(sandwich-delete)
+<
+
+
+					*<Plug>(sandwich-delete-auto)*
+[count] <Plug>(sandwich-delete-auto)
+	カーソルから最も近い囲みを自動的に検索して外します。
+	[count]を指定するとカーソルから[count]番目に近い囲みを削除します。
+>
+	[foo(bar)baz]  cursor is on "bar"
+
+	--  sdb --> [foobarbaz]
+	-- 2sdb --> foo(bar)baz
+<
+	<Plug>(sandwich-delete-auto)はノーマルモードにマップ可能です。
+	デフォルトでは sdb にマップされています。
+>
+	nmap sdb <Plug>(sandwich-delete-auto)
+<
+
+
+					*<Plug>(sandwich-replace)*
+[count] <Plug>(sandwich-replace) {deletion} {addition}
+	カーソルから最も近い{deletion}に指定される囲みを{addition}に指定される
+	囲みに置換します。例えば、sr([ と入力するとカーソルから最も近い対応す
+	る丸括弧()を角括弧[]に置換します。
+>
+	(foo)    ->    [foo]
+<
+	[count]を指定するとカーソルから[count]番目に近い囲みを置換します。
+>
+	(foo(bar)baz)  cursor is on "bar"
+
+	--  sr([ --> (foo[bar]baz)
+	-- 2sr([ --> [foo(bar)baz]
+<
+
+{Visual} [count] <Plug>(sandwich-replace) {addition}
+	ヴィジュアル選択範囲の両端にある連続した囲みを[count]回置換します。
+
+	<Plug>(sandwich-replace)はノーマルモード、ヴィジュアルモードにマップ可
+	能です。デフォルトでは sr にマップされています。
+>
+	nmap sr <Plug>(sandwich-replace)
+	xmap sr <Plug>(sandwich-replace)
+<
+
+
+					*<Plug>(sandwich-replace-auto)*
+[count] <Plug>(sandwich-replace-auto) {addition}
+	カーソルから最も近い囲みを自動的に検索して置換します。
+	[count]を指定するとカーソルから[count]番目に近い囲みを削除します。
+>
+	[foo(bar)baz]  cursor is on "bar"
+
+	--  srb{ --> [foo{bar}baz]
+	-- 2srb{ --> {foo(bar)baz}
+<
+	<Plug>(sandwich-replace-auto)はノーマルモードにマップ可能です。
+	デフォルトでは srb にマップされています。
+>
+	nmap srb <Plug>(sandwich-replace-auto)
+<
+
+
+==============================================================================
+CONFIGURATION				*sandwich-configuration*
+
+括弧などのセットとその性質に依るオプションをまとめた情報をレシピ "recipe" と呼
+びます。一つ一つのレシピは |Dictionary| で、これらを集めた |list| がオペレータ
+やテキストオブジェクトの動作を決めます。 |g:sandwich#default_recipes| はその一
+つで、 |operator-sandwich| と |textobj-sandwich| の両方から参照されます。多く
+の場合、この情報は共有したほうが便利であるためです。 |g:sandwich#recipes| がユ
+ーザーによって定義された場合こちらがかわりに参照されます。デフォルト設定の
+|g:sandwich#default_recipes| は |:echo| コマンドによって確認できます。
+>
+	:echo g:sandwich#default_recipes
+<
+
+上記に加え、 |g:operator#sandwich#recipes| と |g:textobj#sandwich#recipes| も
+レシピを持つことができます。これらは |operator-sandwich| と |textobj-sandwich|
+のそれぞれからしか参照されません。固有のレシピをおきたい場合に使いましょう。
+
+レシピの細かい仕様については、オペレータ及びテキストオブジェクトのヘルプ、
+|operator-sandwich-configuration| 及び |textobj-sandwich-configuration| をご覧
+ください。
+
+
+
+g:sandwich#recipes			*g:sandwich#recipes*
+	|operator-sandwich| と |textobj-sandwich| の両方から参照されるレシピの
+	リストです。もし存在しなければ |g:sandwich#default_recipes| がかわりに
+	つかわれます。
+					*b:sandwich_recipes*
+	|b:sandwich_recipes| が存在する場合は、 |g:sandwich#recipes| のかわり
+	にそちらが使われます。これはバッファについてローカルな値なので、ファイ
+	ルタイプ固有な設定が増えすぎた時に使うと便利かもしれません。
+
+
+
+g:sandwich#default_recipes		*g:sandwich#default_recipes*
+	デフォルトで用意されたレシピのリストです。 |g:sandwich#recipes| が存在
+	すれば、そちらがかわりにつかわれます。
+
+	この変数は変更を禁止されていますが、 |g:sandwich#recipes| を宣言する際
+	に必要ならコピーすることができます。
+>
+	:let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+<
+
+デフォルトレシピについて~
+`(`, `)`
+`[`, `]`
+`{`, `}`
+`<`, `>`
+	開き/閉じ括弧は同様に機能します。例えば、 `saiw(` と `saiw)` は同様の
+	結果を与えます。
+>
+		foo -> (foo)
+<
+	`sd(` と `sd)` はこの反対のことをします。
+
+------------------------------------------------------------------------------
+`'`
+`"`
+	クオーテーションで文字列を囲みます。
+>
+		foo -> 'foo'
+<
+	クオーテーションによる囲みを消す場合 `quoteescape` オプションが考慮さ
+	れます。また、両端が同じ行の中にある必要があります。
+
+------------------------------------------------------------------------------
+`<Space>`
+	スペース囲みを消す場合、連続するスペースを一度に消します。
+
+------------------------------------------------------------------------------
+`t`, `T`
+`f`, `F`
+`i`, `I`
+	|sandwich-magiccharacters| をご覧ください。
+
+
+
+------------------------------------------------------------------------------
+Global options~
+g:sandwich#timeout			*g:sandwich#timeout*
+	この変数に偽値が設定されている場合は、オペレータやテキストオブジェクト
+	は一つのレシピを指定する完全な入力がなされるまで待ちます。例えば、下記
+	のレシピを用意します。
+>
+	let g:sandwich#recipes = [
+	  \   {'buns': ['for {', '}'],  'nesting': 1, 'input': ['bf']}
+	  \   {'buns': ['if {', '}'],   'nesting': 1, 'input': ['bi']}
+	  \   {'buns': ['else {', '}'], 'nesting': 1, 'input': ['be']}
+	  \ ]
+<
+	このオプションが真の場合は `saiwb` とタイプして少し待つと、オペレータ
+	はタイムアウトのため単語を `b` で囲みます。しかし、偽の場合は一つのレ
+	シピを指定する入力が完成するまで待ちます。この変数はオペレータとテキス
+	トオブジェクトの両方に効果を及ぼします。|g:operator#sandwich#timeout|
+	や |g:textobj#sandwich#timeout| が存在する場合はそれらが優先的に使われ
+	ます。この変数が定義されていなければ 'timeout' オプションが代わりに参
+	照されます。
+	関連：|g:sandwich#timeoutlen|
+
+
+
+g:sandwich#timeoutlen			*g:sandwich#timeoutlen*
+	入力に前方一致で重複するレシピが存在する場合に次のキーシーケンスを待つ
+	時間をミリ秒単位で指定します。
+>
+	let g:sandwich#recipes = [
+	  \   {'buns': ['(', ')']}
+	  \   {'buns': ['((', '))']}
+	  \ ]
+<
+	saiw( とキー入力するとオペレータは次に ( が入力されるかこの時間だけ待
+	ちます。この間にもう一度 ( を押下すると '((' と '))' のレシピが使われ
+	るでしょう。キーの押下なしでこの時間が過ぎると '(' と ')' のレシピが使
+	われるでしょう。この変数はオペレータとテキストオブジェクトの両方に効果
+	を及ぼします。|g:operator#sandwich#timeoutlen| や
+	|g:textobj#sandwich#timeout| が存在する場合はそれらが優先的に使われま
+	す。この変数が定義されていなければ 'timeoutlen' が代わりに参照されま
+	す。
+
+	タイムアウト機能(|g:operator#sandwich#timeout|,
+	|g:textobj#sandwich#timeout|, |g:sandwich#timeout|, 'timeout')がオフの
+	場合はこのオプションは無視されます。
+
+
+
+g:sandwich#input_fallback		*g:sandwich#input_fallback*
+	このオプションは囲みを追加・削除・置換するためのユーザーの入力に合致す
+	るレシピが存在しない場合の挙動を制御します。このオプションが真のとき、
+	ユーザーの入力に合致するレシピがなければ、入力された文字自体を追加・削
+	除・置換の対象とします。例えば、a という入力に合致するレシピが存在しな
+	くても saiwa と入力すると単語を a で囲みます。
+>
+	foo -> afooa
+<
+	この動作が必要ない場合はこのオプションに偽値を設定します。
+>
+	let g:sandwich#input_fallback = 0
+<
+
+
+==============================================================================
+MAGICCHARACTERS				*sandwich-magiccharacters*
+
+sandwich.vim は {addition}/{deletion} を決めるためにユーザーに入力を促します。
+これは例えば `(` が `()` のペアを、 `"` が `""` のペアを指しますが、より特殊な
+用途のための入力がいくつか存在します。
+
+f~
+F~
+	関数で囲みます。例えば `saiwf` と入力すると `f` キーの入力の後に関数名
+	の入力を求められます。関数名を入力し <CR> キーを押すと、その関数名付き
+	の丸括弧でテキストオブジェクトを囲みます。関数名の入力中、 <Tab> キー
+	で現在のバッファから関数名を補完できます。
+>
+	        arg      -- saiwffunc<CR> -->    func(arg)
+<
+	逆に `sdf` は関数囲みを削除します。
+>
+	     func(arg)       -- sdf -->             arg
+<
+	関数がネストしている場合、 `sdf` はカーソル下の関数囲みを削除し、
+	`sdF` は外側の関数囲みを削除します。
+>
+	cursor is on 'func2':
+	    func1(func2(arg))  -- sdf -->   func1(arg)
+	                       -- sdF -->   func2(arg)
+<
+
+i~
+I~
+	その時だけの (`I`nstant) 囲みを定義します。 `saiwi` はユーザーに前方囲
+	みと後方囲みの入力を求めます。例えば、 `saiwifoo<CR>bar<CR>` という
+	入力はカーソル下の単語を `foo` と `bar` で囲みます。入力中は <Tab>
+	キーにより現在のバッファから簡単な単語補完を使えます。反対に `sdi` は
+	任意の入力された囲みを削除します。つまり、 `sdifoo<CR>bar<CR>` は
+	`foowordbar` という文字列を `word` にします。これは |.| コマンドによっ
+	て繰り返すことができるので、編集対象の文字列が多く存在する場合に便利か
+	もしれません。
+	`sa{textobj}I` や `sdI` は最後の入力を再利用します。
+
+
+t~
+T~
+	`t` および `T` は HTML 様のタグの編集を支援します。 `saiwt` はユーザー
+	にタグの要素名の入力を促し、そのタグで囲みます。 `saiwT` も同様に機能
+	します。
+>
+	       word      -- saiwtp<CR> -->   <p>word</p>
+<
+	`sdt` は直近のタグ囲みを削除します。 `sdT` も同様に機能します。
+>
+	    <p>word</p>  -- sdt -->             word
+<
+	`t` と `T` は囲みを置換するときに別のふるまいをします。
+	`srtt` はタグの要素名のみを置き換え、属性等は変更しません。
+	`srTT` はタグ全体を置き換えます。
+
+
+
+==============================================================================
+FILETYPE RECIPES			*sandwich-filetype-recipes*
+
+Sandwich.vim にはファイルタイプに固有のレシピもあります。これらは 'filetype'
+オプションが特定の値のときのみ読み込まれ、有効になります。またこれらはユーザー
+設定を上書きしないので、必要なものだけ残して使うとよいでしょう。設定の本体は
+ftplugin/{filetype}/sandwich.vim に記述されています。
+
+もし、それらのファイルを読み込んでほしくない場合は
+`g:sandwich_no_{filetype}_ftplugin` に真値を設定しておいてください。例えば、
+tex 固有のレシピが必要ない場合、次の一行を vimrc に加えます。
+>
+	let g:sandwich_no_tex_ftplugin = 1
+<
+
+------------------------------------------------------------------------------
+plaintex~
+tex~
+>
+ 囲み			入力
+ `{text}'		u'
+ “{text}”		u"
+ „{text}“		U"
+ 			ug
+ 			u,
+ «{text}»		u<
+ 			uf
+ `{text}'		l'
+ 			l`
+ ``{text}''		l"
+ "`{text}"'		L"
+ ,,{text}``		l,
+ <<{text}>>		l<
+ \{{text}\}		\{
+ \[{text}\]		\[
+
+ \left({text}\right)				m(
+ \left[{text}\right]				m[
+ \left|{text}\right|				m|
+ \left\{{text}\right\}				m{
+ \left\langle {text}\right\rangle		m<
+<	'm' 始まりの入力で挿入される囲みはすべて `ma` という入力で削除すること
+	ができます。例えば `sdma` のように使います。
+>
+ \big({text}\big)				M(
+ \big[{text}\big]				M[
+ \big|{text}\big|				M|
+ \big\{{text}\big\}				M{
+ \big\langle {text}\big\rangle			M<
+
+ \begingroup{text}\endgroup			gr
+ 						\gr
+ \toprule{text}\bottomrule			tr
+ 						br
+ 						\tr
+ 						\br
+
+ \{input}{{text}}				c
+<	このレシピはユーザーに入力を求め、入力されたテキストで {input} を置き
+	換えます。
+>
+ \begin{{input}}{text}\end{{input}}		e
+<	このレシピはユーザーに入力を求め、入力されたテキストで {input} を置き
+	換えます。<Tab> キーにより {input} の入力を補完することができます。
+	この時、補完候補は `g:sandwich#filetype#tex#environments`
+	(あるいは存在すれば `b:sandwich#filetype#tex#environments`) から読み込
+	まれます。
+
+
+==============================================================================
+FUNCTIONS				*sandwich-functions*
+
+sandwich#util#addlocal({recipes})	*sandwich#util#addlocal()*
+	レシピのリスト {recipes} をそのバッファにのみ有効な設定として追加しま
+	す。この際、既存のグローバルな設定はそのまま受け継がれます。この関数は
+	グローバルな設定をきれいに保ったままファイルタイプに特有な設定を追加す
+	る、などの用途に使えます。{recipes} はレシピのリスト |List| である点は
+	注意してください。
+>
+	autocmd FileType python call sandwich#util#addlocal([
+	  \   {'buns': ['"""', '"""'], 'nesting': 0, 'input': ['3"']},
+	  \ ])
+<
+
+==============================================================================
+MISCELLANEOUS				*sandwich-miscellaneous*
+
+vim-surround のキーマッピングを使う~
+	vim-surround (vim script #1697) と同じキーマッピングが使いたければ次の
+	行を vimrc に追加してください。
+>
+	runtime macros/sandwich/keymap/surround.vim
+<
+	NOTE: surround.vim とは違い、 `(` と `)` の入力は同じように機能しま
+	      す。もし、オリジナルの surround.vim のように `(` の入力により、
+	      空白を含んだ括弧で囲みたい場合は次のように書きます。
+>
+	runtime macros/sandwich/keymap/surround.vim
+	let g:sandwich#recipes += [
+	\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,
+	\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
+	\
+	\   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1,
+	\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
+	\
+	\   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1,
+	\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
+	\
+	\   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1,
+	\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+	\    'action': ['delete'], 'input': ['{']},
+	\
+	\   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1,
+	\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+	\    'action': ['delete'], 'input': ['[']},
+	\
+	\   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1,
+	\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+	\    'action': ['delete'], 'input': ['(']},
+	\ ]
+<
+
+
+	ノーマルモードにおける `ys`, `yss`, `yS`, `ds`, `cs` 及び、ビジュアル
+	モードにおける `S` が使用できます。また、 vim-surround にはありません
+	が `dss` と `css` も使用できます。これらは `ds` と `cs` に似ていますが
+	削除/置換対象となる括弧やクオーテーションを自動的に選択します。
+
+	さらに vim-sandwich は便利なテキストオブジェクトが独立して使用できま
+	す。ぜひ試してみてください。
+
+	* ユーザーの入力に従い、括弧や同じ文字に囲まれた領域を選択
+	|<Plug>(textobj-sandwich-query-i)|, |<Plug>(textobj-sandwich-query-a)|
+>
+	xmap is <Plug>(textobj-sandwich-query-i)
+	xmap as <Plug>(textobj-sandwich-query-a)
+	omap is <Plug>(textobj-sandwich-query-i)
+	omap as <Plug>(textobj-sandwich-query-a)
+<
+	* 最も近い括弧に囲まれた領域を選択
+	|<Plug>(textobj-sandwich-auto-i)|, |<Plug>(textobj-sandwich-auto-a)|
+>
+	xmap iss <Plug>(textobj-sandwich-auto-i)
+	xmap ass <Plug>(textobj-sandwich-auto-a)
+	omap iss <Plug>(textobj-sandwich-auto-i)
+	omap ass <Plug>(textobj-sandwich-auto-a)
+<
+	* ユーザーの入力に従い、同じ文字に囲まれた領域を選択
+	|<Plug>(textobj-sandwich-literal-query-i)|,
+	|<Plug>(textobj-sandwich-literal-query-a)|
+>
+	xmap im <Plug>(textobj-sandwich-literal-query-i)
+	xmap am <Plug>(textobj-sandwich-literal-query-a)
+	omap im <Plug>(textobj-sandwich-literal-query-i)
+	omap am <Plug>(textobj-sandwich-literal-query-a)
+<
+
+------------------------------------------------------------------------------
+magicchar-f の挙動を変更する~
+
+`magicchar-f` は単純な関数呼び出しを削除できます。
+>
+	     func(arg)          -- sdf -->             arg
+<
+もし、もっと複雑なパターンにも対応させたい場合、例えば、
+>
+	     obj.method(arg)    -- sdf -->             arg
+<
+このような場合に対応させるには `g:sandwich#magicchar#f#patterns` か
+`b:sandwich_magicchar_f_patterns` を使います。 これらは次のようなパターンのリ
+ストです。
+>
+	let g:sandwich#magicchar#f#patterns = [
+	\   {
+	\     'header' : '\<\h\k*',
+	\     'bra'    : '(',
+	\     'ket'    : ')',
+	\     'footer' : '',
+	\   },
+	\ ]
+<
+四つの文字列はすべて正規表現パターンで、開括弧の前の文字列、開括弧、閉括弧、
+閉括弧の後に続く文字列にマッチします。すなわち、先に述べたようなパターンに対応
+するには以下のような設定をします。
+>
+	let g:sandwich#magicchar#f#patterns = [
+	\   {
+	\     'header' : '\<\%(\h\k*\.\)*\h\k*',
+	\     'bra'    : '(',
+	\     'ket'    : ')',
+	\     'footer' : '',
+	\   },
+	\ ]
+<
+`b:sandwich_magicchar_f_patterns` はファイルタイプ毎の設定を定義するのに使えま
+す。
+>
+	augroup sandwich-ft-python
+	  autocmd Filetype python let b:sandwich_magicchar_f_patterns = [
+	                              \   {
+	                              \     'header' : '\<\%(\h\k*\.\)*\h\k*',
+	                              \     'bra'    : '(',
+	                              \     'ket'    : ')',
+	                              \     'footer' : '',
+	                              \   },
+	                              \ ]
+	augroup END
+<
+デフォルトの設定は `g:sandwich#magicchar#f#default_patterns` にあります。
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/myshov/xkbswitch-macosx.git
+	branch = master
+	commit = 67d53d60ebc840a617adfe9596d4998cb3eafd83
+	parent = 19757f4eb2d7bacb448c33b771df04298817d168
+	method = merge
+	cmdver = 0.4.9

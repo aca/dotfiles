@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/RRethy/base16-nvim
+	branch = master
+	commit = 190397833e53fdfd5cf400c5baaf1a4e533158e5
+	parent = d4a6447acc33e03296324c55c4aad78dfa4f2cd9
+	method = merge
+	cmdver = 0.4.9

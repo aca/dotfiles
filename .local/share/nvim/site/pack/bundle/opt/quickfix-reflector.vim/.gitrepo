@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/stefandtw/quickfix-reflector.vim.git
+	branch = master
+	commit = 6a6a9e28e1713b9e9db99eec1e6672e5666c01b9
+	parent = 4b939e3e7c4f7dc020b7a4ea100855e365862b71
+	method = merge
+	cmdver = 0.4.9

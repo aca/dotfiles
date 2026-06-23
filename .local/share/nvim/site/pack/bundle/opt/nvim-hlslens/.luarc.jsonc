@@ -1,0 +1,32 @@
+{
+	"$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+	"completion.callSnippet": "Replace",
+	"completion.displayContext": 50,
+	"completion.keywordSnippet": "Disable",
+	"completion.postfix": ".",
+	"diagnostics.libraryFiles": "Disable",
+	"diagnostics.disable": [
+		"different-requires",
+		"param-type-mismatch",
+		"assign-type-mismatch"
+	],
+	"diagnostics.globals": [
+		"jit",
+		"it",
+		"describe",
+		"before_each",
+		"after_each",
+		"setup",
+		"teardown"
+	],
+	"diagnostics.severity": {
+        "unused-local": "Hint",
+		"undefined-field": "Hint"
+	},
+	"runtime.version": "LuaJIT",
+	"type.castNumberToInteger": true,
+	"type.weakUnionCheck": true,
+	"workspace.library": [
+		"$VIM/runtime/lua"
+	]
+}

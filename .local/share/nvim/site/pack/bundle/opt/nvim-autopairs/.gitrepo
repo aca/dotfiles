@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/windwp/nvim-autopairs.git
+	branch = master
+	commit = 59bce2eef357189c3305e25bc6dd2d138c1683f5
+	parent = 9079e2d4c27ec2492022f2bd5728c4114b20e034
+	method = merge
+	cmdver = 0.4.9

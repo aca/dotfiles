@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ray-x/go.nvim.git
+	branch = master
+	commit = fe8e1de03157f8a68e9e5b819409368ce33aeb87
+	parent = 844b857490c619fa13a6c4cd5d5c892cbbff7330
+	method = merge
+	cmdver = 0.4.9

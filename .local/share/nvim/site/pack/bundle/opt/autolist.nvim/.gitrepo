@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/gaoDean/autolist.nvim
+	branch = main
+	commit = 5f70a5f99e96c8fe3069de042abd2a8ed2deb855
+	parent = 122a64b6c0d2b06f60a798eae7d99477e520d65a
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/polarmutex/git-worktree.nvim
+	branch = main
+	commit = 3ad8c17a3d178ac19be925284389c14114638ebb
+	parent = 27e90de6ce72e57b30a53e06c3570e0945a329e5
+	method = merge
+	cmdver = 0.4.9

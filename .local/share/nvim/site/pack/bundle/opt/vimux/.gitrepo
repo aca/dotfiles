@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/preservim/vimux.git
+	branch = master
+	commit = d6cb7f63a8bb428ffc27060b7f83c77fb115589c
+	parent = b5fd4034f412e5ef6e2cb92702f0b6350fdce74e
+	method = merge
+	cmdver = 0.4.9

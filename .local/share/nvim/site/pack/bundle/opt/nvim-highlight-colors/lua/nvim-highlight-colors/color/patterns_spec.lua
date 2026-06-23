@@ -1,0 +1,200 @@
+local patterns = require("nvim-highlight-colors.color.patterns")
+local utils = require("nvim-highlight-colors.color.utils")
+local assert = require("luassert")
+
+describe('Patterns', function()
+	it('should return true if color is short hex', function()
+		assert.is_true(patterns.is_short_hex_color("#FFF"))
+	end)
+
+	it('should return false if color is not short hex', function()
+		assert.is_false(patterns.is_short_hex_color("#FFFF"))
+		assert.is_false(patterns.is_short_hex_color("#FFFFFF"))
+		assert.is_false(patterns.is_short_hex_color("#FFFFFFFF"))
+		assert.is_false(patterns.is_short_hex_color("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_short_hex_color("hsl(240, 100%, 50%)"))
+	end)
+
+	it('should return true if color is short hex with alpha layer', function()
+		assert.is_true(patterns.is_alpha_layer_short_hex("#FFFF"))
+	end)
+
+	it('should return false if color is not short hex with alpha layer', function()
+		assert.is_false(patterns.is_alpha_layer_short_hex("#FFF"))
+		assert.is_false(patterns.is_alpha_layer_short_hex("#FFFFFF"))
+		assert.is_false(patterns.is_alpha_layer_short_hex("#FFFFFFFF"))
+		assert.is_false(patterns.is_alpha_layer_short_hex("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_alpha_layer_short_hex("hsl(240, 100%, 50%)"))
+	end)
+
+	it('should return true if color is hex', function()
+		assert.is_true(patterns.is_hex_color("#FFFFFF"))
+	end)
+
+	it('should return false if color is not hex', function()
+		assert.is_false(patterns.is_hex_color("#FFF"))
+		assert.is_false(patterns.is_hex_color("#FFFF"))
+		assert.is_false(patterns.is_hex_color("#FFFFFFFF"))
+		assert.is_false(patterns.is_hex_color("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_hex_color("hsl(240, 100%, 50%)"))
+	end)
+
+	it('should return true if color is hex with alpha layer', function()
+		assert.is_true(patterns.is_alpha_layer_hex("#FFFFFFFF"))
+	end)
+
+	it('should return false if color is not hex with alpha layer', function()
+		assert.is_false(patterns.is_alpha_layer_hex("#FFF"))
+		assert.is_false(patterns.is_alpha_layer_hex("#FFFF"))
+		assert.is_false(patterns.is_alpha_layer_hex("#FFFFFF"))
+		assert.is_false(patterns.is_alpha_layer_hex("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_alpha_layer_hex("hsl(240, 100%, 50%)"))
+	end)
+
+	it('should return true if color is rgb', function()
+		assert.is_true(patterns.is_rgb_color("rgb(255, 255, 255)"))
+		assert.is_true(patterns.is_rgb_color("rgb(255 255 255)"))
+		assert.is_true(patterns.is_rgb_color("rgba(92, 92, 255 / 0.2)"))
+		assert.is_true(patterns.is_rgb_color("rgba(0, 255, 0 / 20%)"))
+		assert.is_true(patterns.is_rgb_color("rgba(255 0 0 0)"))
+	end)
+
+	it('should return false if color is not rgb', function()
+		assert.is_false(patterns.is_rgb_color("#FFF"))
+		assert.is_false(patterns.is_rgb_color("#FFFF"))
+		assert.is_false(patterns.is_rgb_color("#FFFFFF"))
+		assert.is_false(patterns.is_rgb_color("#FFFFFFFF"))
+		assert.is_false(patterns.is_rgb_color("hsl(240, 100%, 50%)"))
+		assert.is_false(patterns.is_rgb_color("\033[0;30m"))
+	end)
+
+	it('should return true if color is hsl', function()
+		assert.is_true(patterns.is_hsl_color("hsl(240, 100%, 68%)"))
+		assert.is_true(patterns.is_hsl_color("hsl(150deg 30% 40%)"))
+		assert.is_true(patterns.is_hsl_color("hsl(0.3turn 60% 15%) "))
+		assert.is_true(patterns.is_hsl_color("hsl(240 100% 68%)"))
+	end)
+
+	it('should return false if color is not hsl', function()
+		assert.is_false(patterns.is_hsl_color("#FFF"))
+		assert.is_false(patterns.is_hsl_color("#FFFF"))
+		assert.is_false(patterns.is_hsl_color("#FFFFFF"))
+		assert.is_false(patterns.is_hsl_color("#FFFFFFFF"))
+		assert.is_false(patterns.is_hsl_color("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_hsl_color("\033[0;30m"))
+	end)
+
+	it('should return true if color is hsl without func', function()
+		assert.is_true(patterns.is_hsl_without_func_color(": 240 100% 68%"))
+		assert.is_true(patterns.is_hsl_without_func_color(": 150deg 30% 40%"))
+		assert.is_true(patterns.is_hsl_without_func_color(": 0.3turn 30% 40%"))
+		assert.is_true(patterns.is_hsl_without_func_color(": 150 30% 40%"))
+	end)
+
+	it('should return false if color is not hsl without func', function()
+		assert.is_false(patterns.is_hsl_without_func_color("#FFF"))
+		assert.is_false(patterns.is_hsl_without_func_color("#FFFF"))
+		assert.is_false(patterns.is_hsl_without_func_color("#FFFFFF"))
+		assert.is_false(patterns.is_hsl_without_func_color("#FFFFFFFF"))
+		assert.is_false(patterns.is_hsl_without_func_color("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_hsl_without_func_color("\033[0;30m"))
+		assert.is_false(patterns.is_hsl_without_func_color("hsl(240, 100%, 68%)"))
+		assert.is_false(patterns.is_hsl_without_func_color("hsl(150deg 30% 40%)"))
+		assert.is_false(patterns.is_hsl_without_func_color("hsl(0.3turn 60% 15%) "))
+		assert.is_false(patterns.is_hsl_without_func_color("hsl(240 100% 68%)"))
+	end)
+
+	it('should return true if color is css var color', function()
+		assert.is_true(patterns.is_var_color("var(--css-color)"))
+		assert.is_true(patterns.is_var_color("  var(--css-color)  "))
+	end)
+
+	it('should return false if color is not css var color', function()
+		assert.is_false(patterns.is_var_color("vr(--css-color)"))
+		assert.is_false(patterns.is_var_color("var(-css-color)"))
+		assert.is_false(patterns.is_var_color("var(-css-color"))
+		assert.is_false(patterns.is_var_color("var(--css%color)"))
+		assert.is_false(patterns.is_var_color("#FFF"))
+		assert.is_false(patterns.is_var_color("#FFFF"))
+		assert.is_false(patterns.is_var_color("#FFFFFF"))
+		assert.is_false(patterns.is_var_color("#FFFFFFFF"))
+		assert.is_false(patterns.is_var_color("rgb(255, 255, 255)"))
+		assert.is_false(patterns.is_var_color("\033[0;30m"))
+	end)
+
+	it('should return true if color is custom color', function()
+		assert.is_true(patterns.is_custom_color("custom-color", {{label = 'custom%-color', color = '#FFFFFF'}, {label = 'custom%-color2', color = '#FFF'}}))
+	end)
+
+	it('should return false if color is not custom color', function()
+		assert.is_false(patterns.is_custom_color("custom-color", {{label = 'custom%-', color = '#FFFFFF'}, {label = 'custom%-color2', color = '#FFF'}}))
+		assert.is_false(patterns.is_custom_color("customcolor", {{label = 'custom%-color', color = '#FFFFFF'}, {label = 'custom%-color2', color = '#FFF'}}))
+		assert.is_false(patterns.is_custom_color("custom%-color", {}))
+	end)
+
+	it('should return true if color is css named color', function()
+		assert.is_true(patterns.is_named_color({utils.get_css_named_color_pattern()}, ": green"))
+		assert.is_true(patterns.is_named_color({utils.get_css_named_color_pattern()}, "= green"))
+		assert.is_true(patterns.is_named_color({utils.get_css_named_color_pattern()}, "=blue"))
+	end)
+
+	it('should return false if color is not css named color', function()
+		assert.is_false(patterns.is_named_color({utils.get_css_named_color_pattern()}, "green"))
+		assert.is_false(patterns.is_named_color({utils.get_css_named_color_pattern()}, " blue"))
+		assert.is_false(patterns.is_named_color({utils.get_css_named_color_pattern()}, "#FFFFFF"))
+	end)
+
+	it('should return true if color is tailwind color', function()
+		assert.is_true(patterns.is_named_color({utils.get_tailwind_named_color_pattern()}, "bg-white"))
+		assert.is_true(patterns.is_named_color({utils.get_tailwind_named_color_pattern()}, "text-slate-500"))
+		assert.is_true(patterns.is_named_color({utils.get_tailwind_named_color_pattern()}, "bg-sky-300"))
+	end)
+
+	it('should return false if color is not tailwind color', function()
+		assert.is_false(patterns.is_named_color({utils.get_tailwind_named_color_pattern()}, "#FFFFFF"))
+	end)
+
+	it('should return true if color is ansi color', function()
+		assert.is_true(patterns.is_ansi_color("\\033[1;37m"))
+		assert.is_true(patterns.is_ansi_color("\\033[1;32m"))
+	end)
+
+	it('should return false if color is not ansi color', function()
+		assert.is_false(patterns.is_ansi_color("\033[1;37m"))
+		assert.is_false(patterns.is_ansi_color("\\033[137m"))
+		assert.is_false(patterns.is_ansi_color("\\033[1:37m"))
+		assert.is_false(patterns.is_ansi_color("\\033[1;37n"))
+	end)
+
+	it('should return true if color is xterm256 color', function()
+		assert.is_true(patterns.is_xterm256_color("\\033[38;5;1m"))
+		assert.is_true(patterns.is_xterm256_color("\\033[48;5;136m"))
+		assert.is_true(patterns.is_xterm256_color("\\033[1;38;5;10m"))
+		assert.is_true(patterns.is_xterm256_color("\\033[2;3;38;5;51m"))
+	end)
+
+	it('should return false if color is not xterm256 color', function()
+		assert.is_false(patterns.is_xterm256_color("\\034[38;5;1m"))      -- Not an escape
+		assert.is_false(patterns.is_xterm256_color("\\033[38;136m"))      -- Missing '5;'
+		assert.is_false(patterns.is_xterm256_color("\\033[38;5;356m"))    -- Out of range
+		assert.is_false(patterns.is_xterm256_color("\\033[1;5;10m"))      -- Missing '38;'
+		assert.is_false(patterns.is_xterm256_color("\\033[2;3;38;5;51"))  -- Missing 'm'
+	end)
+
+	it('should return true if color is xterm True Color', function()
+		assert.is_true(patterns.is_xtermTrueColor_color("\\033[38;2;105;210;231m"))
+		assert.is_true(patterns.is_xtermTrueColor_color("\\033[48;2;167;219;216m"))
+		assert.is_true(patterns.is_xtermTrueColor_color("\\033[1;38;2;224;228;204m"))
+		assert.is_true(patterns.is_xtermTrueColor_color("\\033[2;3;38;2;243;134;48m"))
+		assert.is_true(patterns.is_xtermTrueColor_color("\\033[38;2;250;105;0m"))
+	end)
+
+	it('should return false if color is not xterm True Color', function()
+		assert.is_false(patterns.is_xtermTrueColor_color("\\034[38;2;255;255;255m")) -- Not an escape
+		assert.is_false(patterns.is_xtermTrueColor_color("\\033[38;136;78;240m"))    -- Missing '2;'
+		assert.is_false(patterns.is_xtermTrueColor_color("\\033[38;2;356;0;0m"))     -- Out of range
+		assert.is_false(patterns.is_xtermTrueColor_color("\\033[1;2;128;128;128m"))  -- Missing '38;'
+		assert.is_false(patterns.is_xtermTrueColor_color("\\033[2;3;38;2;0;0;0"))    -- Missing 'm'
+	end)
+end)
+

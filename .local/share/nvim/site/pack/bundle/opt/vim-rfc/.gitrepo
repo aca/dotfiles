@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mhinz/vim-rfc.git
+	branch = master
+	commit = 5a7dfe4bc02fd0b10beb0026effde5c40d2ca648
+	parent = aa075c90fcd21ba30e5aaa5445610de68ba0038a
+	method = merge
+	cmdver = 0.4.9

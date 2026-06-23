@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/lewis6991/satellite.nvim.git
+	branch = main
+	commit = 62b0aa1a941e35e694e8a50b589150bcca8c084d
+	parent = 06add620d01bb149d30717992268504d5754704f
+	method = merge
+	cmdver = 0.4.9

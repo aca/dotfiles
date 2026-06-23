@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mcauley-penney/visual-whitespace.nvim
+	branch = main
+	commit = 49ff2b1c572ed7033a584381fa23aad2bf3bb258
+	parent = e54df4bf8f7082728e0aa1f098104394a3824877
+	method = merge
+	cmdver = 0.4.9

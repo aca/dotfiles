@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ramojus/mellifluous.nvim.git
+	branch = main
+	commit = 9948359e1536b4171615f7280e61e17620e3fd45
+	parent = 1c6957bf3ac1eb4fe0b38fd712a7ddac36c61633
+	method = merge
+	cmdver = 0.4.9

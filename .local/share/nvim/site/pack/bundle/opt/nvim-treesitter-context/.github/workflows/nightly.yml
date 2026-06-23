@@ -1,0 +1,55 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    env:
+      NVIM_TS_SHA: main
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - uses: leafo/gh-actions-lua@v11
+        with:
+          luaVersion: "5.1.5"
+
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - uses: tree-sitter/setup-action/cli@v2
+
+      - name: Download nvim-test
+        run: make nvim-test
+
+      - name: Download nvim-treesitter
+        run: make nvim-treesitter
+
+      - name: Parsers Cache
+        id: parsers-cache
+        uses: actions/cache@v4
+        with:
+          path: deps/nvim-treesitter-data
+          key: parsers-${{ join(matrix.*, '-') }}-${{ hashFiles(
+            './deps/nvim-treesitter/lua/nvim-treesitter/parsers.lua') }}
+
+      - name: Install parsers
+        if: steps.parsers-cache.outputs.cache-hit != 'true'
+        run: make parsers
+
+      - name: Run Test
+        run: make test
+
+      # - uses: stefanzweifel/git-auto-commit-action@v5
+      #   with:
+      #     commit_message: "docs: Update README.md"

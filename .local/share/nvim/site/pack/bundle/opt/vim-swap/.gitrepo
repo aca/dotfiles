@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/machakann/vim-swap.git
+	branch = master
+	commit = 9358bfdc5e377aa13e7c2c2dd8699ba32b0dcf83
+	parent = 05a0b88ba470af1ac7681293e2cc3b67f2f3ade5
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/xolox/vim-misc.git
+	branch = master
+	commit = 3e6b8fb6f03f13434543ce1f5d24f6a5d3f34f0b
+	parent = 0a73d2e1f526866f15f9002be7ab4caa24d768e8
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,19 @@
+{
+  "instances": [
+    {
+      "name": "oci-xnzm-a1",
+      "host": "http://oci-xnzm-a1:8080",
+      "tls_skip_verify": true
+    },
+    {
+      "name": "oci-impx-a1",
+      "host": "http://oci-impx-a1:8080",
+      "tls_skip_verify": true
+    },
+    {
+      "name": "oci-jkor-a1",
+      "host": "http://oci-jkor-a1:8080",
+      "tls_skip_verify": true
+    }
+  ]
+}

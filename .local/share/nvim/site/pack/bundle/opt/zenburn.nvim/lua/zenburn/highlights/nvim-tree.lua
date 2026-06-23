@@ -1,0 +1,21 @@
+local c = require("zenburn.palette")
+return {
+	NvimTreeSymlink = c.Operator,
+	NvimTreeFolderName = c.Number,
+	NvimTreeRootFolder = c.Number,
+	NvimTreeFolderIcon = c.Number,
+	NvimTreeEmptyFolderName = c.Number,
+	NvimTreeOpenedFolderName = c.Number,
+	NvimTreeExecFile = c.String,
+	NvimTreeOpenedFile = { bold=true },
+	NvimTreeSpecialFile = c.Identifier,
+	NvimTreeImageFile = c.Keyword,
+	NvimTreeIndentMarker = { fg=c.LineNr.fg },
+	NvimTreeGitDirty = { bold=true },
+	NvimTreeGitStaged = { bold=true },
+	NvimTreeGitMerge = { bold=true },
+	NvimTreeGitRenamed = { bold=true },
+	NvimTreeGitNew = { bold=true },
+	NvimTreeGitDeleted = { bold=true },
+	NvimTreeWindowPicker = { bold=true },
+}

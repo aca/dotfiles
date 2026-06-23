@@ -1,0 +1,51 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  x64-ubuntu:
+    name: X64-ubuntu
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            manager: sudo apt-get
+            packages: -y fd-find
+    steps:
+      - uses: actions/checkout@v6
+      - run: date +%F > todays-date
+      - name: Restore from todays cache
+        uses: actions/cache@v5
+        with:
+          path: _neovim
+          key: ${{ runner.os }}-latest-${{ hashFiles('todays-date') }}
+      - name: Prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ${{ matrix.manager }} update
+          ${{ matrix.manager }} install ${{ matrix.packages }}
+          latest_version=$(gh release list --limit 1 --repo neovim/neovim --exclude-drafts --exclude-pre-releases --json tagName --jq '.[0].tagName')
+          url="https://github.com/neovim/neovim/releases/download/$latest_version/nvim-linux-x86_64.tar.gz"
+          test -d _neovim || {
+            mkdir -p _neovim
+            curl -sL $url | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
+          }
+          mkdir -p ~/.local/share/nvim/site/pack/vendor/start
+          git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
+          ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
+      - name: Run tests
+        run: |
+          export PATH="${PWD}/_neovim/bin:${PATH}"
+          export VIM="${PWD}/_neovim/share/nvim/runtime"
+          nvim --headless -c "PlenaryBustedDirectory lua/tests/plenary/ {minimal_init = 'lua/tests/minimal_init.vim'}"

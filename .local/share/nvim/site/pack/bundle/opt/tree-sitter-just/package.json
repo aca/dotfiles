@@ -1,0 +1,58 @@
+{
+  "name": "tree-sitter-just",
+  "author": "Anshuman Medhi <amedhi@connect.ust.uk>",
+  "contributors": [
+    "Trevor Gross <tmgross@umich.edu>",
+    "Amaan Qureshi <amaanq12@gmail.com>"
+  ],
+  "license": "MIT",
+  "version": "0.2.0",
+  "description": "Justfiles grammar for tree-sitter",
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/casey/tree-sitter-just"
+  },
+  "keywords": [
+    "tree-sitter",
+    "justfiles",
+    "parser",
+    "lexer"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ],
+  "dependencies": {
+    "node-addon-api": "^8.5.0",
+    "node-gyp-build": "^4.8.4",
+    "prettier": "^3.5.3",
+    "tree-sitter": "^0.22.4"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "eslint": "^9.28.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^10.1.5",
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.25.5"
+  },
+  "scripts": {
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
+  }
+}

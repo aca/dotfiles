@@ -1,0 +1,255 @@
+*local-highlight.txt*                highlight uses of cword in current window
+
+==============================================================================
+Table of Contents                          *local-highlight-table-of-contents*
+
+1. local-highlight.nvim                 |local-highlight-local-highlight.nvim|
+2. In Action                                       |local-highlight-in-action|
+3. Performance                                   |local-highlight-performance|
+4. install                                           |local-highlight-install|
+5. Why Another Highlight Plugin?|local-highlight-why-another-highlight-plugin?|
+6. How the Plugin Works                 |local-highlight-how-the-plugin-works|
+7. Setup                                               |local-highlight-setup|
+  - hlgroup                                    |local-highlight-setup-hlgroup|
+  - cw_hlgroup                              |local-highlight-setup-cw_hlgroup|
+  - debounce_timeout                  |local-highlight-setup-debounce_timeout|
+  - file_types and disable_file_types|local-highlight-setup-file_types-and-disable_file_types|
+  - insert_mode                            |local-highlight-setup-insert_mode|
+  - min_match_len and max_match_len|local-highlight-setup-min_match_len-and-max_match_len|
+  - highlight_single_match      |local-highlight-setup-highlight_single_match|
+  - animate                                    |local-highlight-setup-animate|
+  - API                                            |local-highlight-setup-api|
+  - Callbacks                                |local-highlight-setup-callbacks|
+8. User Commands                               |local-highlight-user-commands|
+  - LocalHighlightToggle  |local-highlight-user-commands-localhighlighttoggle|
+  - LocalHighlightOff        |local-highlight-user-commands-localhighlightoff|
+  - LocalHighlightOn          |local-highlight-user-commands-localhighlighton|
+  - LocalHighlightStats    |local-highlight-user-commands-localhighlightstats|
+
+==============================================================================
+1. local-highlight.nvim                 *local-highlight-local-highlight.nvim*
+
+Using regexes and `extmarks` to highlight uses of the word under the
+cursor.Keeps updates local to currently visible lines, thus enabling blazingly
+fast performance.
+
+
+==============================================================================
+2. In Action                                       *local-highlight-in-action*
+
+
+==============================================================================
+3. Performance                                   *local-highlight-performance*
+
+This plugin replaces
+`nvim-treesitter/nvim-treesitter-refactor`highlight-definitions which performs
+poorly on large files.
+
+
+==============================================================================
+4. install                                           *local-highlight-install*
+
+Using Lazy:
+
+>lua
+      {
+          'tzachar/local-highlight.nvim',
+          config = function()
+            require('local-highlight').setup()
+          end
+      },
+<
+
+Make sure to specify file types to attach to, or use the `attach`
+interfacedocumented below.
+
+
+==============================================================================
+5. Why Another Highlight Plugin?*local-highlight-why-another-highlight-plugin?*
+
+In my initial search for a plugin of this kind, I found myself consistently
+frustrated. Nothing I encountered truly satisfied my need for both high
+performance and formatting options. This plugin, however, excels in the
+following:
+
+
+- Exceptional Performance, even on large files.
+- Highlight mechanics: by using `extmarks`, the current format of each highlighted word remains the same (e.g., italics, treesitter highlights)
+- By being implemented programmatically in `lua`, this plugin can supportanimations.
+
+
+==============================================================================
+6. How the Plugin Works                 *local-highlight-how-the-plugin-works*
+
+`local-highlight` will attach to a buffer and register an autocommand for
+the`CursorMoved` event. Once the event fires, and after
+`debounce_timeout`milliseconds, `local-highlight` will grab the wordunder the
+cursor and will highlight all of the usages of the same word in thevisible
+lines of the buffer.
+
+
+==============================================================================
+7. Setup                                               *local-highlight-setup*
+
+You can setup local-highlight `as follows:`
+
+>lua
+    require('local-highlight').setup({
+        file_types = {'python', 'cpp'}, -- If this is given only attach to this
+        -- OR attach to every filetype except:
+        disable_file_types = {'tex'},
+        hlgroup = 'LocalHighlight',
+        cw_hlgroup = nil,
+        -- Whether to display highlights in INSERT mode or not
+        insert_mode = false,
+        min_match_len = 1,
+        max_match_len = math.huge,
+        highlight_single_match = true,
+        animate = {
+          enabled = true,
+          easing = "linear",
+          duration = {
+            step = 10, -- ms per step
+            total = 100, -- maximum duration
+          },
+        },
+        debounce_timeout = 200,
+    })
+<
+
+
+HLGROUP                                        *local-highlight-setup-hlgroup*
+
+Specify the highlighting group to use.
+
+By default, `local-highlight` will use the `LocalHighlight` highlight group,
+which it defines upon startup. If the group is already defined elsewhere in
+your config then it will not be overwritten. You can also use any other group
+you desire.
+
+
+CW_HLGROUP                                  *local-highlight-setup-cw_hlgroup*
+
+Specify the highlighting group to use for the word under the cursor. Defaults
+to`nil`, which means "Do not apply any highlighting".
+
+
+DEBOUNCE_TIMEOUT                      *local-highlight-setup-debounce_timeout*
+
+The number of milliseconds to wait after the last `CursorMoved` event fires
+beforerefreshing highlights. The default is `200`, meaning that highlights will
+be updatedafter the cursor has remained stationary for `200` milliseconds. Set
+to `0` torefresh highlights on every `CursorMoved` event, with no delay.
+
+
+FILE_TYPES AND DISABLE_FILE_TYPES*local-highlight-setup-file_types-and-disable_file_types*
+
+The plugin works out of the box if you want to use `FileType`s to attach
+tobuffers.
+
+To control this behavior, you have the option of setting the following
+options:`file_types`: `nil` by default, meaning attach to all file types. If
+set to atable, should contain file types relevant to the `FileType`
+autocommand, andwill instruct the plugin to attach only to the specified fule
+types.`disable_file_types`: `nil` by default, meaning no exceptions when
+attaching tobuffers. If set to a table, each fie type specified in the table
+will be skippedwhen attaching to buffers.
+
+If you set `file_types` to an empty table, `{}`, `local-highlight` will
+notattach to any buffer on its own, and will leave all attach logic to the
+user.
+
+
+INSERT_MODE                                *local-highlight-setup-insert_mode*
+
+If set to `true`, will also work during insert mode.
+
+
+MIN_MATCH_LEN AND MAX_MATCH_LEN*local-highlight-setup-min_match_len-and-max_match_len*
+
+Set lower and upper limits on the length of the word being matched.
+
+
+HIGHLIGHT_SINGLE_MATCH          *local-highlight-setup-highlight_single_match*
+
+Set to false to stop highlighting words that only appear once.
+
+
+ANIMATE                                        *local-highlight-setup-animate*
+
+If you have snacks.nvim <https://github.com/folke/snacks.nvim> installed andare
+using at least `nvim-0.10`, `local-highligh` will use `Snacks.animate` by
+default. In this case, only the**background** specified in `hlgroup` will be
+used.
+
+To disable animation regardless of `snacks`, just set `enabled = false`.
+Allother arguments are the same as for `Snacks.animate`.
+
+
+API                                                *local-highlight-setup-api*
+
+If you want to directly attach the plugin to your buffers, you can use
+any`autocommand` to attach an event to your liking. Forexample, to attach to
+_any_ buffer:
+
+>lua
+    vim.api.nvim_create_autocmd('BufRead', {
+      pattern = {'*.*'},
+      callback = function(data)
+        require('local-highlight').attach(data.buf)
+      end
+    })
+<
+
+The plugin will take care not to reattach and to delete the autocommands
+whenthe buffer is closed.
+
+
+CALLBACKS                                    *local-highlight-setup-callbacks*
+
+
+MATCH COUNT ~
+
+You can request the current count of matches. This can be used, e.g., in
+astatus line plugin:
+
+>lua
+    require('local-highlight').match_count(bufnr)
+<
+
+where `bufnr` is the buffer number the count is requested for or 0 for
+thecurrent buffer.
+
+
+==============================================================================
+8. User Commands                               *local-highlight-user-commands*
+
+
+LOCALHIGHLIGHTTOGGLE      *local-highlight-user-commands-localhighlighttoggle*
+
+Toggle local highlighting for the current buffer.
+
+
+LOCALHIGHLIGHTOFF            *local-highlight-user-commands-localhighlightoff*
+
+Turn local highlighting off for the current buffer.
+
+
+LOCALHIGHLIGHTON              *local-highlight-user-commands-localhighlighton*
+
+Turn local highlighting on for the current buffer.
+
+
+LOCALHIGHLIGHTSTATS        *local-highlight-user-commands-localhighlightstats*
+
+Echo timing information: total number of invocations and the average
+runningtime in milliseconds.
+
+==============================================================================
+9. Links                                               *local-highlight-links*
+
+1. *recording*: https://user-images.githubusercontent.com/4946827/217664452-eb79ff0c-fa91-4d24-adcd-519faf4a2785.gif
+
+Generated by panvimdoc <https://github.com/kdheepak/panvimdoc>
+
+vim:tw=78:ts=8:noet:ft=help:norl:

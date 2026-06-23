@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/nanozuki/tabby.nvim.git
+	branch = main
+	commit = 3c130e1fcb598ce39a9c292847e32d7c3987cf11
+	parent = 7dfa41118368da1877362a6655aea8a8e24348c0
+	method = merge
+	cmdver = 0.4.9

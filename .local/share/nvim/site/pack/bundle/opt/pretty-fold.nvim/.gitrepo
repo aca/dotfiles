@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/anuvyklack/pretty-fold.nvim.git
+	branch = master
+	commit = a7d8b424abe0eedf50116c460fbe6dfd5783b1d5
+	parent = e356c2b18c5e32d0ae5813426ee20c1daa773643
+	method = merge
+	cmdver = 0.4.9

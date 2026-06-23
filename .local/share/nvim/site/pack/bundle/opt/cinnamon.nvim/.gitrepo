@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/declancm/cinnamon.nvim.git
+	branch = master
+	commit = 450cb3247765fed7871b41ef4ce5fa492d834215
+	parent = a8b011152321e7a88f09bad73c4d45b84626f143
+	method = merge
+	cmdver = 0.4.9

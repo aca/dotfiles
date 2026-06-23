@@ -1,0 +1,154 @@
+*cmdbuf.nvim.txt*
+
+==============================================================================
+Lua module: cmdbuf                                        *cmdbuf.nvim-cmdbuf*
+
+open({opts})                                                   *cmdbuf.open()*
+  Open a command buffer.
+
+  Parameters: ~
+    {opts} (CmdbufOpenOption?) |CmdbufOpenOption|
+
+split_open({height}, {opts})                             *cmdbuf.split_open()*
+  Open a command buffer with `split`.
+
+  Parameters: ~
+    {height} (integer|nil) window height
+    {opts} (CmdbufOpenOption?) |CmdbufOpenOption|
+
+vsplit_open({width}, {opts})                            *cmdbuf.vsplit_open()*
+  Open a command buffer with `vsplit`.
+
+  Parameters: ~
+    {width} (integer|nil) window width
+    {opts} (CmdbufOpenOption?) |CmdbufOpenOption|
+
+tab_open({opts})                                           *cmdbuf.tab_open()*
+  Open a command buffer in new tab.
+
+  Parameters: ~
+    {opts} (CmdbufOpenOption?) |CmdbufOpenOption|
+
+execute({opts})                                             *cmdbuf.execute()*
+  Execute the current line command.
+
+  Parameters: ~
+    {opts} (CmdbufExecuteOption?) |CmdbufExecuteOption|
+
+get_context({opts})                                     *cmdbuf.get_context()*
+  Returns cmdbuf buffer context.
+
+  Parameters: ~
+    {opts} (CmdbufGetContextOption?) |CmdbufGetContextOption|
+
+  Return: ~
+    (CmdbufContext) |CmdbufContext|
+
+cmdline_expr()                                         *cmdbuf.cmdline_expr()*
+  Returns keymap expression to start command-line mode.
+  This can be used like |cmdline-window|'s CTRL-C.
+
+  Return: ~
+    (string) 
+
+delete({range})                                              *cmdbuf.delete()*
+  Delete current line (or given range) from command history
+
+  Parameters: ~
+    {range} (integer[]?) 1-based range {start number, end number}
+
+==============================================================================
+STRUCTURE                                              *cmdbuf.nvim-STRUCTURE*
+
+CmdbufOpenOption                                            *CmdbufOpenOption*
+
+- {column} (integer?) initial cursor column in the buffer.
+- {line} (string?) set this string to the bottom line in the buffer.
+- {open_window} (fun()?) The window after executing this function is used.
+- {reusable_window_ids} (integer[]?) force to reuse the window that has the same buffer name. (default: {})
+- {type} (CmdbufHandlerType?) (default = "vim/cmd") |CmdbufHandlerType|
+
+CmdbufHandlerType                                          *CmdbufHandlerType*
+  = "vim/cmd" | "vim/search/forward" | "vim/search/backward" | "vim/input" | "vim/env" | "lua/cmd" | "lua/variable/buffer" | "lua/variable/global"
+
+- "vim/cmd": |q:| alternative
+- "vim/search/forward": |q/| alternative
+- "vim/search/backward": |q?| alternative
+- "vim/input": show input history (not supported execute)
+- "vim/env": environment variable
+- "lua/cmd": |q:| alternative for lua command
+- "lua/variable/buffer": buffer variable and command
+- "lua/variable/global": global variable and command
+
+CmdbufExecuteOption                                      *CmdbufExecuteOption*
+
+- {quit} (boolean?) whether quit the window after execution.
+
+CmdbufGetContextOption                                *CmdbufGetContextOption*
+
+- {bufnr} (integer?) default: current buffer number
+
+CmdbufContext                                                  *CmdbufContext*
+
+- {type} (CmdbufHandlerType) |CmdbufHandlerType|
+
+==============================================================================
+AUTOCOMMANDS                                        *cmdbuf.nvim-AUTOCOMMANDS*
+
+CmdbufNew                                              *cmdbuf.nvim-CmdbufNew*
+  This is fired after creating a new cmdbuf.
+
+==============================================================================
+EXAMPLES                                                *cmdbuf.nvim-EXAMPLES*
+
+>lua
+  vim.keymap.set("n", "q:", function()
+    require("cmdbuf").split_open(vim.o.cmdwinheight)
+  end)
+  vim.keymap.set("c", "<C-f>", function()
+    require("cmdbuf").split_open(vim.o.cmdwinheight, { line = vim.fn.getcmdline(), column = vim.fn.getcmdpos() })
+    vim.api.nvim_feedkeys(vim.keycode("<C-c>"), "n", true)
+  end)
+
+  -- Custom buffer mappings
+  vim.api.nvim_create_autocmd({ "User" }, {
+    group = vim.api.nvim_create_augroup("config.cmdbuf", {}),
+    pattern = { "CmdbufNew" },
+    callback = function(args)
+      vim.bo.bufhidden = "wipe" -- if you don't need previous opened buffer state
+      vim.keymap.set("n", "q", [[<Cmd>quit<CR>]], { nowait = true, buffer = true })
+      vim.keymap.set("n", "dd", [[<Cmd>lua require('cmdbuf').delete()<CR>]], { buffer = true })
+      vim.keymap.set({ "n", "i" }, "<C-c>", function()
+        return require("cmdbuf").cmdline_expr()
+      end, { buffer = true, expr = true })
+
+      local typ = require("cmdbuf").get_context().type
+      if typ == "vim/cmd" then
+        -- you can filter buffer lines
+        local lines = vim
+          .iter(vim.api.nvim_buf_get_lines(args.buf, 0, -1, false))
+          :filter(function(line)
+            return line ~= "q"
+          end)
+          :totable()
+        vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, lines)
+      end
+    end,
+  })
+
+  -- open lua command-line window
+  vim.keymap.set("n", "ql", function()
+    require("cmdbuf").split_open(vim.o.cmdwinheight, { type = "lua/cmd" })
+  end)
+
+  -- q/, q? alternative
+  vim.keymap.set("n", "q/", function()
+    require("cmdbuf").split_open(vim.o.cmdwinheight, { type = "vim/search/forward" })
+  end)
+  vim.keymap.set("n", "q?", function()
+    require("cmdbuf").split_open(vim.o.cmdwinheight, { type = "vim/search/backward" })
+  end)
+<
+
+==============================================================================
+vim:tw=78:ts=8:ft=help

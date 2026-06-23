@@ -1,0 +1,1256 @@
+*textobj-sandwich.txt*	The textobject plugin to select sandwiched texts.
+						Last change:28-Nov-2021.
+
+Author  : machakann <mckn{at}outlook.jp>
+License : NYSL license
+          Japanese <http://www.kmonos.net/nysl/>
+          English (Unofficial) <http://www.kmonos.net/nysl/index.en.html>
+
+Requirement:	Vim 7.4 or higher
+		|+reltime| feature (optional)
+		|+float| feature (optional)
+
+==============================================================================
+CONTENTS				*textobj-sandwich-contents*
+
+TL;DR
+INTRODUCTION			|textobj-sandwich-introduction|
+KEYMAPPINGS			|textobj-sandwich-keymappings|
+CONFIGURATION			|textobj-sandwich-configuration|
+  REQUISITE
+    buns
+    external
+  FILTERS
+    filetype
+    kind
+    mode
+    operator
+  LOCAL OPTIONS
+    nesting
+    expand_range
+    regex
+    skip_regex
+    skip_regex_head
+    skip_regex_tail
+    quoteescape
+    expr
+    noremap
+    syntax
+    inner_syntax
+    match_syntax
+    skip_breaking
+    skip_expr
+  GLOBAL OPTIONS
+    timeout			|g:textobj#sandwich#timeout|
+    timeoutlen			|g:textobj#sandwich#timeoutlen|
+    stimeoutlen			|g:textobj#sandwich#stimeoutlen|
+    latest_jump			|g:textobj#sandwich#latest_jump|
+MISCELLANEOUS			|textobj-sandwich-miscellaneous|
+  It is not what I expect with key sequence dib.
+  Timed out so frequently!
+  My cursor moved a lot because of unintended selection!
+
+==============================================================================
+TL;DR
+	See |sandwich-quick-start|.
+
+
+
+==============================================================================
+INTRODUCTION				*textobj-sandwich-introduction*
+
+*textobj-sandwich* is an textobject plugin to search and select sandwiched
+text, like (foo) or "bar". It consists of four independent textobject
+keymappings,
+|<Plug>(textobj-sandwich-auto-i)|, |<Plug>(textobj-sandwich-auto-a)|,
+|<Plug>(textobj-sandwich-query-i)| and |<Plug>(textobj-sandwich-query-a)|.
+
+|<Plug>(textobj-sandwich-auto-i)| and |<Plug>(textobj-sandwich-auto-a)|
+searches a sandwiched text automatically. The sets of surroundings called
+"recipe"s are listed in advance. It is described in detail in
+|textobj-sandwich-configuration|. |<Plug>(textobj-sandwich-auto-i)| selects
+a surrounded region without surroundings. |<Plug>(textobj-sandwich-auto-a)|
+selects a surrounded region including surroundings. These are mapped to
+key sequences `ib` and `ab` in default.
+
+|<Plug>(textobj-sandwich-query-i)| and |<Plug>(textobj-sandwich-query-a)|
+searches a sandwiched text based on a user input. If the user input is matched
+with a recipe registered, then it selects the text determined by the matched
+recipe. Otherwise it selects the region surrounded by a same character input.
+|<Plug>(textobj-sandwich-query-i)| selects a surrounded region without
+surroundings. |<Plug>(textobj-sandwich-query-a)| selects a surrounded region
+including surroundings. These are mapped to key sequences `is` and `as` in
+default.
+
+------------------------------------------------------------------------------
+In visual mode, these textobjects expands the selection area by successive key
+sequence as similar to |v|iw|iw|iw|....
+Assume that the following text and the cursor is on foo.
+>
+	{baz[bar(foo)bar]baz}
+<
+Press `vib`
+>
+	         <->          : selected region
+	{baz[bar(foo)bar]baz}
+<
+Press `ib` again
+>
+	     <--------->      : selected region
+	{baz[bar(foo)bar]baz}
+<
+Press `ib` again
+>
+	 <----------------->  : selected region
+	{baz[bar(foo)bar]baz}
+<
+
+------------------------------------------------------------------------------
+In block-wise visual mode, a target text is searched within the cursor line
+and the other end follows. For example, assume the 5 by 5 text.
+>
+	(foo)
+	(bar)
+	(baz)
+<
+When the cursor is on the first line, press `<C-v>2jibd`
+>
+	()
+	()
+	()
+<
+Next assume that the lines like this:
+>
+	foooo
+	baaar
+	(baz)
+<
+When the cursor is on the first line, press `<C-v>2jibd`
+>
+	fo
+	br
+	()
+<
+
+
+
+==============================================================================
+KEYMAPPINGS				*textobj-sandwich-keymappings*
+
+This plugin defines following keymappings. They are valid in operator-pending
+mode and visual mode.
+
+keymappings				default keymappings
+-----------------------------------------------------------
+<Plug>(textobj-sandwich-auto-i)		ib
+<Plug>(textobj-sandwich-auto-a)		ab
+
+<Plug>(textobj-sandwich-query-i)	is
+<Plug>(textobj-sandwich-query-a)	as
+-----------------------------------------------------------
+
+If you do not need default keymappings, define a variable named
+g:textobj_sandwich_no_default_key_mappings in your vimrc.
+>
+	let g:textobj_sandwich_no_default_key_mappings = 1
+<
+Then default mappings are never applied. And map them again as you like.
+>
+	omap ia <Plug>(textobj-sandwich-auto-i)
+	xmap ia <Plug>(textobj-sandwich-auto-i)
+	omap aa <Plug>(textobj-sandwich-auto-a)
+	xmap aa <Plug>(textobj-sandwich-auto-a)
+<
+
+------------------------------------------------------------------------------
+keymappings~
+
+<Plug>(textobj-sandwich-auto-i)		*<Plug>(textobj-sandwich-auto-i)*
+	The textobject mapping to search and select a sandwiched text
+	automatically. This keymapping selects inside surroundings. The
+	surroundings are not included. This keymapping is mapped to `ib` of
+	operator-pending mode and visual mode in default. This keymapping
+	could be mapped to operator-pending mode |:omap|, to visual mode
+	|:xmap|, and also to normal mode |:nmap|.
+
+<Plug>(textobj-sandwich-auto-a)		*<Plug>(textobj-sandwich-auto-a)*
+	The textobject mapping to search and select a sandwiched text
+	automatically. This keymapping selects sandwiched text including
+	surroundings. This keymapping is mapped to `ab` of operator-pending
+	mode and visual mode in default. This keymapping could be mapped to
+	operator-pending mode |:omap|, to visual mode |:xmap|, and also to
+	normal mode |:nmap|.
+
+
+<Plug>(textobj-sandwich-query-i)	*<Plug>(textobj-sandwich-query-i)*
+	The textobject mapping to search and select a sandwiched text
+	depending on a user input. This keymapping selects inside
+	surroundings. The surroundings are not included. This keymapping is
+	mapped to `is` of operator-pending mode and visual mode in default.
+	This keymapping could be mapped to operator-pending mode |:omap|, to
+	visual mode |:xmap|, and also to normal mode |:nmap|.
+
+<Plug>(textobj-sandwich-query-a)	*<Plug>(textobj-sandwich-query-a)*
+	The textobject mapping to search and select a sandwiched text
+	depending on a user input. This keymapping selects sandwiched text
+	including surroundings. This keymapping is mapped to `as` of
+	operator-pending mode and visual mode in default. This keymapping
+	could be mapped to operator-pending mode |:omap|, to visual mode
+	|:xmap|, and also to normal mode |:nmap|.
+
+
+				*<Plug>(textobj-sandwich-literal-query-i)*
+<Plug>(textobj-sandwich-literal-query-i)
+	This textobject mapping is similar as
+	|<Plug>(textobj-sandwich-query-i)| but it always ignores user
+	settings, |g:sandwich#recipes| and |g:textobj#sandwich#recipes|. The
+	user input is interpreted as-is, thus the mapping selects a text
+	surrounded by the same characters. This keymapping could be mapped to
+	operator-pending mode |:omap|, to visual mode |:xmap|, and also to
+	normal mode |:nmap|. >
+		omap if <Plug>(textobj-sandwich-literal-query-i)
+		xmap if <Plug>(textobj-sandwich-literal-query-i)
+
+		" press difa to delete a text surrounded by 'a'.
+		"   abcba   ->   aa
+<
+				*<Plug>(textobj-sandwich-literal-query-a)*
+<Plug>(textobj-sandwich-literal-query-a)
+	This textobject mapping is similar as
+	|<Plug>(textobj-sandwich-query-a)| but it always ignores user
+	settings, |g:sandwich#recipes| and |g:textobj#sandwich#recipes|. The
+	user input is interpreted as-is, thus the mapping selects a text
+	surrounded by the same characters. This keymapping could be mapped to
+	operator-pending mode |:omap|, to visual mode |:xmap|, and also to
+	normal mode |:nmap|. >
+		omap if <Plug>(textobj-sandwich-literal-query-a)
+		xmap if <Plug>(textobj-sandwich-literal-query-a)
+
+		" press dafb to delete a text surrounded by 'b' including 'b'.
+		"   abcba   ->   aa
+<
+
+
+
+KEY MAPPING FUNCTIONS~
+
+User can make new mappings by using function interfaces natively.
+
+					*textobj#sandwich#auto()*
+textobj#sandwich#auto(mode, a_or_i[, options[, recipes]])
+	This function is used to make a operator key-mapping as following.
+>
+	onoremap <silent><expr> ib textobj#sandwich#auto('o', 'i')
+	xnoremap <silent><expr> ib textobj#sandwich#auto('x', 'i')
+	onoremap <silent><expr> ab textobj#sandwich#auto('o', 'a')
+	xnoremap <silent><expr> ab textobj#sandwich#auto('x', 'a')
+<
+	If a not-empty dictionary is given to the optional third argument of
+	this function, the local options inside the dictionary override
+	default option values.
+>
+	" example 1
+	onoremap <silent><expr> ib
+	\ textobj#sandwich#auto('o', 'i', {'expand_range': 0})
+
+	" example 2
+	let g:sandwich_alt_options = {'expand_range': 0}
+	onoremap <silent><expr> ib
+	\ textobj#sandwich#auto('o', 'i', g:sandwich_alt_options)
+<
+
+	If a list of recipes is given to the optional fourth argument of this
+	function, the key mapping use the list instead of
+	|g:sandwich#recipes| (|g:sandwich#default_recipes|) and
+	|g:textobj#sandwich#recipes| (|g:textobj#sandwich#default_recipes|).
+>
+	" example 1
+	onoremap <silent><expr> ib
+	\ textobj#sandwich#auto('o', 'i', {}, [{'buns': ['(', ')']}])
+
+	" example 2
+	let g:sandwich_alt_recipes = [{'buns': ['(', ')']}]
+	onoremap <silent><expr> ib
+	\ textobj#sandwich#auto('o', 'i', {}, g:sandwich_alt_recipes)
+<
+
+
+
+					*textobj#sandwich#query()*
+textobj#sandwich#query(mode, a_or_i[, options[, recipes]])
+	This function is similar as |textobj#sandwich#auto()|, but it is
+	used for declaring new query series textobjects.
+>
+	onoremap <silent><expr> is textobj#sandwich#query('o', 'i')
+	xnoremap <silent><expr> is textobj#sandwich#query('x', 'i')
+	onoremap <silent><expr> as textobj#sandwich#query('o', 'a')
+	xnoremap <silent><expr> as textobj#sandwich#query('x', 'a')
+<
+
+
+
+==============================================================================
+CONFIGURATION				*textobj-sandwich-configuration*
+
+A set of surroundings and options for it is called "recipe". Each recipe is a
+dictionary and the |list|s of recipes determines the textobject's behavior.
+|g:sandwich#default_recipes| is one of the |list|s of recipes. This is shared
+to be used with |operator-sandwich| since it is convenient in many cases. If
+|g:sandwich#recipes| is defined by user, it is employed alternatively. The
+default recipes |g:sandwich#default_recipes| can be checked by |:echo|
+command.
+>
+	:echo g:sandwich#default_recipes
+<
+This variable is locked usually, but it can be copied when you declare
+|g:sandwich#recipes| if you need.
+>
+	:let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+<
+The set of "(" and ")", "[" and "]", "{" and "}",  "<" and ">" are registered
+in default. The detailed description is in |g:sandwich#default_recipes|.
+
+|g:textobj#sandwich#default_recipes| is another list of recipes. This is used
+only by |textobj-sandwich|. If |g:textobj#sandwich#recipes| is defined, it is
+employed alternatively. |g:textobj#sandwich#default_recipes| is locked as same
+as |g:sandwich#default_recipes|.
+
+
+
+g:textobj#sandwich#recipes		*g:textobj#sandwich#recipes*
+	This is one of the lists of recipes which is referred only from
+	|textobj-sandwich|.  If this list does not exist,
+	|g:textobj#sandwich#default_recipes| is used.
+					*b:textobj_sandwich_recipes*
+	If |b:textobj_sandwich_recipes| exists, it would be used instead of
+	|g:textobj#sandwich#recipes|. This is buffer local, thus it might be
+	convenient to manage too many filetype-specific recipes.
+
+
+
+g:textobj#sandwich#default_recipes	*g:textobj#sandwich#default_recipes*
+	This is one of the lists of recipes which is prepared in default. If
+	|g:textobj#sandwich#recipes| exists, it will be used alternatively.
+	This variable is locked usually, but it can be copied when you declare
+	|g:textobj#sandwich#recipes| if you need.
+>
+	:let g:textobj#sandwich#recipes
+	 \ = deepcopy(g:textobj#sandwich#default_recipes)
+<
+
+
+NOTE: If recipes are conflicted in some reason,
+|g:textobj#sandwich#default_recipes| and |g:textobj#sandwich#recipes| is prior
+to |g:sandwich#default_recipes| and |g:sandwich#recipes|. In a same list, a
+latter item is prior to a former item.
+
+------------------------------------------------------------------------------
+A recipe is a |Dictionary| variable and it can have four kinds of
+information. Requisite, input, filters and local options. The requisite is
+essential for all recipe, it defines a set of surroundings. The input is a
+option to assign a recipe for an action. The filters is the option to filter
+recipes depending on the situation in use. The local option is utilized to
+tune the behavior for each recipe. In addition to them, several global options
+are employed to control fundamental behavior of the textobjects.
+
+As a first step, define your list of recipes.
+>
+	let g:sandwich#recipes = []
+<
+Or just copy the default one if you need.
+>
+	let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+<
+
+Requisite~
+There are two kinds of requisite, buns and external. All recipes should have
+any one of the two.
+
+buns
+	This is the key to assign the surroundings. Its value is a list
+	including two strings which will be the surroundings searched in
+	text. If "regex" option is true, it is regarded as regular expression.
+	If a recipe do not have "input" option, this is used as the assignment
+	input for |<Plug>(textobj-sandwich-query-i)| and
+	|<Plug>(textobj-sandwich-query-a)|.
+>
+	let g:sandwich#recipes += [
+	  \    {'buns': ['(', ')']}
+	  \  ]
+
+	" Press dis( or dis)
+	"       (foo)   --->   ()
+
+	let g:sandwich#recipes += [
+	  \    {'buns': ['ab', 'cd']}
+	  \  ]
+
+	" Press disab or discd
+	"       abfoocd   --->   abcd
+
+	let g:sandwich#recipes += [
+	  \    {'buns': ['ab', 'cd'], 'input': ['a']}
+	  \  ]
+
+	" Press disa
+	"       abfoocd   --->   abcd
+<
+
+
+
+external
+	This is supplementary requisite. This is a list including two
+	textobjects as strings. A narrower textobject is the first item and
+	wider textobject is the second item. This is used when a user want to
+	use external textobjects as a recipe. Many local options are not
+	valid.
+>
+	let g:sandwich#recipes += [
+	  \    {'external': ['it', 'at']}
+	  \  ]
+
+	" "it" selects the text inside tags, "at" selects including tags.
+	"              <---it--->
+	"       <title>title here</title>
+	"       <----------at----------->
+
+	" Press dib
+	"       <title>title here</title>   --->   <title></title>
+	" Press dab
+	"       <title>title here</title>   --->
+<
+	"noremap" option is applied for this. Since visual selection is
+	employed to check its region intrinsically, only the mappings in
+	visual mode are related to the option.
+>
+	let g:sandwich#recipes += [
+	  \    {'external': ['i[', 'a['], 'noremap': 0}
+	  \  ]
+
+	" Press dib
+	"       [foo]   --->   []
+
+	xnoremap i[ i{
+	xnoremap a[ a{
+
+	" Press dib
+	"       {foo}   --->   {}
+<
+	Combined with "noremap" option, user defined textobjects can be used
+	in the same way.
+>
+	" "noremap" option should be false.
+	let g:sandwich#recipes += [
+	  \    {
+	  \      'external': ["\<Plug>(textobj-sandwich-auto-i)",
+	  \                   "\<Plug>(textobj-sandwich-auto-a)"],
+	  \      'noremap': 0,
+	  \      'kind': ['query'],
+	  \      'input': ['b']
+	  \    }
+	  \ ]
+<
+	NOTE: Registered textobjects should work correctly in visual mode.
+	NOTE: Not all the user defined textobjects are not guaranteed to work.
+
+
+
+Input~
+
+input
+	This is the key to assign a recipe for an searching.
+	|<Plug>(textobj-sandwich-query-i)| and
+	|<Plug>(textobj-sandwich-query-a)| ask
+	user to determine surroundings in an searching. At that moment, users
+	are asked an input to assign a recipe. This option makes the input. If
+	a recipe does not have the key, items in "buns" are used for the
+	assignment.
+>
+	let g:sandwich#recipes += [
+	  \    {'buns': ['"""', '"""']}
+	  \  ]
+	" Press dis"""
+	" """foo"""   --->   """"""
+<
+	If the recipe has input key, it will be used alternatively.
+>
+	let g:sandwich#recipes += [
+	  \    {'buns': ['"""', '"""'], 'input': ['"']}
+	  \  ]
+	" Press dis"
+	" """foo"""   --->   """"""
+<
+	This value should be a |list|, and multiple assignment is valid.
+
+
+
+Filter~
+
+filetype
+	This filter filters recipes by filetypes in use. It is a list of
+	filetypes as strings. If a recipe does not have filetype key or has a
+	value "all", the recipe is valid on any filetype.
+>
+	" The following recipes are valid on any filetype.
+	let g:sandwich#recipes += [
+	  \    {'buns': ['(', ')']}
+	  \    {'buns': ['[', ']'], 'filetype': ['all']}
+	  \  ]
+
+	" The textobj "it" and "at" is not versatile and might be heavy on
+	" large files, thus it would be better to activate only on specific
+	" filetypes.
+	let g:sandwich#recipes += [
+	  \    {'external': ['it', 'at'], 'filetype': ['html']}
+	  \  ]
+<
+
+
+
+kind
+	This filter filters recipes by kinds of operator actions. It is a list
+	of names of kinds. "auto", "query", "textobj" and "all" can be used.
+	"textobj" is same as both "auto" and "query". The difference between
+	"textobj" and "all" is that "all" might include operator kinds in
+	|g:sandwich#recipes|. See |operator-sandwich-configuration|. If a
+	recipe does not have kind key, the recipe is valid on any kind.
+>
+	" The following recipe is valid only with
+	" <Plug>(textobj-sandwich-auto-i) and <Plug>(textobj-sandwich-auto-a)
+	let g:sandwich#recipes += [
+	  \    {'buns': ['"""', '"""'], 'kind': ['auto']}
+	  \  ]
+<
+
+
+
+mode
+	This filter filters recipes by modes. It is a list of characters
+	representing modes. "o" or "x" can be used. "o" represents a use in
+	operator-pending mode, and "x" represents a use in visual mode. If a
+	recipe does not have mode key, the recipe is valid on any mode.
+>
+	" These recipes are switch behaviors on modes with the same input.
+	let g:sandwich#recipes += [
+	  \    {'buns': ['"', '"'], 'mode': ['o']}
+	  \    {'buns': ['"""', '"""'], 'mode': ['x'], 'input': ['"']}
+	  \  ]
+<
+
+
+
+action
+	This key is used to filter the recipes by the kinds of action. "add"
+	and "delete" is reserved for |operator-sandwich|, "all" includes the
+	those two kinds of action. "add" prohibits to take effect for
+	|textobj-sandwich| and "delete" and "all" allows it, because usually a
+	delete action uses those textobjects.
+>
+	" This recipe does not take effect for textobjects
+	let g:sandwich#recipes += [
+	  \    {'buns': ['"""', '"""'], 'action': ['add'], 'input': ['"']}
+	  \  ]
+
+	" This recipe is valid for delete actions and textobjects
+	let g:sandwich#recipes += [
+	  \    {'buns': ['"""', '"""'], 'action': ['delete'], 'input': ['"']}
+	  \  ]
+<
+
+
+
+expr_filter
+	A user can define filters by oneself. The items of the list are
+	evaluated as |expression|, and if the value is true (1) then the
+	recipe is valid, if the value is false (0) then the recipe is invalid.
+>
+	" A filter should be defined in somewhere, for example in your vimrc.
+	function! FilterValid()
+	    return 1
+	endfunction
+
+	function! FilterInvalid()
+	    return 0
+	endfunction
+
+	" This recipe is valid
+	let g:sandwich#recipes += [
+	  \    {'buns': ['(', ')'], 'expr_filter': ['FilterValid()']}
+	  \  ]
+
+	" This recipe is invalid
+	let g:sandwich#recipes += [
+	  \    {'buns': ['(', ')'], 'expr_filter': ['FilterInvalid()']}
+	  \  ]
+<
+	For example, the following filter makes recipes possible to be valid
+	only with a specific operator.
+>
+	function! FilterOperator(operator)
+	    return a:operator ==# v:operator ? 1 : 0
+	endfunction
+
+	" This recipe is valid only with d operator.
+	let g:sandwich#recipes += [
+	  \    {'buns': ['(', ')'], 'expr_filter': ['FilterOperator("d")']}
+	  \  ]
+<
+
+
+
+Local option~
+
+Local options are used to optimize the behavior for each recipe. If any
+option is set, the default value depending on kinds is used. These default
+values are changed by |g:textobj#sandwich#options|.
+If you want to change the default value of skip_break option of
+|<Plug>(textobj-sandwich-query-i)| and |<Plug>(textobj-sandwich-query-a)|
+>
+	let g:textobj#sandwich#options.query.skip_break = 1
+<
+Or use the function |textobj#sandwich#set()|.
+>
+	call textobj#sandwich#set('query', 'skip_break', 1)
+<
+
+
+
+g:textobj#sandwich#options		*g:textobj#sandwich#options*
+	The dictionary includes default local option values.
+>
+	" let textobj#sandwich#options[kind][option] = {value}
+
+	" For example
+	let g:textobj#sandwich#options['query']['skip_break'] = 1
+	" or
+	let g:textobj#sandwich#options.query.skip_break = 1
+<
+					*b:textobj_sandwich_options*
+	If |b:textobj_sandwich_options| exists, it will be used instead of
+	|g:textobj#sandwich#options|. It would be useful when a user wants to
+	use buffer-local option settings.
+
+	Available keys are listed below.
+	  * kind
+	    - query
+	    - auto
+	  * option
+	    - nesting
+	    - expand_range
+	    - regex
+	    - skip_regex
+	    - skip_regex_head
+	    - skip_regex_tail
+	    - quoteescape
+	    - expr
+	    - noremap
+	    - syntax
+	    - inner_syntax
+	    - match_syntax
+	    - skip_break
+	    - skip_expr
+
+
+
+					*textobj#sandwich#set()*
+textobj#sandwich#set(kind, option, value)
+	The function to change default values of local options easily and
+	safely. If the combination of arguments is not appropriate, this
+	function shows error messages. The available arguments are listed in
+	|g:textobj#sandwich#options|. In addition to that, "all" is available
+	for kind.
+
+
+
+					*textobj#sandwich#setlocal()*
+textobj#sandwich#setlocal(kind, option, value)
+	The function to change buffer-local default values of local options
+	easily and safely. If the combination of arguments is not appropriate,
+	this function shows error messages. The available arguments are listed
+	in |g:textobj#sandwich#options|. In addition to that, "all" is
+	available for kind.
+
+
+
+textobj#sandwich#set_default()		*textobj#sandwich#set_default()*
+	The function initializes all default values of local options.
+
+
+
+nesting
+	This option switches the searching algorithm. If a set of "buns" makes
+	nested structure, this option should be 1. Otherwise it should be 0.
+	For example, ( and ) makes nest but " is not generally. Assume that
+	the cursor is on foo of the text, expected results are different
+	depending on whether it makes nest or not.
+
+	Yank a part of text by a key sequence `yib`.
+>
+	                 #              : cursor
+	case1:          (foo(bar)baz)   : foo(bar)baz is the expected result
+	case2:          "foo"bar"baz"   :     foo     is the expected result
+<
+	This option is desirable to set on every recipes.
+
+	Default values
+	  * query: 0
+	  * auto : 0
+
+
+
+expand_range
+	If this option is 0, surroundings are searched within the cursor line.
+	If this option is a positive integer, the searched range is expanded
+	by the number of lines. If this option is a negative integer, whole
+	buffer is taken as the searched range.
+	NOTE: Intrinsically, it is not searched a wide range at a time.
+	      The searching lines are expanded step-by-step with monitoring
+	      the elapsed time and a certain time
+	      |g:textobj#sandwich#stimeoutlen| is elapsed without finding
+	      [count] number of candidate, the searching process would time
+	      out.
+
+	In many cases, 0 or a negative number would be a good choice.
+
+	Default values
+	  * query: -1
+	  * auto : -1
+
+
+
+regex
+	If this option is true, requisite "buns" is regarded as regular
+	expressions.
+>
+	let g:sandwich#recipes += [
+	  \   {'buns': ['\d\+', '\d\+'], 'regex': 1}
+	  \ ]
+	" Press dib
+	" 123foo456   --->   123456
+<
+	NOTE: If this option is true, the recipe requires "input" to use with
+	      query-textobjects. "buns" never be regarded as key inputs to
+	      trigger.
+
+	Default values
+	  * query: 0
+	  * auto : 0
+
+
+
+skip_regex
+skip_regex_head
+skip_regex_tail
+	These are lists of regular expressions to skip candidate positions in
+	searching. When the textobjects searches a target text, even though a
+	text matched with "buns", if the text also matched with an item in
+	these lists then it will be skipped. The regular expression have to
+	matched with the head of a skipped text.
+>
+	let g:sandwich#recipes += [
+	  \   {'buns': ['b', 'a'], 'skip_regex': ['a\zea']}
+	  \ ]
+	" Press dib
+	" baaaaaaaar   --->   bar
+<
+	Items in "skip_regex" are checked both in searching head and tail
+	buns. Usually this is enough helpful, but if head, tail and escape
+	character are all same, it might be a problem. For instance,
+	successive two quotes, '', inside a quote wrapped string literal is
+	regarded as a quote in Vim script.
+>
+	:echo '''foo bar'''		" -> 'foo bar'
+<
+	To skip the successive quotes, searching head and tail are required to
+	be distinguished. Use "skip_regex_head", "skip_regex_tail".
+>
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ["'", "'"],
+	  \     'filetype': ['vim'],
+	  \     'expand_range': 0,
+	  \     'skip_regex_head':
+	  \       ['\%(\%#\zs''\|''\%#\zs\)''\%(''''\)*[^'']'],
+	  \     'skip_regex_tail':
+	  \       ['[^'']\%(''''\)*\%(\%#\zs''\|''\%#\zs\)'''],
+	  \     'nesting': 0
+	  \     'match_syntax': 2,
+	  \   }
+	  \ ]
+<
+	NOTE: This is still not perfect. If cursor is on ended successive
+	      single quotes, it does not work as expected.
+>
+			###          ###   : Cursor should not be on
+			'''foo '' bar'''   : the positions pointed by #.
+<
+	Cursor is moving in searching positions, thus user can use the pattern
+	\%# |/\%#|.
+
+	Default values
+	  * query: []
+	  * auto : []
+
+
+
+
+quoteescape
+	If this option is true, skip candidate positions escaped by characters
+	included in 'quoteescape' option. Practically this option is specific
+	for ', " and `.
+>
+	let g:sandwich#recipes += [
+	  \   {'buns': ['"', '"'], 'quoteescape': 1}
+	  \ ]
+	" Press dib
+	" "foo\"bar"   --->   foo\"bar
+<
+	Default values
+	  * query: 0
+	  * auto : 0
+
+
+
+expr
+	If this option is 1 or 2, requisite "buns" is evaluated as expression.
+	If this option is 1, "buns" are evaluated once and repeat it by |.|
+	command. If this option is 2, "buns" are evaluated every times in |.|
+	repeating. For example, the following recipe searches the text in the
+	unnamed register. (ref. |:let-@|, |quotequote|)
+>
+	let g:sandwich#recipes += [
+	  \   {'buns': ['@@', '@@'], 'expr': 1, 'input': ['@']}
+	  \ ]
+<
+	NOTE: If this option is true, the recipe requires "input" to use with
+	      query-textobjects. "buns" never be regarded as key inputs to
+	      trigger.
+
+	NOTE: If "buns" include empty string resulting of the evaluation,
+	      |textobj-sandwich| cancels the selection.
+
+	NOTE: If the expressions query user something by |getchar()| or
+	      |input()|, the recipe may cause problem on the
+	      |operator-sandwich| delete operator and |textobj-sandwich|
+	      textobjects, |<Plug>(textobj-sandwich-auto-i)| and
+	      |<Plug>(textobj-sandwich-auto-a)|. To avoid this problem, it is
+	      recommended to use "kind" filter. For example, the following
+	      recipe asks two characters to select a text between the two
+	      characters.
+>
+	      let g:textobj#sandwich#recipes += [
+	        \    {
+	        \      'buns': ['GetChar()', 'GetChar()'],
+	        \      'kind': ['query'],
+	        \      'expr': 1,
+	        \      'input': ['f']
+	        \    },
+	        \ ]
+
+	      function! GetChar() abort
+	        let c = getchar()
+	        let c = type(c) == type(0) ? nr2char(c) : c
+	        return c ==# "\<Esc>" || c ==# "\<C-c>" ? '' : c
+	      endfunction
+<
+	Default values
+	  * query: 0
+	  * auto : 0
+
+
+
+noremap
+	This option is referred only with "external" textobjects. In case that
+	a "external" textobject has been remapped, if this option is true it
+	would not be remapped. If this option is false, the nest mapping would
+	be expanded. Also see the description about "external" in requisite.
+	NOTE: Since visual selection is employed to check its region
+	      intrinsically, only the mappings in visual mode are related.
+
+	Default values
+	  * query: 1
+	  * auto : 1
+
+
+
+syntax
+	This is a list of syntax groups expected to be applied to the
+	surroundings. If this list is not empty, the textobjects check the
+	syntax to skip candidates. If syntax highlighting is not active, this
+	option is simply ignored.
+>
+	" check the position pointed by #
+	"           #   #
+	"           "foo"
+<
+	For example, " is expected to be highlighted by several limited
+	highlight groups.
+>
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ['"', '"'],
+	  \     'quoteescape': 1,
+	  \     'expand_range': 0,
+	  \     'nesting': 0,
+	  \     'match_syntax': 1,
+	  \     'syntax':
+	  \       ['Constant', 'Statement', 'Special', 'String', 'Comment'],
+	  \     'inner_syntax':
+	  \       ['Constant', 'PreProc', 'Special', 'String', 'Comment'],
+	  \   }
+	  \ ]
+<
+	However the recipe is not useful for some filetype, for example
+	markdown, while it really goes well with some filetypes to recognize
+	strings surrounded by "" even in the following situation.
+>
+	key press vas" selects as following. # means cursor positions.
+
+	        <-#->
+	list = ["foo", "bar"]
+	       <-----#------>
+<
+	Therefore, if possible, it would be better to prepare recipes for each
+	filetypes.
+>
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ['"', '"'],
+	  \     'filetype': ['ruby'],
+	  \     'quoteescape': 1,
+	  \     'expand_range': 0,
+	  \     'nesting': 0,
+	  \     'match_syntax': 1,
+	  \     'syntax':
+	  \       ['Constant', 'Special', 'String', 'Comment'],
+	  \     'inner_syntax':
+	  \       ['Constant', 'Special', 'String', 'Comment'],
+	  \   }
+	  \ ]
+
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ['"', '"'],
+	  \     'filetype': ['sh'],
+	  \     'quoteescape': 1,
+	  \     'expand_range': 0,
+	  \     'nesting': 0,
+	  \     'match_syntax': 1,
+	  \     'syntax':
+	  \       ['Constant', 'Statement', 'String', 'Comment'],
+	  \     'inner_syntax':
+	  \       ['Constant', 'Special', 'PreProc', 'String', 'Comment'],
+	  \   }
+	  \ ]
+<
+
+	In many colorscheme, frequently used highlight group name is shared.
+	See |group-name|.
+
+	NOTE: If an item in the list exists in the syntax stack at the
+	      candidate, it is regarded as the matched. The syntax stack can
+	      be checked by using following keymapping on a text.
+>
+	nnoremap <Leader>s :echo map(synstack(line('.'), col('.')),
+	                        \ 'synIDattr(synIDtrans(v:val), "name")')<CR>
+<
+	Default values
+	  * query: []
+	  * auto : []
+
+
+
+inner_syntax
+	This is a list of syntax groups expected to be applied to the
+	both edges of a surrounded text. If this list is not empty, the
+	textobjects check the syntax to skip candidates. If syntax
+	highlighting is not active, this option is simply ignored.
+	In addition, also when "match_syntax" option is 2, this option is
+	ignored.
+>
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ['"', '"'],
+	  \     'quoteescape': 1,
+	  \     'inner_syntax': ['Constant', 'String']
+	  \   }
+	  \ ]
+
+	" check the position pointed by #
+	"            # #
+	"           "foo"
+<
+	There are practical examples in the above, local option "syntax",
+	section. Please see also them.
+
+	In many colorscheme, frequently used highlight group name is shared.
+	See |group-name|.
+
+	NOTE: If an item in the list exists in the syntax stack at the
+	      candidate, it is regarded as the matched. The syntax stack can
+	      be checked by using following keymapping on a text.
+>
+	nnoremap <Leader>s :echo map(synstack(line('.'), col('.')),
+	                        \ 'synIDattr(synIDtrans(v:val), "name")')<CR>
+<
+	Default values
+	  * query: []
+	  * auto : []
+
+
+
+match_syntax
+	If this option is 1, the textobjects check the both surroundings
+	whether their syntaxes are matched or not. If not, the candidate is
+	skipped. In addition to that, if this option is 2, the textobjects
+	also check the both edge of the surrounded text whether their
+	colorings are same as those of surroundings. If this option is 3,
+	almost same as that is 3 but textobjects check the inside text
+	independently. That is to say, both surroundings should be same
+	colorings and both edge of surrounded text should be same colorings,
+	but it is not required to be same the colorings of surroundings and
+	that of the surrounded text.
+>
+			AB CD
+			(foo)
+
+	match_syntax is 1: A == D is required.
+	match_syntax is 2: A == D == B == C is required.
+	match_syntax is 3: A == D and B == C is required.
+<
+	If a surrounding is not a character, textobjects check its head only.
+
+	In many cases, both sides of surroundings have same syntaxes. For
+	example, '' is frequently used for the string literal, "" itself would
+	be applied Constant or String syntax and the inside text also applied
+	the same.
+>
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ["'", "'"],
+	  \     'quoteescape' : 1,
+	  \     'syntax'      : ['Constant', 'String'],
+	  \     'match_syntax': 2
+	  \   }
+	  \ ]
+<
+	There are also other examples in the section of local option "syntax".
+
+	NOTE: The applied (displayed) syntax can be checked by using the
+	      following keymapping on a text.
+>
+	nnoremap <Leader>S
+	\ :echo synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')<CR>
+<
+	      The displayed syntaxes of both surroundings should be matched to
+	      be valid. However, as for the case of insides the surroundings
+	      the matched condition is somehow relaxed, only have to be
+	      included in syntax stacks. Because, for instance, output
+	      conversion specifiers in string literal like "%s" is highlighted
+	      with different color. Even though the fact, "String" is expect
+	      to included in its syntax stack, if it is true it works same as
+	      other string literals. A syntax stack can be checked by using
+	      the following key mapping on a text.
+>
+	nnoremap <Leader>s :echo map(synstack(line('.'), col('.')),
+	                        \ 'synIDattr(synIDtrans(v:val), "name")')<CR>
+<
+	Default values
+	  * query: 0
+	  * auto : 0
+
+
+
+skip_break
+	Assume that the following text.
+>
+	{
+	  foo
+	}
+<
+	The strings surrounded by { and } is "\n  foo\n", thus key sequence
+	dib should simply give:
+>
+	{}
+<
+	However sometimes it is more useful to make like this.
+>
+	{
+	
+	}
+<
+	If this option is true, the textobjects skip the breakings at the both
+	ends to make the latter situation. In addition, skip following spaces
+	together to keep indentation. That is to say, skipped string would be
+	a string matched with the pattern "\n\\s*".
+
+	This option is valid only for |<Plug>(textobj-sandwich-query-i)| and
+	|<Plug>(textobj-sandwich-auto-i)|.
+
+	Default values
+	  * query: 0
+	  * auto : 0
+
+
+
+skip_expr
+	The value is a list of |expression|s. Searching the selection area,
+	every time when a text matched with buns is found the expressions are
+	evalueated. If the expression returns true (not 0), then the candidate
+	is skipped and textobject searches next.
+>
+	" skip 'a's other than head and tail of a line.
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ['a', 'a'],
+	  \     'skip_expr': [
+	  \       'getpos(".")[2] != 1 && getpos(".")[2] != col([getpos(".")[1], "$"])-1'
+	  \     ]
+	  \   }
+	  \ ]
+	" Press dib
+	" aaaaa   --->   aa
+<
+	Note that if the item is |Funcref|, it should be possible to accept
+	two arguments.
+>
+	:function {func}(is_head, pos)
+<
+	If a:is_head is 1, the textobject is searching a head surrounding
+	matched with buns. Otherwise the textobject is searching a tail
+	surrounding matched with buns. a:pos is a list pointing the head of
+	matched position. It has four items which is same format with the
+	argument of |getpos()|. Not necessarily to use them, use if needed.
+	In future, the arguments are possible to append. Thus it might be
+	better to assign variable-length argument.
+>
+	" skip 'a's other than head and tail of a line.
+	function! SkipIntermediates(is_head, pos, ...)
+	  if a:is_head
+	    return a:pos[2] != 1
+	  else
+	    return a:pos[2] != col([a:pos[1], '$'])-1
+	  endif
+	endfunction
+
+	let g:sandwich#recipes += [
+	  \   {
+	  \     'buns': ['a', 'a'],
+	  \     'skip_expr': [function('SkipIntermediates')]
+	  \   }
+	  \ ]
+	" Press dib
+	" aaaaa   --->   aa
+<
+
+	Default values
+	  * query: []
+	  * auto : []
+
+
+
+Global option~
+
+There are several options to control fundamental behavior of the operators.
+
+g:textobj#sandwich#timeout		*g:textobj#sandwich#timeout*
+	If this option is a falsy value, the query-textobject will wait for
+	subsequent inputs until the complete key sequence has been received to
+	specify a recipe. For example, with the following recipes,
+>
+	let g:sandwich#recipes = [
+	  \   {'buns': ['for {', '}'],  'nesting': 1, 'input': ['bf']}
+	  \   {'buns': ['if {', '}'],   'nesting': 1, 'input': ['bi']}
+	  \   {'buns': ['else {', '}'], 'nesting': 1, 'input': ['be']}
+	  \ ]
+<
+	type `visb` and a while later the textobject eagerly select a text
+	wrapped in `b` if this option is true. The textobject wait next input
+	until a recipe is specified if this option is false. If this has not
+	been defined, |g:sandwich#timeout| is used instead. Unless there is
+	any particular reason, use |g:sandwich#timeout|.
+	See |g:textobj#sandwich#timeoutlen| also.
+
+
+
+g:textobj#sandwich#timeoutlen		*g:textobj#sandwich#timeoutlen*
+	The time in milli seconds that waits for a key code or mapped key
+	sequence to complete. If there are recipes overlapped, this option is
+	used. Assume that the following recipes are prepared:
+>
+	let g:sandwich#recipes = [
+	  \   {'buns': ['(', ')']}
+	  \   {'buns': ['((', '))']}
+	  \ ]
+<
+	after pressing vis(, the textobject waits in the time. If you press
+	one more ( in the time, then a recipe for '((' and '))' is decided to
+	use. No keypress has come through the time a recipe for '(' and ')' is
+	settled. If this has not been defined, |g:sandwich#timeoutlen| is used
+	instead. Unless there is any particular reason, use
+	|g:sandwich#timeoutlen|.
+
+	When 'timeout' is off or |g:textobj#sandwich#timeout| is false, this
+	option is ignored.
+
+
+
+g:textobj#sandwich#stimeoutlen		*g:textobj#sandwich#stimeoutlen*
+	This is the time in milli second to give up searching candidates.
+	After passing over the time without finding enough number of
+	candidates, then the textobjects give up searching and selection. The
+	default value is 500.
+
+
+
+g:textobj#sandwich#latest_jump		*g:textobj#sandwich#latest_jump*
+	If the value is true, the textobjects record the original cursor
+	position to the latest jump marker |``|. If the cursor moved
+	unexpectedly, |``| command will restore the cursor position quickly.
+	The default value is 1.
+
+
+
+==============================================================================
+MISCELLANEOUS				*textobj-sandwich-miscellaneous*
+
+It is not what I expect with key sequence dib.~
+	The key sequence `dib` will make this:
+>
+	(
+	    foo
+	)
+<
+	to this:
+>
+	()
+<
+	Because the surrouded text is not '    foo' but '\n    foo\n'. If you
+	want a result like this:
+>
+	(
+	
+	)
+<
+	then you can control by local option "skip_break".
+>
+	call textobj#sandwich#set('all', 'skip_break', 1)
+<
+
+
+
+Timed out so frequently!~
+	Set the |g:textobj#sandwich#stimeoutlen| larger. The default value is
+	500.
+
+
+
+My cursor moved a lot because of unintended selection!~
+	Don't panic. You can use undo |u| command, and you can go back to the
+	original position by |``| command. See
+	|g:textobj#sandwich#latest_jump|.
+
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:

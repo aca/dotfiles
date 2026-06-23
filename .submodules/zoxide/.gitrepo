@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ajeetdsouza/zoxide.git
+	branch = main
+	commit = f74ed040fed9ab50593f0ff9e29983bca54e4fbe
+	parent = 42afe8a7c85438305ed9e4c6ce053641599acff0
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,395 @@
+*headlines.txt*        Show background highlight for headlines and codeblocks
+
+
+Author: Lukas Reineke <lukas.reineke@protonmail.com>
+Version: 3.3.3
+
+==============================================================================
+CONTENTS                                                           *headlines*
+
+  1. Introduction                               |headlines-introduction|
+  2. Highlights                                 |headlines-highlights|
+  3. Setup                                      |headlines-setup|
+  4. License                                    |headlines-license|
+
+==============================================================================
+ 1. INTRODUCTION                                      *headlines-introduction*
+
+This plugin adds highlights for text filetypes, like `markdown`,
+`orgmode`, and `neorg`.
+
+1. Background highlighting for headlines
+2. Background highlighting for code blocks
+3. Whole window separator for horizontal line
+4. Bar for Quotes
+
+Treesitter grammar needs to be installed for the languages.
+
+==============================================================================
+ 2. HIGHLIGHTS                                          *headlines-highlights*
+
+There are 5 highlight groups that get created by default.
+You can overwrite them or create more yourself.
+
+------------------------------------------------------------------------------
+Headline                                                         *hl-Headline*
+
+    This highlight group is used for all headlines by default.
+
+    Default: links to |hl-ColorColumn|
+
+    Example: >
+
+        highlight link Headline ColorColumn
+
+------------------------------------------------------------------------------
+CodeBlock                                                       *hl-CodeBlock*
+
+    This highlight group is used for codeblocks.
+
+    Default: links to |hl-ColorColumn|
+
+    Example: >
+
+        highlight link CodeBlock ColorColumn
+
+------------------------------------------------------------------------------
+Dash                                                                 *hl-Dash*
+
+    This highlight group is used for horizontal dashes.
+
+    Default: links to |hl-LineNr|
+
+    Example: >
+
+        highlight link Dash LineNr
+
+------------------------------------------------------------------------------
+DoubleDash                                                     *hl-DoubleDash*
+
+    This highlight group is used for double horizontal dashes.
+
+    Default: links to |hl-LineNr|
+
+    Example: >
+
+        highlight link DoubleDash LineNr
+
+------------------------------------------------------------------------------
+Quote                                                               *hl-Quote*
+
+    This highlight group is used for the quote bar.
+
+    Default: links to |hl-LineNr|
+
+    Example: >
+
+        highlight link Quote LineNr
+
+==============================================================================
+ 3. SETUP                                                    *headlines-setup*
+
+To configure headlines.nvim pass a config table into the setup function.
+
+Default config: >
+
+  require("headlines").setup {
+      markdown = {
+          query = vim.treesitter.parse_query(
+              "markdown",
+              [[
+                  (atx_heading [
+                      (atx_h1_marker)
+                      (atx_h2_marker)
+                      (atx_h3_marker)
+                      (atx_h4_marker)
+                      (atx_h5_marker)
+                      (atx_h6_marker)
+                  ] @headline)
+
+                  (thematic_break) @dash
+
+                  (fenced_code_block) @codeblock
+
+                  (block_quote_marker) @quote
+                  (block_quote (paragraph (inline (block_continuation) @quote)))
+                  (block_quote (paragraph (block_continuation) @quote))
+                  (block_quote (block_continuation) @quote)
+              ]]
+          ),
+          headline_highlights = { "Headline" },
+          bullet_highlights = {
+              "@text.title.1.marker.markdown",
+              "@text.title.2.marker.markdown",
+              "@text.title.3.marker.markdown",
+              "@text.title.4.marker.markdown",
+              "@text.title.5.marker.markdown",
+              "@text.title.6.marker.markdown",
+          },
+          bullets = { "◉", "○", "✸", "✿" },
+          codeblock_highlight = "CodeBlock",
+          dash_highlight = "Dash",
+          dash_string = "-",
+          quote_highlight = "Quote",
+          quote_string = "┃",
+          fat_headlines = true,
+          fat_headline_upper_string = "▄",
+          fat_headline_lower_string = "▀",
+      },
+      rmd = {
+          query = vim.treesitter.parse_query(
+              "markdown",
+              [[
+                  (atx_heading [
+                      (atx_h1_marker)
+                      (atx_h2_marker)
+                      (atx_h3_marker)
+                      (atx_h4_marker)
+                      (atx_h5_marker)
+                      (atx_h6_marker)
+                  ] @headline)
+
+                  (thematic_break) @dash
+
+                  (fenced_code_block) @codeblock
+
+                  (block_quote_marker) @quote
+                  (block_quote (paragraph (inline (block_continuation) @quote)))
+                  (block_quote (paragraph (block_continuation) @quote))
+                  (block_quote (block_continuation) @quote)
+              ]]
+          ),
+          treesitter_language = "markdown",
+          headline_highlights = { "Headline" },
+          bullet_highlights = {
+              "@text.title.1.marker.markdown",
+              "@text.title.2.marker.markdown",
+              "@text.title.3.marker.markdown",
+              "@text.title.4.marker.markdown",
+              "@text.title.5.marker.markdown",
+              "@text.title.6.marker.markdown",
+          },
+          bullets = { "◉", "○", "✸", "✿" },
+          codeblock_highlight = "CodeBlock",
+          dash_highlight = "Dash",
+          dash_string = "-",
+          quote_highlight = "Quote",
+          quote_string = "┃",
+          fat_headlines = true,
+          fat_headline_upper_string = "▄",
+          fat_headline_lower_string = "▀",
+      },
+      norg = {
+          query = vim.treesitter.parse_query(
+              "norg",
+              [[
+                  [
+                      (heading1_prefix)
+                      (heading2_prefix)
+                      (heading3_prefix)
+                      (heading4_prefix)
+                      (heading5_prefix)
+                      (heading6_prefix)
+                  ] @headline
+
+                  (weak_paragraph_delimiter) @dash
+                  (strong_paragraph_delimiter) @doubledash
+
+                  ([(ranged_tag
+                      name: (tag_name) @_name
+                      (#eq? @_name "code")
+                  )
+                  (ranged_verbatim_tag
+                      name: (tag_name) @_name
+                      (#eq? @_name "code")
+                  )] @codeblock (#offset! @codeblock 0 0 1 0))
+  
+                  (quote1_prefix) @quote
+              ]]
+          ),
+          headline_highlights = { "Headline" },
+          bullet_highlights = {
+              "@neorg.headings.1.prefix",
+              "@neorg.headings.2.prefix",
+              "@neorg.headings.3.prefix",
+              "@neorg.headings.4.prefix",
+              "@neorg.headings.5.prefix",
+              "@neorg.headings.6.prefix",
+          },
+          bullets = { "◉", "○", "✸", "✿" },
+          codeblock_highlight = "CodeBlock",
+          dash_highlight = "Dash",
+          dash_string = "-",
+          doubledash_highlight = "DoubleDash",
+          doubledash_string = "=",
+          quote_highlight = "Quote",
+          quote_string = "┃",
+          fat_headlines = true,
+          fat_headline_upper_string = "▄",
+          fat_headline_lower_string = "▀",
+      },
+      org = {
+          query = vim.treesitter.parse_query(
+              "org",
+              [[
+                  (headline (stars) @headline)
+
+                  (
+                      (expr) @dash
+                      (#match? @dash "^-----+$")
+                  )
+
+                  (block
+                      name: (expr) @_name
+                      (#match? @_name "(SRC|src)")
+                  ) @codeblock
+
+                  (paragraph . (expr) @quote
+                      (#eq? @quote ">")
+                  )
+              ]]
+          ),
+          headline_highlights = { "Headline" },
+          bullet_highlights = {
+              "@org.headline.level1",
+              "@org.headline.level2",
+              "@org.headline.level3",
+              "@org.headline.level4",
+              "@org.headline.level5",
+              "@org.headline.level6",
+              "@org.headline.level7",
+              "@org.headline.level8",
+          },
+          bullets = { "◉", "○", "✸", "✿" },
+          codeblock_highlight = "CodeBlock",
+          dash_highlight = "Dash",
+          dash_string = "-",
+          quote_highlight = "Quote",
+          quote_string = "┃",
+          fat_headlines = true,
+          fat_headline_upper_string = "▄",
+          fat_headline_lower_string = "▀",
+      },
+  }
+
+The table root is the |filetype|
+Each filetype has following options.
+To disable any of the options, set it to `false`.
+
+A lot of the options are lua patterns.
+To learn more about how lua pattern work, see here:
+https://www.lua.org/manual/5.1/manual.html#5.4.1
+
+------------------------------------------------------------------------------
+query                                                        *headlines-query*
+
+    Specifies the treesitter query that captures different parts to highlight.
+
+    The captures need to be named `headline`, `dash`, and `codeblock`
+
+------------------------------------------------------------------------------
+treesitter_language                            *headlines-treesitter_language*
+
+    Specifies the language to use for treesitter, defaults to the filetype.
+
+------------------------------------------------------------------------------
+headline_highlights                            *headlines-headline_highlights*
+
+    A list of |highlight| groups that are used to highlight the headline.
+    The level of the headline is used as the index of the list.
+
+------------------------------------------------------------------------------
+bullet_highlights                                *headlines-bullet_highlights*
+
+    A list of |highlight| groups that are used to highlight the headline
+    prefix/bullet.
+    The level of the headline is used as the index of the list.
+
+------------------------------------------------------------------------------
+bullets                                                    *headlines-bullets*
+
+    A list of strings that are displayed as the headline prefix/bullet.
+    Set it to an empty table to disable.
+    The level of the headline is used as the index of the list.
+
+------------------------------------------------------------------------------
+fat_headlines                                        *headlines-fat_headlines*
+
+    Boolean to turn on fat headlines.
+
+------------------------------------------------------------------------------
+fat_headline_upper_string                *headlines-fat_headline_upper_string*
+
+    Specifies the string that is repeated above a headline when
+    |headlines-fat_headlines| is on.
+
+------------------------------------------------------------------------------
+fat_headline_lower_string                *headlines-fat_headline_lower_string*
+
+    Specifies the string that is repeated below a headline when
+    |headlines-fat_headlines| is on.
+
+------------------------------------------------------------------------------
+codeblock_highlight                            *headlines-codeblock_highlight*
+
+    Specifies the |highlight| grop that is used to highlight code blocks.
+
+------------------------------------------------------------------------------
+dash_highlight                                      *headlines-dash_highlight*
+
+    Specifies the |highlight| group that is used to highlight horizontal dashes.
+
+------------------------------------------------------------------------------
+dash_string                                            *headlines-dash_string*
+
+    Specifies the string that is repeated to display horizontal dashes.
+
+------------------------------------------------------------------------------
+doubledash_highlight                          *headlines-doubledash_highlight*
+
+    Specifies the |highlight| group that is used to highlight horizontal
+    doubledashes.
+
+------------------------------------------------------------------------------
+doubledash_string                                *headlines-doubledash_string*
+
+    Specifies the string that is repeated to display horizontal doubledashes.
+
+------------------------------------------------------------------------------
+quote_highlight                                      *headlines-quote_highlight*
+
+    Specifies the |highlight| group that is used to highlight quotes.
+
+------------------------------------------------------------------------------
+quote_string                                            *headlines-quote_string*
+
+    Specifies the string that is used to display quotes.
+
+==============================================================================
+ 4. LICENSE                                                *headlines-license*
+
+The MIT Licence
+http://www.opensource.org/licenses/mit-license.php
+
+Copyright (c) 2024 Lukas Reineke
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl

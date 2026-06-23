@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/koeppl/mpv-bookmark-lua-script.git
+	branch = master
+	commit = a32e955d98a817d5cc7c08af114c2a0cff18149e
+	parent = 19daff66aef6e22d2bc3072a44f235e026a8e747
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/folke/noice.nvim.git
+	branch = main
+	commit = 7bfd942445fb63089b59f97ca487d605e715f155
+	parent = 2c10f26595683a646602226bffc02b85713a0b34
+	method = merge
+	cmdver = 0.4.9

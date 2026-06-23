@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/nvim-orgmode/orgmode.git
+	branch = master
+	commit = 2fc30d36fd1c3e6086a7424858e19a52a29ae937
+	parent = 034c3834882dcc5cdb2f03e649220c42a3939513
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ferrine/md-img-paste.vim.git
+	branch = master
+	commit = 787be15ff52ea2db5ae7b813ab8808c8d4cf749e
+	parent = 7f42e8825be5f2bffe9adff939c18b4cb64940ac
+	method = merge
+	cmdver = 0.4.9
