@@ -31,13 +31,13 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	command = 'au WinEnter * if winnr(\'$\') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif',
 })
 
--- highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-	pattern = { "*" },
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
+-- -- highlight on yank
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	pattern = { "*" },
+-- 	callback = function()
+-- 		vim.highlight.on_yank()
+-- 	end,
+-- })
 
 
 vim.api.nvim_create_autocmd("BufWritePost", {
