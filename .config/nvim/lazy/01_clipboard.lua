@@ -1,4 +1,6 @@
 local vim = vim
+-- vim.print(3)
+
 
 -- TODO, on tmux osc52 paste doesn't work as expected, requires `tmux refresh-client -l` every time.
 -- 1. Ditch tmux and use OSC52 for all
