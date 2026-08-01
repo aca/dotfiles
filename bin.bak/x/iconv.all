@@ -1,0 +1,10 @@
+#!/usr/bin/env elvish
+
+iconv -l | grep -i 949 | tr -d '//' | each { |x| 
+    try {
+        echo $x 
+        iconv -f $x -t UTF-8 $args[0] -o out 2>/dev/null
+    } catch {
+        cat out
+    }
+}

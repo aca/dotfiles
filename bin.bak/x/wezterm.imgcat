@@ -1,0 +1,25 @@
+#!/usr/bin/env elvish
+
+# wezterm imgcat prefer larger size which makes vifm to crash
+# fileviewer *.png,*.jpeg,*.jpg
+#   \ wezterm.imgcat %c:p %pw %ph %pd
+
+var imgw imgh = (identify -format "%w\n%h" $args[0] | from-lines | take 2)
+var consolew consoleh = (- $args[1] 2) (- $args[2] 2)
+var consolew consoleh = $args[1] $args[2]
+
+# put $imgw $imgh
+# put $consolew $consoleh
+
+# console size is not 1:1 on width
+# # if (> (* ( / $imgh $imgw ) $consolew ) $consoleh ) {
+#   noti -m "height"( / $consoleh $consolew )" "( / $imgh $imgw )
+#   wezterm imgcat --height $consoleh $args[0]
+# } else {
+noti -m "width"( / $consoleh $consolew )" "( / $imgh $imgw )
+#   wezterm imgcat --width $consolew $args[0]
+# }
+#
+if (< ( / $consoleh $consolew ) ( / $imgh $imgw ) ) {
+    wezterm imgcat --height $consoleh $args[0]
+}

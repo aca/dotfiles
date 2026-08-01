@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -x
+# ls "$1" | entr -r nix-instantiate --eval "$1"
+# watchexec -r "$1" -- nix-instantiate --eval "$1"
+watchexec -e nix -- nix-instantiate --eval "$1"

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# TODO: implement in awk
+
+# from subprocess import getoutput
+# from itertools import dropwhile, takewhile
+#
+# prompt = getoutput('fish -c fish_prompt')
+# lines = reversed(getoutput('tmux capture-pane -p -S - -E -').split('\n'))
+# lines = list(dropwhile(lambda x: prompt not in x, lines))[1:]
+#
+# for line in reversed(list(takewhile(lambda x: prompt not in x, lines))):
+#     print(line)
+
+lines=${1:-100}
+
+# output=$(tmux capture-pane -J -p -S - -E -)
+# echo "$output" | tail -n $lines
+# echo "$output" | tail -n $lines | pbcopy
+tmux capture-pane -C -J -p -S - -E -

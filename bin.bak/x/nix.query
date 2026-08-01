@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# export LD_LIBRARY_PATH=$(nix.query oracle-instantclient)
+#
+# https://xeiaso.net/blog/nix-flakes-look-up-package/
+
+export NIXPKGS_ALLOW_UNFREE=1
+cd /home/rok/src/github.com/aca/nix-config
+# nix eval --raw nixpkgs.zlib
+#
+# nix-instantiate --expr "(import <nixpkgs> {}).$1.libpath" 2>/dev/null
+
+# nix  --extra-experimental-features "nix-command flakes" eval "nixpkgs#$1" --raw --impure
+# nix  --extra-experimental-features "nix-command flakes" eval "nixpkgs#$1.lib" --raw --impure
+#
+# nix eval --extra-experimental-features "nix-command flakes" --inputs-from . --raw "nixpkgs#legacyPackages.aarch64-linux.oracle-instantclient" --impure
+nix eval --extra-experimental-features "nix-command flakes" --inputs-from . --raw "nixpkgs#oracle-instantclient.lib" --impure
+# nix eval --raw "nixpkgs#legacyPackages.aarch64-linux.oracle-instantclient"
+

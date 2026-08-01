@@ -1,0 +1,8 @@
+#!/usr/bin/env elvish
+
+for x [ (seq 1 4) ] {
+    echo "long"
+    sleep 1
+}
+
+

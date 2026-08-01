@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+vector --config ~/.vector/config/vector.toml

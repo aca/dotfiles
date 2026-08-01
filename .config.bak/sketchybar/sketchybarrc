@@ -1,0 +1,74 @@
+#!/bin/bash
+
+sketchybar --bar \
+  height=36 \
+  position=top \
+  padding_left=14 \
+  padding_right=14 \
+  color=0xff000000 \
+  shadow=off
+
+sketchybar --default \
+  label.font="SF Pro:Medium:13.0" \
+  label.color=0xffffffff \
+  icon.font="SF Pro:Bold:13.0" \
+  padding_left=2 \
+  padding_right=2
+
+# Spaces
+for i in $(seq 1 9); do
+  sketchybar --add space space.$i left \
+    --set space.$i \
+      associated_space=$i \
+      icon=$i \
+      icon.font="SF Mono:Bold:12.0" \
+      icon.color=0xff505050 \
+      icon.highlight_color=0xffffffff \
+      icon.padding_left=10 \
+      icon.padding_right=10 \
+      label.drawing=off \
+      background.drawing=off \
+      script="sketchybar --set \$NAME icon.highlight=\$SELECTED"
+done
+
+# Front app — center
+sketchybar --add item front_app center \
+  --set front_app \
+    label.font="SF Pro:Medium:13.0" \
+    label.color=0xff888888 \
+    script='sketchybar --set $NAME label="$INFO"' \
+  --subscribe front_app front_app_switched
+
+# Clock — flush right
+sketchybar --add item clock right \
+  --set clock \
+    label.font="SF Mono:Medium:12.0" \
+    label.color=0xffaaaaaa \
+    label.padding_right=2 \
+    padding_right=0 \
+    update_freq=30 \
+    script='sketchybar --set $NAME label="$(date "+%H:%M")"'
+
+# Date
+sketchybar --add item date right \
+  --set date \
+    label.font="SF Mono:Medium:12.0" \
+    label.color=0xff505050 \
+    label.padding_right=0 \
+    padding_left=0 \
+    padding_right=0 \
+    update_freq=60 \
+    script='sketchybar --set $NAME label="$(date "+%a %b %-d")"'
+
+# ZeroTier status via orb
+sketchybar --add item zerotier right \
+  --set zerotier \
+    label.font="SF Mono:Medium:12.0" \
+    label.color=0xff666666 \
+    label="ZT" \
+    padding_left=0 \
+    padding_right=8 \
+    update_freq=60 \
+    script="$HOME/.config/sketchybar/plugins/zerotier.sh"
+
+sketchybar --update

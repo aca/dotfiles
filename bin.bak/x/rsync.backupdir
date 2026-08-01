@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+fpath=$(realpath "$2" | sed "s|$HOME|~|")/
+rsync -av --delete "$2/" "$1:$fpath"

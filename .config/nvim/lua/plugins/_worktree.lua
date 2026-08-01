@@ -1,0 +1,4 @@
+-- vim.pack.add({ { src = 'https://github.com/nvim-lua/plenary.nvim.git' } })
+-- vim.pack.add({ { src = 'https://github.com/polarmutex/git-worktree.nvim' } })
+-- vim.pack.add({ { src = 'https://github.com/nvim-telescope/telescope.nvim.git' } })
+-- require('telescope').load_extension('git_worktree')

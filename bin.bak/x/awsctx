@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd ~/.aws && cp credentials."$(ls credentials.* | sed 's/^credentials\.//' | fzf)" credentials

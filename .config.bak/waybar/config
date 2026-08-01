@@ -1,0 +1,38 @@
+{
+    "layer": "top",
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["battery", "clock"],
+    "sway/window": {
+        "max-length": 50
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+    "sway/workspaces": {
+            "all-outputs": true,
+            "disable-scroll": true,
+            "format": "{icon} {name}",
+            "format-icons": {
+                "1:net": "",
+                "2:chat": "#",
+                "3:edit": "",
+                "4:term": "",
+                "5:mail": "",
+                "urgent": "",
+                "focused": "",
+                "default": ""
+            },
+            "persistent_workspaces": {
+                "1:net": [],
+                "2:chat": [],
+                "3:edit": [],
+                "4:term": [],
+                "5:mail": []
+            }
+        }
+}

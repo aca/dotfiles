@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+IFS=''
+while read line
+do 
+    echo "$line" | iconv -f euc-kr -t utf-8
+done  < "${1:-/dev/stdin}"

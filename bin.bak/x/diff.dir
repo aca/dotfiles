@@ -1,0 +1,9 @@
+#!/usr/bin/env elvish
+
+echo $args[0]
+fd . $args[0] -x ls -al
+
+echo $args[1]/$args[0]
+fd . $args[1]/$args[0] -x ls -al
+ 
+# echo "$2"

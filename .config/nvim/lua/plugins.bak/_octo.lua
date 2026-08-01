@@ -1,0 +1,5 @@
+-- vim.cmd([[
+-- lua vim.pack.add({ { src = 'https://github.com/pwntester/octo.nvim.git' } })
+-- ]])
+--
+-- require("octo").setup()

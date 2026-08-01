@@ -1,0 +1,33 @@
+.TH "ZOXIDE" "1" "2021-04-12" "" "zoxide"
+.SH NAME
+\fBzoxide-query\fR - search for a directory in the database
+.SH SYNOPSIS
+.B zoxide query [KEYWORDS] [OPTIONS]
+.SH DESCRIPTION
+Query the database for paths matching the keywords. The exact \fBMATCHING\fR
+algorithm is described in \fBzoxide\fR(1).
+.SH OPTIONS
+.TP
+.B --all
+Show deleted directories.
+.TP
+.B --exclude PATH
+Exclude a path from query results.
+.TP
+.B -h, --help
+Print help information.
+.TP
+.B -i, --interactive
+Use interactive selection. This option requires \fBfzf\fR(1).
+.TP
+.B -l, --list
+List all results, rather than just the one with the highest frecency.
+.TP
+.B -s, --score
+Print the calculated score as well as the matched path.
+.SH REPORTING BUGS
+For any issues, feature requests, or questions, please visit:
+.sp
+\fBhttps://github.com/ajeetdsouza/zoxide/issues\fR
+.SH AUTHOR
+Ajeet D'Souza \fB<98ajeet@gmail.com>\fR

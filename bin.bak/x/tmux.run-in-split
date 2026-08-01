@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+id=$RANDOM
+# argsf="${TMPDIR:-/tmp}/fzf-args-$id"
+# fifo1="${TMPDIR:-/tmp}/fzf-fifo1-$id"
+fifo="${TMPDIR:-/tmp}/fzf-fifo2-$id"
+
+mkfifo -m o+w $fifo
+# tmux set-window-option synchronize-panes off ';' set-window-option remain-on-exit off ';' split-window 'bash -c '\''exec -a fzf bash /tmp/fzf-args-6519'\'''
+# tmux set-window-option synchronize-panes off ';' set-window-option remain-on-exit off ';' split-window "vipe > $fifo1"
+# tmux set-window-option synchronize-panes off ';' set-window-option remain-on-exit off ';' split-window "vipe > $fifo1"
+# tmux set-window-option synchronize-panes off ';' set-window-option remain-on-exit off ';' split-window "$* > $fifo 2>&1"
+tmux split-window "$* > $fifo 2>&1"
+cat $fifo

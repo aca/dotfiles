@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+tmpf=$(mktemp)
+
+mkdir $HOME/.cache/lcache 2>/dev/null || true
+cat - > $tmpf
+mv $tmpf "$HOME/.cache/lcache/$1"

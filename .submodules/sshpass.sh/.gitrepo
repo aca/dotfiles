@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/huan/sshpass.sh.git
+	branch = master
+	commit = 6b2763de88fd156dd0a166c24c9f8f159432c789
+	parent = 2e211e5eb068172e67c49105577413cdbc57d3ce
+	method = merge
+	cmdver = 0.4.9

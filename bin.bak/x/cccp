@@ -1,0 +1,374 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2016,SC2164,SC2174
+# We know:
+#   - SC2016 when to use single or double quotes,
+#   - SC2174 what mode we do want,
+#   - SC2164 where to pushd so it should not fail =)
+
+# To debug, uncomment
+# set -x
+
+# ===== Backend autodetection =====
+OSC52_ALLOW_PASTE=true
+autodetect_backend () {
+  echo osc52
+  # # Detect if connected via SSH https://unix.stackexchange.com/a/9607/190164
+  # if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
+  #   echo osc52
+  # elif [[ -n "$WAYLAND_DISPLAY" ]] && command -v wl-paste &>/dev/null; then
+  #   echo wl-clipboard
+  # elif [[ -n "$DISPLAY" ]] && command -v xsel &>/dev/null; then
+  #   echo xsel
+  # elif [[ -n "$DISPLAY" ]] && command -v xclip &>/dev/null; then
+  #   echo xclip
+  # else   # Non-SSH and non Wayland/X, detect by OS https://stackoverflow.com/a/8597411/539470
+  #   case "$OSTYPE" in
+  #     linux-android*)
+  #       echo termux-clipboard
+  #     ;;
+  #     darwin*)
+  #       echo pbcopypaste
+  #     ;;
+  #     cygwin*|msys*)
+  #       if command -v putclip &>/dev/null; then
+  #         # Cygwin cygutils-extra or MSYS2 cygutils are preferred when available
+  #         # because putclip accepts empty input correctly
+  #         echo cygutils
+  #       else
+  #         echo devclipboard
+  #       fi
+  #     ;;
+  #     linux-gnu)
+  #       UNAMEA=$(uname -a)
+  #       if echo "$UNAMEA" | grep microsoft &>/dev/null && echo "$UNAMEA" | grep WSL &>/dev/null; then
+  #         echo wsl
+  #       else
+  #         echo clipfile
+  #       fi
+  #     ;;
+  #     win32)
+  #       # Will not likely happen
+  #       echo powershell
+  #     ;;
+  #     *)
+  #       # Fallback. Also on Linux when $XDG_SESSION_TYPE is likely raw "tty"
+  #       echo clipfile
+  #     ;;
+  #   esac
+  # fi
+}
+
+# ===== Backend implementation functions =====
+
+wsl_clip_copy() {
+  ( cat; echo ) | powershell.exe -noprofile -command '$Input | Set-Clipboard'
+  # powershell trims newline at the end, why?..
+  # `unix2dos -q` instead of `cat` not needed, powershell does it itself
+}
+
+wsl_clip_paste() {
+  powershell.exe -noprofile -command 'Get-Clipboard' | dos2unix -q
+}
+
+osc52_clip_internal_copy() {
+  OSC="\033]52;c;$(cat | base64)\a"
+
+  if "${OSC52_BYPASS_MUX:-true}"; then
+    if [[ -n "$TMUX" ]]; then
+      OSC=$(printf "\033Ptmux;\033%b\033\\" "$OSC")
+    elif [[ "$TERM" =~ ^screen((-|\.).+)?$ ]]; then
+      OSC=$(printf "\033P%b\033\\" "$OSC")
+    fi
+  fi
+
+  printf '%b' "$OSC"
+}
+
+osc52_clip_copy() {
+  # "${OSC52_BYPASS_MUX:-true}" && bypass_mux=True || bypass_mux=False
+  # oscclip.osc52_copy(data: bytes, primary: bool, bypass_mux: True)
+  # not yet supported, will always bypass muxes
+  OSCCLIP_PATH="$(dirname "$(realpath "$0")")/backends/oscclip"
+  python3 -c "import sys; sys.path.insert(0, '${OSCCLIP_PATH}'); import oscclip; oscclip.osc_copy()"
+}
+
+osc52_clip_paste() {
+  OSCCLIP_PATH="$(dirname "$(realpath "$0")")/backends/oscclip"
+  python3 -c "import sys; sys.path.insert(0, '${OSCCLIP_PATH}'); import oscclip; oscclip.osc_paste()"
+}
+
+wl_copy_nohup() {
+  # wl-copy should persist to own clipboard data
+  # but it should not occupy terminal
+  # shellcheck disable=SC2046
+  cat | nohup wl-copy $( if [[ $BUFFER == 'primary' ]]; then echo '--primary'; fi ) &>/dev/null
+}
+
+xclip_copy_nohup() {
+  # xclip should persist to own clipboard data
+  # but it should not occupy terminal
+  cat | nohup xclip -selection "$BUFFER" -in &>/dev/null
+}
+
+# -- Two ugly functions for Windows other than Cygwin, MSYS or WSL. --
+# -- Scripting for Windows is, as usual, a kind of feast... --
+
+psh_clip_copy() {
+  TMP="${TMPDIR:-/tmp}"
+  TMP_TXT=$(mktemp -p "$TMP" copy_XXXXXX.txt)
+  cat >"$TMP_TXT"
+  unix2dos -o -q "$TMP_TXT"
+  powershell.exe -noprofile -command "[IO.File]::ReadAllText('$(cygpath -ma "$TMP_TXT")', (New-Object System.Text.UTF8Encoding \$False)) | Set-Clipboard"
+  rm "$TMP_TXT"
+}
+
+psh_clip_paste() {
+  TMP="${TMPDIR:-/tmp}"
+  TMP_TXT=$(mktemp -p "$TMP" paste_XXXXXX.txt)
+  powershell.exe -noprofile -command "Get-Clipboard | Set-Content -Encoding utf8 -Path '$(cygpath -ma "$TMP_TXT")'" >/dev/null
+  dos2unix -o -q "$TMP_TXT"
+  head -c -1 "$TMP_TXT" # Skip trailing newline
+  rm "$TMP_TXT"
+}
+
+append_via_copypaste() {
+  CCS=$(eval "$PASTE"; printf "EOI")
+  ACS=$(cat; printf "EOI")
+  printf "%s" "${CCS%EOI}${ACS%EOI}" | eval "$COPY"
+}
+
+# ===== Configure backend and options =====
+
+# read config file
+CH="${XDG_CONFIG_HOME:-$HOME/.config}"
+if [[ -r "$CH/cccp.conf" ]]; then
+  # shellcheck disable=SC1091
+  . "$CH/cccp.conf"
+fi
+
+# if CCCP_BACKEND is set, override BACKEND
+if [[ -n "$CCCP_BACKEND" ]]; then # get if from config (preferred) of autodetect
+  BACKEND=$CCCP_BACKEND
+fi
+
+# if BACKEND is still not set, autodetect it
+if [[ -z "$BACKEND" ]]; then
+  BACKEND=$(autodetect_backend)
+fi
+
+# ===== Take switches into account =====
+
+BUFFER=default
+DOAPPEND=false
+
+while [[ $1 =~ ^--?[a-z0-9]+.*$ ]]; do
+  key=$1
+  shift
+  case $key in
+    -c|--clipboard)
+      BUFFER=clipboard
+    ;;
+    -p|--primary)
+      BUFFER=primary
+    ;;
+    -r|--replace)
+      DOAPPEND=false
+    ;;
+    -a|--append)
+      DOAPPEND=true
+    ;;
+    *)
+      >&2 echo "Can't interpret switch '$key'"
+      exit 1
+    ;;
+  esac
+done
+
+# ===== Apply configuration =====
+
+default_clipboard () {
+  if [[ $BUFFER == 'default' ]]; then
+    BUFFER='clipboard'
+  fi
+}
+
+no_primary () {
+  if [[ $BUFFER == 'primary' ]]; then
+    >&2 echo "$BUFFER buffer is not supported by $BACKEND backend"
+    exit 1
+  fi
+  default_clipboard
+}
+
+case $BACKEND in
+  pbcopypaste)
+    no_primary
+    COPY='pbcopy'
+    PASTE='pbpaste'
+    APPEND=append_via_copypaste
+  ;;
+  xsel)
+    # xsel detaches from tty itself
+    default_clipboard
+    COPY="xsel --$BUFFER --input"
+    PASTE="xsel --$BUFFER --output"
+    APPEND="xsel --$BUFFER --append"
+  ;;
+  xclip)
+    default_clipboard
+    COPY='xclip_copy_nohup'
+    PASTE="xclip -selection $BUFFER -out"
+    APPEND=append_via_copypaste
+  ;;
+  wl-clipboard)
+    default_clipboard
+    COPY='wl_copy_nohup'
+    # shellcheck disable=SC2026
+    PASTE='wl-paste $(if [[ $BUFFER == 'primary' ]]; then echo '--primary'; fi ) -n'
+    APPEND=append_via_copypaste
+  ;;
+  termux-clipboard)
+    no_primary
+    COPY='termux-clipboard-set'
+    PASTE='termux-clipboard-get'
+    APPEND=append_via_copypaste
+  ;;
+  clipfile)
+    no_primary
+    CF="${XDG_RUNTIME_DIR:-$HOME/.cache}"
+    mkdir -m 0700 -p "$CF"
+    COPY="cat >${CF}/cccp.clip"
+    PASTE="cat ${CF}/cccp.clip"
+    APPEND="cat >>${CF}/cccp.clip"
+  ;;
+  cygutils)
+    # Cygwin and MSYS are pretty nice, compare it to powershell backend! =)
+    no_primary
+    PASTE='getclip'
+    COPY='putclip'
+    APPEND=append_via_copypaste
+  ;;
+  devclipboard)
+    # Again, Cygwin and MSYS are pretty nice =)
+    no_primary
+    PASTE='cat /dev/clipboard'
+    COPY='cat >/dev/clipboard'
+    APPEND=append_via_copypaste
+  ;;
+  wsl)
+    no_primary
+    PASTE='wsl_clip_paste'
+    COPY='wsl_clip_copy'
+    APPEND=append_via_copypaste
+  ;;
+  osc52)
+    # Probably the most advanced and sane method for remote hosts.
+    # But not 100% safe and not 100% stable. Thus not autodetected.
+    no_primary
+    ${OSC52_SHELL_COPY:-true} && COPY='osc52_clip_internal_copy' || COPY='osc52_clip_copy'
+    ${OSC52_ALLOW_PASTE:-false} && PASTE='osc52_clip_paste' || PASTE='>&2 echo Pasting via osc52 is not allowed by current configuration; exit 1'
+    APPEND=append_via_copypaste
+  ;;
+  powershell)
+    no_primary
+    PASTE='psh_clip_paste'
+    COPY='psh_clip_copy'
+    APPEND=append_via_copypaste
+  ;;
+  kitty)
+    # Suggestion for kitty.conf
+    # clipboard_control write-primary write-clipboard no-append read-primary-ask read-clipboard-ask
+    default_clipboard
+    [[ "$BUFFER" == "primary" ]] && KITTY_BUF_OPTION='--use-primary'
+    COPY="cat | kitty +kitten clipboard ${KITTY_BUF_OPTION} --wait-for-completion"
+    PASTE="kitty +kitten clipboard ${KITTY_BUF_OPTION} --get-clipboard"
+    APPEND=append_via_copypaste
+  ;;
+  *)
+    >&2 echo "Backend '$BACKEND' not supported"
+    exit 1
+  ;;
+esac
+
+# ===== Upgrade self =====
+
+upgrade_self() {
+  SCRIPTPATH="$( cd -- "$(dirname "$(realpath "$0")")" >/dev/null 2>&1 ; pwd -P )"
+  pushd "${SCRIPTPATH}" >/dev/null
+  echo "Updading CCCP in $(pwd)..."
+  _rv=0
+  if git remote &>/dev/null; then
+    git stash &>/dev/null
+    git pull --verbose --all --tags --rebase
+    _rv=$?
+    git stash pop &>/dev/null
+  else
+    _rv=$?
+    echo "CCCP is likely not in Git with remotes, trying CURL"
+    # Not portable (stuck to GitHub), but better than nothing...
+    if ! curl 'https://raw.githubusercontent.com/dluciv/cccp/main/cccp' >"$(realpath "$0")"; then
+      >&2 echo "Failed to update via both Git and CURL"
+      exit 1
+    fi
+  fi
+  popd >/dev/null
+  return $_rv
+}
+
+# ===== Launch the tool =====
+
+if $DOAPPEND; then
+  COPY_OR_APPEND=$APPEND
+else
+  COPY_OR_APPEND=$COPY
+fi
+
+case $1 in
+  c)
+    eval "$COPY_OR_APPEND"
+    exit $?
+  ;;
+  p)
+    eval "$PASTE"
+    exit $?
+  ;;
+  ac|ca)
+    shift 1
+    printf "%s" "$*" | eval "$COPY_OR_APPEND"
+  ;;
+  fc|cf)
+    shift 1
+    eval "$COPY_OR_APPEND" < "$@"
+  ;;
+  t)
+    if [[ $BACKEND == 'termux-clipboard' ]]; then
+      # termux workaround
+      eval "$COPY_OR_APPEND" <<< "$(eval "$PASTE")"
+    else
+      eval "$PASTE" | eval "$COPY_OR_APPEND"
+    fi
+    exit $?
+  ;;
+  u)
+    upgrade_self
+  ;;
+  b)
+    echo "$BACKEND"
+  ;;
+  '')
+    echo '`cccp [switches] c`                       -- copy STDIN to clipboard'
+    echo '`cccp [switches] p`                       -- paste clipboard to STDOUT'
+    echo '`cccp [switches] ca|ac whatever you want` -- copy `whatever you want` to clipboard'
+    echo '`cccp [switches] cf|fc file`              -- copy `file` contents to clipboard'
+    echo '`cccp [switches] t`                       -- convert clipboard to plain text via paste to copy'
+    echo '`cccp u`                                  -- upgrade self, if being in Git'
+    echo '`cccp b`                                  -- print current backend'
+    echo 'Switches: -p|--primary -- use primary selection; -a|--append -- append to clipboard when copying'
+    echo "Current backend is $BACKEND, default buffer is $BUFFER"
+  ;;
+  *)
+    >&2 echo "Command '$1' not supported"
+    exit 1
+  ;;
+esac

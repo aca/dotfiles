@@ -1,0 +1,9 @@
+#!/usr/bin/env elvish
+
+kubectl get -f $args[0] -o yaml | kubectl.neat > /tmp/old.yaml
+cat $args[0] | kubectl.neat > /tmp/new.yaml
+
+dyff between /tmp/old.yaml  /tmp/new.yaml
+
+# cat /tmp/old.yaml
+# cat /tmp/old.yaml

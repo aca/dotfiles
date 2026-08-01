@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+thedomain="win11"
+snapshotname="231118"
+targetdisk="sda"
+
+# # look at '<disk>' types, should be just 'file' types
+# virsh dumpxml $thedomain | grep '<disk' -A5
+
+# # show block level devices and qcow2 paths (hda,hdb,..etc)
+# virsh domblklist $thedomain
+
+# create snapshot in default pool location
+# file name is $thedomain.$snapshotname
+virsh snapshot-create-as $thedomain --name $snapshotname --disk-only
+
+# list snapshot
+sudo virsh snapshot-list $thedomain

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+open "https://app.slack.com/client/T017EBSUEL8/threads"

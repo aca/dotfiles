@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if command -v pmset &> /dev/null
+then
+    pmset -g batt
+else
+    upower -i $(upower -e | grep battery | head -n 1)
+fi

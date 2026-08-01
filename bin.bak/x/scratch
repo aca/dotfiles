@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+scratch_name=${1:-""}
+init_func="${2:-git}"
+
+init-go() {
+    ls go.mod &>/dev/null && return
+    cat> main.go <<EOF
+package main
+
+func main() {
+
+}
+EOF
+    bash -c "go mod init scratch" &
+}
+
+init-ts() {
+    ls main.ts &>/dev/null && return
+    deno init
+}
+
+init-bash() {
+    ls main.bash &>/dev/null && return
+    cat> main.bash <<EOF
+#!/usr/bin/env bash
+EOF
+}
+
+init-git() {
+  ls .git 2>/dev/null 1>/dev/null || git init &>/dev/null &
+}
+
+SCRATCH_DIR=${SCRATCH_DIR:-$HOME/src/scratch}
+mkdir $SCRATCH_DIR 2>/dev/null || true
+
+if [ "$#" -eq 0 ]; then
+  project_dir=$SCRATCH_DIR/$(fd --base-directory "$SCRATCH_DIR" --strip-cwd-prefix --type d --exact-depth 4 -0 | sed 's|/| |g' | fzf --delimiter ' ' --with-nth 3,4 --read0 | sed 's| |/|g')
+else
+  project_dir=$SCRATCH_DIR/$(date "+%Y/%m/%Y%m%dT%H%M%S")/$scratch_name
+  mkdir -p $project_dir || true
+  cd $project_dir
+  init-$init_func
+fi
+
+echo "$project_dir"

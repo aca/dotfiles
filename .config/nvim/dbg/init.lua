@@ -1,0 +1,6 @@
+-- vim.o.showtabline = 2
+-- vim.o.tabline = "3"
+-- vim.cmd.packadd("blink.cmp")
+-- local cmp = require('blink.cmp')
+-- cmp.build():pwait()
+-- cmp.setup()

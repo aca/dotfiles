@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+argcount="$#"
+if [[ "$argcount" -eq 0 ]]; then
+  echo "0 argument not allowed"
+  exit 1
+fi
+
+if [[ "$argcount" -eq 1 ]]; then
+    tar cvf "$1.tar.gz" --use-compress-program='gzip -9' "$1"
+else
+    tarname="$(basename $(pwd))"
+    tar cvf "$tarname.tar.gz" --use-compress-program='gzip -9' "$@"
+fi

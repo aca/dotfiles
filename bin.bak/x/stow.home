@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -euxo pipefail
+cd ~/src/github.com/aca
+
+set -- "dotfiles"
+[ -d dotfiles.nostow ] && set -- "$@" "dotfiles.nostow"
+# TODO: moved [ -d dotfiles__$(hostname -s) ] && set -- "$@" "dotfiles__$(hostname -s)"
+
+mkdir -p .aws/
+mkdir -p .config/
+mkdir -p .config/.kube/
+mkdir -p .config/elvish/
+mkdir -p .config/elvish/lib/
+mkdir -p .config/fish/
+mkdir -p .config/vifm/
+mkdir -p .kube/
+mkdir -p .local/
+mkdir -p .local/share/
+mkdir -p .local/share/nvim/
+mkdir -p .local/share/nvim/site/
+mkdir -p .ssh/
+mkdir -p bin/
+mkdir -p src/
+
+stow --adopt -v -t "$HOME" "$@"

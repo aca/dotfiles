@@ -1,0 +1,25 @@
+#!/usr/bin/env elvish
+
+nop ?(sudo rm ~/.ssh/hosts_qemu)
+var sshconfig = (realpath ~/.ssh/hosts_qemu)
+echo '# vim:set ft=sshconfig:' > $sshconfig
+
+var ip = ""
+for h [(sudo virsh list --state-running | sed '1,2d' | sed '/^$/d' | awk '{print $2}' | to-lines)] {
+  echo $h
+  set ip = (sudo virsh domifaddr $h | sed '1,2d' | sed '/^$/d'  | awk '{print $4}' | sed '/^$/d' | sed 's|/24$||')
+
+  if (!=s $ip "") {
+      echo "Host "$h >> $sshconfig
+      echo "  Hostname "$ip >> $sshconfig
+      echo '  User root' >> $sshconfig
+
+      # if [ (hostname) != "root" ] # TODO: test if kvm process is running
+      #   echo '  ProxyJump root' >> $sshconfig
+      # end
+
+      echo '  ' >> $sshconfig
+  }
+}
+
+cat ~/.ssh/hosts_qemu

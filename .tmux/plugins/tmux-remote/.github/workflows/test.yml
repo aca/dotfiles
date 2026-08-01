@@ -1,0 +1,42 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tmux expect
+
+      - name: Setup test framework
+        run: |
+          git clone https://github.com/tmux-plugins/tmux-test.git lib/tmux-test
+          lib/tmux-test/setup
+
+      - name: Run tests
+        run: |
+          passed=0
+          failed=0
+          for test_file in tests/test_*.sh; do
+            echo "--- Running: $test_file ---"
+            if bash "$test_file"; then
+              echo "PASS: $test_file"
+              passed=$((passed + 1))
+            else
+              echo "FAIL: $test_file"
+              failed=$((failed + 1))
+            fi
+          done
+          echo ""
+          echo "Results: $passed passed, $failed failed"
+          [ "$failed" -eq 0 ]

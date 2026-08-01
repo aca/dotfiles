@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd ~/.config/nvim || exit
+nvim lua/init/00_init.lua
+
+# sh ./scripts/build_init_lua.sh

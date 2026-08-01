@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Detect OS/ARCH https://github.com/git/git/blob/5a73c6bdc717127c2da99f57bc630c4efd8aed02/config.mak.uname#L11
+uname_S=$(sh -c 'uname -s 2>/dev/null || echo not')
+[ "$uname_S" = "linux" ] || [ "$uname_S" = "Linux" ]

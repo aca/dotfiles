@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+xdg-open "https://keep.google.com/u/0/"

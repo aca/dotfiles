@@ -1,0 +1,85 @@
+-- replace tmux
+
+-- -- vim.o.showtabline = 2
+-- --
+-- vim.api.nvim_create_autocmd({ "TermRequest" }, {
+-- 	callback = function(e)
+-- 		if string.sub(vim.v.termrequest, 1, 4) == "\x1b]7;" then
+-- 			local dir = string.gsub(vim.v.termrequest, "\x1b]7;file://[^/]*", "")
+-- 			dir = string.gsub(dir, "\x1b\\?$", "")
+-- 			dir = string.gsub(dir, "\a$", "")
+-- 			dir = vim.uri_decode(dir)
+-- 			if vim.fn.isdirectory(dir) == 0 then
+-- 				vim.notify("osc7: not a directory: " .. vim.inspect(dir), vim.log.levels.DEBUG)
+-- 				return
+-- 			end
+-- 			vim.api.nvim_buf_set_var(e.buf, "last_osc7_payload", dir)
+-- 			vim.cmd.cd(dir)
+-- 		end
+-- 	end,
+-- })
+-- vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+-- 	callback = function(e)
+-- 		if vim.b.last_osc7_payload ~= nil and vim.fn.isdirectory(vim.b.last_osc7_payload) == 1 then
+-- 			vim.cmd.cd(vim.b.last_osc7_payload)
+-- 		end
+-- 	end,
+-- })
+--
+-- -- <C-Space>" horizontal split terminal
+-- -- <C-Space>% vertical split terminal
+-- -- <C-Space>x close pane
+-- vim.keymap.set({ "n", "t" }, "<C-Space>\"", function()
+-- 	vim.cmd("belowright split | terminal")
+-- end)
+-- vim.keymap.set({ "n", "t" }, "<C-Space>%", function()
+-- 	vim.cmd("belowright vsplit | terminal")
+-- end)
+-- -- <C-Space>c new tab terminal
+-- vim.keymap.set({ "n", "t" }, "<C-Space>c", function()
+-- 	vim.cmd("tabnew | terminal")
+-- end)
+-- vim.keymap.set({ "n", "t" }, "<C-Space>x", function()
+-- 	if vim.bo.buftype == "terminal" then
+-- 		vim.cmd("bdelete!")
+-- 	else
+-- 		vim.cmd("close")
+-- 	end
+-- end)
+--
+-- -- window navigation (auto insert mode for terminals)
+-- local function wincmd(dir)
+-- 	return function()
+-- 		vim.cmd("wincmd " .. dir)
+-- 		if vim.bo.buftype == "terminal" then
+-- 			vim.cmd("startinsert")
+-- 		end
+-- 	end
+-- end
+-- vim.keymap.set({ "n", "t", "i", "v" }, "<C-h>", wincmd("h"))
+-- vim.keymap.set({ "n", "t", "i", "v" }, "<C-j>", wincmd("j"))
+-- vim.keymap.set({ "n", "t", "i", "v" }, "<C-k>", wincmd("k"))
+-- vim.keymap.set({ "n", "t", "i", "v" }, "<C-l>", wincmd("l"))
+--
+-- vim.o.tabline = "%!v:lua.require'plugins.term'.tabline()"
+--
+-- local M = {}
+--
+-- function M.tabline()
+-- 	local s = ""
+-- 	local current = vim.fn.tabpagenr()
+-- 	for i = 1, vim.fn.tabpagenr("$") do
+-- 		local winid = vim.fn.tabpagewinnr(i)
+-- 		local bufnr = vim.fn.tabpagebuflist(i)[winid]
+-- 		local cwd = vim.b[bufnr] and vim.b[bufnr].last_osc7_payload or vim.fn.getcwd(-1, i)
+-- 		local label = vim.fn.fnamemodify(cwd, ":t")
+-- 		if i == current then
+-- 			s = s .. "%#TabLineSel# " .. i .. ":" .. label .. " "
+-- 		else
+-- 			s = s .. "%#TabLine# " .. i .. ":" .. label .. " "
+-- 		end
+-- 	end
+-- 	return s .. "%#TabLineFill#"
+-- end
+--
+-- return M

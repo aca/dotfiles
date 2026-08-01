@@ -1,0 +1,4 @@
+-- vim.pack.add({ { src = 'https://github.com/declancm/cinnamon.nvim.git' } })
+-- require('cinnamon').setup({
+--     default_delay = 5,
+-- })

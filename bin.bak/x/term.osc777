@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+printf "\e]777;notify;%s;%s\e\\" "title" "body"

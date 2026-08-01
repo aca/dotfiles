@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd ~/src/root/nix-config
+$EDITOR flake.nix

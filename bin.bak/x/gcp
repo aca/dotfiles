@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ga || true
+gc || true
+git push "$@"

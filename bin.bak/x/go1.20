@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p go -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/932fc16b263f26803d3960e4400bc13dde84a972.tar.gz
+
+go "$@"

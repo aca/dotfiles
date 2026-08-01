@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+domain="$1"
+virsh destroy "$domain" || true
+sleep 1
+sudo virsh snapshot-list --domain "$domain" --name | 
+    xargs --no-run-if-empty -I@ sudo virsh snapshot-delete --domain "$domain" @ || true
+sudo virsh undefine --remove-all-storage --nvram "$domain" || true
+sudo rm "/var/lib/libvirt/images/$domain.qcow2" || true

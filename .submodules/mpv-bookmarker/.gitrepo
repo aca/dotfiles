@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/NurioHin/mpv-bookmarker.git
+	branch = master
+	commit = aef6a1a64de57a97df0c7a396ea3f9b959f487ad
+	parent = 2e211e5eb068172e67c49105577413cdbc57d3ce
+	method = merge
+	cmdver = 0.4.9

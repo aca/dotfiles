@@ -1,0 +1,6 @@
+#!/usr/bin/env elvish
+
+print 'github.com/davecgh/go-spew
+github.com/aca/go
+github.com/aca/throw
+' | fzf | go get -u (all)

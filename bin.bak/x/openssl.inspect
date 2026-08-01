@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sudo openssl x509 -text -noout -in "$@"

@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+#
+# Prints file extension
+#
+#   $ ls asd.jpg | path.suffix  // .jpg
+#   $ path.stem /home/x/asd.jpg // .jpg
+
+import pathlib
+import sys
+
+if not sys.stdin.isatty():
+    list(map(lambda x: print(pathlib.PurePath(x.strip("\n")).suffix), sys.stdin))
+else:
+    print(pathlib.PurePath(sys.argv[1]).suffix)

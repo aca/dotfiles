@@ -1,0 +1,16 @@
+-- vim.pack.add({ { src = 'https://github.com/nvim-orgmode/orgmode.git' } })
+--
+-- require("orgmode").setup_ts_grammar()
+--
+-- require('orgmode').setup({
+--   -- org_agenda_files = '~/orgfiles/**/*',
+--   -- org_default_notes_file = '~/orgfiles/refile.org',
+-- })
+--
+-- -- -- Setup treesitter
+-- -- require("nvim-treesitter.configs").setup({
+-- -- 	highlight = {
+-- -- 		enable = true,
+-- -- 	},
+-- -- 	ensure_installed = { "org" },
+-- -- })

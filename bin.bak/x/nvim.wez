@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# [ -n "$WEZTERM_PANE" ] && export NVIM_LISTEN_ADDRESS="/tmp/nvim$WEZTERM_PANE"
+
+~/.bin/lib/sed_i 's|\s*ᑀ.*||' /tmp/wezterm_buf
+
+env _VIM_MODE=minimal nvim -c "set nowrap noshowmode noshowcmd laststatus=0 noruler signcolumn=no" "$@"

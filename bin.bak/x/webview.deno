@@ -1,0 +1,8 @@
+#!/usr/bin/env -S deno run -A --unstable
+
+import { Webview } from "https://deno.land/x/webview/mod.ts";
+
+const webview = new Webview();
+webview.navigate(Deno.args[0]);
+webview.run();
+

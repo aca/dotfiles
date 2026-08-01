@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+msg="${1:-input}"
+
+read -p "$msg > " LINE
+echo "${LINE}"

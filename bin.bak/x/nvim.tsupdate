@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSUpdateSync lua' -c ':q'
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSUpdateSync vim' -c ':q'
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSUpdateSync elvish' -c ':q'
+nvim --headless -c ':packadd nvim-treesitter' -c ':TSUpdateSync all' -c ':q'

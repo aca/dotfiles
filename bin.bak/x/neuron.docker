@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run --rm -t -i -v $(pwd):/notes sridca/neuron neuron "$@"

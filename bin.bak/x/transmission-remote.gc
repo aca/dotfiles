@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TRANSMISSION(){
+  command transmission-remote "$TRANSMISSION_HOST" -n "$TRANSMISSION_AUTH" "$@"
+} 
+
+for id in $(TRANSMISSION -l | sed 1d | grep '100%' | grep Done | awk '{print $1}' | tr -d '*'); do
+  TRANSMISSION --torrent $id --stop
+  TRANSMISSION --torrent $id --remove
+done
+  
+

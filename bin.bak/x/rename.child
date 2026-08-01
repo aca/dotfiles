@@ -1,0 +1,17 @@
+#!/usr/bin/env fish
+
+for d in (fd --type d --maxdepth 1)
+  pushd .
+  echo "$d"
+  cd "$d" || exit 1
+
+  for f in (fd --type f --maxdepth 1)
+    echo "$d"_"$f"
+    echo "$f"
+    mv -v "$f" "$d"_"$f"
+  end
+  popd
+end
+
+
+

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+command="grep -i -e '$1'"
+shift
+
+for var in "$@"
+do
+    command+=" -e '$1'"
+done
+
+eval "$command"

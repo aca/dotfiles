@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mv -v -n "$1.bak" "$1" || sudo mv -v -n "$1.bak" "$1"
+
+

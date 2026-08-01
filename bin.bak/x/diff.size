@@ -1,0 +1,6 @@
+#!/bin/sh
+
+a=$(diskus --apparent-size "$1")
+b=$(diskus --apparent-size "$2")
+
+[ "$a" == "$b" ]

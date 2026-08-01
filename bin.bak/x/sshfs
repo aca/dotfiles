@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 "$@"
